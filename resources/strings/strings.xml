@@ -1,0 +1,26 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">HeroSet</string>
+
+    <string id="menu_label_start_pushups">Start Push-ups</string>
+    <string id="menu_label_start_situps">Start Sit-ups</string>
+    <string id="menu_label_start_squats">Start Squats</string>
+    <string id="menu_label_manual_pushups">Manual Push-ups +10</string>
+    <string id="menu_label_manual_situps">Manual Sit-ups +10</string>
+    <string id="menu_label_manual_squats">Manual Squats +10</string>
+    <string id="menu_label_pro_run">Pro Run: 10 km</string>
+
+    <string id="menu_label_pushups_plus_one">Push-ups +1</string>
+    <string id="menu_label_pushups_plus_five">Push-ups +5</string>
+    <string id="menu_label_pushups_minus_one">Push-ups -1</string>
+    <string id="menu_label_situps_plus_one">Sit-ups +1</string>
+    <string id="menu_label_situps_plus_five">Sit-ups +5</string>
+    <string id="menu_label_situps_minus_one">Sit-ups -1</string>
+    <string id="menu_label_squats_plus_one">Squats +1</string>
+    <string id="menu_label_squats_plus_five">Squats +5</string>
+    <string id="menu_label_squats_minus_one">Squats -1</string>
+
+    <string id="workout_label_plus_one">Adjust +1</string>
+    <string id="workout_label_plus_five">Adjust +5</string>
+    <string id="workout_label_minus_one">Adjust -1</string>
+    <string id="workout_label_finish">Finish Set</string>
+</strings>

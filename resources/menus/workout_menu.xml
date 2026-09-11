@@ -1,0 +1,6 @@
+<menu id="WorkoutMenu" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <menu-item id="workout_plus_one" label="@Strings.workout_label_plus_one" />
+    <menu-item id="workout_plus_five" label="@Strings.workout_label_plus_five" />
+    <menu-item id="workout_minus_one" label="@Strings.workout_label_minus_one" />
+    <menu-item id="workout_finish" label="@Strings.workout_label_finish" />
+</menu>

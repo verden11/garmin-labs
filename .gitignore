@@ -1,0 +1,17 @@
+# Connect IQ build output
+/bin/
+*.prg
+*.iq
+*.barrel
+*.debug.xml
+*.mcgen
+*.mir
+
+# Connect IQ signing keys: never commit these files
+/developer_key
+/developer_key.*
+*.der
+*.pem
+
+# Local OS/editor files
+.DS_Store
