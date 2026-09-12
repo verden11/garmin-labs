@@ -19,6 +19,9 @@ class HeroSetWorkoutMenuDelegate extends WatchUi.MenuInputDelegate {
             _view.adjust(-1);
         } else if (item == :workout_finish) {
             _view.saveSet();
+            // Finish is only reachable from the workout menu, so exactly two
+            // views (menu + workout) sit above the dashboard; two pops are
+            // deterministic by construction.
             WatchUi.popView(WatchUi.SLIDE_DOWN);
             WatchUi.popView(WatchUi.SLIDE_DOWN);
             WatchUi.requestUpdate();

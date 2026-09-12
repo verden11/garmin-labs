@@ -16,4 +16,12 @@ class HeroSetDelegate extends WatchUi.BehaviorDelegate {
         return onMenu();
     }
 
+    function onNextPage() as Boolean {
+        return onMenu();
+    }
+
+    function onPreviousPage() as Boolean {
+        return onMenu();
+    }
+
 }

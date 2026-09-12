@@ -4,10 +4,21 @@
     <string id="menu_label_start_pushups">Start Push-ups</string>
     <string id="menu_label_start_situps">Start Sit-ups</string>
     <string id="menu_label_start_squats">Start Squats</string>
-    <string id="menu_label_manual_pushups">Manual Push-ups +10</string>
-    <string id="menu_label_manual_situps">Manual Sit-ups +10</string>
-    <string id="menu_label_manual_squats">Manual Squats +10</string>
+    <string id="menu_label_manual_pushups">Manual Push-ups</string>
+    <string id="menu_label_manual_situps">Manual Sit-ups</string>
+    <string id="menu_label_manual_squats">Manual Squats</string>
     <string id="menu_label_pro_run">Pro Run: 10 km</string>
+    <string id="menu_label_calibration">Calibrate Exercise</string>
+    <string id="menu_label_calibrate_pushups">Calibrate Push-ups</string>
+    <string id="menu_label_calibrate_situps">Calibrate Sit-ups</string>
+    <string id="menu_label_calibrate_squats">Calibrate Squats</string>
+
+    <string id="manual_label_add_1">Add 1</string>
+    <string id="manual_label_add_5">Add 5</string>
+    <string id="manual_label_add_10">Add 10</string>
+    <string id="manual_label_sub_1">Remove 1</string>
+    <string id="manual_label_sub_5">Remove 5</string>
+    <string id="manual_label_sub_10">Remove 10</string>
 
     <string id="menu_label_pushups_plus_one">Push-ups +1</string>
     <string id="menu_label_pushups_plus_five">Push-ups +5</string>

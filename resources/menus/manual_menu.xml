@@ -1,0 +1,8 @@
+<menu id="ManualMenu" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <menu-item id="manual_add_1" label="@Strings.manual_label_add_1" />
+    <menu-item id="manual_add_5" label="@Strings.manual_label_add_5" />
+    <menu-item id="manual_add_10" label="@Strings.manual_label_add_10" />
+    <menu-item id="manual_sub_1" label="@Strings.manual_label_sub_1" />
+    <menu-item id="manual_sub_5" label="@Strings.manual_label_sub_5" />
+    <menu-item id="manual_sub_10" label="@Strings.manual_label_sub_10" />
+</menu>

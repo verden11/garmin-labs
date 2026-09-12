@@ -1,44 +1,43 @@
 # HeroSet
 
-HeroSet is a gamified Connect IQ watch app for the Garmin Forerunner 965.
-The planned daily mission tracks push-ups, sit-ups, squats, and an optional
-10 km run. Exercise totals reset when the watch enters a new local calendar
-day. The app will support automatic repetition estimates with manual entry and
-correction.
+Gamified bodyweight workout app for Garmin Forerunner 965. Daily mission:
+push-ups, sit-ups, squats (100 each) plus an optional 10 km run. Counts reset
+on the local calendar day; XP, streaks, and rank persist.
+
+Implemented: automatic rep counting (sensors, calibration-fitted thresholds),
+manual correction, per-exercise calibration, XP/rank/streak progression, and GPS
+Pro Run with FIT export.
 
 ## Project configuration
 
-- App type: Watch App
-- Target: Forerunner 965 (`fr965`)
-- Minimum Connect IQ API: 4.2.0
-- Language: Monkey C
+- App type: Watch App · Target: `fr965` · Min API: 4.2.0 · Language: Monkey C
 
 ## Requirements
 
-- Garmin Connect IQ SDK and Forerunner 965 device support
-- Java 11 or newer
-- Visual Studio Code with the Monkey C extension, or the Connect IQ command-line
-  tools
-- A private Connect IQ developer signing key
-
-LazyVim can remain the primary editor. See [`docs/development.md`](docs/development.md)
-for setup, build, simulator, and signing-key details.
+- Connect IQ SDK + FR965 support, Java 11+
+- Monkey C extension (VS Code) or Connect IQ CLI
+- Private Connect IQ developer signing key (never commit it)
 
 ## Documentation
 
-- [`docs/development.md`](docs/development.md): local setup, build, simulator,
-  and signing-key handling
-- [`docs/compatibility.md`](docs/compatibility.md): device-support tiers and
-  capability-matrix policy
-- [`docs/store-release.md`](docs/store-release.md): pricing, monetization, and
-  release requirements
+- [`docs/development.md`](docs/development.md): setup, build, simulator, tests
+- [`docs/architecture.md`](docs/architecture.md): structure, layers, decisions
+- [`docs/input-and-ux.md`](docs/input-and-ux.md): button-first interaction contract
+- [`docs/release-contract.md`](docs/release-contract.md): what the app can honestly claim
+- [`docs/testing-plan.md`](docs/testing-plan.md): test strategy
+- [`docs/compatibility.md`](docs/compatibility.md): device support policy
+- [`docs/store-release.md`](docs/store-release.md): monetization + release requirements
+- [`docs/go-to-market.md`](docs/go-to-market.md): Store launch readiness
+- [`docs/calories-connect.md`](docs/calories-connect.md): calorie/FIT integration plan
 
 ## Repository layout
 
 ```text
-manifest.xml       Application metadata and target products
-monkey.jungle      Connect IQ build configuration
-source/            Monkey C source files
-resources/         Strings, layouts, menus, and drawable assets
-bin/               Generated build output; ignored by Git
+manifest.xml       App metadata and target products
+monkey.jungle      Dev build (all screens)
+store.jungle       Release build (resources-store overlay, no calibration)
+source/            Monkey C source (app/ domain/ data/ sensor/ layout/ ui/ test/)
+resources/         Dev assets (includes calibration menu)
+resources-store/   Release asset overlay
+bin/               Build output (git-ignored)
 ```

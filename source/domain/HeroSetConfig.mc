@@ -1,0 +1,14 @@
+class HeroSetConfig {
+    static const MISSION_GOAL = 100;
+    static const RUN_GOAL_KM = 10.0;
+    static const SENSOR_SAMPLE_RATE = 25;
+    static const SENSOR_PERIOD_SECONDS = 1;
+    static const SENSOR_COOLDOWN_MS = 600;
+    static const DEFAULT_ARM_THRESHOLD = 100;
+    static const DEFAULT_RELEASE_THRESHOLD = 70;
+    static const CALIBRATION_REQUIRED_CYCLES = 10;
+    static const CALIBRATION_MIN_PEAK = 90;
+    static const CALIBRATION_MIN_VALLEY = 70;
+    static const CALIBRATION_SAMPLE_ARM = 45;
+    static const CALIBRATION_SAMPLE_RELEASE = 30;
+}

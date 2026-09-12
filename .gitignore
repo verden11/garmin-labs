@@ -1,5 +1,6 @@
 # Connect IQ build output
 /bin/
+/gen/
 *.prg
 *.iq
 *.barrel
@@ -15,3 +16,4 @@
 
 # Local OS/editor files
 .DS_Store
+.omo/

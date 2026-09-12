@@ -1,31 +1,29 @@
 # Store and monetization plan
 
-## Current plan
+## Plan
 
-- Distribution: Garmin Connect IQ Store
-- Business model: paid app
-- Target price: **USD 2.00**, intended as the lowest available price point
-- Trial: undecided
+- Distribution: Garmin Connect IQ Store · paid app · target price USD 2.00
+  (→ $1.99 US, per current Garmin docs) · trial undecided.
+- Garmin share: 15% of tax-exclusive price; $100/yr non-refundable merchant
+  fee; $10 minimum payout; 48-hour return window. Re-verify before onboarding —
+  values change.
+- Merchant onboarding, payment, tax, and country eligibility must complete
+  before publishing.
 
-The final price is subject to Garmin's current regional price catalog. Merchant
-onboarding, payment, tax, and country eligibility must be completed before
-publishing.
+Daily HeroSet progress is local to the watch. Opening the app or counting reps
+never creates a FIT activity; only an explicit Pro Run records one (may sync via
+Garmin Connect and linked services).
 
 ## Release requirements
 
-Before submission, verify that:
+- Store build signed with the permanent developer key.
+- Every listed product tested for advertised features.
+- Screenshots/descriptions match the actual app; permissions declared/justified;
+  name, branding, artwork original.
+- Final package tested on simulator + physical devices.
 
-- The Store build is signed with the permanent developer key.
-- Every listed product has been tested for its advertised features.
-- Store screenshots and descriptions match the actual app.
-- Required permissions are declared and justified.
-- The app name, branding, and artwork are original and non-infringing.
-- The final package is tested on the simulator and physical devices.
-
-Official references:
-
-- [Connect IQ monetization](https://developer.garmin.com/connect-iq/monetization/)
-- [Price points](https://developer.garmin.com/connect-iq/monetization/price-points/)
-- [Merchant onboarding](https://developer.garmin.com/connect-iq/monetization/merchant-onboarding/)
-- [Publishing to the Store](https://developer.garmin.com/connect-iq/core-topics/publishing-to-the-store/)
-- [App review guidelines](https://developer.garmin.com/connect-iq/app-review-guidelines/)
+References: [monetization](https://developer.garmin.com/connect-iq/monetization/),
+[price points](https://developer.garmin.com/connect-iq/monetization/price-points/),
+[merchant onboarding](https://developer.garmin.com/connect-iq/monetization/merchant-onboarding/),
+[publishing](https://developer.garmin.com/connect-iq/core-topics/publishing-to-the-store/),
+[app review](https://developer.garmin.com/connect-iq/app-review-guidelines/).

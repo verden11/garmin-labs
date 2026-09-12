@@ -1,19 +1,17 @@
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-class HeroSetRunDelegate extends WatchUi.BehaviorDelegate {
+class HeroSetCalibrationDelegate extends WatchUi.BehaviorDelegate {
 
     private var _view;
 
-    function initialize(view as HeroSetRunView) {
+    function initialize(view as HeroSetCalibrationView) {
         BehaviorDelegate.initialize();
         _view = view;
     }
 
     function onSelect() as Lang.Boolean {
-        _view.finishRun();
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
-        WatchUi.requestUpdate();
+        _view.toggleCalibration();
         return true;
     }
 

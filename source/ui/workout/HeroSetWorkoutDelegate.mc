@@ -19,4 +19,18 @@ class HeroSetWorkoutDelegate extends WatchUi.BehaviorDelegate {
         WatchUi.pushView(new Rez.Menus.WorkoutMenu(), new HeroSetWorkoutMenuDelegate(_view), WatchUi.SLIDE_UP);
         return true;
     }
+
+    // Back never silently drops counted reps: with reps on the board, pop a
+    // "Save N reps?" confirmation instead of leaving.
+    function onBack() as Boolean {
+        if (_view.getCount() > 0) {
+            WatchUi.pushView(
+                new WatchUi.Confirmation("Save " + _view.getCount() + " reps?"),
+                new HeroSetWorkoutConfirmDelegate(_view),
+                WatchUi.SLIDE_UP
+            );
+            return true;
+        }
+        return false;
+    }
 }

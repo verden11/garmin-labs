@@ -1,59 +1,41 @@
 # Development
 
-## Project configuration
-
-- App type: Watch App
-- Initial target: Forerunner 965 (`fr965`)
-- Minimum Connect IQ API: 4.2.0
-- Language: Monkey C
+App: Watch App · Target: `fr965` · Min API: 4.2.0 · Monkey C.
 
 ## Setup
 
-Install the Connect IQ SDK, Forerunner 965 device support, and Java 11 or
-newer. Visual Studio Code with the Monkey C extension can run SDK commands;
-LazyVim can remain the primary editor.
-
-In VS Code:
-
-1. Run `Monkey C: Verify Installation`.
-2. Run `Monkey C: Generate a Developer Key` if needed.
-3. Open a `.mc` file under `source/`.
-4. Use `Run > Run Without Debugging` and select the Forerunner 965 simulator.
+Install Connect IQ SDK + FR965 support + Java 11+. VS Code with the Monkey C
+extension runs SDK commands. In VS Code: `Monkey C: Verify Installation`, then
+`Monkey C: Generate a Developer Key` if needed. Open a `.mc` file under
+`source/` and `Run > Run Without Debugging` with the FR965 simulator.
 
 ## Command-line build
 
 ```bash
 mkdir -p bin
-
-monkeyc \
-  -d fr965 \
-  -f monkey.jungle \
-  -o bin/HeroSet.prg \
-  -y /path/to/developer_key
+monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y /path/to/developer_key
+monkeydo bin/HeroSet.prg fr965        # with simulator running
 ```
 
-Launch the simulator with `connectiq`, then run the compiled app:
+Release-menu build (no calibration entry, `resources-store` overlay):
 
 ```bash
-monkeydo bin/HeroSet.prg fr965
+monkeyc -d fr965 -f store.jungle -o bin/HeroSet-store.prg -y /path/to/developer_key
 ```
 
-`Build for Device` compiles the app. `Run > Run Without Debugging` launches it
-in the simulator.
+## Unit tests (60 tests)
 
-## Signing key safety
-
-The developer key signs the application and is required for future updates.
-Keep it private and backed up. Never commit it, upload it, or include it in
-screenshots or archives. The repository ignores `developer_key`, `.der`, and
-`.pem` files.
-
-For a shared or public checkout, store the key outside the repository, for
-example:
-
-```text
-~/.garmin-connectiq/keys/developer_key.der
+```bash
+monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y /path/to/developer_key
+monkeydo bin/HeroSet-tests.prg fr965 -t
 ```
 
-Keep using the same key for every Store update. Losing it prevents updates to
-the published app.
+Inspect the printed summary for PASSED/failed counts — the current SDK may
+return non-zero shell status even on a passing test run.
+
+## Signing key
+
+Key signs the app and is required for future Store updates: keep it private,
+backed up, never committed (repo ignores `developer_key`, `.der`, `.pem`). For
+shared/public checkouts store it outside the repo (e.g.
+`~/.garmin-connectiq/keys/developer_key.der`). Losing it prevents updates.

@@ -1,0 +1,264 @@
+import Toybox.Lang;
+import Toybox.Test;
+
+// Store tests run against the in-memory storage seam and a controllable
+// clock, so the production XP/streak/rollover paths are exercised exactly as
+// the watch runs them (no fakes of the counting helpers).
+class HeroSetTestStorage extends HeroSetStorage {
+
+    private var _data = {} as Dictionary<String, Lang.Object>;
+
+    function initialize() {
+        HeroSetStorage.initialize();
+    }
+
+    function getValue(key as Lang.String) as Lang.Object? {
+        return _data.get(key);
+    }
+
+    function setValue(key as Lang.String, value as Lang.Object) as Void {
+        _data.put(key, value);
+    }
+
+    function put(key as Lang.String, value as Lang.Object) as Void {
+        _data.put(key, value);
+    }
+
+    function value(key as Lang.String) as Lang.Object? {
+        return _data.get(key);
+    }
+}
+
+class HeroSetTestClock extends HeroSetClock {
+
+    var day = 20260911;
+
+    function initialize() {
+        HeroSetClock.initialize();
+    }
+
+    function todayKey() as Lang.Number {
+        return day;
+    }
+}
+
+function storeWith(day as Lang.Number) as HeroSetStore {
+    var storage = new HeroSetTestStorage();
+    var clock = new HeroSetTestClock();
+    clock.day = day;
+    return new HeroSetStore(storage, clock);
+}
+
+function completeAll(store as HeroSetStore) as Void {
+    store.add(:pushups, HeroSetConfig.MISSION_GOAL);
+    store.add(:situps, HeroSetConfig.MISSION_GOAL);
+    store.add(:squats, HeroSetConfig.MISSION_GOAL);
+}
+
+(:test)
+function addAwardsXpOnNetStoredDelta(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    store.add(:pushups, 10);
+    Test.assertEqual(store.getCount(:pushups), 10);
+    Test.assertEqual(store.getXp(), 20);
+    return true;
+}
+
+(:test)
+function negativeCorrectionRefundsNoXp(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    store.add(:pushups, 10);
+    store.add(:pushups, -3);
+    Test.assertEqual(store.getCount(:pushups), 7);
+    Test.assertEqual(store.getXp(), 20);
+    return true;
+}
+
+(:test)
+function farmLoopCannotInflateXp(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    for (var i = 0; i < 20; i++) {
+        store.add(:pushups, 10);
+        store.add(:pushups, -10);
+    }
+    Test.assertEqual(store.getCount(:pushups), 0);
+    Test.assertEqual(store.getXp(), 20);
+    return true;
+}
+
+(:test)
+function overGoalVolumeDoesNotPrintRanks(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    store.add(:pushups, 150);
+    Test.assertEqual(store.getCount(:pushups), 150);
+    Test.assertEqual(store.getXp(), 200);
+    store.add(:pushups, 100);
+    Test.assertEqual(store.getXp(), 200);
+    Test.assertEqual(store.getRank(), 3);
+    return true;
+}
+
+(:test)
+function correctionCannotDriveCountNegative(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    store.add(:pushups, -999);
+    Test.assertEqual(store.getCount(:pushups), 0);
+    Test.assertEqual(store.getXp(), 0);
+    return true;
+}
+
+(:test)
+function runXpCreditedPerKmCappedAtGoal(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    store.addRunDistanceKm(3.0);
+    Test.assertEqual(store.getRunDistance(), 3.0);
+    Test.assertEqual(store.getXp(), 6);
+    store.addRunDistanceKm(20.0);
+    Test.assertEqual(store.getXp(), 20);
+    return true;
+}
+
+(:test)
+function runDistanceDoesNotTouchRepMissions(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    store.addRunDistanceKm(5.0);
+    Test.assertEqual(store.getCount(:pushups), 0);
+    Test.assertEqual(store.getXp(), 10);
+    return true;
+}
+
+(:test)
+function firstCompletionStartsStreakAtOne(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    completeAll(store);
+    Test.assertEqual(store.getStreak(), 1);
+    return true;
+}
+
+(:test)
+function sameDayCompletionDoesNotDoubleStreak(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    completeAll(store);
+    store.add(:pushups, 10);
+    Test.assertEqual(store.getStreak(), 1);
+    return true;
+}
+
+(:test)
+function consecutiveDayExtendsStreak(logger as Test.Logger) as Lang.Boolean {
+    var storage = new HeroSetTestStorage();
+    var clock = new HeroSetTestClock();
+    clock.day = 20260911;
+    var store = new HeroSetStore(storage, clock);
+    completeAll(store);
+    Test.assertEqual(store.getStreak(), 1);
+
+    clock.day = 20260912;
+    completeAll(store);
+    Test.assertEqual(store.getStreak(), 2);
+    return true;
+}
+
+(:test)
+function dstBoundaryDaysExtendStreak(logger as Test.Logger) as Lang.Boolean {
+    var storage = new HeroSetTestStorage();
+    var clock = new HeroSetTestClock();
+    clock.day = 20260307;
+    var store = new HeroSetStore(storage, clock);
+    completeAll(store);
+
+    // US DST begins 2026-03-08: 23h between local midnights, calendar
+    // keys still consecutive, streak must survive.
+    clock.day = 20260308;
+    completeAll(store);
+    Test.assertEqual(store.getStreak(), 2);
+    return true;
+}
+
+(:test)
+function storeMissedDayResetsStreak(logger as Test.Logger) as Lang.Boolean {
+    var storage = new HeroSetTestStorage();
+    var clock = new HeroSetTestClock();
+    clock.day = 20260911;
+    var store = new HeroSetStore(storage, clock);
+    completeAll(store);
+
+    clock.day = 20260913;
+    completeAll(store);
+    Test.assertEqual(store.getStreak(), 1);
+    return true;
+}
+
+(:test)
+function dayRolloverResetsCountsButKeepsXpAndStreak(logger as Test.Logger) as Lang.Boolean {
+    var storage = new HeroSetTestStorage();
+    var clock = new HeroSetTestClock();
+    clock.day = 20260911;
+    var store = new HeroSetStore(storage, clock);
+    completeAll(store);
+    var xpBefore = store.getXp();
+    var streakBefore = store.getStreak();
+
+    clock.day = 20260912;
+    Test.assertEqual(store.getCount(:pushups), 0);
+    Test.assertEqual(store.getXp(), xpBefore);
+    Test.assertEqual(store.getStreak(), streakBefore);
+    return true;
+}
+
+(:test)
+function unknownExerciseThrowsInsteadOfSquatMutation(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    var threw = false;
+    try {
+        store.add(:planks, 10);
+    } catch (ex) {
+        threw = true;
+    }
+    Test.assert(threw);
+    Test.assertEqual(store.getCount(:squats), 0);
+    return true;
+}
+
+(:test)
+function calibrationProfileRoundTrips(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    store.setCalibrationProfile(:pushups, 140, 90, 25, 600);
+    Test.assertEqual(store.getCalibrationArm(:pushups), 140);
+    Test.assertEqual(store.getCalibrationRelease(:pushups), 90);
+    Test.assertEqual(store.getCalibrationRate(:pushups), 25);
+    Test.assertEqual(store.getCalibrationCooldownMs(:pushups), 600);
+    return true;
+}
+
+(:test)
+function uncalibratedProfileUsesDefaults(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    Test.assertEqual(store.getCalibrationArm(:squats), HeroSetConfig.DEFAULT_ARM_THRESHOLD);
+    Test.assertEqual(store.getCalibrationRelease(:squats), HeroSetConfig.DEFAULT_RELEASE_THRESHOLD);
+    Test.assertEqual(store.getCalibrationRate(:squats), HeroSetConfig.SENSOR_SAMPLE_RATE);
+    Test.assertEqual(store.getCalibrationCooldownMs(:squats), HeroSetConfig.SENSOR_COOLDOWN_MS);
+    return true;
+}
+
+(:test)
+function legacyFlatStateMigratesToGroupedStorage(logger as Test.Logger) as Lang.Boolean {
+    var storage = new HeroSetTestStorage();
+    storage.put("hero_schema", 2);
+    storage.put("hero_day", 20260911);
+    storage.put("hero_pushups", 12);
+    storage.put("hero_situps", 8);
+    storage.put("hero_squats", 4);
+    storage.put("hero_xp", 48);
+    storage.put("hero_streak", 3);
+    storage.put("hero_run_distance", 2.5);
+    var clock = new HeroSetTestClock();
+    clock.day = 20260911;
+    var store = new HeroSetStore(storage, clock);
+    Test.assertEqual(store.getCount(:pushups), 12);
+    Test.assertEqual(store.getXp(), 48);
+    Test.assertEqual(store.getRunDistance(), 2.5);
+    Test.assert(storage.value("hero_daily") instanceof Dictionary);
+    Test.assert(storage.value("hero_profile") instanceof Dictionary);
+    return true;
+}

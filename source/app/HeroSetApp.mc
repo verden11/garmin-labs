@@ -8,19 +8,16 @@ class HeroSetApp extends Application.AppBase {
 
     function initialize() {
         AppBase.initialize();
-        _store = new HeroSetStore();
+        _store = new HeroSetStore(null, null);
     }
 
-    // onStart() is called on application start up
     function onStart(state as Dictionary?) as Void {
         _store.ensureCurrentDay();
     }
 
-    // onStop() is called when your application is exiting
     function onStop(state as Dictionary?) as Void {
     }
 
-    // Return the initial view of your application here
     function getInitialView() as [Views] or [Views, InputDelegates] {
         return [ new HeroSetView(), new HeroSetDelegate() ];
     }
