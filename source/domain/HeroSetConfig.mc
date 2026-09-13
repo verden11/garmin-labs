@@ -1,6 +1,5 @@
 class HeroSetConfig {
     static const MISSION_GOAL = 100;
-    static const RUN_GOAL_KM = 10.0;
     static const SENSOR_SAMPLE_RATE = 25;
     static const SENSOR_PERIOD_SECONDS = 1;
     static const SENSOR_COOLDOWN_MS = 600;

@@ -64,20 +64,53 @@ class HeroSetLayout {
         return _height - shortInset() - shortInset() / 2;
     }
 
-    // Left edge of the usable band at row y. Round: the inscribed-circle
-    // chord at that y. Square: the constant safe inset.
-    function leftInset(y as Lang.Number) as Lang.Number {
+    // Left edge of the usable band at row y, for content `height` px tall
+    // (0 for a point/bar with no vertical extent). Round: the inscribed-
+    // circle chord at whichever of the row's top/bottom edges sits farther
+    // from the vertical center — the binding constraint — so text/bars
+    // near the top or bottom of the screen aren't clipped by the bezel.
+    // Square: the constant safe inset.
+    function leftInset(y as Lang.Number, height as Lang.Number) as Lang.Number {
         if (!_round) {
             return shortInset();
         }
-        return _centerX - HeroSetLayout.chordHalfWidth(_radius, y - _radius);
+        return _centerX - HeroSetLayout.chordHalfWidth(_radius, farthestDy(y, height));
     }
 
-    function rightInset(y as Lang.Number) as Lang.Number {
+    function rightInset(y as Lang.Number, height as Lang.Number) as Lang.Number {
         if (!_round) {
             return _width - shortInset();
         }
-        return _centerX + HeroSetLayout.chordHalfWidth(_radius, y - _radius);
+        return _centerX + HeroSetLayout.chordHalfWidth(_radius, farthestDy(y, height));
+    }
+
+    // The largest y no greater than `maxY` (and no less than `minY`) at which
+    // centered content `textWidth` px wide, `textHeight` px tall, fits inside
+    // the round chord — walking up from the bezel toward the center in small
+    // steps and reusing the same left/rightInset the rest of the layout
+    // trusts, rather than guessing a safe string length up front. Square:
+    // always returns maxY (no chord constraint).
+    function fitCenteredY(maxY as Lang.Number, minY as Lang.Number, textWidth as Lang.Number, textHeight as Lang.Number) as Lang.Number {
+        if (!_round) {
+            return maxY;
+        }
+        var y = maxY;
+        while (y > minY) {
+            var available = rightInset(y, textHeight) - leftInset(y, textHeight);
+            if (available >= textWidth) {
+                return y;
+            }
+            y -= 2;
+        }
+        return minY;
+    }
+
+    // Of the row's top edge (y) and bottom edge (y + height), the one
+    // farther from the circle's vertical center gives the narrower chord.
+    private function farthestDy(y as Lang.Number, height as Lang.Number) as Lang.Number {
+        var dyTop = y - _radius;
+        var dyBottom = y + height - _radius;
+        return dyTop.abs() > dyBottom.abs() ? dyTop : dyBottom;
     }
 
     // Half-width of the inscribed circle at vertical offset `dy` from its

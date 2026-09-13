@@ -23,7 +23,7 @@ Release-menu build (no calibration entry, `resources-store` overlay):
 monkeyc -d fr965 -f store.jungle -o bin/HeroSet-store.prg -y /path/to/developer_key
 ```
 
-## Unit tests (60 tests)
+## Unit tests (58 tests)
 
 ```bash
 monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y /path/to/developer_key

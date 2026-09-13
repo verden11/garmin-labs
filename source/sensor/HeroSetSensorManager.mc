@@ -7,7 +7,7 @@ class HeroSetSensorManager {
     function initialize() {
     }
 
-    function start(callback, sampleRate as Lang.Number) as Lang.Boolean {
+    function start(callback as Lang.Method, sampleRate as Lang.Number) as Lang.Boolean {
         if (_enabled || !(Sensor has :registerSensorDataListener)) {
             return _enabled;
         }

@@ -8,22 +8,28 @@ Fully usable without touch — physical buttons + native Connect IQ menus.
 
 **Native menus**: Up/Down move, Select activates, Back returns.
 
-**Exercise session**: Select = pause/resume counting. Menu = adjustment actions
-(+1/+5/+10, −1/−5/−10, finish). Back = confirm before discarding: if any reps
-counted, asks `Save N reps?` (Yes banks, No leaves unsaved); zero reps leaves
-directly.
+**Exercise session**: Select = pause/resume counting (also pauses/resumes the
+FIT recording, see below). Menu = adjustment actions (+1/+5/−1, finish). Back
+= confirm before discarding: if any reps counted, asks `Save N reps?` (Yes
+banks the reps and saves the FIT activity, No leaves both unsaved); zero reps
+leaves directly and discards the empty recording.
 
-**Manual entry**: Main menu → Manual Entry → exercise. Picker opens at 0 with
-add/sub actions (+1/+5/+10, −1/−5/−10); finish banks the value.
+**Manual entry**: Main menu → Manual Entry → exercise. A continuous delta
+picker opens at 0: Up/Down step the delta by 1 per press; holding Up/Down
+auto-repeats and accelerates (1 → 2 → 5 per tick the longer it's held), so
+large corrections don't take dozens of presses. Select banks the delta. Back
+with a non-zero delta asks `Save +N?`/`Save -N?` (Yes banks, No returns to the
+picker unchanged); zero delta leaves directly. No FIT session is created —
+manual entry has no real elapsed-time/HR signal to attach one to.
 
-**Pro Run**: Select/Menu = stop, save FIT, credit run distance. Back = `Save
-run?` (Yes commits activity + credits; No discards FIT without credit). App
-shutdown or incoming notification never saves silently.
-
-**Sync boundary**: dashboard progress, reps, XP, streaks, calibration, daily
-totals are local. Only an explicitly started Pro Run creates an
-`ActivityRecording.Session`; saving it creates a FIT activity Garmin Connect can
-sync (may auto-forward to Strava if linked — HeroSet does not control that).
+**Sync boundary**: reps, XP, streaks, calibration, and daily totals are local
+to the watch. Every counted (sensor-driven) workout also records a real Garmin
+`ActivityRecording` session (no GPS) so calories/HR/training effect are
+computed by Garmin's own engine; saving it (`Save N reps?` → Yes, or Finish)
+creates a FIT activity that Garmin Connect processes like any native
+activity — it may sync to Strava if the user has that linked, same as any
+other Garmin activity; HeroSet does not control that and does not add its own
+sync/upload step. Manual entry never creates a FIT activity.
 
 ## Calibration
 

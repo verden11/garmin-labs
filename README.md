@@ -1,12 +1,13 @@
 # HeroSet
 
 Gamified bodyweight workout app for Garmin Forerunner 965. Daily mission:
-push-ups, sit-ups, squats (100 each) plus an optional 10 km run. Counts reset
-on the local calendar day; XP, streaks, and rank persist.
+push-ups, sit-ups, squats (100 each). Counts reset on the local calendar day;
+XP, streaks, and rank persist.
 
 Implemented: automatic rep counting (sensors, calibration-fitted thresholds),
-manual correction, per-exercise calibration, XP/rank/streak progression, and GPS
-Pro Run with FIT export.
+manual correction, per-exercise calibration, XP/rank/streak progression, and
+— for auto-counted sets — a real Garmin activity recording (no GPS) so
+calories/HR/training effect are computed by Garmin's own engine.
 
 ## Project configuration
 
@@ -20,15 +21,7 @@ Pro Run with FIT export.
 
 ## Documentation
 
-- [`docs/development.md`](docs/development.md): setup, build, simulator, tests
-- [`docs/architecture.md`](docs/architecture.md): structure, layers, decisions
-- [`docs/input-and-ux.md`](docs/input-and-ux.md): button-first interaction contract
-- [`docs/release-contract.md`](docs/release-contract.md): what the app can honestly claim
-- [`docs/testing-plan.md`](docs/testing-plan.md): test strategy
-- [`docs/compatibility.md`](docs/compatibility.md): device support policy
-- [`docs/store-release.md`](docs/store-release.md): monetization + release requirements
-- [`docs/go-to-market.md`](docs/go-to-market.md): Store launch readiness
-- [`docs/calories-connect.md`](docs/calories-connect.md): calorie/FIT integration plan
+See [`docs/README.md`](docs/README.md) for the full index.
 
 ## Repository layout
 

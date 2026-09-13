@@ -1,6 +1,6 @@
 # HeroSet Current Release Contract
 
-Status date: 2026-09-12. This is the short source of truth for what the current
+Status date: 2026-09-14. This is the short source of truth for what the current
 checkout can honestly claim. `architecture.md` remains the target architecture;
 this file describes current behavior.
 
@@ -11,9 +11,9 @@ this file describes current behavior.
 | Calibration | Dev build available; paid release blocked | Normal build exposes it; `store.jungle` hides the menu entry until physical validation |
 | Manual correction | Implemented | Button-only workout/manual menus |
 | Daily goals/streaks | Implemented | Local calendar and migration tests pass |
-| Persistence migration | Implemented | Legacy flat state migrates to grouped dictionaries; 60 tests pass |
-| Pro Run | Implemented but physical validation pending | GPS/FIT save/discard still needs watch evidence |
-| Calories | Not implemented | No calories listing claim; see `calories-connect.md` |
+| Persistence migration | Implemented | Legacy flat state migrates to grouped dictionaries; 58 tests pass |
+| Pro Run (GPS distance) | Removed 2026-09-13, permanently | `ui/run` deleted; `Positioning` permission dropped from `manifest.xml` |
+| Calories/HR/training effect per workout | Implemented, re-test on watch pending | Real `ActivityRecording` session per counted set (`SPORT_GENERIC`/`SUB_SPORT_GENERIC` — see ADR-016 for why); native calories/HR shown live in-workout; whether it registers in Training Status/Load is decided by Garmin firmware and remains unverified |
 | Garmin Connect custom metrics | Not implemented | FIT developer-field plan only |
 | Languages | English only | `manifest.xml` |
 | Price target | Planned paid launch | Garmin USD 2.00 price point currently maps to US $1.99; merchant onboarding pending |
@@ -22,9 +22,11 @@ this file describes current behavior.
 ## Allowed launch claim today
 
 HeroSet is a Forerunner 965 button-first bodyweight progress app with automatic
-counting in beta, manual correction, daily goals, streaks, and optional Pro Run.
-Automatic counting depends on calibration/watch placement and still requires
-physical validation.
+counting in beta, manual correction, daily goals, streaks, and — for
+auto-counted sets — a real Garmin-recorded activity with calories/HR/training
+effect computed by Garmin's own engine. Automatic counting depends on
+calibration/watch placement and still requires physical validation; no
+GPS/distance tracking (Pro Run removed permanently).
 
 ## Forbidden claims today
 
@@ -33,6 +35,10 @@ physical validation.
 - Production calibration availability while using the current `store.jungle`.
 - Guaranteed rep accuracy across users, exercises, wrist positions, or speeds.
 - Native Garmin Connect calorie replacement.
+- Any guarantee that a workout session moves Training Status, Training
+  Readiness, or Acute Load — those are Garmin firmware/Firstbeat-computed, not
+  something this app can assert or control.
+- GPS/distance tracking (removed permanently with Pro Run).
 
 ## Release decision
 

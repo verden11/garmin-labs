@@ -108,26 +108,6 @@ function correctionCannotDriveCountNegative(logger as Test.Logger) as Lang.Boole
 }
 
 (:test)
-function runXpCreditedPerKmCappedAtGoal(logger as Test.Logger) as Lang.Boolean {
-    var store = storeWith(20260911);
-    store.addRunDistanceKm(3.0);
-    Test.assertEqual(store.getRunDistance(), 3.0);
-    Test.assertEqual(store.getXp(), 6);
-    store.addRunDistanceKm(20.0);
-    Test.assertEqual(store.getXp(), 20);
-    return true;
-}
-
-(:test)
-function runDistanceDoesNotTouchRepMissions(logger as Test.Logger) as Lang.Boolean {
-    var store = storeWith(20260911);
-    store.addRunDistanceKm(5.0);
-    Test.assertEqual(store.getCount(:pushups), 0);
-    Test.assertEqual(store.getXp(), 10);
-    return true;
-}
-
-(:test)
 function firstCompletionStartsStreakAtOne(logger as Test.Logger) as Lang.Boolean {
     var store = storeWith(20260911);
     completeAll(store);
@@ -251,13 +231,11 @@ function legacyFlatStateMigratesToGroupedStorage(logger as Test.Logger) as Lang.
     storage.put("hero_squats", 4);
     storage.put("hero_xp", 48);
     storage.put("hero_streak", 3);
-    storage.put("hero_run_distance", 2.5);
     var clock = new HeroSetTestClock();
     clock.day = 20260911;
     var store = new HeroSetStore(storage, clock);
     Test.assertEqual(store.getCount(:pushups), 12);
     Test.assertEqual(store.getXp(), 48);
-    Test.assertEqual(store.getRunDistance(), 2.5);
     Test.assert(storage.value("hero_daily") instanceof Dictionary);
     Test.assert(storage.value("hero_profile") instanceof Dictionary);
     return true;

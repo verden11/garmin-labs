@@ -1,5 +1,6 @@
 import Toybox.Graphics;
 import Toybox.Lang;
+import Toybox.Sensor;
 import Toybox.WatchUi;
 
 // Calibration records counted cycles with the provisional SAMPLE_* thresholds,
@@ -83,7 +84,7 @@ class HeroSetCalibrationView extends WatchUi.View {
         _sensorManager.stop();
     }
 
-    private function onSensorData(data) as Void {
+    private function onSensorData(data as Sensor.SensorData) as Void {
         if (!_recording || data == null || data.accelerometerData == null) {
             return;
         }
@@ -110,7 +111,7 @@ class HeroSetCalibrationView extends WatchUi.View {
     function onUpdate(dc as Dc) as Void {
         var layout = new HeroSetLayout(dc);
         var label = _exercise == :pushups ? "PUSH-UPS" : (_exercise == :situps ? "SIT-UPS" : "SQUATS");
-        var status = _recording ? "DO YOUR REPS" : (_saved ? "SAVED" : (_rejected ? "TOO WEAK — RETRY" : "READY"));
+        var status = _recording ? "DO YOUR REPS" : (_saved ? "SAVED" : (_rejected ? "WEAK SIGNAL — RETRY" : "READY"));
         var action = _recording ? "SEL/MENU: FINISH" : (_saved ? "SEL/MENU: AGAIN" : "SEL/MENU: START");
         var repsText = _recording ? _cycles + " / " + HeroSetConfig.CALIBRATION_REQUIRED_CYCLES : (_saved ? HeroSetConfig.CALIBRATION_REQUIRED_CYCLES + " REPS" : "0 / " + HeroSetConfig.CALIBRATION_REQUIRED_CYCLES);
 
@@ -122,6 +123,13 @@ class HeroSetCalibrationView extends WatchUi.View {
         dc.drawText(layout.centerX(), layout.bandTop(2), Graphics.FONT_LARGE, repsText, Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.drawText(layout.centerX(), layout.bandTop(3), Graphics.FONT_SMALL, status, Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(layout.centerX(), layout.footerRowBottom(), Graphics.FONT_XTINY, action, Graphics.TEXT_JUSTIFY_CENTER);
+
+        // Shift the footer hint up off the bezel if it wouldn't otherwise
+        // fit the round chord at its natural row (measured against the real
+        // rendered width, not a guessed character budget).
+        var actionWidth = dc.getTextWidthInPixels(action, Graphics.FONT_XTINY);
+        var actionHeight = dc.getFontHeight(Graphics.FONT_XTINY);
+        var actionY = layout.fitCenteredY(layout.footerRowBottom(), layout.bandTop(3), actionWidth, actionHeight);
+        dc.drawText(layout.centerX(), actionY, Graphics.FONT_XTINY, action, Graphics.TEXT_JUSTIFY_CENTER);
     }
 }

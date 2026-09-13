@@ -6,7 +6,7 @@ device cannot provide.
 ## Tiers
 
 - **Full**: automatic rep estimates, manual entry/correction, daily progress +
-  gamification, optional GPS 10 km Pro mode.
+  gamification.
 - **Partial**: automatic counting limited/unavailable when the device lacks
   suitable motion sensing; manual entry, progress, gamification remain.
 - **Unsupported**: anything below the app's minimum API / display / input /

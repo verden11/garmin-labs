@@ -21,8 +21,8 @@ file structure, layering, module duties, style, and decisions. Related:
 
 ```
 source/
-├── app/            HeroSetApp, HeroSetDelegate, HeroSetMenuDelegate,
-│                   HeroSetManualMenuDelegate   # wiring, entry, menu routing
+├── app/            HeroSetApp, HeroSetDelegate, HeroSetMenuDelegate
+│                                                  # wiring, entry, menu routing
 ├── domain/         HeroSetConfig, HeroSetRules, HeroSetCalendar,
 │                   HeroSetRepCounter, HeroSetCalibration   # pure logic
 ├── data/           HeroSetStore, HeroSetStorage   # only Storage callers
@@ -32,10 +32,11 @@ source/
 │   ├── dashboard/  HeroSetView, HeroSetDashboardState, HeroSetDayTracker
 │   ├── workout/    HeroSetWorkoutView, HeroSetWorkoutDelegate,
 │   │               HeroSetWorkoutMenuDelegate, HeroSetWorkoutConfirmDelegate
-│   ├── run/        HeroSetRunView, HeroSetRunDelegate, HeroSetRunConfirmDelegate
+│   ├── manual/     HeroSetManualPickerView, HeroSetManualPickerDelegate,
+│   │               HeroSetManualConfirmDelegate   # continuous up/down delta
 │   └── calibration/ HeroSetCalibrationView, HeroSetCalibrationDelegate,
 │                    HeroSetCalibrationMenuDelegate
-└── test/           HeroSetConfigTest, HeroSetProgressTest, HeroSetCalendarTest,
+└── test/           HeroSetConfigTest, HeroSetRulesTest, HeroSetCalendarTest,
                     HeroSetRepCounterTest, HeroSetCalibrationTest,
                     HeroSetStoreTest, HeroSetLayoutTest
 ```
@@ -60,7 +61,7 @@ direct `Storage.*` calls.
 ## 4. Module responsibilities
 
 **HeroSetConfig** — every tunable constant: `MISSION_GOAL=100`,
-`RUN_GOAL_KM=10.0`, `SENSOR_SAMPLE_RATE=25`, `SENSOR_PERIOD_SECONDS=1`,
+`SENSOR_SAMPLE_RATE=25`, `SENSOR_PERIOD_SECONDS=1`,
 `SENSOR_COOLDOWN_MS=600`, `DEFAULT_ARM_THRESHOLD=100`,
 `DEFAULT_RELEASE_THRESHOLD=70`, `CALIBRATION_REQUIRED_CYCLES=10`,
 `CALIBRATION_MIN_PEAK=90`, `CALIBRATION_MIN_VALLEY=70`.
@@ -115,16 +116,21 @@ tests.
 sampleRate)`, `stop()`, `isEnabled()`. Views reset `RepCounter` on resume.
 
 **HeroSetLayout** — single geometry source. `shortInset()`, `bandStep()`,
-`bandTop(band)`, `footerRowTop()/footerRowBottom()`, `leftInset(y)/
-rightInset(y)` (round: inscribed-circle chord at y via `chordHalfWidth(radius,
-dy)`; square: constant inset). No view computes pixels.
+`bandTop(band)`, `footerRowTop()/footerRowBottom()`, `leftInset(y, height)/
+rightInset(y, height)` (round: inscribed-circle chord at the row's farthest
+edge from center via `chordHalfWidth(radius, dy)`; square: constant inset),
+`fitCenteredY(maxY, minY, textWidth, textHeight)` (round: shifts centered
+content up off the bezel until it measurably fits the chord; square: no-op —
+see ADR-018). No view computes pixels.
 
 **UI** — Dashboard renders a `HeroSetDashboardState` snapshot (built once per
 refresh by the store; `HeroSetDayTracker` Timer fires every 60 s to catch
-midnight rollover). Workout/run confirm delegates enforce the save contract:
-workout Back asks "Save N reps?"; run Back asks "Save run?" (yes commits FIT +
-distance, no discards). Calibration captures ten natural reps, auto-finishes,
-rejects weak sessions.
+midnight rollover). Workout confirm delegate enforces the save contract: Back
+asks "Save N reps?". `HeroSetWorkoutView` also owns a real `ActivityRecording`
+session per counted set (see ADR-016) — live calories/HR shown in-view via
+`Activity.getActivityInfo()`, saved as a FIT activity alongside the rep count,
+discarded on a 0-rep finish or a real exit. Calibration captures ten natural
+reps, auto-finishes, rejects weak sessions.
 
 ## 5. Data flow
 
@@ -162,22 +168,27 @@ Store.add(exercise, amount)
 | ADR-004 | Detector = gravity-compensated EMA baseline + turning points; thresholds from fitted cycles. |
 | ADR-005 | Sensor rate unified at 25 Hz; calibration uses the same live stream. |
 | ADR-006 | Shared `HeroSetLayout` metric layer; no raw pixels in views. |
-| ADR-007 | Workout Back → confirm dialog; Run Back → save-or-discard prompt. |
+| ADR-007 | Workout Back → confirm dialog ("Save N reps?"). |
 | ADR-008 | Calibration gated out of release via `resources-store` menu overlay. |
-| ADR-009 | Run awards XP (net km, capped at goal). |
+| ADR-009 | *Superseded.* Pro Run (GPS distance, `ui/run`, `Positioning` permission) removed permanently. GPS/distance is out of scope; see ADR-016 for the FIT/calorie replacement. |
 | ADR-010 | Storage errors caught, flagged in-app; in-memory fallback. |
 | ADR-011 | No `SensorLogging` permission until FIT export ships. |
 | ADR-012 | Dashboard refresh via 60 s `DayTracker` timer + dirty flag. |
 | ADR-013 | One class per file; `HeroSet` prefix globally. |
 | ADR-014 | `(:test)` files in `source/test/`; excluded from normal builds. |
+| ADR-016 | Counted (sensor-driven) workouts record a real `ActivityRecording.Session` (`SPORT_GENERIC`/`SUB_SPORT_GENERIC`, no GPS), saved as a FIT activity on Finish/save-confirm so Garmin computes calories/HR/training effect (no guaranteed effect on Training Status/Load — no public API for that). Manual entry stays local-only, no session. `Fit` permission restored, `Positioning` stays dropped. **Use `SUB_SPORT_GENERIC`, not `STRENGTH_TRAINING`** — the latter triggers the watch's native strength-training auto-set UI and hangs the screen (confirmed on physical FR965). Session lifecycle: `HeroSetWorkoutView.beginChildOverlay()` tells `onHide` a menu/confirm cover apart from a real exit; an interrupt that bypasses our delegates (e.g. a call) is treated as exit and discards — known limitation. |
+| ADR-017 | Manual entry uses `HeroSetManualPickerView`/`Delegate` (continuous Up/Down delta, held keys auto-repeat + accelerate via `Timer`, 1→2→5) instead of a discrete `+1/+5/+10` menu. Same Back-confirm contract as workout ("Save +N?"/"Save -N?"). |
+| ADR-018 | Centered footer text is fit at runtime via `HeroSetLayout.fitCenteredY(maxY, minY, textWidth, textHeight)` — measures real pixel width (`dc.getTextWidthInPixels`), walks the row up off the bezel until it fits (reusing `leftInset`/`rightInset`). Do not guess a "safe" character count; it clips at the bezel edge unpredictably by font/device. |
+| ADR-019 | `HeroSetStore`'s storage-read helpers return raw `Object?` (values may be `Number` or `Float`); route through `HeroSetStore.asNumber`/`asNumberOrNull` (narrows via `instanceof`) rather than calling `.toNumber()` directly — `Lang.Object` doesn't declare it, and the newer SDK enforces that strictly. |
+| ADR-020 | *Deferred*: `HeroSetStore.mc` (~440 lines) exceeds the file's own 250-line budget. Natural split points: schema migration (`migrateSchema`/`migrateFlatStateToDictionaries`) and calibration-profile persistence. Not split without compiler/device access to verify — it backs most of the app's persistence tests and a bad split could silently corrupt real user data. |
 
 ## 8. Navigation
 
 ```
 Dashboard (HeroSetView) ── Select/Menu ──► Main Menu
-  Main Menu ── Workout / Pro Run / Calibrate / Manual Entry
+  Main Menu ── Workout / Calibrate / Manual Entry
   Workout ── Menu ──► Workout Menu (adjust/finish); Back ──► "Save N reps?"
-  Pro Run ── Select/Menu = stop+save; Back ──► "Save run?"
+  Manual Entry ── Up/Down adjust (hold to accelerate); Back ──► "Save +N?"
   Calibration ── exercise picker ──► capture (auto-finish at 10)
 ```
 
@@ -186,4 +197,6 @@ Push = `WatchUi.pushView`; Back = `WatchUi.popView`. No orphaned pops.
 ## 9. Out of scope
 
 Touch-first interaction; multi-language; cloud sync; FFT/ML signal processing;
-FIT export for non-run exercises.
+GPS/distance/running tracking (no `Positioning` permission — ADR-009).
+`ActivityRecording`/FIT export is in scope per-workout (ADR-016), just never
+for GPS/distance.

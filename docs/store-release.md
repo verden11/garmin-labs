@@ -10,9 +10,9 @@
 - Merchant onboarding, payment, tax, and country eligibility must complete
   before publishing.
 
-Daily HeroSet progress is local to the watch. Opening the app or counting reps
-never creates a FIT activity; only an explicit Pro Run records one (may sync via
-Garmin Connect and linked services).
+Daily HeroSet progress is local to the watch; auto-counted workouts create a
+FIT activity (sync behavior same as any Garmin activity — see
+`input-and-ux.md`).
 
 ## Release requirements
 

@@ -7,28 +7,10 @@
     <string id="menu_label_manual_pushups">Manual Push-ups</string>
     <string id="menu_label_manual_situps">Manual Sit-ups</string>
     <string id="menu_label_manual_squats">Manual Squats</string>
-    <string id="menu_label_pro_run">Pro Run: 10 km</string>
     <string id="menu_label_calibration">Calibrate Exercise</string>
     <string id="menu_label_calibrate_pushups">Calibrate Push-ups</string>
     <string id="menu_label_calibrate_situps">Calibrate Sit-ups</string>
     <string id="menu_label_calibrate_squats">Calibrate Squats</string>
-
-    <string id="manual_label_add_1">Add 1</string>
-    <string id="manual_label_add_5">Add 5</string>
-    <string id="manual_label_add_10">Add 10</string>
-    <string id="manual_label_sub_1">Remove 1</string>
-    <string id="manual_label_sub_5">Remove 5</string>
-    <string id="manual_label_sub_10">Remove 10</string>
-
-    <string id="menu_label_pushups_plus_one">Push-ups +1</string>
-    <string id="menu_label_pushups_plus_five">Push-ups +5</string>
-    <string id="menu_label_pushups_minus_one">Push-ups -1</string>
-    <string id="menu_label_situps_plus_one">Sit-ups +1</string>
-    <string id="menu_label_situps_plus_five">Sit-ups +5</string>
-    <string id="menu_label_situps_minus_one">Sit-ups -1</string>
-    <string id="menu_label_squats_plus_one">Squats +1</string>
-    <string id="menu_label_squats_plus_five">Squats +5</string>
-    <string id="menu_label_squats_minus_one">Squats -1</string>
 
     <string id="workout_label_plus_one">Adjust +1</string>
     <string id="workout_label_plus_five">Adjust +5</string>

@@ -19,7 +19,6 @@ class HeroSetStore {
     const XP_KEY = "hero_xp";
     const STREAK_KEY = "hero_streak";
     const LAST_COMPLETION_KEY = "hero_last_completion";
-    const RUN_DISTANCE_KEY = "hero_run_distance";
 
     // Per-goal "credit ratchet": the highest min(count, goal) seen today.
     // XP only ever pays the positive difference against the ratchet, so
@@ -27,7 +26,6 @@ class HeroSetStore {
     const PUSHUPS_CREDIT_KEY = "hero_credit_pushups";
     const SITUPS_CREDIT_KEY = "hero_credit_situps";
     const SQUATS_CREDIT_KEY = "hero_credit_squats";
-    const RUN_CREDIT_KEY = "hero_credit_run";
 
     const CAL_PUSHUPS_ARM_KEY = "hero_cal_pushups_arm";
     const CAL_PUSHUPS_RELEASE_KEY = "hero_cal_pushups_release";
@@ -46,7 +44,7 @@ class HeroSetStore {
     private var _clock;
     private var _writeFailed = false;
 
-    function initialize(storage, clock) {
+    function initialize(storage as HeroSetStorage?, clock as HeroSetClock?) {
         _storage = storage == null ? new HeroSetPersistentStorage() : storage;
         _clock = clock == null ? new HeroSetClock() : clock;
         migrateSchema();
@@ -70,11 +68,9 @@ class HeroSetStore {
         _set(PUSHUPS_KEY, 0);
         _set(SITUPS_KEY, 0);
         _set(SQUATS_KEY, 0);
-        _set(RUN_DISTANCE_KEY, 0.0);
         _set(PUSHUPS_CREDIT_KEY, 0);
         _set(SITUPS_CREDIT_KEY, 0);
         _set(SQUATS_CREDIT_KEY, 0);
-        _set(RUN_CREDIT_KEY, 0.0);
     }
 
     // ------------------------------------------------------------------
@@ -117,43 +113,6 @@ class HeroSetStore {
     }
 
     // ------------------------------------------------------------------
-    // Run mission
-    // ------------------------------------------------------------------
-
-    // `km` is kilometres. The mission goal is 10.0 km.
-    function addRunDistanceKm(km as Lang.Float) as Void {
-        ensureCurrentDay();
-        if (km <= 0.0) {
-            return;
-        }
-        var current = getRunDistance();
-        var next = current + km;
-        _set(RUN_DISTANCE_KEY, next);
-        awardRunXp(current, next);
-    }
-
-    function getRunDistance() as Lang.Float {
-        ensureCurrentDay();
-        var value = _storage.getValue(RUN_DISTANCE_KEY);
-        return value == null ? 0.0 : value.toFloat();
-    }
-
-    private function awardRunXp(previousKm as Lang.Float, nextKm as Lang.Float) as Void {
-        if (nextKm <= previousKm) {
-            return;
-        }
-        var newCredit = nextKm > HeroSetConfig.RUN_GOAL_KM ? HeroSetConfig.RUN_GOAL_KM : nextKm;
-        var credited = _storage.getValue(RUN_CREDIT_KEY);
-        var creditedKm = credited == null ? 0.0 : credited.toFloat();
-        var added = newCredit - creditedKm;
-        if (added <= 0.0) {
-            return;
-        }
-        _set(RUN_CREDIT_KEY, newCredit);
-        _set(XP_KEY, getXp() + HeroSetRules.xpForReps(added.toNumber()));
-    }
-
-    // ------------------------------------------------------------------
     // XP and streaks
     // ------------------------------------------------------------------
 
@@ -175,7 +134,6 @@ class HeroSetStore {
             getCount(:pushups),
             getCount(:situps),
             getCount(:squats),
-            getRunDistance(),
             getRank(),
             getStreak(),
             hasWriteFailure()
@@ -188,8 +146,7 @@ class HeroSetStore {
         }
 
         var today = _clock.todayKey();
-        var lastValue = _storage.getValue(LAST_COMPLETION_KEY);
-        var lastDay = lastValue == null ? null : lastValue.toNumber();
+        var lastDay = asNumberOrNull(_storage.getValue(LAST_COMPLETION_KEY));
         if (lastDay == today) {
             return;
         }
@@ -204,23 +161,19 @@ class HeroSetStore {
     // ------------------------------------------------------------------
 
     function getCalibrationArm(exercise as Lang.Symbol) as Lang.Number {
-        var value = calibrationValue(exercise, "arm");
-        return value == null ? HeroSetConfig.DEFAULT_ARM_THRESHOLD : value.toNumber();
+        return asNumber(calibrationValue(exercise, "arm"), HeroSetConfig.DEFAULT_ARM_THRESHOLD);
     }
 
     function getCalibrationRelease(exercise as Lang.Symbol) as Lang.Number {
-        var value = calibrationValue(exercise, "release");
-        return value == null ? HeroSetConfig.DEFAULT_RELEASE_THRESHOLD : value.toNumber();
+        return asNumber(calibrationValue(exercise, "release"), HeroSetConfig.DEFAULT_RELEASE_THRESHOLD);
     }
 
     function getCalibrationRate(exercise as Lang.Symbol) as Lang.Number {
-        var value = calibrationValue(exercise, "rate");
-        return value == null ? HeroSetConfig.SENSOR_SAMPLE_RATE : value.toNumber();
+        return asNumber(calibrationValue(exercise, "rate"), HeroSetConfig.SENSOR_SAMPLE_RATE);
     }
 
     function getCalibrationCooldownMs(exercise as Lang.Symbol) as Lang.Number {
-        var value = calibrationValue(exercise, "cooldown");
-        return value == null ? HeroSetConfig.SENSOR_COOLDOWN_MS : value.toNumber();
+        return asNumber(calibrationValue(exercise, "cooldown"), HeroSetConfig.SENSOR_COOLDOWN_MS);
     }
 
     function setCalibrationProfile(exercise as Lang.Symbol, armThreshold as Lang.Number, releaseThreshold as Lang.Number, rate as Lang.Number, cooldownMs as Lang.Number) as Void {
@@ -246,8 +199,7 @@ class HeroSetStore {
     // ------------------------------------------------------------------
 
     private function migrateSchema() as Void {
-        var version = _storage.getValue(SCHEMA_KEY);
-        var current = version == null ? 0 : version.toNumber();
+        var current = asNumber(_storage.getValue(SCHEMA_KEY), 0);
         if (current == SCHEMA_VERSION) {
             return;
         }
@@ -267,11 +219,9 @@ class HeroSetStore {
         daily[PUSHUPS_KEY] = readFlatNumber(PUSHUPS_KEY);
         daily[SITUPS_KEY] = readFlatNumber(SITUPS_KEY);
         daily[SQUATS_KEY] = readFlatNumber(SQUATS_KEY);
-        daily[RUN_DISTANCE_KEY] = readFlatFloat(RUN_DISTANCE_KEY);
         daily[PUSHUPS_CREDIT_KEY] = readFlatNumber(PUSHUPS_CREDIT_KEY);
         daily[SITUPS_CREDIT_KEY] = readFlatNumber(SITUPS_CREDIT_KEY);
         daily[SQUATS_CREDIT_KEY] = readFlatNumber(SQUATS_CREDIT_KEY);
-        daily[RUN_CREDIT_KEY] = readFlatFloat(RUN_CREDIT_KEY);
         _storage.setValue(DAILY_KEY, daily);
 
         var profile = {};
@@ -285,12 +235,6 @@ class HeroSetStore {
         calibration[:situps] = calibrationDictionary(:situps);
         calibration[:squats] = calibrationDictionary(:squats);
         _storage.setValue(CALIBRATION_KEY, calibration);
-    }
-
-    private function resetCalibration() as Void {
-        setCalibrationProfile(:pushups, HeroSetConfig.DEFAULT_ARM_THRESHOLD, HeroSetConfig.DEFAULT_RELEASE_THRESHOLD, HeroSetConfig.SENSOR_SAMPLE_RATE, HeroSetConfig.SENSOR_COOLDOWN_MS);
-        setCalibrationProfile(:situps, HeroSetConfig.DEFAULT_ARM_THRESHOLD, HeroSetConfig.DEFAULT_RELEASE_THRESHOLD, HeroSetConfig.SENSOR_SAMPLE_RATE, HeroSetConfig.SENSOR_COOLDOWN_MS);
-        setCalibrationProfile(:squats, HeroSetConfig.DEFAULT_ARM_THRESHOLD, HeroSetConfig.DEFAULT_RELEASE_THRESHOLD, HeroSetConfig.SENSOR_SAMPLE_RATE, HeroSetConfig.SENSOR_COOLDOWN_MS);
     }
 
     // ------------------------------------------------------------------
@@ -316,20 +260,33 @@ class HeroSetStore {
         if (value == null) {
             value = _storage.getValue(key);
         }
-        return value == null ? 0 : value.toNumber();
+        return asNumber(value, 0);
     }
 
     private function readFlatNumber(key as Lang.String) as Lang.Number {
-        var value = _storage.getValue(key);
-        return value == null ? 0 : value.toNumber();
+        return asNumber(_storage.getValue(key), 0);
     }
 
-    private function readFlatFloat(key as Lang.String) as Lang.Float {
-        var value = _storage.getValue(key);
-        return value == null ? 0.0 : value.toFloat();
+    // Stored values come back as Object (Number or Float depending on how
+    // they were originally written); `toNumber()` isn't declared on the base
+    // Object type, so every read narrows through here instead of casting
+    // blind.
+    private function asNumber(value as Lang.Object?, fallback as Lang.Number) as Lang.Number {
+        var number = asNumberOrNull(value);
+        return number == null ? fallback : number;
     }
 
-    private function readDictionaryValue(key as Lang.String) {
+    private function asNumberOrNull(value as Lang.Object?) as Lang.Number? {
+        if (value instanceof Lang.Number) {
+            return value;
+        }
+        if (value instanceof Lang.Float) {
+            return value.toNumber();
+        }
+        return null;
+    }
+
+    private function readDictionaryValue(key as Lang.String) as Lang.Object? {
         var groupKey = groupKeyFor(key);
         if (groupKey == null) {
             return null;
@@ -355,7 +312,7 @@ class HeroSetStore {
     }
 
     private function groupKeyFor(key as Lang.String) as Lang.String? {
-        if (key == DAY_KEY || key == PUSHUPS_KEY || key == SITUPS_KEY || key == SQUATS_KEY || key == RUN_DISTANCE_KEY || key == PUSHUPS_CREDIT_KEY || key == SITUPS_CREDIT_KEY || key == SQUATS_CREDIT_KEY || key == RUN_CREDIT_KEY) {
+        if (key == DAY_KEY || key == PUSHUPS_KEY || key == SITUPS_KEY || key == SQUATS_KEY || key == PUSHUPS_CREDIT_KEY || key == SITUPS_CREDIT_KEY || key == SQUATS_CREDIT_KEY) {
             return DAILY_KEY;
         }
         if (key == XP_KEY || key == STREAK_KEY || key == LAST_COMPLETION_KEY) {
@@ -373,11 +330,11 @@ class HeroSetStore {
         return dictionary;
     }
 
-    private function calibrationFlatValue(key as Lang.String) {
+    private function calibrationFlatValue(key as Lang.String) as Lang.Object? {
         return _storage.getValue(key);
     }
 
-    private function calibrationValue(exercise as Lang.Symbol, field as Lang.String) {
+    private function calibrationValue(exercise as Lang.Symbol, field as Lang.String) as Lang.Object? {
         var calibration = _storage.getValue(CALIBRATION_KEY);
         if (calibration instanceof Dictionary) {
             var profile = calibration[exercise];

@@ -5,7 +5,7 @@ tests, fewer physical-watch/beta tests.
 
 ## P0: automated unit tests (`source/test/*Test.mc`, `Toybox.Test`)
 
-**Progress/mission** (`HeroSetProgressTest.mc`): zero/partial/complete/over-goal;
+**Progress/mission** (`HeroSetRulesTest.mc`): zero/partial/complete/over-goal;
 independent exercise goals; positive XP/rank thresholds; negative corrections
 never go negative; mission completion; same-day no double streak;
 consecutive/missed-day streaks; DST (23 h/25 h) and month/year rollover.
@@ -15,10 +15,9 @@ across DST/month/year/leap; new date resets counters but preserves XP/streak.
 
 **Store/persistence** (`HeroSetStoreTest.mc`, in-memory `HeroSetStorage` seam +
 controllable `HeroSetClock`): net-delta XP (no refunds, no farm loops, no
-over-goal inflation); run distance credits per km capped at goal, never touches
-reps; rollover/streak semantics; unknown exercise throws; calibration
-round-trips, uncalibrated uses defaults; flat-key→grouped migration preserves
-progress.
+over-goal inflation); rollover/streak semantics; unknown exercise throws;
+calibration round-trips, uncalibrated uses defaults; flat-key→grouped migration
+preserves progress.
 
 **Rep counter + calibration** (`HeroSetRepCounterTest.mc`,
 `HeroSetCalibrationTest.mc`): gravity-removed L2 magnitude, at-rest never
@@ -31,16 +30,19 @@ thresholds clamped; weak sessions rejected via `isUsable`.
 
 Launch/renders; menu from Select and Menu; each session starts/exits;
 pause/resume + correction; finish saves; Back with reps asks `Save N reps?`;
-relaunch restores; manual picker (+1/+5/+10, −1/−5/−10); Pro Run save/Back
-prompt tuning; GPS-unavailable rendering. Simulator proves UI/navigation/
-storage determinism, not real rep accuracy.
+relaunch restores; manual delta picker (tap = ±1, held Up/Down auto-repeats
+and accelerates, Back with a pending delta asks `Save +N?`); workout session
+save/discard doesn't crash on 0-rep finish or backgrounding mid-set.
+Simulator proves UI/navigation/storage determinism, not real rep accuracy or
+real calorie/HR values (Firstbeat isn't modeled in the simulator).
 
 ## P1: physical Forerunner 965
 
 Multi-speed push-ups/squats/sit-ups; correct/partial/unrelated movements;
 wrist position + strap tightness; listener cleanup after leaving workout;
-30-min battery; GPS acquisition + distance; FIT save + explicit discard; app
-suspension/resume, device reboot.
+30-min battery; app suspension/resume, device reboot; per-workout FIT
+save/explicit discard (0-rep finish, mid-set backgrounding); saved activity's
+calories/HR/training effect inspected in Garmin Connect for plausibility.
 
 ## P2: sensor replay + compatibility
 
@@ -49,21 +51,13 @@ count. Synthetic waveform fixture is the deterministic stand-in until real
 recordings exist. Before Store submission: Garmin beta app on each supported
 device verifying memory, battery, input, display, sensor, GPS, recording.
 
-## Execution status
+## Remaining before Store submission
 
-1. ✅ Pure progress/date logic extracted (`HeroSetCalendar`, `HeroSetProgress`,
-   `HeroSetStore`)
-2. ✅ `Toybox.Test` unit tests (calendar/store/progress/layout; rep counter +
-   calibration with detector rewrite)
-3. ✅ Rep-counting algorithm extracted + fixture (`HeroSetRepCounter`)
-4. ☐ Simulator workflow coverage
-5. ☐ Forerunner 965 validation
-6. ☐ Device-matrix expansion
-7. ☐ Beta before Store submission
+☐ Simulator workflow coverage ☐ Forerunner 965 validation ☐ Device-matrix
+expansion ☐ Beta build
 
 ## Official references
 
 [unit testing](https://developer.garmin.com/connect-iq/core-topics/unit-testing/),
 [sensors](https://developer.garmin.com/connect-iq/core-topics/sensors/),
-[activity recording](https://developer.garmin.com/connect-iq/core-topics/activity-recording/),
 [beta apps](https://developer.garmin.com/connect-iq/core-topics/beta-apps/).

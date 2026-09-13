@@ -5,5 +5,4 @@
     <menu-item id="manual_pushups" label="@Strings.menu_label_manual_pushups" />
     <menu-item id="manual_situps" label="@Strings.menu_label_manual_situps" />
     <menu-item id="manual_squats" label="@Strings.menu_label_manual_squats" />
-    <menu-item id="pro_run" label="@Strings.menu_label_pro_run" />
 </menu>

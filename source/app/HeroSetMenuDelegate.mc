@@ -20,10 +20,6 @@ class HeroSetMenuDelegate extends WatchUi.MenuInputDelegate {
             pushManualPicker(:situps);
         } else if (item == :manual_squats) {
             pushManualPicker(:squats);
-        } else if (item == :pro_run) {
-            var runView = new HeroSetRunView();
-            WatchUi.popView(WatchUi.SLIDE_DOWN);
-            WatchUi.pushView(runView, new HeroSetRunDelegate(runView), WatchUi.SLIDE_UP);
         } else if (item == :calibration) {
             WatchUi.pushView(new Rez.Menus.CalibrationMenu(), new HeroSetCalibrationMenuDelegate(), WatchUi.SLIDE_UP);
         }
@@ -36,9 +32,10 @@ class HeroSetMenuDelegate extends WatchUi.MenuInputDelegate {
         WatchUi.pushView(workoutView, new HeroSetWorkoutDelegate(workoutView), WatchUi.SLIDE_UP);
     }
 
-    // Manual entry opens a number picker on top of the main menu; the picker
-    // applies its amount and pops both itself and the menu.
+    // Manual entry opens a continuous up/down delta picker on top of the main
+    // menu; saving applies the delta and pops both itself and the menu.
     private function pushManualPicker(exercise as Lang.Symbol) as Void {
-        WatchUi.pushView(new Rez.Menus.ManualMenu(), new HeroSetManualMenuDelegate(exercise), WatchUi.SLIDE_UP);
+        var pickerView = new HeroSetManualPickerView(exercise);
+        WatchUi.pushView(pickerView, new HeroSetManualPickerDelegate(pickerView), WatchUi.SLIDE_UP);
     }
 }
