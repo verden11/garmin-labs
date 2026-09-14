@@ -8,12 +8,16 @@ import Toybox.WatchUi;
 class HeroSetManualPickerView extends WatchUi.View {
 
     private var _exercise;
-    private var _delta = 0;
+    private var _delta;
     private var _saved = false;
 
-    function initialize(exercise as Lang.Symbol) {
+    // initialDelta seeds the picker with a workout's detected count so it
+    // doubles as the post-set correction step (HeroSetWorkoutDelegate);
+    // standalone manual entry from the main menu starts at 0.
+    function initialize(exercise as Lang.Symbol, initialDelta as Lang.Number) {
         View.initialize();
         _exercise = exercise;
+        _delta = initialDelta;
     }
 
     function adjust(amount as Lang.Number) as Void {
@@ -34,9 +38,13 @@ class HeroSetManualPickerView extends WatchUi.View {
             return;
         }
         _saved = true;
-        if (_delta != 0) {
-            getApp().getStore().add(_exercise, _delta);
+        if (_delta == 0) {
+            return;
         }
+        var store = getApp().getStore();
+        var completedBefore = store.isDailyMissionComplete();
+        store.add(_exercise, _delta);
+        HeroSetSaveFeedback.show(_delta, completedBefore, store.isDailyMissionComplete());
     }
 
     function onUpdate(dc as Dc) as Void {

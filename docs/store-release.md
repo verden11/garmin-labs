@@ -10,9 +10,8 @@
 - Merchant onboarding, payment, tax, and country eligibility must complete
   before publishing.
 
-Daily HeroSet progress is local to the watch; auto-counted workouts create a
-FIT activity (sync behavior same as any Garmin activity — see
-`input-and-ux.md`).
+HeroSet progress is entirely local to the watch — no FIT activity, no Garmin
+Connect/Strava sync at all (ADR-021).
 
 ## Release requirements
 

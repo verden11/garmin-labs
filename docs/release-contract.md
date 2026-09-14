@@ -13,7 +13,7 @@ this file describes current behavior.
 | Daily goals/streaks | Implemented | Local calendar and migration tests pass |
 | Persistence migration | Implemented | Legacy flat state migrates to grouped dictionaries; 58 tests pass |
 | Pro Run (GPS distance) | Removed 2026-09-13, permanently | `ui/run` deleted; `Positioning` permission dropped from `manifest.xml` |
-| Calories/HR/training effect per workout | Implemented, re-test on watch pending | Real `ActivityRecording` session per counted set (`SPORT_GENERIC`/`SUB_SPORT_GENERIC` — see ADR-016 for why); native calories/HR shown live in-workout; whether it registers in Training Status/Load is decided by Garmin firmware and remains unverified |
+| Calories/HR per workout | Implemented | Live HR (`Sensor.getInfo`) + day-delta calories (`ActivityMonitor.getInfo`), no FIT session, no Garmin Connect activity created (ADR-021). No training-effect/status data — that requires a saved activity |
 | Garmin Connect custom metrics | Not implemented | FIT developer-field plan only |
 | Languages | English only | `manifest.xml` |
 | Price target | Planned paid launch | Garmin USD 2.00 price point currently maps to US $1.99; merchant onboarding pending |
@@ -22,11 +22,11 @@ this file describes current behavior.
 ## Allowed launch claim today
 
 HeroSet is a Forerunner 965 button-first bodyweight progress app with automatic
-counting in beta, manual correction, daily goals, streaks, and — for
-auto-counted sets — a real Garmin-recorded activity with calories/HR/training
-effect computed by Garmin's own engine. Automatic counting depends on
-calibration/watch placement and still requires physical validation; no
-GPS/distance tracking (Pro Run removed permanently).
+counting in beta, manual correction, daily goals, streaks, and live
+HR/calorie readouts during a set (no FIT activity, no Garmin Connect/Strava
+sync). Automatic counting depends on calibration/watch placement and still
+requires physical validation; no GPS/distance tracking (Pro Run removed
+permanently).
 
 ## Forbidden claims today
 
@@ -35,9 +35,10 @@ GPS/distance tracking (Pro Run removed permanently).
 - Production calibration availability while using the current `store.jungle`.
 - Guaranteed rep accuracy across users, exercises, wrist positions, or speeds.
 - Native Garmin Connect calorie replacement.
-- Any guarantee that a workout session moves Training Status, Training
-  Readiness, or Acute Load — those are Garmin firmware/Firstbeat-computed, not
-  something this app can assert or control.
+- Any effect on Training Status, Training Readiness, or Acute Load — HeroSet
+  creates no recorded activity at all, so there is nothing for those to act on.
+- Session calories as an exact/dedicated measurement — it's the delta of
+  Garmin's whole-day cumulative total, not a purpose-built session calculation.
 - GPS/distance tracking (removed permanently with Pro Run).
 
 ## Release decision

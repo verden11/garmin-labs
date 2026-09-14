@@ -10,14 +10,19 @@ class HeroSetWorkoutDelegate extends WatchUi.BehaviorDelegate {
         _view = view;
     }
 
+    // Finish is the only way a set ends deliberately — no pause/resume,
+    // counting just runs until this is pressed. Rather than bank the
+    // detected count directly, hand it to the manual delta picker (seeded
+    // with the detected count) so a miscounted set can be corrected before
+    // it's saved.
     function onSelect() as Boolean {
-        _view.toggleRunning();
-        return true;
-    }
-
-    function onMenu() as Boolean {
-        _view.beginChildOverlay();
-        WatchUi.pushView(new Rez.Menus.WorkoutMenu(), new HeroSetWorkoutMenuDelegate(_view), WatchUi.SLIDE_UP);
+        var pickerView = new HeroSetManualPickerView(_view.getExercise(), _view.getCount());
+        // Pop the workout view first so the picker sits directly on the
+        // dashboard (depth 1) — the same depth every other picker caller
+        // maintains, which is what lets HeroSetManualPickerDelegate use a
+        // single deterministic pop count back to the dashboard on save.
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
+        WatchUi.pushView(pickerView, new HeroSetManualPickerDelegate(pickerView), WatchUi.SLIDE_UP);
         return true;
     }
 
@@ -25,7 +30,6 @@ class HeroSetWorkoutDelegate extends WatchUi.BehaviorDelegate {
     // "Save N reps?" confirmation instead of leaving.
     function onBack() as Boolean {
         if (_view.getCount() > 0) {
-            _view.beginChildOverlay();
             WatchUi.pushView(
                 new WatchUi.Confirmation(saveLabel()),
                 new HeroSetWorkoutConfirmDelegate(_view),

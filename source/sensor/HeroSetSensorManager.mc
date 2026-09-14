@@ -1,5 +1,6 @@
 import Toybox.Lang;
 import Toybox.Sensor;
+import Toybox.System;
 
 class HeroSetSensorManager {
     private var _enabled = false;
@@ -7,7 +8,7 @@ class HeroSetSensorManager {
     function initialize() {
     }
 
-    function start(callback as Lang.Method, sampleRate as Lang.Number) as Lang.Boolean {
+    function start(callback, sampleRate as Lang.Number) as Lang.Boolean {
         if (_enabled || !(Sensor has :registerSensorDataListener)) {
             return _enabled;
         }
@@ -22,6 +23,7 @@ class HeroSetSensorManager {
             _enabled = true;
         } catch (e) {
             _enabled = false;
+            System.println("[HeroSet] SensorManager.start: caught " + e.getErrorMessage());
         }
         return _enabled;
     }

@@ -6,8 +6,7 @@ XP, streaks, and rank persist.
 
 Implemented: automatic rep counting (sensors, calibration-fitted thresholds),
 manual correction, per-exercise calibration, XP/rank/streak progression, and
-— for auto-counted sets — a real Garmin activity recording (no GPS) so
-calories/HR/training effect are computed by Garmin's own engine.
+live HR/calorie readouts during a set (no Garmin Connect activity, no sync).
 
 ## Project configuration
 

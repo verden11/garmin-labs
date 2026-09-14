@@ -211,6 +211,33 @@ function calibrationProfileRoundTrips(logger as Test.Logger) as Lang.Boolean {
     return true;
 }
 
+// Storage.setValue forbids Symbol as a Dictionary key or value at runtime
+// (throws UnexpectedTypeException — confirmed crashing on a physical FR965,
+// see ADR-022) but the in-memory test seam doesn't enforce that, so a
+// regression here would pass every other test and only crash on a real
+// device. Assert the persisted dictionary is String-keyed directly.
+(:test)
+function calibrationDictionaryUsesStringKeysNotSymbols(logger as Test.Logger) as Lang.Boolean {
+    var storage = new HeroSetTestStorage();
+    var clock = new HeroSetTestClock();
+    clock.day = 20260911;
+    var store = new HeroSetStore(storage, clock);
+    store.setCalibrationProfile(:pushups, 140, 90, 25, 600);
+    var calibration = storage.value("hero_calibration");
+    Test.assert(calibration instanceof Dictionary);
+    var calibrationDict = calibration as Dictionary;
+    Test.assert(calibrationDict["pushups"] instanceof Dictionary);
+    // Symbol-key dictionary reads throw UnexpectedTypeException on this SDK
+    // (same native restriction as the original device crash), so assert the
+    // persisted dictionary is String-keyed via keys() instead of probing a
+    // Symbol key.
+    var keys = calibrationDict.keys();
+    for (var i = 0; i < keys.size(); i++) {
+        Test.assert(keys[i] instanceof Lang.String);
+    }
+    return true;
+}
+
 (:test)
 function uncalibratedProfileUsesDefaults(logger as Test.Logger) as Lang.Boolean {
     var store = storeWith(20260911);

@@ -32,10 +32,12 @@ class HeroSetMenuDelegate extends WatchUi.MenuInputDelegate {
         WatchUi.pushView(workoutView, new HeroSetWorkoutDelegate(workoutView), WatchUi.SLIDE_UP);
     }
 
-    // Manual entry opens a continuous up/down delta picker on top of the main
-    // menu; saving applies the delta and pops both itself and the menu.
+    // Manual entry opens a continuous up/down delta picker starting at 0,
+    // directly on the dashboard (menu popped first, same as pushWorkout) so
+    // saving is a single deterministic pop back to the dashboard.
     private function pushManualPicker(exercise as Lang.Symbol) as Void {
-        var pickerView = new HeroSetManualPickerView(exercise);
+        var pickerView = new HeroSetManualPickerView(exercise, 0);
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
         WatchUi.pushView(pickerView, new HeroSetManualPickerDelegate(pickerView), WatchUi.SLIDE_UP);
     }
 }

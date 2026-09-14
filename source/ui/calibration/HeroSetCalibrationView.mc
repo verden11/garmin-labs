@@ -1,3 +1,4 @@
+import Toybox.Attention;
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Sensor;
@@ -77,21 +78,22 @@ class HeroSetCalibrationView extends WatchUi.View {
     }
 
     private function enableSensors() as Void {
-        _sensorManager.start(self.onSensorData, HeroSetConfig.SENSOR_SAMPLE_RATE);
+        _sensorManager.start(method(:onSensorData), HeroSetConfig.SENSOR_SAMPLE_RATE);
     }
 
     private function disableSensors() as Void {
         _sensorManager.stop();
     }
 
-    private function onSensorData(data as Sensor.SensorData) as Void {
+    // Public, `method(:onSensorData)` binding (ADR-023) — see HeroSetWorkoutView.
+    public function onSensorData(data as Sensor.SensorData) as Void {
         if (!_recording || data == null || data.accelerometerData == null) {
             return;
         }
-        var x = data.accelerometerData.x as Lang.Array;
-        var y = data.accelerometerData.y as Lang.Array;
-        var z = data.accelerometerData.z as Lang.Array;
-        if (x == null || y == null || z == null) {
+        var x = data.accelerometerData.x;
+        var y = data.accelerometerData.y;
+        var z = data.accelerometerData.z;
+        if (!(x instanceof Array) || !(y instanceof Array) || !(z instanceof Array)) {
             return;
         }
         for (var i = 0; i < x.size(); i++) {
@@ -99,12 +101,20 @@ class HeroSetCalibrationView extends WatchUi.View {
                 _cycles += 1;
                 _peakSum += _counter.getLastCyclePeak();
                 _valleySum += _counter.getLastCycleValley();
+                vibrateForRep();
                 WatchUi.requestUpdate();
                 if (_cycles >= HeroSetConfig.CALIBRATION_REQUIRED_CYCLES) {
                     finishCalibration();
                     break;
                 }
             }
+        }
+    }
+
+    // Tactile confirmation per cycle — same rationale as HeroSetWorkoutView.
+    private function vibrateForRep() as Void {
+        if (Attention has :vibrate) {
+            Attention.vibrate([new Attention.VibeProfile(HeroSetConfig.REP_VIBE_DUTY_CYCLE, HeroSetConfig.REP_VIBE_DURATION_MS)]);
         }
     }
 

@@ -140,6 +140,10 @@ class HeroSetStore {
         );
     }
 
+    function isDailyMissionComplete() as Lang.Boolean {
+        return HeroSetRules.missionComplete(getCount(:pushups), getCount(:situps), getCount(:squats));
+    }
+
     private function updateCompletion() as Void {
         if (getCount(:pushups) < HeroSetConfig.MISSION_GOAL || getCount(:situps) < HeroSetConfig.MISSION_GOAL || getCount(:squats) < HeroSetConfig.MISSION_GOAL) {
             return;
@@ -190,7 +194,7 @@ class HeroSetStore {
         profile["release"] = releaseThreshold;
         profile["rate"] = rate;
         profile["cooldown"] = cooldownMs;
-        calibration[exercise] = profile;
+        calibration[exerciseKeyString(exercise)] = profile;
         _storage.setValue(CALIBRATION_KEY, calibration);
     }
 
@@ -231,9 +235,9 @@ class HeroSetStore {
         _storage.setValue(PROFILE_KEY, profile);
 
         var calibration = {};
-        calibration[:pushups] = calibrationDictionary(:pushups);
-        calibration[:situps] = calibrationDictionary(:situps);
-        calibration[:squats] = calibrationDictionary(:squats);
+        calibration[exerciseKeyString(:pushups)] = calibrationDictionary(:pushups);
+        calibration[exerciseKeyString(:situps)] = calibrationDictionary(:situps);
+        calibration[exerciseKeyString(:squats)] = calibrationDictionary(:squats);
         _storage.setValue(CALIBRATION_KEY, calibration);
     }
 
@@ -337,7 +341,7 @@ class HeroSetStore {
     private function calibrationValue(exercise as Lang.Symbol, field as Lang.String) as Lang.Object? {
         var calibration = _storage.getValue(CALIBRATION_KEY);
         if (calibration instanceof Dictionary) {
-            var profile = calibration[exercise];
+            var profile = calibration[exerciseKeyString(exercise)];
             if (profile instanceof Dictionary && profile[field] != null) {
                 return profile[field];
             }
@@ -356,6 +360,23 @@ class HeroSetStore {
             return calibrationRateKey(exercise);
         }
         return calibrationCooldownKey(exercise);
+    }
+
+    // Storage.setValue forbids Symbol as a Dictionary key or value ("Symbols
+    // can change from build to build") and throws UnexpectedTypeException —
+    // confirmed crashing on a physical FR965. The CALIBRATION_KEY dictionary
+    // must be keyed by this String, never the exercise Symbol directly.
+    private function exerciseKeyString(exercise as Lang.Symbol) as Lang.String {
+        if (exercise == :pushups) {
+            return "pushups";
+        }
+        if (exercise == :situps) {
+            return "situps";
+        }
+        if (exercise == :squats) {
+            return "squats";
+        }
+        throw new Toybox.Lang.UnexpectedTypeException("Unknown exercise", null, null);
     }
 
     // Exhaustive key mapping. Unknown exercises must fail loudly instead of

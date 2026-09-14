@@ -11,9 +11,4 @@
     <string id="menu_label_calibrate_pushups">Calibrate Push-ups</string>
     <string id="menu_label_calibrate_situps">Calibrate Sit-ups</string>
     <string id="menu_label_calibrate_squats">Calibrate Squats</string>
-
-    <string id="workout_label_plus_one">Adjust +1</string>
-    <string id="workout_label_plus_five">Adjust +5</string>
-    <string id="workout_label_minus_one">Adjust -1</string>
-    <string id="workout_label_finish">Finish Set</string>
 </strings>

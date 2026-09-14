@@ -29,7 +29,7 @@ class HeroSetView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_BLACK);
         dc.drawText(layout.centerX(), top, Graphics.FONT_XTINY, "HEROSET", Graphics.TEXT_JUSTIFY_CENTER);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.drawText(layout.centerX(), top + step, Graphics.FONT_XTINY, "R" + state.rank + "  STREAK " + state.streak, Graphics.TEXT_JUSTIFY_CENTER);
+        drawRankStreak(dc, layout, top + step, state);
 
         drawMission(dc, layout, top + step * 2, "PUSH-UPS", state.pushups);
         drawMission(dc, layout, top + step * 3, "SIT-UPS", state.situps);
@@ -49,6 +49,23 @@ class HeroSetView extends WatchUi.View {
 
     function onHide() as Void {
         _dayTracker.stop();
+    }
+
+    // Rank/streak both grow unboundedly over the app's lifetime (XP never
+    // resets or caps — see HeroSetStore), so unlike the fixed-width labels
+    // elsewhere on this screen, this row's real width can't be assumed from
+    // a short constant string. This row sits well above vertical center
+    // (unlike the footer, where fitCenteredY's walk-toward-center applies),
+    // so instead of that helper we measure the real rendered width against
+    // the real chord at this row (leftInset/rightInset, same source of
+    // truth) and fall back to a tighter separator if a multi-year rank
+    // ever gets close to the edge.
+    private function drawRankStreak(dc as Dc, layout as HeroSetLayout, y as Lang.Number, state as HeroSetDashboardState) as Void {
+        var height = dc.getFontHeight(Graphics.FONT_XTINY);
+        var available = layout.rightInset(y, height) - layout.leftInset(y, height);
+        var wide = "R" + state.rank + "  STREAK " + state.streak;
+        var text = dc.getTextWidthInPixels(wide, Graphics.FONT_XTINY) <= available ? wide : "R" + state.rank + " STREAK " + state.streak;
+        dc.drawText(layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     private function drawMission(dc as Dc, layout as HeroSetLayout, y as Lang.Number, label as Lang.String, count as Lang.Number) as Void {

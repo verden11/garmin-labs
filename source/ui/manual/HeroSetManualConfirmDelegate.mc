@@ -16,8 +16,11 @@ class HeroSetManualConfirmDelegate extends WatchUi.ConfirmationDelegate {
     function onResponse(response as WatchUi.Confirm) as Boolean {
         if (response == WatchUi.CONFIRM_YES) {
             _view.saveEntry();
-            // Pop the confirmation, then the picker below it (the
-            // confirmation is only ever pushed over the picker).
+            // Pop the confirmation, then the picker below it. The picker
+            // always sits directly on the dashboard (its caller pops its
+            // own predecessor before pushing it — see
+            // HeroSetManualPickerDelegate.onSelect), so these two pops land
+            // on the dashboard regardless of which screen opened the picker.
             WatchUi.popView(WatchUi.SLIDE_DOWN);
             WatchUi.popView(WatchUi.SLIDE_DOWN);
         } else {

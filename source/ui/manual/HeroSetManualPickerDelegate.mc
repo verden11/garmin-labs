@@ -62,9 +62,10 @@ class HeroSetManualPickerDelegate extends WatchUi.BehaviorDelegate {
     function onSelect() as Lang.Boolean {
         _holdTimer.stop();
         _view.saveEntry();
-        // Picker is only ever pushed from the main menu, so two pops are
-        // deterministic: the picker, then the main menu that hosted it.
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
+        // Every caller pops its own predecessor view before pushing the
+        // picker (HeroSetMenuDelegate, HeroSetWorkoutDelegate), so the
+        // picker always sits directly on the dashboard — one pop is
+        // deterministic regardless of which screen opened it.
         WatchUi.popView(WatchUi.SLIDE_DOWN);
         WatchUi.requestUpdate();
         return true;
