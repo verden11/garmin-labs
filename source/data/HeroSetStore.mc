@@ -19,6 +19,11 @@ class HeroSetStore {
     const XP_KEY = "hero_xp";
     const STREAK_KEY = "hero_streak";
     const LAST_COMPLETION_KEY = "hero_last_completion";
+    const SYNC_ENABLED_KEY = "hero_sync_enabled";
+    const SYNC_DAY_KEY = "hero_sync_day";
+    // Real day keys are yyyymmdd, so 0 can never collide with one.
+    const NO_SYNC_DAY = 0;
+    const VALIDATION_LOG_KEY = "hero_validation_log";
 
     // Per-goal "credit ratchet": the highest min(count, goal) seen today.
     // XP only ever pays the positive difference against the ratchet, so
@@ -26,19 +31,6 @@ class HeroSetStore {
     const PUSHUPS_CREDIT_KEY = "hero_credit_pushups";
     const SITUPS_CREDIT_KEY = "hero_credit_situps";
     const SQUATS_CREDIT_KEY = "hero_credit_squats";
-
-    const CAL_PUSHUPS_ARM_KEY = "hero_cal_pushups_arm";
-    const CAL_PUSHUPS_RELEASE_KEY = "hero_cal_pushups_release";
-    const CAL_PUSHUPS_RATE_KEY = "hero_cal_pushups_rate";
-    const CAL_PUSHUPS_COOLDOWN_KEY = "hero_cal_pushups_cooldown_ms";
-    const CAL_SITUPS_ARM_KEY = "hero_cal_situps_arm";
-    const CAL_SITUPS_RELEASE_KEY = "hero_cal_situps_release";
-    const CAL_SITUPS_RATE_KEY = "hero_cal_situps_rate";
-    const CAL_SITUPS_COOLDOWN_KEY = "hero_cal_situps_cooldown_ms";
-    const CAL_SQUATS_ARM_KEY = "hero_cal_squats_arm";
-    const CAL_SQUATS_RELEASE_KEY = "hero_cal_squats_release";
-    const CAL_SQUATS_RATE_KEY = "hero_cal_squats_rate";
-    const CAL_SQUATS_COOLDOWN_KEY = "hero_cal_squats_cooldown_ms";
 
     private var _storage;
     private var _clock;
@@ -124,8 +116,11 @@ class HeroSetStore {
         return HeroSetRules.rankForXp(getXp());
     }
 
+    // What the user can still extend: 0 once a day was missed, even though
+    // the stored run is only overwritten at the next completion.
     function getStreak() as Lang.Number {
-        return readNumber(STREAK_KEY);
+        var lastDay = asNumberOrNull(_storage.getValue(LAST_COMPLETION_KEY));
+        return HeroSetRules.activeStreak(lastDay, _clock.todayKey(), readNumber(STREAK_KEY));
     }
 
     function getDashboardState() as HeroSetDashboardState {
@@ -134,6 +129,7 @@ class HeroSetStore {
             getCount(:pushups),
             getCount(:situps),
             getCount(:squats),
+            getXp(),
             getRank(),
             getStreak(),
             hasWriteFailure()
@@ -142,6 +138,38 @@ class HeroSetStore {
 
     function isDailyMissionComplete() as Lang.Boolean {
         return HeroSetRules.missionComplete(getCount(:pushups), getCount(:situps), getCount(:squats));
+    }
+
+    // ------------------------------------------------------------------
+    // Garmin Connect/Strava sync (opt-in — ADR-025)
+    // ------------------------------------------------------------------
+
+    function isSyncEnabled() as Lang.Boolean {
+        return _storage.getValue(SYNC_ENABLED_KEY) == true;
+    }
+
+    function setSyncEnabled(enabled as Lang.Boolean) as Void {
+        _set(SYNC_ENABLED_KEY, enabled);
+    }
+
+    // Which calendar day (HeroSetCalendar.todayKey) the currently-open
+    // HeroSetActivitySync session belongs to, or null if none is open.
+    // HeroSetSyncCoordinator compares this to today to decide whether a
+    // stale prior day's session needs closing out first.
+    function getSyncSessionDay() as Lang.Number? {
+        var day = asNumberOrNull(_storage.getValue(SYNC_DAY_KEY));
+        return day == NO_SYNC_DAY ? null : day;
+    }
+
+    function setSyncSessionDay(day as Lang.Number) as Void {
+        _set(SYNC_DAY_KEY, day);
+    }
+
+    // After sync is turned off and the session saved. Left set, a later
+    // day's beginSet would see a stale day and save a fresh, empty session.
+    // Written as a sentinel because the storage seam has no delete.
+    function clearSyncSessionDay() as Void {
+        _set(SYNC_DAY_KEY, NO_SYNC_DAY);
     }
 
     private function updateCompletion() as Void {
@@ -155,9 +183,52 @@ class HeroSetStore {
             return;
         }
 
-        var streak = HeroSetRules.nextStreak(lastDay, today, getStreak());
+        var streak = HeroSetRules.nextStreak(lastDay, today, readNumber(STREAK_KEY));
         _set(STREAK_KEY, streak);
         _set(LAST_COMPLETION_KEY, today);
+    }
+
+    // ------------------------------------------------------------------
+    // Validation log (dev diagnostics — ADR-026)
+    // ------------------------------------------------------------------
+
+    // Appends one detected-vs-corrected trial from a real workout set.
+    // `detected` is the auto-counter's raw count at Finish; `savedCount` is
+    // what actually got saved after any manual correction. Never called for
+    // standalone manual entry (no detector count to compare against).
+    function logValidationTrial(exercise as Lang.Symbol, detected as Lang.Number, savedCount as Lang.Number) as Void {
+        logDiagnostic(validationLogLine(exercise, detected, savedCount));
+    }
+
+    // Any preformatted dev-diagnostic line (e.g. sync lines, ADR-030) shares
+    // the same capped log, so one on-watch viewer shows everything in order.
+    function logDiagnostic(line as Lang.String) as Void {
+        var log = validationLogArray();
+        log.add(line);
+        while (log.size() > HeroSetConfig.VALIDATION_LOG_MAX_ENTRIES) {
+            log.remove(log[0]);
+        }
+        _set(VALIDATION_LOG_KEY, log);
+    }
+
+    function getValidationLog() as Lang.Array<Lang.String> {
+        return validationLogArray();
+    }
+
+    private function validationLogArray() as Lang.Array<Lang.String> {
+        var stored = _storage.getValue(VALIDATION_LOG_KEY);
+        return stored instanceof Array ? stored : [];
+    }
+
+    // Compact "mmdd LABEL det->fin err" line, sized for the on-device log
+    // viewer (HeroSetValidationLogView) at FONT_XTINY rather than a full
+    // timestamp — this is a dev diagnostic, not user-facing copy.
+    private function validationLogLine(exercise as Lang.Symbol, detected as Lang.Number, savedCount as Lang.Number) as Lang.String {
+        var label = exercise == :pushups ? "PU" : (exercise == :situps ? "SU" : "SQ");
+        var error = savedCount - detected;
+        var errorText = error > 0 ? ("+" + error) : error.toString();
+        var monthDay = _clock.todayKey() % 10000;
+        return monthDay + " " + label + " " + detected + "->" + savedCount + " " + errorText;
     }
 
     // ------------------------------------------------------------------
@@ -181,10 +252,10 @@ class HeroSetStore {
     }
 
     function setCalibrationProfile(exercise as Lang.Symbol, armThreshold as Lang.Number, releaseThreshold as Lang.Number, rate as Lang.Number, cooldownMs as Lang.Number) as Void {
-        _set(calibrationArmKey(exercise), armThreshold);
-        _set(calibrationReleaseKey(exercise), releaseThreshold);
-        _set(calibrationRateKey(exercise), rate);
-        _set(calibrationCooldownKey(exercise), cooldownMs);
+        _set(legacyCalibrationKey(exercise, "arm"), armThreshold);
+        _set(legacyCalibrationKey(exercise, "release"), releaseThreshold);
+        _set(legacyCalibrationKey(exercise, "rate"), rate);
+        _set(legacyCalibrationKey(exercise, "cooldown"), cooldownMs);
         var calibration = _storage.getValue(CALIBRATION_KEY);
         if (!(calibration instanceof Dictionary)) {
             calibration = {};
@@ -327,15 +398,11 @@ class HeroSetStore {
 
     private function calibrationDictionary(exercise as Lang.Symbol) as Dictionary {
         var dictionary = {};
-        dictionary["arm"] = calibrationFlatValue(calibrationArmKey(exercise));
-        dictionary["release"] = calibrationFlatValue(calibrationReleaseKey(exercise));
-        dictionary["rate"] = calibrationFlatValue(calibrationRateKey(exercise));
-        dictionary["cooldown"] = calibrationFlatValue(calibrationCooldownKey(exercise));
+        var fields = ["arm", "release", "rate", "cooldown"] as Lang.Array<Lang.String>;
+        for (var i = 0; i < fields.size(); i++) {
+            dictionary[fields[i]] = _storage.getValue(legacyCalibrationKey(exercise, fields[i]));
+        }
         return dictionary;
-    }
-
-    private function calibrationFlatValue(key as Lang.String) as Lang.Object? {
-        return _storage.getValue(key);
     }
 
     private function calibrationValue(exercise as Lang.Symbol, field as Lang.String) as Lang.Object? {
@@ -346,20 +413,15 @@ class HeroSetStore {
                 return profile[field];
             }
         }
-        return _storage.getValue(calibrationKeyForField(exercise, field));
+        return _storage.getValue(legacyCalibrationKey(exercise, field));
     }
 
-    private function calibrationKeyForField(exercise as Lang.Symbol, field as Lang.String) as Lang.String {
-        if (field == "arm") {
-            return calibrationArmKey(exercise);
-        }
-        if (field == "release") {
-            return calibrationReleaseKey(exercise);
-        }
-        if (field == "rate") {
-            return calibrationRateKey(exercise);
-        }
-        return calibrationCooldownKey(exercise);
+    // Pre-grouping flat keys ("hero_cal_squats_arm", "hero_cal_squats_cooldown_ms"):
+    // still read as a fallback and still written on every save, so this
+    // spelling must never change or older installs lose their profiles.
+    private function legacyCalibrationKey(exercise as Lang.Symbol, field as Lang.String) as Lang.String {
+        var suffix = field.equals("cooldown") ? "cooldown_ms" : field;
+        return "hero_cal_" + exerciseKeyString(exercise) + "_" + suffix;
     }
 
     // Storage.setValue forbids Symbol as a Dictionary key or value ("Symbols
@@ -406,67 +468,5 @@ class HeroSetStore {
         }
         throw new Toybox.Lang.UnexpectedTypeException("Unknown exercise", null, null);
     }
-
-    private function calibrationArmKey(exercise as Lang.Symbol) as Lang.String {
-        if (exercise == :pushups) {
-            return CAL_PUSHUPS_ARM_KEY;
-        }
-        if (exercise == :situps) {
-            return CAL_SITUPS_ARM_KEY;
-        }
-        if (exercise == :squats) {
-            return CAL_SQUATS_ARM_KEY;
-        }
-        throw new Toybox.Lang.UnexpectedTypeException("Unknown exercise", null, null);
-    }
-
-    private function calibrationReleaseKey(exercise as Lang.Symbol) as Lang.String {
-        if (exercise == :pushups) {
-            return CAL_PUSHUPS_RELEASE_KEY;
-        }
-        if (exercise == :situps) {
-            return CAL_SITUPS_RELEASE_KEY;
-        }
-        if (exercise == :squats) {
-            return CAL_SQUATS_RELEASE_KEY;
-        }
-        throw new Toybox.Lang.UnexpectedTypeException("Unknown exercise", null, null);
-    }
-
-    private function calibrationRateKey(exercise as Lang.Symbol) as Lang.String {
-        if (exercise == :pushups) {
-            return CAL_PUSHUPS_RATE_KEY;
-        }
-        if (exercise == :situps) {
-            return CAL_SITUPS_RATE_KEY;
-        }
-        if (exercise == :squats) {
-            return CAL_SQUATS_RATE_KEY;
-        }
-        throw new Toybox.Lang.UnexpectedTypeException("Unknown exercise", null, null);
-    }
-
-    private function calibrationCooldownKey(exercise as Lang.Symbol) as Lang.String {
-        if (exercise == :pushups) {
-            return CAL_PUSHUPS_COOLDOWN_KEY;
-        }
-        if (exercise == :situps) {
-            return CAL_SITUPS_COOLDOWN_KEY;
-        }
-        if (exercise == :squats) {
-            return CAL_SQUATS_COOLDOWN_KEY;
-        }
-        throw new Toybox.Lang.UnexpectedTypeException("Unknown exercise", null, null);
-    }
 }
 
-// Clock seam so store tests can advance days deterministically. The real
-// clock reads the local calendar day.
-class HeroSetClock {
-    function initialize() {
-    }
-
-    function todayKey() as Lang.Number {
-        return HeroSetCalendar.todayKey();
-    }
-}

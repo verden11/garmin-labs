@@ -1,70 +1,67 @@
 # HeroSet — CLAUDE.md
 
-Gamified bodyweight workout app for Garmin Forerunner 965 (Connect IQ, Monkey C).
-Daily mission: 100 push-ups/sit-ups/squats. Auto rep counting via accelerometer
-+ per-exercise calibration; XP/rank/streak persist, daily counts reset on local
-calendar day. No GPS/distance tracking (removed permanently).
+Garmin Forerunner 965 watch app (Connect IQ, Monkey C): daily 100 push-ups,
+sit-ups, squats with automatic rep counting (beta), manual correction, and
+persistent XP/rank/streak. No GPS/distance tracking. Goal: paid Connect IQ Store
+launch.
 
-**Read `docs/` before working — it is the source of truth, not this file.**
-This file is only a fast-orientation index + house rules. Full detail:
+**`docs/` is the source of truth; this file is only orientation + house
+rules.** When resuming, read in this order:
 
-- [`docs/architecture.md`](docs/architecture.md) — file structure, layering,
-  module responsibilities, data flow, code style, ADRs
-- [`docs/development.md`](docs/development.md) — build/test commands, signing key
-- [`docs/input-and-ux.md`](docs/input-and-ux.md) — button-first nav contract
-- [`docs/testing-plan.md`](docs/testing-plan.md) — test pyramid
-- [`docs/release-contract.md`](docs/release-contract.md) — what current build
-  can honestly claim (check before any marketing/UI copy)
-- [`docs/compatibility.md`](docs/compatibility.md) — device support policy
-- [`docs/store-release.md`](docs/store-release.md) · [`docs/go-to-market.md`](docs/go-to-market.md) — monetization/launch
-- [`docs/calories-connect.md`](docs/calories-connect.md) — calorie/FIT plan (partially implemented)
+1. `docs/go-to-market.md` → **Status checkpoint**: what's open and blocked,
+   including questions to ask the user before touching Connect Sync.
+2. `docs/architecture.md`: structure, layers, navigation, known debt.
+3. `docs/decisions.md`: ADRs (why). Read the five flagged at the top.
+4. As needed: `docs/input-and-ux.md` (screens/buttons), `docs/development.md`
+   (commands, device debugging), `docs/testing-plan.md`,
+   `docs/release-contract.md` (check before any user-facing claim).
 
 ## Fast facts
 
-- Target: `fr965` only · Min API 4.2.0 · Language: Monkey C · one class per file.
-- Builds: `monkey.jungle` (dev, calibration menu visible) vs `store.jungle`
-  (release, `resources-store/` overlay, calibration hidden — ADR-008).
-- Build: `monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y <developer_key>`
-- Tests (60): `monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y <developer_key>`
-  then `monkeydo bin/HeroSet-tests.prg fr965 -t` — read the printed summary,
-  shell exit code can be nonzero even on all-pass.
-- Layers (strict import direction): Domain (`Lang` only, Calendar may use
-  `Time.Gregorian`) → Data (+ Storage) / Sensor (+ `Toybox.Sensor`) →
-  Presentation (anything, but never raw `Storage.*`).
-- `HeroSetStore` is the *only* persistence caller. Schema-versioned (`SCHEMA_VERSION`,
-  currently v3); XP awarded only on net positive stored delta (no farming — ADR-002).
-- `developer_key` / `*.der` / `*.pem` are gitignored — never commit signing keys.
-- `bin/`, `gen/`, `*.prg`, `*.mir`, `*.debug.xml` are build output, gitignored.
+- Target `fr965` only · min API 4.2.0 · one class per file, `HeroSet` prefix.
+- Builds: `monkey.jungle` = dev (calibration + validation log visible);
+  `store.jungle` = release (`resources-store/` overlay hides both, ADR-008).
+- CLI tools live in the SDK `bin/` folder and may not be on `PATH`
+  (`~/Library/Application Support/Garmin/ConnectIQ/Sdks/<sdk>/bin/`). The
+  signing key is `developer_key` in the repo root: gitignored, never commit it.
+- Build: `monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y developer_key`
+- Tests (74): `monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y developer_key`,
+  then `monkeydo bin/HeroSet-tests.prg fr965 -t`. Trust the printed
+  `PASSED (…)` line, not the exit code. A hung run means restart the simulator.
+- Layers point down only: Presentation (`app/`, `ui/`, `layout/`) → Sensor /
+  Data → Domain. Only `data/` touches Storage.
+- XP only for net stored progress (ADR-002). Rank is derived, never stored
+  (ADR-031). Persisted key spellings never change (ADR-003).
+- Navigation: Workout/Picker always sit at depth 1 on the dashboard; fixed pop
+  counts depend on it, and over-popping exits the app (ADR-024).
+- Device-only failure modes exist (ADR-022/023). A passing simulator is not
+  proof; say so when reporting.
 
-## House rules (from architecture.md §6, don't re-derive — just follow)
+## House rules
 
 - Every function: typed params + `as` return type. No `as Any`. Cast only after
   `instanceof`/null guard.
-- No magic numbers — tunables go in `HeroSetConfig`.
+- No magic numbers: tunables in `HeroSetConfig`, geometry in `HeroSetLayout`,
+  colors in `HeroSetPalette`, text in `strings.xml`.
+- Text fit is measured, never guessed (ADR-018).
 - Render only in `onUpdate`; logic in delegates/stores/domain.
-- Functions ≲30 lines, files ≲250 lines (split by responsibility if exceeded).
-- Catch only what can throw (e.g. `StorageFullException`); degrade + flag, never
-  swallow silently.
+- Functions ≲30 lines, files ≲250 lines (current exceptions: architecture §9).
+- Catch only what can throw; degrade + flag, never swallow silently.
 - Comments explain *why*, never *what*.
+- No long-press gestures; hints name bezel buttons (`START`, `UP/DOWN`) (ADR-029).
+- The git index is often mixed staged/unstaged: don't stage, commit, stash or
+  reset unless asked.
 
-## Maintaining this file
+## Keeping docs in sync
 
-This file (and `docs/`) is living context, not a one-time snapshot — keep it in
-sync as the project moves, so future sessions never have to re-explore from
-scratch:
-
-- When you land a change that shifts architecture, adds/removes a module,
-  changes a build/test command, or resolves a doc's open question — update the
-  relevant `docs/*.md` (and this file, if it's a "fast fact") in the same
-  session, not later.
-- New durable decisions get an ADR row in `architecture.md` §7, not a comment
-  buried in code.
-- Status-dated docs (`release-contract.md`, `go-to-market.md`,
-  `calories-connect.md`) carry a `Status date:` line — bump it when you touch
-  their content.
-- Periodically re-read this file and `docs/` for drift (stale file sizes,
-  renamed classes, finished TODOs) and recompress: cut anything now obvious
-  from the code itself, keep only what saves a future session real exploration
-  time.
-- Prefer editing existing docs over adding new ones; if a new doc is genuinely
-  needed, link it from both `README.md` and `docs/README.md`.
+- Behavior change → update the doc that describes it, in the same session.
+- Durable decision → new ADR at the end of `docs/decisions.md` (mark older ones
+  Superseded/Amended; don't delete).
+- Open items and blockers live only in the go-to-market status checkpoint.
+  History lives in git and ADRs, not in status sections.
+- Status-dated docs (`go-to-market.md`, `release-contract.md`,
+  `calories-connect.md`): bump the date when editing.
+- The test count appears in this file, `README.md`, `docs/development.md` and
+  `docs/release-contract.md`; update all four.
+- Prefer editing existing docs; a genuinely new doc gets linked from
+  `docs/README.md`.

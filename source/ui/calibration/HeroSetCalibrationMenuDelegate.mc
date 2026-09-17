@@ -1,15 +1,23 @@
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-class HeroSetCalibrationMenuDelegate extends WatchUi.MenuInputDelegate {
+// Menu2 never pops itself on select or Back, so both are explicit. The
+// exercise menu is popped before the calibration view is pushed, leaving the
+// view directly above the main menu — Back from calibration returns there.
+class HeroSetCalibrationMenuDelegate extends WatchUi.Menu2InputDelegate {
     function initialize() {
-        MenuInputDelegate.initialize();
+        Menu2InputDelegate.initialize();
     }
 
-    function onMenuItem(item as Lang.Symbol) as Void {
-        var exercise = item == :calibrate_pushups ? :pushups : (item == :calibrate_situps ? :situps : :squats);
+    function onSelect(item as WatchUi.MenuItem) as Void {
+        var id = item.getId();
+        var exercise = id == :calibrate_pushups ? :pushups : (id == :calibrate_situps ? :situps : :squats);
         var view = new HeroSetCalibrationView(exercise);
         WatchUi.popView(WatchUi.SLIDE_DOWN);
         WatchUi.pushView(view, new HeroSetCalibrationDelegate(view), WatchUi.SLIDE_UP);
+    }
+
+    function onBack() as Void {
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
     }
 }

@@ -1,10 +1,13 @@
 # Calories & Garmin Connect
 
-Status: 2026-09-14. HeroSet creates no FIT activity and touches no Garmin
-Connect/Strava sync (ADR-021 in `architecture.md`) — one recorded activity per
-set cluttered the timeline. HeroSet must not claim to replace Garmin's native
-calorie total, or any effect on Training Status/Readiness/Acute Load (those
-need a saved activity, which HeroSet never creates).
+Status: 2026-09-17. By default HeroSet creates no FIT activity and touches no
+Garmin Connect/Strava sync (ADR-021 in `decisions.md`) — one recorded
+activity per set cluttered the timeline. Garmin Connect/Strava sync is
+available as an opt-in setting, off by default (ADR-025): when enabled, one
+combined FIT activity per calendar day is created, spanning every set logged
+that day. HeroSet must not claim to replace Garmin's native calorie total, or
+any effect on Training Status/Readiness/Acute Load without sync enabled
+(those need a saved activity — with sync off, HeroSet never creates one).
 
 ## Decision
 
@@ -16,7 +19,7 @@ FIT/`ActivityRecording`, no extra permission beyond `Sensor`):
    cumulative total) sampled at workout start, delta against the current value
    = this set's attributable estimate.
 
-Both implemented in `HeroSetWorkoutView`. Manual entry gets neither — no real
+Both implemented in `HeroSetWorkoutMetrics` (shown by `HeroSetWorkoutView`). Manual entry gets neither — no real
 elapsed-time/HR signal to attach an estimate to.
 
 ## Metric contract
@@ -32,7 +35,12 @@ whole-day figure.
 
 ## Non-goals / risks
 
-No FIT file, no developer fields, no Garmin Connect/Strava activity, ever. No
-accuracy claims without a study — day-delta calories are a rough estimate,
-especially across a midnight rollover or with other recorded activity in the
-same window.
+No FIT file, no developer fields, no Garmin Connect/Strava activity by
+default — only if the user explicitly turns on sync (ADR-025), and it's one
+combined per-day activity, never one per set. No accuracy claims without a
+study — day-delta calories are a rough estimate, especially across a
+midnight rollover or with other recorded activity in the same window. With
+sync enabled, the synced activity has no GPS/distance data and no rep counts
+(no FIT developer fields yet) — it carries duration and HR into
+Connect/Strava, not a GPS-tracked workout. Whether it really is one activity
+per day is unverified on the watch (ADR-030).

@@ -2,10 +2,11 @@ import Toybox.Lang;
 import Toybox.Timer;
 import Toybox.WatchUi;
 
+// Redraws the dashboard when the local calendar day changes while it stays
+// open, so counts visibly reset at midnight without a relaunch.
 class HeroSetDayTracker {
     private var _timer;
     private var _dayKey;
-    private var _dirty = false;
 
     function initialize() {
         _dayKey = HeroSetCalendar.todayKey();
@@ -16,7 +17,7 @@ class HeroSetDayTracker {
             return;
         }
         _timer = new Timer.Timer();
-        _timer.start(method(:onTimer), 60000, true);
+        _timer.start(method(:onTimer), HeroSetConfig.DAY_CHECK_INTERVAL_MS, true);
     }
 
     function stop() as Void {
@@ -26,17 +27,10 @@ class HeroSetDayTracker {
         }
     }
 
-    function consumeDirty() as Lang.Boolean {
-        var dirty = _dirty;
-        _dirty = false;
-        return dirty;
-    }
-
     function onTimer() as Void {
         var today = HeroSetCalendar.todayKey();
         if (today != _dayKey) {
             _dayKey = today;
-            _dirty = true;
             WatchUi.requestUpdate();
         }
     }

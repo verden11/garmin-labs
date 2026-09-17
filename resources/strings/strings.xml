@@ -4,11 +4,71 @@
     <string id="menu_label_start_pushups">Start Push-ups</string>
     <string id="menu_label_start_situps">Start Sit-ups</string>
     <string id="menu_label_start_squats">Start Squats</string>
-    <string id="menu_label_manual_pushups">Manual Push-ups</string>
-    <string id="menu_label_manual_situps">Manual Sit-ups</string>
-    <string id="menu_label_manual_squats">Manual Squats</string>
+    <string id="menu_label_manual_pushups">Log Push-ups</string>
+    <string id="menu_label_manual_situps">Log Sit-ups</string>
+    <string id="menu_label_manual_squats">Log Squats</string>
     <string id="menu_label_calibration">Calibrate Exercise</string>
     <string id="menu_label_calibrate_pushups">Calibrate Push-ups</string>
     <string id="menu_label_calibrate_situps">Calibrate Sit-ups</string>
     <string id="menu_label_calibrate_squats">Calibrate Squats</string>
+    <string id="menu_label_sync">Connect Sync</string>
+    <string id="menu_sublabel_on">On</string>
+    <string id="menu_sublabel_off">Off</string>
+    <string id="menu_sublabel_progress">$1$/$2$</string>
+    <string id="menu_sublabel_done">DONE</string>
+    <string id="menu_label_validation_log">Validation Log</string>
+
+    <string id="menu_label_resume">Resume</string>
+    <string id="menu_label_save">Save</string>
+    <string id="menu_label_discard">Discard</string>
+    <string id="menu_label_keep_editing">Keep Editing</string>
+    <string id="menu_title_rep">$1$ rep</string>
+    <string id="menu_title_reps">$1$ reps</string>
+
+    <string id="exercise_pushups">PUSH-UPS</string>
+    <string id="exercise_situps">SIT-UPS</string>
+    <string id="exercise_squats">SQUATS</string>
+
+    <string id="dashboard_rank">RANK $1$</string>
+    <string id="dashboard_xp_to_rank">$1$ XP TO RANK $2$</string>
+    <string id="dashboard_xp_to_go">$1$ XP TO GO</string>
+    <string id="dashboard_mission_done">$1$ DONE</string>
+    <string id="dashboard_streak">$1$ DAY STREAK</string>
+    <string id="dashboard_streak_short">STREAK $1$</string>
+    <string id="dashboard_streak_none">NO STREAK YET</string>
+    <string id="dashboard_hint">START: MENU</string>
+    <string id="dashboard_mission_complete">MISSION COMPLETE</string>
+    <string id="dashboard_storage_warning">! COULD NOT SAVE</string>
+
+    <string id="today_progress">TODAY $1$/$2$</string>
+    <string id="workout_hint_finish">START: FINISH</string>
+    <string id="workout_metrics_wide">$1$  HR $2$  CAL $3$</string>
+    <string id="workout_metrics_tight">$1$ HR $2$ CAL $3$</string>
+    <string id="picker_detected">DETECTED $1$</string>
+    <string id="picker_hint_adjust">UP/DOWN: ADJUST</string>
+    <string id="picker_hint_save">START: SAVE</string>
+
+    <string id="calibration_title">CALIBRATE</string>
+    <string id="calibration_reps_progress">$1$ / $2$</string>
+    <string id="calibration_reps_saved">$1$ REPS</string>
+    <string id="calibration_status_recording">DO YOUR REPS</string>
+    <string id="calibration_status_saved">SAVED</string>
+    <string id="calibration_status_ready">READY</string>
+    <string id="calibration_status_too_few">ONLY $1$/$2$ REPS</string>
+    <string id="calibration_status_weak">WEAK SIGNAL, RETRY</string>
+    <string id="calibration_action_start">START: BEGIN</string>
+    <string id="calibration_action_stop">START: STOP</string>
+    <string id="calibration_action_again">START: AGAIN</string>
+
+    <string id="validation_log_hint">UP/DOWN: PAGE</string>
+    <string id="sync_log_new">$1$ SYNC NEW</string>
+    <string id="sync_log_kept">$1$ SYNC KEPT $2$</string>
+    <string id="sync_log_lost">$1$ SYNC LOST</string>
+    <string id="sync_log_saved">$1$ SYNC SAVED $2$</string>
+    <string id="sync_log_empty">$1$ SYNC EMPTY</string>
+
+    <string id="toast_saved">$1$ SAVED</string>
+    <string id="toast_discarded">DISCARDED</string>
+    <string id="toast_exercise_done">$1$ DONE!</string>
+    <string id="toast_mission_complete">DAILY MISSION COMPLETE!</string>
 </strings>

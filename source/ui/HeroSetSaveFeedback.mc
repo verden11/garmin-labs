@@ -1,39 +1,29 @@
-import Toybox.Attention;
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-// Shared "reps were kept" reward feedback for every path that can bank a
-// count: the workout quick-save (Back-confirm) and the manual delta picker
-// (used both standalone from the main menu and as the post-workout
-// adjustment step). One place keeps the toast text and the mission-complete
-// callout consistent regardless of entry point.
+// Shared "what did that save achieve" feedback for every path that can bank
+// a count: the workout quick-save (Save in the workout's Back menu) and the
+// manual delta picker (standalone from the main menu and as the post-workout
+// correction step). One place keeps the toast tiers consistent regardless of
+// entry point.
 class HeroSetSaveFeedback {
-    static function show(delta as Lang.Number, completedBefore as Lang.Boolean, completedAfter as Lang.Boolean) as Void {
+
+    // Tiers, most significant wins: the whole daily mission newly complete,
+    // then this exercise newly at its goal, then a plain save. A plain save
+    // doesn't vibrate — the per-rep taps already happened live.
+    static function show(exercise as Lang.Symbol, delta as Lang.Number, countBefore as Lang.Number, countAfter as Lang.Number, completedBefore as Lang.Boolean, completedAfter as Lang.Boolean) as Void {
         if (!completedBefore && completedAfter) {
-            WatchUi.showToast("DAILY MISSION COMPLETE!", null);
-            vibrateMissionComplete();
+            WatchUi.showToast(Rez.Strings.toast_mission_complete, null);
+            HeroSetHaptics.missionComplete();
+        } else if (HeroSetRules.crossedGoal(countBefore, countAfter)) {
+            WatchUi.showToast(HeroSetText.format(Rez.Strings.toast_exercise_done, [HeroSetText.exerciseLabel(exercise)]), null);
+            HeroSetHaptics.goalReached();
         } else {
-            WatchUi.showToast(deltaLabel(delta) + " SAVED", null);
+            WatchUi.showToast(HeroSetText.format(Rez.Strings.toast_saved, [HeroSetText.signed(delta)]), null);
         }
     }
 
-    private static function deltaLabel(delta as Lang.Number) as Lang.String {
-        return delta > 0 ? ("+" + delta) : delta.toString();
-    }
-
-    // Distinct triple-buzz for the rarer, bigger moment — a plain save
-    // relies on the toast alone (the per-rep single tap already happened
-    // live during counting; buzzing again on save would be redundant).
-    private static function vibrateMissionComplete() as Void {
-        if (!(Attention has :vibrate)) {
-            return;
-        }
-        Attention.vibrate([
-            new Attention.VibeProfile(HeroSetConfig.REP_VIBE_DUTY_CYCLE, HeroSetConfig.REP_VIBE_DURATION_MS),
-            new Attention.VibeProfile(0, HeroSetConfig.REP_VIBE_DURATION_MS),
-            new Attention.VibeProfile(HeroSetConfig.REP_VIBE_DUTY_CYCLE, HeroSetConfig.REP_VIBE_DURATION_MS),
-            new Attention.VibeProfile(0, HeroSetConfig.REP_VIBE_DURATION_MS),
-            new Attention.VibeProfile(HeroSetConfig.REP_VIBE_DUTY_CYCLE, HeroSetConfig.REP_VIBE_DURATION_MS)
-        ]);
+    static function showDiscarded() as Void {
+        WatchUi.showToast(Rez.Strings.toast_discarded, null);
     }
 }

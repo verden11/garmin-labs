@@ -7,12 +7,16 @@ import Toybox.Lang;
 class HeroSetCalibration {
     static function armThresholdFrom(meanPeak as Lang.Number, meanValley as Lang.Number) as Lang.Number {
         var half = meanPeak / 2;
-        return half < 60 ? 60 : (half > 500 ? 500 : half);
+        return clamp(half, HeroSetConfig.CALIBRATION_ARM_MIN, HeroSetConfig.CALIBRATION_ARM_MAX);
     }
 
     static function releaseThresholdFrom(meanPeak as Lang.Number, meanValley as Lang.Number) as Lang.Number {
         var half = meanValley / 2;
-        return half < 50 ? 50 : (half > 400 ? 400 : half);
+        return clamp(half, HeroSetConfig.CALIBRATION_RELEASE_MIN, HeroSetConfig.CALIBRATION_RELEASE_MAX);
+    }
+
+    private static function clamp(value as Lang.Number, low as Lang.Number, high as Lang.Number) as Lang.Number {
+        return value < low ? low : (value > high ? high : value);
     }
 
     static function isUsable(cycles as Lang.Number, meanPeak as Lang.Number, meanValley as Lang.Number) as Lang.Boolean {

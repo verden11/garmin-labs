@@ -10,12 +10,10 @@ class HeroSetCalibrationDelegate extends WatchUi.BehaviorDelegate {
         _view = view;
     }
 
+    // START only — Menu is a long-press of Up on the FR965, and long-presses
+    // aren't in-app gestures (ADR-029).
     function onSelect() as Lang.Boolean {
         _view.toggleCalibration();
         return true;
-    }
-
-    function onMenu() as Lang.Boolean {
-        return onSelect();
     }
 }

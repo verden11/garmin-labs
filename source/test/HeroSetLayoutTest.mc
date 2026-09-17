@@ -74,3 +74,28 @@ function squareLayoutUsesConstantInset(logger as Test.Logger) as Lang.Boolean {
     }
     return true;
 }
+
+// Dashboard XP ring (ADR-031): Dc.drawArc draws a full circle when start and
+// end match, so the fill sweep must stay inside (0, RING_SWEEP_DEG].
+
+(:test)
+function ringSweepScalesAndNeverClosesTheCircle(logger as Test.Logger) as Lang.Boolean {
+    Test.assertEqual(HeroSetLayout.ringSweepFor(0, 300), 0);
+    Test.assertEqual(HeroSetLayout.ringSweepFor(-10, 300), 0);
+    Test.assertEqual(HeroSetLayout.ringSweepFor(10, 0), 0);
+    Test.assertEqual(HeroSetLayout.ringSweepFor(1, 4200), 1);
+    Test.assertEqual(HeroSetLayout.ringSweepFor(150, 300), HeroSetLayout.RING_SWEEP_DEG / 2);
+    Test.assertEqual(HeroSetLayout.ringSweepFor(300, 300), HeroSetLayout.RING_SWEEP_DEG);
+    Test.assertEqual(HeroSetLayout.ringSweepFor(900, 300), HeroSetLayout.RING_SWEEP_DEG);
+    Test.assert(HeroSetLayout.RING_SWEEP_DEG < 360);
+    return true;
+}
+
+(:test)
+function arcEndDegreeRunsClockwiseAndNormalizes(logger as Test.Logger) as Lang.Boolean {
+    Test.assertEqual(HeroSetLayout.arcEndDegree(220, 0), 220);
+    Test.assertEqual(HeroSetLayout.arcEndDegree(220, 130), 90);
+    Test.assertEqual(HeroSetLayout.arcEndDegree(220, 260), 320);
+    Test.assertEqual(HeroSetLayout.arcEndDegree(10, 20), 350);
+    return true;
+}

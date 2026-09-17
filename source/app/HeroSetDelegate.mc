@@ -8,7 +8,9 @@ class HeroSetDelegate extends WatchUi.BehaviorDelegate {
     }
 
     function onMenu() as Boolean {
-        WatchUi.pushView(new Rez.Menus.MainMenu(), new HeroSetMenuDelegate(), WatchUi.SLIDE_UP);
+        var menu = new Rez.Menus.MainMenu();
+        HeroSetMenuDelegate.prepare(menu);
+        WatchUi.pushView(menu, new HeroSetMenuDelegate(), WatchUi.SLIDE_UP);
         return true;
     }
 

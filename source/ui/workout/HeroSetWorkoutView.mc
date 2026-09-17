@@ -1,53 +1,93 @@
-import Toybox.ActivityMonitor;
-import Toybox.Attention;
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Sensor;
 import Toybox.System;
+import Toybox.Timer;
 import Toybox.WatchUi;
 
-// No FIT activity is created here (ADR-016 superseded — see ADR-021): one
-// Garmin Connect activity per set cluttered the timeline/Strava feed. Instead
-// this reads two things Garmin already computes with no recording session
-// and no permission beyond Sensor: on-demand heart rate
-// (Sensor.getInfo().heartRate) and the day's cumulative calories
-// (ActivityMonitor.getInfo().calories) — the delta from workout-start is this
-// set's attributable estimate. No Training Effect/Status without a saved
-// activity; that trade is accepted.
+// Live set screen: the rep count dominates, with today's running total and
+// the no-FIT-session HR/calorie/elapsed readouts (HeroSetWorkoutMetrics,
+// ADR-021) underneath.
 class HeroSetWorkoutView extends WatchUi.View {
 
     private var _exercise;
+    private var _label;
+    private var _todayFormat;
+    private var _finishHint;
     private var _detected = 0;
+    private var _storedCount = 0;
     private var _sensorManager;
     private var _saved = false;
     private var _sampleRate;
     private var _counter;
-    private var _startCalories;
+    private var _metrics;
+    private var _refreshTimer;
+    private var _activitySync;
 
     function initialize(exercise as Lang.Symbol) {
         View.initialize();
         _exercise = exercise;
+        _label = HeroSetText.exerciseLabel(exercise);
+        _todayFormat = HeroSetText.load(Rez.Strings.today_progress);
+        _finishHint = HeroSetText.load(Rez.Strings.workout_hint_finish);
         var store = getApp().getStore();
         _sampleRate = store.getCalibrationRate(exercise);
         _counter = new HeroSetRepCounter(store.getCalibrationArm(exercise), store.getCalibrationRelease(exercise), store.getCalibrationRate(exercise), store.getCalibrationCooldownMs(exercise));
         _sensorManager = new HeroSetSensorManager();
+        _metrics = new HeroSetWorkoutMetrics();
+        _activitySync = new HeroSetActivitySync();
     }
 
     function onShow() as Void {
-        if (_startCalories == null) {
-            _startCalories = currentDailyCalories();
-        }
+        _storedCount = getApp().getStore().getCount(_exercise);
+        _metrics.begin();
         enableSensors();
         enableHeartRate();
+        startRefresh();
+        beginActivitySync();
     }
 
     function onHide() as Void {
+        stopRefresh();
         disableSensors();
         disableHeartRate();
+        if (getApp().getStore().isSyncEnabled()) {
+            _activitySync.endSet();
+        }
     }
 
-    // Quick-save path: Back-confirm banks the detected count as-is, no
-    // adjustment step (HeroSetWorkoutDelegate.onBack). The primary Finish
+    // Opt-in Garmin Connect/Strava sync (ADR-025) — one combined FIT
+    // activity per day spanning every set, paused between sets via
+    // onHide/onShow so its duration reflects only real exercise time.
+    private function beginActivitySync() as Void {
+        HeroSetSyncCoordinator.beginSet(_activitySync);
+    }
+
+    // HR/calories/elapsed change between reps; rep detection alone would
+    // leave them frozen until the next rep.
+    private function startRefresh() as Void {
+        if (_refreshTimer != null) {
+            return;
+        }
+        _refreshTimer = new Timer.Timer();
+        _refreshTimer.start(method(:onRefreshTick), HeroSetConfig.LIVE_REFRESH_MS, true);
+    }
+
+    private function stopRefresh() as Void {
+        if (_refreshTimer != null) {
+            _refreshTimer.stop();
+            _refreshTimer = null;
+        }
+    }
+
+    // Public: method(:symbol) needs indirect lookup, which can't see
+    // private methods (ADR-023).
+    function onRefreshTick() as Void {
+        WatchUi.requestUpdate();
+    }
+
+    // Quick-save path: Save in the Back menu banks the detected count as-is,
+    // no adjustment step (HeroSetWorkoutEndMenuDelegate). The primary Finish
     // path never calls this — it hands the detected count to
     // HeroSetManualPickerView instead, where the same reward feedback lives.
     function saveSet() as Void {
@@ -59,9 +99,10 @@ class HeroSetWorkoutView extends WatchUi.View {
             return;
         }
         var store = getApp().getStore();
+        var countBefore = store.getCount(_exercise);
         var completedBefore = store.isDailyMissionComplete();
         store.add(_exercise, _detected);
-        HeroSetSaveFeedback.show(_detected, completedBefore, store.isDailyMissionComplete());
+        HeroSetSaveFeedback.show(_exercise, _detected, countBefore, store.getCount(_exercise), completedBefore, store.isDailyMissionComplete());
     }
 
     function getExercise() as Lang.Symbol {
@@ -129,67 +170,48 @@ class HeroSetWorkoutView extends WatchUi.View {
         }
     }
 
-    // Tactile confirmation per rep — the wrist is moving through the
-    // exercise, so a glance at the screen isn't reliable mid-set.
+    // The wrist is moving through the exercise, so a glance at the screen
+    // isn't reliable mid-set. The rep that carries today's total over the
+    // goal gets the goal buzz instead; crossedGoal is transition-only and
+    // the total only grows during a set, so it fires at most once.
     private function vibrateForRep() as Void {
-        if (Attention has :vibrate) {
-            Attention.vibrate([new Attention.VibeProfile(HeroSetConfig.REP_VIBE_DUTY_CYCLE, HeroSetConfig.REP_VIBE_DURATION_MS)]);
+        var total = _storedCount + _detected;
+        if (HeroSetRules.crossedGoal(total - 1, total)) {
+            HeroSetHaptics.goalReached();
+        } else {
+            HeroSetHaptics.rep();
         }
     }
 
+    // Rows are stacked upward from the bezel-fitted footer so the count can
+    // take whatever height is left between the label and today's total.
     function onUpdate(dc as Dc) as Void {
         var layout = new HeroSetLayout(dc);
-        var label = _exercise == :pushups ? "PUSH-UPS" : (_exercise == :situps ? "SIT-UPS" : "SQUATS");
-
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
-        dc.drawText(layout.centerX(), layout.bandTop(0), Graphics.FONT_SMALL, label, Graphics.TEXT_JUSTIFY_CENTER);
+        dc.drawText(layout.centerX(), layout.bandTop(0), Graphics.FONT_SMALL, _label, Graphics.TEXT_JUSTIFY_CENTER);
+        var labelBottom = layout.bandTop(0) + dc.getFontHeight(Graphics.FONT_SMALL);
+
+        var footerY = HeroSetDraw.hint(dc, layout, layout.footerRowBottom(), labelBottom, _finishHint);
+        var metricsY = footerY - dc.getFontHeight(Graphics.FONT_XTINY);
+        dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_BLACK);
+        var metrics = HeroSetDraw.firstFitting(dc, layout, metricsY, Graphics.FONT_XTINY, _metrics.candidates());
+        dc.drawText(layout.centerX(), metricsY, Graphics.FONT_XTINY, metrics, Graphics.TEXT_JUSTIFY_CENTER);
+
+        var todayY = metricsY - dc.getFontHeight(Graphics.FONT_TINY);
+        var total = _storedCount + _detected;
+        dc.setColor(total >= HeroSetConfig.MISSION_GOAL ? Graphics.COLOR_GREEN : Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.drawText(layout.centerX(), todayY, Graphics.FONT_TINY, Lang.format(_todayFormat, [total, HeroSetConfig.MISSION_GOAL]), Graphics.TEXT_JUSTIFY_CENTER);
+
+        drawCount(dc, layout, labelBottom, todayY);
+    }
+
+    private function drawCount(dc as Dc, layout as HeroSetLayout, top as Lang.Number, bottom as Lang.Number) as Void {
+        var text = _detected.toString();
+        var fonts = [Graphics.FONT_NUMBER_THAI_HOT, Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Lang.Array<Graphics.FontDefinition>;
+        var font = HeroSetDraw.largestFontInBand(dc, layout, top, bottom, text, fonts);
+        var y = HeroSetDraw.centeredTop(top, bottom, dc.getFontHeight(font));
         dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_BLACK);
-        dc.drawText(layout.centerX(), layout.bandTop(1), Graphics.FONT_LARGE, _detected, Graphics.TEXT_JUSTIFY_CENTER);
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.drawText(layout.centerX(), layout.bandTop(2), Graphics.FONT_SMALL, "COUNTING", Graphics.TEXT_JUSTIFY_CENTER);
-        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_BLACK);
-        dc.drawText(layout.centerX(), layout.bandTop(3), Graphics.FONT_XTINY, liveMetricsText(), Graphics.TEXT_JUSTIFY_CENTER);
-        drawFooterLine(dc, layout, layout.footerRowBottom(), "SELECT: FINISH");
-    }
-
-    // Centered footer text, shifted up off the bezel if it wouldn't
-    // otherwise fit the round chord at its natural row (measured against the
-    // real rendered width, not a guessed character budget).
-    private function drawFooterLine(dc as Dc, layout as HeroSetLayout, maxY as Lang.Number, text as Lang.String) as Void {
-        dc.setColor(Graphics.COLOR_DK_GRAY, Graphics.COLOR_BLACK);
-        var textWidth = dc.getTextWidthInPixels(text, Graphics.FONT_XTINY);
-        var textHeight = dc.getFontHeight(Graphics.FONT_XTINY);
-        var y = layout.fitCenteredY(maxY, layout.bandTop(3), textWidth, textHeight);
-        dc.drawText(layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
-    }
-
-    // No FIT session backs these — HR is a live on-demand read, calories is
-    // the delta of Garmin's own whole-day cumulative total since this set
-    // started (see class comment). Both are real Garmin-computed numbers.
-    private function liveMetricsText() as Lang.String {
-        var hrInfo = Sensor.getInfo();
-        var hr = hrInfo == null ? null : hrInfo.heartRate;
-        var calories = sessionCalories();
-        var parts = "CAL " + (calories == null ? "--" : calories.toString());
-        parts += "  HR " + (hr == null ? "--" : hr.toString());
-        return parts;
-    }
-
-    private function sessionCalories() as Lang.Number? {
-        if (_startCalories == null) {
-            return null;
-        }
-        var current = currentDailyCalories();
-        if (current == null) {
-            return null;
-        }
-        var delta = current - _startCalories;
-        return delta < 0 ? 0 : delta;
-    }
-
-    private function currentDailyCalories() as Lang.Number? {
-        var info = ActivityMonitor.getInfo();
-        return info == null ? null : info.calories;
+        dc.drawText(layout.centerX(), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 }

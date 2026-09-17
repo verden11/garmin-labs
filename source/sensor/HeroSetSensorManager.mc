@@ -34,8 +34,4 @@ class HeroSetSensorManager {
         }
         _enabled = false;
     }
-
-    function isEnabled() as Lang.Boolean {
-        return _enabled;
-    }
 }

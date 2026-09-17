@@ -1,5 +1,5 @@
-<menu id="CalibrationMenu" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+<menu2 id="CalibrationMenu" title="@Strings.menu_label_calibration" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
     <menu-item id="calibrate_pushups" label="@Strings.menu_label_calibrate_pushups" />
     <menu-item id="calibrate_situps" label="@Strings.menu_label_calibrate_situps" />
     <menu-item id="calibrate_squats" label="@Strings.menu_label_calibrate_squats" />
-</menu>
+</menu2>
