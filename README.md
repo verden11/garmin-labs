@@ -1,28 +1,37 @@
 # HeroSet
 
-A Garmin Forerunner 965 watch app for a daily bodyweight challenge:
-**100 push-ups, 100 sit-ups, 100 squats**. Reps are counted automatically
-from the wrist accelerometer (beta) and can be corrected by hand. XP, rank and
-streak persist; daily counts reset at local midnight. Button-only, no phone
-needed.
+Garmin watch app for daily bodyweight challenge:
+**100 push-ups, 100 sit-ups, 100 squats**. Reps counted auto from wrist
+accelerometer (beta), hand-correctable. XP, rank, streak persist; daily counts
+reset at local midnight. Button-only, no phone.
 
-Goal: publish as a paid app on the Connect IQ Store.
+Built on Forerunner 965; 66 more round five-button watches supported,
+simulator-checked only — AMOLED (Forerunner 70/165/170/265/570/970, epix Gen 2
+and Pro, fēnix 8/9 AMOLED, fēnix E, MARQ Gen 2, D2 Mach, Descent MK3/G2) and
+MIP (fēnix 6/7/8 Solar/9 Pro Solar, MARQ Gen 1, Forerunner 255/945 LTE/955,
+Enduro and Enduro 3, Descent MK2), Connect IQ 3.4+:
+[`docs/compatibility.md`](docs/compatibility.md).
 
-## Status (2026-09-17)
+Goal: publish as paid app on Connect IQ Store.
 
-- **Working in the simulator:** counting, manual correction, daily goals,
-  XP/rank/streak, dashboard, live HR/calorie readouts. 74 unit tests pass.
-- **Not yet proven on a real watch:** automatic counting accuracy (first trials
-  were poor) and opt-in Garmin Connect sync (first test suggests the design
-  doesn't hold).
+## Status (2026-09-18)
+
+- **Working in simulator:** counting (detector rebuilt after poor first watch
+  trials, ADR-032), manual correction, daily goals, XP/rank/streak, dashboard,
+  live HR/calorie readouts, launch localization in English, German, French,
+  Spanish, Italian, Portuguese, Dutch, Polish, Swedish, Danish, Norwegian
+  Bokmål, Finnish, Turkish, Lithuanian, Ukrainian. 80 unit tests pass on each
+  supported product's simulator.
+- **Not yet proven on real watch:** auto counting accuracy with new detector.
+  Garmin Connect sync dev-build only; v1 ships without it (ADR-033).
 - **Not published.** Blockers, in order: [`docs/go-to-market.md`](docs/go-to-market.md)
-  → *Status checkpoint*. What the build may honestly claim:
+  → *Status checkpoint*. What build may honestly claim:
   [`docs/release-contract.md`](docs/release-contract.md).
 
 ## Quick start
 
-Requirements: Connect IQ SDK with Forerunner 965 device support, Java 11+, and
-a Connect IQ developer key (keep it outside git; see
+Needs: Connect IQ SDK with device support for products you build, Java 11+,
+Connect IQ developer key (keep outside git; see
 [`docs/development.md`](docs/development.md#signing-key)).
 
 ```bash
@@ -36,12 +45,15 @@ monkeydo bin/HeroSet.prg fr965
 monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y /path/to/developer_key
 monkeydo bin/HeroSet-tests.prg fr965 -t
 
-# Release build (calibration and dev log hidden)
+# Release build (no Connect Sync, no Fit permission, no dev log)
 monkeyc -d fr965 -f store.jungle -o bin/HeroSet-store.prg -y /path/to/developer_key
+
+# Store upload package
+monkeyc -e -r -f store.jungle -o bin/HeroSet-store.iq -y /path/to/developer_key
 ```
 
-`monkeyc`/`monkeydo` live in the SDK's `bin/` folder if they're not on your
-`PATH`. VS Code users can use the Monkey C extension instead.
+`monkeyc`/`monkeydo` live in SDK's `bin/` folder if not on `PATH`. VS Code
+users can use Monkey C extension instead.
 
 ## Where to go next
 
@@ -60,12 +72,14 @@ Full index: [`docs/README.md`](docs/README.md). Contributor house rules
 ## Repository layout
 
 ```text
-manifest.xml       app id, target device (fr965), permissions (Sensor, Fit)
+manifest.xml       dev build: app id, 67 products, permissions (Sensor, Fit)
+manifest-store.xml release build: same app id, Sensor permission only
 monkey.jungle      dev build
-store.jungle       release build (overlays resources-store/)
+store.jungle       release build (manifest-store.xml, resources-store/ overlay)
 source/            Monkey C: app/ domain/ data/ sensor/ layout/ ui/ test/
 resources/         strings, menus, launcher icon
-resources-store/   release menu overlay (no calibration, no validation log)
+resources-store/   release menu overlay (no Connect Sync, no validation log)
+site/              privacy policy and support page (to host publicly)
 docs/              architecture, decisions, UX, testing, launch plan
 bin/               build output (git-ignored)
 ```

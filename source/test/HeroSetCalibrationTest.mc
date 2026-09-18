@@ -16,16 +16,24 @@ function isUsableRejectsWeakCycles(logger as Test.Logger) as Lang.Boolean {
 }
 
 (:test)
-function thresholdsFitHalfOfMeanCycles(logger as Test.Logger) as Lang.Boolean {
-    Test.assertEqual(HeroSetCalibration.armThresholdFrom(300, 240), 150);
-    Test.assertEqual(HeroSetCalibration.releaseThresholdFrom(300, 240), 120);
+function thresholdsFitAFractionOfMeanSwing(logger as Test.Logger) as Lang.Boolean {
+    Test.assertEqual(HeroSetCalibration.armThresholdFrom(300), 300 * HeroSetConfig.CALIBRATION_FIT_PERCENT / 100);
+    Test.assertEqual(HeroSetCalibration.releaseThresholdFrom(250), 250 * HeroSetConfig.CALIBRATION_FIT_PERCENT / 100);
     return true;
 }
 
 (:test)
 function thresholdsClampToSafeRange(logger as Test.Logger) as Lang.Boolean {
-    Test.assertEqual(HeroSetCalibration.armThresholdFrom(50, 50), 60);
-    Test.assertEqual(HeroSetCalibration.armThresholdFrom(2000, 2000), 500);
-    Test.assertEqual(HeroSetCalibration.releaseThresholdFrom(2000, 2000), 400);
+    Test.assertEqual(HeroSetCalibration.armThresholdFrom(50), HeroSetConfig.CALIBRATION_ARM_MIN);
+    Test.assertEqual(HeroSetCalibration.armThresholdFrom(5000), HeroSetConfig.CALIBRATION_ARM_MAX);
+    Test.assertEqual(HeroSetCalibration.releaseThresholdFrom(5000), HeroSetConfig.CALIBRATION_RELEASE_MAX);
+    return true;
+}
+
+// A rep that counted while calibrating must be able to count in a workout.
+(:test)
+function fittedFloorNeverExceedsCalibrationThresholds(logger as Test.Logger) as Lang.Boolean {
+    Test.assert(HeroSetConfig.CALIBRATION_ARM_MIN <= HeroSetConfig.CALIBRATION_SAMPLE_ARM);
+    Test.assert(HeroSetConfig.CALIBRATION_RELEASE_MIN <= HeroSetConfig.CALIBRATION_SAMPLE_RELEASE);
     return true;
 }

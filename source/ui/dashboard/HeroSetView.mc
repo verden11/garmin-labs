@@ -78,11 +78,11 @@ class HeroSetView extends WatchUi.View {
                 HeroSetText.format(Rez.Strings.dashboard_streak, [state.streak]),
                 HeroSetText.format(Rez.Strings.dashboard_streak_short, [state.streak])
             ] as Lang.Array<Lang.String>;
-            text = HeroSetDraw.firstFittingWithin(dc, layout, layout.contentRadius(), y, Graphics.FONT_XTINY, candidates);
+            text = HeroSetDraw.firstFitting(dc, layout, layout.contentRadius(), 0, y, Graphics.FONT_XTINY, candidates);
         }
         var extendedToday = state.streak > 0 && HeroSetRules.missionComplete(state.pushups, state.situps, state.squats);
         dc.setColor(extendedToday ? HeroSetPalette.GOLD : HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
-        dc.drawText(layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     // A storage failure outranks everything (the numbers on screen may not
@@ -99,6 +99,6 @@ class HeroSetView extends WatchUi.View {
             color = HeroSetPalette.DONE;
         }
         dc.setColor(color, HeroSetPalette.BACKGROUND);
-        dc.drawText(layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 }

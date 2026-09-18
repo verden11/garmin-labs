@@ -25,7 +25,8 @@ class HeroSetCalibrationView extends WatchUi.View {
             HeroSetConfig.CALIBRATION_SAMPLE_ARM,
             HeroSetConfig.CALIBRATION_SAMPLE_RELEASE,
             HeroSetConfig.SENSOR_SAMPLE_RATE,
-            HeroSetConfig.SENSOR_COOLDOWN_MS
+            HeroSetConfig.SENSOR_COOLDOWN_MS,
+            HeroSetRepCounter.integratesMotion(exercise)
         );
         _sensorManager = new HeroSetSensorManager();
     }
@@ -35,7 +36,7 @@ class HeroSetCalibrationView extends WatchUi.View {
     }
 
     function onHide() as Void {
-        disableSensors();
+        _sensorManager.stop();
     }
 
     function toggleCalibration() as Void {
@@ -54,12 +55,12 @@ class HeroSetCalibrationView extends WatchUi.View {
         _valleySum = 0.0;
         _counter.reset();
         _recording = true;
-        enableSensors();
+        _sensorManager.start(method(:onSensorData), HeroSetConfig.SENSOR_SAMPLE_RATE);
         WatchUi.requestUpdate();
     }
 
     private function finishCalibration() as Void {
-        disableSensors();
+        _sensorManager.stop();
         _recording = false;
         if (_cycles == 0) {
             _rejected = true;
@@ -67,8 +68,8 @@ class HeroSetCalibrationView extends WatchUi.View {
             var meanPeak = (_peakSum / _cycles).toNumber();
             var meanValley = (_valleySum / _cycles).toNumber();
             if (HeroSetCalibration.isUsable(_cycles, meanPeak, meanValley)) {
-                var arm = HeroSetCalibration.armThresholdFrom(meanPeak.toNumber(), meanValley.toNumber());
-                var release = HeroSetCalibration.releaseThresholdFrom(meanPeak.toNumber(), meanValley.toNumber());
+                var arm = HeroSetCalibration.armThresholdFrom(meanPeak);
+                var release = HeroSetCalibration.releaseThresholdFrom(meanValley);
                 getApp().getStore().setCalibrationProfile(_exercise, arm, release, HeroSetConfig.SENSOR_SAMPLE_RATE, HeroSetConfig.SENSOR_COOLDOWN_MS);
                 _saved = true;
             } else {
@@ -76,14 +77,6 @@ class HeroSetCalibrationView extends WatchUi.View {
             }
         }
         WatchUi.requestUpdate();
-    }
-
-    private function enableSensors() as Void {
-        _sensorManager.start(method(:onSensorData), HeroSetConfig.SENSOR_SAMPLE_RATE);
-    }
-
-    private function disableSensors() as Void {
-        _sensorManager.stop();
     }
 
     // Public, `method(:onSensorData)` binding (ADR-023) — see HeroSetWorkoutView.
@@ -112,21 +105,28 @@ class HeroSetCalibrationView extends WatchUi.View {
         }
     }
 
+    // Rows stack by measured font height below the first band (a fixed
+    // band per row let FONT_LARGE run into the status line, ADR-034); the
+    // hint stacks up from the bezel.
     function onUpdate(dc as Dc) as Void {
         var layout = new HeroSetLayout(dc);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
-        dc.drawText(layout.centerX(), layout.bandTop(0), Graphics.FONT_SMALL, HeroSetText.load(Rez.Strings.calibration_title), Graphics.TEXT_JUSTIFY_CENTER);
-        dc.drawText(layout.centerX(), layout.bandTop(1), Graphics.FONT_SMALL, _label, Graphics.TEXT_JUSTIFY_CENTER);
+        var y = layout.bandTop(0);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_SMALL, HeroSetText.load(Rez.Strings.calibration_title), Graphics.TEXT_JUSTIFY_CENTER);
+        y += dc.getFontHeight(Graphics.FONT_SMALL);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_SMALL, _label, Graphics.TEXT_JUSTIFY_CENTER);
+        y += dc.getFontHeight(Graphics.FONT_SMALL);
         dc.setColor(_recording ? Graphics.COLOR_YELLOW : (_saved ? Graphics.COLOR_GREEN : Graphics.COLOR_WHITE), Graphics.COLOR_BLACK);
-        dc.drawText(layout.centerX(), layout.bandTop(2), Graphics.FONT_LARGE, repsText(), Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_LARGE, repsText(), Graphics.TEXT_JUSTIFY_CENTER);
+        y += dc.getFontHeight(Graphics.FONT_LARGE);
 
         var status = statusText();
-        var statusY = layout.bandTop(3);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
+        var statusFont = HeroSetDraw.largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, status, fonts);
         dc.setColor(_rejected ? Graphics.COLOR_RED : Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.drawText(layout.centerX(), statusY, HeroSetDraw.largestFont(dc, layout, statusY, status, fonts), status, Graphics.TEXT_JUSTIFY_CENTER);
-        HeroSetDraw.hint(dc, layout, layout.footerRowBottom(), statusY, HeroSetText.load(actionId()));
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, statusFont, status, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.hint(dc, layout, layout.footerRowBottom(), y + dc.getFontHeight(statusFont), HeroSetText.load(actionId()));
     }
 
     // After a rejection the count stays on screen so the reason below it

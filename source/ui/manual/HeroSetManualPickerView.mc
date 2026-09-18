@@ -75,15 +75,15 @@ class HeroSetManualPickerView extends WatchUi.View {
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
         var y = layout.bandTop(0);
-        dc.drawText(layout.centerX(), y, Graphics.FONT_SMALL, _label, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_SMALL, _label, Graphics.TEXT_JUSTIFY_CENTER);
         y += dc.getFontHeight(Graphics.FONT_SMALL);
         if (_detectedSeed != null) {
             dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_BLACK);
-            dc.drawText(layout.centerX(), y, Graphics.FONT_XTINY, HeroSetText.format(Rez.Strings.picker_detected, [_detectedSeed]), Graphics.TEXT_JUSTIFY_CENTER);
+            HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, HeroSetText.format(Rez.Strings.picker_detected, [_detectedSeed]), Graphics.TEXT_JUSTIFY_CENTER);
             y += dc.getFontHeight(Graphics.FONT_XTINY);
         }
         dc.setColor(deltaColor(), Graphics.COLOR_BLACK);
-        dc.drawText(layout.centerX(), y, Graphics.FONT_LARGE, HeroSetText.signed(_delta), Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_LARGE, HeroSetText.signed(_delta), Graphics.TEXT_JUSTIFY_CENTER);
         y += dc.getFontHeight(Graphics.FONT_LARGE);
         drawToday(dc, layout, y);
 
@@ -101,7 +101,7 @@ class HeroSetManualPickerView extends WatchUi.View {
         var text = HeroSetText.todayProgress(resulting);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
         dc.setColor(resulting >= HeroSetConfig.MISSION_GOAL ? Graphics.COLOR_GREEN : Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.drawText(layout.centerX(), y, HeroSetDraw.largestFont(dc, layout, y, text, fonts), text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, HeroSetDraw.largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, fonts), text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     // Zero is neutral: nothing will change if this is saved.

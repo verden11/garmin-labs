@@ -15,9 +15,9 @@ class HeroSetRankHeader {
         var top = layout.shortInset() + layout.ringWidth();
         var text = HeroSetText.format(Rez.Strings.dashboard_rank, [state.rank]);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
-        var font = HeroSetDraw.largestFontWithin(dc, layout, layout.contentRadius(), top, text, fonts);
+        var font = HeroSetDraw.largestFont(dc, layout, layout.contentRadius(), 0, top, text, fonts);
         dc.setColor(HeroSetPalette.GOLD, HeroSetPalette.BACKGROUND);
-        dc.drawText(layout.centerX(), top, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), top, font, text, Graphics.TEXT_JUSTIFY_CENTER);
 
         var xpY = top + dc.getFontHeight(font);
         drawXpToNext(dc, layout, xpY, state);
@@ -49,8 +49,8 @@ class HeroSetRankHeader {
             HeroSetText.format(Rez.Strings.dashboard_xp_to_rank, [toGo, state.rank + 1]),
             HeroSetText.format(Rez.Strings.dashboard_xp_to_go, [toGo])
         ] as Lang.Array<Lang.String>;
-        var text = HeroSetDraw.firstFittingWithin(dc, layout, layout.contentRadius(), y, Graphics.FONT_XTINY, candidates);
+        var text = HeroSetDraw.firstFitting(dc, layout, layout.contentRadius(), 0, y, Graphics.FONT_XTINY, candidates);
         dc.setColor(HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
-        dc.drawText(layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 }

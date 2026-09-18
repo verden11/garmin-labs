@@ -1,0 +1,76 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">HeroSet</string>
+
+    <string id="menu_label_start_pushups">Pradėti push-ups</string>
+    <string id="menu_label_start_situps">Pradėti sit-ups</string>
+    <string id="menu_label_start_squats">Pradėti squats</string>
+    <string id="menu_label_manual_pushups">Įrašyti push-ups</string>
+    <string id="menu_label_manual_situps">Įrašyti sit-ups</string>
+    <string id="menu_label_manual_squats">Įrašyti squats</string>
+    <string id="menu_label_calibration">Kalibruoti pratimą</string>
+    <string id="menu_label_calibrate_pushups">Kalibruoti push-ups</string>
+    <string id="menu_label_calibrate_situps">Kalibruoti sit-ups</string>
+    <string id="menu_label_calibrate_squats">Kalibruoti squats</string>
+    <string id="menu_label_sync">Connect Sync</string>
+    <string id="menu_sublabel_on">ĮJUNGTA</string>
+    <string id="menu_sublabel_off">IŠJUNGTA</string>
+    <string id="menu_sublabel_progress">$1$/$2$</string>
+    <string id="menu_sublabel_done">ATLIKTA</string>
+    <string id="menu_label_validation_log">Validacijos žurnalas</string>
+
+    <string id="menu_label_resume">Tęsti</string>
+    <string id="menu_label_save">Saugoti</string>
+    <string id="menu_label_discard">Atmesti</string>
+    <string id="menu_label_keep_editing">Tęsti redagavimą</string>
+    <string id="menu_title_rep">$1$ kartas</string>
+    <string id="menu_title_reps">$1$ kartai</string>
+
+    <string id="exercise_pushups">PUSH-UPS</string>
+    <string id="exercise_situps">SIT-UPS</string>
+    <string id="exercise_squats">SQUATS</string>
+
+    <string id="dashboard_rank">RANGAS $1$</string>
+    <string id="dashboard_xp_to_rank">$1$ XP IKI RANGO $2$</string>
+    <string id="dashboard_xp_to_go">$1$ XP LIKO</string>
+    <string id="dashboard_mission_done">$1$ ATLIKTA</string>
+    <string id="dashboard_streak">$1$ DIENOS RIKORDAS</string>
+    <string id="dashboard_streak_short">RIKORDAS $1$</string>
+    <string id="dashboard_streak_none">NĖRA RIKORO</string>
+    <string id="dashboard_hint">START: MENIU</string>
+    <string id="dashboard_mission_complete">UŽDUOTIS ATLIKTA</string>
+    <string id="dashboard_storage_warning">! NEPAVYKO IŠSAUGOTI</string>
+
+    <string id="today_progress">ŠIANDIEN $1$/$2$</string>
+    <string id="workout_hint_finish">START: BAIGTI</string>
+    <string id="workout_metrics_wide">$1$  HR $2$  KAL $3$</string>
+    <string id="workout_metrics_tight">$1$ HR $2$ KAL $3$</string>
+    <string id="picker_detected">APTIKTA $1$</string>
+    <string id="picker_hint_adjust">UP/DOWN: TAIKYTI</string>
+    <string id="picker_hint_save">START: SAUGOTI</string>
+
+    <string id="calibration_title">KALIBRUOTI</string>
+    <string id="calibration_reps_progress">$1$ / $2$</string>
+    <string id="calibration_reps_saved">$1$ KARTOJIMŲ</string>
+    <string id="calibration_status_recording">ATLIKITE KARTOJIMUS</string>
+    <string id="calibration_status_saved">SAUGOMA</string>
+    <string id="calibration_status_ready">PARUOŠTA</string>
+    <string id="calibration_status_too_few">TIK $1$/$2$ KARTŪ</string>
+    <string id="calibration_status_weak">Silpnas signalas, pabandykite vėl</string>
+    <string id="calibration_action_start">START: PRADĖTI</string>
+    <string id="calibration_action_stop">START: STOP</string>
+    <string id="calibration_action_again">START: IŠ NAUJO</string>
+
+    <string id="validation_log_hint">UP/DOWN: PUSLAPIS</string>
+    <string id="validation_log_empty">NĖRA ŽURNALO</string>
+    <string id="validation_log_page">LOGAS $1$/$2$</string>
+    <string id="sync_log_new">$1$ SYNC NAUJAS</string>
+    <string id="sync_log_kept">$1$ SYNC IŠLAIKYTAS $2$</string>
+    <string id="sync_log_lost">$1$ SYNC PRARASTAS</string>
+    <string id="sync_log_saved">$1$ SYNC SAUGOMAS $2$</string>
+    <string id="sync_log_empty">$1$ SYNC TUŠČIAS</string>
+
+    <string id="toast_saved">$1$ SAUGOMA</string>
+    <string id="toast_discarded">ATMESTA</string>
+    <string id="toast_exercise_done">$1$ ATLIKTA!</string>
+    <string id="toast_mission_complete">KASDIENĖ UŽDUOTIS ATLIKTA!</string>
+</strings>

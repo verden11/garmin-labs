@@ -30,10 +30,6 @@ class HeroSetLayout {
         _round = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_ROUND;
     }
 
-    function width() as Lang.Number {
-        return _width;
-    }
-
     function height() as Lang.Number {
         return _height;
     }
@@ -46,23 +42,20 @@ class HeroSetLayout {
         return _height / 2;
     }
 
-    function isRound() as Lang.Boolean {
-        return _round;
+    // The inscribed circle of the whole display, for text fitted against the
+    // bezel rather than against a smaller concentric circle.
+    function displayRadius() as Lang.Number {
+        return _radius;
     }
 
     function shortInset() as Lang.Number {
         return (_width < _height ? _width : _height) / 10;
     }
 
-    // Vertical step between stacked content bands.
-    function bandStep() as Lang.Number {
-        return shortInset() + shortInset() / 5;
-    }
-
     // Top-left y of a centered content band (band 0 = first row under the
-    // top inset).
+    // top inset); bands step by one inset plus a fifth.
     function bandTop(band as Lang.Number) as Lang.Number {
-        return shortInset() + bandStep() * band;
+        return shortInset() + (shortInset() + shortInset() / 5) * band;
     }
 
     // Total horizontal breathing room kept between centered text and the
@@ -118,12 +111,7 @@ class HeroSetLayout {
         return end < 0 ? end + FULL_CIRCLE_DEG : end;
     }
 
-    // Footer rows: two stacked lines kept inside the bottom safe inset.
-    // The upper line is footerRowTop(), the lower line footerRowBottom().
-    function footerRowTop() as Lang.Number {
-        return _height - shortInset() * 2;
-    }
-
+    // Footer baseline kept inside the bottom safe inset.
     function footerRowBottom() as Lang.Number {
         return _height - shortInset() - shortInset() / 2;
     }

@@ -17,7 +17,10 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
     // its goal so starting the next set is usually a single Select.
     static function prepare(menu as WatchUi.Menu2) as Void {
         var store = getApp().getStore();
-        var sync = menu.getItem(menu.findItemById(:sync_toggle));
+        // The store build's menu has no sync toggle (ADR-033); getItem(-1)
+        // must never run.
+        var syncIndex = menu.findItemById(:sync_toggle);
+        var sync = syncIndex < 0 ? null : menu.getItem(syncIndex);
         if (sync instanceof WatchUi.ToggleMenuItem) {
             sync.setEnabled(store.isSyncEnabled());
         }

@@ -2,9 +2,9 @@ import Toybox.Application.Storage;
 import Toybox.Lang;
 
 // Persistent backend. Storage.setValue may throw StorageFullException when
-// the device flash is full; catching it here keeps the app alive and lets the
-// store surface a visible "couldn't save" indicator instead of crashing
-// mid-set.
+// the device flash is full; it propagates on purpose — HeroSetStore._set
+// catches it and surfaces a visible "couldn't save" indicator instead of
+// crashing mid-set.
 class HeroSetPersistentStorage extends HeroSetStorage {
 
     function initialize() {

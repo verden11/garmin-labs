@@ -241,25 +241,26 @@ function calibrationProfileRoundTrips(logger as Test.Logger) as Lang.Boolean {
     return true;
 }
 
-// Installs that predate the grouped calibration dictionary only have the flat
-// "hero_cal_<exercise>_<field>" keys; renaming them would silently reset
-// every such user's calibration.
+// Thresholds fitted by the old magnitude detector mean nothing to the
+// current one (ADR-032): kept, they'd silence or flood counting until the
+// user happened to recalibrate. Both the grouped profile and the flat keys
+// from before grouping must read as uncalibrated.
 (:test)
-function legacyFlatCalibrationKeysStillRead(logger as Test.Logger) as Lang.Boolean {
+function profilesFromTheOldDetectorReadAsUncalibrated(logger as Test.Logger) as Lang.Boolean {
     var storage = new HeroSetTestStorage();
     storage.put("hero_schema", 3);
+    storage.put("hero_calibration", {"pushups" => {"arm" => 150, "release" => 95, "rate" => 25, "cooldown" => 700}});
     storage.put("hero_cal_squats_arm", 150);
     storage.put("hero_cal_squats_release", 95);
-    storage.put("hero_cal_squats_rate", 25);
-    storage.put("hero_cal_squats_cooldown_ms", 700);
     var clock = new HeroSetTestClock();
     clock.day = 20260911;
     var store = new HeroSetStore(storage, clock);
-    Test.assertEqual(store.getCalibrationArm(:squats), 150);
-    Test.assertEqual(store.getCalibrationRelease(:squats), 95);
-    Test.assertEqual(store.getCalibrationCooldownMs(:squats), 700);
-    store.setCalibrationProfile(:situps, 120, 80, 25, 650);
-    Test.assertEqual(storage.value("hero_cal_situps_cooldown_ms"), 650);
+    Test.assertEqual(store.getCalibrationArm(:pushups), HeroSetConfig.DEFAULT_ARM_THRESHOLD);
+    Test.assertEqual(store.getCalibrationCooldownMs(:pushups), HeroSetConfig.SENSOR_COOLDOWN_MS);
+    Test.assertEqual(store.getCalibrationArm(:squats), HeroSetConfig.DEFAULT_ARM_THRESHOLD);
+    Test.assertEqual(store.getCalibrationRelease(:squats), HeroSetConfig.DEFAULT_RELEASE_THRESHOLD);
+    store.setCalibrationProfile(:pushups, 120, 80, 25, 250);
+    Test.assertEqual(store.getCalibrationArm(:pushups), 120);
     return true;
 }
 
@@ -300,8 +301,11 @@ function uncalibratedProfileUsesDefaults(logger as Test.Logger) as Lang.Boolean 
     return true;
 }
 
+// Counts, XP and streaks have always lived under the same flat keys
+// (ADR-003), so an install written by any earlier schema is read as-is and
+// only the schema stamp is rewritten.
 (:test)
-function legacyFlatStateMigratesToGroupedStorage(logger as Test.Logger) as Lang.Boolean {
+function stateFromAnEarlierSchemaStillReads(logger as Test.Logger) as Lang.Boolean {
     var storage = new HeroSetTestStorage();
     storage.put("hero_schema", 2);
     storage.put("hero_day", 20260911);
@@ -314,9 +318,9 @@ function legacyFlatStateMigratesToGroupedStorage(logger as Test.Logger) as Lang.
     clock.day = 20260911;
     var store = new HeroSetStore(storage, clock);
     Test.assertEqual(store.getCount(:pushups), 12);
+    Test.assertEqual(store.getCount(:situps), 8);
     Test.assertEqual(store.getXp(), 48);
-    Test.assert(storage.value("hero_daily") instanceof Dictionary);
-    Test.assert(storage.value("hero_profile") instanceof Dictionary);
+    Test.assertEqual(storage.value("hero_schema"), store.SCHEMA_VERSION);
     return true;
 }
 

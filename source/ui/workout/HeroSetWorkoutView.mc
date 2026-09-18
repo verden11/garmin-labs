@@ -32,7 +32,7 @@ class HeroSetWorkoutView extends WatchUi.View {
         _finishHint = HeroSetText.load(Rez.Strings.workout_hint_finish);
         var store = getApp().getStore();
         _sampleRate = store.getCalibrationRate(exercise);
-        _counter = new HeroSetRepCounter(store.getCalibrationArm(exercise), store.getCalibrationRelease(exercise), store.getCalibrationRate(exercise), store.getCalibrationCooldownMs(exercise));
+        _counter = new HeroSetRepCounter(store.getCalibrationArm(exercise), store.getCalibrationRelease(exercise), store.getCalibrationRate(exercise), store.getCalibrationCooldownMs(exercise), HeroSetRepCounter.integratesMotion(exercise));
         _sensorManager = new HeroSetSensorManager();
         _metrics = new HeroSetWorkoutMetrics();
         _activitySync = new HeroSetActivitySync();
@@ -41,26 +41,22 @@ class HeroSetWorkoutView extends WatchUi.View {
     function onShow() as Void {
         _storedCount = getApp().getStore().getCount(_exercise);
         _metrics.begin();
-        enableSensors();
+        _sensorManager.start(method(:onSensorData), _sampleRate);
         enableHeartRate();
         startRefresh();
-        beginActivitySync();
+        // Opt-in Garmin Connect/Strava sync (ADR-025) — one combined FIT
+        // activity per day spanning every set, paused between sets via
+        // onHide/onShow so its duration reflects only real exercise time.
+        HeroSetSyncCoordinator.beginSet(_activitySync);
     }
 
     function onHide() as Void {
         stopRefresh();
-        disableSensors();
+        _sensorManager.stop();
         disableHeartRate();
         if (getApp().getStore().isSyncEnabled()) {
             _activitySync.endSet();
         }
-    }
-
-    // Opt-in Garmin Connect/Strava sync (ADR-025) — one combined FIT
-    // activity per day spanning every set, paused between sets via
-    // onHide/onShow so its duration reflects only real exercise time.
-    private function beginActivitySync() as Void {
-        HeroSetSyncCoordinator.beginSet(_activitySync);
     }
 
     // HR/calories/elapsed change between reps; rep detection alone would
@@ -105,20 +101,21 @@ class HeroSetWorkoutView extends WatchUi.View {
         HeroSetSaveFeedback.show(_exercise, _detected, countBefore, store.getCount(_exercise), completedBefore, store.isDailyMissionComplete());
     }
 
+    // Screen-fit tests need the widest counts without running sensors.
+    // (:debug) for the same reason as HeroSetApp.swapStoreForTest.
+    (:debug)
+    function setCountsForTest(detected as Lang.Number, stored as Lang.Number) as Void {
+        _detected = detected;
+        _storedCount = stored;
+        _metrics.begin();
+    }
+
     function getExercise() as Lang.Symbol {
         return _exercise;
     }
 
     function getCount() as Lang.Number {
         return _detected;
-    }
-
-    private function enableSensors() as Void {
-        _sensorManager.start(method(:onSensorData), _sampleRate);
-    }
-
-    private function disableSensors() as Void {
-        _sensorManager.stop();
     }
 
     private function enableHeartRate() as Void {
@@ -189,19 +186,19 @@ class HeroSetWorkoutView extends WatchUi.View {
         var layout = new HeroSetLayout(dc);
         dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
         dc.clear();
-        dc.drawText(layout.centerX(), layout.bandTop(0), Graphics.FONT_SMALL, _label, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), layout.bandTop(0), Graphics.FONT_SMALL, _label, Graphics.TEXT_JUSTIFY_CENTER);
         var labelBottom = layout.bandTop(0) + dc.getFontHeight(Graphics.FONT_SMALL);
 
         var footerY = HeroSetDraw.hint(dc, layout, layout.footerRowBottom(), labelBottom, _finishHint);
         var metricsY = footerY - dc.getFontHeight(Graphics.FONT_XTINY);
         dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_BLACK);
-        var metrics = HeroSetDraw.firstFitting(dc, layout, metricsY, Graphics.FONT_XTINY, _metrics.candidates());
-        dc.drawText(layout.centerX(), metricsY, Graphics.FONT_XTINY, metrics, Graphics.TEXT_JUSTIFY_CENTER);
+        var metrics = HeroSetDraw.firstFitting(dc, layout, layout.displayRadius(), layout.textMargin(), metricsY, Graphics.FONT_XTINY, _metrics.candidates());
+        HeroSetDraw.text(dc, layout, layout.centerX(), metricsY, Graphics.FONT_XTINY, metrics, Graphics.TEXT_JUSTIFY_CENTER);
 
         var todayY = metricsY - dc.getFontHeight(Graphics.FONT_TINY);
         var total = _storedCount + _detected;
         dc.setColor(total >= HeroSetConfig.MISSION_GOAL ? Graphics.COLOR_GREEN : Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
-        dc.drawText(layout.centerX(), todayY, Graphics.FONT_TINY, Lang.format(_todayFormat, [total, HeroSetConfig.MISSION_GOAL]), Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), todayY, Graphics.FONT_TINY, Lang.format(_todayFormat, [total, HeroSetConfig.MISSION_GOAL]), Graphics.TEXT_JUSTIFY_CENTER);
 
         drawCount(dc, layout, labelBottom, todayY);
     }
@@ -212,6 +209,6 @@ class HeroSetWorkoutView extends WatchUi.View {
         var font = HeroSetDraw.largestFontInBand(dc, layout, top, bottom, text, fonts);
         var y = HeroSetDraw.centeredTop(top, bottom, dc.getFontHeight(font));
         dc.setColor(Graphics.COLOR_YELLOW, Graphics.COLOR_BLACK);
-        dc.drawText(layout.centerX(), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 }

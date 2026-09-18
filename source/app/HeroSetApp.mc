@@ -26,6 +26,17 @@ class HeroSetApp extends Application.AppBase {
         return _store;
     }
 
+    // Screen-fit tests draw real views against a seeded in-memory store
+    // instead of the simulator's persistent one. Returns the store it replaced.
+    // (:debug), not (:test): the runner would call a (:test) method as a test
+    // case; release (-r) builds strip it.
+    (:debug)
+    function swapStoreForTest(store as HeroSetStore) as HeroSetStore {
+        var previous = _store;
+        _store = store;
+        return previous;
+    }
+
 }
 
 function getApp() as HeroSetApp {

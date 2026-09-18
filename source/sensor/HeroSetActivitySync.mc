@@ -9,6 +9,8 @@ import Toybox.Lang;
 // time between sets. No Storage access of its own (mirrors
 // HeroSetSensorManager) — HeroSetSyncCoordinator decides when a stale
 // day's session is closed and records what happened (ADR-030).
+// Dev build only (ADR-033); the store build has no Fit permission.
+(:sync)
 class HeroSetActivitySync {
     private var _session;
 

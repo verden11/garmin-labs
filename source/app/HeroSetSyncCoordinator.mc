@@ -11,6 +11,9 @@ import Toybox.System;
 //   SYNC LOST         a later set found no recording left (it didn't)
 //   SYNC SAVED m:ss   a finished recording was saved for Garmin Connect
 //   SYNC EMPTY        nothing to save, so it was discarded
+// Dev build only: v1 ships without Connect sync (ADR-033), and the store
+// build compiles HeroSetSyncOff instead.
+(:sync)
 class HeroSetSyncCoordinator {
 
     static function beginSet(sync as HeroSetActivitySync) as Void {

@@ -1,1 +1,3 @@
 project.manifest = manifest.xml
+# Dev build: Connect sync compiled in (ADR-033).
+base.excludeAnnotations = nosync

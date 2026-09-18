@@ -1,0 +1,76 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">HeroSet</string>
+
+    <string id="menu_label_start_pushups">Commencer les pompes</string>
+    <string id="menu_label_start_situps">Commencer les relevés de buste</string>
+    <string id="menu_label_start_squats">Commencer les squats</string>
+    <string id="menu_label_manual_pushups">Logger les pompes</string>
+    <string id="menu_label_manual_situps">Logger les relevés de buste</string>
+    <string id="menu_label_manual_squats">Logger les squats</string>
+    <string id="menu_label_calibration">Calibrer l'exercice</string>
+    <string id="menu_label_calibrate_pushups">Calibrer les pompes</string>
+    <string id="menu_label_calibrate_situps">Calibrer les relevés de buste</string>
+    <string id="menu_label_calibrate_squats">Calibrer les squats</string>
+    <string id="menu_label_sync">Connect Sync</string>
+    <string id="menu_sublabel_on">On</string>
+    <string id="menu_sublabel_off">Off</string>
+    <string id="menu_sublabel_progress">$1$/$2$</string>
+    <string id="menu_sublabel_done">TERMINE</string>
+    <string id="menu_label_validation_log">Journal de validation</string>
+
+    <string id="menu_label_resume">Reprendre</string>
+    <string id="menu_label_save">Sauvegarder</string>
+    <string id="menu_label_discard">Ignorer</string>
+    <string id="menu_label_keep_editing">Continuer à modifier</string>
+    <string id="menu_title_rep">$1$ rép.</string>
+    <string id="menu_title_reps">$1$ rép.</string>
+
+    <string id="exercise_pushups">POMPES</string>
+    <string id="exercise_situps">RELEVÉS DE BUSTE</string>
+    <string id="exercise_squats">SQUATS</string>
+
+    <string id="dashboard_rank">RANG $1$</string>
+    <string id="dashboard_xp_to_rank">$1$ XP POUR RANG $2$</string>
+    <string id="dashboard_xp_to_go">$1$ XP RESTANTS</string>
+    <string id="dashboard_mission_done">$1$ TERMINE</string>
+    <string id="dashboard_streak">$1$ JOUR DE RÉCORD</string>
+    <string id="dashboard_streak_short">RÉCORD $1$</string>
+    <string id="dashboard_streak_none">PAS DE RÉCORD</string>
+    <string id="dashboard_hint">START: MENU</string>
+    <string id="dashboard_mission_complete">MISSION TERMINÉE</string>
+    <string id="dashboard_storage_warning">! IMPOSSIBLE D'ENREGISTRER</string>
+
+    <string id="today_progress">AUJOURD'HUI $1$/$2$</string>
+    <string id="workout_hint_finish">START: TERMINER</string>
+    <string id="workout_metrics_wide">$1$  FR $2$  CAL $3$</string>
+    <string id="workout_metrics_tight">$1$ FR $2$ CAL $3$</string>
+    <string id="picker_detected">DÉTECTÉ $1$</string>
+    <string id="picker_hint_adjust">UP/DOWN: AJUSTER</string>
+    <string id="picker_hint_save">START: SAUVEGARDER</string>
+
+    <string id="calibration_title">CALIBRER</string>
+    <string id="calibration_reps_progress">$1$ / $2$</string>
+    <string id="calibration_reps_saved">$1$ RÉP.</string>
+    <string id="calibration_status_recording">FAIS TES RÉP.</string>
+    <string id="calibration_status_saved">ENREGISTRÉ</string>
+    <string id="calibration_status_ready">PRÊT</string>
+    <string id="calibration_status_too_few">SEULEMENT $1$/$2$ RÉP.</string>
+    <string id="calibration_status_weak">SIGNAL FAIBLE, RÉESSAYER</string>
+    <string id="calibration_action_start">START: COMMENCER</string>
+    <string id="calibration_action_stop">START: STOPPER</string>
+    <string id="calibration_action_again">START: ENCORE</string>
+
+    <string id="validation_log_hint">UP/DOWN: PAGE</string>
+    <string id="validation_log_empty">AUCUNE DONNÉE</string>
+    <string id="validation_log_page">JOURNAL $1$/$2$</string>
+    <string id="sync_log_new">$1$ SYNC NOUVEAU</string>
+    <string id="sync_log_kept">$1$ SYNC CONSERVÉ $2$</string>
+    <string id="sync_log_lost">$1$ SYNC PERDU</string>
+    <string id="sync_log_saved">$1$ SYNC SAUVEGARDÉ $2$</string>
+    <string id="sync_log_empty">$1$ SYNC VIDE</string>
+
+    <string id="toast_saved">$1$ SAUVEGARDÉ</string>
+    <string id="toast_discarded">IGNORÉ</string>
+    <string id="toast_exercise_done">$1$ TERMINE!</string>
+    <string id="toast_mission_complete">MISSION QUOTIDIENNE TERMINÉE!</string>
+</strings>

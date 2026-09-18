@@ -57,24 +57,6 @@ function round454EveryBandStaysInsideDisplay(logger as Test.Logger) as Lang.Bool
     return true;
 }
 
-(:test)
-function squareLayoutUsesConstantInset(logger as Test.Logger) as Lang.Boolean {
-    // Simulator default square 260 px: rows must fit with the constant inset.
-    var width = 260;
-    var height = 260;
-    var short = width < height ? width : height;
-    var inset = short / 10;
-    var step = inset + inset / 5;
-
-    for (var band = 0; band < 7; band++) {
-        var y = inset + step * band;
-        Test.assert(y < height);
-        Test.assert(inset < width - inset);
-        Test.assert(width - inset * 2 >= 100);
-    }
-    return true;
-}
-
 // Dashboard XP ring (ADR-031): Dc.drawArc draws a full circle when start and
 // end match, so the fill sweep must stay inside (0, RING_SWEEP_DEG].
 

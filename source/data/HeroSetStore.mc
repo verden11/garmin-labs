@@ -9,13 +9,14 @@ class HeroSetStore {
     const SCHEMA_VERSION = 3;
     const SCHEMA_KEY = "hero_schema";
     const DAY_KEY = "hero_day";
-    const DAILY_KEY = "hero_daily";
-    const PROFILE_KEY = "hero_profile";
     const CALIBRATION_KEY = "hero_calibration";
+    // Thresholds only mean something to the detector that fitted them.
+    // Profiles without this model number came from the magnitude detector
+    // (ADR-032) and read as uncalibrated. Bump it whenever the detector's
+    // signal changes.
+    const CALIBRATION_MODEL_FIELD = "model";
+    const CALIBRATION_MODEL = 2;
 
-    const PUSHUPS_KEY = "hero_pushups";
-    const SITUPS_KEY = "hero_situps";
-    const SQUATS_KEY = "hero_squats";
     const XP_KEY = "hero_xp";
     const STREAK_KEY = "hero_streak";
     const LAST_COMPLETION_KEY = "hero_last_completion";
@@ -25,12 +26,6 @@ class HeroSetStore {
     const NO_SYNC_DAY = 0;
     const VALIDATION_LOG_KEY = "hero_validation_log";
 
-    // Per-goal "credit ratchet": the highest min(count, goal) seen today.
-    // XP only ever pays the positive difference against the ratchet, so
-    // add(+10)/add(-10) farming earns XP exactly once.
-    const PUSHUPS_CREDIT_KEY = "hero_credit_pushups";
-    const SITUPS_CREDIT_KEY = "hero_credit_situps";
-    const SQUATS_CREDIT_KEY = "hero_credit_squats";
 
     private var _storage;
     private var _clock;
@@ -39,7 +34,9 @@ class HeroSetStore {
     function initialize(storage as HeroSetStorage?, clock as HeroSetClock?) {
         _storage = storage == null ? new HeroSetPersistentStorage() : storage;
         _clock = clock == null ? new HeroSetClock() : clock;
-        migrateSchema();
+        // Stamped so a future format change has a version to migrate from;
+        // every schema so far has read the same flat keys (ADR-003).
+        _set(SCHEMA_KEY, SCHEMA_VERSION);
         ensureCurrentDay();
     }
 
@@ -57,12 +54,11 @@ class HeroSetStore {
     }
 
     private function resetDailyState() as Void {
-        _set(PUSHUPS_KEY, 0);
-        _set(SITUPS_KEY, 0);
-        _set(SQUATS_KEY, 0);
-        _set(PUSHUPS_CREDIT_KEY, 0);
-        _set(SITUPS_CREDIT_KEY, 0);
-        _set(SQUATS_CREDIT_KEY, 0);
+        var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
+        for (var i = 0; i < exercises.size(); i++) {
+            _set(keyFor(exercises[i]), 0);
+            _set(creditKeyFor(exercises[i]), 0);
+        }
     }
 
     // ------------------------------------------------------------------
@@ -203,7 +199,7 @@ class HeroSetStore {
     // Any preformatted dev-diagnostic line (e.g. sync lines, ADR-030) shares
     // the same capped log, so one on-watch viewer shows everything in order.
     function logDiagnostic(line as Lang.String) as Void {
-        var log = validationLogArray();
+        var log = getValidationLog();
         log.add(line);
         while (log.size() > HeroSetConfig.VALIDATION_LOG_MAX_ENTRIES) {
             log.remove(log[0]);
@@ -212,10 +208,6 @@ class HeroSetStore {
     }
 
     function getValidationLog() as Lang.Array<Lang.String> {
-        return validationLogArray();
-    }
-
-    private function validationLogArray() as Lang.Array<Lang.String> {
         var stored = _storage.getValue(VALIDATION_LOG_KEY);
         return stored instanceof Array ? stored : [];
     }
@@ -252,10 +244,6 @@ class HeroSetStore {
     }
 
     function setCalibrationProfile(exercise as Lang.Symbol, armThreshold as Lang.Number, releaseThreshold as Lang.Number, rate as Lang.Number, cooldownMs as Lang.Number) as Void {
-        _set(legacyCalibrationKey(exercise, "arm"), armThreshold);
-        _set(legacyCalibrationKey(exercise, "release"), releaseThreshold);
-        _set(legacyCalibrationKey(exercise, "rate"), rate);
-        _set(legacyCalibrationKey(exercise, "cooldown"), cooldownMs);
         var calibration = _storage.getValue(CALIBRATION_KEY);
         if (!(calibration instanceof Dictionary)) {
             calibration = {};
@@ -265,51 +253,9 @@ class HeroSetStore {
         profile["release"] = releaseThreshold;
         profile["rate"] = rate;
         profile["cooldown"] = cooldownMs;
+        profile[CALIBRATION_MODEL_FIELD] = CALIBRATION_MODEL;
         calibration[exerciseKeyString(exercise)] = profile;
-        _storage.setValue(CALIBRATION_KEY, calibration);
-    }
-
-    // ------------------------------------------------------------------
-    // Schema migration
-    // ------------------------------------------------------------------
-
-    private function migrateSchema() as Void {
-        var current = asNumber(_storage.getValue(SCHEMA_KEY), 0);
-        if (current == SCHEMA_VERSION) {
-            return;
-        }
-
-        // v1 -> v2: day keys became local calendar integers and the detector
-        // moved from jerk-delta thresholds to gravity-removed cycle
-        // thresholds. Old delta thresholds would be meaningless for the new
-        // detector, so calibration profiles and transient daily state are
-        // reset; XP, streaks, and completion history are preserved.
-        _set(SCHEMA_KEY, SCHEMA_VERSION);
-        migrateFlatStateToDictionaries();
-    }
-
-    private function migrateFlatStateToDictionaries() as Void {
-        var daily = {};
-        daily[DAY_KEY] = readFlatNumber(DAY_KEY);
-        daily[PUSHUPS_KEY] = readFlatNumber(PUSHUPS_KEY);
-        daily[SITUPS_KEY] = readFlatNumber(SITUPS_KEY);
-        daily[SQUATS_KEY] = readFlatNumber(SQUATS_KEY);
-        daily[PUSHUPS_CREDIT_KEY] = readFlatNumber(PUSHUPS_CREDIT_KEY);
-        daily[SITUPS_CREDIT_KEY] = readFlatNumber(SITUPS_CREDIT_KEY);
-        daily[SQUATS_CREDIT_KEY] = readFlatNumber(SQUATS_CREDIT_KEY);
-        _storage.setValue(DAILY_KEY, daily);
-
-        var profile = {};
-        profile[XP_KEY] = readFlatNumber(XP_KEY);
-        profile[STREAK_KEY] = readFlatNumber(STREAK_KEY);
-        profile[LAST_COMPLETION_KEY] = _storage.getValue(LAST_COMPLETION_KEY);
-        _storage.setValue(PROFILE_KEY, profile);
-
-        var calibration = {};
-        calibration[exerciseKeyString(:pushups)] = calibrationDictionary(:pushups);
-        calibration[exerciseKeyString(:situps)] = calibrationDictionary(:situps);
-        calibration[exerciseKeyString(:squats)] = calibrationDictionary(:squats);
-        _storage.setValue(CALIBRATION_KEY, calibration);
+        _set(CALIBRATION_KEY, calibration);
     }
 
     // ------------------------------------------------------------------
@@ -323,7 +269,6 @@ class HeroSetStore {
     private function _set(key as Lang.String, value as Lang.Object) as Void {
         try {
             _storage.setValue(key, value);
-            writeDictionaryValue(key, value);
             _writeFailed = false;
         } catch (ex) {
             _writeFailed = true;
@@ -331,14 +276,6 @@ class HeroSetStore {
     }
 
     private function readNumber(key as Lang.String) as Lang.Number {
-        var value = readDictionaryValue(key);
-        if (value == null) {
-            value = _storage.getValue(key);
-        }
-        return asNumber(value, 0);
-    }
-
-    private function readFlatNumber(key as Lang.String) as Lang.Number {
         return asNumber(_storage.getValue(key), 0);
     }
 
@@ -361,67 +298,16 @@ class HeroSetStore {
         return null;
     }
 
-    private function readDictionaryValue(key as Lang.String) as Lang.Object? {
-        var groupKey = groupKeyFor(key);
-        if (groupKey == null) {
-            return null;
-        }
-        var group = _storage.getValue(groupKey);
-        if (!(group instanceof Dictionary)) {
-            return null;
-        }
-        return group[key];
-    }
-
-    private function writeDictionaryValue(key as Lang.String, value as Lang.Object) as Void {
-        var groupKey = groupKeyFor(key);
-        if (groupKey == null || key == DAY_KEY && groupKey != DAILY_KEY) {
-            return;
-        }
-        var group = _storage.getValue(groupKey);
-        if (!(group instanceof Dictionary)) {
-            group = {};
-        }
-        group[key] = value;
-        _storage.setValue(groupKey, group);
-    }
-
-    private function groupKeyFor(key as Lang.String) as Lang.String? {
-        if (key == DAY_KEY || key == PUSHUPS_KEY || key == SITUPS_KEY || key == SQUATS_KEY || key == PUSHUPS_CREDIT_KEY || key == SITUPS_CREDIT_KEY || key == SQUATS_CREDIT_KEY) {
-            return DAILY_KEY;
-        }
-        if (key == XP_KEY || key == STREAK_KEY || key == LAST_COMPLETION_KEY) {
-            return PROFILE_KEY;
-        }
-        return null;
-    }
-
-    private function calibrationDictionary(exercise as Lang.Symbol) as Dictionary {
-        var dictionary = {};
-        var fields = ["arm", "release", "rate", "cooldown"] as Lang.Array<Lang.String>;
-        for (var i = 0; i < fields.size(); i++) {
-            dictionary[fields[i]] = _storage.getValue(legacyCalibrationKey(exercise, fields[i]));
-        }
-        return dictionary;
-    }
-
     private function calibrationValue(exercise as Lang.Symbol, field as Lang.String) as Lang.Object? {
         var calibration = _storage.getValue(CALIBRATION_KEY);
-        if (calibration instanceof Dictionary) {
-            var profile = calibration[exerciseKeyString(exercise)];
-            if (profile instanceof Dictionary && profile[field] != null) {
-                return profile[field];
-            }
+        if (!(calibration instanceof Dictionary)) {
+            return null;
         }
-        return _storage.getValue(legacyCalibrationKey(exercise, field));
-    }
-
-    // Pre-grouping flat keys ("hero_cal_squats_arm", "hero_cal_squats_cooldown_ms"):
-    // still read as a fallback and still written on every save, so this
-    // spelling must never change or older installs lose their profiles.
-    private function legacyCalibrationKey(exercise as Lang.Symbol, field as Lang.String) as Lang.String {
-        var suffix = field.equals("cooldown") ? "cooldown_ms" : field;
-        return "hero_cal_" + exerciseKeyString(exercise) + "_" + suffix;
+        var profile = calibration[exerciseKeyString(exercise)];
+        if (!(profile instanceof Dictionary) || asNumber(profile[CALIBRATION_MODEL_FIELD], 0) != CALIBRATION_MODEL) {
+            return null;
+        }
+        return profile[field];
     }
 
     // Storage.setValue forbids Symbol as a Dictionary key or value ("Symbols
@@ -441,32 +327,18 @@ class HeroSetStore {
         throw new Toybox.Lang.UnexpectedTypeException("Unknown exercise", null, null);
     }
 
-    // Exhaustive key mapping. Unknown exercises must fail loudly instead of
-    // silently mutating SQUATS state.
+    // "hero_pushups" / "hero_situps" / "hero_squats" — spelling fixed by
+    // ADR-003, and exerciseKeyString is the one place an unknown exercise
+    // fails loudly instead of silently mutating SQUATS state.
     private function keyFor(exercise as Lang.Symbol) as Lang.String {
-        if (exercise == :pushups) {
-            return PUSHUPS_KEY;
-        }
-        if (exercise == :situps) {
-            return SITUPS_KEY;
-        }
-        if (exercise == :squats) {
-            return SQUATS_KEY;
-        }
-        throw new Toybox.Lang.UnexpectedTypeException("Unknown exercise", null, null);
+        return "hero_" + exerciseKeyString(exercise);
     }
 
+    // Per-goal "credit ratchet" ("hero_credit_pushups", ...): the highest
+    // min(count, goal) seen today. XP only ever pays the positive difference
+    // against the ratchet, so add(+10)/add(-10) farming earns XP once.
     private function creditKeyFor(exercise as Lang.Symbol) as Lang.String {
-        if (exercise == :pushups) {
-            return PUSHUPS_CREDIT_KEY;
-        }
-        if (exercise == :situps) {
-            return SITUPS_CREDIT_KEY;
-        }
-        if (exercise == :squats) {
-            return SQUATS_CREDIT_KEY;
-        }
-        throw new Toybox.Lang.UnexpectedTypeException("Unknown exercise", null, null);
+        return "hero_credit_" + exerciseKeyString(exercise);
     }
 }
 

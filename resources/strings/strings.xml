@@ -61,6 +61,8 @@
     <string id="calibration_action_again">START: AGAIN</string>
 
     <string id="validation_log_hint">UP/DOWN: PAGE</string>
+    <string id="validation_log_empty">NO LOG DATA</string>
+    <string id="validation_log_page">LOG $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC NEW</string>
     <string id="sync_log_kept">$1$ SYNC KEPT $2$</string>
     <string id="sync_log_lost">$1$ SYNC LOST</string>

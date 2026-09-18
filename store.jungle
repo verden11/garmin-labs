@@ -1,3 +1,7 @@
-project.manifest = manifest.xml
+# Release build: no Fit permission, no Connect sync (ADR-033), no (:debug)
+# test hooks even without -r (ADR-034), and the
+# resources-store overlay hides dev-only menu entries (ADR-008).
+project.manifest = manifest-store.xml
 base.sourcePath = source
 base.resourcePath = resources;resources-store
+base.excludeAnnotations = sync;debug

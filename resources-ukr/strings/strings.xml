@@ -1,0 +1,76 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">HeroSet</string>
+
+    <string id="menu_label_start_pushups">Почати push-ups</string>
+    <string id="menu_label_start_situps">Почати sit-ups</string>
+    <string id="menu_label_start_squats">Почати squats</string>
+    <string id="menu_label_manual_pushups">Записати push-ups</string>
+    <string id="menu_label_manual_situps">Записати sit-ups</string>
+    <string id="menu_label_manual_squats">Записати squats</string>
+    <string id="menu_label_calibration">Калібрувати вправу</string>
+    <string id="menu_label_calibrate_pushups">Калібрувати push-ups</string>
+    <string id="menu_label_calibrate_situps">Калібрувати sit-ups</string>
+    <string id="menu_label_calibrate_squats">Калібрувати squats</string>
+    <string id="menu_label_sync">Connect Sync</string>
+    <string id="menu_sublabel_on">УВКЛ</string>
+    <string id="menu_sublabel_off">ВИКЛ</string>
+    <string id="menu_sublabel_progress">$1$/$2$</string>
+    <string id="menu_sublabel_done">ГОТОВО</string>
+    <string id="menu_label_validation_log">Журнал валідації</string>
+
+    <string id="menu_label_resume">Продовжити</string>
+    <string id="menu_label_save">Зберегти</string>
+    <string id="menu_label_discard">Відмовитися</string>
+    <string id="menu_label_keep_editing">Продовжити редагування</string>
+    <string id="menu_title_rep">$1$ повтор</string>
+    <string id="menu_title_reps">$1$ повтори</string>
+
+    <string id="exercise_pushups">PUSH-UPS</string>
+    <string id="exercise_situps">SIT-UPS</string>
+    <string id="exercise_squats">SQUATS</string>
+
+    <string id="dashboard_rank">РАНГ $1$</string>
+    <string id="dashboard_xp_to_rank">$1$ XP ДО РАНГУ $2$</string>
+    <string id="dashboard_xp_to_go">$1$ XP ЗАЛИШИЛОСЬ</string>
+    <string id="dashboard_mission_done">$1$ ГОТОВО</string>
+    <string id="dashboard_streak">$1$ ДНІВ СЕРІЇ</string>
+    <string id="dashboard_streak_short">РЕКОРД $1$</string>
+    <string id="dashboard_streak_none">НЕМАЄ СЕРІЇ</string>
+    <string id="dashboard_hint">START: МЕНЮ</string>
+    <string id="dashboard_mission_complete">МІСІЯ ВИКОНАНА</string>
+    <string id="dashboard_storage_warning">! НЕ ВДАЛОСЯ ЗБЕРЕГТИ</string>
+
+    <string id="today_progress">СЬОГОДНІ $1$/$2$</string>
+    <string id="workout_hint_finish">START: ЗАВЕРШИТИ</string>
+    <string id="workout_metrics_wide">$1$  HR $2$  КАЛ $3$</string>
+    <string id="workout_metrics_tight">$1$ HR $2$ КАЛ $3$</string>
+    <string id="picker_detected">ВИЯВЛЕНО $1$</string>
+    <string id="picker_hint_adjust">UP/DOWN: НАЛАШТУВАТИ</string>
+    <string id="picker_hint_save">START: ЗБЕРЕГТИ</string>
+
+    <string id="calibration_title">КАЛІБРУВАТИ</string>
+    <string id="calibration_reps_progress">$1$ / $2$</string>
+    <string id="calibration_reps_saved">$1$ ПОВТОРІВ</string>
+    <string id="calibration_status_recording">РОБИТЬ ПОВТОРИ</string>
+    <string id="calibration_status_saved">ЗБЕРЕЖЕНО</string>
+    <string id="calibration_status_ready">ГОТОВО</string>
+    <string id="calibration_status_too_few">ЛИШЕ $1$/$2$ ПОВТОРІВ</string>
+    <string id="calibration_status_weak">СЛАБКИЙ СИГНАЛ, СПРОБУЙТЕ ЩЕ</string>
+    <string id="calibration_action_start">START: ПОЧАТИ</string>
+    <string id="calibration_action_stop">START: ЗУПИНИТИ</string>
+    <string id="calibration_action_again">START: ЩЕ РАЗ</string>
+
+    <string id="validation_log_hint">UP/DOWN: СТОРІНКА</string>
+    <string id="validation_log_empty">НЕМАЄ ДАНИХ ЖУРНАЛУ</string>
+    <string id="validation_log_page">ЖУРНАЛ $1$/$2$</string>
+    <string id="sync_log_new">$1$ SYNC НОВИЙ</string>
+    <string id="sync_log_kept">$1$ SYNC ЗБЕРЕЖЕНО $2$</string>
+    <string id="sync_log_lost">$1$ SYNC ВТРАЧЕНО</string>
+    <string id="sync_log_saved">$1$ SYNC ЗБЕРЕЖЕНО $2$</string>
+    <string id="sync_log_empty">$1$ SYNC ПОРОЖНІЙ</string>
+
+    <string id="toast_saved">$1$ ЗБЕРЕЖЕНО</string>
+    <string id="toast_discarded">ВІДХИЛЕНО</string>
+    <string id="toast_exercise_done">$1$ ГОТОВО!</string>
+    <string id="toast_mission_complete">ЩОДЕННА МІСІЯ ВИКОНАНА!</string>
+</strings>

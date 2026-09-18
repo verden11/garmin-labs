@@ -81,8 +81,8 @@ class HeroSetMissionBars {
         var baseline = y + Graphics.getFontAscent(font);
         var done = count >= HeroSetConfig.MISSION_GOAL;
         dc.setColor(done ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
-        dc.drawText(column[0], baseline - Graphics.getFontAscent(Graphics.FONT_XTINY), Graphics.FONT_XTINY, labelFor(index, count), Graphics.TEXT_JUSTIFY_LEFT);
-        dc.drawText(column[1], y, font, count.toString(), Graphics.TEXT_JUSTIFY_RIGHT);
+        HeroSetDraw.text(dc, layout, column[0], baseline - Graphics.getFontAscent(Graphics.FONT_XTINY), Graphics.FONT_XTINY, labelFor(index, count), Graphics.TEXT_JUSTIFY_LEFT);
+        HeroSetDraw.text(dc, layout, column[1], y, font, count.toString(), Graphics.TEXT_JUSTIFY_RIGHT);
         drawBar(dc, layout, baseline + layout.stackGap(), count, column);
     }
 

@@ -1,160 +1,80 @@
 # HeroSet Go-To-Market
 
-Status: 2026-09-17.
+Status: 2026-09-18.
 
-## Status checkpoint (2026-09-17): read this first if resuming
+## Status checkpoint (2026-09-18): read this first if resuming
 
 **Where things stand.**
-- **Code:** feature-complete for a v1 beta in the simulator. 74 unit tests pass,
-  and dev and store builds compile. A large batch of UX work (ADR-027 to 031)
-  is uncommitted: part staged, part not, so check `git status` first.
-- **Proven only in the simulator:** layouts, navigation, storage, XP/rank/
-  streak. **Not proven on the watch:** counting accuracy, Connect sync, and
-  the new dashboard's look.
-- **History:** decisions and their reasons are in `decisions.md`; what changed
-  when is in `git log`. This section only tracks what's open.
+- **Code:** v1 scope locked (ADR-033): calibration in store build, Connect sync out, no `Fit` permission, new app id `568d5c9b-eb10-4678-bf28-0080c3efbbc1`. Rep detector rebuilt (ADR-032); repo simplification pass (ADR-036). 80 unit tests pass (78 in store build — skips `(:debug)` tests); all 67 supported products pass screen-fit test in simulators; dev build, store build, store `.iq` export (`development.md`) all compile. Not committed yet.
+- **Proven only in simulator:** layouts, navigation, storage, XP/rank/streak, rep counting on physically shaped traces. **Not proven on watch:** counting accuracy with new detector, store build menus.
+- **History:** decisions + reasons in `decisions.md`; what changed when in `git log`. This section track open items only.
 
-**Open items, in priority order.**
+**Open items, in priority order.** Step-by-step tick list: [`launch-checklist.md`](launch-checklist.md).
 
-0. **Connect Sync probably doesn't give one activity per day on the FR965.
-   Investigation paused.** On-watch test (ADR-030): the log showed
-   `SYNC LOST`, yet two HeroSet activities appeared in Garmin Connect that
-   day. HeroSet only saves on a day change or on sync-off, so the watch
-   likely saves an unfinished recording itself when the app closes.
-   - **Before touching sync code, ask the user:**
-     1. The SYNC lines as shown (newest first). After the second set
-        *without leaving* HeroSet, was it `KEPT` or already `LOST`?
-        (`KEPT` then `LOST` after reopening supports the hypothesis. `LOST`
-        both times means the timer reading doesn't work on this firmware and
-        the test proved nothing.)
-     2. Was sync turned off at the end, and did it log `SYNC SAVED` or
-        `SYNC EMPTY`?
-     3. Start time and duration of each of the two activities: do they end
-        around when HeroSet was closed?
-   - **User constraint:** never one activity per app visit.
-   - **Options if confirmed (none agreed):**
-     - (a) Discard the recording on app exit and save one short daily
-       summary activity with rep totals (no time/HR). The date is only
-       right if it's saved when the mission completes, so partial days are
-       skipped.
-     - (b) Keep only the visit that completes the mission (its time/HR plus
-       the whole day's rep totals); partial days lost.
-   - Until resolved, don't advertise "one activity per day"
-     (`release-contract.md`).
-1. **Counting accuracy fails gate 2 in the first trials.** After a
-   successful calibration, push-ups counted 4/10 and another exercise
-   (probably squats) 19/10. Undiagnosed; needs more trials per exercise and
-   speed before blaming the detector. Blocks Phase 2 step 1. Data:
-   `validation-log.md`.
-2. **Store upload shows "Signature check failed".** Ruled out: mismatched
-   keys (one key on this machine, matches VS Code's
-   `monkeyC.developerKeyPath`). Next try: a fresh "Monkey C: Export Project"
-   and re-upload.
-3. **Privacy policy and support URL not published.** This is a hard launch
-   gate; the Phase 1 recommendation is GitHub Pages.
-4. **Regenerate the manifest app id before the real paid submission.** Test
-   uploads consume `372a11c8-fca3-4dd7-b35b-c83ed18d1b19`. Also update the
-   `era -a <uuid>` command in `development.md`.
+0. ~~Decide which products first paid submission lists.~~ **Decided 2026-09-18: all 67, simulator-verified** (ADR-039). No in-app trial (ADR-039).
+1. **Fix idle false positives, then re-run idle + counting trials (gate 2).** 2026-09-18 FR965 trials (`validation-log.md` Summary): counting passes (median |error| 0.5, calibration 3/3, no crash) but idle with normal wrist movement fails — push-ups 14, sit-ups 2, squats 5 phantom reps per 60 s; wrist at rest 0. Fix: count only in exercise position (push-ups: wrist roughly flat/face-down), which also drops the extra rep from getting up. **Open user call:** replace calibration with learning from corrections (store per-set swing sizes, fit threshold to saved count, small running-average step) before launch, or after launch as update. Fast squats miss reps when hands move to/from chin — accepted for now; possible listing/on-screen tip ("keep hands still").
+2. **Publish privacy policy + support page (gate 6). Deferred by user until screenshots exist, but must be live before submission — remind user.** Ready in `site/` (`index.html` = support, `privacy.html`, `style.css`), support email `verdenapp@gmail.com`. Host not chosen (GitHub Pages need public repo or paid plan; Netlify/Cloudflare Pages drag-and-drop of `site/` also work). Then put both URLs in upload form. Store-build storage or permissions change → update `privacy.html` first. Update `site/` to say 66 of 67 watches simulator-verified (ADR-039).
+3. ~~Merchant enrollment.~~ **Approved 2026-09-18.** No longer blocks paid submission.
+4. **Upload new store `.iq`.** Earlier "Signature check failed" not key mismatch: old package and new one carry same public key as repo `developer_key`, and known store bug (value `0xE1C0DE12` in app code) not apply. Most likely old app id registered to different key by earlier upload; new id sidestep that. New upload still fails → report on Garmin developer forum with package.
+5. **Screenshots from simulator, store build** (listing, ADR-039) — **remind user; needed before site + upload.** Dashboard → calibration → live count → manual correction → completion, plus 500×500 cover. ~~Storage upgrade check (gate 4)~~ **passed 2026-09-18 on FR965** (sideload over previous build: XP, rank, streak, today counts kept; calibration reset as intended). HR/calorie + battery sanity (gate 7) done in same watch session as item 1.
+6. **Beta testers for other 66 watches** — wanted, no longer gate launch (ADR-039). At least one owner per family confirm buttons, screens, counting; MIP watches also daylight contrast. Family that fails → drop from both manifests in update.
 
 ## Goal
 
-**Publish HeroSet as a paid Connect IQ Store app.** This is the project's
-primary goal. Feature work beyond what's already implemented is secondary and
-waits until after publish, unless it directly unblocks publishing.
+**Publish HeroSet as paid Connect IQ Store app.** Primary goal. Feature work beyond what implemented is secondary, wait until after publish, unless it directly unblocks publishing.
 
-Positioning: button-first daily bodyweight challenge — beta auto-counting,
-manual correction, progress without a phone, live HR/calorie readout,
-optional Garmin Connect/Strava sync. Target: Forerunner 965 owners wanting a
-repeatable short workout ritual. Never promise: medical-grade calories,
-universal device support, perfect auto-counting, Garmin Connect native
-calorie totals, that sync is automatic/default, or any effect on Training
-Status/Readiness/Acute Load with sync off (no activity is ever recorded then).
+Positioning: button-first daily bodyweight challenge — beta auto-counting, manual correction, progress without phone, live HR/calorie readout. Connect sync out of v1 (ADR-033). Target: owners of 67 supported round watches (`compatibility.md`, ADR-034/035/037) wanting repeatable short workout ritual. Never promise: medical-grade calories, universal device support, perfect auto-counting, Garmin Connect native calorie totals, that sync automatic/default, or any effect on Training Status/Readiness/Acute Load with sync off (no activity ever recorded then).
 
 ## Phase 1 — decisions to lock in first
 
-Nothing in Phase 2 should start until these are answered; they change what
-Phase 2's checklist even contains.
+Nothing in Phase 2 start until these answered; they change what Phase 2 checklist even contains.
 
 | Decision | Options | Recommendation |
 |---|---|---|
-| Calibration scope for v1 | (A) Ship calibration in the store build, validated. (B) Drop calibrated positioning entirely, manual-first v1. | **(A), with a lightweight validation bar** — solo dev across multiple sessions/speeds/exercises (not the full 10-external-tester matrix), since auto-counting is the product's core value prop and it's already honestly framed as "beta." Dropping it (B) is faster to publish but guts the pitch; only fall back to B if solo validation surfaces accuracy too poor to defend the "beta" claim. |
-| Accuracy validation method | 10 testers × 3 exercises × 3 speeds (as currently documented), vs. solo/small-group real-device sessions. | **Solo/small-group first.** A 10-tester study is unrealistic for a single-dev project pre-revenue. Run enough solo sessions per exercise/speed to hit the numeric gate (median \|error\| ≤ 1/10-rep set, ≤1 false positive/60s idle, ≥90% calibration success), log results in `release-contract.md`, and treat external testers as a nice-to-have, not a gate. |
-| Privacy/support page hosting | Dedicated domain vs. free static host. | **GitHub Pages (or equivalent free static host) off this repo.** No PII leaves the watch (ADR-021/ADR-025 already constrain this), so the policy is short — a free host is proportionate and gets the launch blocker cleared fastest. |
-| Garmin Connect/Strava sync default | Keep opt-in/off (ADR-025) vs. flip to on-by-default. | **Keep opt-in/off.** Changing the default re-opens launch gate 6 (privacy listing) and ADR-025 was deliberately conservative; don't reopen it to hit a launch date. |
+| Calibration scope for v1 | (A) Ship calibration in the store build, validated. (B) Drop calibrated positioning entirely, manual-first v1. | **Decided 2026-09-17: (A)** (ADR-033). Original reasoning: **(A), with lightweight validation bar** — solo dev across multiple sessions/speeds/exercises (not full 10-external-tester matrix), since auto-counting is product core value prop and already honestly framed "beta." Dropping it (B) faster to publish but guts pitch; fall back to B only if solo validation show accuracy too poor to defend "beta" claim. |
+| Accuracy validation method | 10 testers × 3 exercises × 3 speeds (as currently documented), vs. solo/small-group real-device sessions. | **Solo/small-group first.** 10-tester study unrealistic for single-dev project pre-revenue. Run enough solo sessions per exercise/speed to hit numeric gate (median \|error\| ≤ 1/10-rep set, ≤1 false positive/60s idle, ≥90% calibration success), log in `release-contract.md`, treat external testers as nice-to-have, not gate. |
+| Privacy/support page hosting | Dedicated domain vs. free static host. | **GitHub Pages (or equivalent free static host) off this repo.** No PII leaves watch (ADR-021/ADR-025 already constrain this), so policy short — free host proportionate, clears launch blocker fastest. |
+| Garmin Connect/Strava sync in v1 | Keep opt-in/off (ADR-025) vs. flip to on-by-default vs. leave out. | **Decided 2026-09-17: leave out of v1** (ADR-033). Misbehaved on watch (ADR-030), fixing would delay launch. |
 
 ## Phase 2 — path to publish (ordered)
 
-Each step is a launch gate; see the Launch Gates table below for the exact
-pass/fail bar.
+Each step is launch gate; see Launch Gates table below for exact pass/fail bar.
 
-1. **Physical accuracy validation** (gate 2) — run the Phase 1 validation
-   method. Real workout sets auto-log detected-vs-saved counts on-device
-   (ADR-026, main menu → Validation Log); transcribe into
-   `docs/validation-log.md`, roll the summary into `release-contract.md`.
-2. **Layout/UI confirmation on real FR965** (gate 3) — screenshot every
-   screen/state on-device; confirm no text clipping (round-screen fix is
-   simulator-verified only so far).
-3. **Storage upgrade check** (gate 4) — confirm schema migration preserves
-   counters/XP/streak/calibration on a real device, not just in tests.
-4. **Sync verification on real hardware** (gate 8) — first run the
-   ADR-030 on-watch check (`docs/development.md`, validation log section):
-   does the day's recording survive closing HeroSet (`SYNC KEPT` vs
-   `SYNC LOST`)? First result says no, see status item 0. Then confirm the
-   agreed behavior lands correctly in Garmin Connect and Strava (no GPS
-   artifacts, no per-set or per-visit duplicates).
+1. **Physical accuracy validation** (gate 2) — run Phase 1 validation method. Real workout sets auto-log detected-vs-saved counts on-device (ADR-026, main menu → Validation Log); transcribe into `docs/validation-log.md`, roll summary into `release-contract.md`.
+2. **Layout/UI confirmation on real FR965** (gate 3) — screenshot every screen/state on-device; confirm no text clipping (round-screen fix simulator-verified only so far).
+3. **Storage upgrade check** (gate 4) — confirm schema migration preserves counters/XP/streak/calibration on real device, not just in tests.
+4. **Sync verification on real hardware** (gate 8) — **out of v1** (ADR-033). Only confirm store build creates no activity.
 5. **HR/calorie sanity + battery check on-device** (gate 7).
-6. **Privacy policy + support URL published** (gate 6) — per Phase 1
-   recommendation; must match actual behavior (sync opt-in, no PII leaves
-   watch).
-7. **Release `.iq` export** (gate 5) — build with `store.jungle`, confirm
-   calibration menu entry is absent (or present+validated, per the Phase 1
-   decision), test on simulator + physical device.
-8. **Merchant onboarding** — Garmin Connect IQ Store merchant account,
-   payment/tax/country eligibility (`docs/store-release.md`).
-9. **Private beta** — small trusted group, watch for crashes/listener leaks
-   over real multi-day use.
-10. **Paid launch** at USD 2.00 (→ $1.99 US per Garmin's price-point
-    mapping).
+6. **Privacy policy + support URL published** (gate 6) — per Phase 1 recommendation; must match actual behavior (no sync, nothing leaves watch). Drafts: `site/`.
+7. **Release `.iq` export** (gate 5) — build with `store.jungle` (`development.md`), confirm menu has Calibrate but no Connect Sync or Validation Log, test on simulator + physical device.
+8. **Merchant onboarding** — Garmin Connect IQ Store merchant account, payment/tax/country eligibility (`docs/store-release.md`).
+9. **Private beta** — small trusted group, watch for crashes/listener leaks over real multi-day use.
+10. **Paid launch** at USD 2.00 (→ $1.99 US per Garmin price-point mapping).
 
 ## Phase 3 — after publish (backlog, do not pull forward)
 
+- **Engineering sweep for battery/performance optimizations** (user request 2026-09-18; battery looked OK in first watch session, no measurement yet): sensor sample rate, refresh timers, draw cost, storage writes.
 - Guided first-run calibration flow.
 - Weak-calibration retry state.
-- Rollback build kept ready for the first post-launch week.
+- Rollback build kept ready for first post-launch week.
 - Garmin Connect custom/developer FIT fields.
-- Additional device targets (only after a layout/sensor capability-matrix
-  pass — see `docs/compatibility.md`).
-- Localization beyond English.
+- Further device waves (two-button touch watches, Instinct, Connect IQ 3.3 and older): `docs/compatibility.md` lists what each needs.
+- Additional localization beyond initial 15 launch languages, if store demand and device/font testing justify. Russian not supported.
 
 ## Launch gates (P0 — acceptance criteria for Phase 2)
 
 1. If calibration ships: 10-rep calibration succeeds per exercise on FR965.
-2. Counting accuracy measured vs manual ground truth: median |error| ≤ 1 per
-   10-rep set; ≤ 1 false positive per 60 s idle; calibration success ≥ 90%;
-   no crash/listener leak in 30 min sessions.
+2. Counting accuracy measured vs manual ground truth: median |error| ≤ 1 per 10-rep set; ≤ 1 false positive per 60 s idle; calibration success ≥ 90%; no crash/listener leak in 30 min sessions.
 3. Finish→adjust→save/discard/Back flows tested on watch; no text clips.
-4. Storage upgrade preserves counters, XP, streak, calibration.
-5. Exported `.iq` has release menu, no calibration entry (unless Phase 1
-   decision was to ship calibration validated).
+4. Storage upgrade preserves counters, XP, streak. Calibration from old detector deliberately dropped (ADR-032); newer profiles must survive.
+5. Exported `.iq` has release menu: Calibrate present (ADR-033), no Connect Sync, no Validation Log; manifest permissions are `Sensor` only.
 6. Privacy notice + support contact public; listing matches actual behavior.
 7. Live HR/calorie readout checked for sane values on watch.
-8. Connect sync: enabling it on-watch, logging a set, and confirming one
-   combined activity (no GPS, no duplicate-per-set) lands in Garmin Connect
-   and Strava correctly. If sync ever flips to enabled-by-default, re-verify
-   gate 6 — the toggle default and its wording are part of the privacy
-   listing.
+8. Connect sync: not in v1 (ADR-033). When it returns: enabling on-watch, logging a set, confirming one combined activity (no GPS, no duplicate-per-set) lands in Garmin Connect and Strava correctly, and re-verify gate 6, since sync changes privacy listing.
 
 ## Listing
 
-- Title: HeroSet — Bodyweight Rep Counter ("Bodyweight Counter" read like a
-  body-weight scale app)
-- Description: push-up/sit-up/squat tracking with daily goals, streaks,
-  manual correction, live HR/calorie readout; auto-counting in beta on
-  Forerunner 965.
-- Screenshots: dashboard → calibration → live count → manual correction →
-  completion. Real build only, no mockups.
-- Disclosure: counting depends on watch placement/movement; calibration per
-  exercise; not a medical device; calories are estimates, not native
-  session-level Garmin values. No activity is created or synced unless
-  Connect Sync is explicitly turned on in settings (off by default);
-  when on, it's one combined activity per day, no GPS/distance.
+- Title: HeroSet — Bodyweight Rep Counter ("Bodyweight Counter" read like body-weight scale app)
+- Description: push-up/sit-up/squat tracking with daily goals, streaks, manual correction, live HR/calorie readout; auto-counting in beta on 67 supported watches (`compatibility.md`).
+- Screenshots: dashboard → calibration → live count → manual correction → completion. Simulator running store build (ADR-039), no mockups.
+- Disclosure: counting depends on watch placement/movement; calibration per exercise; not medical device; calories are estimates, not native session-level Garmin values. HeroSet records no activity and sends no data anywhere: no Garmin Connect/Strava sync in v1 (ADR-033).
