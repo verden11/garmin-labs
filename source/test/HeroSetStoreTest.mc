@@ -231,36 +231,29 @@ function unknownExerciseThrowsInsteadOfSquatMutation(logger as Test.Logger) as L
 }
 
 (:test)
-function calibrationProfileRoundTrips(logger as Test.Logger) as Lang.Boolean {
+function learnedStateRoundTripsPerExercise(logger as Test.Logger) as Lang.Boolean {
     var store = storeWith(20260911);
-    store.setCalibrationProfile(:pushups, 140, 90, 25, 600);
-    Test.assertEqual(store.getCalibrationArm(:pushups), 140);
-    Test.assertEqual(store.getCalibrationRelease(:pushups), 90);
-    Test.assertEqual(store.getCalibrationRate(:pushups), 25);
-    Test.assertEqual(store.getCalibrationCooldownMs(:pushups), 600);
+    var state = HeroSetThresholdLearner.initialState();
+    state[3] = 1.5;
+    store.setLearningState(:pushups, state);
+    Test.assertEqual(store.getLearningState(:pushups)[3], 1.5);
+    Test.assertEqual(store.getLearningState(:squats)[3], HeroSetThresholdLearner.initialState()[3]);
     return true;
 }
 
-// Thresholds fitted by the old magnitude detector mean nothing to the
-// current one (ADR-032): kept, they'd silence or flood counting until the
-// user happened to recalibrate. Both the grouped profile and the flat keys
-// from before grouping must read as uncalibrated.
+// Beliefs learned on another detector signal, or cut short, mean nothing
+// to this one: they read as a fresh start, and old calibration profiles
+// (ADR-032/040) are ignored altogether.
 (:test)
-function profilesFromTheOldDetectorReadAsUncalibrated(logger as Test.Logger) as Lang.Boolean {
+function staleOrMalformedLearningReadsAsFresh(logger as Test.Logger) as Lang.Boolean {
     var storage = new HeroSetTestStorage();
-    storage.put("hero_schema", 3);
-    storage.put("hero_calibration", {"pushups" => {"arm" => 150, "release" => 95, "rate" => 25, "cooldown" => 700}});
-    storage.put("hero_cal_squats_arm", 150);
-    storage.put("hero_cal_squats_release", 95);
+    storage.put("hero_calibration", {"pushups" => {"arm" => 150, "release" => 95, "rate" => 25, "cooldown" => 700, "model" => 2}});
+    storage.put("hero_learning", {"model" => 0, "pushups" => [9.0] as Lang.Array<Lang.Float>});
     var clock = new HeroSetTestClock();
     clock.day = 20260911;
     var store = new HeroSetStore(storage, clock);
-    Test.assertEqual(store.getCalibrationArm(:pushups), HeroSetConfig.DEFAULT_ARM_THRESHOLD);
-    Test.assertEqual(store.getCalibrationCooldownMs(:pushups), HeroSetConfig.SENSOR_COOLDOWN_MS);
-    Test.assertEqual(store.getCalibrationArm(:squats), HeroSetConfig.DEFAULT_ARM_THRESHOLD);
-    Test.assertEqual(store.getCalibrationRelease(:squats), HeroSetConfig.DEFAULT_RELEASE_THRESHOLD);
-    store.setCalibrationProfile(:pushups, 120, 80, 25, 250);
-    Test.assertEqual(store.getCalibrationArm(:pushups), 120);
+    var fresh = HeroSetThresholdLearner.threshold(HeroSetThresholdLearner.initialState());
+    Test.assertEqual(HeroSetThresholdLearner.threshold(store.getLearningState(:pushups)), fresh);
     return true;
 }
 
@@ -270,34 +263,24 @@ function profilesFromTheOldDetectorReadAsUncalibrated(logger as Test.Logger) as 
 // regression here would pass every other test and only crash on a real
 // device. Assert the persisted dictionary is String-keyed directly.
 (:test)
-function calibrationDictionaryUsesStringKeysNotSymbols(logger as Test.Logger) as Lang.Boolean {
+function learningDictionaryUsesStringKeysNotSymbols(logger as Test.Logger) as Lang.Boolean {
     var storage = new HeroSetTestStorage();
     var clock = new HeroSetTestClock();
     clock.day = 20260911;
     var store = new HeroSetStore(storage, clock);
-    store.setCalibrationProfile(:pushups, 140, 90, 25, 600);
-    var calibration = storage.value("hero_calibration");
-    Test.assert(calibration instanceof Dictionary);
-    var calibrationDict = calibration as Dictionary;
-    Test.assert(calibrationDict["pushups"] instanceof Dictionary);
+    store.setLearningState(:pushups, HeroSetThresholdLearner.initialState());
+    var learning = storage.value("hero_learning");
+    Test.assert(learning instanceof Dictionary);
+    var learningDict = learning as Dictionary;
+    Test.assert(learningDict["pushups"] instanceof Array);
     // Symbol-key dictionary reads throw UnexpectedTypeException on this SDK
     // (same native restriction as the original device crash), so assert the
     // persisted dictionary is String-keyed via keys() instead of probing a
     // Symbol key.
-    var keys = calibrationDict.keys();
+    var keys = learningDict.keys();
     for (var i = 0; i < keys.size(); i++) {
         Test.assert(keys[i] instanceof Lang.String);
     }
-    return true;
-}
-
-(:test)
-function uncalibratedProfileUsesDefaults(logger as Test.Logger) as Lang.Boolean {
-    var store = storeWith(20260911);
-    Test.assertEqual(store.getCalibrationArm(:squats), HeroSetConfig.DEFAULT_ARM_THRESHOLD);
-    Test.assertEqual(store.getCalibrationRelease(:squats), HeroSetConfig.DEFAULT_RELEASE_THRESHOLD);
-    Test.assertEqual(store.getCalibrationRate(:squats), HeroSetConfig.SENSOR_SAMPLE_RATE);
-    Test.assertEqual(store.getCalibrationCooldownMs(:squats), HeroSetConfig.SENSOR_COOLDOWN_MS);
     return true;
 }
 

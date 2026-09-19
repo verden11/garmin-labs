@@ -27,7 +27,8 @@ source/
 │                 HeroSetRules             XP, rank curve, streaks, goal transitions
 │                 HeroSetCalendar          local-day keys and day math
 │                 HeroSetRepCounter        tilt/height rep detector (ADR-032)
-│                 HeroSetCalibration       threshold fitting
+│                 HeroSetSwingTrace        one set's turning points, replayable
+│                 HeroSetThresholdLearner  threshold belief from saved counts (ADR-040)
 ├── data/         HeroSetStore             the only persistence API
 │                 HeroSetStorage           storage seam (tests inject in-memory)
 │                 HeroSetPersistentStorage real Toybox Storage backend
@@ -43,11 +44,9 @@ source/
 │   │               HeroSetWorkoutEndMenuDelegate, HeroSetWorkoutMetrics
 │   ├── manual/     HeroSetManualPickerView, HeroSetManualPickerDelegate,
 │   │               HeroSetManualExitMenuDelegate
-│   ├── calibration/ HeroSetCalibrationView, HeroSetCalibrationDelegate,
-│   │               HeroSetCalibrationMenuDelegate
 │   ├── diagnostics/ HeroSetValidationLogView, …Delegate      (dev build only)
 │   ├── HeroSetExitMenuDelegate  shared Save/Discard/stay back-menu (ADR-036)
-│   ├── HeroSetSaveFeedback   save toasts + vibration tiers
+│   ├── HeroSetSaveFeedback   store.add + save toasts + vibration tiers (rank-up first, ADR-041)
 │   ├── HeroSetHaptics        vibration patterns
 │   ├── HeroSetText           strings.xml loading and formatting
 │   ├── HeroSetPalette        color roles
@@ -79,22 +78,24 @@ Dependencies point down only. Sensor classes take plain args, return plain value
 
 ## 4. Module responsibilities
 
-**HeroSetConfig**: every tunable number (goals, XP, rank curve, sensor rates, calibration bounds, vibration, refresh intervals, log size). Read file; short and commented.
+**HeroSetConfig**: every tunable number (goals, XP, rank curve, sensor rates, learning tunables, vibration, refresh intervals, log size). Read file; short and commented.
 
 **HeroSetRules**: pure game rules. `xpForReps`; rank curve (`rankCost`, `rankThreshold`, `rankForXp`, `xpIntoRank`, `xpToNextRank`, ADR-031); `nextStreak` (on completion) and `activeStreak` (0 once day missed); `missionComplete`, `crossedGoal` (milestone feedback), `clampDelta` (picker).
 
 **HeroSetCalendar**: `todayKey()` → `YYYYMMDD` from local clock; `isConsecutiveDate` handle month/year/leap rollover (ADR-001).
 
-**HeroSetRepCounter**: turn 25 Hz samples into one signal per exercise: push-ups and sit-ups use tilt swing along deviation's principal axis; squats use leaky double integral of strength, roughly height (`integratesMotion`). Count one rep per full swing past `+arm` then `-release` (or reverse), sides at least `SENSOR_COOLDOWN_MS` apart. `getLastCyclePeak/Valley()` feed calibration; thresholds come from store (ADR-032).
+**HeroSetRepCounter**: turn 25 Hz samples into one signal per exercise: push-ups and sit-ups use tilt swing along deviation's principal axis; squats use leaky double integral of strength, roughly height (`integratesMotion`). Count one rep per full swing past `+threshold` then `-threshold` (or reverse), sides at least `SENSOR_COOLDOWN_MS` apart (ADR-032). Feeds every signal value to its `HeroSetSwingTrace`.
 
-**HeroSetCalibration**: `armThresholdFrom`/`releaseThresholdFrom` (`CALIBRATION_FIT_PERCENT` of mean swing, clamped with calibration thresholds as floor) and `isUsable` (10 cycles, minimum swing).
+**HeroSetSwingTrace**: turning points of one set's signal (sub-`TRACE_HYSTERESIS` reversals dropped, capped), and `countAt(threshold)` replaying the detector on them.
+
+**HeroSetThresholdLearner**: belief over 24 thresholds × keep/drop-last-rep, `updated` from a trace and the saved count, `threshold` (belief median) and `dropsLastRep` for the next set (ADR-040).
 
 **HeroSetStore**: only persistence API; all reads narrow types (ADR-019). Invariants:
 - **Local-day reset:** `ensureCurrentDay()` zero daily counts when day key change.
 - **No XP farming:** `awardXpFor` pay only for net gain against per-exercise daily credit ratchet capped at goal (ADR-002).
 - **Write failures:** caught, flagged via `hasWriteFailure()` (ADR-010).
 - **Flat keys only:** one `hero_*` key per value, spellings fixed by ADR-003; the grouped `hero_daily`/`hero_profile` mirrors were removed as dead weight (ADR-036). `keyFor`/`creditKeyFor` derive from `exerciseKeyString`, the one place an unknown exercise throws.
-- **Calibration:** per-exercise profile dict keyed by strings, never Symbols (ADR-022). Profiles without current detector `model` read as uncalibrated (ADR-032).
+- **Learned thresholds:** `hero_learning` dict keyed by exercise strings, never Symbols (ADR-022); wrong `model` or malformed state reads as fresh (ADR-040). Old `hero_calibration` profiles not read.
 - **Sync state:** `isSyncEnabled`, and day of open recording (`get/set/clearSyncSessionDay`; 0 sentinel = none) (ADR-025/027).
 - **Diagnostics log:** `logValidationTrial` (validation trials) and `logDiagnostic` (sync lines), one capped ring buffer read by `getValidationLog` (ADR-026/030).
 
@@ -109,8 +110,7 @@ Dependencies point down only. Sensor classes take plain args, return plain value
 **UI**:
 - **Dashboard:** render `HeroSetDashboardState` snapshot. `HeroSetRankHeader` draw ring and rank lines, `HeroSetMissionBars` three bars, `HeroSetDayTracker` redraw at midnight (ADR-031, ADR-012).
 - **Workout:** count via `HeroSetRepCounter`, show live metrics from `HeroSetWorkoutMetrics` (no FIT session, ADR-021), hand off to picker on Finish (ADR-024).
-- **Picker:** edit signed delta, ±1 per press (ADR-017/029).
-- **Calibration:** capture 10 reps, name rejection reason.
+- **Picker:** edit signed delta, ±1 per press (ADR-017/029); on save after a workout, feed set trace + saved count to learner (ADR-040).
 
 ## 5. Data flow
 
@@ -148,8 +148,6 @@ Dashboard (HeroSetView) ── START/Up/Down (or Menu) ──► Main Menu (Menu
   Main Menu ── Start <exercise> (menu popped) ──► Workout      [depth 1]
             ── Log <exercise>   (menu popped) ──► Picker       [depth 1]
             ── Connect Sync (dev, toggle in place)
-            ── Calibrate Exercise ──► Calibration Menu ── (menu popped)
-                 ──► Calibration view (above Main Menu; Back → Main Menu)
             ── Validation Log (dev) ──► log view (above Main Menu)
   Workout ── START (workout popped) ──► Picker seeded with count [depth 1]
           ── Back, 0 reps ──► Dashboard
@@ -162,7 +160,6 @@ Dashboard (HeroSetView) ── START/Up/Down (or Menu) ──► Main Menu (Menu
           ── Back, delta ≠ 0 ──► Manual Exit Menu [depth 2]
                Keep Editing/Back ──► Picker (1 pop)
                Save / Discard ──► Dashboard (2 pops)
-  Calibration ── START begin/stop capture (auto-finish at 10)
 ```
 
 Every fixed pop count rely on Workout/Picker sitting at depth 1 (ADR-024). Over-popping past dashboard exits app.
@@ -172,9 +169,9 @@ Every fixed pop count rely on Workout/Picker sitting at depth 1 (ADR-024). Over-
 | Item | Why it's not fixed yet | Fix when |
 |---|---|---|
 | `HeroSetStore.mc` is 472 lines (budget 250) | Guards user data; bad split corrupts installs (ADR-020) | With device upgrade check (gate 4) |
-| Rep detector constants are tuned on synthetic fixtures, not watch recordings (ADR-032) | No way yet to pull raw sensor data off watch | When gate 2 trials show misses; record traces with dev build if needed |
+| Rep detector and learning constants are tuned on synthetic fixtures, not watch recordings (ADR-032/040) | No way yet to pull raw sensor data off watch | When gate 2 trials show misses; record traces with dev build if needed |
 | Connect Sync's one-activity-per-day design is unverified and probably broken on device | Out of v1 (ADR-033); needs paused device investigation | Before sync returns to store build |
-| Validation log also records in store build (only viewer hidden) | Harmless 30-entry buffer, disclosed in `site/privacy.html`; could now be gated with annotation like sync (ADR-033) | If it ever holds anything sensitive |
+| Validation log also records in store build (only viewer hidden) | Harmless 30-entry buffer, disclosed in HeroSet privacy page (`../verden-site`); could now be gated with annotation like sync (ADR-033) | If it ever holds anything sensitive |
 | Screen-fit audit statics (`HeroSetDraw.misfits`/`boxes`) ship in release build (ADR-034) | One null check per text draw; annotating them out need second `HeroSetDraw.text` | If draw cost ever show up in profiling |
 | Physical-device-only failure modes (ADR-022/023) aren't covered by unit tests | Simulator doesn't reproduce them | Keep reading `CIQ_LOG.YAML` after device runs |
 

@@ -7,10 +7,6 @@
     <string id="menu_label_manual_pushups">Registrar flexiones</string>
     <string id="menu_label_manual_situps">Registrar abdominales</string>
     <string id="menu_label_manual_squats">Registrar sentadillas</string>
-    <string id="menu_label_calibration">Calibrar ejercicio</string>
-    <string id="menu_label_calibrate_pushups">Calibrar flexiones</string>
-    <string id="menu_label_calibrate_situps">Calibrar abdominales</string>
-    <string id="menu_label_calibrate_squats">Calibrar sentadillas</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">On</string>
     <string id="menu_sublabel_off">Off</string>
@@ -48,17 +44,6 @@
     <string id="picker_hint_adjust">UP/DOWN: AJUSTAR</string>
     <string id="picker_hint_save">START: GUARDAR</string>
 
-    <string id="calibration_title">CALIBRAR</string>
-    <string id="calibration_reps_progress">$1$ / $2$</string>
-    <string id="calibration_reps_saved">$1$ REPS</string>
-    <string id="calibration_status_recording">HACE TUS REPS</string>
-    <string id="calibration_status_saved">GUARDADO</string>
-    <string id="calibration_status_ready">LISTO</string>
-    <string id="calibration_status_too_few">SOLO $1$/$2$ REPS</string>
-    <string id="calibration_status_weak">SEÑAL DÉBIL, REINTENTAR</string>
-    <string id="calibration_action_start">START: COMENZAR</string>
-    <string id="calibration_action_stop">START: PARAR</string>
-    <string id="calibration_action_again">START: OTRA VEZ</string>
 
     <string id="validation_log_hint">UP/DOWN: PÁGINA</string>
     <string id="validation_log_empty">SIN DATOS</string>
@@ -73,4 +58,6 @@
     <string id="toast_discarded">DESCARTADO</string>
     <string id="toast_exercise_done">$1$ HECHO!</string>
     <string id="toast_mission_complete">MISIÓN DIARIA COMPLETADA!</string>
+    <string id="toast_removed">$1$ ELIMINADO</string>
+    <string id="toast_rank_up">RANGO $1$!</string>
 </strings>

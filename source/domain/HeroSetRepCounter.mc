@@ -14,11 +14,10 @@ import Toybox.Math;
 //     up), which counted every squat twice, and velocity shrinks with tempo.
 //     Strength minus its baseline, integrated twice with leaks, is roughly
 //     the height change: one swing per squat, the same size fast or slow.
-// Either signal then counts one rep per full swing: past +arm then past
-// -release, or the reverse.
+// Either signal then counts one rep per full swing: past +threshold then
+// past -threshold, or the reverse.
 class HeroSetRepCounter {
-    private var _arm as Lang.Float;
-    private var _release as Lang.Float;
+    private var _threshold as Lang.Float;
     private var _flipGapSamples as Lang.Number;
     private var _integrate as Lang.Boolean;
     private var _sampleRate as Lang.Float;
@@ -30,19 +29,14 @@ class HeroSetRepCounter {
     private var _velocity as Lang.Float = 0.0;
     private var _height as Lang.Float = 0.0;
     private var _side as Lang.Number = 0;
-    private var _signalSide as Lang.Number = 0;
     private var _flips as Lang.Number = 0;
     private var _sinceFlip as Lang.Number = 0;
-    private var _extentPeak as Lang.Float = 0.0;
-    private var _extentValley as Lang.Float = 0.0;
-    private var _lastCyclePeak as Lang.Float = 0.0;
-    private var _lastCycleValley as Lang.Float = 0.0;
+    private var _trace as HeroSetSwingTrace;
 
     // flipGapMs: the shortest believable half-rep. Swings closer together
     // than this are hand jitter around a threshold, not movement.
-    function initialize(armThreshold as Lang.Number, releaseThreshold as Lang.Number, sampleRate as Lang.Number, flipGapMs as Lang.Number, integrate as Lang.Boolean) {
-        _arm = armThreshold.toFloat();
-        _release = releaseThreshold.toFloat();
+    function initialize(threshold as Lang.Number, sampleRate as Lang.Number, flipGapMs as Lang.Number, integrate as Lang.Boolean) {
+        _threshold = threshold.toFloat();
         _sampleRate = sampleRate.toFloat();
         _integrate = integrate;
         _flipGapSamples = (flipGapMs * sampleRate) / 1000;
@@ -50,6 +44,7 @@ class HeroSetRepCounter {
             _flipGapSamples = 1;
         }
         _sinceFlip = _flipGapSamples;
+        _trace = new HeroSetSwingTrace(_flipGapSamples);
     }
 
     // Squats move the wrist up and down without tilting it; the other
@@ -66,28 +61,9 @@ class HeroSetRepCounter {
         return detect(signal);
     }
 
-    // Whatever side the signal is on right now belongs to movement before the
-    // reset, so leaving it can't complete a rep. The squat integrators clear
-    // too; the smoothing, baselines and learned axis describe how the watch
-    // sits, which a reset doesn't change.
-    function reset() as Void {
-        _velocity = 0.0;
-        _height = 0.0;
-        _side = _signalSide;
-        _flips = 0;
-        _sinceFlip = _flipGapSamples;
-        _extentPeak = 0.0;
-        _extentValley = 0.0;
-        _lastCyclePeak = 0.0;
-        _lastCycleValley = 0.0;
-    }
-
-    function getLastCyclePeak() as Lang.Float {
-        return _lastCyclePeak;
-    }
-
-    function getLastCycleValley() as Lang.Float {
-        return _lastCycleValley;
+    // The set so far, for learning from the saved count (ADR-040).
+    function getTrace() as HeroSetSwingTrace {
+        return _trace;
     }
 
     // Null until the watch has moved enough to know which axis matters.
@@ -183,28 +159,15 @@ class HeroSetRepCounter {
     // state machine double-counted slow reps.
     private function detect(signal as Lang.Float) as Lang.Boolean {
         _sinceFlip += 1;
-        if (signal > _extentPeak) {
-            _extentPeak = signal;
-        }
-        if (signal < _extentValley) {
-            _extentValley = signal;
-        }
-        var side = signal > _arm ? 1 : (signal < -_release ? -1 : 0);
-        _signalSide = side;
+        _trace.feed(signal, _samplesSeen);
+        var side = signal > _threshold ? 1 : (signal < -_threshold ? -1 : 0);
         if (side == 0 || side == _side || _sinceFlip < _flipGapSamples) {
             return false;
         }
         _side = side;
         _sinceFlip = 0;
         _flips += 1;
-        if (_flips % 2 != 0) {
-            return false;
-        }
-        _lastCyclePeak = _extentPeak;
-        _lastCycleValley = -_extentValley;
-        _extentPeak = 0.0;
-        _extentValley = 0.0;
-        return true;
+        return _flips % 2 == 0;
     }
 
     private static function dot(a as Lang.Array<Lang.Float>, b as Lang.Array<Lang.Float>) as Lang.Float {

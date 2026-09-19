@@ -15,6 +15,7 @@
 
 | Doc | What it covers | Kind |
 |---|---|---|
+| [`../PRODUCT.md`](../PRODUCT.md) | Product truth for design work: users, purpose, voice, constraints (Impeccable) | Living |
 | [`architecture.md`](architecture.md) | File structure, layers, modules, data flow, style, navigation, debt | Living |
 | [`decisions.md`](decisions.md) | Every durable decision (ADR-001…) with status | Append-only log |
 | [`input-and-ux.md`](input-and-ux.md) | What each screen show, what every button do | Living |
@@ -27,7 +28,8 @@
 | [`validation-log.md`](validation-log.md) | Physical accuracy trial template, results | Data |
 | [`calories-connect.md`](calories-connect.md) | How HR/calories read, their limits | Status-dated |
 | [`compatibility.md`](compatibility.md) | Supported watches, why others not yet, how add one | Status-dated |
-| [`../site/`](../site/) | Public privacy policy, support page (hosted separately) | Public copy |
+| [`battery.md`](battery.md) | Battery impact: what drains, what stays, what to update/measure | Status-dated |
+| `../verden-site` (sibling repo) | Public site: HeroSet landing, support, privacy policy; shared with future apps | Public copy |
 
 ## Keeping docs useful
 

@@ -7,10 +7,6 @@
     <string id="menu_label_manual_pushups">Liegestütze loggen</string>
     <string id="menu_label_manual_situps">Bauchheben loggen</string>
     <string id="menu_label_manual_squats">Kniebeugen loggen</string>
-    <string id="menu_label_calibration">Übung kalibrieren</string>
-    <string id="menu_label_calibrate_pushups">Liegestütze kalibrieren</string>
-    <string id="menu_label_calibrate_situps">Bauchheben kalibrieren</string>
-    <string id="menu_label_calibrate_squats">Kniebeugen kalibrieren</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">An</string>
     <string id="menu_sublabel_off">Aus</string>
@@ -38,27 +34,16 @@
     <string id="dashboard_streak_none">KEINE REIHE</string>
     <string id="dashboard_hint">START: MENÜ</string>
     <string id="dashboard_mission_complete">AUFGABE ERLEDIGT</string>
-    <string id="dashboard_storage_warning">! KONNTE NICHT GESPEICHERN WERDEN</string>
+    <string id="dashboard_storage_warning">! NICHT GESPEICHERT</string>
 
     <string id="today_progress">HEUTE $1$/$2$</string>
     <string id="workout_hint_finish">START: BEENDEN</string>
     <string id="workout_metrics_wide">$1$  HR $2$  KAL $3$</string>
     <string id="workout_metrics_tight">$1$ HR $2$ KAL $3$</string>
-    <string id="picker_detected">ERKENNT $1$</string>
+    <string id="picker_detected">ERKANNT $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: ANPASSEN</string>
     <string id="picker_hint_save">START: SPEICHERN</string>
 
-    <string id="calibration_title">KALIBRIEREN</string>
-    <string id="calibration_reps_progress">$1$ / $2$</string>
-    <string id="calibration_reps_saved">$1$ WDH.</string>
-    <string id="calibration_status_recording">MACH DEINE WDH.</string>
-    <string id="calibration_status_saved">GESPEICHERT</string>
-    <string id="calibration_status_ready">BEREIT</string>
-    <string id="calibration_status_too_few">NUR $1$/$2$ WDH.</string>
-    <string id="calibration_status_weak">SCHWACHES SIGNAL, NOCHMAL</string>
-    <string id="calibration_action_start">START: BEGINNEN</string>
-    <string id="calibration_action_stop">START: STOPPEN</string>
-    <string id="calibration_action_again">START: NOCHMAL</string>
 
     <string id="validation_log_hint">UP/DOWN: SEITE</string>
     <string id="validation_log_empty">KEINE LOGDATEN</string>
@@ -73,4 +58,6 @@
     <string id="toast_discarded">VERWORFEN</string>
     <string id="toast_exercise_done">$1$ ERLEDIGT!</string>
     <string id="toast_mission_complete">TÄGLICHE AUFGABE ERLEDIGT!</string>
+    <string id="toast_removed">$1$ ENTFERNT</string>
+    <string id="toast_rank_up">RANG $1$!</string>
 </strings>

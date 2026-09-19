@@ -43,9 +43,8 @@ function everyScreenFitsThisDisplay(logger as Test.Logger) as Lang.Boolean {
             var workout = new HeroSetWorkoutView(exercises[e]);
             workout.setCountsForTest(888, 99);
             HeroSetScreenFitHarness.renderScreen(workout, dc, "workout", 5, problems);
-            HeroSetScreenFitHarness.renderScreen(new HeroSetManualPickerView(exercises[e], -99, 888), dc, "picker", 6, problems);
-            HeroSetScreenFitHarness.renderScreen(new HeroSetManualPickerView(exercises[e], 100, null), dc, "picker", 5, problems);
-            HeroSetScreenFitHarness.renderScreen(new HeroSetCalibrationView(exercises[e]), dc, "calibration", 5, problems);
+            HeroSetScreenFitHarness.renderScreen(new HeroSetManualPickerView(exercises[e], -99, 888, 889, null), dc, "picker", 6, problems);
+            HeroSetScreenFitHarness.renderScreen(new HeroSetManualPickerView(exercises[e], 100, null, null, null), dc, "picker", 5, problems);
         }
         HeroSetScreenFitHarness.renderScreen(new HeroSetValidationLogView(), dc, "validation log", 5, problems);
     } finally {

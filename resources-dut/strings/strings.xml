@@ -1,16 +1,12 @@
 <strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
     <string id="AppName">HeroSet</string>
 
-    <string id="menu_label_start_pushups">Starte push-ups</string>
-    <string id="menu_label_start_situps">Starte buikspieroefeningen</string>
-    <string id="menu_label_start_squats">Starte squats</string>
-    <string id="menu_label_manual_pushups">Push-ups loggen</string>
+    <string id="menu_label_start_pushups">Start opdrukken</string>
+    <string id="menu_label_start_situps">Start buikspieroefeningen</string>
+    <string id="menu_label_start_squats">Start kniebuigingen</string>
+    <string id="menu_label_manual_pushups">Opdrukken loggen</string>
     <string id="menu_label_manual_situps">Buikspieroefeningen loggen</string>
-    <string id="menu_label_manual_squats">Squats loggen</string>
-    <string id="menu_label_calibration">Oefening kalibreren</string>
-    <string id="menu_label_calibrate_pushups">Push-ups kalibreren</string>
-    <string id="menu_label_calibrate_situps">Buikspieroefeningen kalibreren</string>
-    <string id="menu_label_calibrate_squats">Squats kalibreren</string>
+    <string id="menu_label_manual_squats">Kniebuigingen loggen</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">Aan</string>
     <string id="menu_sublabel_off">Uit</string>
@@ -25,20 +21,20 @@
     <string id="menu_title_rep">$1$ herh.</string>
     <string id="menu_title_reps">$1$ herh.</string>
 
-    <string id="exercise_pushups">PUSH-UPS</string>
-    <string id="exercise_situps">BUIKSPEROEFENINGEN</string>
-    <string id="exercise_squats">SQUATS</string>
+    <string id="exercise_pushups">OPDRUKKEN</string>
+    <string id="exercise_situps">BUIKSPIEROEFENINGEN</string>
+    <string id="exercise_squats">KNIEBUIGINGEN</string>
 
     <string id="dashboard_rank">RANG $1$</string>
     <string id="dashboard_xp_to_rank">$1$ XP VOOR RANG $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP OVER</string>
     <string id="dashboard_mission_done">$1$ KLAAR</string>
-    <string id="dashboard_streak">$1$ DAGEN RITME</string>
-    <string id="dashboard_streak_short">RITME $1$</string>
-    <string id="dashboard_streak_none">GEEN RITME</string>
+    <string id="dashboard_streak">$1$ DAGEN OP RIJ</string>
+    <string id="dashboard_streak_short">REEKS $1$</string>
+    <string id="dashboard_streak_none">GEEN REEKS</string>
     <string id="dashboard_hint">START: MENU</string>
     <string id="dashboard_mission_complete">MISSIE KLAAR</string>
-    <string id="dashboard_storage_warning">! KON NIET OPSLAGEN</string>
+    <string id="dashboard_storage_warning">! KON NIET OPSLAAN</string>
 
     <string id="today_progress">VANDAAG $1$/$2$</string>
     <string id="workout_hint_finish">START: AFRONDEN</string>
@@ -48,17 +44,6 @@
     <string id="picker_hint_adjust">UP/DOWN: AANPASSEN</string>
     <string id="picker_hint_save">START: OPSLAAN</string>
 
-    <string id="calibration_title">KALIBREREN</string>
-    <string id="calibration_reps_progress">$1$ / $2$</string>
-    <string id="calibration_reps_saved">$1$ HERH.</string>
-    <string id="calibration_status_recording">DOE JE HERHALINGEN</string>
-    <string id="calibration_status_saved">OPGESLAGEN</string>
-    <string id="calibration_status_ready">KLAAR</string>
-    <string id="calibration_status_too_few">ALLEEN $1$/$2$ HERH.</string>
-    <string id="calibration_status_weak">ZWAK SIGNAAL, OPNIEUW</string>
-    <string id="calibration_action_start">START: BEGINNEN</string>
-    <string id="calibration_action_stop">START: STOPPEN</string>
-    <string id="calibration_action_again">START: OP NIEUW</string>
 
     <string id="validation_log_hint">UP/DOWN: PAGINA</string>
     <string id="validation_log_empty">GEEN LOGGEGEVENS</string>
@@ -72,5 +57,7 @@
     <string id="toast_saved">$1$ OPGESLAGEN</string>
     <string id="toast_discarded">VERWORPEN</string>
     <string id="toast_exercise_done">$1$ KLAAR!</string>
-    <string id="toast_mission_complete">DAGELIJKS MISSIE KLAAR!</string>
+    <string id="toast_mission_complete">DAGELIJKSE MISSIE KLAAR!</string>
+    <string id="toast_removed">$1$ VERWIJDERD</string>
+    <string id="toast_rank_up">RANG $1$!</string>
 </strings>

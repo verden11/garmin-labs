@@ -10,7 +10,6 @@ function mainMenuPrepareHandlesEitherBuildsMenu(logger as Test.Logger) as Lang.B
     var menu = new Rez.Menus.MainMenu();
     HeroSetMenuDelegate.prepare(menu);
     Test.assert(menu.findItemById(:start_pushups) >= 0);
-    Test.assert(menu.findItemById(:calibration) >= 0);
     logger.debug("sync toggle index " + menu.findItemById(:sync_toggle) + ", validation log index " + menu.findItemById(:validation_log));
     return true;
 }

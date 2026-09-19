@@ -1,16 +1,12 @@
 <strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
     <string id="AppName">HeroSet</string>
 
-    <string id="menu_label_start_pushups">Aloita push-ups</string>
-    <string id="menu_label_start_situps">Aloita sit-ups</string>
-    <string id="menu_label_start_squats">Aloita squats</string>
-    <string id="menu_label_manual_pushups">Kirjaa push-ups</string>
-    <string id="menu_label_manual_situps">Kirjaa sit-ups</string>
-    <string id="menu_label_manual_squats">Kirjaa squats</string>
-    <string id="menu_label_calibration">Kalibroi liikunta</string>
-    <string id="menu_label_calibrate_pushups">Kalibroi push-ups</string>
-    <string id="menu_label_calibrate_situps">Kalibroi sit-ups</string>
-    <string id="menu_label_calibrate_squats">Kalibroi squats</string>
+    <string id="menu_label_start_pushups">Aloita punnerrukset</string>
+    <string id="menu_label_start_situps">Aloita istumaannousut</string>
+    <string id="menu_label_start_squats">Aloita kyykyt</string>
+    <string id="menu_label_manual_pushups">Kirjaa punnerrukset</string>
+    <string id="menu_label_manual_situps">Kirjaa istumaannousut</string>
+    <string id="menu_label_manual_squats">Kirjaa kyykyt</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">PÄÄLLÄ</string>
     <string id="menu_sublabel_off">POIS</string>
@@ -25,22 +21,22 @@
     <string id="menu_title_rep">$1$ toisto</string>
     <string id="menu_title_reps">$1$ toistoa</string>
 
-    <string id="exercise_pushups">PUSH-UPS</string>
-    <string id="exercise_situps">SIT-UPS</string>
-    <string id="exercise_squats">SQUATS</string>
+    <string id="exercise_pushups">PUNNERRUKSET</string>
+    <string id="exercise_situps">ISTUMAANNOUSUT</string>
+    <string id="exercise_squats">KYYKYT</string>
 
-    <string id="dashboard_rank">RANGI $1$</string>
-    <string id="dashboard_xp_to_rank">$1$ XP RANGIN $2$</string>
+    <string id="dashboard_rank">TASO $1$</string>
+    <string id="dashboard_xp_to_rank">$1$ XP TASOLLE $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP JÄLLELLÄ</string>
     <string id="dashboard_mission_done">$1$ VALMIS</string>
-    <string id="dashboard_streak">$1$ PÄIVÄN REKORDI</string>
-    <string id="dashboard_streak_short">REKORDI $1$</string>
-    <string id="dashboard_streak_none">EI REKORDIA</string>
+    <string id="dashboard_streak">$1$ PÄIVÄN PUTKI</string>
+    <string id="dashboard_streak_short">PUTKI $1$</string>
+    <string id="dashboard_streak_none">EI PUTKEA</string>
     <string id="dashboard_hint">START: VALIKKO</string>
     <string id="dashboard_mission_complete">TEHTÄVÄ VALMIS</string>
     <string id="dashboard_storage_warning">! EI VOITU TALLENTAA</string>
 
-    <string id="today_progress">TÄNÄN $1$/$2$</string>
+    <string id="today_progress">TÄNÄÄN $1$/$2$</string>
     <string id="workout_hint_finish">START: PÄÄTÄ</string>
     <string id="workout_metrics_wide">$1$  HR $2$  KAL $3$</string>
     <string id="workout_metrics_tight">$1$ HR $2$ KAL $3$</string>
@@ -48,17 +44,6 @@
     <string id="picker_hint_adjust">UP/DOWN: SÄÄDÄ</string>
     <string id="picker_hint_save">START: TALLENNA</string>
 
-    <string id="calibration_title">KALIBROI</string>
-    <string id="calibration_reps_progress">$1$ / $2$</string>
-    <string id="calibration_reps_saved">$1$ TOISTOA</string>
-    <string id="calibration_status_recording">TEE TOISTOT</string>
-    <string id="calibration_status_saved">TALLENNETTU</string>
-    <string id="calibration_status_ready">VALMIS</string>
-    <string id="calibration_status_too_few">VAIN $1$/$2$ TOISTOA</string>
-    <string id="calibration_status_weak">HEIKKO SIGNAALI, YRITÄ UUDELLEEN</string>
-    <string id="calibration_action_start">START: ALOITA</string>
-    <string id="calibration_action_stop">START: PYSÄYTÄ</string>
-    <string id="calibration_action_again">START: UUDELLEEN</string>
 
     <string id="validation_log_hint">UP/DOWN: SIVU</string>
     <string id="validation_log_empty">EI LOGGAUSTA</string>
@@ -73,4 +58,6 @@
     <string id="toast_discarded">HYLÄTTY</string>
     <string id="toast_exercise_done">$1$ VALMIS!</string>
     <string id="toast_mission_complete">PÄIVÄN TEHTÄVÄ VALMIS!</string>
+    <string id="toast_removed">$1$ POISTETTU</string>
+    <string id="toast_rank_up">TASO $1$!</string>
 </strings>

@@ -16,7 +16,7 @@ class HeroSetWorkoutDelegate extends WatchUi.BehaviorDelegate {
     // with the detected count) so a miscounted set can be corrected before
     // it's saved.
     function onSelect() as Boolean {
-        var pickerView = new HeroSetManualPickerView(_view.getExercise(), _view.getCount(), _view.getCount());
+        var pickerView = new HeroSetManualPickerView(_view.getExercise(), _view.getCount(), _view.getCount(), _view.getDetectedCount(), _view.getTrace());
         // Pop the workout view first so the picker sits directly on the
         // dashboard (depth 1) — the same depth every other picker caller
         // maintains, which is what lets HeroSetManualPickerDelegate use a
@@ -29,13 +29,14 @@ class HeroSetWorkoutDelegate extends WatchUi.BehaviorDelegate {
     // Back never silently drops counted reps: with reps on the board, offer
     // Garmin's native activity-end choice (Resume/Save/Discard) instead of
     // leaving. With nothing counted there is nothing to lose.
+    // Gated on the live count, not the saved one: a lone rep learned to be
+    // getting up (ADR-040) is still movement the user may want to keep.
     function onBack() as Boolean {
-        var count = _view.getCount();
-        if (count <= 0) {
+        if (_view.getDetectedCount() <= 0) {
             return false;
         }
         var menu = new Rez.Menus.WorkoutEndMenu();
-        menu.setTitle(HeroSetText.reps(count, false));
+        menu.setTitle(HeroSetText.reps(_view.getCount(), false));
         WatchUi.pushView(menu, new HeroSetWorkoutEndMenuDelegate(_view), WatchUi.SLIDE_UP);
         return true;
     }

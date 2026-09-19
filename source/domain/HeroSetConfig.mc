@@ -13,8 +13,7 @@ class HeroSetConfig {
     static const SENSOR_SAMPLE_RATE = 25;
     static const SENSOR_PERIOD_SECONDS = 1;
     // Shortest believable half-rep (down or up); side changes closer
-    // together are jitter around a threshold. Persisted in calibration
-    // profiles under "cooldown" (ADR-003 spelling).
+    // together are jitter around a threshold.
     static const SENSOR_COOLDOWN_MS = 250;
     // Rep detector filters (ADR-032), in samples at SENSOR_SAMPLE_RATE:
     // smoothing ~0.1 s, gravity/posture baseline ~2 s, squat velocity and
@@ -33,26 +32,33 @@ class HeroSetConfig {
     // 45 cm squat swings roughly +-150.
     static const DETECTOR_HEIGHT_GAIN = 16.0;
     // Thresholds are in detector signal units: mg of tilt swing, or scaled
-    // velocity for squats. Defaults apply until an exercise is calibrated.
-    static const DEFAULT_ARM_THRESHOLD = 80;
-    static const DEFAULT_RELEASE_THRESHOLD = 80;
-    static const CALIBRATION_REQUIRED_CYCLES = 10;
-    static const CALIBRATION_MIN_PEAK = 100;
-    static const CALIBRATION_MIN_VALLEY = 100;
-    // Provisional thresholds while calibrating. They are also the floor for
-    // fitted thresholds, so every rep that counted during calibration can
-    // count again in a workout.
-    static const CALIBRATION_SAMPLE_ARM = 50;
-    static const CALIBRATION_SAMPLE_RELEASE = 50;
-    // Fitted threshold = this percent of the mean swing: low enough that
-    // the weaker reps at the end of a set still cross it.
-    static const CALIBRATION_FIT_PERCENT = 25;
-    // Safe range for fitted thresholds: a very gentle or very violent
-    // calibration session can't produce a detector that never or always fires.
-    static const CALIBRATION_ARM_MIN = 50;
-    static const CALIBRATION_ARM_MAX = 500;
-    static const CALIBRATION_RELEASE_MIN = 50;
-    static const CALIBRATION_RELEASE_MAX = 500;
+    // height for squats. The default is where learning starts (ADR-040).
+    static const DEFAULT_THRESHOLD = 80;
+    // Learning from saved counts (ADR-040). Candidate thresholds: 24 steps
+    // of ~14% between 30 and 600. 2 * 30 must stay above TRACE_HYSTERESIS.
+    static const LEARN_BINS = 24;
+    static const LEARN_MIN_THRESHOLD = 30.0;
+    static const LEARN_MAX_THRESHOLD = 600.0;
+    // Prior width in ln units: a factor of ~2 either side of the default is
+    // plausible before any set is saved.
+    static const LEARN_PRIOR_SPREAD = 0.7;
+    // Prior belief that a user's last counted rep is getting up.
+    static const LEARN_DROP_PRIOR = 0.25;
+    // Share of belief kept per saved set; the rest resets toward the prior,
+    // so roughly the last 6-7 sets decide.
+    static const LEARN_MEMORY = 0.85;
+    // A hypothesis off by 10% of the saved count scores 1/e of an exact one.
+    static const LEARN_TOLERANCE_PERCENT = 10;
+    // Least likelihood any hypothesis gets from one set, so one mistyped
+    // count can't overturn several agreeing sets.
+    static const LEARN_MISTAKE_FLOOR = 0.02;
+    // Saved reps beyond what the movement explains at the lowest threshold
+    // (at least 2): the set taught nothing, skip it.
+    static const LEARN_UNEXPLAINED_PERCENT = 20;
+    // Swing trace: reversals below this (signal units) are sensor jitter;
+    // a set past TRACE_MAX_POINTS turning points (~4 min) isn't learned from.
+    static const TRACE_HYSTERESIS = 25.0;
+    static const TRACE_MAX_POINTS = 500;
     // Short tap on each detected rep — glanceable confirmation without
     // looking at the screen mid-exercise. Duty cycle is ignored on
     // Forerunner hardware (fixed default motor strength), kept for devices

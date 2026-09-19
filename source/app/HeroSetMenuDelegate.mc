@@ -67,8 +67,6 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
             pushManualPicker(:situps);
         } else if (id == :manual_squats) {
             pushManualPicker(:squats);
-        } else if (id == :calibration) {
-            WatchUi.pushView(new Rez.Menus.CalibrationMenu(), new HeroSetCalibrationMenuDelegate(), WatchUi.SLIDE_UP);
         } else if (id == :sync_toggle) {
             applySyncToggle(item);
         } else if (id == :validation_log) {
@@ -91,7 +89,7 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
     // directly on the dashboard (menu popped first, same as pushWorkout) so
     // saving is a single deterministic pop back to the dashboard.
     private function pushManualPicker(exercise as Lang.Symbol) as Void {
-        var pickerView = new HeroSetManualPickerView(exercise, 0, null);
+        var pickerView = new HeroSetManualPickerView(exercise, 0, null, null, null);
         WatchUi.popView(WatchUi.SLIDE_DOWN);
         WatchUi.pushView(pickerView, new HeroSetManualPickerDelegate(pickerView), WatchUi.SLIDE_UP);
     }

@@ -15,11 +15,12 @@ Garmin watch app (Forerunner 965 first, 67 round AMOLED + MIP watches supported,
 - Builds: `monkey.jungle` = dev (Connect Sync + validation log); `store.jungle` = release: `manifest-store.xml` (no `Fit`), `(:sync)` code excluded, `resources-store/` menu (ADR-033). Both manifests keep same app id.
 - CLI tools in SDK `bin/` folder, may not be on `PATH` (`~/Library/Application Support/Garmin/ConnectIQ/Sdks/<sdk>/bin/`). Signing key = `developer_key` in repo root: gitignored, never commit it.
 - Build: `monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y developer_key`
-- Tests (80): `monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y developer_key`, then `monkeydo bin/HeroSet-tests.prg fr965 -t`. Trust printed `PASSED (…)` line, not exit code. Hung run → restart simulator. Swap `fr965` for other product id to check its screens (`everyScreenFitsThisDisplay`).
+- Tests (79): `monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y developer_key`, then `monkeydo bin/HeroSet-tests.prg fr965 -t`. Trust printed `PASSED (…)` line, not exit code. Hung run → restart simulator. Swap `fr965` for other product id to check its screens (`everyScreenFitsThisDisplay`).
 - Layers point down only: Presentation (`app/`, `ui/`, `layout/`) → Sensor / Data → Domain. Only `data/` touches Storage.
 - XP only for net stored progress (ADR-002). Rank derived, never stored (ADR-031). Persisted key spellings never change (ADR-003).
 - Navigation: Workout/Picker always depth 1 on dashboard; fixed pop counts depend on it, over-popping exits app (ADR-024).
 - Device-only failure modes exist (ADR-022/023). Passing simulator not proof; say so when reporting.
+- Public site (landing, support, privacy) lives in sibling repo `../verden-site` (studio "Verden", shared with future apps; its `CLAUDE.md` explains hosting + linking). HeroSet pages: `src/apps/heroset/` there, live at `/heroset/`, `/heroset/support/`, `/heroset/privacy/` on https://verden.watch (Netlify, auto-deploys on push). Store listing uses those URLs. User-facing claim or data-handling change here → update those pages same session.
 
 ## House rules
 
@@ -38,6 +39,6 @@ Garmin watch app (Forerunner 965 first, 67 round AMOLED + MIP watches supported,
 - Behavior change → update doc describing it, same session.
 - Durable decision → new ADR at end of `docs/decisions.md` (mark older ones Superseded/Amended; don't delete).
 - Open items + blockers live only in go-to-market status checkpoint. History lives in git + ADRs, not status sections.
-- Status-dated docs (`go-to-market.md`, `release-contract.md`, `calories-connect.md`, `compatibility.md`): bump date when editing.
+- Status-dated docs (`go-to-market.md`, `release-contract.md`, `calories-connect.md`, `compatibility.md`, `battery.md`): bump date when editing.
 - Test count appears in this file, `README.md`, `docs/development.md`, `docs/release-contract.md`; update all four.
 - Prefer editing existing docs; genuinely new doc gets linked from `docs/README.md`.

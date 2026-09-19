@@ -53,9 +53,21 @@ class HeroSetDraw {
         var width = dc.getTextWidthInPixels(text, Graphics.FONT_XTINY);
         var height = dc.getFontHeight(Graphics.FONT_XTINY);
         var y = layout.fitCenteredY(maxY, minY, width, height);
-        dc.setColor(HeroSetPalette.MUTED, Graphics.COLOR_BLACK);
+        dc.setColor(HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
         HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
         return y;
+    }
+
+    // Screen title in the first band, where the round screen is narrowest:
+    // shrinks to fit rather than clip long translations (e.g. Dutch
+    // BUIKSPIEROEFENINGEN). Returns the y just below it.
+    static function title(dc as Graphics.Dc, layout as HeroSetLayout, text as Lang.String) as Lang.Number {
+        var y = layout.bandTop(0);
+        var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
+        var font = largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, fonts);
+        dc.setColor(HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+        return y + dc.getFontHeight(font);
     }
 
     // Does centered text fit the chord at row y, inside `radius` and with

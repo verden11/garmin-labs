@@ -2,7 +2,7 @@ import Toybox.Attention;
 import Toybox.Lang;
 
 // Feedback tiers are told apart by pulse count alone (1 = rep, 2 = one
-// exercise hit its goal, 3 = whole daily mission), since the wrist is
+// exercise hit its goal, 3 = whole daily mission, 4 = new rank), since the wrist is
 // usually mid-movement and not looking at the screen.
 class HeroSetHaptics {
 
@@ -16,6 +16,10 @@ class HeroSetHaptics {
 
     static function missionComplete() as Void {
         pulses(3);
+    }
+
+    static function rankUp() as Void {
+        pulses(4);
     }
 
     // Built from the rep pulse timing so every tier feels like the same

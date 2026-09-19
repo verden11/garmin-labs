@@ -17,7 +17,7 @@ function exitMenusDispatchSaveToTheirView(logger as Test.Logger) as Lang.Boolean
         workoutMenu.save();
         Test.assertEqual(store.getCount(:pushups), 7);
 
-        var picker = new HeroSetManualPickerView(:situps, 4, null);
+        var picker = new HeroSetManualPickerView(:situps, 4, null, null, null);
         var pickerMenu = new HeroSetManualExitMenuDelegate(picker) as HeroSetExitMenuDelegate;
         pickerMenu.save();
         Test.assertEqual(store.getCount(:situps), 4);

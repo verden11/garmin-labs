@@ -9,13 +9,13 @@ class HeroSetStore {
     const SCHEMA_VERSION = 3;
     const SCHEMA_KEY = "hero_schema";
     const DAY_KEY = "hero_day";
-    const CALIBRATION_KEY = "hero_calibration";
-    // Thresholds only mean something to the detector that fitted them.
-    // Profiles without this model number came from the magnitude detector
-    // (ADR-032) and read as uncalibrated. Bump it whenever the detector's
-    // signal changes.
-    const CALIBRATION_MODEL_FIELD = "model";
-    const CALIBRATION_MODEL = 2;
+    // Learned threshold beliefs, one per exercise (ADR-040). The old
+    // "hero_calibration" profiles are no longer read. Beliefs only mean
+    // something to the detector signal they were learned on: bump the model
+    // whenever that signal changes, and older beliefs read as fresh.
+    const LEARNING_KEY = "hero_learning";
+    const LEARNING_MODEL_FIELD = "model";
+    const LEARNING_MODEL = 1;
 
     const XP_KEY = "hero_xp";
     const STREAK_KEY = "hero_streak";
@@ -224,38 +224,27 @@ class HeroSetStore {
     }
 
     // ------------------------------------------------------------------
-    // Calibration profiles (per exercise: arm, release, rate, cooldown)
+    // Learned thresholds (ADR-040)
     // ------------------------------------------------------------------
 
-    function getCalibrationArm(exercise as Lang.Symbol) as Lang.Number {
-        return asNumber(calibrationValue(exercise, "arm"), HeroSetConfig.DEFAULT_ARM_THRESHOLD);
-    }
-
-    function getCalibrationRelease(exercise as Lang.Symbol) as Lang.Number {
-        return asNumber(calibrationValue(exercise, "release"), HeroSetConfig.DEFAULT_RELEASE_THRESHOLD);
-    }
-
-    function getCalibrationRate(exercise as Lang.Symbol) as Lang.Number {
-        return asNumber(calibrationValue(exercise, "rate"), HeroSetConfig.SENSOR_SAMPLE_RATE);
-    }
-
-    function getCalibrationCooldownMs(exercise as Lang.Symbol) as Lang.Number {
-        return asNumber(calibrationValue(exercise, "cooldown"), HeroSetConfig.SENSOR_COOLDOWN_MS);
-    }
-
-    function setCalibrationProfile(exercise as Lang.Symbol, armThreshold as Lang.Number, releaseThreshold as Lang.Number, rate as Lang.Number, cooldownMs as Lang.Number) as Void {
-        var calibration = _storage.getValue(CALIBRATION_KEY);
-        if (!(calibration instanceof Dictionary)) {
-            calibration = {};
+    function getLearningState(exercise as Lang.Symbol) as Lang.Array<Lang.Float> {
+        var learning = _storage.getValue(LEARNING_KEY);
+        if (learning instanceof Dictionary && asNumber(learning[LEARNING_MODEL_FIELD], 0) == LEARNING_MODEL) {
+            var state = learning[exerciseKeyString(exercise)];
+            if (state instanceof Array && state.size() == 2 * HeroSetConfig.LEARN_BINS) {
+                return state as Lang.Array<Lang.Float>;
+            }
         }
-        var profile = {};
-        profile["arm"] = armThreshold;
-        profile["release"] = releaseThreshold;
-        profile["rate"] = rate;
-        profile["cooldown"] = cooldownMs;
-        profile[CALIBRATION_MODEL_FIELD] = CALIBRATION_MODEL;
-        calibration[exerciseKeyString(exercise)] = profile;
-        _set(CALIBRATION_KEY, calibration);
+        return HeroSetThresholdLearner.initialState();
+    }
+
+    function setLearningState(exercise as Lang.Symbol, state as Lang.Array<Lang.Float>) as Void {
+        var learning = _storage.getValue(LEARNING_KEY);
+        if (!(learning instanceof Dictionary) || asNumber(learning[LEARNING_MODEL_FIELD], 0) != LEARNING_MODEL) {
+            learning = {LEARNING_MODEL_FIELD => LEARNING_MODEL};
+        }
+        learning[exerciseKeyString(exercise)] = state;
+        _set(LEARNING_KEY, learning);
     }
 
     // ------------------------------------------------------------------
@@ -298,21 +287,9 @@ class HeroSetStore {
         return null;
     }
 
-    private function calibrationValue(exercise as Lang.Symbol, field as Lang.String) as Lang.Object? {
-        var calibration = _storage.getValue(CALIBRATION_KEY);
-        if (!(calibration instanceof Dictionary)) {
-            return null;
-        }
-        var profile = calibration[exerciseKeyString(exercise)];
-        if (!(profile instanceof Dictionary) || asNumber(profile[CALIBRATION_MODEL_FIELD], 0) != CALIBRATION_MODEL) {
-            return null;
-        }
-        return profile[field];
-    }
-
     // Storage.setValue forbids Symbol as a Dictionary key or value ("Symbols
     // can change from build to build") and throws UnexpectedTypeException —
-    // confirmed crashing on a physical FR965. The CALIBRATION_KEY dictionary
+    // confirmed crashing on a physical FR965. The LEARNING_KEY dictionary
     // must be keyed by this String, never the exercise Symbol directly.
     private function exerciseKeyString(exercise as Lang.Symbol) as Lang.String {
         if (exercise == :pushups) {

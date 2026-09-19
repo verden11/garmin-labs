@@ -38,18 +38,11 @@ class HeroSetValidationLogView extends WatchUi.View {
 
     function onUpdate(dc as Dc) as Void {
         var layout = new HeroSetLayout(dc);
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.setColor(HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
         dc.clear();
-        // The first band sits where the round screen is narrowest, so the
-        // header shrinks to fit, and rows stack by measured height: at fixed
-        // bands the header clipped or overlapped the first line (ADR-034).
-        var title = header();
-        var y = layout.bandTop(0);
-        var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
-        var titleFont = HeroSetDraw.largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, title, fonts);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, titleFont, title, Graphics.TEXT_JUSTIFY_CENTER);
-        y += dc.getFontHeight(titleFont);
-
+        // Rows stack by measured height: at fixed bands the header clipped
+        // or overlapped the first line (ADR-034).
+        var y = HeroSetDraw.title(dc, layout, header());
         var lines = pageLines();
         for (var i = 0; i < lines.size(); i++) {
             HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, lines[i], Graphics.TEXT_JUSTIFY_CENTER);

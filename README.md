@@ -16,11 +16,10 @@ Goal: publish as paid app on Connect IQ Store.
 
 ## Status (2026-09-18)
 
-- **Working in simulator:** counting (detector rebuilt after poor first watch
-  trials, ADR-032), manual correction, daily goals, XP/rank/streak, dashboard,
+- **Working in simulator:** counting that learns from saved counts (ADR-032/040), manual correction, daily goals, XP/rank/streak, dashboard,
   live HR/calorie readouts, launch localization in English, German, French,
   Spanish, Italian, Portuguese, Dutch, Polish, Swedish, Danish, Norwegian
-  Bokmål, Finnish, Turkish, Lithuanian, Ukrainian. 80 unit tests pass on each
+  Bokmål, Finnish, Turkish, Lithuanian, Ukrainian. 79 unit tests pass on each
   supported product's simulator.
 - **Not yet proven on real watch:** auto counting accuracy with new detector.
   Garmin Connect sync dev-build only; v1 ships without it (ADR-033).
@@ -35,7 +34,7 @@ Connect IQ developer key (keep outside git; see
 [`docs/development.md`](docs/development.md#signing-key)).
 
 ```bash
-# Build the dev app (all screens, incl. calibration)
+# Build the dev app (all screens, incl. Validation Log)
 monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y /path/to/developer_key
 
 # Run it (start the Connect IQ simulator first)
@@ -79,7 +78,7 @@ store.jungle       release build (manifest-store.xml, resources-store/ overlay)
 source/            Monkey C: app/ domain/ data/ sensor/ layout/ ui/ test/
 resources/         strings, menus, launcher icon
 resources-store/   release menu overlay (no Connect Sync, no validation log)
-site/              privacy policy and support page (to host publicly)
 docs/              architecture, decisions, UX, testing, launch plan
+listing/           Connect IQ Store upload images (screens/, cover, hero, device icons; sources in src/)
 bin/               build output (git-ignored)
 ```

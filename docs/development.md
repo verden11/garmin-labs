@@ -14,7 +14,7 @@ monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y /path/to/developer_key
 monkeydo bin/HeroSet.prg fr965        # with simulator running
 ```
 
-Store build (ADR-033): `manifest-store.xml` (Sensor permission only), sync code excluded via `(:sync)`/`(:nosync)` annotations, `resources-store` menu (Calibrate, no Connect Sync or Validation Log):
+Store build (ADR-033): `manifest-store.xml` (Sensor permission only), sync code excluded via `(:sync)`/`(:nosync)` annotations, `resources-store` menu (no Connect Sync or Validation Log):
 
 ```bash
 monkeyc -d fr965 -f store.jungle -o bin/HeroSet-store.prg -y /path/to/developer_key
@@ -34,7 +34,7 @@ Launch language list identical in both manifests: `eng`, `deu`, `fre`, `spa`, `i
 
 After string change: compare every qualified file's IDs and placeholders with `resources/strings/strings.xml`, then run screen-fit suite with each language selected in Connect IQ simulator. Simulator evidence no replace real-device font and layout checks.
 
-## Unit tests (80 tests)
+## Unit tests (79 tests)
 
 ```bash
 monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y /path/to/developer_key

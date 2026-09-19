@@ -13,6 +13,8 @@ class HeroSetManualPickerView extends WatchUi.View {
     private var _adjustHint;
     private var _delta;
     private var _detectedSeed;
+    private var _detectedText;
+    private var _trace;
     private var _saved = false;
 
     // initialDelta seeds the picker with a workout's detected count so it
@@ -21,8 +23,12 @@ class HeroSetManualPickerView extends WatchUi.View {
     // is non-null only for the workout-correction case (equal to
     // initialDelta at construction) — it's what saveEntry logs against the
     // final corrected count for physical accuracy validation (ADR-026);
-    // standalone entry has no detector count to compare against.
-    function initialize(exercise as Lang.Symbol, initialDelta as Lang.Number, detectedSeed as Lang.Number?) {
+    // standalone entry has no detector count to compare against. trace is
+    // the finished set's swings, so the saved count can teach the detector
+    // (ADR-040); null for standalone entry. detectedLive is what the workout
+    // screen showed, which is one more than the seed when the last rep has
+    // been learned to be getting up.
+    function initialize(exercise as Lang.Symbol, initialDelta as Lang.Number, detectedSeed as Lang.Number?, detectedLive as Lang.Number?, trace as HeroSetSwingTrace?) {
         View.initialize();
         _exercise = exercise;
         // Cached: every Up/Down press redraws.
@@ -31,6 +37,18 @@ class HeroSetManualPickerView extends WatchUi.View {
         _adjustHint = HeroSetText.load(Rez.Strings.picker_hint_adjust);
         _delta = initialDelta;
         _detectedSeed = detectedSeed;
+        _detectedText = detectedText(detectedSeed, detectedLive);
+        _trace = trace;
+    }
+
+    // "DETECTED 24 (-1)" rather than a bare 23 right after the workout screen
+    // showed 24, so the dropped rep reads as arithmetic, not a lost rep.
+    private static function detectedText(seed as Lang.Number?, live as Lang.Number?) as Lang.String? {
+        if (seed == null) {
+            return null;
+        }
+        var shown = (live != null && live > seed) ? live.toString() + " (-" + (live - seed) + ")" : seed.toString();
+        return HeroSetText.format(Rez.Strings.picker_detected, [shown]);
     }
 
     // Clamped against the stored count so pressing Down past zero doesn't
@@ -58,13 +76,22 @@ class HeroSetManualPickerView extends WatchUi.View {
             return;
         }
         var store = getApp().getStore();
-        var countBefore = store.getCount(_exercise);
-        var completedBefore = store.isDailyMissionComplete();
-        store.add(_exercise, _delta);
+        HeroSetSaveFeedback.save(store, _exercise, _delta);
         if (_detectedSeed != null) {
             store.logValidationTrial(_exercise, _detectedSeed, _delta);
         }
-        HeroSetSaveFeedback.show(_exercise, _delta, countBefore, store.getCount(_exercise), completedBefore, store.isDailyMissionComplete());
+        learnFromSet(store);
+    }
+
+    private function learnFromSet(store as HeroSetStore) as Void {
+        var trace = _trace;
+        if (trace == null) {
+            return;
+        }
+        var learned = HeroSetThresholdLearner.updated(store.getLearningState(_exercise), trace, _delta);
+        if (learned != null) {
+            store.setLearningState(_exercise, learned);
+        }
     }
 
     // Rows stack top-down by measured font height (the optional DETECTED
@@ -72,17 +99,16 @@ class HeroSetManualPickerView extends WatchUi.View {
     // bezel so neither end collides.
     function onUpdate(dc as Dc) as Void {
         var layout = new HeroSetLayout(dc);
-        dc.setColor(Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.setColor(HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
         dc.clear();
-        var y = layout.bandTop(0);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_SMALL, _label, Graphics.TEXT_JUSTIFY_CENTER);
-        y += dc.getFontHeight(Graphics.FONT_SMALL);
-        if (_detectedSeed != null) {
-            dc.setColor(Graphics.COLOR_LT_GRAY, Graphics.COLOR_BLACK);
-            HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, HeroSetText.format(Rez.Strings.picker_detected, [_detectedSeed]), Graphics.TEXT_JUSTIFY_CENTER);
+        var y = HeroSetDraw.title(dc, layout, _label);
+        var detected = _detectedText;
+        if (detected != null) {
+            dc.setColor(HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
+            HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, detected, Graphics.TEXT_JUSTIFY_CENTER);
             y += dc.getFontHeight(Graphics.FONT_XTINY);
         }
-        dc.setColor(deltaColor(), Graphics.COLOR_BLACK);
+        dc.setColor(deltaColor(), HeroSetPalette.BACKGROUND);
         HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_LARGE, HeroSetText.signed(_delta), Graphics.TEXT_JUSTIFY_CENTER);
         y += dc.getFontHeight(Graphics.FONT_LARGE);
         drawToday(dc, layout, y);
@@ -100,15 +126,16 @@ class HeroSetManualPickerView extends WatchUi.View {
         }
         var text = HeroSetText.todayProgress(resulting);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
-        dc.setColor(resulting >= HeroSetConfig.MISSION_GOAL ? Graphics.COLOR_GREEN : Graphics.COLOR_WHITE, Graphics.COLOR_BLACK);
+        dc.setColor(resulting >= HeroSetConfig.MISSION_GOAL ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
         HeroSetDraw.text(dc, layout, layout.centerX(), y, HeroSetDraw.largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, fonts), text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    // Zero is neutral: nothing will change if this is saved.
+    // Zero is neutral: nothing will change if this is saved. Adding reps is
+    // effort like the live count, not green, which only means a goal is met.
     private function deltaColor() as Graphics.ColorType {
         if (_delta == 0) {
-            return Graphics.COLOR_WHITE;
+            return HeroSetPalette.TEXT;
         }
-        return _delta > 0 ? Graphics.COLOR_GREEN : Graphics.COLOR_RED;
+        return _delta > 0 ? HeroSetPalette.EFFORT : HeroSetPalette.ALERT;
     }
 }

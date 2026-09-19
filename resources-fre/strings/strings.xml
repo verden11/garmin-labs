@@ -3,19 +3,15 @@
 
     <string id="menu_label_start_pushups">Commencer les pompes</string>
     <string id="menu_label_start_situps">Commencer les relevés de buste</string>
-    <string id="menu_label_start_squats">Commencer les squats</string>
+    <string id="menu_label_start_squats">Commencer les flexions de jambes</string>
     <string id="menu_label_manual_pushups">Logger les pompes</string>
     <string id="menu_label_manual_situps">Logger les relevés de buste</string>
-    <string id="menu_label_manual_squats">Logger les squats</string>
-    <string id="menu_label_calibration">Calibrer l'exercice</string>
-    <string id="menu_label_calibrate_pushups">Calibrer les pompes</string>
-    <string id="menu_label_calibrate_situps">Calibrer les relevés de buste</string>
-    <string id="menu_label_calibrate_squats">Calibrer les squats</string>
+    <string id="menu_label_manual_squats">Enregistrer les flexions de jambes</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">On</string>
     <string id="menu_sublabel_off">Off</string>
     <string id="menu_sublabel_progress">$1$/$2$</string>
-    <string id="menu_sublabel_done">TERMINE</string>
+    <string id="menu_sublabel_done">TERMINÉ</string>
     <string id="menu_label_validation_log">Journal de validation</string>
 
     <string id="menu_label_resume">Reprendre</string>
@@ -27,18 +23,18 @@
 
     <string id="exercise_pushups">POMPES</string>
     <string id="exercise_situps">RELEVÉS DE BUSTE</string>
-    <string id="exercise_squats">SQUATS</string>
+    <string id="exercise_squats">FLEXIONS DE JAMBES</string>
 
     <string id="dashboard_rank">RANG $1$</string>
     <string id="dashboard_xp_to_rank">$1$ XP POUR RANG $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP RESTANTS</string>
-    <string id="dashboard_mission_done">$1$ TERMINE</string>
-    <string id="dashboard_streak">$1$ JOUR DE RÉCORD</string>
-    <string id="dashboard_streak_short">RÉCORD $1$</string>
-    <string id="dashboard_streak_none">PAS DE RÉCORD</string>
+    <string id="dashboard_mission_done">$1$ TERMINÉ</string>
+    <string id="dashboard_streak">$1$ JOURS DE SÉRIE</string>
+    <string id="dashboard_streak_short">SÉRIE $1$</string>
+    <string id="dashboard_streak_none">AUCUNE SÉRIE</string>
     <string id="dashboard_hint">START: MENU</string>
     <string id="dashboard_mission_complete">MISSION TERMINÉE</string>
-    <string id="dashboard_storage_warning">! IMPOSSIBLE D'ENREGISTRER</string>
+    <string id="dashboard_storage_warning">! ÉCHEC DE SAUVEGARDE</string>
 
     <string id="today_progress">AUJOURD'HUI $1$/$2$</string>
     <string id="workout_hint_finish">START: TERMINER</string>
@@ -48,17 +44,6 @@
     <string id="picker_hint_adjust">UP/DOWN: AJUSTER</string>
     <string id="picker_hint_save">START: SAUVEGARDER</string>
 
-    <string id="calibration_title">CALIBRER</string>
-    <string id="calibration_reps_progress">$1$ / $2$</string>
-    <string id="calibration_reps_saved">$1$ RÉP.</string>
-    <string id="calibration_status_recording">FAIS TES RÉP.</string>
-    <string id="calibration_status_saved">ENREGISTRÉ</string>
-    <string id="calibration_status_ready">PRÊT</string>
-    <string id="calibration_status_too_few">SEULEMENT $1$/$2$ RÉP.</string>
-    <string id="calibration_status_weak">SIGNAL FAIBLE, RÉESSAYER</string>
-    <string id="calibration_action_start">START: COMMENCER</string>
-    <string id="calibration_action_stop">START: STOPPER</string>
-    <string id="calibration_action_again">START: ENCORE</string>
 
     <string id="validation_log_hint">UP/DOWN: PAGE</string>
     <string id="validation_log_empty">AUCUNE DONNÉE</string>
@@ -71,6 +56,8 @@
 
     <string id="toast_saved">$1$ SAUVEGARDÉ</string>
     <string id="toast_discarded">IGNORÉ</string>
-    <string id="toast_exercise_done">$1$ TERMINE!</string>
+    <string id="toast_exercise_done">$1$ TERMINÉ!</string>
     <string id="toast_mission_complete">MISSION QUOTIDIENNE TERMINÉE!</string>
+    <string id="toast_removed">$1$ RETIRÉ</string>
+    <string id="toast_rank_up">RANG $1$!</string>
 </strings>

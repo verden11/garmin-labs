@@ -8,6 +8,10 @@ on-device testing; roll summary (not every row) into
 used old magnitude detector — don't count toward gate; kept as failure record.
 Recalibrate every exercise before new trials: old calibration profiles ignored.
 
+**Calibration removed 2026-09-19 (ADR-040):** thresholds now learned from
+saved counts. Rows dated 2026-09-18 used calibrated detector; learning-build
+rows start fresh. Idle check now means 60 s still in exercise position.
+
 **Gate to hit** (`go-to-market.md` gate 2): median |error| ≤ 1 per 10-rep set;
 ≤ 1 false positive per 60 s idle; calibration success ≥ 90%; no crash/listener
 leak in 30 min sessions.
@@ -46,6 +50,10 @@ Device/firmware: _(e.g. FR965, firmware 29.05, ConnectIQ 6.0.2)_
 | 2026-09-18 | squats | medium | Y | 10 | 10 | 0 | new detector (ADR-032) |
 | 2026-09-18 | squats | fast | Y | 10 | 3 | −7 | new detector (ADR-032); big undercount |
 | 2026-09-18 | squats | fast | Y | 10 | 8 | −2 | repeat: ~12 s for 10 (1.2 s/rep), slightly shallower than slow, misses spread evenly; hands at chin but wrist drops on way up, returns to chin on way down — arm travel cancels body travel |
+| 2026-09-19 | pushups | medium | n/a | 10 | 12 | +2 | learning build (ADR-040), teaching set 1 |
+| 2026-09-19 | squats | medium | n/a | 10 | 10 | 0 | learning build, teaching set 1; hands held steady at chin throughout |
+| 2026-09-19 | pushups | medium | n/a | 10 | 10 | 0 | learning build, teaching set 2 |
+| 2026-09-19 | situps | medium | n/a | 10 | 10 | 0 | learning build, teaching set 1 |
 
 Add rows for repeat trials — more than one pass per exercise/speed cell
 encouraged, not just one each. Deliberately over- or under-correcting a set at
@@ -63,6 +71,7 @@ Finish defeats point — save what you actually counted.
 
 Wear watch, stay still/normal wrist movement (not exercising) 60 s per
 exercise's calibration profile active; count any reps detector logs.
+Learning build (ADR-040): start set in exercise position, hold still 60 s.
 
 | Date | Exercise (calibration active) | Idle duration | False positives counted |
 | --- | --- | --- | --- |
