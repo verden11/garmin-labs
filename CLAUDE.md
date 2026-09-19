@@ -1,36 +1,36 @@
 # Verden site — CLAUDE.md
 
-Public website for **Verden**, the studio name for the user's apps. One site serves every app: a studio home, plus a landing, support and privacy page per app. HeroSet is the first app; **more apps from other repos will be added over time**, so keep everything app-agnostic outside `src/apps/<slug>/`.
+This site public website for **Verden** — studio name for user apps. One site serve all app: studio home, plus landing, support, privacy page per app. HeroSet first app; **more apps from other repos come later**, so keep everything app-agnostic outside `src/apps/<slug>/`.
 
-`README.md` = commands, routes, how to add an app. `DESIGN.md` = visual system (read before any UI change).
+`README.md` = commands, routes, how add app. `DESIGN.md` = visual system (read before any UI change).
 
 ## Hosting
 
 - Repo: private GitHub `verden11/watches-site`, branch `main`.
-- Live at **https://verden.watch/** (primary; `www` and http redirect there). Host: Netlify site `verden-watch` (also served at https://verden-watch.netlify.app/). Every push to `main` builds and deploys via `netlify.toml` (Node 26, `npm run build`, publish `dist/`, cache + security headers). HTTPS: Netlify-managed Let's Encrypt, auto-renews.
-- Domain `verden.watch` registered at Hostinger; DNS stays at Hostinger (not Netlify DNS): `A @ 75.2.60.5`, `CNAME www verden-watch.netlify.app`, plus Hostinger mail records (MX `mx1`/`mx2.hostinger.com`, SPF, DKIM `hostingermail-a/b/c`, DMARC). Don't touch the mail records when editing web ones.
+- Live at **https://verden.watch/** (primary; `www` and http redirect there). Host: Netlify site `verden-watch` (also live at https://verden-watch.netlify.app/). Every push to `main` build and deploy via `netlify.toml` (Node 26, `npm run build`, publish `dist/`, cache + security headers). HTTPS: Netlify-managed Let's Encrypt, auto-renew.
+- Domain `verden.watch` register at Hostinger; DNS stay at Hostinger (not Netlify DNS): `A @ 75.2.60.5`, `CNAME www verden-watch.netlify.app`, plus Hostinger mail records (MX `mx1`/`mx2.hostinger.com`, SPF, DKIM `hostingermail-a/b/c`, DMARC). No touch mail records when edit web ones.
 - Contact inbox: `hello@verden.watch` (Hostinger Mail); set in `src/site.ts`.
-- Netlify visitor access / site protection must stay **off**: store reviewers and users must reach support and privacy pages without login.
-- Keep Netlify Analytics, Forms, Identity and snippet injection off: the privacy pages promise no analytics or third-party scripts.
+- Netlify visitor access / site protection must stay **off**: store reviewer and user must reach support and privacy page without login.
+- Keep Netlify Analytics, Forms, Identity, snippet injection off: privacy page promise no analytics, no third-party script.
 
 ## Linked app repos
 
-Each app lives in its own repo; this site only holds its public pages. The app repo's docs point back here.
+Each app live in own repo; this site only hold public pages. App repo docs point back here.
 
 | App | Site folder | Pages | App repo (local) | Copy must match |
 |---|---|---|---|---|
 | HeroSet (Garmin Connect IQ) | `src/apps/heroset/` | `/heroset/`, `/heroset/support/`, `/heroset/privacy/` | `../HeroSet` | `../HeroSet/docs/release-contract.md` (claims), `docs/compatibility.md` (watch list → `facts.ts`) |
 
-The support and privacy URLs are entered in each app's store listing, so **never change or remove a published app URL**.
+Support and privacy URLs get entered in each app store listing, so **never change or remove published app URL**.
 
-Adding an app from another repo:
+Add app from another repo:
 1. Add `src/apps/<slug>/` + one line in `src/apps/index.ts` (see README).
-2. Add a row to the table above.
-3. In the app repo's docs, note that its public pages live here, with their URLs.
+2. Add row to table above.
+3. In app repo docs, note public pages live here, with URLs.
 
 ## Rules
 
-- Zero client JS: React runs only at build time. Don't add hydration, analytics or third-party scripts; the privacy pages say there are none.
-- An app's user-facing claims come from that app's repo docs, not from memory. Behavior change there → update its pages here (and its privacy page's effective date if data handling changes).
-- Contact email lives only in `src/site.ts`.
-- No affiliation/trademark footers and no third-party service names (e.g. Strava) unless genuinely needed; privacy pages stay minimal.
+- Zero client JS: React run only at build time. No add hydration, analytics, third-party script; privacy page say none exist.
+- App user-facing claim come from that app repo docs, not from memory. Behavior change there → update page here (and privacy page effective date if data handling change).
+- Contact email live only in `src/site.ts`.
+- No affiliation/trademark footer, no third-party service name (e.g. Strava) unless truly needed; privacy page stay minimal.
