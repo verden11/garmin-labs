@@ -1,0 +1,470 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-19T07:33:04+00:00",
+  "title": "Design System: Verden",
+  "extensions": {
+    "colorMeta": {
+      "paper": {
+        "role": "neutral",
+        "displayName": "Program Paper",
+        "canonical": "#ffffff",
+        "oklch": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#252525",
+          "#424242",
+          "#616161",
+          "#828282",
+          "#a5a5a5",
+          "#c9c9c9",
+          "#eeeeee"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Program Ink",
+        "canonical": "#14161a",
+        "oklch": "oklch(20.0% 0.009 264.4)",
+        "tonalRamp": [
+          "#090b0f",
+          "#232529",
+          "#404247",
+          "#5f6166",
+          "#808288",
+          "#a2a5ab",
+          "#c6c9cf",
+          "#ebeef4"
+        ]
+      },
+      "ink-secondary": {
+        "role": "neutral",
+        "displayName": "Quiet Ink",
+        "canonical": "#4b515a",
+        "oklch": "oklch(43.3% 0.017 258.4)",
+        "tonalRamp": [
+          "#070b12",
+          "#20252d",
+          "#3d424b",
+          "#5b626b",
+          "#7c838d",
+          "#9fa6b0",
+          "#c3cad4",
+          "#e8effa"
+        ]
+      },
+      "rule": {
+        "role": "neutral",
+        "displayName": "Hairline",
+        "canonical": "#dcdfe4",
+        "oklch": "oklch(90.3% 0.008 260.7)",
+        "tonalRamp": [
+          "#090b0e",
+          "#232529",
+          "#404246",
+          "#5f6166",
+          "#808287",
+          "#a2a5aa",
+          "#c6c9ce",
+          "#eceff4"
+        ]
+      },
+      "link": {
+        "role": "neutral",
+        "displayName": "Link Blue",
+        "canonical": "#0f5fc7",
+        "oklch": "oklch(50.5% 0.177 258.1)",
+        "tonalRamp": [
+          "#000923",
+          "#002253",
+          "#013d8a",
+          "#085bc3",
+          "#357fea",
+          "#69a5ff",
+          "#a9cbff",
+          "#e5efff"
+        ]
+      },
+      "studio-blue": {
+        "role": "secondary",
+        "displayName": "Studio Silver-Blue",
+        "canonical": "#62b0ea",
+        "oklch": "oklch(73.1% 0.115 242.7)",
+        "tonalRamp": [
+          "#000c19",
+          "#012841",
+          "#01466e",
+          "#0b679c",
+          "#3a89c1",
+          "#5fade7",
+          "#96d1ff",
+          "#e1f1fe"
+        ]
+      },
+      "on-studio": {
+        "role": "secondary",
+        "displayName": "Studio Night Ink",
+        "canonical": "#0b1824",
+        "oklch": "oklch(20.4% 0.030 247.6)",
+        "tonalRamp": [
+          "#020c17",
+          "#192633",
+          "#354452",
+          "#546372",
+          "#748494",
+          "#97a7b8",
+          "#bacbdc",
+          "#e2f0ff"
+        ]
+      },
+      "studio-ink": {
+        "role": "secondary",
+        "displayName": "Studio Blue Ink",
+        "canonical": "#1a5fb4",
+        "oklch": "oklch(49.2% 0.151 256.4)",
+        "tonalRamp": [
+          "#000a21",
+          "#002350",
+          "#003f85",
+          "#1a5fb4",
+          "#3f82da",
+          "#66a6fe",
+          "#a6ccff",
+          "#e5effe"
+        ]
+      },
+      "heroset-amber": {
+        "role": "primary",
+        "displayName": "Signal Amber (HeroSet field)",
+        "canonical": "#ffaa00",
+        "oklch": "oklch(80.2% 0.171 73.3)",
+        "tonalRamp": [
+          "#130900",
+          "#352000",
+          "#5b3a00",
+          "#845601",
+          "#b07403",
+          "#dd9305",
+          "#ffba5a",
+          "#ffebd3"
+        ]
+      },
+      "on-heroset": {
+        "role": "primary",
+        "displayName": "Warm Carbon (HeroSet ink)",
+        "canonical": "#15130f",
+        "oklch": "oklch(18.8% 0.009 84.6)",
+        "tonalRamp": [
+          "#0d0b07",
+          "#272520",
+          "#44423d",
+          "#63615c",
+          "#85827d",
+          "#a7a59f",
+          "#ccc9c3",
+          "#f1eee8"
+        ]
+      },
+      "paper-dark": {
+        "role": "neutral",
+        "displayName": "Program Paper, dark scheme",
+        "canonical": "#0e1013",
+        "oklch": "oklch(17.2% 0.007 258.4)",
+        "tonalRamp": [
+          "#090b0e",
+          "#232529",
+          "#404246",
+          "#5f6165",
+          "#808287",
+          "#a2a5a9",
+          "#c6c9ce",
+          "#eceff3"
+        ]
+      },
+      "ink-dark": {
+        "role": "neutral",
+        "displayName": "Program Ink, dark scheme",
+        "canonical": "#eceef1",
+        "oklch": "oklch(94.8% 0.005 258.3)",
+        "tonalRamp": [
+          "#0a0b0d",
+          "#242527",
+          "#404244",
+          "#606164",
+          "#818285",
+          "#a3a5a8",
+          "#c7c9cc",
+          "#edeff2"
+        ]
+      },
+      "ink-secondary-dark": {
+        "role": "neutral",
+        "displayName": "Quiet Ink, dark scheme",
+        "canonical": "#a6adb7",
+        "oklch": "oklch(74.5% 0.016 257.2)",
+        "tonalRamp": [
+          "#070b12",
+          "#20252d",
+          "#3d424b",
+          "#5b626b",
+          "#7c838c",
+          "#9fa6b0",
+          "#c3cad4",
+          "#e8effa"
+        ]
+      },
+      "rule-dark": {
+        "role": "neutral",
+        "displayName": "Hairline, dark scheme",
+        "canonical": "#2a2f36",
+        "oklch": "oklch(30.3% 0.014 256.8)",
+        "tonalRamp": [
+          "#070b11",
+          "#21252c",
+          "#3d424a",
+          "#5c626a",
+          "#7d838b",
+          "#9fa6ae",
+          "#c3cad3",
+          "#e8eff8"
+        ]
+      },
+      "link-dark": {
+        "role": "neutral",
+        "displayName": "Link Blue, dark scheme",
+        "canonical": "#7db6ff",
+        "oklch": "oklch(76.6% 0.121 255.1)",
+        "tonalRamp": [
+          "#000a20",
+          "#00244e",
+          "#044180",
+          "#2b62a4",
+          "#4d84c9",
+          "#6fa8f0",
+          "#a6ccfe",
+          "#e4f0fe"
+        ]
+      },
+      "studio-ink-dark": {
+        "role": "secondary",
+        "displayName": "Studio Blue Ink, dark scheme",
+        "canonical": "#62b0ea",
+        "oklch": "oklch(73.1% 0.115 242.7)",
+        "tonalRamp": [
+          "#000c19",
+          "#012841",
+          "#01466e",
+          "#0b679c",
+          "#3a89c1",
+          "#5fade7",
+          "#96d1ff",
+          "#e1f1fe"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "App name in the hero; studio name on home (uppercase). One per page."
+      },
+      "statement": {
+        "displayName": "Statement",
+        "purpose": "Honesty headline, closing call, document titles."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Paper-band titles, short sentences with a period."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Live tabular counts; denominator at about a third the size."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Course steps, fact terms, document h3."
+      },
+      "lede": {
+        "displayName": "Lede",
+        "purpose": "Band intros in quiet ink, 60ch max."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Running text; documents cap at 68ch."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Uppercase tracked captions beneath an object; never a kicker."
+      },
+      "wordmark": {
+        "displayName": "Wordmark",
+        "purpose": "Studio name in the studio bar and footer, uppercase, next to the studio mark."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Button hover lift (180ms, translateY -2px)."
+      },
+      {
+        "name": "rep-step",
+        "value": "steps(n, end); pose swap at 50% hard cut",
+        "purpose": "Counts and pictogram poses change in discrete steps, never tweened; all animation gated on prefers-reduced-motion: no-preference."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "stack",
+        "value": "60rem"
+      },
+      {
+        "name": "narrow",
+        "value": "34rem"
+      }
+    ],
+    "perApp": {
+      "supplies": [
+        "color (field)",
+        "onColor (field ink)",
+        "Mark",
+        "Emblem (pictograms, optional; falls back to Mark)",
+        "Landing/Support/Privacy content"
+      ],
+      "shared": [
+        "grid and wrap",
+        "Archivo type ramp",
+        "paper/ink/rule/link neutrals",
+        "studio bar, app bar, button, status plate, note, key, footer",
+        "3px ink rule language",
+        "flat depth"
+      ]
+    }
+  },
+  "components": [
+    {
+      "name": "Store Action",
+      "kind": "button",
+      "refersTo": "button-store",
+      "description": "Primary store link on an event field: field ink ground, field color text, square, lifts on hover.",
+      "html": "<div class=\"ds-field\"><a class=\"ds-button\" href=\"#\">Get it on the Connect IQ Store</a></div>",
+      "css": ".ds-field{background:#ffaa00;color:#15130f;padding:24px;font-family:'Archivo Variable','Archivo',system-ui,sans-serif;} .ds-button{display:inline-flex;align-items:center;min-height:3rem;padding:0.75rem 1.4rem;font-weight:700;font-size:1rem;line-height:1.2;background:#15130f;color:#ffaa00;text-decoration:none;transition:transform 180ms cubic-bezier(0.16,1,0.3,1);} .ds-button:hover{transform:translateY(-2px);} .ds-button:focus-visible{outline:3px solid #15130f;outline-offset:3px;}"
+    },
+    {
+      "name": "Status Plate",
+      "kind": "custom",
+      "refersTo": "status-plate",
+      "description": "Stands in for the store action while the listing is not live; a state, not a control.",
+      "html": "<div class=\"ds-field\"><p class=\"ds-status\">Coming soon to the Connect IQ Store</p></div>",
+      "css": ".ds-field{background:#ffaa00;color:#15130f;padding:24px;font-family:'Archivo Variable','Archivo',system-ui,sans-serif;} .ds-status{margin:0;display:inline-flex;align-items:center;min-height:3rem;padding:0.75rem 1.4rem;font-weight:700;font-size:1rem;line-height:1.2;border:2px dashed #15130f;}"
+    },
+    {
+      "name": "App Bar",
+      "kind": "nav",
+      "refersTo": "app-bar",
+      "description": "Full-bleed field bar on every page of an app; current tab carries a 3px ink bar.",
+      "html": "<nav class=\"ds-appbar\"><a class=\"ds-appbar__name\" href=\"#\">HeroSet</a><ul><li><a href=\"#\" aria-current=\"page\">Overview</a></li><li><a href=\"#\">Support</a></li><li><a href=\"#\">Privacy</a></li></ul></nav>",
+      "css": ".ds-appbar{background:#ffaa00;color:#15130f;display:flex;align-items:center;justify-content:space-between;min-height:4rem;padding:0 24px;font-family:'Archivo Variable','Archivo',system-ui,sans-serif;} .ds-appbar__name{color:inherit;text-decoration:none;font-weight:800;font-stretch:112%;font-size:1.15rem;} .ds-appbar ul{display:flex;gap:1.5rem;list-style:none;margin:0;padding:0;} .ds-appbar ul a{display:block;padding:1.1rem 0 0.95rem;color:inherit;text-decoration:none;font-weight:560;border-bottom:3px solid transparent;} .ds-appbar ul a:hover{border-bottom-color:rgba(21,19,15,0.35);} .ds-appbar ul a[aria-current=page]{border-bottom-color:#15130f;} .ds-appbar a:focus-visible{outline:3px solid #15130f;outline-offset:3px;}"
+    },
+    {
+      "name": "Key",
+      "kind": "chip",
+      "refersTo": "key",
+      "description": "Bezel-button name as a pill outline, wherever copy says press a button.",
+      "html": "<span class=\"ds-keys\"><kbd class=\"ds-key\">UP</kbd><kbd class=\"ds-key\">DOWN</kbd></span>",
+      "css": ".ds-keys{display:flex;gap:0.4rem;} .ds-key{font:700 0.78rem/1 'Archivo Variable','Archivo',system-ui,sans-serif;letter-spacing:0.08em;padding:0.45rem 0.6rem;border:2px solid #14161a;border-radius:999px;color:#14161a;}"
+    },
+    {
+      "name": "Note",
+      "kind": "card",
+      "refersTo": "note",
+      "description": "Square field-colored callout inside documents.",
+      "html": "<div class=\"ds-note\"><strong>In short:</strong> HeroSet keeps everything on your watch.</div>",
+      "css": ".ds-note{background:#ffaa00;color:#15130f;padding:1rem 1.5rem;font:400 1.0625rem/1.6 'Archivo Variable','Archivo',system-ui,sans-serif;}"
+    },
+    {
+      "name": "Course",
+      "kind": "custom",
+      "description": "Steps strung on one 3px ink rule; field dot with ink ring marks each stop.",
+      "html": "<ol class=\"ds-course\"><li><kbd class=\"ds-k\">START</kbd><h3>Pick an exercise</h3><p>Counting starts the moment you choose.</p></li><li><kbd class=\"ds-k\">UP</kbd><h3>Fix it</h3><p>One press per rep.</p></li><li><kbd class=\"ds-k\">START</kbd><h3>Save</h3><p>Your count is banked.</p></li></ol>",
+      "css": ".ds-course{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);border-top:3px solid #14161a;font-family:'Archivo Variable','Archivo',system-ui,sans-serif;color:#14161a;} .ds-course li{position:relative;padding:1.5rem 1.5rem 0 0;display:grid;gap:0.5rem;justify-items:start;} .ds-course li::before{content:'';position:absolute;top:-9px;left:0;width:15px;height:15px;background:#ffaa00;border:3px solid #14161a;border-radius:50%;box-sizing:border-box;} .ds-course h3{margin:0;font-size:1.2rem;font-weight:750;} .ds-course p{margin:0;color:#4b515a;font-size:0.98rem;} .ds-k{font:700 0.78rem/1 inherit;letter-spacing:0.08em;padding:0.45rem 0.6rem;border:2px solid #14161a;border-radius:999px;}"
+    },
+    {
+      "name": "Rep Counter",
+      "kind": "custom",
+      "description": "Signature: cut-bar pictogram over a 3px baseline, huge tabular count, caption label below.",
+      "html": "<figure class=\"ds-rep\"><svg viewBox=\"0 0 64 57\"><circle cx=\"32\" cy=\"8\" r=\"5.5\"/><path d=\"M32 16 L32 34\"/><path d=\"M32 37 L32 57\"/><path d=\"M34 20 L47 20\"/></svg><figcaption><span class=\"ds-rep__count\"><span class=\"ds-rep__n\">88</span>/100</span><span class=\"ds-rep__label\">Squats</span></figcaption></figure>",
+      "css": ".ds-rep{margin:0;width:180px;display:grid;gap:1rem;background:#ffaa00;color:#15130f;padding:16px;font-family:'Archivo Variable','Archivo',system-ui,sans-serif;} .ds-rep svg{width:100%;aspect-ratio:64/57;fill:#15130f;stroke:#15130f;stroke-width:6.5;stroke-linecap:butt;border-bottom:3px solid #15130f;} .ds-rep path{fill:none;} .ds-rep circle{stroke:none;} .ds-rep figcaption{display:grid;gap:0.15rem;} .ds-rep__count{font-size:1.5rem;font-weight:600;font-variant-numeric:tabular-nums;} .ds-rep__n{font-size:4rem;font-weight:800;font-stretch:112%;line-height:1;letter-spacing:-0.03em;} .ds-rep__label{font-size:0.8rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;}"
+    },
+    {
+      "name": "Honesty Field",
+      "kind": "card",
+      "refersTo": "truth-field",
+      "description": "Ink field with the headline in field color; flips to the event field in dark scheme.",
+      "html": "<section class=\"ds-truth\"><h2>Your count is the truth.</h2><p>Nothing is saved until you have seen the number and agreed with it.</p></section>",
+      "css": ".ds-truth{background:#14161a;color:#fff;padding:40px;display:grid;grid-template-columns:1fr 1fr;gap:2.5rem;font-family:'Archivo Variable','Archivo',system-ui,sans-serif;} .ds-truth h2{margin:0;color:#ffaa00;font-size:3rem;font-weight:850;font-stretch:112%;letter-spacing:-0.035em;line-height:1.08;} .ds-truth p{margin:0;font-size:1.2rem;line-height:1.5;}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Games Program",
+    "overview": "Verden is a studio site built like a Munich-72 identity program. Every app is an event in one program: it owns one flat spectral color field, its own set of geometric pictograms, and a mark; everything else (grid, type, ink, paper, rules, components) is shared studio infrastructure. HeroSet is event #1 in amber; the studio itself wears silver-blue. A visitor should be able to tell which event they are in from the color alone and still recognize the program from the grid and type.\n\nThe system is flat and typographic. Full-bleed color fields alternate with white paper bands; hierarchy comes from scale contrast alone: a huge, wide, heavy grotesque against small tracked caps labels, with big tabular numerals as the loudest element when a count is on screen. Depth is color, not shadow. Lines are thick and structural (3px ink rules, cut-bar pictograms), and a count is always a visible event, ticking in discrete steps rather than tweening.\n\nThe site refuses the indie-studio default of icon, headline, badge and screenshot row on white. No cards with shadows, no gradients.",
+    "keyCharacteristics": [
+      "One flat color field per app, supplied by the app, with a readable ink pair; the shared shell never hardcodes an app color.",
+      "Archivo variable at wide stretch (112-125%) and heavy weight (800-850) for display; hierarchy by size, not by decoration.",
+      "Pictograms on a 64-unit grid: thick butt-capped bars with gaps at the joints and a detached round head.",
+      "Thick 3px ink rules as the structural line; 1px rules only as quiet dividers.",
+      "Discrete-step motion only, and none under reduced motion."
+    ],
+    "rules": [
+      {
+        "name": "The One Field Rule",
+        "body": "A page belongs to exactly one event. Its field color and field ink come from the app registry; shared components read the field slot and never name an app color.",
+        "section": "colors"
+      },
+      {
+        "name": "The Field Ink Rule",
+        "body": "Text, pictograms, buttons, focus rings and selection on a field use that field's ink, never paper-white or link blue. A new app must supply an ink pair that reads at body size on its field (HeroSet amber/carbon is 9.7:1; studio blue/night is 7.6:1).",
+        "section": "colors"
+      },
+      {
+        "name": "The Field-Is-Ground Rule",
+        "body": "A field color is a ground, never a text color on paper. When a field hue must appear as text on paper, it gets its own ink token deepened for legibility (as studio-ink does for studio-blue). Field color as text is allowed only on the ink field, as in the honesty headline (9.5:1).",
+        "section": "colors"
+      },
+      {
+        "name": "The Scale Contrast Rule",
+        "body": "Hierarchy comes from size, weight and width. Headlines are not colored, boxed or underlined to gain rank.",
+        "section": "typography"
+      },
+      {
+        "name": "The Caption-Below Rule",
+        "body": "Within a content block, tracked caps labels name the object they sit under. They never sit above a headline as a kicker or eyebrow. The shell wordmark is the only uppercase line above a heading.",
+        "section": "typography"
+      },
+      {
+        "name": "The Flat Program Rule",
+        "body": "No box-shadows, no gradients, no blur. If something must stand out, give it a field or a thicker rule.",
+        "section": "elevation"
+      },
+      {
+        "name": "The Round Means Watch Rule",
+        "body": "A circle or pill signals the watch or a body part (screen, bezel button, head, stop). No container, card or button gets rounded; the 2px focus-ring corner is the only other radius.",
+        "section": "shapes"
+      }
+    ],
+    "dos": [
+      "Do put every app color in the registry (`color` + `onColor`) and have components read the field slot.",
+      "Do draw a new app's pictograms on the 64-unit grid: 6.5-unit butt-capped bars, gaps at joints, detached 5.5-radius head, 3px baseline.",
+      "Do run display type in Archivo at 800-850 weight and 112-125% width, with tight negative tracking (-0.03 to -0.035em).",
+      "Do use tabular numerals for any count, and make a changing count step, not tween.",
+      "Do use 3px ink rules for structure and 1px hairlines only as dividers.",
+      "Do name bezel buttons with the key pill."
+    ],
+    "donts": [
+      "Don't add box-shadows, gradients or rounded cards.",
+      "Don't use a field color as text on paper; give the hue its own deepened ink token instead.",
+      "Don't set tracked caps labels above headlines as kickers or eyebrows.",
+      "Don't hardcode an app's color in shared components or the shell.",
+      "Don't animate outside `prefers-reduced-motion: no-preference`."
+    ]
+  }
+}
