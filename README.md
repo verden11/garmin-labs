@@ -1,6 +1,6 @@
 # Verden site
 
-Static website for Verden apps: a studio home plus, for each app, a landing page, a support page and a privacy policy. HeroSet is the first app.
+Static website for Verden apps: a studio home plus, for each app, a landing page, a support page and a privacy policy. HeroSet is the first app; more apps, each from its own repo, will be added. `CLAUDE.md` lists the linked app repos and the hosting setup.
 
 Vite + React + TypeScript, but React only runs at build time: every page is prerendered to plain HTML + CSS. The browser gets no JavaScript, so pages work with JS off, and deep links such as `/heroset/privacy/` work on any static host without rewrite rules.
 
