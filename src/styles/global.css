@@ -112,7 +112,8 @@ img { max-width: 100%; height: auto; display: block; }
 /* Field: a full-bleed app-colored region --------------------------------- */
 
 .field { background: var(--field); color: var(--on-field); }
-.field ::selection { background: var(--on-field); color: var(--field); }
+/* On the app color, invert the selection: the default one is field on field, i.e. invisible. */
+.app-bar ::selection, .field ::selection { background: var(--on-field); color: var(--field); }
 .field a { color: inherit; }
 
 .button, .status {
@@ -226,6 +227,9 @@ img { max-width: 100%; height: auto; display: block; }
   .truth h2 { color: inherit; }
 }
 .truth ::selection { background: var(--field); color: var(--on-field); }
+@media (prefers-color-scheme: dark) {
+  .truth ::selection { background: var(--on-field); color: var(--field); }
+}
 
 /* Rank scale: ranks plotted on a day axis */
 
