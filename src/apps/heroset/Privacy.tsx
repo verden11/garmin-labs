@@ -35,7 +35,7 @@ export function Privacy() {
 
       <h2>Changes and contact</h2>
       <p>
-        If HeroSet ever saves or shares more, this page will be updated before the new version is released. Questions:{' '}
+        This policy may change; the effective date above shows the current version. Questions:{' '}
         <a href={`mailto:${studio.email}`}>{studio.email}</a>.
       </p>
     </Doc>
