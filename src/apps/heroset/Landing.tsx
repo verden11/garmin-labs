@@ -15,7 +15,7 @@ const steps = [
   { keys: ['START'], title: 'Pick an exercise', text: 'Push-ups, sit-ups or squats. Counting starts the moment you choose.' },
   { keys: [], title: 'Move', text: 'A short vibration confirms each rep. Live heart rate and a calorie estimate stay on screen.' },
   { keys: ['START'], title: 'Finish', text: 'The watch shows the count it detected, ready for review.' },
-  { keys: ['UP', 'DOWN'], title: 'Fix it', text: 'Add or remove any rep the watch missed or invented, one press per rep.' },
+  { keys: ['UP', 'DOWN'], title: 'Adjust', text: 'If the count is off, nudge it up or down.' },
   { keys: ['START'], title: 'Save', text: 'Your count is banked. XP, rank and streak update, with a double buzz when a goal falls.' },
 ]
 
@@ -26,7 +26,7 @@ export function Landing() {
         <div className="wrap hero__inner">
           <div className="hero__copy">
             <h1 className="hero__name">{heroset.name}</h1>
-            <p className="hero__offer">100 push-ups, 100 sit-ups and 100 squats a day. Your Garmin counts the reps. You fix any miss before it’s saved.</p>
+            <p className="hero__offer">100 push-ups, 100 sit-ups and 100 squats a day. Your Garmin counts the reps.</p>
             <div className="hero__actions">
               <StoreAction />
               <a className="hero__support" href="/heroset/support/">Support and answers</a>
@@ -45,7 +45,7 @@ export function Landing() {
 
       <section className="wrap band" aria-labelledby="set-title">
         <h2 id="set-title" className="band__title">One set, five buttons.</h2>
-        <p className="band__lede">No phone, no touchscreen, no account. Every step works by feel, with the bezel buttons your watch already has.</p>
+        <p className="band__lede">No phone, no account, no tapping the screen. Every step works by feel, with the bezel buttons your watch already has.</p>
         <ol className="course">
           {steps.map((step) => (
             <li key={step.title} className="course__stop">
@@ -59,10 +59,10 @@ export function Landing() {
 
       <section className="truth" aria-labelledby="truth-title">
         <div className="wrap truth__inner">
-          <h2 id="truth-title">Your count is the truth.</h2>
+          <h2 id="truth-title">You have the final say.</h2>
           <div className="truth__text">
-            <p>Automatic counting is in beta and can miscount, especially if your arm moves before or after the set. So nothing is saved until you’ve seen the number and agreed with it.</p>
-            <p>HeroSet learns from the counts you save, corrected or not: they are what it tunes its counting to.</p>
+            <p>Counting depends on how you wear the watch and how you move, so the number can be off, especially if your arm moves before or after the set. Nothing is saved until you’ve seen it.</p>
+            <p>HeroSet learns from the counts you save, so it gets closer to how you move with every set.</p>
           </div>
         </div>
       </section>

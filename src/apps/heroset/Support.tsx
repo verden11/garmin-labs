@@ -7,19 +7,19 @@ export function Support() {
     <Doc title="Support" lede="Help for HeroSet, the daily push-up, sit-up and squat app for Garmin watches.">
       <h2>Contact</h2>
       <p>
-        Questions, bugs or refund trouble: email <a href={`mailto:${studio.email}`}>{studio.email}</a>. Please include
+        Questions or bugs: email <a href={`mailto:${studio.email}`}>{studio.email}</a>. Please include
         your watch model, its software version, and which exercise you were doing.
       </p>
 
       <h2>Getting accurate counts</h2>
       <ul>
-        <li><strong>Save the count you really did.</strong> After each set, correct the count with UP/DOWN before saving. HeroSet learns from the counts you save.</li>
+        <li><strong>Save the count you really did.</strong> After each set, adjust the count with UP/DOWN if needed before saving. HeroSet learns from the counts you save.</li>
         <li><strong>Start the set in position</strong>, and wear the watch snug in the same spot each time. Arm movement before you start or after you finish can count as reps.</li>
         <li><strong>Hold still for a second</strong> after pressing START, then begin your first rep.</li>
         <li><strong>Move through full reps.</strong> Tiny partial movements may not count.</li>
       </ul>
       <Note>
-        Automatic counting is in beta and can miscount. When you finish a set, press START to review the count, adjust it
+        Counting depends on how you wear the watch and how you move. When you finish a set, press START to review the count, adjust it
         with UP/DOWN, then press START again to save.
       </Note>
 
