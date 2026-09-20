@@ -1,0 +1,75 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">HeroSet</string>
+
+    <string id="menu_label_start_pushups">Inizia flessioni</string>
+    <string id="menu_label_start_situps">Inizia addominali</string>
+    <string id="menu_label_start_squats">Inizia accosciate</string>
+    <string id="menu_label_manual_pushups">Registra flessioni</string>
+    <string id="menu_label_manual_situps">Registra addominali</string>
+    <string id="menu_label_manual_squats">Registra accosciate</string>
+    <string id="menu_label_goal">Obiettivo giornaliero</string>
+    <string id="menu_label_sync">Connect Sync</string>
+    <string id="menu_sublabel_on">Salva su Connect</string>
+    <string id="menu_sublabel_off">Solo orologio</string>
+    <string id="menu_sublabel_progress">$1$/$2$</string>
+    <string id="menu_sublabel_done">FATTO</string>
+    <string id="menu_label_validation_log">Log di validazione</string>
+
+    <string id="menu_label_resume">Riprendi</string>
+    <string id="menu_label_save">Salva</string>
+    <string id="menu_label_discard">Scarta</string>
+    <string id="menu_label_keep_editing">Continua a modificare</string>
+    <string id="menu_title_rep">$1$ rip.</string>
+    <string id="menu_title_reps">$1$ rip.</string>
+
+    <string id="exercise_pushups">FLESSIONI</string>
+    <string id="exercise_situps">ADDOMINALI</string>
+    <string id="exercise_squats">ACCOSCIATE</string>
+
+    <string id="dashboard_rank">RANGO $1$</string>
+    <string id="dashboard_xp_to_rank">$1$ XP PER RANGO $2$</string>
+    <string id="dashboard_xp_to_go">$1$ XP RIMASTI</string>
+    <string id="dashboard_mission_done">$1$ FATTO</string>
+    <string id="dashboard_streak">$1$ GIORNO DI STRISCIA</string>
+    <string id="dashboard_streak_short">STRISCIA $1$</string>
+    <string id="dashboard_streak_none">NESSUNA STRISCIA</string>
+    <string id="dashboard_hint">START: MENU</string>
+    <string id="dashboard_mission_complete">MISSIONE COMPLETATA</string>
+    <string id="dashboard_storage_warning">! IMPOSSIBILE SALVARE</string>
+
+    <string id="today_progress">OGGI $1$/$2$</string>
+    <string id="workout_hint_finish">START: TERMINA</string>
+    <string id="workout_metrics_wide">$1$  FC $2$  CAL $3$</string>
+    <string id="workout_metrics_tight">$1$ FC $2$ CAL $3$</string>
+    <string id="picker_detected">RILEVATO $1$</string>
+    <string id="picker_hint_adjust">UP/DOWN: REGOLA</string>
+    <string id="picker_hint_save">START: SALVA</string>
+    <string id="goal_title">OBIETTIVO</string>
+
+
+    <string id="validation_log_hint">UP/DOWN: PAGINA</string>
+    <string id="validation_log_empty">NESSUN DATO</string>
+    <string id="validation_log_page">LOG $1$/$2$</string>
+    <string id="sync_log_new">$1$ SYNC NUOVO</string>
+    <string id="sync_log_saved">$1$ SYNC SALVATO $2$</string>
+    <string id="sync_log_empty">$1$ SYNC VUOTO</string>
+    <string id="sync_log_fail">$1$ SYNC ERRORE</string>
+    <string id="sync_log_off">$1$ SYNC SPENTO</string>
+
+    <string id="fit_label_exercise">Esercizio</string>
+    <string id="fit_label_reps">Ripetizioni</string>
+    <string id="fit_unit_reps">rip.</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Flessioni</string>
+    <string id="fit_label_situps">Addominali</string>
+    <string id="fit_label_squats">Accosciate</string>
+
+    <string id="toast_saved">$1$ SALVATO</string>
+    <string id="toast_discarded">SCARTATO</string>
+    <string id="toast_exercise_done">$1$ FATTO!</string>
+    <string id="toast_mission_complete">MISSIONE GIORNALIERA COMPLETATA!</string>
+    <string id="toast_removed">$1$ RIMOSSO</string>
+    <string id="toast_rank_up">RANGO $1$!</string>
+    <string id="toast_goal_saved">OBIETTIVO $1$</string>
+</strings>

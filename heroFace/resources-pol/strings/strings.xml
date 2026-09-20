@@ -1,0 +1,56 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">HeroFace</string>
+
+    <!-- Mission labels: long form first, short form when the column is narrow. -->
+    <string id="label_steps">KROKI</string>
+    <string id="label_steps_short">KROK</string>
+    <string id="label_calories">KCAL</string>
+    <string id="label_calories_short">KCAL</string>
+    <string id="label_intensity">INTENSYWNOŚĆ</string>
+    <string id="label_intensity_short">INT</string>
+    <string id="label_km">KM</string>
+    <string id="label_miles">MI</string>
+    <string id="label_floors">PIĘTRA</string>
+    <string id="label_floors_short">PIĘT</string>
+    <string id="label_move">RUCH</string>
+    <string id="label_pushups">POMPKI</string>
+    <string id="label_pushups_short">POMP</string>
+    <string id="label_situps">BRZUSZKI</string>
+    <string id="label_situps_short">BRZ</string>
+    <string id="label_squats">PRZYSIADY</string>
+    <string id="label_squats_short">PRZY</string>
+
+    <string id="value_thousands">$1$K</string>
+    <string id="value_move_ok">OK</string>
+    <string id="value_move_alert">RUSZ</string>
+    <string id="value_temperature">$1$°</string>
+
+    <string id="streak_long">SERIA $1$ DNI</string>
+    <string id="streak_short">SERIA $1$</string>
+    <string id="rank_streak">RANGA $1$  SERIA $2$</string>
+    <string id="rank_only">RANGA $1$</string>
+
+    <!-- Settings (shown in Garmin Connect). -->
+    <string id="setting_mode">Misje</string>
+    <string id="mode_auto">HeroSet, jeśli zainstalowany; inaczej cele dzienne</string>
+    <string id="mode_everyday">Cele dzienne</string>
+    <string id="mode_heroset">Powtórzenia HeroSet</string>
+    <string id="setting_slot1">Misja z lewej</string>
+    <string id="setting_slot2">Misja środkowa</string>
+    <string id="setting_slot3">Misja z prawej</string>
+    <string id="metric_auto">Automatycznie</string>
+    <string id="metric_steps">Kroki</string>
+    <string id="metric_calories">Kalorie</string>
+    <string id="metric_intensity">Minuty intensywności</string>
+    <string id="metric_distance">Dystans</string>
+    <string id="metric_floors">Piętra</string>
+    <string id="metric_move">Pasek ruchu</string>
+    <string id="setting_accent">Kolor akcentu</string>
+    <string id="accent_blue">Niebieski</string>
+    <string id="accent_cyan">Cyjan</string>
+    <string id="accent_magenta">Magenta</string>
+    <string id="setting_seconds">Pokaż sekundy</string>
+    <string id="setting_weather">Pokaż temperaturę</string>
+
+</strings>

@@ -1,0 +1,56 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">HeroFace</string>
+
+    <!-- Mission labels: long form first, short form when the column is narrow. -->
+    <string id="label_steps">ADIM</string>
+    <string id="label_steps_short">ADIM</string>
+    <string id="label_calories">KCAL</string>
+    <string id="label_calories_short">KCAL</string>
+    <string id="label_intensity">YOĞUNLUK</string>
+    <string id="label_intensity_short">YOĞ</string>
+    <string id="label_km">KM</string>
+    <string id="label_miles">MİL</string>
+    <string id="label_floors">KAT</string>
+    <string id="label_floors_short">KAT</string>
+    <string id="label_move">HAREKET</string>
+    <string id="label_pushups">ŞINAV</string>
+    <string id="label_pushups_short">ŞIN</string>
+    <string id="label_situps">MEKİK</string>
+    <string id="label_situps_short">MEK</string>
+    <string id="label_squats">ÇÖMELME</string>
+    <string id="label_squats_short">ÇÖM</string>
+
+    <string id="value_thousands">$1$K</string>
+    <string id="value_move_ok">TAMAM</string>
+    <string id="value_move_alert">HADİ</string>
+    <string id="value_temperature">$1$°</string>
+
+    <string id="streak_long">$1$ GÜNLÜK SERİ</string>
+    <string id="streak_short">SERİ $1$</string>
+    <string id="rank_streak">RÜTBE $1$  SERİ $2$</string>
+    <string id="rank_only">RÜTBE $1$</string>
+
+    <!-- Settings (shown in Garmin Connect). -->
+    <string id="setting_mode">Görevler</string>
+    <string id="mode_auto">Kuruluysa HeroSet, değilse günlük hedefler</string>
+    <string id="mode_everyday">Günlük hedefler</string>
+    <string id="mode_heroset">HeroSet tekrarları</string>
+    <string id="setting_slot1">Soldaki görev</string>
+    <string id="setting_slot2">Ortadaki görev</string>
+    <string id="setting_slot3">Sağdaki görev</string>
+    <string id="metric_auto">Otomatik</string>
+    <string id="metric_steps">Adımlar</string>
+    <string id="metric_calories">Kaloriler</string>
+    <string id="metric_intensity">Yoğunluk dakikaları</string>
+    <string id="metric_distance">Mesafe</string>
+    <string id="metric_floors">Katlar</string>
+    <string id="metric_move">Hareket çubuğu</string>
+    <string id="setting_accent">Vurgu rengi</string>
+    <string id="accent_blue">Mavi</string>
+    <string id="accent_cyan">Camgöbeği</string>
+    <string id="accent_magenta">Macenta</string>
+    <string id="setting_seconds">Saniyeleri göster</string>
+    <string id="setting_weather">Sıcaklığı göster</string>
+
+</strings>

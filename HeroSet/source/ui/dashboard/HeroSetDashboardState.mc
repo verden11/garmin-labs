@@ -1,0 +1,25 @@
+import Toybox.Lang;
+
+class HeroSetDashboardState {
+    var pushups as Lang.Number;
+    var situps as Lang.Number;
+    var squats as Lang.Number;
+    var xp as Lang.Number;
+    var rank as Lang.Number;
+    var streak as Lang.Number;
+    var storageWarning as Lang.Boolean;
+    // Today's user-set goal, carried on the state so views draw without
+    // reaching into the store (HeroSetScreenFitTest draws stores-free).
+    var goal as Lang.Number;
+
+    function initialize(pushups as Lang.Number, situps as Lang.Number, squats as Lang.Number, xp as Lang.Number, rank as Lang.Number, streak as Lang.Number, storageWarning as Lang.Boolean, goal as Lang.Number) {
+        self.pushups = pushups;
+        self.situps = situps;
+        self.squats = squats;
+        self.xp = xp;
+        self.rank = rank;
+        self.streak = streak;
+        self.storageWarning = storageWarning;
+        self.goal = goal;
+    }
+}

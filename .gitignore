@@ -1,0 +1,7 @@
+# Local OS/editor files
+.DS_Store
+.omo/
+.obsidian/
+
+# Device-testing scratch, shared by the watch projects
+device-test/

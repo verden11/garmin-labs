@@ -1,0 +1,11 @@
+<resources xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- Today's progress for our own watch face (ADR-044). access="private":
+         only apps signed with the same developer key can read it, so nothing
+         is exposed to other developers' apps or to Face It (which is why this
+         carries no faceIt element). The id is stored by subscribers and never
+         changes. This folder is only on the resource path of products with
+         Connect IQ 4.2+; older products cannot compile it. -->
+    <complications>
+        <complication id="0" access="private" longLabel="@Strings.complication_label" shortLabel="@Strings.complication_short" icon="@Drawables.ComplicationIcon" />
+    </complications>
+</resources>

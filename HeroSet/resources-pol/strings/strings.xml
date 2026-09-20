@@ -1,0 +1,75 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">HeroSet</string>
+
+    <string id="menu_label_start_pushups">Rozpocznij pompki</string>
+    <string id="menu_label_start_situps">Rozpocznij brzuszki</string>
+    <string id="menu_label_start_squats">Rozpocznij przysiady</string>
+    <string id="menu_label_manual_pushups">Zapisz pompki</string>
+    <string id="menu_label_manual_situps">Zapisz brzuszki</string>
+    <string id="menu_label_manual_squats">Zapisz przysiady</string>
+    <string id="menu_label_goal">Cel dzienny</string>
+    <string id="menu_label_sync">Connect Sync</string>
+    <string id="menu_sublabel_on">Zapis w Connect</string>
+    <string id="menu_sublabel_off">Tylko zegarek</string>
+    <string id="menu_sublabel_progress">$1$/$2$</string>
+    <string id="menu_sublabel_done">ZAKOŃCZONE</string>
+    <string id="menu_label_validation_log">Log walidacji</string>
+
+    <string id="menu_label_resume">Wznów</string>
+    <string id="menu_label_save">Zapisz</string>
+    <string id="menu_label_discard">Odrzuć</string>
+    <string id="menu_label_keep_editing">Kontynuuj edycję</string>
+    <string id="menu_title_rep">$1$ powt.</string>
+    <string id="menu_title_reps">$1$ powt.</string>
+
+    <string id="exercise_pushups">POMPKI</string>
+    <string id="exercise_situps">BRZUSZKI</string>
+    <string id="exercise_squats">PRZYSIADY</string>
+
+    <string id="dashboard_rank">RANGA $1$</string>
+    <string id="dashboard_xp_to_rank">$1$ XP DO RANGI $2$</string>
+    <string id="dashboard_xp_to_go">$1$ XP DO KOŃCA</string>
+    <string id="dashboard_mission_done">$1$ ZAKOŃCZONE</string>
+    <string id="dashboard_streak">$1$ DZIEŃ SERII</string>
+    <string id="dashboard_streak_short">SERIA $1$</string>
+    <string id="dashboard_streak_none">BRAK SERII</string>
+    <string id="dashboard_hint">START: MENU</string>
+    <string id="dashboard_mission_complete">MISJA ZAKOŃCZONA</string>
+    <string id="dashboard_storage_warning">! NIE UDAŁO SIĘ ZAPISAĆ</string>
+
+    <string id="today_progress">DZISIAJ $1$/$2$</string>
+    <string id="workout_hint_finish">START: ZAKOŃCZ</string>
+    <string id="workout_metrics_wide">$1$  HR $2$  CAL $3$</string>
+    <string id="workout_metrics_tight">$1$ HR $2$ CAL $3$</string>
+    <string id="picker_detected">WYKRYTO $1$</string>
+    <string id="picker_hint_adjust">UP/DOWN: DOSTOSUJ</string>
+    <string id="picker_hint_save">START: ZAPISZ</string>
+    <string id="goal_title">CEL DZIENNY</string>
+
+
+    <string id="validation_log_hint">UP/DOWN: STRONA</string>
+    <string id="validation_log_empty">BRAK DANYCH</string>
+    <string id="validation_log_page">LOG $1$/$2$</string>
+    <string id="sync_log_new">$1$ SYNC NOWY</string>
+    <string id="sync_log_saved">$1$ SYNC ZAPISANY $2$</string>
+    <string id="sync_log_empty">$1$ SYNC PUSTY</string>
+    <string id="sync_log_fail">$1$ SYNC BŁĄD</string>
+    <string id="sync_log_off">$1$ SYNC WYŁ.</string>
+
+    <string id="fit_label_exercise">Ćwiczenie</string>
+    <string id="fit_label_reps">Powtórzenia</string>
+    <string id="fit_unit_reps">powt.</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Pompki</string>
+    <string id="fit_label_situps">Brzuszki</string>
+    <string id="fit_label_squats">Przysiady</string>
+
+    <string id="toast_saved">$1$ ZAPISANE</string>
+    <string id="toast_discarded">ODRZUCONE</string>
+    <string id="toast_exercise_done">$1$ ZAKOŃCZONE!</string>
+    <string id="toast_mission_complete">CODZIENNA MISJA ZAKOŃCZONA!</string>
+    <string id="toast_removed">$1$ USUNIĘTE</string>
+    <string id="toast_rank_up">RANGA $1$!</string>
+    <string id="toast_goal_saved">CEL $1$</string>
+</strings>

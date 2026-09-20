@@ -1,0 +1,32 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Store hero image (1440x720). Render: see docs/store-release.md, Hero Image row. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#000;}
+  body{display:flex;align-items:center;font-family:'Archivo',sans-serif;color:#fff;
+       background:radial-gradient(900px 600px at 72% 50%,#0d1a2a 0%,#000 70%);}
+  .copy{box-sizing:border-box;width:520px;padding-left:80px;}
+  .mark{width:72px;height:74px;display:block;margin-bottom:24px;}
+  h1{margin:0;font-size:84px;font-weight:800;font-stretch:112%;letter-spacing:-2px;line-height:1;}
+  h1 span{color:#55AAFF;}
+  p{margin:24px 0 0;font-size:30px;line-height:1.3;color:#cfd6df;font-weight:450;}
+  /* Circles sit side by side: overlapping them hid words on the outer screens. */
+  .screens{display:flex;align-items:center;gap:20px;padding-right:40px;}
+  .w{border-radius:50%;overflow:hidden;background:#000;flex:none;
+     box-shadow:0 0 0 8px #1b1f25,0 0 0 10px #2f353d,0 30px 80px rgba(0,0,0,.8);}
+  .w img{width:100%;height:100%;display:block;}
+  .s{width:260px;height:260px;}
+  .l{width:320px;height:320px;}
+</style></head><body>
+  <div class="copy">
+    <svg class="mark" viewBox="4 3 57 59"><path d="M10 13L32.5 7L55 13L52 36Q50 47 32.5 58Q15 47 13 36Z" fill="#ffaa00"/><path d="M14.5 16L32.5 11L50.5 16L48 35Q46.5 43.5 32.5 53Q18.5 43.5 17 35Z" fill="#000"/><path d="M21 20H28V28H37V20H44L42 39L37 43V37L32.5 33L28 37V43L23 39Z" fill="#ffaa00"/></svg>
+    <h1>Hero<span>Set</span></h1>
+    <p>100 push-ups, 100 sit-ups and 100 squats a day, counted on your wrist.</p>
+  </div>
+  <div class="screens">
+    <div class="w s"><img src="../screens/1-dashboard.png"></div>
+    <div class="w l"><img src="../screens/2-counting.png"></div>
+    <div class="w s"><img src="../screens/4-saved.png"></div>
+  </div>
+</body></html>

@@ -1,0 +1,148 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-09-20T00:00:00Z",
+  "title": "Design System: HeroFace",
+  "extensions": {
+    "colorMeta": {
+      "ground": { "role": "neutral", "displayName": "Void Black", "canonical": "#000000", "tonalRamp": ["#000000", "#111111", "#222222", "#333333", "#444444", "#555555", "#777777", "#999999"] },
+      "text": { "role": "neutral", "displayName": "Signal White", "canonical": "#FFFFFF", "tonalRamp": ["#272727", "#3D3D3D", "#555555", "#6E6E6E", "#8A8A8A", "#AAAAAA", "#D4D4D4", "#FFFFFF"] },
+      "muted": { "role": "neutral", "displayName": "Second Voice Grey", "canonical": "#AAAAAA", "tonalRamp": ["#1A1A1A", "#2B2B2B", "#3D3D3D", "#555555", "#6E6E6E", "#8A8A8A", "#AAAAAA", "#D4D4D4"] },
+      "track": { "role": "neutral", "displayName": "Track Grey", "canonical": "#555555", "tonalRamp": ["#0D0D0D", "#1A1A1A", "#2B2B2B", "#3D3D3D", "#555555", "#6E6E6E", "#8A8A8A", "#AAAAAA"] },
+      "gold": { "role": "primary", "displayName": "Kept Gold", "canonical": "#FFAA00", "tonalRamp": ["#2B1C00", "#472F00", "#664300", "#8A5A00", "#AD7300", "#D48D00", "#FFAA00", "#FFCC66"] },
+      "done": { "role": "tertiary", "displayName": "Finished Green", "canonical": "#00FF00", "tonalRamp": ["#002B00", "#004700", "#006600", "#008A00", "#00AD00", "#00D400", "#00FF00", "#77FF77"] },
+      "alert": { "role": "secondary", "displayName": "Alert Red", "canonical": "#FF0000", "tonalRamp": ["#2B0000", "#470000", "#660000", "#8A0000", "#AD0000", "#D40000", "#FF0000", "#FF7777"] },
+      "accent-blue": { "role": "primary", "displayName": "Effort Blue", "canonical": "#55AAFF", "tonalRamp": ["#04182B", "#072947", "#0B3D66", "#10538A", "#146AAD", "#2E8AD4", "#55AAFF", "#9CCDFF"] },
+      "accent-cyan": { "role": "primary", "displayName": "Effort Cyan", "canonical": "#00FFFF", "tonalRamp": ["#002B2B", "#004747", "#006666", "#008A8A", "#00ADAD", "#00D4D4", "#00FFFF", "#77FFFF"] },
+      "accent-magenta": { "role": "primary", "displayName": "Effort Magenta", "canonical": "#FF55FF", "tonalRamp": ["#2B042B", "#470747", "#660B66", "#8A108A", "#AD22AD", "#D43BD4", "#FF55FF", "#FF9CFF"] },
+      "accent-white": { "role": "primary", "displayName": "Effort White", "canonical": "#FFFFFF", "tonalRamp": ["#272727", "#3D3D3D", "#555555", "#6E6E6E", "#8A8A8A", "#AAAAAA", "#D4D4D4", "#FFFFFF"] },
+      "sleep-text": { "role": "neutral", "displayName": "Sleep Grey", "canonical": "#555555", "tonalRamp": ["#0D0D0D", "#1A1A1A", "#2B2B2B", "#3D3D3D", "#555555", "#6E6E6E", "#8A8A8A", "#AAAAAA"] }
+    },
+    "typographyMeta": {
+      "time": { "displayName": "Time", "purpose": "The centre of the face. Chosen at layout time by a fit ladder (FONT_NUMBER_THAI_HOT, FONT_NUMBER_HOT, FONT_NUMBER_MEDIUM, floor FONT_NUMBER_MILD): the first font whose box fits the leftover band and whose '00:00' sample fits the round chord at that height. Measured 128px @454, 36px @240." },
+      "time-aod": { "displayName": "Always-On Time", "purpose": "FONT_NUMBER_MEDIUM, fixed. The only element drawn in sleep on burn-in-protected screens." },
+      "face": { "displayName": "Face Text", "purpose": "FONT_XTINY, uppercase, one size for streak/rank, date, mission values, mission labels, seconds and footer numbers. Measured 37px @454, 26px @240." }
+    },
+    "geometryMeta": {
+      "baseProportion": "shortInset = min(width, height) / 10 — every other dimension is a division of it: textMargin /2, columnGap /5, ringInset /5, ringWidth /6, barHeight /3, stackGap /9.",
+      "ringArc": "Start 220 degrees, sweep 260 degrees clockwise over the top; 100-degree gap at the bottom holds the footer. Non-zero progress shows at least 1 degree; a fill never closes the circle.",
+      "rowStack": "Bottom-up. footerTop = height - inset - line; missionTop = footerTop - 2*gap - missionHeight; dateTop = missionTop - gap - line; topRowTop = inset + ringWidth; the time is centred in the band that is left.",
+      "chordFit": "Usable width at any row is the chord of the content circle at whichever row edge is farther from centre. contentRadius = ringRadius - ringWidth/2 - textMargin/2. Non-round screens substitute a constant inset.",
+      "burnInWalk": "AOD time block steps across a 3x3 grid at shortInset/2 per cell, one cell per minute.",
+      "footerOverflow": "Footer items are dropped from the right (notifications, then heart rate) until the group fits the chord; battery is never dropped.",
+      "referenceDevices": [
+        { "name": "fr965", "size": "454x454", "inset": 45, "ringRadius": 218, "ringWidth": 7, "streakY": 52, "timeY": 91, "timeFont": "FONT_NUMBER_THAI_HOT (128 tall)", "dateY": 221, "missionsY": 263, "footerY": 372, "columnWidth": 95 },
+        { "name": "fenix5", "size": "240x240", "inset": 24, "ringRadius": 116, "ringWidth": 4, "streakY": 28, "timeY": 56, "dateY": 94, "missionsY": 122, "footerY": 190, "columnWidth": 54 }
+      ],
+      "range": "117 round products, 208-466 px, MIP and AMOLED, one build."
+    },
+    "shadows": [],
+    "motion": [
+      { "name": "second-tick", "value": "full redraw once per second while awake", "purpose": "The face is redrawn wholesale; there are no transitions or eased animations anywhere." },
+      { "name": "partial-seconds", "value": "clipped redraw of the seconds box only", "purpose": "Low-power seconds update while the rest of the face sleeps, within the partial-update power budget." },
+      { "name": "burn-in-step", "value": "translate by shortInset/2 across a 3x3 grid, one step per minute", "purpose": "The only positional movement in the system; it exists to satisfy AMOLED burn-in limits, not for expression." }
+    ],
+    "breakpoints": [
+      { "name": "small-round", "value": "208px" },
+      { "name": "reference-round", "value": "240px" },
+      { "name": "large-round", "value": "454px" },
+      { "name": "max-round", "value": "466px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Mission Bar",
+      "kind": "custom",
+      "refersTo": "mission-bar-track",
+      "description": "Pill track with a proportional fill; the track is always drawn so the whole goal stays visible behind the part that is done.",
+      "html": "<div class=\"ds-bar\"><i class=\"ds-bar-fill\" style=\"width:62%\"></i></div><div class=\"ds-bar\"><i class=\"ds-bar-fill ds-bar-fill-done\" style=\"width:100%\"></i></div>",
+      "css": ".ds-bar { position: relative; width: 95px; height: 15px; background: #555555; border-radius: 7.5px; margin: 0 0 8px; } .ds-bar-fill { position: absolute; inset: 0 auto 0 0; display: block; background: #55AAFF; border-radius: 7.5px; } .ds-bar-fill-done { background: #00FF00; }"
+    },
+    {
+      "name": "Mission Column",
+      "kind": "card",
+      "refersTo": "mission-value",
+      "description": "Value, pill bar, label. A finished goal turns the fill and label green and prepends a drawn check, so done never depends on colour alone.",
+      "html": "<div class=\"ds-col\"><span class=\"ds-col-value\">8.2K</span><div class=\"ds-bar\"><i class=\"ds-bar-fill\" style=\"width:62%\"></i></div><span class=\"ds-col-label\">STEPS</span></div><div class=\"ds-col\"><span class=\"ds-col-value\">45</span><div class=\"ds-bar\"><i class=\"ds-bar-fill ds-bar-fill-done\" style=\"width:100%\"></i></div><span class=\"ds-col-label ds-col-label-done\"><svg class=\"ds-check\" viewBox=\"0 0 12 12\" aria-hidden=\"true\"><polyline points=\"1,6 4,10 11,2\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2\"/></svg>INT</span></div>",
+      "css": ".ds-col { display: inline-flex; flex-direction: column; align-items: center; width: 95px; margin-right: 9px; font-family: system-ui, sans-serif; background: #000000; padding: 4px 0; } .ds-col-value { color: #FFFFFF; font-size: 18px; line-height: 1; } .ds-col-label { display: inline-flex; align-items: center; gap: 3px; color: #AAAAAA; font-size: 18px; line-height: 1; letter-spacing: 0.02em; } .ds-col-label-done { color: #00FF00; } .ds-check { width: 12px; height: 12px; } .ds-bar { position: relative; width: 95px; height: 15px; background: #555555; border-radius: 7.5px; margin: 5px 0; } .ds-bar-fill { position: absolute; inset: 0 auto 0 0; display: block; background: #55AAFF; border-radius: 7.5px; } .ds-bar-fill-done { background: #00FF00; }"
+    },
+    {
+      "name": "Streak Line",
+      "kind": "custom",
+      "refersTo": "streak-line-kept",
+      "description": "The top row inside the ring. Gold once there is something kept, muted at zero, omitted entirely when the watch has no step goal.",
+      "html": "<span class=\"ds-streak\">12-DAY STREAK</span><span class=\"ds-streak ds-streak-idle\">STREAK 0</span>",
+      "css": ".ds-streak { display: block; color: #FFAA00; background: #000000; font-family: system-ui, sans-serif; font-size: 18px; line-height: 1; letter-spacing: 0.02em; padding: 4px 0; text-align: center; } .ds-streak-idle { color: #AAAAAA; }"
+    },
+    {
+      "name": "Date Row",
+      "kind": "custom",
+      "refersTo": "date-line",
+      "description": "One muted uppercase line under the time; drops the month, then the temperature, on a narrow chord.",
+      "html": "<span class=\"ds-date\">WED 12 MARCH  14&deg;</span>",
+      "css": ".ds-date { display: block; color: #AAAAAA; background: #000000; font-family: system-ui, sans-serif; font-size: 18px; line-height: 1; letter-spacing: 0.02em; padding: 4px 0; text-align: center; }"
+    },
+    {
+      "name": "Footer Item",
+      "kind": "custom",
+      "refersTo": "footer-item",
+      "description": "Primitive-drawn icon plus its number, in the ring's bottom gap. Battery carries no percent sign; at or below 15% the pair turns red.",
+      "html": "<span class=\"ds-foot\"><svg viewBox=\"0 0 20 12\" aria-hidden=\"true\"><rect x=\"0.5\" y=\"0.5\" width=\"16\" height=\"11\" fill=\"none\" stroke=\"currentColor\"/><rect x=\"17\" y=\"3\" width=\"2.5\" height=\"6\" fill=\"currentColor\"/><rect x=\"2\" y=\"2\" width=\"8\" height=\"8\" fill=\"currentColor\"/></svg>62</span><span class=\"ds-foot\"><svg viewBox=\"0 0 16 16\" aria-hidden=\"true\"><circle cx=\"4\" cy=\"5\" r=\"4\" fill=\"currentColor\"/><circle cx=\"12\" cy=\"5\" r=\"4\" fill=\"currentColor\"/><polygon points=\"0,5 16,5 8,16\" fill=\"currentColor\"/></svg>58</span><span class=\"ds-foot ds-foot-low\"><svg viewBox=\"0 0 20 12\" aria-hidden=\"true\"><rect x=\"0.5\" y=\"0.5\" width=\"16\" height=\"11\" fill=\"none\" stroke=\"currentColor\"/><rect x=\"17\" y=\"3\" width=\"2.5\" height=\"6\" fill=\"currentColor\"/><rect x=\"2\" y=\"2\" width=\"2\" height=\"8\" fill=\"currentColor\"/></svg>11</span>",
+      "css": ".ds-foot { display: inline-flex; align-items: center; gap: 5px; color: #AAAAAA; background: #000000; font-family: system-ui, sans-serif; font-size: 18px; line-height: 1; padding: 4px 0; margin-right: 15px; } .ds-foot svg { width: 16px; height: 12px; } .ds-foot-low { color: #FF0000; }"
+    },
+    {
+      "name": "Time Block",
+      "kind": "custom",
+      "refersTo": "time-block",
+      "description": "The largest thing on the face: white, centred in the band the other rows leave, with optional muted seconds tucked against its right edge on the digits' baseline.",
+      "html": "<span class=\"ds-time\">09:41<sub class=\"ds-time-sec\">32</sub></span>",
+      "css": ".ds-time { display: inline-flex; align-items: baseline; gap: 10px; color: #FFFFFF; background: #000000; font-family: system-ui, sans-serif; font-size: 96px; font-weight: 400; line-height: 1; padding: 8px 0; } .ds-time-sec { color: #AAAAAA; font-size: 24px; vertical-align: baseline; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Dashboard That Learned To Tell Time",
+    "overview": "HeroFace takes HeroSet's dashboard grammar — a bezel progress ring, a gold keep-line, three pill mission bars — and re-proportions it so the time owns the middle. Everything is drawn from primitives on a pure black ground: arcs, rounded rectangles, two-stroke check marks, a battery outline, a heart made of two circles and a triangle. There are no bitmaps and no icon fonts, because the smallest supported watch-face memory budget is 64 KB; that constraint is also the aesthetic. Every colour sits on Garmin's 64-colour palette (channels 00/55/AA/FF) so a MIP screen renders it exactly as written and an AMOLED does not have to dither.\n\nDensity is deliberately low. One ring, one gold line, one time, one date row, three columns, one footer strip: seven things, in a fixed bottom-up stack, on every one of the 117 round products from 208 to 466 px. Nothing is positioned in absolute pixels. A single proportion — a tenth of the short screen edge — generates the ring, the gap, the bar, the column and the margin, and the time then takes whatever vertical band is left between the streak row and the date. Text is measured against the round chord at its own row before it is drawn, and a string that would not fit is replaced by a shorter wording rather than clipped or shrunk.\n\nThe face refuses the category default it was built against: a bezel of six tiny complications with glyph icons. It spends its whole budget on one number and three bars.",
+    "keyCharacteristics": [
+      "Black ground, no surfaces, no shadows, no gradients",
+      "Every dimension is a ratio of min(width, height)/10",
+      "Two type tiers: the time, and everything else",
+      "Colour carries meaning and never carries it alone",
+      "Primitives only; the icons are drawn, not glyphs",
+      "Rows stack bottom-up; the time expands into the remainder"
+    ],
+    "rules": [
+      { "name": "The Never-Colour-Alone Rule", "body": "No state is legible by hue alone, and this is auditable. Done: green label plus a drawn check plus a full bar. Streak kept: gold plus a day count in the words. Low battery: red plus the number plus a visibly empty icon fill. Move alert: red plus the word changing from OK to GO. Ring complete: green plus a closed sweep. Audit test: render the face in greyscale — every state must still be nameable.", "section": "colors" },
+      { "name": "The Gold Reserve Rule", "body": "Gold means a thing the user has accumulated and can lose. A zero streak is muted grey, not gold, because there is nothing kept yet.", "section": "colors" },
+      { "name": "The Exact-Palette Rule", "body": "Every colour is built from the channel values 00/55/AA/FF. A hex outside Garmin's 64-colour palette is dithered on MIP and is not permitted.", "section": "colors" },
+      { "name": "The Measure-Never-Guess Rule", "body": "Every string is checked against the chord of the round display at its own row before it is drawn. Nothing is sized by assumption and nothing is clipped.", "section": "typography" },
+      { "name": "The Shorter-Wording Rule", "body": "When a string does not fit, the face picks a shorter wording, never a smaller font: 12345 -> 12.3K -> 12K; INTENSITY -> INT; WED 12 MARCH -> WED 12; RANK 7 STREAK 12 -> RANK 7 12D -> RANK 7. Candidate lists are ordered longest-first and the last entry is the guaranteed fallback.", "section": "typography" },
+      { "name": "The Uppercase Voice Rule", "body": "All face copy is uppercase and terse. Words come from string resources only, so a translation is a new resource folder and no code change.", "section": "typography" },
+      { "name": "The One Proportion Rule", "body": "Every dimension on the face is a division of min(width, height)/10. A hard-coded pixel value, or a per-device layout table, is a defect.", "section": "layout" },
+      { "name": "The Time Takes The Remainder Rule", "body": "The time is never assigned a size. It receives the band left over after the other rows are stacked, and picks the largest font that band and chord will hold.", "section": "layout" },
+      { "name": "The Chord Rule", "body": "On a round screen, usable width is the chord at the row's farthest edge from centre — never the full display width. Content fits against a circle inset from the ring by half the ring width plus half the text margin, so text never touches the ring.", "section": "layout" },
+      { "name": "The Flat-By-Construction Rule", "body": "Nothing on this face casts, glows, or layers. If a surface needs to feel distinct, it is distinguished by position and colour role, never by depth.", "section": "elevation" },
+      { "name": "The Track-Behind-Fill Rule", "body": "Every progress element draws its full-length track first in the track grey, then its fill. A progress indicator without a visible remainder is incomplete.", "section": "elevation" },
+      { "name": "The Drawn-Not-Glyph Rule", "body": "Every mark on the face is constructed from primitives. No bitmaps, no icon fonts, no glyph characters standing in for symbols — at 64 KB there is no budget for them and at 208 px there is no fidelity in them.", "section": "shapes" },
+      { "name": "The Open Ring Rule", "body": "The bezel arc is open at the bottom and never completes a circle. The gap is where the footer lives; closing it would take the footer's room and lose the read of 'how much is left'.", "section": "shapes" }
+    ],
+    "dos": [
+      "Do derive every new dimension from min(width, height)/10, the way barHeight (/3), ringWidth (/6), columnGap (/5) and stackGap (/9) already do.",
+      "Do measure text against the round chord at its own row before drawing it, and give every string a shorter-wording fallback ordered longest-first.",
+      "Do draw a full-length track remainder behind every progress element.",
+      "Do pair any colour-carried state with a second signal: a word, a mark, or a bar length.",
+      "Do keep every new colour inside Garmin's 64-colour palette (channels 00/55/AA/FF).",
+      "Do build new marks from primitives — lines, arcs, circles, polygons, rounded rectangles.",
+      "Do hide an element that has no honest value rather than drawing a placeholder or a zero."
+    ],
+    "donts": [
+      "Don't spend gold on anything but a thing the user has kept and could lose.",
+      "Don't use alert red as a progress colour, or add a red/green distinction as the only difference between two states.",
+      "Don't hard-code a pixel value or add a per-device layout table.",
+      "Don't shrink a font to make text fit; shorten the wording instead.",
+      "Don't close the bezel arc or fill the bottom gap — the footer lives there.",
+      "Don't add shadows, gradients, tinted panels or card backgrounds; the ground is black and the face is flat.",
+      "Don't ship bitmaps or icon-font glyphs.",
+      "Don't put anything but the dim time on a burn-in-protected screen in sleep.",
+      "Don't let anything on the face compete with the time for size."
+    ]
+  }
+}
