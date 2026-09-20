@@ -6,7 +6,7 @@
 
 web
 
-Two surfaces share this record: the website (sibling repo `../verden-site`: studio home plus HeroSet landing, support and privacy pages, the `web` platform above) and the watch app itself, a native Garmin Connect IQ app (Monkey C) that is neither web, iOS nor Android. Watch UI follows the constraints below and the ADRs in `docs/decisions.md`, not web conventions.
+Two surfaces share this record: the website (sibling directory `../verden-site`: studio home plus HeroSet landing, support and privacy pages, the `web` platform above) and the watch app itself, a native Garmin Connect IQ app (Monkey C) that is neither web, iOS nor Android. Watch UI follows the constraints below and the ADRs in `docs/decisions.md`, not web conventions.
 
 ## Users
 

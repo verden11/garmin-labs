@@ -18,7 +18,7 @@ For `apps.garmin.com/en-US/developer/upload`, step 2. Upload a freshly exported 
 | Category | **Strength Training**. Options (2026-09-19): Beliefs, Business, Celestial, Communication, Education, Entertainment, Finance, Food & Drink, Games, Golf, Health & Fitness, Home Automation, Lifestyle, Marine, Medical, Navigation, Social, Sports, Strength Training, Tools, Travel, Weather, Wellness. |
 | Subcategory | **Other** (options: Cycling, Geocaching, Hiking, Other, Running, Swimming, Walking; no strength option). Not marked required; leave blank if form allows. |
 | Does your app collect user data? | **No.** Store build no network access, no activity recording, no sync (ADR-033). Still link privacy policy (gate 6). |
-| Privacy policy URL | https://verden.watch/heroset/privacy/ (site repo `../verden-site`). Support page: https://verden.watch/heroset/support/. |
+| Privacy policy URL | https://verden.watch/heroset/privacy/ (site in `../verden-site`). Support page: https://verden.watch/heroset/support/. |
 | ANT+ profiles? | No (not used). |
 | Regional limits? | No. |
 | Cover Image (500×500) / Screen Images | Cover `listing/cover-500-designed.png` (shield + name: shows ~100 px in browse, so no screen text); screens `listing/screens/` in upload order (`1-dashboard` … `4-saved`, `5-menu` optional). Simulator captures of store build (ADR-039), no mockups. UI change shown in a shot → re-take it, and update the site copy in `../verden-site/public/heroset/screens/`. |

@@ -2,7 +2,7 @@
 
 [![Netlify Status](https://api.netlify.com/api/v1/badges/d26d0261-d940-4cf3-bf49-d3a10d635897/deploy-status)](https://app.netlify.com/projects/verden-watch/deploys)
 
-Static website for Verden apps: a studio home plus, for each app, a landing page, a support page and a privacy policy. HeroSet is the first app; more apps, each from its own repo, will be added. `CLAUDE.md` lists the linked app repos and the hosting setup.
+Static website for Verden apps: a studio home plus, for each app, a landing page, a support page and a privacy policy. HeroSet is the first app; more apps, each in its own folder, will be added. `CLAUDE.md` lists the linked apps and the hosting setup.
 
 Vite + React + TypeScript, but React only runs at build time: every page is prerendered to plain HTML + CSS. The browser gets no JavaScript, so pages work with JS off, and deep links such as `/heroset/privacy/` work on any static host without rewrite rules.
 

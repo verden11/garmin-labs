@@ -8,7 +8,7 @@ Status: 2026-09-20. **Only home for open items and blockers.** History: ADRs + `
 
 - **v1 store build** (ADR-033/040): `Sensor` permission only, no sync, learning replaces calibration. App id `568d5c9b-eb10-4678-bf28-0080c3efbbc1`. 94 tests (85 store build) pass; all 67 products passed screen fit in simulator before ADR-045 — the goal picker is verified on fr965 and fr255s (218 px, smallest) only, with the longest goal title (`DIENOS TIKSLAS`) and goal 500; the other 65 products are a re-run still owed.
 - **Uploaded 2026-09-19, in Garmin review.** Store page: https://apps-developer.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377 (store id ≠ manifest id). Preview: 1.0.0, 2,49€, permission "Fitness & Sensor Data", 5 screenshots.
-- **Done:** merchant approved (2026-09-18) · storage upgrade check on FR965 (gate 4) · privacy + support live at https://verden.watch/heroset/ (gate 6, repo `../verden-site`) · listing screenshots in `listing/` (FR970 sim, store build) · store menu check on watch.
+- **Done:** merchant approved (2026-09-18) · storage upgrade check on FR965 (gate 4) · privacy + support live at https://verden.watch/heroset/ (gate 6, `../verden-site`) · listing screenshots in `listing/` (FR970 sim, store build) · store menu check on watch.
 - **Waived for launch (ADR-042):** full gate 2 accuracy trial. 4 medium sets on FR965 counted +2/0/0/0.
 - **Proven only in simulator:** everything except FR965 counting basics and menus.
 - **Uncommitted:** v1.1 Connect sync in the dev build (item 3) · the user-set daily goal (item 4).

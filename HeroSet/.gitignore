@@ -20,8 +20,3 @@
 /developer_key.*
 *.der
 *.pem
-
-# Local OS/editor files
-.DS_Store
-.omo/
-.obsidian/

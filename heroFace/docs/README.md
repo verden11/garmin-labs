@@ -10,5 +10,5 @@
 | Understand the visual system | [`../DESIGN.md`](../DESIGN.md) |
 | Know the product truth | [`../PRODUCT.md`](../PRODUCT.md) |
 
-Device builds and the on-watch tick list live outside the repo, in
+Device builds and the on-watch tick list are git-ignored, in
 `../../device-test/`, so one folder holds both HeroFace and HeroSet.

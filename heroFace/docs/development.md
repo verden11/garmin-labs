@@ -77,4 +77,4 @@ they are already translated.
 The simulator proves geometry, fonts and logic. It cannot prove always-on
 behaviour, battery cost, MIP daylight contrast, or the HeroSet link, which
 needs two apps on real firmware. Builds and a tick list for that live in
-`../../device-test/` (outside both repos, so one folder holds both apps).
+`../../device-test/` (git-ignored, so one folder holds both apps).

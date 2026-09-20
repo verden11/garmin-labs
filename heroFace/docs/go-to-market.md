@@ -108,7 +108,7 @@ complication. Cross-link with HeroSet's pages, and add the row to
 
 **Gate 1 — device acceptance (blocks everything).** One FR965 session covering
 §1 above, with both builds and a tick list in `../device-test/`
-(`CHECKLIST.md`, outside both repos so one folder holds the pair), plus the same face sideloaded to any MIP watch if one is available.
+(`CHECKLIST.md`, git-ignored so one folder holds the pair), plus the same face sideloaded to any MIP watch if one is available.
 Failures here change the code, not the listing.
 
 **Gate 2 — assets and pages.** Screenshots, listing copy, and the three site

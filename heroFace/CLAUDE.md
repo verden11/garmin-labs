@@ -18,7 +18,7 @@ HeroSet's visual language: bezel ring, three mission bars, gold streak.
 - The HeroSet link is one **private complication** (HeroSet ADR-044,
   `HeroSetComplicationPublisher`). Value:
   `v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay|goal`. Field order
-  is a cross-repo contract: changing it in one repo breaks the other. New
+  is a cross-project contract: changing it on one side breaks the other. New
   fields append and stay optional on this side (`goal` did); only a breaking
   change bumps the version, which makes the face drop the value entirely. Both apps must
   be signed with the same key (`~/.garmin-connectiq/keys/developer_key`).
@@ -37,7 +37,7 @@ HeroSet's visual language: bezel ring, three mission bars, gold streak.
 
 ## House rules
 
-Same as HeroSet (`../HeroSet/CLAUDE.md` house rules), which this repo mirrors:
+Same as HeroSet (`../HeroSet/CLAUDE.md` house rules), which this project mirrors:
 
 - Every function: typed params and `as` return type. No `as Any`. Cast only
   after an `instanceof` or null guard.
@@ -56,7 +56,7 @@ Same as HeroSet (`../HeroSet/CLAUDE.md` house rules), which this repo mirrors:
 ## Keeping things in sync
 
 - Behaviour change → update `docs/plan.md` (and `DESIGN.md` if it is visual).
-- Contract change → both repos and HeroSet's ADR-044, same session.
+- Contract change → both projects and HeroSet's ADR-044, same session.
 - New product or layout change → run the screen-fit test for that screen size
   and update `docs/compatibility.md`.
 - Test count appears in `README.md` and here; update both.

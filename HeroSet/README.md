@@ -66,7 +66,7 @@ Full index: [`docs/README.md`](docs/README.md). Contributor house rules
 (typed functions, no magic numbers, measured text fit): `docs/architecture.md`
 §6. AI-assistant orientation: [`CLAUDE.md`](CLAUDE.md).
 
-## Repository layout
+## Project layout
 
 ```text
 manifest.xml       dev build: app id, 67 products, Sensor + Fit + FitContributor

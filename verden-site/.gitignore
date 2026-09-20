@@ -2,4 +2,3 @@ node_modules
 dist
 .ssr
 .impeccable/review
-.DS_Store
