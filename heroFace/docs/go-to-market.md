@@ -4,20 +4,21 @@ Status: 2026-09-20.
 
 ## Status checkpoint
 
-**Not production ready.** The code is complete and verified in the simulator;
-nothing has run on a watch, and none of the store or site work exists yet.
+**Not production ready.** The code is complete and verified in the simulator,
+the FR965 has run it once, and the store images and site pages exist. What is
+missing is the rest of the device evidence in §1.
 
 | | State |
 |---|---|
 | Code | Complete for round watches: everyday mode, HeroSet mode, settings, always-on. A finish review returned `fix`; all six items applied (see `docs/plan.md`) |
-| Simulator evidence | 12/12 tests; screen fit on 10 sizes (208–466 px); runs on 5 products; `.iq` builds for all 117 |
+| Simulator evidence | 14/14 tests (re-run 2026-09-20 on fr965); screen fit on 10 sizes (208–466 px); runs on 5 products; `.iq` builds for all 117 |
 | Device evidence | FR965 2026-09-20: both apps install, face renders, the HeroSet link updates within seconds, no permission prompt. Always-on, battery, reboot and midnight still open |
-| Store listing | Not started |
-| Site pages | Not started (`../verden-site/src/apps/heroface/`) |
-| HeroSet side | Publisher built and tested (88/88), needs the same device run |
+| Store listing | Copy drafted (`docs/listing/`); images done: 5 screens, cover, hero, device icons in `listing/` |
+| Site pages | **Live**: https://verden.watch/heroface/ , `/heroface/support/` , `/heroface/privacy/` (all 200, 2026-09-20). `storeUrl` in `../verden-site/src/apps/heroface/app.ts` still unset until the listing exists |
+| HeroSet side | Publisher built and tested (HeroSet's suite, 94 / 85 store — `../../HeroSet/CLAUDE.md`). **Open:** whether the build already in Garmin review contains it (§2) |
 
-**Blocked on:** one FR965 session (gate 1) and the two Verden web pages, which
-the store listing needs before it can be submitted.
+**Blocked on:** one FR965 session (gate 1). The web pages are live, so gate 2
+is done apart from the always-on screenshot.
 
 ## What "production ready" is missing
 
@@ -55,6 +56,16 @@ to an app that is already shipping.
 
 **Decided 2026-09-20 (user call): both apps go out in the same submission
 window**, so the link works the day HeroFace lands.
+
+**Open, and it decides whether the link works on day one:** HeroSet 1.0.0 went
+to Garmin on 2026-09-19 (`../../HeroSet/docs/go-to-market.md`), and its store
+preview lists one permission, "Fitness & Sensor Data". `ComplicationPublisher`
+is in both of HeroSet's manifests now, but `bin/HeroSet-store.iq` was built
+2026-09-19 23:52 and the ADR-044 work is dated 2026-09-20 — so the build in
+review probably does not publish the complication. Check the store page's
+permission list. If it is missing, HeroSet needs a 1.0.1 upload, and until that
+clears review HeroFace buyers who own HeroSet see everyday mode. That does not
+block submitting HeroFace.
 
 **Resolved 2026-09-20 on the FR965:** sideloading the store build over an
 existing install produced **no permission prompt**, so the risk this decision
@@ -111,8 +122,10 @@ complication. Cross-link with HeroSet's pages, and add the row to
 (`CHECKLIST.md`, git-ignored so one folder holds the pair), plus the same face sideloaded to any MIP watch if one is available.
 Failures here change the code, not the listing.
 
-**Gate 2 — assets and pages.** Screenshots, listing copy, and the three site
-pages deployed. The listing cannot be submitted before the URLs resolve.
+**Gate 2 — assets and pages. Done 2026-09-20**, except the always-on
+screenshot. The three site pages are live and return 200; the store images are
+in `listing/` (`cover-500.png`, `hero-1440x720.png`, `icon-24-128.png`,
+`icon-64-128.png`, `screens/1-everyday.png` … `5-no-barometer.png`).
 
 **Gate 3 — submission.** Upload `bin/HeroFace.iq`, set the price tier, paste
 the URLs, and submit. HeroSet's update (publisher plus permission) goes in the

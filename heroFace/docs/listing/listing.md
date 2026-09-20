@@ -90,13 +90,37 @@ claim in review.
 
 ## Screenshots
 
-See `screenshots.md`. **FILL** by capturing them; the form wants them per
-device family.
+Captured, in `../../listing/screens/`, upload in the numbered order. One
+device is enough — HeroSet shipped five shots from a single device and passed
+review; there is no per-device-family requirement. The cover, hero and device
+icons sit alongside them in `../../listing/`. Still **FILL**: the always-on
+shot, which has to come off the FR965. See `screenshots.md`.
+
+## The rest of the form
+
+The fields the copy above does not cover, answered the way HeroSet answered
+them (`../../../HeroSet/docs/store-release.md`, filled against the live form
+2026-09-19). The watch-face form may not show all of them.
+
+| Field | Answer |
+|---|---|
+| App Migration (auto-add new compatible devices) | **No.** Support is the explicit 117-product list in `../compatibility.md`; letting the store add untested devices would ship a layout nobody has run. |
+| Does your app collect user data? | **No.** Nothing leaves the watch (privacy page says the same). Still paste the privacy URL. |
+| ANT+ profiles | No. |
+| Regional limits | No. |
+| Source Code URL | Leave blank — not open source. |
+| Review Notification | Yes. |
+| Monetization | Paid, USD 2.00. |
+| Companion App / Additional Hardware | Leave blank. HeroSet is not a companion app — it is a separate paid app the face can read on the watch. |
+| Cover Image (500×500) | `../../listing/cover-500.png` |
+| Hero Image (1440×720) | `../../listing/hero-1440x720.png` |
+| Screen Images | `../../listing/screens/`, in numbered order |
+| Device icons (optional, 128×128) | `../../listing/icon-64-128.png` (64 colour) and `icon-24-128.png` (24 bit) |
 
 ## Before you submit
 
-- [ ] Support and privacy URLs resolve (deploy the site first — they are live
-      pages in `../../verden-site`, not yet deployed)
+- [x] Support and privacy URLs resolve — all three `/heroface/` pages returned
+      200 on 2026-09-20
 - [ ] The `.iq` package is built from the current source
 - [ ] Gate 1 in `../go-to-market.md` is done: the device session
 - [ ] HeroSet's own update is ready to submit in the same window (decided

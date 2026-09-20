@@ -16,16 +16,18 @@ Status: 2026-09-20. **Only home for open items and blockers.** History: ADRs + `
 ## Open items, in order
 
 1. **Garmin review.** Compatible Devices tab omits fēnix 6S (non-Pro), MARQ Gen 1, Descent MK2/MK2S, FR945 LTE, Enduro Gen 1, though all are in `manifest-store.xml` and the `.iq`. Check the upload form's device list, else ask Garmin. "Signature check failed" → Garmin developer forum.
-2. **After approval:** set `storeUrl` in `../verden-site/src/apps/heroset/app.ts` · private beta (small group, multi-day: crashes, listener leaks) · paid launch.
-3. **Configurable daily goal** (ADR-045, [`configurable-goal-plan.md`](configurable-goal-plan.md)): implemented 2026-09-20 in both builds and in HeroFace. Next: the watch checks at the end of that plan, **gate 5 re-check** (the release menu now carries a third kind of item), the screen-fit sweep across the remaining 65 products, and a per-language menu check (Menu2 item labels do not shrink, unlike screen text).
-4. **v1.1 Connect sync** (ADR-043, [`connect-sync-plan.md`](connect-sync-plan.md)): implemented in dev build. Next: FR965 spike (step 0) + device acceptance, then store build gets `Fit` + `FitContributor` and privacy/support/store copy change same session.
-5. **Post-launch watch checks** (FR965, dev build unless noted):
+2. **Does the build in review publish the complication?** `ComplicationPublisher` is in both manifests now, but `bin/HeroSet-store.iq` was built 2026-09-19 23:52 and the ADR-044/045 work is dated 2026-09-20; the store preview lists one permission, "Fitness & Sensor Data". Check the store page's permission list. If the publisher is not in it, HeroSet needs a 1.0.1 upload, and until that clears review HeroFace shows everyday mode to buyers who own both (`../../heroFace/docs/go-to-market.md` §2).
+
+3. **After approval:** set `storeUrl` in `../verden-site/src/apps/heroset/app.ts` · private beta (small group, multi-day: crashes, listener leaks) · paid launch.
+4. **Configurable daily goal** (ADR-045, [`configurable-goal-plan.md`](configurable-goal-plan.md)): implemented 2026-09-20 in both builds and in HeroFace. Next: the watch checks at the end of that plan, **gate 5 re-check** (the release menu now carries a third kind of item), the screen-fit sweep across the remaining 65 products, and a per-language menu check (Menu2 item labels do not shrink, unlike screen text).
+5. **v1.1 Connect sync** (ADR-043, [`connect-sync-plan.md`](connect-sync-plan.md)): implemented in dev build. Next: FR965 spike (step 0) + device acceptance, then store build gets `Fit` + `FitContributor` and privacy/support/store copy change same session.
+6. **Post-launch watch checks** (FR965, dev build unless noted):
    - [ ] Gate 2: 3 × 10 reps per exercise at slow/medium/fast; 60 s still in position per exercise (count phantoms, then Discard); one 30+ rep set. Known risks: fast squats, push-up getting-up rep. Tune `HeroSetConfig`. Results → `validation-log.md`, summary → `release-contract.md`.
    - [ ] Gate 3: every screen, no clipped text.
    - [ ] Gate 7: HR looks like pulse, calories climb; battery per [`battery.md`](battery.md) measurement (store build).
    - [ ] Store build: one set, phone sync, no activity in Connect.
    - [ ] Validation Log: photograph every page before it wraps (30 entries).
-6. **Beta testers for the other 66 watches** (don't gate launch, ADR-039): per family confirm buttons, screens, counting; MIP also daylight contrast. Failing family → drop from both manifests.
+7. **Beta testers for the other 66 watches** (don't gate launch, ADR-039): per family confirm buttons, screens, counting; MIP also daylight contrast. Failing family → drop from both manifests.
 
 ## Launch gates
 
