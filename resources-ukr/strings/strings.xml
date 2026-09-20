@@ -1,0 +1,56 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">HeroFace</string>
+
+    <!-- Mission labels: long form first, short form when the column is narrow. -->
+    <string id="label_steps">КРОКИ</string>
+    <string id="label_steps_short">КРОК</string>
+    <string id="label_calories">ККАЛ</string>
+    <string id="label_calories_short">ККАЛ</string>
+    <string id="label_intensity">ІНТЕНСИВНІСТЬ</string>
+    <string id="label_intensity_short">ІНТ</string>
+    <string id="label_km">КМ</string>
+    <string id="label_miles">МИЛ</string>
+    <string id="label_floors">ПОВЕРХИ</string>
+    <string id="label_floors_short">ПОВ</string>
+    <string id="label_move">РУХ</string>
+    <string id="label_pushups">ВІДТИСКАННЯ</string>
+    <string id="label_pushups_short">ВІДТ</string>
+    <string id="label_situps">ПІДЙОМИ</string>
+    <string id="label_situps_short">ПІДЙ</string>
+    <string id="label_squats">ПРИСІДАННЯ</string>
+    <string id="label_squats_short">ПРИС</string>
+
+    <string id="value_thousands">$1$K</string>
+    <string id="value_move_ok">ОК</string>
+    <string id="value_move_alert">РУХ</string>
+    <string id="value_temperature">$1$°</string>
+
+    <string id="streak_long">СЕРІЯ $1$ ДНІВ</string>
+    <string id="streak_short">СЕРІЯ $1$</string>
+    <string id="rank_streak">РАНГ $1$  СЕРІЯ $2$</string>
+    <string id="rank_only">РАНГ $1$</string>
+
+    <!-- Settings (shown in Garmin Connect). -->
+    <string id="setting_mode">Місії</string>
+    <string id="mode_auto">HeroSet, якщо встановлено; інакше — денні цілі</string>
+    <string id="mode_everyday">Денні цілі</string>
+    <string id="mode_heroset">Повторення HeroSet</string>
+    <string id="setting_slot1">Ліва місія</string>
+    <string id="setting_slot2">Середня місія</string>
+    <string id="setting_slot3">Права місія</string>
+    <string id="metric_auto">Автоматично</string>
+    <string id="metric_steps">Кроки</string>
+    <string id="metric_calories">Калорії</string>
+    <string id="metric_intensity">Хвилини інтенсивності</string>
+    <string id="metric_distance">Відстань</string>
+    <string id="metric_floors">Поверхи</string>
+    <string id="metric_move">Смуга руху</string>
+    <string id="setting_accent">Колір акценту</string>
+    <string id="accent_blue">Синій</string>
+    <string id="accent_cyan">Блакитний</string>
+    <string id="accent_magenta">Пурпуровий</string>
+    <string id="setting_seconds">Показувати секунди</string>
+    <string id="setting_weather">Показувати температуру</string>
+
+</strings>

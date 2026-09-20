@@ -1,0 +1,63 @@
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <setting propertyKey="@Properties.Mode" title="@Strings.setting_mode">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.mode_auto</listEntry>
+            <listEntry value="1">@Strings.mode_everyday</listEntry>
+            <listEntry value="2">@Strings.mode_heroset</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Slot1" title="@Strings.setting_slot1">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.metric_auto</listEntry>
+            <listEntry value="1">@Strings.metric_steps</listEntry>
+            <listEntry value="2">@Strings.metric_calories</listEntry>
+            <listEntry value="3">@Strings.metric_intensity</listEntry>
+            <listEntry value="4">@Strings.metric_distance</listEntry>
+            <listEntry value="5">@Strings.metric_floors</listEntry>
+            <listEntry value="6">@Strings.metric_move</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Slot2" title="@Strings.setting_slot2">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.metric_auto</listEntry>
+            <listEntry value="1">@Strings.metric_steps</listEntry>
+            <listEntry value="2">@Strings.metric_calories</listEntry>
+            <listEntry value="3">@Strings.metric_intensity</listEntry>
+            <listEntry value="4">@Strings.metric_distance</listEntry>
+            <listEntry value="5">@Strings.metric_floors</listEntry>
+            <listEntry value="6">@Strings.metric_move</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Slot3" title="@Strings.setting_slot3">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.metric_auto</listEntry>
+            <listEntry value="1">@Strings.metric_steps</listEntry>
+            <listEntry value="2">@Strings.metric_calories</listEntry>
+            <listEntry value="3">@Strings.metric_intensity</listEntry>
+            <listEntry value="4">@Strings.metric_distance</listEntry>
+            <listEntry value="5">@Strings.metric_floors</listEntry>
+            <listEntry value="6">@Strings.metric_move</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Accent" title="@Strings.setting_accent">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.accent_blue</listEntry>
+            <listEntry value="1">@Strings.accent_cyan</listEntry>
+            <listEntry value="2">@Strings.accent_magenta</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Seconds" title="@Strings.setting_seconds">
+        <settingConfig type="boolean" />
+    </setting>
+
+    <setting propertyKey="@Properties.Weather" title="@Strings.setting_weather">
+        <settingConfig type="boolean" />
+    </setting>
+
+</settings>
