@@ -10,7 +10,7 @@ Two surfaces share this record: the website (sibling repo `../verden-site`: stud
 
 ## Users
 
-Garmin watch athletes of any main sport (runners, cyclists, hikers, gym-goers) who want short daily bodyweight strength work alongside it: 100 push-ups, 100 sit-ups and 100 squats a day, counted and tracked on the wrist without reaching for a phone. They own one of the 67 supported round five-button Garmin watches (`docs/compatibility.md`) and use it mid-workout, often sweaty, on the floor, glancing between reps.
+Garmin watch athletes of any main sport (runners, cyclists, hikers, gym-goers) who want short daily bodyweight strength work alongside it: 100 push-ups, 100 sit-ups and 100 squats a day by default — any goal from 10 to 500 — counted and tracked on the wrist without reaching for a phone. They own one of the 67 supported round five-button Garmin watches (`docs/compatibility.md`) and use it mid-workout, often sweaty, on the floor, glancing between reps.
 
 ## Product Purpose
 
@@ -29,7 +29,7 @@ A button-first daily challenge that lives entirely on the watch: automatic rep c
 
 ## Capabilities and Constraints
 
-- Exercises: push-ups, sit-ups, squats; daily goal 100 each (fixed, not user-configurable).
+- Exercises: push-ups, sit-ups, squats; daily goal 100 each by default, user-set on the watch from 10 to 500 in steps of 10 (ADR-045). XP still stops at 100 reps per exercise per day, so rank reflects reps done, not goals hit.
 - Automatic counting is beta and can miscount; accuracy numbers may not be claimed until launch gate 2 passes (`docs/release-contract.md`).
 - Manual correction and manual logging on every path; XP only for net stored progress (ADR-002); rank derived, never stored.
 - Live HR and calorie estimate during a set; calories are the change in Garmin's daily total, an estimate, not a medical or native session measurement.

@@ -7,6 +7,7 @@
     <string id="menu_label_manual_pushups">Registrar flexões</string>
     <string id="menu_label_manual_situps">Registrar abdominais</string>
     <string id="menu_label_manual_squats">Registrar agachamentos</string>
+    <string id="menu_label_goal">Meta diária</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">Guarda no Connect</string>
     <string id="menu_sublabel_off">Só no relógio</string>
@@ -43,6 +44,7 @@
     <string id="picker_detected">DETECTADO $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: AJUSTAR</string>
     <string id="picker_hint_save">START: SALVAR</string>
+    <string id="goal_title">META DIÁRIA</string>
 
 
     <string id="validation_log_hint">UP/DOWN: PÁGINA</string>
@@ -69,4 +71,5 @@
     <string id="toast_mission_complete">MISSÃO DIÁRIA CONCLUÍDA!</string>
     <string id="toast_removed">$1$ REMOVIDO</string>
     <string id="toast_rank_up">RANK $1$!</string>
+    <string id="toast_goal_saved">META $1$</string>
 </strings>

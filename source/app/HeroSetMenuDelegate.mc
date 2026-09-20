@@ -24,6 +24,11 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
         if (sync instanceof WatchUi.ToggleMenuItem) {
             sync.setEnabled(store.isSyncEnabled());
         }
+        var goal = store.getGoal();
+        var goalIndex = menu.findItemById(:daily_goal);
+        if (goalIndex >= 0) {
+            menu.getItem(goalIndex).setSubLabel(goal.toString());
+        }
         var ids = [:start_pushups, :start_situps, :start_squats] as Lang.Array<Lang.Symbol>;
         var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
         var focus = null;
@@ -34,8 +39,8 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
                 continue;
             }
             var count = store.getCount(exercises[i]);
-            item.setSubLabel(progressSubLabel(count));
-            if (focus == null && count < HeroSetConfig.MISSION_GOAL) {
+            item.setSubLabel(progressSubLabel(count, goal));
+            if (focus == null && count < goal) {
                 focus = index;
             }
         }
@@ -46,11 +51,11 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
         }
     }
 
-    private static function progressSubLabel(count as Lang.Number) as Lang.String {
-        if (count >= HeroSetConfig.MISSION_GOAL) {
+    private static function progressSubLabel(count as Lang.Number, goal as Lang.Number) as Lang.String {
+        if (count >= goal) {
             return HeroSetText.load(Rez.Strings.menu_sublabel_done);
         }
-        return HeroSetText.format(Rez.Strings.menu_sublabel_progress, [count, HeroSetConfig.MISSION_GOAL]);
+        return HeroSetText.format(Rez.Strings.menu_sublabel_progress, [count, goal]);
     }
 
     function onSelect(item as WatchUi.MenuItem) as Void {
@@ -67,6 +72,8 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
             pushManualPicker(:situps);
         } else if (id == :manual_squats) {
             pushManualPicker(:squats);
+        } else if (id == :daily_goal) {
+            pushGoalPicker();
         } else if (id == :sync_toggle) {
             applySyncToggle(item);
         } else if (id == :validation_log) {
@@ -92,6 +99,14 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
         var pickerView = new HeroSetManualPickerView(exercise, 0, null, null, null);
         WatchUi.popView(WatchUi.SLIDE_DOWN);
         WatchUi.pushView(pickerView, new HeroSetManualPickerDelegate(pickerView), WatchUi.SLIDE_UP);
+    }
+
+    // Same shape as the manual picker: menu popped first, so the goal
+    // picker also sits directly on the dashboard (ADR-024).
+    private function pushGoalPicker() as Void {
+        var view = new HeroSetGoalPickerView();
+        WatchUi.popView(WatchUi.SLIDE_DOWN);
+        WatchUi.pushView(view, new HeroSetGoalPickerDelegate(view), WatchUi.SLIDE_UP);
     }
 
     // Dev-only diagnostic (ADR-026), no menu-popping side effect required

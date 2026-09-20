@@ -33,11 +33,12 @@ For `apps.garmin.com/en-US/developer/upload`, step 2. Upload a freshly exported 
 ### Description
 
 ```text
-100 push-ups, 100 sit-ups and 100 squats a day, counted on your wrist.
+100 push-ups, 100 sit-ups and 100 squats a day — or your own goal, 10 to 500 — counted on your wrist.
 
 - Start a set, do your reps: HeroSet counts them with the watch's motion sensor.
 - After every set, check the count and adjust it with UP/DOWN before it's saved. HeroSet learns from the counts you save, so it gets closer to how you move with every set.
-- Earn XP for every rep up to each day's 100, climb ranks and keep your streak alive.
+- Earn XP for every rep up to 100 per exercise a day, climb ranks and keep your streak alive. Rank reflects the reps you do, not the goal you pick.
+- Set your own daily goal on the watch: 10 to 500 reps, no phone needed.
 - Live heart rate and calories during each set.
 - Available in multiple languages.
 

@@ -15,7 +15,7 @@ class HeroSetSaveFeedback {
         var completedBefore = store.isDailyMissionComplete();
         var rankBefore = store.getRank();
         store.add(exercise, delta);
-        var tier = tierFor(delta, countBefore, store.getCount(exercise), completedBefore, store.isDailyMissionComplete(), rankBefore, store.getRank());
+        var tier = tierFor(delta, countBefore, store.getCount(exercise), completedBefore, store.isDailyMissionComplete(), rankBefore, store.getRank(), store.getGoal());
         HeroSetComplicationPublisher.publish(store);
         show(tier, exercise, delta, store.getRank());
     }
@@ -24,14 +24,14 @@ class HeroSetSaveFeedback {
     // first: the whole daily mission newly complete (once a day, so it keeps
     // its peak even when the same save crosses a rank), then a new rank, then
     // this exercise newly at its goal, then a plain save or removal.
-    static function tierFor(delta as Lang.Number, countBefore as Lang.Number, countAfter as Lang.Number, completedBefore as Lang.Boolean, completedAfter as Lang.Boolean, rankBefore as Lang.Number, rankAfter as Lang.Number) as Lang.Symbol {
+    static function tierFor(delta as Lang.Number, countBefore as Lang.Number, countAfter as Lang.Number, completedBefore as Lang.Boolean, completedAfter as Lang.Boolean, rankBefore as Lang.Number, rankAfter as Lang.Number, goal as Lang.Number) as Lang.Symbol {
         if (!completedBefore && completedAfter) {
             return :mission;
         }
         if (rankAfter > rankBefore) {
             return :rank;
         }
-        if (HeroSetRules.crossedGoal(countBefore, countAfter)) {
+        if (HeroSetRules.crossedGoal(countBefore, countAfter, goal)) {
             return :exercise;
         }
         return delta < 0 ? :removed : :saved;

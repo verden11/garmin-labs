@@ -7,6 +7,7 @@
     <string id="menu_label_manual_pushups">Įrašyti atsispaudimus</string>
     <string id="menu_label_manual_situps">Įrašyti atsilenkimus</string>
     <string id="menu_label_manual_squats">Įrašyti pritūpimus</string>
+    <string id="menu_label_goal">Dienos tikslas</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">Įrašo į Connect</string>
     <string id="menu_sublabel_off">Tik laikrodyje</string>
@@ -43,6 +44,7 @@
     <string id="picker_detected">APTIKTA $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: REGULIUOTI</string>
     <string id="picker_hint_save">START: SAUGOTI</string>
+    <string id="goal_title">DIENOS TIKSLAS</string>
 
 
     <string id="validation_log_hint">UP/DOWN: PUSLAPIS</string>
@@ -69,4 +71,5 @@
     <string id="toast_mission_complete">KASDIENĖ UŽDUOTIS ATLIKTA!</string>
     <string id="toast_removed">$1$ PAŠALINTA</string>
     <string id="toast_rank_up">RANGAS $1$!</string>
+    <string id="toast_goal_saved">TIKSLAS $1$</string>
 </strings>

@@ -2,8 +2,9 @@ import Toybox.Lang;
 
 // Persistence contract for HeroSet. All daily values reset on the LOCAL
 // calendar day (HeroSetCalendar.todayKey), XP is awarded only for net stored
-// progress toward each mission goal (never for raw `amount` arguments), and
-// streaks are computed from calendar-day keys so DST can never break them.
+// progress, capped at HeroSetConfig.XP_DAILY_CAP_REPS per exercise per day
+// and never at the user's goal (ADR-045), and streaks are computed from
+// calendar-day keys so DST can never break them.
 class HeroSetStore {
 
     const SCHEMA_VERSION = 3;
@@ -21,6 +22,10 @@ class HeroSetStore {
     const STREAK_KEY = "hero_streak";
     const LAST_COMPLETION_KEY = "hero_last_completion";
     const SYNC_ENABLED_KEY = "hero_sync_enabled";
+    // Shared by all three exercises (ADR-045). A later per-exercise split
+    // adds "hero_goal_pushups" etc. and keeps this as the fallback, so the
+    // spelling never has to change (ADR-003).
+    const GOAL_KEY = "hero_goal";
     // Retired with the one-activity-per-day design (ADR-043): watches that
     // ran a dev build may still hold "hero_sync_day". Never reuse the name.
     const VALIDATION_LOG_KEY = "hero_validation_log";
@@ -82,14 +87,16 @@ class HeroSetStore {
         updateCompletion();
     }
 
-    // XP on the NET gain in stored progress, capped at the mission goal so
-    // over-goal volume cannot print ranks, and ratcheted so add/subtract
-    // cycles pay at most once per credited day.
+    // XP on the NET gain in stored progress, capped at a fixed number of
+    // reps (never the user's goal, ADR-045) so sheer volume cannot print
+    // ranks, and ratcheted so add/subtract cycles pay at most once per
+    // credited day.
     private function awardXpFor(exercise as Lang.Symbol, previous as Lang.Number, next as Lang.Number) as Void {
         if (next <= previous) {
             return;
         }
-        var newCredit = next > HeroSetConfig.MISSION_GOAL ? HeroSetConfig.MISSION_GOAL : next;
+        var cap = HeroSetConfig.XP_DAILY_CAP_REPS;
+        var newCredit = next > cap ? cap : next;
         var credited = readNumber(creditKeyFor(exercise));
         var added = newCredit - credited;
         if (added <= 0) {
@@ -134,17 +141,36 @@ class HeroSetStore {
             getXp(),
             getRank(),
             getStreak(),
-            hasWriteFailure()
+            hasWriteFailure(),
+            getGoal()
         );
     }
 
     function isDailyMissionComplete() as Lang.Boolean {
-        return HeroSetRules.missionComplete(getCount(:pushups), getCount(:situps), getCount(:squats));
+        return HeroSetRules.missionComplete(getCount(:pushups), getCount(:situps), getCount(:squats), getGoal());
     }
 
     // ------------------------------------------------------------------
     // Garmin Connect sync (opt-in — ADR-043)
     // ------------------------------------------------------------------
+
+    // ------------------------------------------------------------------
+    // Daily goal (ADR-045)
+    // ------------------------------------------------------------------
+
+    function getGoal() as Lang.Number {
+        var stored = asNumberOrNull(_storage.getValue(GOAL_KEY));
+        // Unset or a corrupt 0 both mean "never chosen": fall back to the
+        // default, not to the bottom of the range.
+        return stored == null || stored <= 0 ? HeroSetConfig.DEFAULT_MISSION_GOAL : HeroSetRules.clampGoal(stored);
+    }
+
+    // Lowering the goal below today's counts has to finish the day right
+    // away, so the streak doesn't wait for the next rep to be logged.
+    function setGoal(goal as Lang.Number) as Void {
+        _set(GOAL_KEY, HeroSetRules.clampGoal(goal));
+        updateCompletion();
+    }
 
     function isSyncEnabled() as Lang.Boolean {
         return _storage.getValue(SYNC_ENABLED_KEY) == true;
@@ -155,7 +181,7 @@ class HeroSetStore {
     }
 
     private function updateCompletion() as Void {
-        if (getCount(:pushups) < HeroSetConfig.MISSION_GOAL || getCount(:situps) < HeroSetConfig.MISSION_GOAL || getCount(:squats) < HeroSetConfig.MISSION_GOAL) {
+        if (!isDailyMissionComplete()) {
             return;
         }
 
@@ -297,8 +323,8 @@ class HeroSetStore {
         return "hero_" + exerciseKeyString(exercise);
     }
 
-    // Per-goal "credit ratchet" ("hero_credit_pushups", ...): the highest
-    // min(count, goal) seen today. XP only ever pays the positive difference
+    // Per-exercise "credit ratchet" ("hero_credit_pushups", ...): the
+    // highest min(count, XP_DAILY_CAP_REPS) seen today. XP only ever pays the positive difference
     // against the ratchet, so add(+10)/add(-10) farming earns XP once.
     private function creditKeyFor(exercise as Lang.Symbol) as Lang.String {
         return "hero_credit_" + exerciseKeyString(exercise);

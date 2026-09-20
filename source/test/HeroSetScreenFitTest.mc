@@ -22,15 +22,18 @@ function everyScreenFitsThisDisplay(logger as Test.Logger) as Lang.Boolean {
         : new Graphics.BufferedBitmap(size);
     var dc = bitmap.getDc();
     var problems = [] as Lang.Array<Lang.String>;
+    var max = HeroSetConfig.MAX_MISSION_GOAL;
     var appStore = getApp().swapStoreForTest(HeroSetScreenFitHarness.seededStore());
     HeroSetDraw.misfits = [] as Lang.Array<Lang.String>;
     try {
         var dashboard = new HeroSetView();
         var states = [
-            new HeroSetDashboardState(0, 0, 0, 0, 1, 0, false),
-            new HeroSetDashboardState(42, 100, 7, 4200, 61, 12, false),
-            new HeroSetDashboardState(100, 100, 100, 999999, 999, 9999, false),
-            new HeroSetDashboardState(100, 55, 100, 999999, 999, 9999, true)
+            new HeroSetDashboardState(0, 0, 0, 0, 1, 0, false, HeroSetConfig.DEFAULT_MISSION_GOAL),
+            new HeroSetDashboardState(42, 100, 7, 4200, 61, 12, false, HeroSetConfig.DEFAULT_MISSION_GOAL),
+            // Widest possible numbers: the biggest goal the picker allows,
+            // met on all three exercises.
+            new HeroSetDashboardState(max, max, max, 999999, 999, 9999, false, max),
+            new HeroSetDashboardState(max, 55, max, 999999, 999, 9999, true, max)
         ] as Lang.Array<HeroSetDashboardState>;
         for (var i = 0; i < states.size(); i++) {
             HeroSetScreenFitHarness.startScreen();
@@ -46,6 +49,7 @@ function everyScreenFitsThisDisplay(logger as Test.Logger) as Lang.Boolean {
             HeroSetScreenFitHarness.renderScreen(new HeroSetManualPickerView(exercises[e], -99, 888, 889, null), dc, "picker", 6, problems);
             HeroSetScreenFitHarness.renderScreen(new HeroSetManualPickerView(exercises[e], 100, null, null, null), dc, "picker", 5, problems);
         }
+        HeroSetScreenFitHarness.renderScreen(new HeroSetGoalPickerView(), dc, "goal picker", 4, problems);
         HeroSetScreenFitHarness.renderScreen(new HeroSetValidationLogView(), dc, "validation log", 5, problems);
     } finally {
         getApp().swapStoreForTest(appStore);

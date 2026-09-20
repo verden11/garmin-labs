@@ -7,6 +7,7 @@
     <string id="menu_label_manual_pushups">Kirjaa punnerrukset</string>
     <string id="menu_label_manual_situps">Kirjaa istumaannousut</string>
     <string id="menu_label_manual_squats">Kirjaa kyykyt</string>
+    <string id="menu_label_goal">Päivätavoite</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">Tallentaa Connectiin</string>
     <string id="menu_sublabel_off">Vain kello</string>
@@ -43,6 +44,7 @@
     <string id="picker_detected">HAVAINTO $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: SÄÄDÄ</string>
     <string id="picker_hint_save">START: TALLENNA</string>
+    <string id="goal_title">PÄIVÄTAVOITE</string>
 
 
     <string id="validation_log_hint">UP/DOWN: SIVU</string>
@@ -69,4 +71,5 @@
     <string id="toast_mission_complete">PÄIVÄN TEHTÄVÄ VALMIS!</string>
     <string id="toast_removed">$1$ POISTETTU</string>
     <string id="toast_rank_up">TASO $1$!</string>
+    <string id="toast_goal_saved">TAVOITE $1$</string>
 </strings>

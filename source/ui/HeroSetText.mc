@@ -48,7 +48,7 @@ class HeroSetText {
         return (seconds / SECONDS_PER_MINUTE).format("%02d") + ":" + (seconds % SECONDS_PER_MINUTE).format("%02d");
     }
 
-    static function todayProgress(count as Lang.Number) as Lang.String {
-        return format(Rez.Strings.today_progress, [count, HeroSetConfig.MISSION_GOAL]);
+    static function todayProgress(count as Lang.Number, goal as Lang.Number) as Lang.String {
+        return format(Rez.Strings.today_progress, [count, goal]);
     }
 }

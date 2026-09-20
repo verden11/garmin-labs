@@ -7,6 +7,7 @@
     <string id="menu_label_manual_pushups">Şınav Kaydet</string>
     <string id="menu_label_manual_situps">Mekik Kaydet</string>
     <string id="menu_label_manual_squats">Çömelme Kaydet</string>
+    <string id="menu_label_goal">Günlük hedef</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">Connect'e kaydeder</string>
     <string id="menu_sublabel_off">Yalnızca saat</string>
@@ -43,6 +44,7 @@
     <string id="picker_detected">TESPİT $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: AYARLA</string>
     <string id="picker_hint_save">START: KAYDET</string>
+    <string id="goal_title">GÜNLÜK HEDEF</string>
 
 
     <string id="validation_log_hint">UP/DOWN: SAYFA</string>
@@ -69,4 +71,5 @@
     <string id="toast_mission_complete">GÜNLÜK GÖREV BİTTİ!</string>
     <string id="toast_removed">$1$ SİLİNDİ</string>
     <string id="toast_rank_up">RÜTBE $1$!</string>
+    <string id="toast_goal_saved">HEDEF $1$</string>
 </strings>

@@ -42,7 +42,7 @@ class HeroSetView extends WatchUi.View {
         var footerY = footerTop(dc, layout);
         var streakY = footerY - dc.getFontHeight(Graphics.FONT_XTINY);
         var counts = [state.pushups, state.situps, state.squats] as Lang.Array<Lang.Number>;
-        _missionBars.draw(dc, layout, headerBottom + layout.stackGap(), streakY - layout.stackGap(), counts);
+        _missionBars.draw(dc, layout, headerBottom + layout.stackGap(), streakY - layout.stackGap(), counts, state.goal);
         drawStreak(dc, layout, streakY, state);
         drawFooter(dc, layout, footerY, state);
     }
@@ -80,7 +80,7 @@ class HeroSetView extends WatchUi.View {
             ] as Lang.Array<Lang.String>;
             text = HeroSetDraw.firstFitting(dc, layout, layout.contentRadius(), 0, y, Graphics.FONT_XTINY, candidates);
         }
-        var extendedToday = state.streak > 0 && HeroSetRules.missionComplete(state.pushups, state.situps, state.squats);
+        var extendedToday = state.streak > 0 && HeroSetRules.missionComplete(state.pushups, state.situps, state.squats, state.goal);
         dc.setColor(extendedToday ? HeroSetPalette.GOLD : HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
         HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
@@ -94,7 +94,7 @@ class HeroSetView extends WatchUi.View {
         if (state.storageWarning) {
             text = _warning;
             color = HeroSetPalette.ALERT;
-        } else if (HeroSetRules.missionComplete(state.pushups, state.situps, state.squats)) {
+        } else if (HeroSetRules.missionComplete(state.pushups, state.situps, state.squats, state.goal)) {
             text = _complete;
             color = HeroSetPalette.DONE;
         }

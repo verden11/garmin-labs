@@ -98,18 +98,36 @@ function clampDeltaNeverDropsBelowStoredCount(logger as Test.Logger) as Lang.Boo
 
 (:test)
 function crossedGoalOnlyOnTransition(logger as Test.Logger) as Lang.Boolean {
-    Test.assert(HeroSetRules.crossedGoal(99, 100));
-    Test.assert(HeroSetRules.crossedGoal(0, 150));
-    Test.assert(!HeroSetRules.crossedGoal(100, 101));
-    Test.assert(!HeroSetRules.crossedGoal(50, 99));
-    Test.assert(!HeroSetRules.crossedGoal(120, 90));
+    Test.assert(HeroSetRules.crossedGoal(99, 100, 100));
+    Test.assert(HeroSetRules.crossedGoal(0, 150, 100));
+    Test.assert(!HeroSetRules.crossedGoal(100, 101, 100));
+    Test.assert(!HeroSetRules.crossedGoal(50, 99, 100));
+    Test.assert(!HeroSetRules.crossedGoal(120, 90, 100));
+    // The transition follows the user's goal, not the old constant.
+    Test.assert(HeroSetRules.crossedGoal(29, 30, 30));
+    Test.assert(!HeroSetRules.crossedGoal(99, 100, 300));
     return true;
 }
 
 (:test)
 function missionNeedsAllThreeGoals(logger as Test.Logger) as Lang.Boolean {
-    Test.assert(!HeroSetRules.missionComplete(100, 100, 99));
-    Test.assert(HeroSetRules.missionComplete(100, 100, 100));
+    Test.assert(!HeroSetRules.missionComplete(100, 100, 99, 100));
+    Test.assert(HeroSetRules.missionComplete(100, 100, 100, 100));
+    Test.assert(HeroSetRules.missionComplete(30, 30, 30, 30));
+    Test.assert(!HeroSetRules.missionComplete(100, 100, 100, 300));
+    return true;
+}
+
+(:test)
+function goalClampsToTheRangeAndSnapsToTheStep(logger as Test.Logger) as Lang.Boolean {
+    Test.assertEqual(HeroSetRules.clampGoal(0), HeroSetConfig.MIN_MISSION_GOAL);
+    Test.assertEqual(HeroSetRules.clampGoal(-40), HeroSetConfig.MIN_MISSION_GOAL);
+    Test.assertEqual(HeroSetRules.clampGoal(9999), HeroSetConfig.MAX_MISSION_GOAL);
+    Test.assertEqual(HeroSetRules.clampGoal(100), 100);
+    // A value written by an older build (or a future per-exercise split)
+    // still has to land on a step the picker can reach.
+    Test.assertEqual(HeroSetRules.clampGoal(104), 100);
+    Test.assertEqual(HeroSetRules.clampGoal(105), 110);
     return true;
 }
 

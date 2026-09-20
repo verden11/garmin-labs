@@ -7,6 +7,7 @@
     <string id="menu_label_manual_pushups">Записати відтискання</string>
     <string id="menu_label_manual_situps">Записати підйоми тулуба</string>
     <string id="menu_label_manual_squats">Записати присідання</string>
+    <string id="menu_label_goal">Денна ціль</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">Зберігає в Connect</string>
     <string id="menu_sublabel_off">Лише годинник</string>
@@ -43,6 +44,7 @@
     <string id="picker_detected">ВИЯВЛЕНО $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: НАЛАШТУВАТИ</string>
     <string id="picker_hint_save">START: ЗБЕРЕГТИ</string>
+    <string id="goal_title">ДЕННА ЦІЛЬ</string>
 
 
     <string id="validation_log_hint">UP/DOWN: СТОРІНКА</string>
@@ -69,4 +71,5 @@
     <string id="toast_mission_complete">ЩОДЕННА МІСІЯ ВИКОНАНА!</string>
     <string id="toast_removed">$1$ ВИДАЛЕНО</string>
     <string id="toast_rank_up">РАНГ $1$!</string>
+    <string id="toast_goal_saved">ЦІЛЬ $1$</string>
 </strings>

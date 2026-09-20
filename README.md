@@ -18,7 +18,7 @@ Goal: publish as paid app on Connect IQ Store.
 
 - **v1 uploaded, in Garmin review.** Counting that learns from saved counts
   (ADR-040), manual correction, goals, XP/rank/streak, live HR/calories,
-  15 languages. 85 unit tests pass (76 in the store build).
+  15 languages. 94 unit tests pass (85 in the store build).
 - **Not proven on a wrist:** counting accuracy beyond a few FR965 sets; the
   other 66 watches (simulator only).
 - **v1.1 Connect sync:** dev build only, unverified (ADR-043).

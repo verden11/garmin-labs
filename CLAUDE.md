@@ -15,7 +15,7 @@ Garmin watch app (Forerunner 965 first, 67 round AMOLED + MIP watches supported,
 - Builds: `monkey.jungle` = dev (Connect Sync + validation log); `store.jungle` = release: `manifest-store.xml` (no `Fit`/`FitContributor`), `(:sync)` code excluded, `resources-store/` menu (ADR-033). Both manifests keep same app id.
 - CLI tools in SDK `bin/` folder, may not be on `PATH` (`~/Library/Application Support/Garmin/ConnectIQ/Sdks/<sdk>/bin/`). Signing key = `~/.garmin-connectiq/keys/developer_key` (outside repo; never commit it).
 - Build: `monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y ~/.garmin-connectiq/keys/developer_key`
-- Tests (88; 79 in store build): `monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y ~/.garmin-connectiq/keys/developer_key`, then `monkeydo bin/HeroSet-tests.prg fr965 -t`. Trust printed `PASSED (…)` line, not exit code. Hung run → restart simulator. Swap `fr965` for other product id to check its screens (`everyScreenFitsThisDisplay`).
+- Tests (94; 85 in store build): `monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y ~/.garmin-connectiq/keys/developer_key`, then `monkeydo bin/HeroSet-tests.prg fr965 -t`. Trust printed `PASSED (…)` line, not exit code. Hung run → restart simulator. Swap `fr965` for other product id to check its screens (`everyScreenFitsThisDisplay`).
 - Layers point down only: Presentation (`app/`, `ui/`, `layout/`) → Sensor / Data → Domain. Only `data/` touches Storage.
 - XP only for net stored progress (ADR-002). Rank derived, never stored (ADR-031). Persisted key spellings never change (ADR-003).
 - Navigation: Workout/Picker always depth 1 on dashboard; fixed pop counts depend on it, over-popping exits app (ADR-024).

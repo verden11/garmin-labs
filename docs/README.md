@@ -14,6 +14,7 @@ Resuming? Read [`go-to-market.md`](go-to-market.md) first (open items), then [`a
 | [`store-release.md`](store-release.md) | Store economics, upload-form answers, description |
 | [`compatibility.md`](compatibility.md) | Supported watches, why others aren't, adding one |
 | [`connect-sync-plan.md`](connect-sync-plan.md) | v1.1 Connect sync: limits, behavior, device acceptance |
+| [`configurable-goal-plan.md`](configurable-goal-plan.md) | User-set daily goal: research + decisions behind ADR-045 (implemented) |
 | [`validation-log.md`](validation-log.md) | On-watch accuracy trial data |
 | [`battery.md`](battery.md) | Battery analysis + measurement plan (post-launch) |
 | [`../PRODUCT.md`](../PRODUCT.md) | Product truth for design work (Impeccable) |

@@ -50,9 +50,72 @@ function storeWith(day as Lang.Number) as HeroSetStore {
 }
 
 function completeAll(store as HeroSetStore) as Void {
-    store.add(:pushups, HeroSetConfig.MISSION_GOAL);
-    store.add(:situps, HeroSetConfig.MISSION_GOAL);
-    store.add(:squats, HeroSetConfig.MISSION_GOAL);
+    var goal = store.getGoal();
+    store.add(:pushups, goal);
+    store.add(:situps, goal);
+    store.add(:squats, goal);
+}
+
+(:test)
+function goalDefaultsUntilTheUserSetsOne(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    Test.assertEqual(store.getGoal(), HeroSetConfig.DEFAULT_MISSION_GOAL);
+    store.setGoal(240);
+    Test.assertEqual(store.getGoal(), 240);
+    // Out of range and off the step are both snapped on the way in.
+    store.setGoal(9999);
+    Test.assertEqual(store.getGoal(), HeroSetConfig.MAX_MISSION_GOAL);
+    store.setGoal(0);
+    Test.assertEqual(store.getGoal(), HeroSetConfig.MIN_MISSION_GOAL);
+    store.setGoal(104);
+    Test.assertEqual(store.getGoal(), 100);
+    return true;
+}
+
+// A key holding 0 (corrupt, or written by some future build) means "never
+// chosen", not the bottom of the range.
+(:test)
+function aZeroGoalReadsAsTheDefault(logger as Test.Logger) as Lang.Boolean {
+    var storage = new HeroSetTestStorage();
+    var store = new HeroSetStore(storage, new HeroSetTestClock());
+    storage.put(store.GOAL_KEY, 0);
+    Test.assertEqual(store.getGoal(), HeroSetConfig.DEFAULT_MISSION_GOAL);
+    return true;
+}
+
+// The whole point of ADR-045: the goal moves, the XP cap does not, so the
+// rank curve means the same thing for every user.
+(:test)
+function xpStillCapsAtTheFixedRepCapWithAHighGoal(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    store.setGoal(300);
+    store.add(:pushups, 300);
+    Test.assertEqual(store.getXp(), HeroSetConfig.XP_DAILY_CAP_REPS * HeroSetConfig.XP_PER_REP);
+    Test.assert(!store.isDailyMissionComplete());
+    return true;
+}
+
+// A low goal still earns XP for the reps done past it, up to the same cap.
+(:test)
+function repsPastALowGoalStillEarnXp(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    store.setGoal(30);
+    store.add(:pushups, 80);
+    Test.assertEqual(store.getXp(), 160);
+    return true;
+}
+
+(:test)
+function loweringTheGoalCompletesTodayImmediately(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    store.add(:pushups, 40);
+    store.add(:situps, 40);
+    store.add(:squats, 40);
+    Test.assertEqual(store.getStreak(), 0);
+    store.setGoal(30);
+    Test.assert(store.isDailyMissionComplete());
+    Test.assertEqual(store.getStreak(), 1);
+    return true;
 }
 
 (:test)

@@ -8,6 +8,10 @@ class HeroSetMissionBars {
 
     private var _labels as Lang.Array<Lang.String>;
     private var _doneLabels as Lang.Array<Lang.String>;
+    // Set by draw() for the row helpers below: the goal is per-draw state,
+    // not per-instance, and threading it through five signatures buys
+    // nothing while draw() is the only way into them.
+    private var _goal as Lang.Number = HeroSetConfig.DEFAULT_MISSION_GOAL;
 
     function initialize() {
         var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
@@ -21,7 +25,8 @@ class HeroSetMissionBars {
     }
 
     // One row per count, splitting [top, bottom] evenly.
-    function draw(dc as Graphics.Dc, layout as HeroSetLayout, top as Lang.Number, bottom as Lang.Number, counts as Lang.Array<Lang.Number>) as Void {
+    function draw(dc as Graphics.Dc, layout as HeroSetLayout, top as Lang.Number, bottom as Lang.Number, counts as Lang.Array<Lang.Number>, goal as Lang.Number) as Void {
+        _goal = goal;
         var pitch = (bottom - top) / counts.size();
         var column = column(layout, top, bottom - top);
         var font = countFont(dc, layout, pitch, counts, column);
@@ -72,14 +77,14 @@ class HeroSetMissionBars {
 
     // DONE in the label means a finished goal never depends on the green alone.
     private function labelFor(index as Lang.Number, count as Lang.Number) as Lang.String {
-        return count >= HeroSetConfig.MISSION_GOAL ? _doneLabels[index] : _labels[index];
+        return count >= _goal ? _doneLabels[index] : _labels[index];
     }
 
     // The XTINY label shares the count's baseline so mixed sizes read as one
     // line.
     private function drawRow(dc as Graphics.Dc, layout as HeroSetLayout, y as Lang.Number, index as Lang.Number, count as Lang.Number, font as Graphics.FontDefinition, column as [Lang.Number, Lang.Number]) as Void {
         var baseline = y + Graphics.getFontAscent(font);
-        var done = count >= HeroSetConfig.MISSION_GOAL;
+        var done = count >= _goal;
         dc.setColor(done ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
         HeroSetDraw.text(dc, layout, column[0], baseline - Graphics.getFontAscent(Graphics.FONT_XTINY), Graphics.FONT_XTINY, labelFor(index, count), Graphics.TEXT_JUSTIFY_LEFT);
         HeroSetDraw.text(dc, layout, column[1], y, font, count.toString(), Graphics.TEXT_JUSTIFY_RIGHT);
@@ -94,7 +99,7 @@ class HeroSetMissionBars {
         if (width <= 0) {
             return;
         }
-        var goal = HeroSetConfig.MISSION_GOAL;
+        var goal = _goal;
         var done = count >= goal;
         dc.setColor(HeroSetPalette.TRACK, HeroSetPalette.BACKGROUND);
         dc.fillRoundedRectangle(column[0], y, width, height, height / 2);

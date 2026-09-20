@@ -7,9 +7,11 @@ import Toybox.WatchUi;
 (:test :debug)
 class HeroSetScreenFitHarness {
 
-    // 99 of each exercise already saved today, and a full log of the widest lines.
+    // 99 of each exercise already saved today, the widest goal the picker
+    // allows, and a full log of the widest lines.
     static function seededStore() as HeroSetStore {
         var store = new HeroSetStore(new HeroSetTestStorage(), new HeroSetTestClock());
+        store.setGoal(HeroSetConfig.MAX_MISSION_GOAL);
         var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
         for (var e = 0; e < exercises.size(); e++) {
             store.add(exercises[e], 99);

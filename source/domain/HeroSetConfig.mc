@@ -1,8 +1,19 @@
 // Every tunable number in the app lives here (house rule: no magic numbers).
 class HeroSetConfig {
-    static const MISSION_GOAL = 100;
-    // XP per credited rep; credit stops at MISSION_GOAL per exercise per day
-    // (ADR-002), so a full day earns at most 3 * 100 * 2 = 600 XP.
+    // Seed for a fresh install only; the live goal is user-set and lives in
+    // HeroSetStore (ADR-045).
+    static const DEFAULT_MISSION_GOAL = 100;
+    static const MIN_MISSION_GOAL = 10;
+    // Widest text the layout must still fit ("TODAY 500/500").
+    static const MAX_MISSION_GOAL = 500;
+    static const MISSION_GOAL_STEP = 10;
+    // Reps per exercise per day that can earn XP, deliberately independent
+    // of the user's goal (ADR-045): a cap the user can raise is not a cap,
+    // and the whole rank curve below assumes at most 600 XP a day.
+    static const XP_DAILY_CAP_REPS = 100;
+    // XP per credited rep; credit stops at XP_DAILY_CAP_REPS per exercise
+    // per day (ADR-002 as amended), so a full day earns at most
+    // 3 * 100 * 2 = 600 XP whatever the goal is.
     static const XP_PER_REP = 2;
     // Rank r -> r+1 costs RANK_XP_STEP * min(r, RANK_COST_CAP_RANK) XP
     // (ADR-031). A full mission day earns at most 600 XP (ADR-002), so each

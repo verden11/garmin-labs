@@ -66,12 +66,26 @@ class HeroSetRules {
 
     // True only on the transition, so goal milestone feedback fires once
     // instead of on every rep/save past the goal.
-    static function crossedGoal(before as Lang.Number, after as Lang.Number) as Lang.Boolean {
-        return before < HeroSetConfig.MISSION_GOAL && after >= HeroSetConfig.MISSION_GOAL;
+    // The goal is user-set and stored, so it arrives as an argument: the
+    // domain never reads Storage (layer rule) and a mutable static would
+    // leak between tests.
+    static function crossedGoal(before as Lang.Number, after as Lang.Number, goal as Lang.Number) as Lang.Boolean {
+        return before < goal && after >= goal;
     }
 
-    static function missionComplete(pushups as Lang.Number, situps as Lang.Number, squats as Lang.Number) as Lang.Boolean {
-        return pushups >= HeroSetConfig.MISSION_GOAL && situps >= HeroSetConfig.MISSION_GOAL && squats >= HeroSetConfig.MISSION_GOAL;
+    static function missionComplete(pushups as Lang.Number, situps as Lang.Number, squats as Lang.Number, goal as Lang.Number) as Lang.Boolean {
+        return pushups >= goal && situps >= goal && squats >= goal;
+    }
+
+    // Snapped to the picker's step and clamped, so a value read back from
+    // Storage (any build, any age) is always one the picker can show.
+    static function clampGoal(goal as Lang.Number) as Lang.Number {
+        var step = HeroSetConfig.MISSION_GOAL_STEP;
+        var snapped = (goal + step / 2) / step * step;
+        if (snapped < HeroSetConfig.MIN_MISSION_GOAL) {
+            return HeroSetConfig.MIN_MISSION_GOAL;
+        }
+        return snapped > HeroSetConfig.MAX_MISSION_GOAL ? HeroSetConfig.MAX_MISSION_GOAL : snapped;
     }
 
     static function nextStreak(lastDay, todayDay as Lang.Number, currentStreak as Lang.Number) as Lang.Number {

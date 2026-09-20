@@ -25,10 +25,13 @@ class HeroSetComplicationPublisher {
         Complications.updateComplication(COMPLICATION_ID, {:value => value});
     }
 
-    // "v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay" (HeroFace
-    // docs/plan.md). The day keys let a subscriber tell today's counts from
-    // yesterday's, because this only publishes while the app runs. Field
-    // order never changes; new fields go on the end.
+    // "v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay|goal"
+    // (HeroFace docs/plan.md). The day keys let a subscriber tell today's
+    // counts from yesterday's, because this only publishes while the app
+    // runs. Field order never changes; new fields go on the end — `goal`
+    // was appended without bumping VERSION, because a version a face does
+    // not know makes it drop the whole value, while a tenth field it does
+    // not know is simply ignored (ADR-045).
     static function valueFor(state as HeroSetDashboardState, today as Lang.Number, lastCompletionDay as Lang.Number?) as Lang.String {
         var cost = HeroSetRules.rankCost(state.rank);
         var percent = cost > 0 ? HeroSetRules.xpIntoRank(state.xp) * 100 / cost : 0;
@@ -41,7 +44,8 @@ class HeroSetComplicationPublisher {
             state.rank,
             percent,
             state.streak,
-            lastCompletionDay != null ? lastCompletionDay : 0
+            lastCompletionDay != null ? lastCompletionDay : 0,
+            state.goal
         ] as Lang.Array<Lang.Number>;
         var value = fields[0].toString();
         for (var i = 1; i < fields.size(); i++) {

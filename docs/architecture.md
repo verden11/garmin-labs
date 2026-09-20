@@ -96,7 +96,8 @@ Dependencies point down only. Sensor classes take plain args, return plain value
 
 **HeroSetStore**: only persistence API; all reads narrow types (ADR-019). Invariants:
 - **Local-day reset:** `ensureCurrentDay()` zero daily counts when day key change.
-- **No XP farming:** `awardXpFor` pay only for net gain against per-exercise daily credit ratchet capped at goal (ADR-002).
+- **No XP farming:** `awardXpFor` pay only for net gain against per-exercise daily credit ratchet capped at `XP_DAILY_CAP_REPS` (100 reps), never at the user goal (ADR-002/045).
+- **Goal is store-owned:** `HeroSetStore.getGoal()/setGoal()` (`hero_goal`), passed down as argument (`HeroSetRules`, `HeroSetMissionBars.draw`) or on `HeroSetDashboardState`. Domain and views never read Storage for it.
 - **Write failures:** caught, flagged via `hasWriteFailure()` (ADR-010).
 - **Flat keys only:** one `hero_*` key per value, spellings fixed by ADR-003; the grouped `hero_daily`/`hero_profile` mirrors were removed as dead weight (ADR-036). `keyFor`/`creditKeyFor` derive from `exerciseKeyString`, the one place an unknown exercise throws.
 - **Learned thresholds:** `hero_learning` dict keyed by exercise strings, never Symbols (ADR-022); wrong `model` or malformed state reads as fresh (ADR-040). Old `hero_calibration` profiles not read.
@@ -173,7 +174,7 @@ Every fixed pop count rely on Workout/Picker sitting at depth 1 (ADR-024). Over-
 
 | Item | Why it's not fixed yet | Fix when |
 |---|---|---|
-| `HeroSetStore.mc` is 472 lines (budget 250) | Guards user data; bad split corrupts installs (ADR-020) | With device upgrade check (gate 4) |
+| `HeroSetStore.mc` is 331 lines (budget 250) | Guards user data; bad split corrupts installs (ADR-020) | With device upgrade check (gate 4) |
 | Rep detector and learning constants are tuned on synthetic fixtures, not watch recordings (ADR-032/040) | No way yet to pull raw sensor data off watch | When gate 2 trials show misses; record traces with dev build if needed |
 | Connect Sync (one activity per workout, ADR-043) unverified on device | Dev build only until FR965 acceptance (`connect-sync-plan.md` device acceptance) | Before sync goes into the store build |
 | Validation log also records in store build (only viewer hidden) | Harmless 30-entry buffer, disclosed in HeroSet privacy page (`../verden-site`); could now be gated with annotation like sync (ADR-033) | If it ever holds anything sensitive |

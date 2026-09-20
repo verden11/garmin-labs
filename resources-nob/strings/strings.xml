@@ -7,6 +7,7 @@
     <string id="menu_label_manual_pushups">Logg armhevinger</string>
     <string id="menu_label_manual_situps">Logg magehevinger</string>
     <string id="menu_label_manual_squats">Logg knebøy</string>
+    <string id="menu_label_goal">Daglig mål</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">Lagrer i Connect</string>
     <string id="menu_sublabel_off">Kun klokken</string>
@@ -43,6 +44,7 @@
     <string id="picker_detected">OPPDAGET $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: JUSTER</string>
     <string id="picker_hint_save">START: LAGRE</string>
+    <string id="goal_title">DAGLIG MÅL</string>
 
 
     <string id="validation_log_hint">UP/DOWN: SIDE</string>
@@ -69,4 +71,5 @@
     <string id="toast_mission_complete">DAGLIG OPPGAVE KLAR!</string>
     <string id="toast_removed">$1$ FJERNET</string>
     <string id="toast_rank_up">RANG $1$!</string>
+    <string id="toast_goal_saved">MÅL $1$</string>
 </strings>

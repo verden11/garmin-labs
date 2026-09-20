@@ -7,6 +7,7 @@
     <string id="menu_label_manual_pushups">Liegestütze loggen</string>
     <string id="menu_label_manual_situps">Bauchheben loggen</string>
     <string id="menu_label_manual_squats">Kniebeugen loggen</string>
+    <string id="menu_label_goal">Tagesziel</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">Speichert in Connect</string>
     <string id="menu_sublabel_off">Nur Uhr</string>
@@ -43,6 +44,7 @@
     <string id="picker_detected">ERKANNT $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: ANPASSEN</string>
     <string id="picker_hint_save">START: SPEICHERN</string>
+    <string id="goal_title">TAGESZIEL</string>
 
 
     <string id="validation_log_hint">UP/DOWN: SEITE</string>
@@ -69,4 +71,5 @@
     <string id="toast_mission_complete">TÄGLICHE AUFGABE ERLEDIGT!</string>
     <string id="toast_removed">$1$ ENTFERNT</string>
     <string id="toast_rank_up">RANG $1$!</string>
+    <string id="toast_goal_saved">ZIEL $1$</string>
 </strings>

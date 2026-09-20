@@ -16,6 +16,7 @@ class HeroSetWorkoutView extends WatchUi.View {
     private var _finishHint;
     private var _detected = 0;
     private var _storedCount = 0;
+    private var _goal = HeroSetConfig.DEFAULT_MISSION_GOAL;
     private var _sensorManager;
     private var _saved = false;
     private var _dropsLastRep;
@@ -30,7 +31,12 @@ class HeroSetWorkoutView extends WatchUi.View {
         _label = HeroSetText.exerciseLabel(exercise);
         _todayFormat = HeroSetText.load(Rez.Strings.today_progress);
         _finishHint = HeroSetText.load(Rez.Strings.workout_hint_finish);
-        var learned = getApp().getStore().getLearningState(exercise);
+        var store = getApp().getStore();
+        // Read once, for the life of the set: the goal picker can only be
+        // reached from the main menu, which pops this view first, and a goal
+        // that moved mid-set would make the goal buzz fire twice or never.
+        _goal = store.getGoal();
+        var learned = store.getLearningState(exercise);
         var threshold = HeroSetThresholdLearner.threshold(learned);
         _dropsLastRep = HeroSetThresholdLearner.dropsLastRep(learned);
         _counter = new HeroSetRepCounter(threshold, HeroSetConfig.SENSOR_SAMPLE_RATE, HeroSetConfig.SENSOR_COOLDOWN_MS, HeroSetRepCounter.integratesMotion(exercise));
@@ -186,7 +192,7 @@ class HeroSetWorkoutView extends WatchUi.View {
     // the total only grows during a set, so it fires at most once.
     private function vibrateForRep() as Void {
         var total = _storedCount + _detected;
-        if (HeroSetRules.crossedGoal(total - 1, total)) {
+        if (HeroSetRules.crossedGoal(total - 1, total, _goal)) {
             HeroSetHaptics.goalReached();
         } else {
             HeroSetHaptics.rep();
@@ -209,8 +215,8 @@ class HeroSetWorkoutView extends WatchUi.View {
 
         var todayY = metricsY - dc.getFontHeight(Graphics.FONT_TINY);
         var total = _storedCount + _detected;
-        dc.setColor(total >= HeroSetConfig.MISSION_GOAL ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), todayY, Graphics.FONT_TINY, Lang.format(_todayFormat, [total, HeroSetConfig.MISSION_GOAL]), Graphics.TEXT_JUSTIFY_CENTER);
+        dc.setColor(total >= _goal ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
+        HeroSetDraw.text(dc, layout, layout.centerX(), todayY, Graphics.FONT_TINY, Lang.format(_todayFormat, [total, _goal]), Graphics.TEXT_JUSTIFY_CENTER);
 
         drawCount(dc, layout, labelBottom, todayY);
     }

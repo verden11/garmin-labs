@@ -34,7 +34,7 @@ Launch language list identical in both manifests: `eng`, `deu`, `fre`, `spa`, `i
 
 After string change: compare every qualified file's IDs and placeholders with `resources/strings/strings.xml`, then run screen-fit suite with each language selected in Connect IQ simulator. Simulator evidence no replace real-device font and layout checks.
 
-## Unit tests (88 tests; 79 in store build)
+## Unit tests (94 tests; 85 in store build)
 
 ```bash
 monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y /path/to/developer_key

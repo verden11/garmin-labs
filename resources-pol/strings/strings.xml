@@ -7,6 +7,7 @@
     <string id="menu_label_manual_pushups">Zapisz pompki</string>
     <string id="menu_label_manual_situps">Zapisz brzuszki</string>
     <string id="menu_label_manual_squats">Zapisz przysiady</string>
+    <string id="menu_label_goal">Cel dzienny</string>
     <string id="menu_label_sync">Connect Sync</string>
     <string id="menu_sublabel_on">Zapis w Connect</string>
     <string id="menu_sublabel_off">Tylko zegarek</string>
@@ -43,6 +44,7 @@
     <string id="picker_detected">WYKRYTO $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: DOSTOSUJ</string>
     <string id="picker_hint_save">START: ZAPISZ</string>
+    <string id="goal_title">CEL DZIENNY</string>
 
 
     <string id="validation_log_hint">UP/DOWN: STRONA</string>
@@ -69,4 +71,5 @@
     <string id="toast_mission_complete">CODZIENNA MISJA ZAKOŃCZONA!</string>
     <string id="toast_removed">$1$ USUNIĘTE</string>
     <string id="toast_rank_up">RANGA $1$!</string>
+    <string id="toast_goal_saved">CEL $1$</string>
 </strings>
