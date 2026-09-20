@@ -26,7 +26,7 @@ export function Landing() {
         <div className="wrap hero__inner">
           <div className="hero__copy">
             <h1 className="hero__name">{heroset.name}</h1>
-            <p className="hero__offer">100 push-ups, 100 sit-ups and 100 squats a day. Your Garmin counts the reps.</p>
+            <p className="hero__offer">100 push-ups, 100 sit-ups and 100 squats a day, or your own goal from 10 to 500. Your Garmin counts the reps.</p>
             <div className="hero__actions">
               <StoreAction />
               <a className="hero__support" href="/heroset/support/">Support and answers</a>

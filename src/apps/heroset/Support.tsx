@@ -28,6 +28,17 @@ export function Support() {
       <p>No. HeroSet records no activity and sends nothing to your phone or the internet. Your progress lives on the watch.</p>
       <h3>Are the calories exact?</h3>
       <p>No. The calorie figure is the change in Garmin’s own daily calorie total during your set, an estimate. HeroSet is not a medical device.</p>
+      <h3>Can I change the daily goal?</h3>
+      <p>
+        Yes, on the watch: open the menu, choose <strong>Daily Goal</strong>, and set anything from 10 to 500 reps with
+        UP/DOWN. It applies to all three exercises, no phone needed. Lowering it below what you have already done
+        completes today straight away.
+      </p>
+      <h3>Does a higher goal earn rank faster?</h3>
+      <p>
+        No. Rank reflects the reps you do, not the goal you pick: XP stops at 100 reps per exercise per day whatever your
+        goal is. A goal of 30 keeps your streak going every day, and rank climbs at the pace of the work behind it.
+      </p>
       <h3>When do the daily counts reset?</h3>
       <p>At midnight, watch local time. XP, rank and streak carry over; missing a day resets the streak.</p>
       <h3>Which watches are supported?</h3>

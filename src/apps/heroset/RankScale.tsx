@@ -25,7 +25,7 @@ export function RankScale() {
           </span>
         ))}
       </div>
-      <figcaption>Ranks reached doing the full 100 / 100 / 100 every day.</figcaption>
+      <figcaption>Ranks reached doing the full 100 / 100 / 100 every day. Rank reflects the reps you do, not the goal you pick.</figcaption>
     </figure>
   )
 }
