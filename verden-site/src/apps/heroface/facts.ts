@@ -24,11 +24,12 @@ export const languages = [
   'Norsk bokmål', 'Polski', 'Português', 'Suomi', 'Svenska', 'Türkçe', 'Українська',
 ]
 
-// Simulator captures. Drop files in public/heroface/screens/ and set src;
-// empty slots render as pending. See HeroFace docs/listing/screenshots.md.
+// Captures of the real face: the first two from the simulator, the HeroSet one
+// from an FR965, because the link needs HeroSet running to publish. Empty slots
+// render as pending. See HeroFace docs/listing/screenshots.md.
 export const screens: Screenshot[] = [
-  { label: 'Everyday' },
-  { label: 'Goals met' },
-  { label: 'With HeroSet' },
+  { label: 'Everyday', src: '/heroface/screens/everyday.png' },
+  { label: 'Goals met', src: '/heroface/screens/goals-met.png' },
+  { label: 'With HeroSet', src: '/heroface/screens/heroset.png' },
   { label: 'Always on' },
 ]

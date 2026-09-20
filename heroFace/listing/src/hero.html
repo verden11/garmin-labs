@@ -1,0 +1,31 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Store hero image (1440x720). Render: see ../../docs/listing/README.md. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#000;}
+  body{display:flex;align-items:center;font-family:'Archivo',sans-serif;color:#fff;
+       background:radial-gradient(900px 600px at 72% 50%,#0d1a2a 0%,#000 70%);}
+  .copy{box-sizing:border-box;width:560px;padding-left:72px;padding-right:24px;}
+  .mark{width:74px;height:74px;display:block;margin-bottom:24px;}
+  h1{margin:0;font-size:72px;font-weight:800;font-stretch:112%;letter-spacing:-2px;line-height:1;}
+  h1 span{color:#55AAFF;}
+  p{margin:24px 0 0;font-size:30px;line-height:1.3;color:#cfd6df;font-weight:450;}
+  .screens{display:flex;align-items:center;gap:20px;padding-right:40px;}
+  .w{border-radius:50%;overflow:hidden;background:#000;flex:none;
+     box-shadow:0 0 0 8px #1b1f25,0 0 0 10px #2f353d,0 30px 80px rgba(0,0,0,.8);}
+  .w img{width:100%;height:100%;display:block;}
+  .s{width:250px;height:250px;}
+  .l{width:310px;height:310px;}
+</style></head><body>
+  <div class="copy">
+    <svg class="mark" viewBox="2 2 61 61"><path d="M13.5 51.5A27 27 0 1 1 51.5 51.5" fill="none" stroke="#555555" stroke-width="5" stroke-linecap="round"/><path d="M13.5 51.5A27 27 0 0 1 32.5 5.5" fill="none" stroke="#55AAFF" stroke-width="5" stroke-linecap="round"/><path d="M20 22L32.5 18.5L45 22L43.5 35Q42.5 41 32.5 47Q22.5 41 21.5 35Z" fill="#FFAA00"/><path d="M26 25H30V30H35V25H39L38 36L35 38.5V35L32.5 32.5L30 35V38.5L27 36Z" fill="#000000"/></svg>
+    <h1>Hero<span>Face</span></h1>
+    <p>The time first, and today&rsquo;s goals underneath.</p>
+  </div>
+  <div class="screens">
+    <div class="w s"><img src="../screens/1-everyday.png"></div>
+    <div class="w l"><img src="../screens/3-heroset.png"></div>
+    <div class="w s"><img src="../screens/2-goals-met.png"></div>
+  </div>
+</body></html>
