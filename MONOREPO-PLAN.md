@@ -1,6 +1,42 @@
 # Monorepo migration plan — Verden
 
-Status: 2026-09-20. **Not started. No changes made. Awaiting go.**
+Status: 2026-09-20. **DONE — steps A-E complete and verified.** Remote (F) skipped.
+
+## Outcome
+
+`~/dev/garmin/` is now one git repo, 24 commits, branch `main`, no remote.
+Working files never moved; only `.git` directories changed.
+
+History was squashed and rewritten before import (user request):
+HeroSet 24 -> 9 milestone commits, heroFace 2 -> 1, verden-site 9 untouched
+(already conventional commits). Method: `git commit-tree` against the
+**original tree objects**, so every milestone tree is byte-identical to real
+history by construction — no rebase, no conflict resolution.
+
+Proof run twice (scratch, then against the `.git` backups): all 225 tracked
+files identical by mode + blob SHA across all three prefixes; all 9 HeroSet
+milestone trees are original tree objects and reachable from HEAD;
+verden-site's `f028649` is still an ancestor. Working tree matches HEAD with
+zero diff. `.gitignore` rules verified still active from subdirectories,
+including the signing-key exclusions.
+
+`backup/pre-rewrite` dropped as agreed — content was a strict subset of main.
+
+Originals preserved at `.migration-backup-2026-09-20/` (git-ignored via
+`.git/info/exclude`) and in the unarchived GitHub repos. Nothing force-pushed.
+
+### Still yours
+Y4 create `verden11/verden` · F `git remote add` + push · Y6 Netlify base
+directory `verden-site` + repoint · Y7 verify deploy · Y8 archive old repos
+**after** Y7 · Y9 delete `.migration-backup-2026-09-20/`.
+
+Netlify is untouched and still building from `watches-site`. Live site
+unaffected.
+
+---
+
+### Original plan below (kept for the record)
+
 
 **Update 2026-09-20:** Y1+Y2 done, all three repos clean (HeroSet 24, heroFace 2,
 verden-site 9 commits). Netlify question settled: **option 1 — accept that Netlify
