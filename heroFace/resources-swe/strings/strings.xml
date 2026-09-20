@@ -1,0 +1,56 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">HeroFace</string>
+
+    <!-- Mission labels: long form first, short form when the column is narrow. -->
+    <string id="label_steps">STEG</string>
+    <string id="label_steps_short">STEG</string>
+    <string id="label_calories">KCAL</string>
+    <string id="label_calories_short">KCAL</string>
+    <string id="label_intensity">INTENSITET</string>
+    <string id="label_intensity_short">INT</string>
+    <string id="label_km">KM</string>
+    <string id="label_miles">MI</string>
+    <string id="label_floors">VÅNINGAR</string>
+    <string id="label_floors_short">VÅN</string>
+    <string id="label_move">RÖR DIG</string>
+    <string id="label_pushups">ARMHÄVNINGAR</string>
+    <string id="label_pushups_short">ARMH</string>
+    <string id="label_situps">SITUPS</string>
+    <string id="label_situps_short">SIT</string>
+    <string id="label_squats">KNÄBÖJ</string>
+    <string id="label_squats_short">KNÄ</string>
+
+    <string id="value_thousands">$1$K</string>
+    <string id="value_move_ok">OK</string>
+    <string id="value_move_alert">GÅ</string>
+    <string id="value_temperature">$1$°</string>
+
+    <string id="streak_long">$1$ DAGARS SVIT</string>
+    <string id="streak_short">SVIT $1$</string>
+    <string id="rank_streak">RANG $1$  SVIT $2$</string>
+    <string id="rank_only">RANG $1$</string>
+
+    <!-- Settings (shown in Garmin Connect). -->
+    <string id="setting_mode">Uppdrag</string>
+    <string id="mode_auto">HeroSet om det är installerat, annars dagens mål</string>
+    <string id="mode_everyday">Dagens mål</string>
+    <string id="mode_heroset">HeroSet-repetitioner</string>
+    <string id="setting_slot1">Vänster uppdrag</string>
+    <string id="setting_slot2">Mittersta uppdraget</string>
+    <string id="setting_slot3">Höger uppdrag</string>
+    <string id="metric_auto">Automatiskt</string>
+    <string id="metric_steps">Steg</string>
+    <string id="metric_calories">Kalorier</string>
+    <string id="metric_intensity">Intensitetsminuter</string>
+    <string id="metric_distance">Distans</string>
+    <string id="metric_floors">Våningar</string>
+    <string id="metric_move">Rörelsestapel</string>
+    <string id="setting_accent">Accentfärg</string>
+    <string id="accent_blue">Blå</string>
+    <string id="accent_cyan">Cyan</string>
+    <string id="accent_magenta">Magenta</string>
+    <string id="setting_seconds">Visa sekunder</string>
+    <string id="setting_weather">Visa temperatur</string>
+
+</strings>

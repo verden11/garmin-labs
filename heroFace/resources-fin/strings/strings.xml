@@ -1,0 +1,56 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">HeroFace</string>
+
+    <!-- Mission labels: long form first, short form when the column is narrow. -->
+    <string id="label_steps">ASKELTA</string>
+    <string id="label_steps_short">ASK</string>
+    <string id="label_calories">KCAL</string>
+    <string id="label_calories_short">KCAL</string>
+    <string id="label_intensity">TEHOMINUUTIT</string>
+    <string id="label_intensity_short">TEHO</string>
+    <string id="label_km">KM</string>
+    <string id="label_miles">MI</string>
+    <string id="label_floors">KERROSTA</string>
+    <string id="label_floors_short">KRS</string>
+    <string id="label_move">LIIKU</string>
+    <string id="label_pushups">PUNNERRUS</string>
+    <string id="label_pushups_short">PUNN</string>
+    <string id="label_situps">VATSARUTISTUS</string>
+    <string id="label_situps_short">VATSA</string>
+    <string id="label_squats">KYYKKY</string>
+    <string id="label_squats_short">KYYK</string>
+
+    <string id="value_thousands">$1$K</string>
+    <string id="value_move_ok">OK</string>
+    <string id="value_move_alert">LIIKU</string>
+    <string id="value_temperature">$1$°</string>
+
+    <string id="streak_long">$1$ PÄIVÄN PUTKI</string>
+    <string id="streak_short">PUTKI $1$</string>
+    <string id="rank_streak">TASO $1$  PUTKI $2$</string>
+    <string id="rank_only">TASO $1$</string>
+
+    <!-- Settings (shown in Garmin Connect). -->
+    <string id="setting_mode">Tehtävät</string>
+    <string id="mode_auto">HeroSet jos asennettu, muuten päivän tavoitteet</string>
+    <string id="mode_everyday">Päivän tavoitteet</string>
+    <string id="mode_heroset">HeroSet-toistot</string>
+    <string id="setting_slot1">Vasen tehtävä</string>
+    <string id="setting_slot2">Keskimmäinen tehtävä</string>
+    <string id="setting_slot3">Oikea tehtävä</string>
+    <string id="metric_auto">Automaattinen</string>
+    <string id="metric_steps">Askeleet</string>
+    <string id="metric_calories">Kalorit</string>
+    <string id="metric_intensity">Tehominuutit</string>
+    <string id="metric_distance">Matka</string>
+    <string id="metric_floors">Kerrokset</string>
+    <string id="metric_move">Liikkumispalkki</string>
+    <string id="setting_accent">Korostusväri</string>
+    <string id="accent_blue">Sininen</string>
+    <string id="accent_cyan">Syaani</string>
+    <string id="accent_magenta">Magenta</string>
+    <string id="setting_seconds">Näytä sekunnit</string>
+    <string id="setting_weather">Näytä lämpötila</string>
+
+</strings>

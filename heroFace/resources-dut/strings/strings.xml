@@ -1,0 +1,56 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">HeroFace</string>
+
+    <!-- Mission labels: long form first, short form when the column is narrow. -->
+    <string id="label_steps">STAPPEN</string>
+    <string id="label_steps_short">STAP</string>
+    <string id="label_calories">KCAL</string>
+    <string id="label_calories_short">KCAL</string>
+    <string id="label_intensity">INTENSITEIT</string>
+    <string id="label_intensity_short">INT</string>
+    <string id="label_km">KM</string>
+    <string id="label_miles">MI</string>
+    <string id="label_floors">VERDIEPINGEN</string>
+    <string id="label_floors_short">VERD</string>
+    <string id="label_move">BEWEGEN</string>
+    <string id="label_pushups">OPDRUKKEN</string>
+    <string id="label_pushups_short">OPDR</string>
+    <string id="label_situps">BUIKSPIER</string>
+    <string id="label_situps_short">BUIK</string>
+    <string id="label_squats">KNIEBUIGING</string>
+    <string id="label_squats_short">KNIE</string>
+
+    <string id="value_thousands">$1$K</string>
+    <string id="value_move_ok">OK</string>
+    <string id="value_move_alert">GA</string>
+    <string id="value_temperature">$1$°</string>
+
+    <string id="streak_long">$1$ DAGEN OP RIJ</string>
+    <string id="streak_short">REEKS $1$</string>
+    <string id="rank_streak">RANG $1$  REEKS $2$</string>
+    <string id="rank_only">RANG $1$</string>
+
+    <!-- Settings (shown in Garmin Connect). -->
+    <string id="setting_mode">Missies</string>
+    <string id="mode_auto">HeroSet indien geïnstalleerd, anders dagdoelen</string>
+    <string id="mode_everyday">Dagdoelen</string>
+    <string id="mode_heroset">HeroSet-herhalingen</string>
+    <string id="setting_slot1">Linkermissie</string>
+    <string id="setting_slot2">Middelste missie</string>
+    <string id="setting_slot3">Rechtermissie</string>
+    <string id="metric_auto">Automatisch</string>
+    <string id="metric_steps">Stappen</string>
+    <string id="metric_calories">Calorieën</string>
+    <string id="metric_intensity">Intensiteitsminuten</string>
+    <string id="metric_distance">Afstand</string>
+    <string id="metric_floors">Verdiepingen</string>
+    <string id="metric_move">Bewegingsbalk</string>
+    <string id="setting_accent">Accentkleur</string>
+    <string id="accent_blue">Blauw</string>
+    <string id="accent_cyan">Cyaan</string>
+    <string id="accent_magenta">Magenta</string>
+    <string id="setting_seconds">Seconden tonen</string>
+    <string id="setting_weather">Temperatuur tonen</string>
+
+</strings>

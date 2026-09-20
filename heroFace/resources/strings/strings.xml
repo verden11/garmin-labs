@@ -1,0 +1,60 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">HeroFace</string>
+
+    <!-- Mission labels: long form first, short form when the column is narrow. -->
+    <string id="label_steps">STEPS</string>
+    <string id="label_steps_short">STEP</string>
+    <string id="label_calories">KCAL</string>
+    <string id="label_calories_short">CAL</string>
+    <string id="label_intensity">INTENSITY</string>
+    <string id="label_intensity_short">INT</string>
+    <string id="label_km">KM</string>
+    <string id="label_miles">MI</string>
+    <string id="label_floors">FLOORS</string>
+    <string id="label_floors_short">FLR</string>
+    <string id="label_move">MOVE</string>
+    <string id="label_pushups">PUSH-UPS</string>
+    <string id="label_pushups_short">PUSH</string>
+    <string id="label_situps">SIT-UPS</string>
+    <string id="label_situps_short">SIT</string>
+    <string id="label_squats">SQUATS</string>
+    <string id="label_squats_short">SQT</string>
+
+    <!-- $1$ = thousands, already formatted (12.3). -->
+    <string id="value_thousands">$1$K</string>
+    <string id="value_move_ok">OK</string>
+    <string id="value_move_alert">GO</string>
+    <!-- $1$ = whole degrees in the watch's unit. -->
+    <string id="value_temperature">$1$°</string>
+
+    <!-- $1$ = days in a row the step goal was met. -->
+    <string id="streak_long">$1$-DAY STREAK</string>
+    <string id="streak_short">STREAK $1$</string>
+    <!-- HeroSet mode. $1$ = rank, $2$ = HeroSet streak days. -->
+    <string id="rank_streak">RANK $1$  STREAK $2$</string>
+    <string id="rank_only">RANK $1$</string>
+
+    <!-- Settings (shown in Garmin Connect). -->
+    <string id="setting_mode">Missions</string>
+    <string id="mode_auto">HeroSet when installed, else everyday goals</string>
+    <string id="mode_everyday">Everyday goals</string>
+    <string id="mode_heroset">HeroSet reps</string>
+    <string id="setting_slot1">Left mission</string>
+    <string id="setting_slot2">Middle mission</string>
+    <string id="setting_slot3">Right mission</string>
+    <string id="metric_auto">Automatic</string>
+    <string id="metric_steps">Steps</string>
+    <string id="metric_calories">Calories</string>
+    <string id="metric_intensity">Intensity minutes</string>
+    <string id="metric_distance">Distance</string>
+    <string id="metric_floors">Floors climbed</string>
+    <string id="metric_move">Move bar</string>
+    <string id="setting_accent">Accent colour</string>
+    <string id="accent_blue">Blue</string>
+    <string id="accent_cyan">Cyan</string>
+    <string id="accent_magenta">Magenta</string>
+    <string id="setting_seconds">Show seconds</string>
+    <string id="setting_weather">Show temperature</string>
+
+</strings>

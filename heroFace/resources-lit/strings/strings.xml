@@ -1,0 +1,56 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">HeroFace</string>
+
+    <!-- Mission labels: long form first, short form when the column is narrow. -->
+    <string id="label_steps">ŽINGSNIAI</string>
+    <string id="label_steps_short">ŽING</string>
+    <string id="label_calories">KCAL</string>
+    <string id="label_calories_short">KCAL</string>
+    <string id="label_intensity">INTENSYVUMAS</string>
+    <string id="label_intensity_short">INT</string>
+    <string id="label_km">KM</string>
+    <string id="label_miles">MYL</string>
+    <string id="label_floors">AUKŠTAI</string>
+    <string id="label_floors_short">AUKŠT</string>
+    <string id="label_move">JUDĖK</string>
+    <string id="label_pushups">ATSISPAUDIMAI</string>
+    <string id="label_pushups_short">ATSISP</string>
+    <string id="label_situps">ATSILENKIMAI</string>
+    <string id="label_situps_short">ATSIL</string>
+    <string id="label_squats">PRITŪPIMAI</string>
+    <string id="label_squats_short">PRIT</string>
+
+    <string id="value_thousands">$1$K</string>
+    <string id="value_move_ok">GERAI</string>
+    <string id="value_move_alert">JUDĖK</string>
+    <string id="value_temperature">$1$°</string>
+
+    <string id="streak_long">$1$ D. SERIJA</string>
+    <string id="streak_short">SERIJA $1$</string>
+    <string id="rank_streak">RANGAS $1$  SERIJA $2$</string>
+    <string id="rank_only">RANGAS $1$</string>
+
+    <!-- Settings (shown in Garmin Connect). -->
+    <string id="setting_mode">Misijos</string>
+    <string id="mode_auto">HeroSet, jei įdiegta; kitaip – dienos tikslai</string>
+    <string id="mode_everyday">Dienos tikslai</string>
+    <string id="mode_heroset">HeroSet pakartojimai</string>
+    <string id="setting_slot1">Kairė misija</string>
+    <string id="setting_slot2">Vidurinė misija</string>
+    <string id="setting_slot3">Dešinė misija</string>
+    <string id="metric_auto">Automatiškai</string>
+    <string id="metric_steps">Žingsniai</string>
+    <string id="metric_calories">Kalorijos</string>
+    <string id="metric_intensity">Intensyvumo minutės</string>
+    <string id="metric_distance">Atstumas</string>
+    <string id="metric_floors">Aukštai</string>
+    <string id="metric_move">Judėjimo juosta</string>
+    <string id="setting_accent">Akcento spalva</string>
+    <string id="accent_blue">Mėlyna</string>
+    <string id="accent_cyan">Žydra</string>
+    <string id="accent_magenta">Purpurinė</string>
+    <string id="setting_seconds">Rodyti sekundes</string>
+    <string id="setting_weather">Rodyti temperatūrą</string>
+
+</strings>

@@ -1,0 +1,56 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">HeroFace</string>
+
+    <!-- Mission labels: long form first, short form when the column is narrow. -->
+    <string id="label_steps">PASSOS</string>
+    <string id="label_steps_short">PASS</string>
+    <string id="label_calories">KCAL</string>
+    <string id="label_calories_short">KCAL</string>
+    <string id="label_intensity">INTENSIDADE</string>
+    <string id="label_intensity_short">INT</string>
+    <string id="label_km">KM</string>
+    <string id="label_miles">MI</string>
+    <string id="label_floors">ANDARES</string>
+    <string id="label_floors_short">AND</string>
+    <string id="label_move">MOVER</string>
+    <string id="label_pushups">FLEXÕES</string>
+    <string id="label_pushups_short">FLEX</string>
+    <string id="label_situps">ABDOMINAIS</string>
+    <string id="label_situps_short">ABD</string>
+    <string id="label_squats">AGACHAMENTOS</string>
+    <string id="label_squats_short">AGA</string>
+
+    <string id="value_thousands">$1$K</string>
+    <string id="value_move_ok">OK</string>
+    <string id="value_move_alert">VAI</string>
+    <string id="value_temperature">$1$°</string>
+
+    <string id="streak_long">SEQUÊNCIA DE $1$ DIAS</string>
+    <string id="streak_short">SEQ. $1$</string>
+    <string id="rank_streak">NÍVEL $1$  SEQ. $2$</string>
+    <string id="rank_only">NÍVEL $1$</string>
+
+    <!-- Settings (shown in Garmin Connect). -->
+    <string id="setting_mode">Missões</string>
+    <string id="mode_auto">HeroSet se instalado; caso contrário, metas diárias</string>
+    <string id="mode_everyday">Metas diárias</string>
+    <string id="mode_heroset">Repetições do HeroSet</string>
+    <string id="setting_slot1">Missão à esquerda</string>
+    <string id="setting_slot2">Missão central</string>
+    <string id="setting_slot3">Missão à direita</string>
+    <string id="metric_auto">Automático</string>
+    <string id="metric_steps">Passos</string>
+    <string id="metric_calories">Calorias</string>
+    <string id="metric_intensity">Minutos de intensidade</string>
+    <string id="metric_distance">Distância</string>
+    <string id="metric_floors">Andares</string>
+    <string id="metric_move">Barra de movimento</string>
+    <string id="setting_accent">Cor de destaque</string>
+    <string id="accent_blue">Azul</string>
+    <string id="accent_cyan">Ciano</string>
+    <string id="accent_magenta">Magenta</string>
+    <string id="setting_seconds">Mostrar segundos</string>
+    <string id="setting_weather">Mostrar temperatura</string>
+
+</strings>
