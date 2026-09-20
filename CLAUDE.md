@@ -20,6 +20,7 @@ Each app live in own repo; this site only hold public pages. App repo docs point
 | App | Site folder | Pages | App repo (local) | Copy must match |
 |---|---|---|---|---|
 | HeroSet (Garmin Connect IQ) | `src/apps/heroset/` | `/heroset/`, `/heroset/support/`, `/heroset/privacy/` | `../HeroSet` | `../HeroSet/docs/release-contract.md` (claims), `docs/compatibility.md` (watch list → `facts.ts`) |
+| HeroFace (Garmin Connect IQ watch face) | `src/apps/heroface/` | `/heroface/`, `/heroface/support/`, `/heroface/privacy/` | `../heroFace` | `../heroFace/docs/compatibility.md` (watch list + count → `facts.ts`), `docs/go-to-market.md` (claims) |
 
 Support and privacy URLs get entered in each app store listing, so **never change or remove published app URL**.
 
