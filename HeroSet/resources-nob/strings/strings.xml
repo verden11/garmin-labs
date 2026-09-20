@@ -1,0 +1,75 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">HeroSet</string>
+
+    <string id="menu_label_start_pushups">Start armhevinger</string>
+    <string id="menu_label_start_situps">Start magehevinger</string>
+    <string id="menu_label_start_squats">Start knebøy</string>
+    <string id="menu_label_manual_pushups">Logg armhevinger</string>
+    <string id="menu_label_manual_situps">Logg magehevinger</string>
+    <string id="menu_label_manual_squats">Logg knebøy</string>
+    <string id="menu_label_goal">Daglig mål</string>
+    <string id="menu_label_sync">Connect Sync</string>
+    <string id="menu_sublabel_on">Lagrer i Connect</string>
+    <string id="menu_sublabel_off">Kun klokken</string>
+    <string id="menu_sublabel_progress">$1$/$2$</string>
+    <string id="menu_sublabel_done">KLART</string>
+    <string id="menu_label_validation_log">Validiseringslogg</string>
+
+    <string id="menu_label_resume">Fortsett</string>
+    <string id="menu_label_save">Lagre</string>
+    <string id="menu_label_discard">Forkast</string>
+    <string id="menu_label_keep_editing">Fortsett å redigere</string>
+    <string id="menu_title_rep">$1$ rep</string>
+    <string id="menu_title_reps">$1$ rep</string>
+
+    <string id="exercise_pushups">ARMHEVINGER</string>
+    <string id="exercise_situps">MAGEHEVINGER</string>
+    <string id="exercise_squats">KNEBØY</string>
+
+    <string id="dashboard_rank">RANG $1$</string>
+    <string id="dashboard_xp_to_rank">$1$ XP TIL RANG $2$</string>
+    <string id="dashboard_xp_to_go">$1$ XP GJENSTÅR</string>
+    <string id="dashboard_mission_done">$1$ KLART</string>
+    <string id="dashboard_streak">$1$ DAGER PÅ RAD</string>
+    <string id="dashboard_streak_short">PÅ RAD $1$</string>
+    <string id="dashboard_streak_none">INGEN SERIE</string>
+    <string id="dashboard_hint">START: MENY</string>
+    <string id="dashboard_mission_complete">OPPGAVEN KLAR</string>
+    <string id="dashboard_storage_warning">! KUNNE IKKE LAGRE</string>
+
+    <string id="today_progress">IDAG $1$/$2$</string>
+    <string id="workout_hint_finish">START: AVSLUTT</string>
+    <string id="workout_metrics_wide">$1$  HR $2$  KAL $3$</string>
+    <string id="workout_metrics_tight">$1$ HR $2$ KAL $3$</string>
+    <string id="picker_detected">OPPDAGET $1$</string>
+    <string id="picker_hint_adjust">UP/DOWN: JUSTER</string>
+    <string id="picker_hint_save">START: LAGRE</string>
+    <string id="goal_title">DAGLIG MÅL</string>
+
+
+    <string id="validation_log_hint">UP/DOWN: SIDE</string>
+    <string id="validation_log_empty">INGEN LOGG</string>
+    <string id="validation_log_page">LOGG $1$/$2$</string>
+    <string id="sync_log_new">$1$ SYNC NY</string>
+    <string id="sync_log_saved">$1$ SYNC LAGRET $2$</string>
+    <string id="sync_log_empty">$1$ SYNC TOM</string>
+    <string id="sync_log_fail">$1$ SYNC FEIL</string>
+    <string id="sync_log_off">$1$ SYNC AV</string>
+
+    <string id="fit_label_exercise">Øvelse</string>
+    <string id="fit_label_reps">Repetisjoner</string>
+    <string id="fit_unit_reps">rep.</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Armhevinger</string>
+    <string id="fit_label_situps">Magehevinger</string>
+    <string id="fit_label_squats">Knebøy</string>
+
+    <string id="toast_saved">$1$ LAGRET</string>
+    <string id="toast_discarded">FORKASTET</string>
+    <string id="toast_exercise_done">$1$ KLART!</string>
+    <string id="toast_mission_complete">DAGLIG OPPGAVE KLAR!</string>
+    <string id="toast_removed">$1$ FJERNET</string>
+    <string id="toast_rank_up">RANG $1$!</string>
+    <string id="toast_goal_saved">MÅL $1$</string>
+</strings>

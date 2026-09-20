@@ -1,0 +1,75 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">HeroSet</string>
+
+    <string id="menu_label_start_pushups">Pradėti atsispaudimus</string>
+    <string id="menu_label_start_situps">Pradėti atsilenkimus</string>
+    <string id="menu_label_start_squats">Pradėti pritūpimus</string>
+    <string id="menu_label_manual_pushups">Įrašyti atsispaudimus</string>
+    <string id="menu_label_manual_situps">Įrašyti atsilenkimus</string>
+    <string id="menu_label_manual_squats">Įrašyti pritūpimus</string>
+    <string id="menu_label_goal">Dienos tikslas</string>
+    <string id="menu_label_sync">Connect Sync</string>
+    <string id="menu_sublabel_on">Įrašo į Connect</string>
+    <string id="menu_sublabel_off">Tik laikrodyje</string>
+    <string id="menu_sublabel_progress">$1$/$2$</string>
+    <string id="menu_sublabel_done">ATLIKTA</string>
+    <string id="menu_label_validation_log">Validacijos žurnalas</string>
+
+    <string id="menu_label_resume">Tęsti</string>
+    <string id="menu_label_save">Saugoti</string>
+    <string id="menu_label_discard">Atmesti</string>
+    <string id="menu_label_keep_editing">Tęsti redagavimą</string>
+    <string id="menu_title_rep">$1$ kartas</string>
+    <string id="menu_title_reps">$1$ kart.</string>
+
+    <string id="exercise_pushups">ATSISPAUDIMAI</string>
+    <string id="exercise_situps">ATSILENKIMAI</string>
+    <string id="exercise_squats">PRITŪPIMAI</string>
+
+    <string id="dashboard_rank">RANGAS $1$</string>
+    <string id="dashboard_xp_to_rank">$1$ XP IKI RANGO $2$</string>
+    <string id="dashboard_xp_to_go">$1$ XP LIKO</string>
+    <string id="dashboard_mission_done">$1$ ATLIKTA</string>
+    <string id="dashboard_streak">$1$ DIENŲ SERIJA</string>
+    <string id="dashboard_streak_short">SERIJA $1$</string>
+    <string id="dashboard_streak_none">NĖRA SERIJOS</string>
+    <string id="dashboard_hint">START: MENIU</string>
+    <string id="dashboard_mission_complete">UŽDUOTIS ATLIKTA</string>
+    <string id="dashboard_storage_warning">! NEPAVYKO IŠSAUGOTI</string>
+
+    <string id="today_progress">ŠIANDIEN $1$/$2$</string>
+    <string id="workout_hint_finish">START: BAIGTI</string>
+    <string id="workout_metrics_wide">$1$  HR $2$  KAL $3$</string>
+    <string id="workout_metrics_tight">$1$ HR $2$ KAL $3$</string>
+    <string id="picker_detected">APTIKTA $1$</string>
+    <string id="picker_hint_adjust">UP/DOWN: REGULIUOTI</string>
+    <string id="picker_hint_save">START: SAUGOTI</string>
+    <string id="goal_title">DIENOS TIKSLAS</string>
+
+
+    <string id="validation_log_hint">UP/DOWN: PUSLAPIS</string>
+    <string id="validation_log_empty">NĖRA ŽURNALO</string>
+    <string id="validation_log_page">LOGAS $1$/$2$</string>
+    <string id="sync_log_new">$1$ SYNC NAUJAS</string>
+    <string id="sync_log_saved">$1$ SYNC IŠSAUGOTAS $2$</string>
+    <string id="sync_log_empty">$1$ SYNC TUŠČIAS</string>
+    <string id="sync_log_fail">$1$ SYNC KLAIDA</string>
+    <string id="sync_log_off">$1$ SYNC IŠJUNGTA</string>
+
+    <string id="fit_label_exercise">Pratimas</string>
+    <string id="fit_label_reps">Pakartojimai</string>
+    <string id="fit_unit_reps">kart.</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Atsispaudimai</string>
+    <string id="fit_label_situps">Atsilenkimai</string>
+    <string id="fit_label_squats">Pritūpimai</string>
+
+    <string id="toast_saved">$1$ IŠSAUGOTA</string>
+    <string id="toast_discarded">ATMESTA</string>
+    <string id="toast_exercise_done">$1$ ATLIKTA!</string>
+    <string id="toast_mission_complete">KASDIENĖ UŽDUOTIS ATLIKTA!</string>
+    <string id="toast_removed">$1$ PAŠALINTA</string>
+    <string id="toast_rank_up">RANGAS $1$!</string>
+    <string id="toast_goal_saved">TIKSLAS $1$</string>
+</strings>

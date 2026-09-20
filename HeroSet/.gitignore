@@ -1,0 +1,27 @@
+# Connect IQ build output
+/bin/
+/gen/
+/mir/
+/internal-mir/
+/external-mir/
+*.prg
+*.iq
+*.barrel
+*.debug.xml
+*.mcgen
+*.mir
+
+# Device/test artifacts (FIT files pulled over USB for sync/accuracy
+# validation, e.g. docs/validation-log.md) — never a source file
+*.fit
+
+# Connect IQ signing keys: never commit these files
+/developer_key
+/developer_key.*
+*.der
+*.pem
+
+# Local OS/editor files
+.DS_Store
+.omo/
+.obsidian/

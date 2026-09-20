@@ -1,0 +1,75 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <string id="AppName">HeroSet</string>
+
+    <string id="menu_label_start_pushups">Aloita punnerrukset</string>
+    <string id="menu_label_start_situps">Aloita istumaannousut</string>
+    <string id="menu_label_start_squats">Aloita kyykyt</string>
+    <string id="menu_label_manual_pushups">Kirjaa punnerrukset</string>
+    <string id="menu_label_manual_situps">Kirjaa istumaannousut</string>
+    <string id="menu_label_manual_squats">Kirjaa kyykyt</string>
+    <string id="menu_label_goal">Päivätavoite</string>
+    <string id="menu_label_sync">Connect Sync</string>
+    <string id="menu_sublabel_on">Tallentaa Connectiin</string>
+    <string id="menu_sublabel_off">Vain kello</string>
+    <string id="menu_sublabel_progress">$1$/$2$</string>
+    <string id="menu_sublabel_done">VALMIS</string>
+    <string id="menu_label_validation_log">Varmistusloki</string>
+
+    <string id="menu_label_resume">Jatka</string>
+    <string id="menu_label_save">Tallenna</string>
+    <string id="menu_label_discard">Hylkää</string>
+    <string id="menu_label_keep_editing">Jatka muokkausta</string>
+    <string id="menu_title_rep">$1$ toisto</string>
+    <string id="menu_title_reps">$1$ toistoa</string>
+
+    <string id="exercise_pushups">PUNNERRUKSET</string>
+    <string id="exercise_situps">ISTUMAANNOUSUT</string>
+    <string id="exercise_squats">KYYKYT</string>
+
+    <string id="dashboard_rank">TASO $1$</string>
+    <string id="dashboard_xp_to_rank">$1$ XP TASOLLE $2$</string>
+    <string id="dashboard_xp_to_go">$1$ XP JÄLLELLÄ</string>
+    <string id="dashboard_mission_done">$1$ VALMIS</string>
+    <string id="dashboard_streak">$1$ PÄIVÄN PUTKI</string>
+    <string id="dashboard_streak_short">PUTKI $1$</string>
+    <string id="dashboard_streak_none">EI PUTKEA</string>
+    <string id="dashboard_hint">START: VALIKKO</string>
+    <string id="dashboard_mission_complete">TEHTÄVÄ VALMIS</string>
+    <string id="dashboard_storage_warning">! EI VOITU TALLENTAA</string>
+
+    <string id="today_progress">TÄNÄÄN $1$/$2$</string>
+    <string id="workout_hint_finish">START: PÄÄTÄ</string>
+    <string id="workout_metrics_wide">$1$  HR $2$  KAL $3$</string>
+    <string id="workout_metrics_tight">$1$ HR $2$ KAL $3$</string>
+    <string id="picker_detected">HAVAINTO $1$</string>
+    <string id="picker_hint_adjust">UP/DOWN: SÄÄDÄ</string>
+    <string id="picker_hint_save">START: TALLENNA</string>
+    <string id="goal_title">PÄIVÄTAVOITE</string>
+
+
+    <string id="validation_log_hint">UP/DOWN: SIVU</string>
+    <string id="validation_log_empty">EI LOGGAUSTA</string>
+    <string id="validation_log_page">LOGI $1$/$2$</string>
+    <string id="sync_log_new">$1$ SYNC UUSI</string>
+    <string id="sync_log_saved">$1$ SYNC TALLENNETTU $2$</string>
+    <string id="sync_log_empty">$1$ SYNC TYHJÄ</string>
+    <string id="sync_log_fail">$1$ SYNC VIRHE</string>
+    <string id="sync_log_off">$1$ SYNC POIS</string>
+
+    <string id="fit_label_exercise">Liike</string>
+    <string id="fit_label_reps">Toistot</string>
+    <string id="fit_unit_reps">toistoa</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Punnerrukset</string>
+    <string id="fit_label_situps">Istumaannousut</string>
+    <string id="fit_label_squats">Kyykyt</string>
+
+    <string id="toast_saved">$1$ TALLENNETTU</string>
+    <string id="toast_discarded">HYLÄTTY</string>
+    <string id="toast_exercise_done">$1$ VALMIS!</string>
+    <string id="toast_mission_complete">PÄIVÄN TEHTÄVÄ VALMIS!</string>
+    <string id="toast_removed">$1$ POISTETTU</string>
+    <string id="toast_rank_up">TASO $1$!</string>
+    <string id="toast_goal_saved">TAVOITE $1$</string>
+</strings>

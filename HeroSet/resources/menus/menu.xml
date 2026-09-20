@@ -1,0 +1,11 @@
+<menu2 id="MainMenu" title="@Strings.AppName" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <menu-item id="start_pushups" label="@Strings.menu_label_start_pushups" />
+    <menu-item id="start_situps" label="@Strings.menu_label_start_situps" />
+    <menu-item id="start_squats" label="@Strings.menu_label_start_squats" />
+    <menu-item id="manual_pushups" label="@Strings.menu_label_manual_pushups" />
+    <menu-item id="manual_situps" label="@Strings.menu_label_manual_situps" />
+    <menu-item id="manual_squats" label="@Strings.menu_label_manual_squats" />
+    <menu-item id="daily_goal" label="@Strings.menu_label_goal" />
+    <toggle-menu-item id="sync_toggle" label="@Strings.menu_label_sync" subLabel="@Strings.menu_sublabel_on" disabledSubLabel="@Strings.menu_sublabel_off" checked="false" />
+    <menu-item id="validation_log" label="@Strings.menu_label_validation_log" />
+</menu2>

@@ -1,0 +1,9 @@
+<!-- Connect labels for HeroSetActivitySync's FIT fields (ADR-043). Ids are
+     baked into users' saved activities: never renumber or reuse one. -->
+<fitContributions>
+    <fitField id="0" displayInChart="false" displayInActivityLaps="true" displayInActivitySummary="false" sortOrder="0" dataLabel="@Strings.fit_label_exercise" unitLabel="@Strings.fit_unit_none" />
+    <fitField id="1" displayInChart="false" displayInActivityLaps="true" displayInActivitySummary="false" sortOrder="1" precision="0" dataLabel="@Strings.fit_label_reps" unitLabel="@Strings.fit_unit_reps" />
+    <fitField id="2" displayInChart="false" displayInActivityLaps="false" displayInActivitySummary="true" sortOrder="2" precision="0" dataLabel="@Strings.fit_label_pushups" unitLabel="@Strings.fit_unit_reps" />
+    <fitField id="3" displayInChart="false" displayInActivityLaps="false" displayInActivitySummary="true" sortOrder="3" precision="0" dataLabel="@Strings.fit_label_situps" unitLabel="@Strings.fit_unit_reps" />
+    <fitField id="4" displayInChart="false" displayInActivityLaps="false" displayInActivitySummary="true" sortOrder="4" precision="0" dataLabel="@Strings.fit_label_squats" unitLabel="@Strings.fit_unit_reps" />
+</fitContributions>
