@@ -1,40 +1,22 @@
-# HeroSet documentation
+# HeroSet docs
 
-## New to the project? Read in this order
+Resuming? Read [`go-to-market.md`](go-to-market.md) first (open items), then [`architecture.md`](architecture.md) and the five flagged ADRs in [`decisions.md`](decisions.md).
 
-1. [`../README.md`](../README.md): what HeroSet is, status, how build.
-2. [`go-to-market.md`](go-to-market.md) → **Status checkpoint**: where work
-   stands, what blocked. Read first when resuming.
-3. [`architecture.md`](architecture.md): code structure, layers, navigation,
-   known debt.
-4. [`decisions.md`](decisions.md): why things this way (ADRs).
-   Start with five at top.
-5. [`development.md`](development.md): build, test, debug on real watch.
+| Doc | What |
+|---|---|
+| [`go-to-market.md`](go-to-market.md) | Status, open items, launch gates. Only home for blockers |
+| [`architecture.md`](architecture.md) | Structure, layers, modules, data flow, navigation, debt |
+| [`decisions.md`](decisions.md) | Why: ADRs, append-only |
+| [`input-and-ux.md`](input-and-ux.md) | What each screen shows, what every button does |
+| [`development.md`](development.md) | Build, test, sign, device crash logs |
+| [`testing-plan.md`](testing-plan.md) | What's tested where |
+| [`release-contract.md`](release-contract.md) | Allowed/forbidden claims; check before user-facing copy |
+| [`store-release.md`](store-release.md) | Store economics, upload-form answers, description |
+| [`compatibility.md`](compatibility.md) | Supported watches, why others aren't, adding one |
+| [`connect-sync-plan.md`](connect-sync-plan.md) | v1.1 Connect sync: limits, behavior, device acceptance |
+| [`validation-log.md`](validation-log.md) | On-watch accuracy trial data |
+| [`battery.md`](battery.md) | Battery analysis + measurement plan (post-launch) |
+| [`../PRODUCT.md`](../PRODUCT.md) | Product truth for design work (Impeccable) |
+| `../verden-site` | Public site: landing, support, privacy |
 
-## By topic
-
-| Doc | What it covers | Kind |
-|---|---|---|
-| [`../PRODUCT.md`](../PRODUCT.md) | Product truth for design work: users, purpose, voice, constraints (Impeccable) | Living |
-| [`architecture.md`](architecture.md) | File structure, layers, modules, data flow, style, navigation, debt | Living |
-| [`decisions.md`](decisions.md) | Every durable decision (ADR-001…) with status | Append-only log |
-| [`input-and-ux.md`](input-and-ux.md) | What each screen show, what every button do | Living |
-| [`development.md`](development.md) | Setup, commands, device crash logs, on-watch test procedures | Living |
-| [`testing-plan.md`](testing-plan.md) | What tested where (unit / simulator / device) | Living |
-| [`go-to-market.md`](go-to-market.md) | Status checkpoint, launch decisions, ordered path to publish, launch gates, listing | Status-dated |
-| [`launch-checklist.md`](launch-checklist.md) | Tick-box steps: watch session, then before-upload chores | Status-dated |
-| [`release-contract.md`](release-contract.md) | What current build may honestly claim (check before any user-facing copy) | Status-dated |
-| [`store-release.md`](store-release.md) | Store economics, upload-form answers | Reference |
-| [`validation-log.md`](validation-log.md) | Physical accuracy trial template, results | Data |
-| [`calories-connect.md`](calories-connect.md) | How HR/calories read, their limits | Status-dated |
-| [`compatibility.md`](compatibility.md) | Supported watches, why others not yet, how add one | Status-dated |
-| [`battery.md`](battery.md) | Battery impact: what drains, what stays, what to update/measure | Status-dated |
-| `../verden-site` (sibling repo) | Public site: HeroSet landing, support, privacy policy; shared with future apps | Public copy |
-
-## Keeping docs useful
-
-- Change behavior → update doc that describe it, same change.
-- New durable decision → new ADR at end of `decisions.md`.
-- Status-dated docs carry `Status` date line; bump when edit.
-- One fact, one home: link, no copy (e.g. launch blockers live only
-  in go-to-market status checkpoint).
+Rules: behavior change → update its doc same session · durable decision → new ADR · status-dated docs bump their date · one fact, one home: link, don't copy.

@@ -33,12 +33,11 @@ A button-first daily challenge that lives entirely on the watch: automatic rep c
 - Automatic counting is beta and can miscount; accuracy numbers may not be claimed until launch gate 2 passes (`docs/release-contract.md`).
 - Manual correction and manual logging on every path; XP only for net stored progress (ADR-002); rank derived, never stored.
 - Live HR and calorie estimate during a set; calories are the change in Garmin's daily total, an estimate, not a medical or native session measurement.
-- Store build: `Sensor` permission only, no network, no Garmin Connect/Strava sync, no FIT activity (ADR-033). Sync exists in the dev build only and is unverified.
+- Store build: `Sensor` permission only, no network, no Garmin Connect/Strava sync, no FIT activity (ADR-033). Opt-in Connect sync (one activity per workout, ADR-043) exists in the dev build only, unverified; planned for v1.1.
 - Watch UI: round screens only, AMOLED and MIP, 67 products from ~208 to 466 px; min Connect IQ API 3.4.0; one class per file; text fit measured, never guessed (ADR-018); render only in `onUpdate`.
 - Input: five physical buttons; no long-press gestures (ADR-029); on-screen hints name bezel buttons (`START`, `UP/DOWN`, `BACK`). Touch works where the watch passes it through but is never required.
 - Languages: English (fallback), German, French, Spanish, Italian, Portuguese, Dutch, Polish, Swedish, Danish, Norwegian Bokmål, Finnish, Turkish, Lithuanian, Ukrainian. Russian intentionally unsupported.
 - Site: `../verden-site`, a multi-app static site (prerendered, no client JS) shared with future Verden apps; live at https://verden.watch (Netlify); must match actual app behavior.
-- Undecided: site host. Decided 2026-09-19: landing page per app plus support + privacy, under the studio name Verden.
 
 ## Brand Commitments
 
@@ -52,7 +51,7 @@ A button-first daily challenge that lives entirely on the watch: automatic rep c
 
 - On-watch trial data from one FR965 owner (`docs/validation-log.md`), not yet enough to claim accuracy.
 - Site: `../verden-site/src/apps/heroset/` (landing, support, privacy).
-- Listing screenshots: not yet captured; will come from the simulator running the store build (ADR-039). No mockups.
+- Listing screenshots: simulator captures of the store build in `listing/` (ADR-039). No mockups.
 - None exist and must not be invented: user reviews, testimonials, ratings, user counts, press, accuracy percentages, partnerships or Garmin endorsement.
 
 ## Product Principles

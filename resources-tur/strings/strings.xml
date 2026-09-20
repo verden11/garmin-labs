@@ -8,8 +8,8 @@
     <string id="menu_label_manual_situps">Mekik Kaydet</string>
     <string id="menu_label_manual_squats">Çömelme Kaydet</string>
     <string id="menu_label_sync">Connect Sync</string>
-    <string id="menu_sublabel_on">AÇIK</string>
-    <string id="menu_sublabel_off">KAPALI</string>
+    <string id="menu_sublabel_on">Connect'e kaydeder</string>
+    <string id="menu_sublabel_off">Yalnızca saat</string>
     <string id="menu_sublabel_progress">$1$/$2$</string>
     <string id="menu_sublabel_done">BİTTİ</string>
     <string id="menu_label_validation_log">Doğrulama Günlüğü</string>
@@ -49,10 +49,19 @@
     <string id="validation_log_empty">LOG VERİSİ YOK</string>
     <string id="validation_log_page">LOG $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC YENİ</string>
-    <string id="sync_log_kept">$1$ SYNC TUTULDU $2$</string>
-    <string id="sync_log_lost">$1$ SYNC KAYBEDİLDİ</string>
     <string id="sync_log_saved">$1$ SYNC KAYDEDİLDİ $2$</string>
     <string id="sync_log_empty">$1$ SYNC BOŞ</string>
+    <string id="sync_log_fail">$1$ SYNC HATA</string>
+    <string id="sync_log_off">$1$ SYNC KAPALI</string>
+
+    <string id="fit_label_exercise">Egzersiz</string>
+    <string id="fit_label_reps">Tekrar</string>
+    <string id="fit_unit_reps">tekrar</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Şınav</string>
+    <string id="fit_label_situps">Mekik</string>
+    <string id="fit_label_squats">Çömelme</string>
 
     <string id="toast_saved">$1$ KAYDEDİLDİ</string>
     <string id="toast_discarded">VAZGEÇİLDİ</string>

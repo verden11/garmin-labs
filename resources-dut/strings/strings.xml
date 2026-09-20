@@ -8,8 +8,8 @@
     <string id="menu_label_manual_situps">Buikspieroefeningen loggen</string>
     <string id="menu_label_manual_squats">Kniebuigingen loggen</string>
     <string id="menu_label_sync">Connect Sync</string>
-    <string id="menu_sublabel_on">Aan</string>
-    <string id="menu_sublabel_off">Uit</string>
+    <string id="menu_sublabel_on">Opslaan in Connect</string>
+    <string id="menu_sublabel_off">Alleen horloge</string>
     <string id="menu_sublabel_progress">$1$/$2$</string>
     <string id="menu_sublabel_done">KLAAR</string>
     <string id="menu_label_validation_log">Validatie-logboek</string>
@@ -49,10 +49,19 @@
     <string id="validation_log_empty">GEEN LOGGEGEVENS</string>
     <string id="validation_log_page">LOG $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC NIEUW</string>
-    <string id="sync_log_kept">$1$ SYNC BEHOUDEN $2$</string>
-    <string id="sync_log_lost">$1$ SYNC VERLOREN</string>
     <string id="sync_log_saved">$1$ SYNC OPGESLAGEN $2$</string>
     <string id="sync_log_empty">$1$ SYNC LEEG</string>
+    <string id="sync_log_fail">$1$ SYNC MISLUKT</string>
+    <string id="sync_log_off">$1$ SYNC UIT</string>
+
+    <string id="fit_label_exercise">Oefening</string>
+    <string id="fit_label_reps">Herhalingen</string>
+    <string id="fit_unit_reps">herh.</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Opdrukken</string>
+    <string id="fit_label_situps">Buikspieroefeningen</string>
+    <string id="fit_label_squats">Kniebuigingen</string>
 
     <string id="toast_saved">$1$ OPGESLAGEN</string>
     <string id="toast_discarded">VERWORPEN</string>

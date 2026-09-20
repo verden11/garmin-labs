@@ -8,8 +8,8 @@
     <string id="menu_label_manual_situps">Log Sit-ups</string>
     <string id="menu_label_manual_squats">Log Squats</string>
     <string id="menu_label_sync">Connect Sync</string>
-    <string id="menu_sublabel_on">On</string>
-    <string id="menu_sublabel_off">Off</string>
+    <string id="menu_sublabel_on">Saves to Connect</string>
+    <string id="menu_sublabel_off">Watch only</string>
     <string id="menu_sublabel_progress">$1$/$2$</string>
     <string id="menu_sublabel_done">DONE</string>
     <string id="menu_label_validation_log">Validation Log</string>
@@ -49,10 +49,19 @@
     <string id="validation_log_empty">NO LOG DATA</string>
     <string id="validation_log_page">LOG $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC NEW</string>
-    <string id="sync_log_kept">$1$ SYNC KEPT $2$</string>
-    <string id="sync_log_lost">$1$ SYNC LOST</string>
     <string id="sync_log_saved">$1$ SYNC SAVED $2$</string>
     <string id="sync_log_empty">$1$ SYNC EMPTY</string>
+    <string id="sync_log_fail">$1$ SYNC FAIL</string>
+    <string id="sync_log_off">$1$ SYNC OFF</string>
+
+    <string id="fit_label_exercise">Exercise</string>
+    <string id="fit_label_reps">Reps</string>
+    <string id="fit_unit_reps">reps</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Push-ups</string>
+    <string id="fit_label_situps">Sit-ups</string>
+    <string id="fit_label_squats">Squats</string>
 
     <string id="toast_saved">$1$ SAVED</string>
     <string id="toast_discarded">DISCARDED</string>
@@ -60,4 +69,10 @@
     <string id="toast_mission_complete">DAILY MISSION COMPLETE!</string>
     <string id="toast_removed">$1$ REMOVED</string>
     <string id="toast_rank_up">RANK $1$!</string>
+
+    <!-- Name of the private complication HeroFace reads; not translated, it
+         is how the face finds it. -->
+    <string id="complication_label">HeroSet</string>
+    <string id="complication_short">HERO</string>
+
 </strings>

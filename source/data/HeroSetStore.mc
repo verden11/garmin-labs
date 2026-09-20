@@ -21,9 +21,8 @@ class HeroSetStore {
     const STREAK_KEY = "hero_streak";
     const LAST_COMPLETION_KEY = "hero_last_completion";
     const SYNC_ENABLED_KEY = "hero_sync_enabled";
-    const SYNC_DAY_KEY = "hero_sync_day";
-    // Real day keys are yyyymmdd, so 0 can never collide with one.
-    const NO_SYNC_DAY = 0;
+    // Retired with the one-activity-per-day design (ADR-043): watches that
+    // ran a dev build may still hold "hero_sync_day". Never reuse the name.
     const VALIDATION_LOG_KEY = "hero_validation_log";
 
 
@@ -119,6 +118,13 @@ class HeroSetStore {
         return HeroSetRules.activeStreak(lastDay, _clock.todayKey(), readNumber(STREAK_KEY));
     }
 
+    // The day the daily mission was last completed, for subscribers that have
+    // to decide whether the streak is still alive (ADR-044). Null until the
+    // first completion.
+    function getLastCompletionDay() as Lang.Number? {
+        return asNumberOrNull(_storage.getValue(LAST_COMPLETION_KEY));
+    }
+
     function getDashboardState() as HeroSetDashboardState {
         ensureCurrentDay();
         return new HeroSetDashboardState(
@@ -137,7 +143,7 @@ class HeroSetStore {
     }
 
     // ------------------------------------------------------------------
-    // Garmin Connect/Strava sync (opt-in — ADR-025)
+    // Garmin Connect sync (opt-in — ADR-043)
     // ------------------------------------------------------------------
 
     function isSyncEnabled() as Lang.Boolean {
@@ -146,26 +152,6 @@ class HeroSetStore {
 
     function setSyncEnabled(enabled as Lang.Boolean) as Void {
         _set(SYNC_ENABLED_KEY, enabled);
-    }
-
-    // Which calendar day (HeroSetCalendar.todayKey) the currently-open
-    // HeroSetActivitySync session belongs to, or null if none is open.
-    // HeroSetSyncCoordinator compares this to today to decide whether a
-    // stale prior day's session needs closing out first.
-    function getSyncSessionDay() as Lang.Number? {
-        var day = asNumberOrNull(_storage.getValue(SYNC_DAY_KEY));
-        return day == NO_SYNC_DAY ? null : day;
-    }
-
-    function setSyncSessionDay(day as Lang.Number) as Void {
-        _set(SYNC_DAY_KEY, day);
-    }
-
-    // After sync is turned off and the session saved. Left set, a later
-    // day's beginSet would see a stale day and save a fresh, empty session.
-    // Written as a sentinel because the storage seam has no delete.
-    function clearSyncSessionDay() as Void {
-        _set(SYNC_DAY_KEY, NO_SYNC_DAY);
     }
 
     private function updateCompletion() as Void {

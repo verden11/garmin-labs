@@ -107,7 +107,7 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
     // on screen and one more press undoes it.
     private function applySyncToggle(item as WatchUi.MenuItem) as Void {
         if (item instanceof WatchUi.ToggleMenuItem) {
-            HeroSetSyncCoordinator.setEnabled(item.isEnabled());
+            getApp().getSync().setEnabled(item.isEnabled());
         }
     }
 }

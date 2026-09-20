@@ -308,17 +308,6 @@ function stateFromAnEarlierSchemaStillReads(logger as Test.Logger) as Lang.Boole
 }
 
 (:test)
-function clearedSyncSessionDayReadsAsNone(logger as Test.Logger) as Lang.Boolean {
-    var store = storeWith(20260911);
-    Test.assert(store.getSyncSessionDay() == null);
-    store.setSyncSessionDay(20260911);
-    Test.assertEqual(store.getSyncSessionDay(), 20260911);
-    store.clearSyncSessionDay();
-    Test.assert(store.getSyncSessionDay() == null);
-    return true;
-}
-
-(:test)
 function diagnosticLinesShareTheCappedLogInOrder(logger as Test.Logger) as Lang.Boolean {
     var store = storeWith(20260911);
     store.logValidationTrial(:pushups, 10, 12);

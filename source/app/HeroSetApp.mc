@@ -5,17 +5,21 @@ import Toybox.WatchUi;
 class HeroSetApp extends Application.AppBase {
 
     private var _store;
+    private var _sync;
 
     function initialize() {
         AppBase.initialize();
         _store = new HeroSetStore(null, null);
+        _sync = new HeroSetSyncCoordinator(_store);
     }
 
     function onStart(state as Dictionary?) as Void {
         _store.ensureCurrentDay();
+        HeroSetComplicationPublisher.publish(_store);
     }
 
     function onStop(state as Dictionary?) as Void {
+        _sync.stop();
     }
 
     function getInitialView() as [Views] or [Views, InputDelegates] {
@@ -24,6 +28,10 @@ class HeroSetApp extends Application.AppBase {
 
     function getStore() as HeroSetStore {
         return _store;
+    }
+
+    function getSync() as HeroSetSyncCoordinator {
+        return _sync;
     }
 
     // Screen-fit tests draw real views against a seeded in-memory store

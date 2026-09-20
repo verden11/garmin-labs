@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-09-18. Support many Garmin watches as practical; never promise sensor features device cannot provide. Decision records: ADR-034 (wave 1), ADR-035 (wave 2), ADR-037 (wave 3), ADR-038 (wave 4).
+Status: 2026-09-20. Decision records: ADR-034/035/037/038 (waves 1–4).
 
 ## Supported products
 
@@ -33,7 +33,7 @@ Memory-in-pixel screens, 218–280 px, 8 bits per pixel. Needed no code change: 
 | Forerunner 955 / Enduro 3 | `fr955`, `enduro3` | 260 / 280 px |
 | Forerunner 255 | `fr255`, `fr255m`, `fr255s`, `fr255sm` | 260 / 218 px |
 
-218 px `fr255s` = smallest supported screen, smallest app memory (512 KB, vs 768 KB elsewhere).
+218 px `fr255s` = smallest supported screen, and 512 KB of app memory against 768 KB elsewhere in this wave. It is not the memory floor: wave 4's fēnix 6 family and Enduro cap watch apps at 128 KB (below).
 
 ### Wave 3 — more round AMOLED (ADR-037)
 
@@ -63,7 +63,7 @@ Older five-button MIP watches, reached by lowering `minApiLevel` 4.2.0 → 3.4.0
 
 `fenix6`, `fenix6s`, `enduro` cap watch apps at 128 KB — smallest supported memory. Measured in simulator (store build): dashboard ~52 KB, workout ~54 KB used, ~73 KB free.
 
-**Evidence per product:** store build compiles, and `everyScreenFitsThisDisplay` passes in that device simulator: renders every screen in widest state with device real fonts, fails on text outside round display, overlapping text, or screen that drew fewer rows than it promises. Full suite (80 tests) run on FR965 plus size and screen-type representatives (`fr265s`, `fenix7`, `fenix7x`, `fr255s`, `fenix9prosolar51mm`, `fenix9pro51mm`) and on every wave 4 product.
+**Evidence per product:** store build compiles, and `everyScreenFitsThisDisplay` passes in that device simulator: renders every screen in widest state with device real fonts, fails on text outside round display, overlapping text, or screen that drew fewer rows than it promises. Full suite run on FR965 plus size and screen-type representatives (`fr265s`, `fenix7`, `fenix7x`, `fr255s`, `fenix9prosolar51mm`, `fenix9pro51mm`) and on every wave 4 product.
 
 **Only FR965 used on real watch.** Rep detection not device-dependent (accelerometer read in milli-g everywhere), but button feel, strap fit, MIP contrast in daylight, real rendering unconfirmed until beta testers run them.
 
@@ -76,14 +76,6 @@ Older five-button MIP watches, reached by lowering `minApiLevel` 4.2.0 → 3.4.0
 | Square / rectangle | `venusq2`, `venux1` | Layout square path untested, these touch-first too |
 | Below Connect IQ 3.4 | fēnix 5 / 5 Plus, Forerunner 245/645/745/935/945, D2 Charlie/Delta, Descent MK1, vívoactive 3/4 | Below `minApiLevel`. `WatchUi.showToast` (save confirmation) is 3.4+, and fēnix 5 Plus fails screen fit (older, larger system fonts). FR945/745/245M pass the suite in simulator with a `has :showToast` guard — candidate wave, needs another save confirmation (ADR-038) |
 | Forerunner 55 | `fr55` | 208 px screen: dashboard rows overlap (fails `everyScreenFitsThisDisplay`) |
-
-## Tiers
-
-- **Full**: automatic rep estimates, manual entry/correction, daily progress + gamification.
-- **Partial**: automatic counting limited/unavailable when device lacks suitable motion sensing; manual entry, progress, gamification remain.
-- **Unsupported**: anything below app minimum API / display / input / sensor requirements not listed as supported product.
-
-Every supported product is Full.
 
 ## Adding a product
 

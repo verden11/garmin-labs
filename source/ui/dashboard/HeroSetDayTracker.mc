@@ -31,6 +31,7 @@ class HeroSetDayTracker {
         var today = HeroSetCalendar.todayKey();
         if (today != _dayKey) {
             _dayKey = today;
+            HeroSetComplicationPublisher.publish(getApp().getStore());
             WatchUi.requestUpdate();
         }
     }

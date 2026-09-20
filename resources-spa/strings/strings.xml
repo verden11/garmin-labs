@@ -8,8 +8,8 @@
     <string id="menu_label_manual_situps">Registrar abdominales</string>
     <string id="menu_label_manual_squats">Registrar sentadillas</string>
     <string id="menu_label_sync">Connect Sync</string>
-    <string id="menu_sublabel_on">On</string>
-    <string id="menu_sublabel_off">Off</string>
+    <string id="menu_sublabel_on">Guarda en Connect</string>
+    <string id="menu_sublabel_off">Solo reloj</string>
     <string id="menu_sublabel_progress">$1$/$2$</string>
     <string id="menu_sublabel_done">HECHO</string>
     <string id="menu_label_validation_log">Registro de validación</string>
@@ -49,10 +49,19 @@
     <string id="validation_log_empty">SIN DATOS</string>
     <string id="validation_log_page">REGISTRO $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC NUEVO</string>
-    <string id="sync_log_kept">$1$ SYNC CONSERVADO $2$</string>
-    <string id="sync_log_lost">$1$ SYNC PERDIDO</string>
     <string id="sync_log_saved">$1$ SYNC GUARDADO $2$</string>
     <string id="sync_log_empty">$1$ SYNC VACÍO</string>
+    <string id="sync_log_fail">$1$ SYNC FALLO</string>
+    <string id="sync_log_off">$1$ SYNC DESACTIVADO</string>
+
+    <string id="fit_label_exercise">Ejercicio</string>
+    <string id="fit_label_reps">Repeticiones</string>
+    <string id="fit_unit_reps">rep.</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Flexiones</string>
+    <string id="fit_label_situps">Abdominales</string>
+    <string id="fit_label_squats">Sentadillas</string>
 
     <string id="toast_saved">$1$ GUARDADO</string>
     <string id="toast_discarded">DESCARTADO</string>

@@ -8,8 +8,8 @@
     <string id="menu_label_manual_situps">Kirjaa istumaannousut</string>
     <string id="menu_label_manual_squats">Kirjaa kyykyt</string>
     <string id="menu_label_sync">Connect Sync</string>
-    <string id="menu_sublabel_on">PÄÄLLÄ</string>
-    <string id="menu_sublabel_off">POIS</string>
+    <string id="menu_sublabel_on">Tallentaa Connectiin</string>
+    <string id="menu_sublabel_off">Vain kello</string>
     <string id="menu_sublabel_progress">$1$/$2$</string>
     <string id="menu_sublabel_done">VALMIS</string>
     <string id="menu_label_validation_log">Varmistusloki</string>
@@ -49,10 +49,19 @@
     <string id="validation_log_empty">EI LOGGAUSTA</string>
     <string id="validation_log_page">LOGI $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC UUSI</string>
-    <string id="sync_log_kept">$1$ SYNC PIDETTY $2$</string>
-    <string id="sync_log_lost">$1$ SYNC MENETETTY</string>
     <string id="sync_log_saved">$1$ SYNC TALLENNETTU $2$</string>
     <string id="sync_log_empty">$1$ SYNC TYHJÄ</string>
+    <string id="sync_log_fail">$1$ SYNC VIRHE</string>
+    <string id="sync_log_off">$1$ SYNC POIS</string>
+
+    <string id="fit_label_exercise">Liike</string>
+    <string id="fit_label_reps">Toistot</string>
+    <string id="fit_unit_reps">toistoa</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Punnerrukset</string>
+    <string id="fit_label_situps">Istumaannousut</string>
+    <string id="fit_label_squats">Kyykyt</string>
 
     <string id="toast_saved">$1$ TALLENNETTU</string>
     <string id="toast_discarded">HYLÄTTY</string>

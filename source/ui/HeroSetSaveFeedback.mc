@@ -16,6 +16,7 @@ class HeroSetSaveFeedback {
         var rankBefore = store.getRank();
         store.add(exercise, delta);
         var tier = tierFor(delta, countBefore, store.getCount(exercise), completedBefore, store.isDailyMissionComplete(), rankBefore, store.getRank());
+        HeroSetComplicationPublisher.publish(store);
         show(tier, exercise, delta, store.getRank());
     }
 

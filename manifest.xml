@@ -87,8 +87,10 @@
             palette to update permissions.
         -->
     <iq:permissions>
+      <iq:uses-permission id="ComplicationPublisher"/>
       <iq:uses-permission id="Sensor"/>
       <iq:uses-permission id="Fit"/>
+      <iq:uses-permission id="FitContributor"/>
     </iq:permissions>
     <!--
             Use "Monkey C: Edit Languages" from the Visual Studio Code command

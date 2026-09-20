@@ -34,15 +34,15 @@ If only read five: **ADR-002** (XP can't be farmed), **ADR-018** (measure text, 
 | 022 | Device-only crashes: Storage Symbols, array casts | Active (lesson) |
 | 023 | Sensor listener must use `method(:symbol)` | Active (lesson) |
 | 024 | Finish → picker; picker always at depth 1 | Active, amended by 028 |
-| 025 | Opt-in Connect sync, one activity per day | Dev build only (033); **unverified, see 030** |
+| 025 | Opt-in Connect sync, one activity per day | Superseded by 043 |
 | 026 | On-watch validation log (dev build) | Active |
-| 027 | Main menu on `Menu2`; sync is a toggle | Active, amended by 033 |
+| 027 | Main menu on `Menu2`; sync is a toggle | Active, amended by 033, 043 |
 | 028 | UX pass: Back action menus, menu focus, feedback | Active |
 | 029 | Button rules: no long-press, bezel names | Active |
-| 030 | Sync diagnostics + empty-session guard | Dev build only (033); investigation paused |
+| 030 | Sync diagnostics + empty-session guard | Superseded by 043 (its device result still stands) |
 | 031 | Dashboard redesign + rank curve | Active |
 | 032 | Rep detector follows tilt (push-ups, sit-ups) or height (squats) | Active, **unvalidated on the watch** |
-| 033 | v1 store build: calibration in, Connect sync out, no `Fit` permission | Active |
+| 033 | v1 store build: calibration in, Connect sync out, no `Fit` permission | Active, sync clause amended by 043 |
 | 034 | Wave 1: 16 round AMOLED five-button watches; per-device screen-fit test | Active, **simulator-verified except FR965** |
 | 035 | Wave 2: 18 round MIP watches (fēnix 7/8 Solar/9 Pro Solar, FR255/955, Enduro 3) | Active, **simulator-verified** |
 | 036 | Storage writes flat keys only; shared fit/exit-menu helpers | Active, amends 003 |
@@ -50,6 +50,7 @@ If only read five: **ADR-002** (XP can't be farmed), **ADR-018** (measure text, 
 | 038 | Wave 4: `minApiLevel` 3.4.0, 17 fēnix 6 / MARQ Gen 1 / Descent MK2 / FR945 LTE / Enduro watches | Active, **simulator-verified** |
 | 039 | First paid submission lists all 67 products; no in-app trial for v1 | Active |
 | 040 | Thresholds learned from saved counts; calibration screen removed; no position gating | Active, **simulator-verified**, amends 032/033 |
+| 043 | Connect sync: one activity per workout, one lap per set with exercise + reps | Dev build only, **unverified on the watch** |
 
 ---
 
@@ -60,10 +61,10 @@ If only read five: **ADR-002** (XP can't be farmed), **ADR-018** (measure text, 
 2 XP per rep (`XP_PER_REP`), credited against per-exercise daily ratchet capped at `MISSION_GOAL`. `add(+10)` then `add(-10)` pays once; reps past 100 pay nothing. Max 600 XP a day. Rank and streak build on this → never award XP from raw input amounts.
 
 ### ADR-003: Schema-versioned storage. **Amended by ADR-032**
-`hero_schema` (currently 3). On mismatch, flat keys mirrored into grouped dictionaries (`hero_daily`, `hero_profile`, `hero_calibration`). Flat keys still written and used as read fallback → their spelling must never change. Since ADR-032, flat calibration keys no longer written or read outside migration, and profiles carry detector `model` number.
+`hero_schema` (3). Flat `hero_*` keys: their spelling must never change. The grouped dictionaries this ADR added were removed by ADR-036.
 
-### ADR-004: Rep detector. **Superseded by ADR-032**
-Accelerometer magnitude, gravity removed with EMA baseline; one rep = positive excursion past `arm` **and** negative excursion past `release`, with cooldown. Thresholds fitted from calibration cycles (half the mean excursion, clamped). Exercise-agnostic.
+### ADR-004: Magnitude rep detector. **Superseded by ADR-032**
+Gravity-removed acceleration magnitude, calibrated thresholds. Blind to wrist rotation; failed on the watch.
 
 ### ADR-005: 25 Hz, one stream
 Counting and calibration use same 25 Hz listener → calibrated thresholds match what counter sees.
@@ -71,11 +72,11 @@ Counting and calibration use same 25 Hz listener → calibrated thresholds match
 ### ADR-006: Shared layout layer
 All geometry from `HeroSetLayout` (round-chord insets, bands, ring). Views never compute raw pixels.
 
-### ADR-007: Workout Back confirm dialog. **Superseded by ADR-028**
-Was Yes/No "Save N reps?" dialog. Couldn't express "discard".
+### ADR-007: Workout Back Yes/No dialog. **Superseded by ADR-028**
+Couldn't express "discard".
 
 ### ADR-008: Calibration hidden from the release build. **Superseded by ADR-033**
-`store.jungle` overlays `resources-store/`, whose main menu omits Calibrate and Validation Log. Calibration returns to store build only after physical validation passes (go-to-market gate 1/2).
+Origin of the `store.jungle` + `resources-store/` menu overlay.
 
 ### ADR-010: Storage write failures
 `Storage.setValue` wrapped in try/catch (`StorageFullException`); app keeps running, dashboard footer shows `! COULD NOT SAVE`.
@@ -92,8 +93,8 @@ Filename = class name, `HeroSet` prefix everywhere (Monkey C has no modules). Te
 ### ADR-014: Tests
 `(:test)` functions live in `source/test/`, excluded from normal builds, run with `monkeyc -t` + `monkeydo … -t` (`development.md`).
 
-### ADR-016: Per-workout FIT session. **Superseded by ADR-021**
-One Garmin Connect activity per set cluttered Connect/Strava feed.
+### ADR-016: One FIT activity per set. **Superseded by ADR-021**
+Cluttered the Connect/Strava feed.
 
 ### ADR-017: Manual entry picker. **Amended by 028, 029**
 `HeroSetManualPickerView` edits signed delta with Up/Down instead of `+1/+5/+10` menu. Now: exactly ±1 per press (029), Back opens Save/Discard/Keep Editing (028).
@@ -121,13 +122,13 @@ Found in `CIQ_LOG.YAML` from real FR965; simulator never reproduced them.
 ### ADR-024: Finish → picker; depth-1 invariant. **Amended by 028**
 No pause/resume. START (Finish) opens manual picker seeded with detected count → correcting miscount reuses one UI. **Invariant:** every caller pops its own view *before* pushing picker, so picker always sits directly on dashboard. Save/Discard paths pop fixed count; break invariant and they either strand a view or pop past root, which **exits the app**. Save feedback centralized in `HeroSetSaveFeedback`.
 
-### ADR-025: Opt-in Connect sync, one activity per day. **Dev build only (ADR-033); unverified (see 030)**
-Off by default (`Fit` permission, privacy-sensitive). When on, one `ActivityRecording` session per calendar day, started/stopped around each set (`SPORT_TRAINING`/`STRENGTH_TRAINING`, no GPS); manual entries don't record. Relies on `createSession()` returning still-open session after HeroSet closed and reopened. Undocumented by Garmin, and first device test suggests it doesn't hold.
+### ADR-025: Opt-in sync, one session per day. **Superseded by ADR-043**
+Relied on a session surviving app close; it doesn't (ADR-030).
 
 ### ADR-026: On-watch validation log (dev build)
 No reliable way to pull app data off this FR965 → workout-seeded saves log `mmdd EX detected->saved error` into capped ring buffer (`VALIDATION_LOG_MAX_ENTRIES` = 30, flat key, no schema bump). Read via dev menu → Validation Log; transcribe into `validation-log.md`.
 
-### ADR-027: `Menu2` main menu; sync toggle. **Amended by ADR-033**
+### ADR-027: `Menu2` main menu; sync toggle. **Amended by ADR-033, ADR-043**
 Main menu is `Menu2` so Connect Sync is `ToggleMenuItem` with visible On/Off; no confirmation. Resource toggles static → `HeroSetMenuDelegate.prepare` stamps live state before pushing. `Menu2` never pops itself: every handler pops explicitly. Turning sync off saves day's session and clears stored session day.
 
 ### ADR-028: UX pass
@@ -142,10 +143,8 @@ Main menu is `Menu2` so Connect Sync is `ToggleMenuItem` with visible On/Off; no
 - **Hints use bezel names:** `START`, `UP/DOWN`, never `SELECT`/`DN`.
 - **Sync label** is `Connect Sync` so toggle switch doesn't cut it off.
 
-### ADR-030: Sync diagnostics + empty-session guard. **Dev build only (ADR-033); investigation paused**
-`HeroSetSyncCoordinator` owns sync day logic, logs `HH:MM SYNC
-NEW/KEPT/LOST/SAVED/EMPTY` to validation log; test steps in `development.md`. `closeOpenSession` saves only if session recorded time, else discards → lost session can't become blank activity.
-**First device result (2026-09-16):** `SYNC LOST`, plus two HeroSet activities in Garmin Connect that HeroSet didn't save. Hypothesis: watch saves unfinished recording when app closes. Next steps and constraints: `go-to-market.md` status checkpoint, item 0.
+### ADR-030: Sync diagnostics for the per-day session. **Superseded by ADR-043**
+Added `SYNC …` lines to the validation log. **Device result that still stands (2026-09-16):** after reopening, the day's session was gone (`SYNC LOST`) and Connect had two HeroSet activities HeroSet never saved → the watch saves an unfinished recording when the app closes.
 
 ### ADR-031: Dashboard redesign + rank curve
 - **Rank curve:** flat 100 XP/rank gave +6 ranks per full day. Now rank r→r+1 costs `300 × min(r, 14)` XP: rank 10 ≈ 3 weeks, then 1 rank per full week. Rank derived, never stored → no migration.
@@ -176,9 +175,9 @@ Decided 2026-09-17 to publish sooner.
 
 ### ADR-034: Wave-1 devices and a per-device screen-fit test
 - **Products:** 16 watches matching FR965 hardware shape: round AMOLED, five buttons, Connect IQ 5.2+, 100 Hz accelerometer, 786 KB app memory (Forerunner 165/265/570/965/970, epix Gen 2 and Pro, fēnix 8 AMOLED, fēnix E). List and exclusions: `compatibility.md`. Two-button touch watches, MIP screens, Instinct cut-out screens left for later waves — they need input, palette or layout work, not just manifest entry.
-- **Screen-fit test:** all view text goes through `HeroSetDraw.text`, which — while `HeroSetDraw.misfits` set (tests only; null in app) — records text boxes outside round display and every box drawn. `everyScreenFitsThisDisplay` swaps in seeded in-memory store (`HeroSetApp.swapStoreForTest`; this and `HeroSetWorkoutView.setCountsForTest` are `(:debug)`, since runner would execute a `(:test)` method as a test, and release exports strip them), renders every screen in widest state (3-digit counts, full log page, RANK 999…) onto bitmap of device size, asserts no clipping and no overlapping text boxes per screen. Running suite in each product's simulator checks that product's real fonts. Real bugs found, FR965 included: Validation Log header clipped at `FONT_SMALL` (12 of 16 devices; now shrinks to fit) and overlapped first log line on Forerunner 265; calibration screen `FONT_LARGE` counter overlapped status line. Both screens now stack rows by measured font height instead of fixed bands.
+- **Screen-fit test:** all view text goes through `HeroSetDraw.text`, which — while `HeroSetDraw.misfits` set (tests only; null in app) — records text boxes outside round display and every box drawn. `everyScreenFitsThisDisplay` swaps in seeded in-memory store (`HeroSetApp.swapStoreForTest`; this and `HeroSetWorkoutView.setCountsForTest` are `(:debug)`, since runner would execute a `(:test)` method as a test, and release exports strip them), renders every screen in widest state (3-digit counts, full log page, RANK 999…) onto bitmap of device size, asserts no clipping and no overlapping text boxes per screen. Running suite in each product's simulator checks that product's real fonts. It found real clipping and overlap, FR965 included; affected screens now stack rows by measured font height.
 - **Launcher icon:** one 65 px SVG; compiler scales it to 54/60 px on smaller products (build warning, expected).
-- **Test hooks** are `(:debug)`, and `store.jungle` excludes `debug` as well as `sync`: without that they compiled into non-release store build. Screen-fit test and harness carry `(:test :debug)` → store-build test run skips them (counts differ between the two runs; current numbers in ADR-036 and `development.md`).
+- **Test hooks** are `(:debug)`, and `store.jungle` excludes `debug` as well as `sync`: without that they compiled into non-release store build. Screen-fit test and harness carry `(:test :debug)` → store-build test run skips them (counts differ between the two runs; current numbers in `development.md`).
 - **Fonts differ inside a family:** `fr965` and `fr970` are same 454 px round AMOLED product family with different font metrics → every product gets own simulator run, not one per family.
 - **Limit:** only FR965 used on real watch. Boxes use full font height → test judges clipping and overlap only, not visual balance. `HeroSetDraw.misfits`/`boxes` ship in release build as inert statics.
 
@@ -191,12 +190,11 @@ Decided 2026-09-17 to publish sooner.
 Still excluded, and why, in `compatibility.md`: touch-first watches need different input model (ADR-029), Instinct needs sub-window layout, square products need untested rectangle path. **MIP contrast in daylight is unverified** — no MIP watch used on a wrist here.
 
 ### ADR-036: Storage writes flat keys only; one fit helper, one exit menu
-Repo-wide simplification pass (2026-09-18). No behaviour change intended; 80 tests pass in the dev build, 79 in the store build, and `everyScreenFitsThisDisplay` passes on every supported product.
+Repo-wide simplification pass (2026-09-18), no behaviour change.
 - **Storage drops the grouped dictionaries** ADR-003 introduced. `_set` wrote every value twice — flat key *and* a `hero_daily`/`hero_profile` group dict — and `readNumber` read the dict first with a flat fallback, so the second copy was never the answer to anything. Flat keys stay the format (spellings unchanged, ADR-003), `SCHEMA_VERSION` stays 3 because nothing on disk changes, and `migrateFlatStateToDictionaries` plus the pre-grouping calibration key reader go with it. Calibration keeps its own `hero_calibration` dictionary — that one holds real per-exercise structure.
 - **Exercise storage keys derive from one mapping.** `keyFor` and `creditKeyFor` are `"hero_" +` / `"hero_credit_" +` `exerciseKeyString(exercise)`, which is now the single place an unknown exercise throws instead of silently writing SQUATS state.
 - **One text-fit helper.** `HeroSetDraw.fits/firstFitting/largestFont` take a radius and a margin instead of existing twice, once against the display and once (`*Within`) against the dashboard's content circle. Call sites pass `layout.displayRadius(), layout.textMargin()` or `layout.contentRadius(), 0`; the arithmetic is unchanged, so no device needed re-checking by eye.
 - **One exit menu.** `HeroSetExitMenuDelegate` owns Save / Discard / stay and the ADR-024 pop counts; the workout and picker versions are ~15-line subclasses overriding `save()`. Inheritance rather than a stored `Lang.Method`, because indirect binding has failed silently on device before (ADR-023) and this is the save path.
-- **`configKeepsMissionAndSensorContracts` deleted**: it asserted each tunable equalled its own literal, so deliberately retuning a constant "failed" it.
 - **Connect sync was audited as removable and deliberately kept.** It ships in no store build already (`excludeAnnotations = sync`), so deleting it would have saved nothing at runtime, and sync is wanted in the near future (ADR-030's one-activity-per-day bug is the real blocker, not the code).
 
 ### ADR-037: Wave 3 — 16 more round AMOLED five-button watches
@@ -245,3 +243,22 @@ Decided 2026-09-19 (user call) after the first learning-build session on FR965: 
 - **Ship paid now, measure after.** Slow/fast sets, the 60 s idle-in-position check, a 30+ rep set and the store build sideload were not run. The listing already makes no accuracy claim: it says the count can be off, each set is reviewed before save, and the count can be corrected (no "beta" in public copy, `release-contract.md`), so a miscount costs a button press, not stored progress (ADR-002).
 - **Known risks carried into launch:** fast squats undercounted on the calibrated detector (2026-09-18, −7/−2); push-up getting-up rep only seen dropped once; learning time on a long trace unmeasured on device (~55 ms in simulator, ADR-040).
 - **Amends** `go-to-market.md` Phase 1 "accuracy validation method" and the `release-contract.md` release decision: gate 2 becomes a post-launch check; a failure is fixed in an update, and the listing is rewritten manual-first if counting can't be defended as beta.
+
+### ADR-043: Connect sync: one activity per workout, laps per set
+Decided 2026-09-19 (user call); full reasoning and platform limits in `connect-sync-plan.md`.
+- **A day can't be merged into one activity.** A Connect IQ session records live only (no backdating), doesn't survive the app closing (ADR-030's device result), can't run in a 30 s background service, and no Garmin API accepts a finished activity from outside. So the unit is one HeroSet **visit**. The user is fine with several activities a day and mutes Strava noise on Strava's side.
+- **Behavior (sync On):** a visit's first workout set opens a `SPORT_TRAINING`/`STRENGTH_TRAINING` session; the timer runs only while a set screen is up. Each set is one lap, closed when the next set begins, carrying FIT developer fields `Exercise` (string) and `Reps`; session fields hold push-up/sit-up/squat totals. Only workout-seeded saves count (same boundary as learning, ADR-040); negative corrections count as 0. `AppBase.onStop` always saves (≥ 1 saved rep) or discards, and a refused save is discarded: on a normal exit nothing is left open, which should stop the stray activities of ADR-030. Negative corrections lower the visit total (lap stays ≥ 0).
+- **Setting:** same `Connect Sync` toggle and `hero_sync_enabled` key (ADR-027), off by default; sublabels say `Saves to Connect` / `Watch only`. Turning it off mid-visit discards the recording. `hero_sync_day` retired, name never reused (ADR-003). FIT field ids 0–4 are fixed forever: they are baked into saved activities.
+- **Code:** `HeroSetSyncCoordinator` is now one instance per app (`getApp().getSync()`), `HeroSetActivitySync` is owned by it (its `(:nosync)` twin deleted: nothing outside `(:sync)` code references it). Dev manifest adds `FitContributor`.
+- **Still dev-only.** Store build (ADR-033) unchanged until the FR965 acceptance in `connect-sync-plan.md` device acceptance passes; then `Fit` + `FitContributor` go into `manifest-store.xml` and privacy/store copy change the same session.
+- **Unverified:** whether Connect (web and phone) shows string lap fields (fallback: three numeric lap fields); that `onStop` covers every exit path (it does **not** run if HeroSet crashes, so a crash mid-visit may still leave a session for the watch to save); where the lap boundary falls when `addLap()` runs right after `start()`; session memory on the 128 KB watches (fēnix 6/6S, Enduro).
+
+### ADR-044: HeroSet publishes today's progress to our own watch face
+Decided 2026-09-20 while building HeroFace, the sibling watch face (repo `../heroFace`, its `docs/plan.md`).
+- **Complications are the only bridge.** An app's `Storage` is private to that app, so a watch face cannot read HeroSet's counts. Connect IQ's complication publish/subscribe (CIQ 4.2+) is the one supported channel: a device app publishes, and only watch faces may subscribe.
+- **Private access, one complication.** `access="private"` limits readers to apps signed with the same developer key, so the data reaches our face and nothing else — not other developers' apps, and not Face It (which is why the resource carries no `faceIt` element). Complication id `0` is stored by subscribers and never changes.
+- **One packed string, not four values.** The value is `v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay`. HeroSet only publishes while it runs, so the face needs the day keys to tell today's counts from yesterday's and to break a streak HeroSet has not yet seen expire. Field order is fixed; new fields go on the end and `v` only changes on a breaking change. `HeroSetComplicationPublisher.valueFor` is pure and unit-tested.
+- **Published on every stored change:** app start, every save (`HeroSetSaveFeedback`, the one path all stored counts go through), and midnight while the dashboard is open (`HeroSetDayTracker`).
+- **Older watches build without it.** The resource only compiles for products that have the API, so `resources-complications/` is added per product in both jungles for the 50 products at CIQ 4.2+; the 17 at 3.4–4.1 (ADR-038 wave, e.g. fēnix 6, MARQ Gen 1, Enduro) build without it, and `Toybox has :Complications` makes every publish call a no-op there. Those users' faces fall back to their own everyday goals.
+- **Store build publishes too** (unlike Connect sync, ADR-043): nothing leaves the watch, it needs no network and no new user-facing claim, and a face that only worked in dev builds could never ship. The `ComplicationPublisher` permission is in both manifests.
+- **Unverified on device:** whether a published value survives a reboot while HeroSet is not running (the face caches the last value either way), and whether the added permission prompts existing users to re-approve on update.

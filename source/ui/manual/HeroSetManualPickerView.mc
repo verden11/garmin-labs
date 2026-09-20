@@ -79,6 +79,7 @@ class HeroSetManualPickerView extends WatchUi.View {
         HeroSetSaveFeedback.save(store, _exercise, _delta);
         if (_detectedSeed != null) {
             store.logValidationTrial(_exercise, _detectedSeed, _delta);
+            getApp().getSync().setSaved(_delta);
         }
         learnFromSet(store);
     }

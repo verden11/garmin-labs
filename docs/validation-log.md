@@ -1,102 +1,54 @@
-# Physical Accuracy Validation Log
+# Physical accuracy validation log
 
-Raw trial data for go-to-market.md Phase 2 step 1 / launch gate 2. Fill during
-on-device testing; roll summary (not every row) into
-`release-contract.md`'s evidence column when done.
+Raw FR965 trial data for launch gate 2 (`go-to-market.md`). Roll the summary (not rows) into `release-contract.md`.
 
-**Detector changed 2026-09-17 (ADR-032).** Two rows dated 2026-09-16 below
-used old magnitude detector — don't count toward gate; kept as failure record.
-Recalibrate every exercise before new trials: old calibration profiles ignored.
+**Gate:** median |error| ≤ 1 per 10-rep set · ≤ 1 phantom per 60 s still in exercise position · no crash in 30 min.
 
-**Calibration removed 2026-09-19 (ADR-040):** thresholds now learned from
-saved counts. Rows dated 2026-09-18 used calibrated detector; learning-build
-rows start fresh. Idle check now means 60 s still in exercise position.
+**Capture (ADR-026, dev build):** every workout set saved through the picker logs `detected -> saved`. Read via main menu → **Validation Log** (newest first, Up/Down pages). Capped at 30 entries, oldest drop silently: copy out before then. Idle phantoms and crashes aren't logged; record them below. Save what you really did — the learner trains on it (ADR-040).
 
-**Gate to hit** (`go-to-market.md` gate 2): median |error| ≤ 1 per 10-rep set;
-≤ 1 false positive per 60 s idle; calibration success ≥ 90%; no crash/listener
-leak in 30 min sessions.
+Detector eras: 2026-09-16 old magnitude detector (ADR-004, failure record only) · 2026-09-18 tilt/height detector with calibration (ADR-032; calibration 3/3 succeeded) · 2026-09-19+ learning build (ADR-040).
 
-## Automatic capture (ADR-026)
+## Sets
 
-Every real workout set logs itself: Finish seeds correction picker with
-detector's raw count, and whatever you save (after adjusting, if needed) logs
-on-device as `detected -> saved` with error. No separate "test mode" — do sets
-normally, read log back after from main menu's **Validation Log** entry (dev
-build only, ADR-033). Pages newest-first, 3 entries/screen, Up/Down to page,
-Back to exit.
+Device: FR965, firmware 29.05, Connect IQ 6.0.2.
 
-Transcribe what you read off-watch into **Session log** table below (or
-photograph each page) — on-device log capped at
-`HeroSetConfig.VALIDATION_LOG_MAX_ENTRIES` (30) entries, oldest drop
-silently, so copy out before that many sets pile up. Does not capture idle
-false positives or calibration success/fail — record those manually in
-sections below.
+| Date | Exercise | Speed | Target | Detected | Error | Notes |
+|---|---|---|---|---|---|---|
+| 2026-09-16 | pushups | medium | 10 | 4 | −6 | old detector |
+| 2026-09-16 | squats | medium | 10 | 19 | +9 | old detector; 2× reproduced in simulator |
+| 2026-09-18 | pushups | slow | 10 | 12 | +2 | |
+| 2026-09-18 | pushups | medium | 10 | 11 | +1 | extra rep getting up |
+| 2026-09-18 | pushups | fast | 10 | 10 | 0 | |
+| 2026-09-18 | situps | slow | 10 | 10 | 0 | |
+| 2026-09-18 | situps | medium | 10 | 10 | 0 | |
+| 2026-09-18 | situps | fast | 10 | 11 | +1 | |
+| 2026-09-18 | squats | slow | 10 | 10 | 0 | |
+| 2026-09-18 | squats | medium | 10 | 10 | 0 | |
+| 2026-09-18 | squats | fast | 10 | 3 | −7 | |
+| 2026-09-18 | squats | fast | 10 | 8 | −2 | 1.2 s/rep; wrist drops on the way up, arm travel cancels body travel |
+| 2026-09-19 | pushups | medium | 10 | 12 | +2 | learning, set 1 |
+| 2026-09-19 | squats | medium | 10 | 10 | 0 | learning, set 1; hands steady at chin |
+| 2026-09-19 | pushups | medium | 10 | 10 | 0 | learning, set 2 |
+| 2026-09-19 | situps | medium | 10 | 10 | 0 | learning, set 1 |
 
-## Session log
+## Idle phantoms (60 s)
 
-Device/firmware: _(e.g. FR965, firmware 29.05, ConnectIQ 6.0.2)_
+| Date | Exercise | Condition | Phantoms |
+|---|---|---|---|
+| 2026-09-18 | pushups | normal wrist movement | 14 |
+| 2026-09-18 | pushups | wrist on table | 0 |
+| 2026-09-18 | situps | normal wrist movement | 2 |
+| 2026-09-18 | squats | normal wrist movement | 5 |
 
-| Date | Exercise | Speed | Calibrated OK? (Y/N) | Target reps | Detected count | Error (detected − target) | Notes |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| 2026-09-18 | pushups | slow | Y | 10 | 12 | +2 | new detector (ADR-032) |
-| 2026-09-16 | pushups | medium | Y | 10 | 4 | −6 | old detector (ADR-004); superseded |
-| 2026-09-18 | pushups | medium | Y | 10 | 11 | +1 | new detector (ADR-032); extra rep counted while getting up after set |
-| 2026-09-18 | pushups | fast | Y | 10 | 10 | 0 | new detector (ADR-032) |
-| 2026-09-18 | situps | slow | Y | 10 | 10 | 0 | new detector (ADR-032) |
-| 2026-09-18 | situps | medium | Y | 10 | 10 | 0 | new detector (ADR-032) |
-| 2026-09-18 | situps | fast | Y | 10 | 11 | +1 | new detector (ADR-032) |
-| 2026-09-18 | squats | slow | Y | 10 | 10 | 0 | new detector (ADR-032) |
-| 2026-09-16 | squats (unconfirmed) | medium | Y | 10 | 19 | +9 | old detector; 2× count reproduced in simulator (ADR-032) |
-| 2026-09-18 | squats | medium | Y | 10 | 10 | 0 | new detector (ADR-032) |
-| 2026-09-18 | squats | fast | Y | 10 | 3 | −7 | new detector (ADR-032); big undercount |
-| 2026-09-18 | squats | fast | Y | 10 | 8 | −2 | repeat: ~12 s for 10 (1.2 s/rep), slightly shallower than slow, misses spread evenly; hands at chin but wrist drops on way up, returns to chin on way down — arm travel cancels body travel |
-| 2026-09-19 | pushups | medium | n/a | 10 | 12 | +2 | learning build (ADR-040), teaching set 1 |
-| 2026-09-19 | squats | medium | n/a | 10 | 10 | 0 | learning build, teaching set 1; hands held steady at chin throughout |
-| 2026-09-19 | pushups | medium | n/a | 10 | 10 | 0 | learning build, teaching set 2 |
-| 2026-09-19 | situps | medium | n/a | 10 | 10 | 0 | learning build, teaching set 1 |
+Learning build: gate means still **in exercise position** (ADR-040, no position gating). Not yet measured.
 
-Add rows for repeat trials — more than one pass per exercise/speed cell
-encouraged, not just one each. Deliberately over- or under-correcting a set at
-Finish defeats point — save what you actually counted.
+## Crash / listener leak (30 min)
 
-## Calibration attempts
-
-| Date | Exercise | Result |
-| --- | --- | --- |
-| 2026-09-18 | pushups | saved |
-| 2026-09-18 | situps | saved |
-| 2026-09-18 | squats | saved |
-
-## Idle false-positive check
-
-Wear watch, stay still/normal wrist movement (not exercising) 60 s per
-exercise's calibration profile active; count any reps detector logs.
-Learning build (ADR-040): start set in exercise position, hold still 60 s.
-
-| Date | Exercise (calibration active) | Idle duration | False positives counted |
-| --- | --- | --- | --- |
-| 2026-09-18 | pushups | 60s, normal wrist movement | 14 |
-| 2026-09-18 | pushups | 60s, wrist resting on table | 0 |
-| 2026-09-18 | situps | 60s, normal wrist movement | 2 |
-| 2026-09-18 | squats | 60s, normal wrist movement | 5 |
-
-## Crash / listener-leak check
-
-30 min continuous session (mix of sets across exercises, app left open, no
-force-quit). Note anything abnormal — freeze, crash, detector stops
-responding, battery/heat spike.
-
-| Date | Duration | Crash? | Listener stopped responding? | Notes |
+| Date | Duration | Crash | Listener stopped | Notes |
 |---|---|---|---|---|
-| 2026-09-18 | full trial session (not timed) | N | N | Battery looked OK (no % noted) |
+| 2026-09-18 | not timed | N | N | battery looked OK |
 
-## Summary (2026-09-18, FR965, detector ADR-032)
+## Summary
 
-- Median absolute error per 10-rep set: **0.5** (10 sets: push-ups +2/+1/0, sit-ups 0/0/+1, squats 0/0/−7/−2). Over-counts come from getting up after set; fast-squat misses from hands moving to/from chin (arm travel cancels body travel).
-- False positives per 60s idle, normal wrist movement: **push-ups 14, sit-ups 2, squats 5**. Wrist resting on table: push-ups **0**.
-- Calibration success rate: **100% (3/3)**
-- Crash/listener leak: **N** (session not timed to 30 min)
-- **Gate 2: fail — idle false positives.** Counting accuracy passes. Detector quiet at rest; phantoms come from arm movement outside exercise position → fix = only count in exercise position (e.g. wrist flat for push-ups), not higher thresholds.
-
-Copy this summary block into `docs/release-contract.md`'s "Automatic reps"
-evidence cell when done.
+- **2026-09-18 (calibrated):** median error 0.5 over 10 sets; over-counts from getting up, fast-squat misses from arm travel. Idle with arm movement 14/2/5 → gate fail → led to ADR-040.
+- **2026-09-19 (learning):** 4 medium sets +2/0/0/0. Speeds, idle-in-position, long set not run; gate 2 waived for launch (ADR-042).

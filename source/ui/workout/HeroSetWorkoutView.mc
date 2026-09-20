@@ -22,7 +22,7 @@ class HeroSetWorkoutView extends WatchUi.View {
     private var _counter;
     private var _metrics;
     private var _refreshTimer;
-    private var _activitySync;
+    private var _setBegun = false;
 
     function initialize(exercise as Lang.Symbol) {
         View.initialize();
@@ -36,7 +36,6 @@ class HeroSetWorkoutView extends WatchUi.View {
         _counter = new HeroSetRepCounter(threshold, HeroSetConfig.SENSOR_SAMPLE_RATE, HeroSetConfig.SENSOR_COOLDOWN_MS, HeroSetRepCounter.integratesMotion(exercise));
         _sensorManager = new HeroSetSensorManager();
         _metrics = new HeroSetWorkoutMetrics();
-        _activitySync = new HeroSetActivitySync();
     }
 
     function onShow() as Void {
@@ -45,19 +44,23 @@ class HeroSetWorkoutView extends WatchUi.View {
         _sensorManager.start(method(:onSensorData), HeroSetConfig.SENSOR_SAMPLE_RATE);
         enableHeartRate();
         startRefresh();
-        // Opt-in Garmin Connect/Strava sync (ADR-025) — one combined FIT
-        // activity per day spanning every set, paused between sets via
-        // onHide/onShow so its duration reflects only real exercise time.
-        HeroSetSyncCoordinator.beginSet(_activitySync);
+        // Opt-in Connect sync (ADR-043): this view's first show starts the
+        // set's lap; later shows (Resume, notification dismissed) only
+        // restart the timer onHide paused.
+        var sync = getApp().getSync();
+        if (_setBegun) {
+            sync.resumeSet();
+        } else {
+            _setBegun = true;
+            sync.beginSet(_exercise);
+        }
     }
 
     function onHide() as Void {
         stopRefresh();
         _sensorManager.stop();
         disableHeartRate();
-        if (getApp().getStore().isSyncEnabled()) {
-            _activitySync.endSet();
-        }
+        getApp().getSync().pauseSet();
     }
 
     // HR/calories/elapsed change between reps; rep detection alone would
@@ -97,6 +100,7 @@ class HeroSetWorkoutView extends WatchUi.View {
             return;
         }
         HeroSetSaveFeedback.save(getApp().getStore(), _exercise, count);
+        getApp().getSync().setSaved(count);
     }
 
     // Screen-fit tests need the widest counts without running sensors.

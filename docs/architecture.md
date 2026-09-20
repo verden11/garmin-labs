@@ -19,10 +19,12 @@ Target: 67 round watches, AMOLED and MIP, FR965 first (`compatibility.md`), Conn
 ```
 source/
 ├── app/          HeroSetApp               entry point, owns the store
+│                 HeroSetComplicationPublisher  today's progress for our own
+│                                          watch face (private, ADR-044)
 │                 HeroSetDelegate          dashboard input → main menu
 │                 HeroSetMenuDelegate      Menu2 routing, live menu state
-│                 HeroSetSyncCoordinator   Connect sync day logic + log lines (dev;
-│                                          store build: no-op …Off.mc, ADR-033)
+│                 HeroSetSyncCoordinator   Connect sync: visit → activity, laps, log
+│                                          (dev; store build: no-op …Off.mc, ADR-043)
 ├── domain/       HeroSetConfig            every tunable constant
 │                 HeroSetRules             XP, rank curve, streaks, goal transitions
 │                 HeroSetCalendar          local-day keys and day math
@@ -34,8 +36,8 @@ source/
 │                 HeroSetPersistentStorage real Toybox Storage backend
 │                 HeroSetClock             day seam (tests control "today")
 ├── sensor/       HeroSetSensorManager     accelerometer listener lifecycle
-│                 HeroSetActivitySync      opt-in FIT recording session (dev;
-│                                          store build: no-op …Off.mc, ADR-033)
+│                 HeroSetActivitySync      FIT session + lap/session fields (dev
+│                                          only, `(:sync)`; ADR-043)
 ├── layout/       HeroSetLayout            round-screen geometry
 ├── ui/
 │   ├── dashboard/  HeroSetView, HeroSetDashboardState, HeroSetDayTracker,
@@ -55,6 +57,8 @@ source/
                   HeroSetMotionFixture (physically shaped rep traces) and
                   HeroSetRepCounterHarness (shared test steps)
 resources/        English fallback strings, Menu2 menus, launcher icon (dev build)
+resources-complications/  private complication for HeroFace; on the resource
+                  path of CIQ 4.2+ products only (ADR-044)
 resources-<lang>/  translated strings for launch languages (`deu`, `fre`, `spa`,
                   `ita`, `por`, `dut`, `pol`, `swe`, `dan`, `nob`, `fin`, `tur`,
                   `lit`, `ukr`); Garmin selects by device language
@@ -96,14 +100,16 @@ Dependencies point down only. Sensor classes take plain args, return plain value
 - **Write failures:** caught, flagged via `hasWriteFailure()` (ADR-010).
 - **Flat keys only:** one `hero_*` key per value, spellings fixed by ADR-003; the grouped `hero_daily`/`hero_profile` mirrors were removed as dead weight (ADR-036). `keyFor`/`creditKeyFor` derive from `exerciseKeyString`, the one place an unknown exercise throws.
 - **Learned thresholds:** `hero_learning` dict keyed by exercise strings, never Symbols (ADR-022); wrong `model` or malformed state reads as fresh (ADR-040). Old `hero_calibration` profiles not read.
-- **Sync state:** `isSyncEnabled`, and day of open recording (`get/set/clearSyncSessionDay`; 0 sentinel = none) (ADR-025/027).
+- **Sync state:** `isSyncEnabled` only (ADR-027/043); `hero_sync_day` retired, never reused.
 - **Diagnostics log:** `logValidationTrial` (validation trials) and `logDiagnostic` (sync lines), one capped ring buffer read by `getValidationLog` (ADR-026/030).
+
+**HeroSetComplicationPublisher** (ADR-044): packs the dashboard state, today's day key and the last completion day into one private complication value for HeroFace (`../heroFace`). `valueFor` is pure; `publish` is a no-op below CIQ 4.2.
 
 **HeroSetSensorManager**: register/unregister 25 Hz accelerometer listener. Callers must pass `method(:onSensorData)` (ADR-023).
 
-**HeroSetActivitySync** (dev build; ADR-033): opt-in FIT recording. `beginSet()` (return time already recorded, so resumed session detectable), `endSet()`, `closeOpenSession()` (save only if recorded time, else discard).
+**HeroSetActivitySync** (dev build; ADR-043): one FIT session. `open()` (session + 5 developer fields, start; false if the watch refuses), `resume()`/`pause()`, `closeLap(name, reps)`, `finish(name, reps, totals)` → save (discards if the watch refuses), `abandon()` → discard; both return whether the watch accepted. Field ids 0–4 match `resources/fitcontributions` and never change.
 
-**HeroSetSyncCoordinator** (dev build; ADR-033): decide when stale day's recording closed, turn sync on/off, write `SYNC …` lines to diagnostics log (ADR-030).
+**HeroSetSyncCoordinator** (dev build; ADR-043): one instance per app (`getApp().getSync()`). Tracks the running set's lap and visit totals, closes a lap when the next set begins, saves (≥ 1 saved workout rep) or discards in `stop()` from `AppBase.onStop`, writes `SYNC NEW/SAVED/EMPTY/OFF/FAIL` to the diagnostics log.
 
 **HeroSetLayout**: chord-aware insets for round screens, content bands, footer rows, dashboard ring geometry, and `fitCenteredY` (walk text up off bezel until measurably fits). **HeroSetDraw** build on it to choose first wording/largest font that fits (ADR-018): `fits`/`firstFitting`/`largestFont` take the radius to measure against (`displayRadius()` with `textMargin()`, or `contentRadius()` with 0) rather than existing in two variants (ADR-036).
 
@@ -124,9 +130,12 @@ Picker save → Store.add(exercise, delta)
   → ensureCurrentDay → clamp ≥ 0 → awardXpFor (ratchet) → updateCompletion
   → logValidationTrial (workout-seeded only) → HeroSetSaveFeedback
 
-Connect Sync on: WorkoutView.onShow → SyncCoordinator.beginSet
-  → close stale day's recording? → ActivitySync.beginSet → log SYNC line
-  WorkoutView.onHide → ActivitySync.endSet (pause between sets)
+Connect Sync on (ADR-043):
+  WorkoutView first onShow → Sync.beginSet(exercise)
+    → open session (first set) | resume + closeLap(previous set)
+  WorkoutView later onShow → Sync.resumeSet · onHide → Sync.pauseSet
+  workout save (picker seeded / Back → Save) → Sync.setSaved(reps)
+  App.onStop → Sync.stop → finish (save) | abandon (discard)
 ```
 
 ## 6. Code style
@@ -137,11 +146,7 @@ Connect Sync on: WorkoutView.onShow → SyncCoordinator.beginSet
 - Catch only what can throw; degrade and flag, never swallow silently.
 - Comments explain **why**, not what.
 
-## 7. Decisions
-
-All ADRs, with status and rationale: [`decisions.md`](decisions.md). New durable decisions go there, as new ADR at end.
-
-## 8. Navigation
+## 7. Navigation
 
 ```
 Dashboard (HeroSetView) ── START/Up/Down (or Menu) ──► Main Menu (Menu2)
@@ -164,17 +169,17 @@ Dashboard (HeroSetView) ── START/Up/Down (or Menu) ──► Main Menu (Menu
 
 Every fixed pop count rely on Workout/Picker sitting at depth 1 (ADR-024). Over-popping past dashboard exits app.
 
-## 9. Known technical debt
+## 8. Known technical debt
 
 | Item | Why it's not fixed yet | Fix when |
 |---|---|---|
 | `HeroSetStore.mc` is 472 lines (budget 250) | Guards user data; bad split corrupts installs (ADR-020) | With device upgrade check (gate 4) |
 | Rep detector and learning constants are tuned on synthetic fixtures, not watch recordings (ADR-032/040) | No way yet to pull raw sensor data off watch | When gate 2 trials show misses; record traces with dev build if needed |
-| Connect Sync's one-activity-per-day design is unverified and probably broken on device | Out of v1 (ADR-033); needs paused device investigation | Before sync returns to store build |
+| Connect Sync (one activity per workout, ADR-043) unverified on device | Dev build only until FR965 acceptance (`connect-sync-plan.md` device acceptance) | Before sync goes into the store build |
 | Validation log also records in store build (only viewer hidden) | Harmless 30-entry buffer, disclosed in HeroSet privacy page (`../verden-site`); could now be gated with annotation like sync (ADR-033) | If it ever holds anything sensitive |
 | Screen-fit audit statics (`HeroSetDraw.misfits`/`boxes`) ship in release build (ADR-034) | One null check per text draw; annotating them out need second `HeroSetDraw.text` | If draw cost ever show up in profiling |
 | Physical-device-only failure modes (ADR-022/023) aren't covered by unit tests | Simulator doesn't reproduce them | Keep reading `CIQ_LOG.YAML` after device runs |
 
-## 10. Out of scope
+## 9. Out of scope
 
-Touch-first interaction, multiple languages, cloud sync, FFT/ML signal processing, GPS/distance tracking, one FIT activity per workout.
+Touch-first interaction, cloud sync, FFT/ML signal processing, GPS/distance tracking, one FIT activity per set (ADR-016), one merged activity per day (impossible, ADR-043).

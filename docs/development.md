@@ -26,7 +26,7 @@ Store package for upload (`-e` packages every product in manifest, `-r` strips d
 monkeyc -e -r -f store.jungle -o bin/HeroSet-store.iq -y /path/to/developer_key
 ```
 
-`manifest.xml` and `manifest-store.xml` must keep same app id and products; differ only in `Fit` permission. Check store menu: compile tests with `-f store.jungle` too — `mainMenuPrepareHandlesEitherBuildsMenu` then runs against store menu, which has no sync toggle (ADR-033).
+`manifest.xml` and `manifest-store.xml` must keep same app id and products; differ only in `Fit` and `FitContributor` permissions (dev build only, ADR-043). Check store menu: compile tests with `-f store.jungle` too — `mainMenuPrepareHandlesEitherBuildsMenu` then runs against store menu, which has no sync toggle (ADR-033).
 
 ### Localization
 
@@ -34,7 +34,7 @@ Launch language list identical in both manifests: `eng`, `deu`, `fre`, `spa`, `i
 
 After string change: compare every qualified file's IDs and placeholders with `resources/strings/strings.xml`, then run screen-fit suite with each language selected in Connect IQ simulator. Simulator evidence no replace real-device font and layout checks.
 
-## Unit tests (79 tests)
+## Unit tests (88 tests; 79 in store build)
 
 ```bash
 monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y /path/to/developer_key
@@ -67,19 +67,12 @@ Simulator no catch everything (ADR-022, ADR-023) — some `Storage`/sensor-callb
 
 **On-device live debug**: Monkey C VS Code extension `F5`/"Run App" launch never offered physical FR965 as debug target here (no device picker, silently falls back to simulator) — seems unsupported for this device via this extension, not config issue. Crash log detail not enough → fall back to persisted breadcrumb instead of `System.println` (invisible standalone anyway, no cable): write checkpoint strings through `HeroSetStore` at each step of suspect path, display last one on next dashboard load, sideload, reproduce, reopen app, read screen. See ADR-023 for worked example.
 
-## Physical accuracy validation log
+## Validation Log (dev build)
 
-Dev build only, hidden from `store.jungle` (ADR-026): main menu → **Validation Log** pages through recent workout sets' detected-vs-saved rep counts, newest-first. Populates itself automatically on every real set — no separate test mode. See `docs/validation-log.md` for transcription template and `docs/go-to-market.md` Phase 2 step 1 for accuracy bar it feeds.
+Main menu → **Validation Log** (ADR-026): newest-first `detected -> saved` per workout set, plus Connect Sync lines `HH:MM SYNC NEW/SAVED m:ss/EMPTY/OFF/FAIL` (ADR-043). One 30-line ring buffer for both: copy trials off (`validation-log.md`) before long sync testing.
 
-Dev build log also carries Connect Sync lines (ADR-030; sync dev-only, ADR-033), stamped with time of day (`HH:MM SYNC ...`). Use to check whether day's recording survives closing HeroSet:
-
-1. Main menu → Connect Sync **On**.
-2. Start push-up set, count few reps, START → save.
-3. Start second set without leaving HeroSet, then save it. Log must now show `SYNC NEW` then `SYNC KEPT m:ss`. If second line is `SYNC LOST`, timer reading doesn't work on this firmware — stop: next step can't be trusted.
-4. Leave HeroSet (Back from dashboard), reopen it, do third set.
-5. Read newest line: `SYNC KEPT m:ss` means recording survived closing (one activity per day works). `SYNC LOST` means it didn't.
-6. Optional: turn Connect Sync **Off**. `SYNC SAVED m:ss` should appear, and one HeroSet strength activity should reach Garmin Connect after next phone sync.
+Sync quick check: Connect Sync **On** → save a push-up set and a sit-up set → Back out of HeroSet → log shows `SYNC NEW`, `SYNC SAVED m:ss` → after phone sync, Connect has **one** HeroSet activity with 2 laps and totals. Full list: `connect-sync-plan.md` device acceptance.
 
 ## Signing key
 
-Key signs app, required for future Store updates: keep private, backed up, never committed (repo ignores `developer_key`, `.der`, `.pem`). For shared/public checkouts store outside repo (e.g. `~/.garmin-connectiq/keys/developer_key.der`). Losing it prevents updates.
+Key signs app, required for future Store updates: keep private, backed up, never committed (repo ignores `developer_key`, `.der`, `.pem`). Store it outside repo (maintainer copy: `~/.garmin-connectiq/keys/developer_key`). Losing it prevents updates.

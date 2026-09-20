@@ -8,8 +8,8 @@
     <string id="menu_label_manual_situps">Записати підйоми тулуба</string>
     <string id="menu_label_manual_squats">Записати присідання</string>
     <string id="menu_label_sync">Connect Sync</string>
-    <string id="menu_sublabel_on">УВКЛ</string>
-    <string id="menu_sublabel_off">ВИКЛ</string>
+    <string id="menu_sublabel_on">Зберігає в Connect</string>
+    <string id="menu_sublabel_off">Лише годинник</string>
     <string id="menu_sublabel_progress">$1$/$2$</string>
     <string id="menu_sublabel_done">ГОТОВО</string>
     <string id="menu_label_validation_log">Журнал валідації</string>
@@ -49,10 +49,19 @@
     <string id="validation_log_empty">НЕМАЄ ДАНИХ ЖУРНАЛУ</string>
     <string id="validation_log_page">ЖУРНАЛ $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC НОВИЙ</string>
-    <string id="sync_log_kept">$1$ SYNC ЗБЕРЕЖЕНО $2$</string>
-    <string id="sync_log_lost">$1$ SYNC ВТРАЧЕНО</string>
     <string id="sync_log_saved">$1$ SYNC ЗБЕРЕЖЕНО $2$</string>
     <string id="sync_log_empty">$1$ SYNC ПОРОЖНІЙ</string>
+    <string id="sync_log_fail">$1$ SYNC ПОМИЛКА</string>
+    <string id="sync_log_off">$1$ SYNC ВИМК.</string>
+
+    <string id="fit_label_exercise">Вправа</string>
+    <string id="fit_label_reps">Повтори</string>
+    <string id="fit_unit_reps">повт.</string>
+    <!-- Unit for the string Exercise field: Connect shows a unit after every value. -->
+    <string id="fit_unit_none"> </string>
+    <string id="fit_label_pushups">Відтискання</string>
+    <string id="fit_label_situps">Підйоми тулуба</string>
+    <string id="fit_label_squats">Присідання</string>
 
     <string id="toast_saved">$1$ ЗБЕРЕЖЕНО</string>
     <string id="toast_discarded">ВІДХИЛЕНО</string>

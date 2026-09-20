@@ -14,17 +14,15 @@ Enduro and Enduro 3, Descent MK2), Connect IQ 3.4+:
 
 Goal: publish as paid app on Connect IQ Store.
 
-## Status (2026-09-18)
+## Status (2026-09-20)
 
-- **Working in simulator:** counting that learns from saved counts (ADR-032/040), manual correction, daily goals, XP/rank/streak, dashboard,
-  live HR/calorie readouts, launch localization in English, German, French,
-  Spanish, Italian, Portuguese, Dutch, Polish, Swedish, Danish, Norwegian
-  Bokmål, Finnish, Turkish, Lithuanian, Ukrainian. 79 unit tests pass on each
-  supported product's simulator.
-- **Not yet proven on real watch:** auto counting accuracy with new detector.
-  Garmin Connect sync dev-build only; v1 ships without it (ADR-033).
-- **Not published.** Blockers, in order: [`docs/go-to-market.md`](docs/go-to-market.md)
-  → *Status checkpoint*. What build may honestly claim:
+- **v1 uploaded, in Garmin review.** Counting that learns from saved counts
+  (ADR-040), manual correction, goals, XP/rank/streak, live HR/calories,
+  15 languages. 85 unit tests pass (76 in the store build).
+- **Not proven on a wrist:** counting accuracy beyond a few FR965 sets; the
+  other 66 watches (simulator only).
+- **v1.1 Connect sync:** dev build only, unverified (ADR-043).
+- Open items: [`docs/go-to-market.md`](docs/go-to-market.md). Allowed claims:
   [`docs/release-contract.md`](docs/release-contract.md).
 
 ## Quick start
@@ -71,7 +69,7 @@ Full index: [`docs/README.md`](docs/README.md). Contributor house rules
 ## Repository layout
 
 ```text
-manifest.xml       dev build: app id, 67 products, permissions (Sensor, Fit)
+manifest.xml       dev build: app id, 67 products, Sensor + Fit + FitContributor
 manifest-store.xml release build: same app id, Sensor permission only
 monkey.jungle      dev build
 store.jungle       release build (manifest-store.xml, resources-store/ overlay)

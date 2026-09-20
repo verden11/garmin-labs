@@ -1,41 +1,12 @@
-# Store and monetization plan
+# Store release
 
-## Plan
+Paid, USD 2.00 (→ $1.99 US), no trial (ADR-039; Garmin's 48-hour return window is the only try-before-keep). Garmin takes 15% of tax-exclusive price; $100/yr merchant fee; $10 minimum payout (re-verify, values change). Merchant approved 2026-09-18.
 
-- Distribution: Garmin Connect IQ Store · paid app · target price USD 2.00
-  (→ $1.99 US, per current Garmin docs) · no trial (ADR-039; Garmin's
-  48-hour return window is only try-before-keep).
-- Garmin share: 15% of tax-exclusive price; $100/yr non-refundable merchant
-  fee; $10 minimum payout; 48-hour return window. Re-verify before onboarding —
-  values change.
-- Merchant onboarding, payment, tax, country eligibility all done before
-  publishing.
-
-HeroSet progress all local to watch. v1 store build record no FIT activity,
-no Garmin Connect/Strava sync, no `Fit` permission (ADR-021, ADR-033); sync
-only in dev build (ADR-025).
-
-## Release requirements
-
-- Store build signed with permanent developer key.
-- Every listed product tested for advertised features. Accepted gap: 66 of
-  67 simulator-verified only (ADR-039).
-- Screenshots/descriptions match actual app; permissions declared/justified;
-  name, branding, artwork original.
-- Final package tested on simulator + physical devices.
-
-References: [monetization](https://developer.garmin.com/connect-iq/monetization/),
-[price points](https://developer.garmin.com/connect-iq/monetization/price-points/),
-[merchant onboarding](https://developer.garmin.com/connect-iq/monetization/merchant-onboarding/),
-[publishing](https://developer.garmin.com/connect-iq/core-topics/publishing-to-the-store/),
-[app review](https://developer.garmin.com/connect-iq/app-review-guidelines/).
+Garmin expects every listed product tested, screenshots matching the app, permissions justified. Accepted gap: 66 of 67 simulator-verified only (ADR-039). Refs: [monetization](https://developer.garmin.com/connect-iq/monetization/), [publishing](https://developer.garmin.com/connect-iq/core-topics/publishing-to-the-store/), [app review](https://developer.garmin.com/connect-iq/app-review-guidelines/).
 
 ## Upload form — copy/paste answers
 
-For `apps.garmin.com/en-US/developer/upload`, Step 2. Upload
-`bin/HeroSet-store.iq` built with export command in `development.md`
-(app id `568d5c9b-eb10-4678-bf28-0080c3efbbc1`, ADR-033). Rows marked **paid**
-change between free/beta upload and paid submission.
+For `apps.garmin.com/en-US/developer/upload`, step 2. Upload a freshly exported `bin/HeroSet-store.iq` (`development.md`; older `.iq` files in `bin/` are stale).
 
 | Field | Value |
 |---|---|
@@ -56,7 +27,7 @@ change between free/beta upload and paid submission.
 | Source Code URL | Leave blank (not open source). |
 | Review Notification | Yes. |
 | App Migration (new compatible devices) | **No** — support is explicit list of 67 products (`docs/compatibility.md`, ADR-034/035/037/038); don't let store auto-add untested devices. |
-| Monetization | **Paid:** Yes, USD 2.00. Merchant approved 2026-09-18; gate 2 waived for launch (ADR-042). |
+| Monetization | **Paid:** Yes, USD 2.00. |
 | Companion App / Additional Hardware | Leave blank — not applicable. |
 
 ### Description
@@ -74,6 +45,3 @@ Everything stays on your watch. HeroSet has no network access, records no activi
 
 Good to know: counting depends on how you wear the watch and how you move, so the number can be off. Calories are the change in Garmin's own daily total, an estimate. Not a medical device.
 ```
-
-If upload show "Signature check failed" again, see `go-to-market.md`
-status item 4.
