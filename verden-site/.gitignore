@@ -2,3 +2,9 @@ node_modules
 dist
 .ssr
 .impeccable/review
+
+# Local env files: Vite inlines anything VITE_*-prefixed into the client
+# bundle, so a committed one ships its contents to every visitor.
+.env
+.env.*
+!.env.example
