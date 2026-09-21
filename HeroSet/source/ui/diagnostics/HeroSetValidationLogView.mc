@@ -16,7 +16,9 @@ class HeroSetValidationLogView extends WatchUi.View {
 
     function initialize() {
         View.initialize();
-        _entries = newestFirst(getApp().getStore().getValidationLog());
+        // Newest first — the entries a tester just recorded are the ones worth
+        // reading without paging through the whole log.
+        _entries = getApp().getStore().getValidationLog().reverse() as Lang.Array<Lang.String>;
     }
 
     function pageCount() as Lang.Number {
@@ -66,15 +68,5 @@ class HeroSetValidationLogView extends WatchUi.View {
             lines.add(_entries[i]);
         }
         return lines;
-    }
-
-    // Newest entries first — the ones a tester just recorded are the ones
-    // worth reading without paging through the whole log.
-    private function newestFirst(entries as Lang.Array<Lang.String>) as Lang.Array<Lang.String> {
-        var reversed = [];
-        for (var i = entries.size() - 1; i >= 0; i--) {
-            reversed.add(entries[i]);
-        }
-        return reversed;
     }
 }

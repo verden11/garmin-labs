@@ -28,7 +28,7 @@ function squatsCountOncePerRepAtEveryTempo(logger as Test.Logger) as Lang.Boolea
 
 (:test)
 function slowingRepsStillCount(logger as Test.Logger) as Lang.Boolean {
-    var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
+    var exercises = HeroSetRules.EXERCISES;
     for (var e = 0; e < exercises.size(); e++) {
         Test.assertEqual(HeroSetMotionFixture.slowingReps(HeroSetRepCounterHarness.defaultCounter(exercises[e]), exercises[e], 10), 10);
     }
@@ -37,7 +37,7 @@ function slowingRepsStillCount(logger as Test.Logger) as Lang.Boolean {
 
 (:test)
 function stillWristDoesNotCount(logger as Test.Logger) as Lang.Boolean {
-    var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
+    var exercises = HeroSetRules.EXERCISES;
     for (var e = 0; e < exercises.size(); e++) {
         var counter = HeroSetRepCounterHarness.newCounter(exercises[e], HeroSetConfig.LEARN_MIN_THRESHOLD.toNumber());
         Test.assertEqual(HeroSetMotionFixture.idle(counter, 60 * HeroSetConfig.SENSOR_SAMPLE_RATE), 0);
@@ -46,18 +46,20 @@ function stillWristDoesNotCount(logger as Test.Logger) as Lang.Boolean {
 }
 
 // Learning replays the set's trace instead of re-running the detector, so
-// the replay must count what the detector counted, at any threshold.
+// the replay must count what the detector counted. Low, middle and high
+// candidate bins: the replay only counts at those, and the detector runs at
+// the same whole number, so the two are comparable exactly (ADR-040).
 (:test)
 function traceReplayCountsWhatTheDetectorCounted(logger as Test.Logger) as Lang.Boolean {
-    var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
-    var thresholds = [40, HeroSetConfig.DEFAULT_THRESHOLD, 150] as Lang.Array<Lang.Number>;
+    var exercises = HeroSetRules.EXERCISES;
+    var bins = [3, 8, 13] as Lang.Array<Lang.Number>;
     var tempos = HeroSetRepCounterHarness.allTempos();
     for (var e = 0; e < exercises.size(); e++) {
-        for (var h = 0; h < thresholds.size(); h++) {
+        for (var h = 0; h < bins.size(); h++) {
             for (var t = 0; t < tempos.size(); t++) {
-                var counter = HeroSetRepCounterHarness.newCounter(exercises[e], thresholds[h]);
+                var counter = HeroSetRepCounterHarness.newCounter(exercises[e], HeroSetThresholdLearner.thresholdAt(bins[h]).toNumber());
                 var live = HeroSetMotionFixture.reps(counter, exercises[e], 10, tempos[t]);
-                Test.assertEqual(counter.getTrace().countAt(thresholds[h].toFloat()), live);
+                Test.assertEqual(counter.getTrace().counts()[bins[h]], live);
             }
         }
     }

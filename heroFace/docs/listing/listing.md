@@ -1,72 +1,87 @@
 # HeroFace — Connect IQ Store listing
 
-Everything marked **FILL** needs you. Everything else is drafted and checked
-against what the build actually does (`../go-to-market.md`, "Claims allowed and
-forbidden").
+Nothing here is outstanding — every field is drafted and checked against what
+the build actually does (`../go-to-market.md`, "Claims allowed and forbidden").
+The one open choice is in `descriptions.md`: paste the English full description
+for every language, or translate it.
 
 ## The basics
 
+The upload form (`apps.garmin.com/developer/upload`, captured 2026-09-21) is
+**two steps**: attach the `.iq`, then enter details. It does **not** ask for a
+price, a support URL or a website — those are not fields here.
+
 | Field | Value |
 |---|---|
-| App name | HeroFace |
-| Type | Watch face |
-| Price | USD 2.00 (shows as $1.99 in the US) |
-| Category | Watch Faces (the store's own list; if it asks for a sub-category too, pick the one HeroSet used) |
-| Version | 1.0.0 |
-| Developer name | Verden — same credit as HeroSet's live listing, so the two show as one studio. Change it here first if you want a different one. |
-| Email | hello@verden.watch (same address as HeroSet, and the one on both site pages) |
-| Support URL | https://verden.watch/heroface/support/ |
-| Privacy URL | https://verden.watch/heroface/privacy/ |
-| Website | https://verden.watch/heroface/ |
-| Languages | English, Dansk, Deutsch, Español, Français, Italiano, Lietuvių, Nederlands, Norsk bokmål, Polski, Português, Suomi, Svenska, Türkçe, Українська |
+| App File | `bin/HeroFace.iq` |
+| Manifest AppID | `8cd8f7f5216942a6b6c2c1e797e2f313` (shown by the form; matches `manifest.xml`) |
+| Version | 1.0.0 (read from the package, not typed) |
+| App Type | Watch Face (read from the package) |
+| Title (max 50 chars) | HeroFace |
+| Category | **Digital** — the form's watch-face list is Analog, Animal, Around the world, Cartoon, Digital, Family, Fantasy, Fun, Geek, Marine, Nature, Retro, Simple, Stylish, Utility. "Simple" is the other defensible pick. There is no "Watch Faces" option. |
+| Subcategory | Whatever the Category choice offers |
+| Email Address | hello@verden.watch — shown publicly as the app's contact |
+| Languages | Added one at a time: pick a language, press **Add**, fill Title + Description for it |
 
-## Short description
+Not on this form, and not to be invented: price, support URL, website. The
+support URL reaches buyers only through the last line of the description, so
+keep that line.
 
-> The time first, and today's goals right under it. Steps, intensity minutes
-> and floors as three bars you can change, a progress ring for the whole day,
-> and a streak worth keeping.
+## Description (the one field, max 4000 characters)
 
-Other languages: `descriptions.md`.
+The form has **no short/long split** — one Description box per language, 4000
+characters. The store truncates it itself in list views, so the first sentence
+carries the same weight a short description would.
 
-## Full description
+Opening line, chosen 2026-09-21 (option B):
 
-> **HeroFace puts the time first.**
+> The time first, today's goals right under it. Three bars you choose, a ring
+> for the whole day, a streak worth keeping — or your HeroSet reps and rank, if
+> you have it.
+
+Paste that as the first paragraph, then the sections below. Other languages:
+`descriptions.md` (their rows are the old wording — update them if this opening
+is used, or the listing says different things in different languages).
+
+### The rest of the description
+
+> **The time owns the screen.**
 >
-> The time is the largest thing on the screen, in the largest size your watch
-> can fit. Under it sit today's three goals as bars: steps, intensity minutes
-> and floors, or whichever three you choose. The ring around the bezel is the
-> whole day at once, and it turns green when every goal is met.
+> The time is the largest thing on the face, at the largest size your watch can
+> draw. Under it, today's three goals as bars: steps, intensity minutes and
+> floors, or whichever three you pick. The ring around the bezel is the whole
+> day at once, and it fills green when all three are met.
 >
-> **Set it up the way you read it.**
+> **Three bars, your choice.**
 >
-> Each of the three bars can show steps, calories, intensity minutes, distance,
-> floors or the move bar. Pick your accent colour, turn seconds on or off, show
-> or hide the temperature. All from the Garmin Connect app.
+> Each bar can show steps, calories, intensity minutes, distance, floors or the
+> move bar. Pick your accent colour, show or hide seconds, show or hide the
+> temperature — all from Garmin Connect.
 >
-> **It shows what your watch actually measures.**
+> **Only what your watch measures.**
 >
-> No watch has every sensor. Without a barometer there is no floor count, and
-> older watches have no weather. HeroFace fills each bar with the first thing
-> your watch really measures and leaves out what it cannot know — no empty
-> bars, no invented numbers.
+> No watch has every sensor. Without a barometer there are no floors; older
+> watches have no weather. Each bar falls back to the next thing your watch
+> really measures, and anything it cannot know is left out — no empty bars, no
+> invented numbers.
 >
-> **A streak worth keeping.**
+> **Keep the streak.**
 >
-> Meet your step goal and a gold line counts the days in a row. Miss one and it
-> quietly steps aside.
+> Meet your step goal and a gold line counts the days in a row. Miss a day and
+> the line turns grey and the count starts again.
 >
-> **Made for every round Garmin.**
+> **117 round Garmin watches, one design.**
 >
-> One design that measures itself, from a 208-pixel Forerunner 55 to a
-> 466-pixel fēnix. Always-on watches get a dim, drifting clock that respects
-> your watch's always-on rules.
+> It measures itself to the screen, from the 208-pixel Forerunner 55 to a
+> 466-pixel fēnix. On always-on watches it dims to a quiet clock that shifts
+> position every minute.
 >
-> **Better with HeroSet.**
+> **With HeroSet.**
 >
-> If you own HeroSet, the daily push-up, sit-up and squat app, HeroFace can
-> show today's reps, your rank and your HeroSet streak instead, and a hold on
-> the face opens the app. Everything stays on the watch. Without HeroSet,
-> nothing is missing.
+> On Connect IQ 4.2+ watches, if you own HeroSet — the daily push-up, sit-up
+> and squat app — the bars can show today's reps, your rank and your HeroSet
+> streak instead, and holding the face opens HeroSet. Without HeroSet, nothing
+> is missing.
 >
 > **Nothing leaves your watch.** No account, no internet, no analytics, no ads.
 >
@@ -93,36 +108,68 @@ claim in review.
 Captured, in `../../listing/screens/`, upload in the numbered order. One
 device is enough — HeroSet shipped five shots from a single device and passed
 review; there is no per-device-family requirement. The cover, hero and device
-icons sit alongside them in `../../listing/`. Still **FILL**: the always-on
-shot, which has to come off the FR965. See `screenshots.md`.
+icons sit alongside them in `../../listing/`. The always-on shot was
+**deferred to a post-launch listing update** (user call, 2026-09-21): it needs
+a human at the simulator GUI, and the five screens satisfy review without it.
+See `screenshots.md`. Nothing here is outstanding for submission.
 
 ## The rest of the form
 
-The fields the copy above does not cover, answered the way HeroSet answered
-them (`../../../HeroSet/docs/store-release.md`, filled against the live form
-2026-09-19). The watch-face form may not show all of them.
+Field by field, in the order the page shows them (captured 2026-09-21). The
+answers follow HeroSet's (`../../../HeroSet/docs/store-release.md`) except
+where the watch-face form differs.
 
 | Field | Answer |
 |---|---|
-| App Migration (auto-add new compatible devices) | **No.** Support is the explicit 117-product list in `../compatibility.md`; letting the store add untested devices would ship a layout nobody has run. |
-| Does your app collect user data? | **No.** Nothing leaves the watch (privacy page says the same). Still paste the privacy URL. |
-| ANT+ profiles | No. |
-| Regional limits | No. |
-| Source Code URL | Leave blank — not open source. |
-| Review Notification | Yes. |
-| Monetization | Paid, USD 2.00. |
-| Companion App / Additional Hardware | Leave blank. HeroSet is not a companion app — it is a separate paid app the face can read on the watch. |
-| Cover Image (500×500) | `../../listing/cover-500.png` |
-| Hero Image (1440×720) | `../../listing/hero-1440x720.png` |
-| Screen Images | `../../listing/screens/`, in numbered order |
-| Device icons (optional, 128×128) | `../../listing/icon-64-128.png` (64 colour) and `icon-24-128.png` (24 bit) |
+| Hero Image (optional, 1440×720, < 2048 KB) | `../../listing/hero-1440x720.png` (241 KB) |
+| Category / Subcategory | See the basics table — **Digital** |
+| Does your app collect user data? | **No.** Nothing leaves the watch. The privacy-policy URL field is conditional on answering Yes, so it may not appear at all. |
+| Does your app decode/encode any ANT+ profiles? | No |
+| Does your app have regional limits? | No |
+| Cover Image (500×500, **< 300 KB**) | `../../listing/cover-500.png` (76 KB) |
+| Device icons (optional, 128×128) | `../../listing/icon-64-128.png`, `icon-24-128.png` |
+| Screen Images (**< 150 KB each**) | `../../listing/screens/`, numbered order. All five are 3.5–20 KB. |
+| Preview Video (optional) | None. YouTube/Vimeo only. |
+| Email Address | hello@verden.watch — displayed publicly |
+| Source Code URL (optional) | Blank — not open source |
+| Review Notification | Yes |
+| App Migration (add newly compatible devices) | **No.** Support is the explicit 117-product list in `../compatibility.md`; letting the store add untested devices would ship a layout nobody has run. |
+| Monetization | **No.** The form's own wording: Yes only if the app requests payment to enable features, or asks for tips or donations. HeroFace does neither — it is paid through the store, which is not what this field asks. |
+| iOS / Android Companion App URL (optional) | Blank. HeroSet is not a companion app — it is a separate paid watch app the face can read. |
+| Additional Hardware Requirements (optional) | Blank |
+
+**Compatible Devices** is read from the package, not chosen. The form expands
+the manifest's 117 products into Garmin's marketing names (Mercedes-Benz
+editions, ForeAthlete variants, per-size fēnix 9 entries), so the list looks
+longer than 117. That is expected, not a manifest error.
 
 ## Before you submit
 
+- [ ] **Resolve "Signature check failed."** The upload page shows it directly
+      under `Status: Verified`, inside the success banner (captured
+      2026-09-21 20:54 GMT). Cannot tell from the capture whether it is a real
+      error or template noise. **Check the live page; do not submit on a real
+      signature failure.** The `.iq` was signed with
+      `~/.garmin-connectiq/keys/developer_key`, the same key as HeroSet's live
+      listing.
 - [x] Support and privacy URLs resolve — all three `/heroface/` pages returned
-      200 on 2026-09-20
-- [ ] The `.iq` package is built from the current source
+      200 again on 2026-09-21
+- [x] The `.iq` package is built from the current source — `bin/HeroFace.iq`
+      rebuilt 2026-09-21 23:30 from a clean HEAD tree, 196/196 devices
 - [ ] Gate 1 in `../go-to-market.md` is done: the device session
+      **Deliberately not waited for (user call, 2026-09-21).** Review takes
+      about 72 h and the outstanding answers (ghosting, the seconds power
+      budget, the second battery window, the midnight reset) land the morning
+      of 2026-09-22 — two days before approval. The plan is to submit now and
+      **withdraw during review if anything fails**. The trigger to watch is
+      ghosting: the full description claims always-on "respects your watch's
+      always-on rules", which stops being true if the overnight run shows
+      retention, and that needs a code fix, not a copy edit.
 - [ ] HeroSet's own update is ready to submit in the same window (decided
-      2026-09-20)
+      2026-09-20). **Not a blocker** — `../go-to-market.md` §2 settles that
+      shipping HeroSet 1.0.0 has no publisher, so the HeroSet link is dark
+      until 1.1.0 clears review whatever HeroFace does.
 - [ ] Read Garmin's App Review Guidelines (SDK docs → Reference Guides)
+- [ ] After submitting: fill `storeUrl` in
+      `../../../verden-site/src/apps/heroface/app.ts` once the listing URL
+      exists

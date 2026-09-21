@@ -17,6 +17,7 @@ Resuming? Read [`go-to-market.md`](go-to-market.md) first (open items), then [`a
 | [`configurable-goal-plan.md`](configurable-goal-plan.md) | User-set daily goal: research + decisions behind ADR-045 (implemented) |
 | [`validation-log.md`](validation-log.md) | On-watch accuracy trial data |
 | [`battery.md`](battery.md) | Battery analysis + measurement plan (post-launch) |
+| [`ideas.md`](ideas.md) | Candidate features, ranked. Not open items |
 | [`../PRODUCT.md`](../PRODUCT.md) | Product truth for design work (Impeccable) |
 | `../verden-site` | Public site: landing, support, privacy |
 

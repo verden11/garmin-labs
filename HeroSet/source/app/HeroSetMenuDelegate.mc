@@ -30,7 +30,7 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
             menu.getItem(goalIndex).setSubLabel(goal.toString());
         }
         var ids = [:start_pushups, :start_situps, :start_squats] as Lang.Array<Lang.Symbol>;
-        var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
+        var exercises = HeroSetRules.EXERCISES;
         var focus = null;
         for (var i = 0; i < ids.size(); i++) {
             var index = menu.findItemById(ids[i]);

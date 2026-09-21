@@ -19,14 +19,6 @@ class HeroSetTestStorage extends HeroSetStorage {
     function setValue(key as Lang.String, value as Lang.Object) as Void {
         _data.put(key, value);
     }
-
-    function put(key as Lang.String, value as Lang.Object) as Void {
-        _data.put(key, value);
-    }
-
-    function value(key as Lang.String) as Lang.Object? {
-        return _data.get(key);
-    }
 }
 
 class HeroSetTestClock extends HeroSetClock {
@@ -78,7 +70,7 @@ function goalDefaultsUntilTheUserSetsOne(logger as Test.Logger) as Lang.Boolean 
 function aZeroGoalReadsAsTheDefault(logger as Test.Logger) as Lang.Boolean {
     var storage = new HeroSetTestStorage();
     var store = new HeroSetStore(storage, new HeroSetTestClock());
-    storage.put(store.GOAL_KEY, 0);
+    storage.setValue(store.GOAL_KEY, 0);
     Test.assertEqual(store.getGoal(), HeroSetConfig.DEFAULT_MISSION_GOAL);
     return true;
 }
@@ -310,8 +302,8 @@ function learnedStateRoundTripsPerExercise(logger as Test.Logger) as Lang.Boolea
 (:test)
 function staleOrMalformedLearningReadsAsFresh(logger as Test.Logger) as Lang.Boolean {
     var storage = new HeroSetTestStorage();
-    storage.put("hero_calibration", {"pushups" => {"arm" => 150, "release" => 95, "rate" => 25, "cooldown" => 700, "model" => 2}});
-    storage.put("hero_learning", {"model" => 0, "pushups" => [9.0] as Lang.Array<Lang.Float>});
+    storage.setValue("hero_calibration", {"pushups" => {"arm" => 150, "release" => 95, "rate" => 25, "cooldown" => 700, "model" => 2}});
+    storage.setValue("hero_learning", {"model" => 0, "pushups" => [9.0] as Lang.Array<Lang.Float>});
     var clock = new HeroSetTestClock();
     clock.day = 20260911;
     var store = new HeroSetStore(storage, clock);
@@ -332,7 +324,7 @@ function learningDictionaryUsesStringKeysNotSymbols(logger as Test.Logger) as La
     clock.day = 20260911;
     var store = new HeroSetStore(storage, clock);
     store.setLearningState(:pushups, HeroSetThresholdLearner.initialState());
-    var learning = storage.value("hero_learning");
+    var learning = storage.getValue("hero_learning");
     Test.assert(learning instanceof Dictionary);
     var learningDict = learning as Dictionary;
     Test.assert(learningDict["pushups"] instanceof Array);
@@ -353,20 +345,20 @@ function learningDictionaryUsesStringKeysNotSymbols(logger as Test.Logger) as La
 (:test)
 function stateFromAnEarlierSchemaStillReads(logger as Test.Logger) as Lang.Boolean {
     var storage = new HeroSetTestStorage();
-    storage.put("hero_schema", 2);
-    storage.put("hero_day", 20260911);
-    storage.put("hero_pushups", 12);
-    storage.put("hero_situps", 8);
-    storage.put("hero_squats", 4);
-    storage.put("hero_xp", 48);
-    storage.put("hero_streak", 3);
+    storage.setValue("hero_schema", 2);
+    storage.setValue("hero_day", 20260911);
+    storage.setValue("hero_pushups", 12);
+    storage.setValue("hero_situps", 8);
+    storage.setValue("hero_squats", 4);
+    storage.setValue("hero_xp", 48);
+    storage.setValue("hero_streak", 3);
     var clock = new HeroSetTestClock();
     clock.day = 20260911;
     var store = new HeroSetStore(storage, clock);
     Test.assertEqual(store.getCount(:pushups), 12);
     Test.assertEqual(store.getCount(:situps), 8);
     Test.assertEqual(store.getXp(), 48);
-    Test.assertEqual(storage.value("hero_schema"), store.SCHEMA_VERSION);
+    Test.assertEqual(storage.getValue("hero_schema"), store.SCHEMA_VERSION);
     return true;
 }
 

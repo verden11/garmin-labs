@@ -126,7 +126,7 @@ class HeroSetManualPickerView extends WatchUi.View {
             resulting = 0;
         }
         var goal = getApp().getStore().getGoal();
-        var text = HeroSetText.todayProgress(resulting, goal);
+        var text = HeroSetText.format(Rez.Strings.today_progress, [resulting, goal]);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
         dc.setColor(resulting >= goal ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
         HeroSetDraw.text(dc, layout, layout.centerX(), y, HeroSetDraw.largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, fonts), text, Graphics.TEXT_JUSTIFY_CENTER);

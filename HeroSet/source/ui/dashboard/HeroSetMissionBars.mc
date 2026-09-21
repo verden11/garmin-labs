@@ -14,7 +14,7 @@ class HeroSetMissionBars {
     private var _goal as Lang.Number = HeroSetConfig.DEFAULT_MISSION_GOAL;
 
     function initialize() {
-        var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
+        var exercises = HeroSetRules.EXERCISES;
         _labels = [] as Lang.Array<Lang.String>;
         _doneLabels = [] as Lang.Array<Lang.String>;
         for (var i = 0; i < exercises.size(); i++) {

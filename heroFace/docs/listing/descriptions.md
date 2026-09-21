@@ -1,14 +1,22 @@
-# Short description, per language
+# Description openings, per language
 
-The Connect IQ Store takes a description per supported language. English is the
-fallback; the rest match the in-app translations (`resources-<lang>/`).
+The Connect IQ Store takes one Description per supported language, max 4000
+characters — there is **no separate short-description field** (upload form,
+captured 2026-09-21). These lines are the *opening* of each language's
+description; the store truncates them itself in list views.
 
-Each is one sentence plus one clause, kept short enough to survive the store's
-truncation in list views.
+English is the fallback; the rest match the in-app translations
+(`resources-<lang>/`).
+
+**Stale as of 2026-09-21:** the English row below was replaced by option B (see
+`listing.md`), which adds the HeroSet clause. The other 14 rows are still the
+old wording and say nothing about HeroSet. Either retranslate them to match, or
+accept that non-English listings open differently — but do not ship a mix
+silently.
 
 | Language | Short description |
 |---|---|
-| English (eng) | The time first, and today's goals right under it. Steps, intensity minutes and floors as three bars you can change, a ring for the whole day, and a streak worth keeping. |
+| English (eng) | The time first, today's goals right under it. Three bars you choose, a ring for the whole day, a streak worth keeping — or your HeroSet reps and rank, if you have it. |
 | Deutsch (deu) | Zuerst die Uhrzeit, direkt darunter die Tagesziele. Schritte, Intensitätsminuten und Etagen als drei Balken, die du ändern kannst, ein Ring für den ganzen Tag und eine Reihe, die sich zu halten lohnt. |
 | Français (fre) | L'heure d'abord, et juste en dessous les objectifs du jour. Pas, minutes d'intensité et étages sous forme de trois barres modifiables, un anneau pour toute la journée et une série à entretenir. |
 | Español (spa) | Primero la hora y, justo debajo, los objetivos del día. Pasos, minutos de intensidad y pisos en tres barras que puedes cambiar, un anillo para todo el día y una racha que merece la pena mantener. |

@@ -32,8 +32,11 @@ HeroSet's visual language: bezel ring, three mission bars, gold streak.
 - Screen check per size: `monkeydo bin/t-<device>.prg <device> -t everyStateFitsThisDisplay`.
   `heroFaceLayoutReport` prints every row's box, which is how layout is read
   without a screenshot.
-- Nothing has run on a real watch yet. Simulator evidence is not device
-  evidence; say so when reporting.
+- The FR965 has run it (2026-09-20 onward): install, render, the HeroSet link,
+  reboot survival and a full day of always-on wear. Battery, ghosting, the
+  seconds power budget and settings delivery are still open — see
+  `docs/go-to-market.md` §1. Simulator evidence is not device evidence; say so
+  when reporting.
 
 ## House rules
 

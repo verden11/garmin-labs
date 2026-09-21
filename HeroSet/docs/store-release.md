@@ -6,14 +6,14 @@ Garmin expects every listed product tested, screenshots matching the app, permis
 
 ## Upload form — copy/paste answers
 
-For `apps.garmin.com/en-US/developer/upload`, step 2. Upload a freshly exported `bin/HeroSet-store.iq` (`development.md`; older `.iq` files in `bin/` are stale).
+For `apps.garmin.com/en-US/developer/upload`, step 2. Upload a freshly exported `bin/HeroSet-store.iq` (`development.md`; older `.iq` files in `bin/` are stale). For 1.1.0 that export was made 2026-09-21 23:45, 105/105 device variants; the shipped 1.0.0 artifact is kept beside it as `bin/HeroSet-store-1.0.0-shipped.iq` — never upload that one.
 
 | Field | Value |
 |---|---|
 | Title | `HeroSet - Bodyweight Rep Counter` (32/50 chars). Form limits (saved page, 2026-09-19): Title 50, Description 4000, What's New 4000, App Version 20. |
-| Description | Block below. Plain text, keep line breaks; first line is what list views show. Checked against `release-contract.md` forbidden claims 2026-09-19. |
-| App Version | `1.0.0`. Free text, not read from manifest; bump every upload (patch for fixes, minor for features). |
-| What's New | `First release.` |
+| Description | Block below. Plain text, keep line breaks; first line is what list views show. Re-checked against `release-contract.md` (2026-09-21) forbidden claims on 2026-09-22 — the 2026-09-19 check predates both the daily-goal line and the current contract. |
+| App Version | **`1.1.0`** for this upload. Free text, not read from manifest; bump every upload (patch for fixes, minor for features). 1.0.0 was approved and went live 2026-09-21. |
+| What's New | 1.1.0 block below. (1.0.0 was `First release.`) |
 | Hero Image | `listing/hero-1440x720.png`: real store-build screens from `listing/screens/`, no watch frame. Source `listing/src/hero.html` (cover: `src/cover.html` → `cover-500-designed.png`, 500×500); re-render after re-taking screens: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=5000 --window-size=1440,720 --screenshot="$PWD/listing/hero-1440x720.png" "file://$PWD/listing/src/hero.html"` |
 | Category | **Strength Training**. Options (2026-09-19): Beliefs, Business, Celestial, Communication, Education, Entertainment, Finance, Food & Drink, Games, Golf, Health & Fitness, Home Automation, Lifestyle, Marine, Medical, Navigation, Social, Sports, Strength Training, Tools, Travel, Weather, Wellness. |
 | Subcategory | **Other** (options: Cycling, Geocaching, Hiking, Other, Running, Swimming, Walking; no strength option). Not marked required; leave blank if form allows. |
@@ -33,16 +33,36 @@ For `apps.garmin.com/en-US/developer/upload`, step 2. Upload a freshly exported 
 ### Description
 
 ```text
-100 push-ups, 100 sit-ups and 100 squats a day — or your own goal, 10 to 500 — counted on your wrist.
+100 push-ups, 100 sit-ups and 100 squats a day, or your own goal from 10 to 500. Your Garmin counts the reps.
 
 - Start a set, do your reps: HeroSet counts them with the watch's motion sensor.
-- After every set, check the count and adjust it with UP/DOWN before it's saved. HeroSet learns from the counts you save, so it gets closer to how you move with every set.
+- Everything runs on the bezel buttons — START, UP, DOWN. No touchscreen, no phone, no account.
+- After every set, check the count and adjust it with UP/DOWN before it's saved.
+- HeroSet learns from the counts you save, so counting adapts to how you move.
 - Earn XP for every rep up to 100 per exercise a day, climb ranks and keep your streak alive. Rank reflects the reps you do, not the goal you pick.
 - Set your own daily goal on the watch: 10 to 500 reps, no phone needed.
-- Live heart rate and calories during each set.
-- Available in multiple languages.
+- Live heart rate and a calorie estimate during each set.
+- In 15 languages, including German, French, Spanish, Italian, Polish and Ukrainian.
 
 Everything stays on your watch. HeroSet has no network access, records no activity and sends nothing to Garmin Connect.
 
 Good to know: counting depends on how you wear the watch and how you move, so the number can be off. Calories are the change in Garmin's own daily total, an estimate. Not a medical device.
 ```
+
+### What's New (1.1.0)
+
+```text
+- Set your own daily goal on the watch: anything from 10 to 500 reps, no phone needed.
+- Reliability and performance improvements when saving a set.
+```
+
+No HeroFace line: the watch face has no store listing yet (`../heroFace/docs/go-to-market.md`), and release notes must not point at something a buyer cannot get. When it does list, the bullet is **`On watches running Connect IQ 4.2 or later, today's progress can appear on our HeroFace watch face.`** — the qualifier matters, the complication is CIQ 4.2+ only (ADR-044). The reliability line stays deliberately unspecific: naming the defect advertises it, and `release-contract.md` already says adjust, never fix.
+
+**Before pasting:** open the live listing and compare its description to the block
+above. 1.0.0 was uploaded 2026-09-19 and the daily-goal line was added 2026-09-20,
+so any goal wording already published is ahead of the shipped build — 1.1.0 makes
+it true. Re-check the whole block against `release-contract.md` the same session.
+
+**After 1.1.0 clears review:** set `storeUrl` in
+`../verden-site/src/apps/heroset/app.ts` and close gate 6
+([`go-to-market.md`](go-to-market.md) item 8).
