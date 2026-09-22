@@ -1,9 +1,11 @@
 # HeroFace — Connect IQ Store listing
 
-Nothing here is outstanding — every field is drafted and checked against what
-the build actually does (`../go-to-market.md`, "Claims allowed and forbidden").
-The one open choice is in `descriptions.md`: paste the English full description
-for every language, or translate it.
+**Submitted 2026-09-21, approved and live 2026-09-22:**
+https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116 . Every field
+was drafted and checked against what the build actually does
+(`../go-to-market.md`, "Claims allowed and forbidden"). The one open choice is
+in `descriptions.md`: paste the English full description for every language, or
+translate it.
 
 ## The basics
 
@@ -145,7 +147,7 @@ longer than 117. That is expected, not a manifest error.
 
 ## Before you submit
 
-- [ ] **Resolve "Signature check failed."** The upload page shows it directly
+- [x] **Resolve "Signature check failed."** The upload page shows it directly
       under `Status: Verified`, inside the success banner (captured
       2026-09-21 20:54 GMT). Cannot tell from the capture whether it is a real
       error or template noise. **Check the live page; do not submit on a real
@@ -157,19 +159,26 @@ longer than 117. That is expected, not a manifest error.
 - [x] The `.iq` package is built from the current source — `bin/HeroFace.iq`
       rebuilt 2026-09-21 23:30 from a clean HEAD tree, 196/196 devices
 - [ ] Gate 1 in `../go-to-market.md` is done: the device session
-      **Deliberately not waited for (user call, 2026-09-21).** Review takes
-      about 72 h and the outstanding answers (ghosting, the seconds power
-      budget, the second battery window, the midnight reset) land the morning
-      of 2026-09-22 — two days before approval. The plan is to submit now and
-      **withdraw during review if anything fails**. The trigger to watch is
-      ghosting: the full description claims always-on "respects your watch's
-      always-on rules", which stops being true if the overnight run shows
-      retention, and that needs a code fix, not a copy edit.
-- [ ] HeroSet's own update is ready to submit in the same window (decided
-      2026-09-20). **Not a blocker** — `../go-to-market.md` §2 settles that
-      shipping HeroSet 1.0.0 has no publisher, so the HeroSet link is dark
-      until 1.1.0 clears review whatever HeroFace does.
+      **Deliberately not waited for (user call, 2026-09-21).** The plan was to
+      submit and **withdraw during review if anything fails**.
+      **That contingency expired: approval landed 2026-09-22, faster than the
+      ~72 h assumed, and the listing is live.** Ghosting, the seconds power
+      budget, the second battery window and the midnight reset are still
+      unanswered, and the full description's always-on claim ("respects your
+      watch's always-on rules") is now shipped unverified. If the overnight
+      ghosting run shows retention, the remedy is a code fix **plus a version
+      update and a listing edit** — withdrawal is no longer the lever.
+- [x] HeroSet's side is shipped: **HeroSet 1.1.0 went live 2026-09-21** carrying
+      `HeroSetComplicationPublisher` (`../go-to-market.md` §2), so the description's
+      "With HeroSet" clause is true for buyers on CIQ 4.2+ who have updated. The
+      2026-09-20 plan to submit both in one window is moot — HeroSet went first.
 - [ ] Read Garmin's App Review Guidelines (SDK docs → Reference Guides)
-- [ ] After submitting: fill `storeUrl` in
-      `../../../verden-site/src/apps/heroface/app.ts` once the listing URL
-      exists
+- [x] After the listing goes live: fill `storeUrl` in
+      `../../../verden-site/src/apps/heroface/app.ts` with
+      `https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116`
+      — **done 2026-09-22**, after the listing returned 200. The site is
+      prerendered, so the Get button renders only after a rebuild and deploy.
+      HeroSet's equivalent is `../../../HeroSet/docs/go-to-market.md` item 8.
+- [ ] Post-launch: install the store build on the FR965 and test the settings
+      round-trip through Connect — the one check sideloading could not do
+      (`../go-to-market.md` §1).

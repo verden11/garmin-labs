@@ -287,7 +287,7 @@ Decided 2026-09-20 after a `Watchdog Tripped Error - Code Executed Too Long` on 
 - **Not done:** the cheaper fixes were weighed and rejected. Memoising the grid alone saves 8 ms of 181. Moving learning to a `Timer` gives a fresh budget but still one ~0.5–1 s device chunk. Lowering `TRACE_MAX_POINTS` turns the crash into silently-skipped learning on exactly the long sets a 100-rep-a-day app is for.
 - **Simulator numbers. Device unproven** until a 30+ rep set is saved on the watch (gate 2).
 
-### ADR-047: 1.0.0 stays published; the crash is fixed forward in 1.1.0
+### ADR-047: 1.0.0 stays published; the crash is fixed forward in 1.1.0. **Carried out — 1.1.0 live 2026-09-21**
 Decided 2026-09-21 (user call), the day Garmin approved the 2026-09-19 upload. The approved build is the one ADR-046 describes: it crashes with `Watchdog Tripped Error` on a reviewing save, and it predates ADR-044 and ADR-045. The alternative was to pull or hold the listing until a fixed build cleared review.
 - **The listing stays live.** https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377 — $1.99, published 2026-09-21. Buyers before 1.1.0 can hit the crash on a save that learns; quick-save (Back → Save) never learns and is unaffected.
 - **There is no 1.0.1.** The next submission is **1.1.0** and carries what is already on disk and verifiable in days: ADR-046's crash fix, ADR-044's complication, ADR-045's daily goal. Its permission line gains `ComplicationPublisher`, so it is a full review cycle regardless.
@@ -295,3 +295,4 @@ Decided 2026-09-21 (user call), the day Garmin approved the 2026-09-19 upload. T
 - **Consequence for HeroFace:** the published HeroSet does not publish the complication, so buyers who own both see everyday mode until 1.1.0 clears review (`../../heroFace/docs/go-to-market.md` §2).
 - **Consequence for the launch plan:** private beta and announcing the paid launch wait for 1.1.0 — there is no point recruiting testers onto a build with a known crash. Gate 2's 30+ rep set on the watch is still owed before the upload, since ADR-046's 1 ms is simulator only.
 - **The version number is not in the repo.** CIQ manifest v3 carries no version attribute; "1.1.0" is typed into the store upload form.
+- **Outcome (2026-09-22):** 1.1.0 was uploaded from the 2026-09-21 23:45 `bin/HeroSet-store.iq` and is live, so every consequence above is discharged: the save crash is gone from the shipping app, the complication publishes, the daily goal is real, and the site's `storeUrl` is set. 1.0.0 was exposed to buyers for roughly one day. Next submission is 1.2.0 (Connect sync).

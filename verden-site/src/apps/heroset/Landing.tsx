@@ -62,14 +62,14 @@ export function Landing() {
           <h2 id="truth-title">You have the final say.</h2>
           <div className="truth__text">
             <p>Counting depends on how you wear the watch and how you move, so the number can be off, especially if your arm moves before or after the set. Nothing is saved until you’ve seen it.</p>
-            <p>HeroSet learns from the counts you save, so it gets closer to how you move with every set.</p>
+            <p>HeroSet learns from the counts you save, so counting adapts to how you move.</p>
           </div>
         </div>
       </section>
 
       <section className="wrap band" aria-labelledby="progress-title">
         <h2 id="progress-title" className="band__title">Show up, rank up.</h2>
-        <p className="band__lede">2 XP for every rep you save, up to each day’s goal: 600 XP on a full day. Finish all three hundreds to keep your streak alive. Counts reset at local midnight; XP and rank never do.</p>
+        <p className="band__lede">2 XP for every rep you save, up to 100 reps per exercise a day: 600 XP on a full day. Finish all three hundreds to keep your streak alive. Counts reset at local midnight; XP and rank never do.</p>
         <RankScale />
       </section>
 

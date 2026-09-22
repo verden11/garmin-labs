@@ -12,8 +12,8 @@ For `apps.garmin.com/en-US/developer/upload`, step 2. Upload a freshly exported 
 |---|---|
 | Title | `HeroSet - Bodyweight Rep Counter` (32/50 chars). Form limits (saved page, 2026-09-19): Title 50, Description 4000, What's New 4000, App Version 20. |
 | Description | Block below. Plain text, keep line breaks; first line is what list views show. Re-checked against `release-contract.md` (2026-09-21) forbidden claims on 2026-09-22 — the 2026-09-19 check predates both the daily-goal line and the current contract. |
-| App Version | **`1.1.0`** for this upload. Free text, not read from manifest; bump every upload (patch for fixes, minor for features). 1.0.0 was approved and went live 2026-09-21. |
-| What's New | 1.1.0 block below. (1.0.0 was `First release.`) |
+| App Version | **`1.1.0`** shipped 2026-09-21 (live). Next upload is `1.2.0` (Connect sync) or `1.1.1` (accuracy). Free text, not read from manifest; bump every upload (patch for fixes, minor for features). 1.0.0 was approved and went live 2026-09-21. |
+| What's New | 1.1.0 block below, as used. (1.0.0 was `First release.`) |
 | Hero Image | `listing/hero-1440x720.png`: real store-build screens from `listing/screens/`, no watch frame. Source `listing/src/hero.html` (cover: `src/cover.html` → `cover-500-designed.png`, 500×500); re-render after re-taking screens: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=5000 --window-size=1440,720 --screenshot="$PWD/listing/hero-1440x720.png" "file://$PWD/listing/src/hero.html"` |
 | Category | **Strength Training**. Options (2026-09-19): Beliefs, Business, Celestial, Communication, Education, Entertainment, Finance, Food & Drink, Games, Golf, Health & Fitness, Home Automation, Lifestyle, Marine, Medical, Navigation, Social, Sports, Strength Training, Tools, Travel, Weather, Wellness. |
 | Subcategory | **Other** (options: Cycling, Geocaching, Hiking, Other, Running, Swimming, Walking; no strength option). Not marked required; leave blank if form allows. |

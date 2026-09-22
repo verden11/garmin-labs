@@ -13,9 +13,7 @@ export const heroset: App = {
   color: '#ffaa00',
   onColor: '#15130f',
   storeName: 'Connect IQ Store',
-  // storeUrl: listing is live (apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377),
-  // but these pages describe the ADR-045 daily goal, which shipped 1.0.0 does not have.
-  // Set it when 1.1.0 clears review (HeroSet docs/go-to-market.md item 8).
+  storeUrl: 'https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377',
   Mark: HeroSetMark,
   Emblem,
   Landing,

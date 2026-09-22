@@ -1,27 +1,30 @@
 # Go to market — HeroFace
 
-Status: 2026-09-21.
+Status: 2026-09-22.
 
 ## Status checkpoint
 
-**Not production ready.** The code is complete and verified in the simulator,
-the FR965 has worn it for a full day, and the store images and site pages
-exist. What is missing is the rest of the device evidence in §1 — and two of
-those items have no pre-store path at all, so they need a decision rather than
-another session.
+**Live in the store.** Garmin approved the submission on **2026-09-22** and
+the listing resolves: https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116
+(200, HeroFace / Verden, checked 2026-09-22). The rest of the device evidence
+in §1 is still open — but approval changes the shape of it: the two items that
+had **no pre-store path** (settings round-trip, always-on screenshot) are now
+testable against the store install.
 
 | | State |
 |---|---|
 | Code | Complete for round watches: everyday mode, HeroSet mode, settings, always-on. A finish review returned `fix`; all six items applied (see `docs/plan.md`) |
 | Simulator evidence | 14/14 tests and screen fit on all 10 sizes (208–466 px) re-run **2026-09-21**; 14 languages id/placeholder-clean; runs on 5 products; `.iq` builds for all 117 |
 | Device evidence | FR965 2026-09-20/21: both apps install, face renders, the HeroSet link updates within seconds, no permission prompt, **reboot survives**, **a full day of wear with no crash**. Always-on shift confirmed; **ghosting, battery, the seconds power budget, settings delivery and midnight still open** |
-| Store listing | Copy drafted (`docs/listing/`); images done: 5 screens, cover, hero, device icons in `listing/`. Always-on screenshot deferred to a post-launch update (2026-09-21 user call) |
-| Site pages | **Live**: https://verden.watch/heroface/ , `/heroface/support/` , `/heroface/privacy/` (all 200, 2026-09-20). `storeUrl` in `../verden-site/src/apps/heroface/app.ts` still unset until the listing exists |
-| HeroSet side | Publisher built and tested (HeroSet's suite, 94 / 85 store — `../../HeroSet/CLAUDE.md`). **Settled:** HeroSet 1.0.0 is live since 2026-09-21 and does **not** contain the publisher, so the link is dark until HeroSet 1.1.0 clears review (§2) |
+| Store listing | **Approved and live 2026-09-22.** Copy and images shipped (`docs/listing/`): 5 screens, cover, hero, device icons. Always-on screenshot still deferred to a listing update (2026-09-21 user call) — now capturable off the store build |
+| Site pages | **Live**: https://verden.watch/heroface/ , `/heroface/support/` , `/heroface/privacy/` (all 200, 2026-09-20). `storeUrl` **set 2026-09-22** in `../verden-site/src/apps/heroface/app.ts` to **https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116** (the store listing returns 200). The site is prerendered, so the Get button appears only after a rebuild and deploy |
+| HeroSet side | Publisher built and tested (HeroSet's suite, 94 / 85 store — `../../HeroSet/CLAUDE.md`). **Working:** HeroSet **1.1.0** is live (2026-09-21) and carries the publisher, so the link works for buyers who own both and have updated (§2) |
 
-**Blocked on:** the rest of gate 1. Settings delivery has **no pre-store path**
-(§1) and needs a decision rather than a test. Gate 2 is done — the always-on
-screenshot was dropped to a later listing update (§3).
+**Open, not blocking:** the rest of gate 1 — ghosting, the seconds power
+budget, a clean battery window, the midnight reset. Settings delivery is no
+longer undecidable: the store build can be installed through Connect and the
+round-trip tested for real (§1). Gate 2 is done; gate 3 closed on approval.
+Anything that fails now is a code fix plus a listing update, not a withdrawal.
 
 ## What "production ready" is missing
 
@@ -61,13 +64,14 @@ cannot answer any of it.
   simulator's memory view during a real run; the build compiling is not proof.
 - **Settings round-trip** through the Connect phone app: every setting reaches
   the watch, and a bad value falls back instead of crashing.
-  **Not testable before the store (found 2026-09-21).** A sideloaded watch face
-  gets no settings entry at all: nothing in the Connect phone app, and on the
-  FR965 the face offers only "Apply". The build is wired correctly —
+  **Was not testable before the store (found 2026-09-21).** A sideloaded watch
+  face gets no settings entry at all: nothing in the Connect phone app, and on
+  the FR965 the face offers only "Apply". The build is wired correctly —
   `resources/settings/properties.xml` declares all 7 properties and
-  `settings.xml` binds them — so this is a sideload limitation, not a defect.
-  Either accept it unverified at launch, or check it on the approved build
-  before announcing. Two knock-ons: the `Seconds` power-budget test needs a
+  `settings.xml` binds them — so this was a sideload limitation, not a defect.
+  **Unblocked 2026-09-22:** the listing is live, so install HeroFace from the
+  store on the FR965 and run the round-trip through Connect for real. It
+  shipped unverified; verify it now, before announcing. Two knock-ons: the `Seconds` power-budget test needs a
   throwaway build with the default flipped to `true`, and the bad-value
   fallback can only be exercised in the simulator's settings editor
   (`HeroFaceSettings` guards every read with `instanceof` plus a catch on
@@ -82,17 +86,12 @@ to an app that is already shipping.
 **Decided 2026-09-20 (user call): both apps go out in the same submission
 window**, so the link works the day HeroFace lands.
 
-**Settled 2026-09-20, and it decides whether the link works on day one:**
-unpacking the uploaded `bin/HeroSet-store.iq` (built 2026-09-19 23:52) showed no
-`HeroSetComplicationPublisher` — the ADR-044 work is dated 2026-09-20.
-**Garmin approved that 1.0.0 on 2026-09-21 and it is live**
-(`../../HeroSet/docs/go-to-market.md`), and the user chose to leave it published
-and fix forward (HeroSet ADR-047). So the shipping HeroSet does not publish the
-complication: HeroFace buyers who own HeroSet see everyday mode until **HeroSet
-1.1.0** clears review. 1.1.0 is the save-crash fix, this complication and the
-daily goal — Connect sync moved to 1.2.0 (2026-09-21), so 1.1.0 is days of
-device checks plus a review cycle, not weeks. That does not block submitting
-HeroFace.
+**Settled — the link works.** HeroSet 1.0.0 (uploaded 2026-09-19, live 2026-09-21) shipped without
+`HeroSetComplicationPublisher`, but **HeroSet 1.1.0 went live 2026-09-21 carrying it**
+(`../../HeroSet/docs/go-to-market.md`). So a buyer who owns both and has updated HeroSet
+sees HeroSet mode; one still on 1.0.0 sees everyday mode until they update, which is the
+designed fallback, not a fault. CIQ 4.2+ products only (ADR-044). This never blocked
+submitting HeroFace.
 
 **Resolved 2026-09-20 on the FR965:** sideloading the store build over an
 existing install produced **no permission prompt**, so the risk this decision
@@ -160,14 +159,18 @@ post-launch listing update (§3); nothing else is outstanding. The three site pa
 in `listing/` (`cover-500.png`, `hero-1440x720.png`, `icon-24-128.png`,
 `icon-64-128.png`, `screens/1-everyday.png` … `5-no-barometer.png`).
 
-**Gate 3 — submission.** Upload `bin/HeroFace.iq`, set the price tier, paste
-the URLs, and submit. HeroSet's update (publisher plus permission) goes in the
-same window, as decided above, so the link works for anyone who buys both.
-Reviews take about 72 hours; a rejection comes back with specific reasons and
-the app can be resubmitted.
+**Gate 3 — submission. Done.** Submitted 2026-09-21, **approved 2026-09-22**
+(Garmin's approval mail; listing 200 the same day). HeroSet 1.1.0 went live
+first on 2026-09-21 carrying the publisher, so the link works for anyone who
+owns both and has updated.
 
-**Gate 4 — after launch.** Watch reviews for device-specific layout
-complaints, add translations, then phase 4 shapes if the reviews ask for them.
+**Gate 4 — after launch. Active from 2026-09-22.** In order: install the
+store build on the FR965 and test the settings round-trip through Connect
+(§1); finish the open device evidence (ghosting overnight with sleep mode off,
+the seconds power budget, a clean battery window, the midnight reset); add the
+always-on screenshot to the listing (§3); deploy the site so the Get button
+renders. Then watch reviews for device-specific layout complaints, add
+translations, and phase 4 shapes if the reviews ask for them.
 
 ## Positioning
 
