@@ -1,6 +1,6 @@
 # Garmin Connect sync (v1.1)
 
-Status: 2026-09-20. **Implemented in dev build (ADR-043), not committed, unverified on watch.** Open: steps 0, 7, 8 below. The v1 `.iq` in review is untouched.
+Status: 2026-09-22. **Implemented in dev build (ADR-043), not committed, unverified on watch.** Open: steps 0, 7, 8 below. 1.1.0 shipped 2026-09-21 without sync; this is **1.2.0**, the next submission (ADR-047).
 
 ## Summary
 

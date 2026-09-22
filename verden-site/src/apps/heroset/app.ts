@@ -13,7 +13,7 @@ export const heroset: App = {
   color: '#ffaa00',
   onColor: '#15130f',
   storeName: 'Connect IQ Store',
-  // storeUrl: set once the listing is live.
+  storeUrl: 'https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377',
   Mark: HeroSetMark,
   Emblem,
   Landing,

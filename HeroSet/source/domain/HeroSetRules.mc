@@ -3,6 +3,11 @@ import Toybox.Lang;
 // Pure game rules (XP, rank curve, streaks, goal transitions): no Storage,
 // no UI, so every rule is unit-tested without a simulator.
 class HeroSetRules {
+    // The three exercises, in the fixed order the store reset, the menu, the
+    // mission bars and the complication field list all walk. A static const
+    // Array is one shared object, so every caller only ever reads it.
+    static const EXERCISES = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
+
     static function xpForReps(reps as Lang.Number) as Lang.Number {
         return reps <= 0 ? 0 : reps * HeroSetConfig.XP_PER_REP;
     }

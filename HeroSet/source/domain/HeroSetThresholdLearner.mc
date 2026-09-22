@@ -19,6 +19,8 @@ import Toybox.Math;
 // steps prove too coarse on real wrists.
 class HeroSetThresholdLearner {
 
+    private static var _thresholds as Lang.Array<Lang.Float>?;
+
     static function initialState() as Lang.Array<Lang.Float> {
         var state = new [2 * HeroSetConfig.LEARN_BINS] as Lang.Array<Lang.Float>;
         for (var i = 0; i < state.size(); i++) {
@@ -27,9 +29,27 @@ class HeroSetThresholdLearner {
         return state;
     }
 
-    static function thresholdAt(bin as Lang.Number) as Lang.Float {
+    // Rounded to whole signal units: the live detector takes a Number, so a
+    // replay at bin k only matches what it counted if the bin is that same
+    // number. Built once and kept — the trace applies every candidate on
+    // every turning point, inside the sensor callback (ADR-040 amended).
+    static function thresholds() as Lang.Array<Lang.Float> {
+        var cached = _thresholds;
+        if (cached != null) {
+            return cached;
+        }
+        var bins = HeroSetConfig.LEARN_BINS;
         var span = HeroSetConfig.LEARN_MAX_THRESHOLD / HeroSetConfig.LEARN_MIN_THRESHOLD;
-        return (HeroSetConfig.LEARN_MIN_THRESHOLD * Math.pow(span, bin.toFloat() / (HeroSetConfig.LEARN_BINS - 1))).toFloat();
+        var built = new [bins] as Lang.Array<Lang.Float>;
+        for (var k = 0; k < bins; k++) {
+            built[k] = Math.round(HeroSetConfig.LEARN_MIN_THRESHOLD * Math.pow(span, k.toFloat() / (bins - 1))).toFloat();
+        }
+        _thresholds = built;
+        return built;
+    }
+
+    static function thresholdAt(bin as Lang.Number) as Lang.Float {
+        return thresholds()[bin];
     }
 
     // Null when the set can't teach anything: nothing saved, a trace that
@@ -40,10 +60,7 @@ class HeroSetThresholdLearner {
             return null;
         }
         var bins = HeroSetConfig.LEARN_BINS;
-        var counts = new [bins] as Lang.Array<Lang.Number>;
-        for (var k = 0; k < bins; k++) {
-            counts[k] = trace.countAt(thresholdAt(k));
-        }
+        var counts = trace.counts();
         if (saved - counts[0] > max(2, saved * HeroSetConfig.LEARN_UNEXPLAINED_PERCENT / 100)) {
             return null;
         }
@@ -75,6 +92,12 @@ class HeroSetThresholdLearner {
     // thresholds fits every set, that is the middle of the range, the most
     // room for a slightly deeper or shallower rep either way.
     static function threshold(state as Lang.Array<Lang.Float>) as Lang.Number {
+        return thresholdAt(medianBin(state)).toNumber();
+    }
+
+    // The bin the median lands in. Separate from `threshold` because a
+    // replay is read by bin, not by value.
+    static function medianBin(state as Lang.Array<Lang.Float>) as Lang.Number {
         var bins = HeroSetConfig.LEARN_BINS;
         var offset = dropsLastRep(state) ? bins : 0;
         var total = 0.0;
@@ -85,10 +108,10 @@ class HeroSetThresholdLearner {
         for (var k = 0; k < bins; k++) {
             running += weight(state[offset + k]);
             if (running >= total / 2.0) {
-                return thresholdAt(k).toNumber();
+                return k;
             }
         }
-        return thresholdAt(bins - 1).toNumber();
+        return bins - 1;
     }
 
     // Log-normal around the default threshold; dropping the last rep starts

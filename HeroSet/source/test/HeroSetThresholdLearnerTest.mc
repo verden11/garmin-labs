@@ -46,7 +46,7 @@ class HeroSetLearnerHarness {
 
     // What the workout screen would hand the picker for this set.
     static function finishedCount(state as Lang.Array<Lang.Float>, swings as Lang.Array<Lang.Number>) as Lang.Number {
-        var count = trace(swings).countAt(HeroSetThresholdLearner.threshold(state).toFloat());
+        var count = trace(swings).counts()[HeroSetThresholdLearner.medianBin(state)];
         return HeroSetThresholdLearner.dropsLastRep(state) && count > 0 ? count - 1 : count;
     }
 }
@@ -124,15 +124,32 @@ function unexplainedRepsAreNotLearned(logger as Test.Logger) as Lang.Boolean {
     return true;
 }
 
-// Learning runs when START saves the set: the longest trace it accepts (24
-// replays of ~TRACE_MAX_POINTS) must finish inside the watchdog budget.
+// Learning runs inside the picker's START handler, on top of two flash
+// writes, so it gets a fraction of one input callback. The batch replay it
+// replaced took 181 ms here on the longest accepted trace and tripped the
+// watchdog on a real FR965 (2026-09-20, ADR-046).
+//
+// Both halves are timed, because streaming moved the cost rather than
+// removing it: `saving` guards the input callback, `counting` guards the
+// sensor callbacks that now carry the replay. Measured 2026-09-20 on fr965:
+// saving 1-2 ms (was 181 ms), counting 97 ms for the whole set — 6000 feeds
+// and 500 turning points, which on a watch are spread over minutes of 25 Hz
+// callbacks. Ceilings sit several times above that, so they catch a bin grid
+// recomputed per point (the `Math.pow` ADR-046 hoisted out) rather than
+// drift. `counting` also covers the fixture generating the signal, so it is
+// a loose bound on the trace alone.
 (:test)
 function longestLearnableSetFinishes(logger as Test.Logger) as Lang.Boolean {
     var swings = HeroSetLearnerHarness.repeated(200, HeroSetConfig.TRACE_MAX_POINTS / 2 - 1);
-    var trace = HeroSetLearnerHarness.trace(swings);
-    Test.assert(trace.isComplete());
     var started = System.getTimer();
+    var trace = HeroSetLearnerHarness.trace(swings);
+    var counting = System.getTimer() - started;
+    Test.assert(trace.isComplete());
+    started = System.getTimer();
     Test.assert(HeroSetThresholdLearner.updated(HeroSetThresholdLearner.initialState(), trace, swings.size()) != null);
-    logger.debug("learning from " + swings.size() + " reps took " + (System.getTimer() - started) + " ms");
+    var saving = System.getTimer() - started;
+    logger.debug(swings.size() + " reps: counting " + counting + " ms across the set, saving " + saving + " ms");
+    Test.assert(saving < 50);
+    Test.assert(counting < 400);
     return true;
 }

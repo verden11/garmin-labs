@@ -41,7 +41,7 @@ function everyScreenFitsThisDisplay(logger as Test.Logger) as Lang.Boolean {
             // RANK, XP to next, 3 labels, 3 counts, streak, footer.
             HeroSetScreenFitHarness.collectOverlaps("dashboard", 10, problems);
         }
-        var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
+        var exercises = HeroSetRules.EXERCISES;
         for (var e = 0; e < exercises.size(); e++) {
             var workout = new HeroSetWorkoutView(exercises[e]);
             workout.setCountsForTest(888, 99);

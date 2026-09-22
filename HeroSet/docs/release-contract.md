@@ -1,11 +1,11 @@
 # Release contract
 
-Status: 2026-09-20. What the **store build** (`store.jungle`, ADR-033) may honestly claim. Check before any user-facing copy (site, listing, What's New).
+Status: 2026-09-21. What the **store build** (`store.jungle`, ADR-033) may honestly claim. Check before any user-facing copy (site, listing, What's New).
 
 | Capability | Status | Evidence / limit |
 |---|---|---|
 | Devices | 67 round five-button watches, AMOLED + MIP, CIQ 3.4+ (`compatibility.md`) | Only FR965 on a wrist; the rest compile + pass screen fit in simulator (ADR-039) |
-| Automatic reps | Beta, learns from saved counts (ADR-040); gate 2 waived for launch (ADR-042) | FR965: 2026-09-18 calibrated median error 0.5; 2026-09-19 learning 4 sets +2/0/0/0. Speeds, idle, long sets unmeasured (`validation-log.md`) |
+| Automatic reps | Beta, learns from saved counts (ADR-040); gate 2 accuracy waived for launch (ADR-042, amended 2026-09-21) | **No current device data**: log cleared and FR965 fresh-installed 2026-09-21 (`validation-log.md`). The detector is unchanged; ADR-046 rounded the learner's candidate thresholds to integers (≤ 1.5% of a step). Accuracy work is a 1.1.1 item. Pre-reset findings, not evidence for a claim: push-ups over-count on 15–25 rep sets, squats collapsed to 3-for-10 twice |
 | Manual correction + logging | Implemented, button-only | ADR-024/028/029 |
 | Goals, XP, rank, streak | Implemented | Unit tests; missed day shows streak 0 (ADR-031) |
 | Daily goal | 100 each by default, user-set on the watch, 10–500 in steps of 10 (ADR-045) | Unit tests; picker fits 218–466 px in simulator. **Gate 5 re-check open** (store menu gained the item) |

@@ -47,8 +47,4 @@ class HeroSetText {
         var seconds = ms / MS_PER_SECOND;
         return (seconds / SECONDS_PER_MINUTE).format("%02d") + ":" + (seconds % SECONDS_PER_MINUTE).format("%02d");
     }
-
-    static function todayProgress(count as Lang.Number, goal as Lang.Number) as Lang.String {
-        return format(Rez.Strings.today_progress, [count, goal]);
-    }
 }

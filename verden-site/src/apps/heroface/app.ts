@@ -12,7 +12,7 @@ export const heroface: App = {
   color: '#55aaff',
   onColor: '#0a1420',
   storeName: 'Connect IQ Store',
-  // storeUrl: set once the listing is live.
+  storeUrl: 'https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116',
   Mark: HeroFaceMark,
   Landing,
   Support,

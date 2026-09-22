@@ -29,7 +29,7 @@ source/
 │                 HeroSetRules             XP, rank curve, streaks, goal transitions
 │                 HeroSetCalendar          local-day keys and day math
 │                 HeroSetRepCounter        tilt/height rep detector (ADR-032)
-│                 HeroSetSwingTrace        one set's turning points, replayable
+│                 HeroSetSwingTrace        the running set, counted at every candidate
 │                 HeroSetThresholdLearner  threshold belief from saved counts (ADR-040)
 ├── data/         HeroSetStore             the only persistence API
 │                 HeroSetStorage           storage seam (tests inject in-memory)
@@ -90,7 +90,7 @@ Dependencies point down only. Sensor classes take plain args, return plain value
 
 **HeroSetRepCounter**: turn 25 Hz samples into one signal per exercise: push-ups and sit-ups use tilt swing along deviation's principal axis; squats use leaky double integral of strength, roughly height (`integratesMotion`). Count one rep per full swing past `+threshold` then `-threshold` (or reverse), sides at least `SENSOR_COOLDOWN_MS` apart (ADR-032). Feeds every signal value to its `HeroSetSwingTrace`.
 
-**HeroSetSwingTrace**: turning points of one set's signal (sub-`TRACE_HYSTERESIS` reversals dropped, capped), and `countAt(threshold)` replaying the detector on them.
+**HeroSetSwingTrace**: the live replay of one set at every candidate threshold (ADR-046). Each turning point of the signal (sub-`TRACE_HYSTERESIS` reversals dropped, capped at `TRACE_MAX_POINTS`) updates `LEARN_BINS` running counters in the sensor callback; `counts()` reads them per bin. Nothing about the set is stored, so the picker's save is O(bins) — the batch replay it replaced tripped the watchdog on a real FR965.
 
 **HeroSetThresholdLearner**: belief over 24 thresholds × keep/drop-last-rep, `updated` from a trace and the saved count, `threshold` (belief median) and `dropsLastRep` for the next set (ADR-040).
 
@@ -174,7 +174,7 @@ Every fixed pop count rely on Workout/Picker sitting at depth 1 (ADR-024). Over-
 
 | Item | Why it's not fixed yet | Fix when |
 |---|---|---|
-| `HeroSetStore.mc` is 331 lines (budget 250) | Guards user data; bad split corrupts installs (ADR-020) | With device upgrade check (gate 4) |
+| `HeroSetStore.mc` is 330 lines (budget 250) | Guards user data; bad split corrupts installs (ADR-020) | With device upgrade check (gate 4) |
 | Rep detector and learning constants are tuned on synthetic fixtures, not watch recordings (ADR-032/040) | No way yet to pull raw sensor data off watch | When gate 2 trials show misses; record traces with dev build if needed |
 | Connect Sync (one activity per workout, ADR-043) unverified on device | Dev build only until FR965 acceptance (`connect-sync-plan.md` device acceptance) | Before sync goes into the store build |
 | Validation log also records in store build (only viewer hidden) | Harmless 30-entry buffer, disclosed in HeroSet privacy page (`../verden-site`); could now be gated with annotation like sync (ADR-033) | If it ever holds anything sensitive |

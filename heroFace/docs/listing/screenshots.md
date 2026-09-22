@@ -1,7 +1,9 @@
 # Screenshots and store images
 
-Status: 2026-09-20. Everything below except the always-on shot is captured and
-lives in `../../listing/`.
+Status: 2026-09-21. Everything below is captured and lives in `../../listing/`.
+The always-on shot was **deferred to a post-launch listing update** (user call,
+2026-09-21) — it needs a human at the simulator GUI, and the five screens here
+satisfy the store requirement without it.
 
 ## What exists
 

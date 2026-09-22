@@ -58,7 +58,7 @@ class HeroSetStore {
     }
 
     private function resetDailyState() as Void {
-        var exercises = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
+        var exercises = HeroSetRules.EXERCISES;
         for (var i = 0; i < exercises.size(); i++) {
             _set(keyFor(exercises[i]), 0);
             _set(creditKeyFor(exercises[i]), 0);
@@ -213,10 +213,7 @@ class HeroSetStore {
     function logDiagnostic(line as Lang.String) as Void {
         var log = getValidationLog();
         log.add(line);
-        while (log.size() > HeroSetConfig.VALIDATION_LOG_MAX_ENTRIES) {
-            log.remove(log[0]);
-        }
-        _set(VALIDATION_LOG_KEY, log);
+        _set(VALIDATION_LOG_KEY, log.slice(-HeroSetConfig.VALIDATION_LOG_MAX_ENTRIES, null));
     }
 
     function getValidationLog() as Lang.Array<Lang.String> {

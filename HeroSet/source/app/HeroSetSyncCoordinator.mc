@@ -18,8 +18,6 @@ import Toybox.System;
 (:sync)
 class HeroSetSyncCoordinator {
 
-    private static const EXERCISES = [:pushups, :situps, :squats] as Lang.Array<Lang.Symbol>;
-
     private var _store as HeroSetStore;
     private var _activity as HeroSetActivitySync;
     private var _lapExercise as Lang.Symbol = :pushups;
@@ -72,7 +70,7 @@ class HeroSetSyncCoordinator {
             return;
         }
         _lapReps = lapReps(reps);
-        var index = EXERCISES.indexOf(_lapExercise);
+        var index = HeroSetRules.EXERCISES.indexOf(_lapExercise);
         _totals[index] = lapReps(_totals[index] + reps);
     }
 
