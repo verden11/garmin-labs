@@ -21,7 +21,7 @@ KEY=~/.garmin-connectiq/keys/developer_key
 monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y $KEY
 monkeydo bin/HeroFace.prg fr965            # with the simulator running
 
-# Tests (14)
+# Tests (15)
 monkeyc -t -d fr965 -f monkey.jungle -o bin/t-fr965.prg -y $KEY
 monkeydo bin/t-fr965.prg fr965 -t
 

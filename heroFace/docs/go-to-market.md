@@ -14,14 +14,16 @@ testable against the store install.
 | | State |
 |---|---|
 | Code | Complete for round watches: everyday mode, HeroSet mode, settings, always-on. A finish review returned `fix`; all six items applied (see `docs/plan.md`) |
-| Simulator evidence | 14/14 tests and screen fit on all 10 sizes (208–466 px) re-run **2026-09-21**; 14 languages id/placeholder-clean; runs on 5 products; `.iq` builds for all 117 |
-| Device evidence | FR965 2026-09-20/21: both apps install, face renders, the HeroSet link updates within seconds, no permission prompt, **reboot survives**, **a full day of wear with no crash**. Always-on shift confirmed; **ghosting, battery, the seconds power budget, settings delivery and midnight still open** |
+| Simulator evidence | **15/15 tests re-run 2026-09-22 on 11 products** — fr965 plus one per screen size (`fr55`, `fenix5s`, `fenix5`, `vivoactive4`, `fenix7x`, `fr265s`, `fr165`, `epix2`, `fenix9pro51mm`) and the no-barometer `fr245`, so screen fit covers all 10 sizes (208–466 px); the 15th is the power-budget fallback test. 14 languages id/placeholder-clean; `.iq` builds for all 117 |
+| Device evidence | FR965 2026-09-20/22: both apps install, face renders, the HeroSet link updates within seconds, no permission prompt, **reboot survives**, **a full day of wear with no crash**, always-on shift confirmed. **2026-09-22: no AOD retention after a night with sleep mode off, and the midnight reset fires.** **Battery: 66% → 60% over 20h36m (~7%/day), seconds on, sleep mode off.** Still open: **the seconds power budget, settings delivery, MIP** |
 | Store listing | **Approved and live 2026-09-22.** Copy and images shipped (`docs/listing/`): 5 screens, cover, hero, device icons. Always-on screenshot still deferred to a listing update (2026-09-21 user call) — now capturable off the store build |
 | Site pages | **Live**: https://verden.watch/heroface/ , `/heroface/support/` , `/heroface/privacy/` (all 200, 2026-09-20). `storeUrl` **set 2026-09-22** in `../verden-site/src/apps/heroface/app.ts` to **https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116** (the store listing returns 200). The site is prerendered, so the Get button appears only after a rebuild and deploy |
 | HeroSet side | Publisher built and tested (HeroSet's suite, 94 / 85 store — `../../HeroSet/CLAUDE.md`). **Working:** HeroSet **1.1.0** is live (2026-09-21) and carries the publisher, so the link works for buyers who own both and have updated (§2) |
 
-**Open, not blocking:** the rest of gate 1 — ghosting, the seconds power
-budget, a clean battery window, the midnight reset. Settings delivery is no
+**Open, not blocking:** the rest of gate 1 — the seconds power budget and
+MIP. Ghosting, the midnight reset and a clean battery window were all answered
+on 2026-09-22 (§1), so the listing's always-on claim is backed.
+Settings delivery is no
 longer undecidable: the store build can be installed through Connect and the
 round-trip tested for real (§1). Gate 2 is done; gate 3 closed on approval.
 Anything that fails now is a code fix plus a listing update, not a withdrawal.
@@ -41,25 +43,53 @@ cannot answer any of it.
   the sleep screen draws a dim time and nothing else, and the block steps every
   minute — confirmed with a throwaway `BURN_IN_STEP_PX = 24` build, since 4 px
   is below what the eye can judge. Off-wrist the screen goes fully dark, and
-  sleep mode blanks it too, so **ghosting needs a night with sleep mode off**;
-  the night of 2026-09-20 drew no AOD frames between 23:00 and 07:00 and proved
-  nothing.
+  sleep mode blanks it too, so ghosting needed a night with sleep mode off; the
+  night of 2026-09-20 drew no AOD frames between 23:00 and 07:00 and proved
+  nothing. **Answered 2026-09-22 (FR965, user report): the night of
+  2026-09-21/22 ran with sleep mode off, always-on and seconds on, and showed
+  no retention.** One night on one AMOLED watch, so it is evidence rather than
+  proof — but it is the evidence the listing's always-on claim needed, and the
+  claim now stands.
 - **Partial-update power budget.** Seconds redraw through `onPartialUpdate`.
-  Over budget the system stops calling it; the face now handles
+  Over budget the system stops calling it; the face handles
   `onPowerBudgetExceeded` by switching seconds off rather than leaving a frozen
-  number. Measure with seconds on and off, and check that the fallback fires
-  cleanly if it trips.
+  number. Split into three parts, 2026-09-22:
+  - *The fallback path* — **covered.** `disabledSecondsDrawNoSecondsBox`
+    (`source/test/HeroFaceScreenFitTest.mc`) turns the `Seconds` property on,
+    draws a frame, calls `disableSeconds()` and draws again: one text row
+    fewer, the seconds box gone, and `onPartialUpdate` still safe to call. On a
+    screen too narrow for seconds the row count must not move instead.
+    Verified by mutation on 2026-09-22 — emptying `disableSeconds()` makes the
+    test fail. A real budget overrun cannot be forced, so the state change it
+    triggers is what is tested, not the trigger.
+  - *The measurement* — **not obtainable here.** The only source of a
+    partial-update cost figure is the simulator's watch-face power estimation,
+    a GUI view; `connectiq` and `monkeydo` expose no flag for it (checked
+    2026-09-22). Either someone runs the simulator by hand, or this stays
+    unmeasured.
+  - *The device half* — the 2026-09-21/22 window ran seconds ON for 20h36m on
+    the FR965. If the seconds were still ticking at the end, the budget held
+    for a full day and night; **confirm that before calling it evidence.**
 - **Battery cost per day**, both settings, AMOLED and MIP. First FR965 figure
   (2026-09-20 21:42 76% → 2026-09-21 19:17 67%, 9% / 21h35m, seconds off) is
   **not quotable**: sleep mode blanked the display for 8h of it and HeroSet was
-  exercised the same day, so it is not attributable to the face. A clean
-  seconds-on overnight window with sleep mode off is the next attempt. MIP is
-  unverifiable — no MIP watch (§5).
+  exercised the same day, so it is not attributable to the face. **Second
+  window (FR965, seconds ON, sleep mode OFF, always-on ON): 66% at
+  2026-09-21 23:24 → 60% at 2026-09-22 20:00 — 6% over 20h36m, about
+  0.29 %/h or ~7% per day.** This is the clean window the first one was not:
+  the display was never blanked by sleep mode, and it covers a full night plus
+  a full day of wear. Two caveats before treating it as the face's cost: it is
+  whole-watch drain, not the face's alone, so any activity recording or HeroSet
+  use that day is inside the 6%; and it is one window on one AMOLED watch. Good
+  enough to plan with, not to publish — **no battery number goes in the
+  listing** ("Claims allowed and forbidden"). MIP is unverifiable — no MIP watch
+  (§5).
 - **MIP daylight contrast** for `MUTED` text and the `TRACK` grey.
 - **The HeroSet link end to end:** ~~the face finds the private complication, a
   save updates it within seconds, the value survives a watch reboot, a hold
   opens HeroSet, the goal field drives the ring~~ (**all done 2026-09-20**);
-  still open: the midnight reset.
+  ~~the midnight reset~~ (**done — reset happened at midnight on the FR965,
+  2026-09-22 user report**). Nothing open here.
 - **Memory headroom on a 96 KB watch** (fēnix 5S, vívoactive 3) — read the
   simulator's memory view during a real run; the build compiling is not proof.
 - **Settings round-trip** through the Connect phone app: every setting reaches
@@ -167,7 +197,7 @@ owns both and has updated.
 **Gate 4 — after launch. Active from 2026-09-22.** In order: install the
 store build on the FR965 and test the settings round-trip through Connect
 (§1); finish the open device evidence (ghosting overnight with sleep mode off,
-the seconds power budget, a clean battery window, the midnight reset); add the
+the seconds power budget, MIP contrast); add the
 always-on screenshot to the listing (§3); deploy the site so the Get button
 renders. Then watch reviews for device-specific layout complaints, add
 translations, and phase 4 shapes if the reviews ask for them.

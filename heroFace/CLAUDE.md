@@ -26,7 +26,7 @@ HeroSet's visual language: bezel ring, three mission bars, gold streak.
   (`Toybox has :Complications`, `:Weather`, `ActivityMonitor has
   :getHeartRateHistory`). No bitmaps, no per-device resources.
 - Build: `monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y ~/.garmin-connectiq/keys/developer_key`
-- Tests (14): `monkeyc -t -d fr965 …`, then `monkeydo bin/t-fr965.prg fr965 -t`.
+- Tests (15): `monkeyc -t -d fr965 …`, then `monkeydo bin/t-fr965.prg fr965 -t`.
   Trust the printed `PASSED (…)` line, not the exit code. A hung run means the
   simulator needs restarting.
 - Screen check per size: `monkeydo bin/t-<device>.prg <device> -t everyStateFitsThisDisplay`.

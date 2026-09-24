@@ -13,7 +13,7 @@ monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y $KEY
 monkeydo bin/HeroFace.prg fr965              # simulator must be running
 
 monkeyc -t -d fr965 -f monkey.jungle -o bin/t-fr965.prg -y $KEY
-monkeydo bin/t-fr965.prg fr965 -t            # 14 tests
+monkeydo bin/t-fr965.prg fr965 -t            # 15 tests
 
 monkeyc -e -r -f monkey.jungle -o bin/HeroFace.iq -y $KEY   # store package
 ```

@@ -35,9 +35,10 @@ everyday goals. Nothing breaks: the face never mentions a link it cannot make.
 
 `everyStateFitsThisDisplay` renders the face's widest states with that device's
 real fonts and fails on text outside the round display or overlapping rows. Run
-so far, all passing: `fr55` (208), `fenix5s` (218), `fenix5` (240),
-`vivoactive4` (260), `fenix7x` (280), `fr265s` (360), `fr165` (390), `epix2`
-(416), `fr965` (454), `fenix9pro51mm` (466) — one per screen size.
+so far, all passing (whole suite re-run **2026-09-22**, 15/15 each): `fr55`
+(208), `fenix5s` (218), `fenix5` (240), `vivoactive4` (260), `fenix7x` (280),
+`fr265s` (360), `fr165` (390), `epix2` (416), `fr965` (454), `fenix9pro51mm`
+(466) — one per screen size.
 
 The fallback chain is checked the same way: on `fr245`, which has no
 barometer, the slots resolve to steps / intensity minutes / **move bar**

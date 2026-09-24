@@ -162,12 +162,15 @@ longer than 117. That is expected, not a manifest error.
       **Deliberately not waited for (user call, 2026-09-21).** The plan was to
       submit and **withdraw during review if anything fails**.
       **That contingency expired: approval landed 2026-09-22, faster than the
-      ~72 h assumed, and the listing is live.** Ghosting, the seconds power
-      budget, the second battery window and the midnight reset are still
-      unanswered, and the full description's always-on claim ("respects your
-      watch's always-on rules") is now shipped unverified. If the overnight
-      ghosting run shows retention, the remedy is a code fix **plus a version
-      update and a listing edit** — withdrawal is no longer the lever.
+      ~72 h assumed, and the listing is live.** The trigger to watch was
+      ghosting, because the full description claims always-on "respects your
+      watch's always-on rules". **It came back clean: the night of
+      2026-09-21/22 on the FR965, sleep mode off, showed no retention, and the
+      midnight reset fired (`../go-to-market.md` §1).** So the claim is backed
+      and nothing needs withdrawing. Still unanswered: the seconds power
+      budget, a battery window with both readings timed, MIP. None of those is
+      claimed in the listing; if one fails, the remedy is a code fix **plus a
+      version update and a listing edit** — withdrawal is no longer the lever.
 - [x] HeroSet's side is shipped: **HeroSet 1.1.0 went live 2026-09-21** carrying
       `HeroSetComplicationPublisher` (`../go-to-market.md` §2), so the description's
       "With HeroSet" clause is true for buyers on CIQ 4.2+ who have updated. The

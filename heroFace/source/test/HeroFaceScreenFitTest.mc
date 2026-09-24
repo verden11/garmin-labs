@@ -1,4 +1,5 @@
 import Toybox.ActivityMonitor;
+import Toybox.Application;
 import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.System;
@@ -141,5 +142,58 @@ function everyLabelFitsThisLanguage(logger as Test.Logger) as Boolean {
         logger.debug(settings.screenWidth + "px: " + problems[i]);
     }
     Test.assertEqual(problems.size(), 0);
+    return true;
+}
+
+// The watch stops granting the partial-update budget and calls
+// onPowerBudgetExceeded, which routes to HeroFaceView.disableSeconds(). No
+// device can be made to exceed the budget on demand, so this drives the
+// fallback directly: with seconds on the face draws a seconds box, and after
+// disableSeconds() that box is gone — which is what makes onPartialUpdate
+// return early instead of leaving a frozen number beside the time.
+(:test)
+function disabledSecondsDrawNoSecondsBox(logger as Test.Logger) as Boolean {
+    var settings = System.getDeviceSettings();
+    var size = {:width => settings.screenWidth, :height => settings.screenHeight};
+    // createBufferedBitmap is CIQ 4.0+; 3.x products only have the constructor.
+    var bitmap = (Graphics has :createBufferedBitmap)
+        ? Graphics.createBufferedBitmap(size).get() as Graphics.BufferedBitmap
+        : new Graphics.BufferedBitmap(size);
+    var dc = bitmap.getDc();
+    var layout = new HeroFaceLayout(dc);
+    var kinds = HeroFaceMetrics.resolve([0, 0, 0] as Array<Number>, ActivityMonitor.getInfo());
+
+    // A narrow screen skips seconds even when they are on, so ask this device
+    // whether a seconds box exists at all before expecting one to disappear.
+    var probe = HeroFaceReadings.take(new HeroFaceSettings(), kinds, new HeroFaceStreak(), new HeroFaceLink(), true);
+    Test.assert(probe.seconds != null);
+    var secondsFit = HeroFaceClock.draw(dc, layout, probe) != null;
+
+    var before = 0;
+    var after = 0;
+    try {
+        Application.Properties.setValue("Seconds", true);
+        var view = new HeroFaceView(new HeroFaceLink());
+        view.onLayout(dc);
+        HeroFaceDraw.boxes = [] as Array<Array>;
+        view.onUpdate(dc);
+        before = (HeroFaceDraw.boxes as Array<Array>).size();
+
+        view.disableSeconds();
+        HeroFaceDraw.boxes = [] as Array<Array>;
+        view.onUpdate(dc);
+        after = (HeroFaceDraw.boxes as Array<Array>).size();
+        // Nothing left to redraw, and the partial update must survive it.
+        view.onPartialUpdate(dc);
+    } finally {
+        HeroFaceDraw.boxes = null;
+        Application.Properties.setValue("Seconds", false);
+    }
+    logger.debug("seconds fit=" + secondsFit + " rows before=" + before + " after=" + after);
+    if (secondsFit) {
+        Test.assertEqual(after, before - 1);
+    } else {
+        Test.assertEqual(after, before);
+    }
     return true;
 }
