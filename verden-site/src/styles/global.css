@@ -42,6 +42,9 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 
+/* Crossfade between pages instead of a blank repaint; no-op where unsupported. */
+@media (prefers-reduced-motion: no-preference) { @view-transition { navigation: auto; } }
+
 /* Reserve the scrollbar lane so short and long pages share one width. */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; scrollbar-gutter: stable; }
 
@@ -114,7 +117,7 @@ img { max-width: 100%; height: auto; display: block; }
 .field { background: var(--field); color: var(--on-field); }
 /* On the app color, invert the selection: the default one is field on field, i.e. invisible. */
 .app-bar ::selection, .field ::selection { background: var(--on-field); color: var(--field); }
-.field a { color: inherit; }
+.field a:not(.button) { color: inherit; }
 
 .button, .status {
   display: inline-flex; align-items: center; min-height: 3rem; padding: 0.75rem 1.4rem;

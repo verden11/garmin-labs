@@ -15,6 +15,8 @@ file only covers what spans folders.
 `device-test/` is git-ignored scratch for on-watch builds, shared by both
 watch projects.
 
+`reports/` holds market and sales research reports; the sourced notes behind each are in `research_notes/<report title>/`.
+
 ## Cross-folder rules
 
 - **The complication contract binds `HeroSet/` and `heroFace/`.** Fixed field
