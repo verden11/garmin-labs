@@ -51,7 +51,7 @@ class HeroSetValidationLogView extends WatchUi.View {
             y += dc.getFontHeight(Graphics.FONT_XTINY);
         }
 
-        HeroSetDraw.hint(dc, layout, layout.footerRowBottom(), y, HeroSetText.load(Rez.Strings.validation_log_hint));
+        HeroSetDraw.hint(dc, layout, layout.footerRowBottom(), y, HeroSetText.load(HeroSetInput.touchFirst() ? Rez.Strings.validation_log_hint_touch : Rez.Strings.validation_log_hint));
     }
 
     private function header() as Lang.String {

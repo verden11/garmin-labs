@@ -1,6 +1,6 @@
 # HeroSet Architecture
 
-Target: 67 round watches, AMOLED and MIP, FR965 first (`compatibility.md`), Connect IQ 3.4.0 (ADR-038), Monkey C. How app built today: structure, layers, module duties, style, navigation, known debt. **Why** live in [`decisions.md`](decisions.md) (ADR-NNN refs below point there). Related: [`input-and-ux.md`](input-and-ux.md) (what user see), [`testing-plan.md`](testing-plan.md).
+Target: 80 round watches, AMOLED and MIP, five-button and touch-first (ADR-048), FR965 first (`compatibility.md`), Connect IQ 3.4.0 (ADR-038), Monkey C. How app built today: structure, layers, module duties, style, navigation, known debt. **Why** live in [`decisions.md`](decisions.md) (ADR-NNN refs below point there). Related: [`input-and-ux.md`](input-and-ux.md) (what user see), [`testing-plan.md`](testing-plan.md).
 
 ## 1. Guiding principles
 
@@ -35,20 +35,27 @@ source/
 │                 HeroSetStorage           storage seam (tests inject in-memory)
 │                 HeroSetPersistentStorage real Toybox Storage backend
 │                 HeroSetClock             day seam (tests control "today")
+│                 HeroSetDashboardState    one read of everything the dashboard draws
 ├── sensor/       HeroSetSensorManager     accelerometer listener lifecycle
 │                 HeroSetActivitySync      FIT session + lap/session fields (dev
 │                                          only, `(:sync)`; ADR-043)
 ├── layout/       HeroSetLayout            round-screen geometry
 ├── ui/
-│   ├── dashboard/  HeroSetView, HeroSetDashboardState, HeroSetDayTracker,
+│   ├── dashboard/  HeroSetView, HeroSetDayTracker,
 │   │               HeroSetRankHeader (XP ring + rank), HeroSetMissionBars
 │   ├── workout/    HeroSetWorkoutView, HeroSetWorkoutDelegate,
 │   │               HeroSetWorkoutEndMenuDelegate, HeroSetWorkoutMetrics
 │   ├── manual/     HeroSetManualPickerView, HeroSetManualPickerDelegate,
 │   │               HeroSetManualExitMenuDelegate
+│   ├── settings/   HeroSetGoalPickerView, HeroSetGoalPickerDelegate,
+│   │               HeroSetGoalExitMenuDelegate (daily goal, ADR-045)
 │   ├── diagnostics/ HeroSetValidationLogView, …Delegate      (dev build only)
+│   ├── HeroSetPickerDelegate  shared picker input: one step per press/swipe,
+│   │                          save on the START key only (ADR-029/048)
+│   ├── HeroSetInput          button-first vs touch-first hints and swipe
+│   │                          direction; START-key check (ADR-048)
 │   ├── HeroSetExitMenuDelegate  shared Save/Discard/stay back-menu (ADR-036)
-│   ├── HeroSetSaveFeedback   store.add + save toasts + vibration tiers (rank-up first, ADR-041)
+│   ├── HeroSetSaveFeedback   store.add / setGoal + save toasts + vibration tiers (rank-up first, ADR-041)
 │   ├── HeroSetHaptics        vibration patterns
 │   ├── HeroSetText           strings.xml loading and formatting
 │   ├── HeroSetPalette        color roles
@@ -78,7 +85,7 @@ Data          data/                  Toybox.Application.Storage; the only place
 Domain        domain/                Toybox.Lang only (Calendar: Time.Gregorian)
 ```
 
-Dependencies point down only. Sensor classes take plain args, return plain values; anything needing both sensor and store orchestrated in Presentation (e.g. `HeroSetSyncCoordinator` combine `HeroSetActivitySync` with `HeroSetStore`).
+Dependencies point down only. Sensor classes take plain args, return plain values, and load no UI text (the activity name and unit are passed in); anything needing both sensor and store orchestrated in Presentation (e.g. `HeroSetSyncCoordinator` combine `HeroSetActivitySync` with `HeroSetStore`). `HeroSetDashboardState` lives in `data/` because the store builds it.
 
 ## 4. Module responsibilities
 
@@ -150,22 +157,26 @@ Connect Sync on (ADR-043):
 ## 7. Navigation
 
 ```
-Dashboard (HeroSetView) ── START/Up/Down (or Menu) ──► Main Menu (Menu2)
+Dashboard (HeroSetView) ── START/Up/Down (or Menu, tap, swipe) ──► Main Menu (Menu2)
   Main Menu ── Start <exercise> (menu popped) ──► Workout      [depth 1]
             ── Log <exercise>   (menu popped) ──► Picker       [depth 1]
+            ── Daily Goal       (menu popped) ──► Goal Picker  [depth 1]
             ── Connect Sync (dev, toggle in place)
             ── Validation Log (dev) ──► log view (above Main Menu)
-  Workout ── START (workout popped) ──► Picker seeded with count [depth 1]
+  Workout ── START key (workout popped) ──► Picker seeded with count [depth 1]
+          ── tap ──► nothing (ADR-048)
           ── Back, 0 reps ──► Dashboard
           ── Back, reps ──► Workout End Menu [depth 2]
                Resume/Back ──► Workout (1 pop)
                Save / Discard ──► Dashboard (2 pops)
-  Picker  ── START ──► save, Dashboard (1 pop)
-          ── Up/Down ──► delta ±1 per press (no hold behavior, ADR-029)
+  Picker  ── START key ──► save, Dashboard (1 pop); tap ──► nothing (ADR-048)
+          ── Up/Down or swipe ──► delta ±1 per press (no hold behavior, ADR-029)
           ── Back, delta 0 ──► Dashboard
           ── Back, delta ≠ 0 ──► Manual Exit Menu [depth 2]
                Keep Editing/Back ──► Picker (1 pop)
                Save / Discard ──► Dashboard (2 pops)
+  Goal Picker ── same as Picker, ±10 per step; Back with a change ──► the same
+               Save/Discard/Keep Editing menu (Goal Exit Menu)
 ```
 
 Every fixed pop count rely on Workout/Picker sitting at depth 1 (ADR-024). Over-popping past dashboard exits app.
@@ -174,7 +185,7 @@ Every fixed pop count rely on Workout/Picker sitting at depth 1 (ADR-024). Over-
 
 | Item | Why it's not fixed yet | Fix when |
 |---|---|---|
-| `HeroSetStore.mc` is 330 lines (budget 250) | Guards user data; bad split corrupts installs (ADR-020) | With device upgrade check (gate 4) |
+| `HeroSetStore.mc` is ~340 lines (budget 250); `HeroSetStoreTest.mc` 377 lines | Guards user data; bad split corrupts installs (ADR-020) | With device upgrade check (gate 4) |
 | Rep detector and learning constants are tuned on synthetic fixtures, not watch recordings (ADR-032/040) | No way yet to pull raw sensor data off watch | When gate 2 trials show misses; record traces with dev build if needed |
 | Connect Sync (one activity per workout, ADR-043) unverified on device | Dev build only until FR965 acceptance (`connect-sync-plan.md` device acceptance) | Before sync goes into the store build |
 | Validation log also records in store build (only viewer hidden) | Harmless 30-entry buffer, disclosed in HeroSet privacy page (`../verden-site`); could now be gated with annotation like sync (ADR-033) | If it ever holds anything sensitive |
@@ -183,4 +194,4 @@ Every fixed pop count rely on Workout/Picker sitting at depth 1 (ADR-024). Over-
 
 ## 9. Out of scope
 
-Touch-first interaction, cloud sync, FFT/ML signal processing, GPS/distance tracking, one FIT activity per set (ADR-016), one merged activity per day (impossible, ADR-043).
+Touch as the primary input for commits (taps never finish or save, ADR-048; swipe replaces UP/DOWN on touch-first watches), cloud sync, FFT/ML signal processing, GPS/distance tracking, one FIT activity per set (ADR-016), one merged activity per day (impossible, ADR-043).

@@ -3,7 +3,7 @@ import Toybox.WatchUi;
 
 class HeroSetWorkoutDelegate extends WatchUi.BehaviorDelegate {
 
-    private var _view;
+    private var _view as HeroSetWorkoutView;
 
     function initialize(view as HeroSetWorkoutView) {
         BehaviorDelegate.initialize();
@@ -14,8 +14,16 @@ class HeroSetWorkoutDelegate extends WatchUi.BehaviorDelegate {
     // counting just runs until this is pressed. Rather than bank the
     // detected count directly, hand it to the manual delta picker (seeded
     // with the detected count) so a miscounted set can be corrected before
-    // it's saved.
+    // it's saved. START key only: a tap is also the select behavior, and a
+    // wrist brushing the screen mid-set must not end it (ADR-048).
     function onSelect() as Boolean {
+        return false;
+    }
+
+    function onKey(keyEvent as WatchUi.KeyEvent) as Boolean {
+        if (!HeroSetInput.isStart(keyEvent)) {
+            return false;
+        }
         var pickerView = new HeroSetManualPickerView(_view.getExercise(), _view.getCount(), _view.getCount(), _view.getDetectedCount(), _view.getTrace());
         // Pop the workout view first so the picker sits directly on the
         // dashboard (depth 1) — the same depth every other picker caller
@@ -28,11 +36,12 @@ class HeroSetWorkoutDelegate extends WatchUi.BehaviorDelegate {
 
     // Back never silently drops counted reps: with reps on the board, offer
     // Garmin's native activity-end choice (Resume/Save/Discard) instead of
-    // leaving. With nothing counted there is nothing to lose.
-    // Gated on the live count, not the saved one: a lone rep learned to be
-    // getting up (ADR-040) is still movement the user may want to keep.
+    // leaving. With nothing saveable there is nothing to lose: gated on the
+    // count Save would bank, so a lone rep learned to be getting up (ADR-040)
+    // never opens a "0 reps" menu whose Save does nothing. START still opens
+    // the picker at DETECTED 1 (-1) for anyone who wants that rep.
     function onBack() as Boolean {
-        if (_view.getDetectedCount() <= 0) {
+        if (_view.getCount() <= 0) {
             return false;
         }
         var menu = new Rez.Menus.WorkoutEndMenu();

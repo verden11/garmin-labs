@@ -1,8 +1,8 @@
 import Toybox.Lang;
 
-// Parses HeroSet's complication value (docs/plan.md, data contract):
-// "v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay", day keys as
-// YYYYMMDD. HeroSet only publishes while it runs, so the day keys decide
+// Parses HeroSet's complication value (HeroSet ADR-044, docs/plan.md):
+// "v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay|goal", day keys
+// as YYYYMMDD, every field a non-negative integer. HeroSet only publishes while it runs, so the day keys decide
 // what is still true today.
 class HeroFaceContract {
     static const PUSH = 0;
@@ -18,7 +18,6 @@ class HeroFaceContract {
     // may be missing when an older HeroSet is installed.
     private static const FIELDS = 9;
     private static const OPTIONAL_FIELDS = 1;
-    private static const DEFAULT_GOAL = 100;
     private static const SEPARATOR = "|";
 
     // [push, sit, squat, rank, rankPercent, streak, goal], or null for anything
@@ -36,7 +35,7 @@ class HeroFaceContract {
         // Mirrors HeroSetRules.activeStreak: a missed day breaks the streak
         // even if HeroSet hasn't run since to say so.
         var streak = fields[8] >= yesterday ? fields[7] : 0;
-        var goal = fields.size() > FIELDS && fields[FIELDS] > 0 ? fields[FIELDS] : DEFAULT_GOAL;
+        var goal = fields.size() > FIELDS && fields[FIELDS] > 0 ? fields[FIELDS] : HeroFaceConfig.HEROSET_GOAL;
         return [
             current ? fields[2] : 0,
             current ? fields[3] : 0,

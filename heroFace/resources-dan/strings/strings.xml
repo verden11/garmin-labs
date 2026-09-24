@@ -35,7 +35,6 @@
     <string id="setting_mode">Missioner</string>
     <string id="mode_auto">HeroSet hvis installeret, ellers dagens mål</string>
     <string id="mode_everyday">Dagens mål</string>
-    <string id="mode_heroset">HeroSet-gentagelser</string>
     <string id="setting_slot1">Venstre mission</string>
     <string id="setting_slot2">Midterste mission</string>
     <string id="setting_slot3">Højre mission</string>

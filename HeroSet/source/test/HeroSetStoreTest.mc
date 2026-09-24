@@ -1,3 +1,4 @@
+import Toybox.Application.Storage;
 import Toybox.Lang;
 import Toybox.Test;
 
@@ -6,17 +7,17 @@ import Toybox.Test;
 // the watch runs them (no fakes of the counting helpers).
 class HeroSetTestStorage extends HeroSetStorage {
 
-    private var _data = {} as Dictionary<String, Lang.Object>;
+    private var _data = {} as Dictionary<String, Storage.ValueType>;
 
     function initialize() {
         HeroSetStorage.initialize();
     }
 
-    function getValue(key as Lang.String) as Lang.Object? {
+    function getValue(key as Lang.String) as Storage.ValueType? {
         return _data.get(key);
     }
 
-    function setValue(key as Lang.String, value as Lang.Object) as Void {
+    function setValue(key as Lang.String, value as Storage.ValueType) as Void {
         _data.put(key, value);
     }
 }

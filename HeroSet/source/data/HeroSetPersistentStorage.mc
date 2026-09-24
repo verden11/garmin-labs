@@ -11,11 +11,11 @@ class HeroSetPersistentStorage extends HeroSetStorage {
         HeroSetStorage.initialize();
     }
 
-    function getValue(key as Lang.String) as Lang.Object? {
+    function getValue(key as Lang.String) as Storage.ValueType? {
         return Storage.getValue(key);
     }
 
-    function setValue(key as Lang.String, value as Lang.Object) as Void {
+    function setValue(key as Lang.String, value as Storage.ValueType) as Void {
         Storage.setValue(key, value);
     }
 }

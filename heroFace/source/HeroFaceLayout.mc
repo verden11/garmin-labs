@@ -93,10 +93,6 @@ class HeroFaceLayout {
         return _height / 2;
     }
 
-    function displayRadius() as Number {
-        return _radius;
-    }
-
     function shortInset() as Number {
         return (_width < _height ? _width : _height) / 10;
     }

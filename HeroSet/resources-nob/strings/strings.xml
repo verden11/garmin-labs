@@ -41,13 +41,16 @@
     <string id="workout_hint_finish">START: AVSLUTT</string>
     <string id="workout_metrics_wide">$1$  HR $2$  KAL $3$</string>
     <string id="workout_metrics_tight">$1$ HR $2$ KAL $3$</string>
+    <string id="workout_no_sensor">INGEN SENSOR</string>
     <string id="picker_detected">OPPDAGET $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: JUSTER</string>
+    <string id="picker_hint_adjust_touch">SVEIP: JUSTER</string>
     <string id="picker_hint_save">START: LAGRE</string>
     <string id="goal_title">DAGLIG MÅL</string>
 
 
     <string id="validation_log_hint">UP/DOWN: SIDE</string>
+    <string id="validation_log_hint_touch">SVEIP: SIDE</string>
     <string id="validation_log_empty">INGEN LOGG</string>
     <string id="validation_log_page">LOGG $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC NY</string>

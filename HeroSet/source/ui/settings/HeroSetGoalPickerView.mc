@@ -19,7 +19,7 @@ class HeroSetGoalPickerView extends WatchUi.View {
         View.initialize();
         _title = HeroSetText.load(Rez.Strings.goal_title);
         _saveHint = HeroSetText.load(Rez.Strings.picker_hint_save);
-        _adjustHint = HeroSetText.load(Rez.Strings.picker_hint_adjust);
+        _adjustHint = HeroSetInput.adjustHint();
         _goal = getApp().getStore().getGoal();
         _initialGoal = _goal;
     }
@@ -42,21 +42,7 @@ class HeroSetGoalPickerView extends WatchUi.View {
             return;
         }
         _saved = true;
-        var store = getApp().getStore();
-        var completedBefore = store.isDailyMissionComplete();
-        store.setGoal(_goal);
-        // The publisher only runs while the app runs, so without this the
-        // watch face draws against the old goal until the next set is saved.
-        HeroSetComplicationPublisher.publish(store);
-        // A goal lowered under today's counts finishes the day here, and
-        // the mission outranks the plain confirmation (ADR-041) — the save
-        // paths' feedback never reaches this screen.
-        if (!completedBefore && store.isDailyMissionComplete()) {
-            WatchUi.showToast(Rez.Strings.toast_mission_complete, null);
-            HeroSetHaptics.missionComplete();
-            return;
-        }
-        WatchUi.showToast(HeroSetText.format(Rez.Strings.toast_goal_saved, [_goal]), null);
+        HeroSetSaveFeedback.saveGoal(getApp().getStore(), _goal);
     }
 
     function onUpdate(dc as Dc) as Void {

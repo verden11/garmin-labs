@@ -1,32 +1,22 @@
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-// Same input contract as the manual delta picker: one press per step, no
-// hold-to-accelerate (ADR-029), one deterministic pop back to the dashboard.
-class HeroSetGoalPickerDelegate extends WatchUi.BehaviorDelegate {
+// Goal picker input: one step is MISSION_GOAL_STEP (HeroSetPickerDelegate).
+class HeroSetGoalPickerDelegate extends HeroSetPickerDelegate {
 
-    private var _view;
+    private var _view as HeroSetGoalPickerView;
 
     function initialize(view as HeroSetGoalPickerView) {
-        BehaviorDelegate.initialize();
+        HeroSetPickerDelegate.initialize();
         _view = view;
     }
 
-    function onPreviousPage() as Lang.Boolean {
-        _view.adjust(1);
-        return true;
+    function adjust(steps as Lang.Number) as Void {
+        _view.adjust(steps);
     }
 
-    function onNextPage() as Lang.Boolean {
-        _view.adjust(-1);
-        return true;
-    }
-
-    function onSelect() as Lang.Boolean {
+    function commit() as Void {
         _view.saveEntry();
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
-        WatchUi.requestUpdate();
-        return true;
     }
 
     // Back with an unsaved change asks rather than dropping it silently,

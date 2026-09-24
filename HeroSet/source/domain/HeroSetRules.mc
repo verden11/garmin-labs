@@ -93,7 +93,7 @@ class HeroSetRules {
         return snapped > HeroSetConfig.MAX_MISSION_GOAL ? HeroSetConfig.MAX_MISSION_GOAL : snapped;
     }
 
-    static function nextStreak(lastDay, todayDay as Lang.Number, currentStreak as Lang.Number) as Lang.Number {
+    static function nextStreak(lastDay as Lang.Number?, todayDay as Lang.Number, currentStreak as Lang.Number) as Lang.Number {
         if (lastDay == null) {
             return 1;
         }

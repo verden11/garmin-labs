@@ -35,7 +35,6 @@
     <string id="setting_mode">Misiones</string>
     <string id="mode_auto">HeroSet si está instalado; si no, objetivos diarios</string>
     <string id="mode_everyday">Objetivos diarios</string>
-    <string id="mode_heroset">Repeticiones de HeroSet</string>
     <string id="setting_slot1">Misión izquierda</string>
     <string id="setting_slot2">Misión central</string>
     <string id="setting_slot3">Misión derecha</string>

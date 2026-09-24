@@ -35,19 +35,22 @@
     <string id="dashboard_streak_none">SEM SEQUÊNCIA</string>
     <string id="dashboard_hint">START: MENU</string>
     <string id="dashboard_mission_complete">MISSÃO CONCLUÍDA</string>
-    <string id="dashboard_storage_warning">! NÃO FOI POSSÍVEL SALVAR</string>
+    <string id="dashboard_storage_warning">! ERRO AO SALVAR</string>
 
     <string id="today_progress">HOJE $1$/$2$</string>
     <string id="workout_hint_finish">START: TERMINAR</string>
     <string id="workout_metrics_wide">$1$  FC $2$  CAL $3$</string>
     <string id="workout_metrics_tight">$1$ FC $2$ CAL $3$</string>
+    <string id="workout_no_sensor">SEM SENSOR</string>
     <string id="picker_detected">DETECTADO $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: AJUSTAR</string>
+    <string id="picker_hint_adjust_touch">DESLIZE: AJUSTAR</string>
     <string id="picker_hint_save">START: SALVAR</string>
     <string id="goal_title">META DIÁRIA</string>
 
 
     <string id="validation_log_hint">UP/DOWN: PÁGINA</string>
+    <string id="validation_log_hint_touch">DESLIZE: PÁGINA</string>
     <string id="validation_log_empty">SEM DADOS</string>
     <string id="validation_log_page">LOG $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC NOVO</string>

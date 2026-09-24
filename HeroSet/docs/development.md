@@ -1,6 +1,6 @@
 # Development
 
-App: Watch App · Products: 67, listed in `compatibility.md` · Min API: 3.4.0 · Monkey C.
+App: Watch App · Products: 80, listed in `compatibility.md` · Min API: 3.4.0 · Monkey C.
 
 ## Setup
 
@@ -32,9 +32,9 @@ monkeyc -e -r -f store.jungle -o bin/HeroSet-store.iq -y /path/to/developer_key
 
 Launch language list identical in both manifests: `eng`, `deu`, `fre`, `spa`, `ita`, `por`, `dut`, `pol`, `swe`, `dan`, `nob`, `fin`, `tur`, `lit`, `ukr`. English in `resources/` is fallback; translations in language-qualified folders like `resources-deu/strings/strings.xml`. Russian intentionally unsupported.
 
-After string change: compare every qualified file's IDs and placeholders with `resources/strings/strings.xml`, then run screen-fit suite with each language selected in Connect IQ simulator. Simulator evidence no replace real-device font and layout checks.
+After string change: compare every qualified file's IDs and placeholders with `resources/strings/strings.xml`, then run the screen-fit suite in every language on the narrowest screens: `tools/fit-sweep.sh venu2s fr265s` (overlays each language's strings in a throwaway jungle, since the simulator has no CLI language switch; ADR-049). `tools/fit-sweep.sh -l eng <product>…` checks products in English. Simulator evidence no replace real-device font and layout checks.
 
-## Unit tests (94 tests; 85 in store build)
+## Unit tests (99 tests; 88 in store build)
 
 ```bash
 monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y /path/to/developer_key

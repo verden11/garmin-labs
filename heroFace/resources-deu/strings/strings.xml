@@ -35,7 +35,6 @@
     <string id="setting_mode">Missionen</string>
     <string id="mode_auto">HeroSet wenn installiert, sonst Tagesziele</string>
     <string id="mode_everyday">Tagesziele</string>
-    <string id="mode_heroset">HeroSet-Wiederholungen</string>
     <string id="setting_slot1">Linke Mission</string>
     <string id="setting_slot2">Mittlere Mission</string>
     <string id="setting_slot3">Rechte Mission</string>

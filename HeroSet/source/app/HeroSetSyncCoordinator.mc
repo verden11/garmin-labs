@@ -43,7 +43,7 @@ class HeroSetSyncCoordinator {
             _activity.closeLap(fitLabel(_lapExercise), _lapReps);
         } else if (!_store.isSyncEnabled() || !(Toybox has :ActivityRecording)) {
             return;
-        } else if (_activity.open()) {
+        } else if (_activity.open(HeroSetText.load(Rez.Strings.AppName), HeroSetText.load(Rez.Strings.fit_unit_reps))) {
             log(Rez.Strings.sync_log_new, []);
         } else {
             log(Rez.Strings.sync_log_fail, []);

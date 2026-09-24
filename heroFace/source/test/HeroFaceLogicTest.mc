@@ -147,3 +147,12 @@ function ringSweepStaysInsideTheArc(logger as Test.Logger) as Boolean {
     Test.assertEqual(HeroFaceLayout.ringSweepFor(500), HeroFaceLayout.RING_SWEEP_DEG / 2);
     return true;
 }
+
+// HeroSet never publishes a negative field (its ADR-044); one that arrives
+// anyway means the value can't be trusted, so the whole value is dropped.
+(:test)
+function contractDropsAValueWithANegativeField(logger as Test.Logger) as Boolean {
+    Test.assert(HeroFaceContract.parse("1|20260920|-3|52|100|4|63|12|20260919", 20260920, 20260919) == null);
+    Test.assert(HeroFaceContract.parse("1|20260920|37|52|100|4|63|12|20260919|-50", 20260920, 20260919) == null);
+    return true;
+}

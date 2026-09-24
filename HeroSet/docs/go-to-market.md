@@ -1,6 +1,6 @@
 # HeroSet Go-To-Market
 
-Status: 2026-09-22. **Only home for open items and blockers.** History: ADRs + `git log`.
+Status: 2026-09-24. **Only home for open items and blockers.** History: ADRs + `git log`.
 
 **Goal:** publish HeroSet as a paid Connect IQ Store app (USD 2.00 → $1.99 US, no trial, ADR-039). Feature work waits until after launch unless it unblocks it.
 
@@ -11,6 +11,7 @@ Status: 2026-09-22. **Only home for open items and blockers.** History: ADRs + `
 - **Done:** merchant approved (2026-09-18) · storage upgrade check on FR965 (gate 4) · privacy + support live at https://verden.watch/heroset/ (gate 6, `../verden-site`) · listing screenshots in `listing/` (FR970 sim, store build) · store menu check on watch.
 - **Waived for launch (ADR-042, amended 2026-09-21):** full gate 2 accuracy trial. The validation log was cleared and the FR965 fresh-installed 2026-09-21, so there is almost no current accuracy data (one 35-rep set, −4); the detector is unchanged and accuracy work is a **1.1.1** item if buyers report it.
 - **Proven only in simulator:** everything except FR965 counting basics and menus.
+- **Touch-first wave (ADR-048) and the 2026-09-24 review fixes (ADR-049, `../reports/Verden code quality review.md`), uncommitted, not in any store build:** 13 Venu/vívoactive/Approach/D2 Air products in both manifests. **97/97 dev tests on all 80 products** (English) and in all 15 languages on `venu2s` + `fr265s` (`tools/fit-sweep.sh`); store tests 88/88 on fr965, venu441mm, d2airx10; 99/99 on fr965 after the last tests (picker dispatch, ADR-050 Back gate) were added (2026-09-24). `longestLearnableSetFinishes` failed three times under simulator load (563–610 ms against its 400 ms counting bound), so that bound is now 1000 ms; the watchdog-critical saving bound stays 50 ms. Upload candidate `bin/HeroSet-store-next.iq` re-exported 2026-09-24 after ADR-050 (126 device variants; the copy first sideloaded on the FR965 predates the ADR-050 Back gate); `bin/HeroSet-store.iq` is still the 1.1.0 artifact. Requested by a buyer email (Venu 4).
 - **Uncommitted:** Connect sync in the dev build (item 5) · this session's doc and site changes, including the site's `storeUrl` — the site only shows the store button once that is pushed.
 
 ## Open items, in order
@@ -23,6 +24,11 @@ Status: 2026-09-22. **Only home for open items and blockers.** History: ADRs + `
 3. **Now live:** store page public, site links to it (item 8 closed). Still open: private beta (small group, multi-day: crashes, listener leaks) · announcing the paid launch — both now unblocked — 1.1.0 removed the save crash.
 4. **Configurable daily goal** (ADR-045, [`configurable-goal-plan.md`](configurable-goal-plan.md)): **shipped in 1.1.0.** Implemented 2026-09-20 in both builds and in HeroFace. Next: the watch checks at the end of that plan and a per-language menu check (Menu2 item labels do not shrink, unlike screen text).
 5. **Connect sync — in 1.2.0** (ADR-043, [`connect-sync-plan.md`](connect-sync-plan.md), moved out of 1.1.0 by user call 2026-09-21): implemented in dev build. Next: FR965 spike (step 0) + device acceptance, then store build gets `Fit` + `FitContributor` and privacy/support/store copy change same session.
+5b. **Touch-first wave (ADR-048)** — ships as **1.1.1** (ADR-050): live-bug fix (ADR-049) plus devices, no new feature; 1.2.0 stays Connect sync. **Owner call 2026-09-24: upload now, device checks after** — the FR965 START/`onKey` check below is therefore post-release, on a build all 80 products already run.
+   - [ ] Simulator by hand, `venu441mm`: tap mid-set does nothing; START finishes; swipe up = +1 in picker; tap in picker does nothing; START saves; swipe-right mid-set shows Resume menu.
+   - [ ] FR965 on wrist (dev build): START still finishes a set and saves the picker (moved from `onSelect` to `onKey`, ADR-048).
+   - [ ] Store listing: add the 13 devices in the upload form; site (`../verden-site`, `watchCount` 80) must go live **after** that, not before.
+   - [ ] Reply to the Venu 4 buyer once live.
 6. **Post-launch watch checks** (FR965, dev build unless noted):
    - [ ] Gate 2 (evidence, not a 1.1.0 gate — log cleared 2026-09-21, fresh install): 3 × 10 reps per exercise at slow/medium/fast; 60 s still in position per exercise (count phantoms, then Discard); one 30+ rep set. Known risks from the deleted data: push-ups over-count on 15–25 rep sets, squats collapsed to 3-for-10 twice, fast squats, push-up getting-up rep. Tuning `HeroSetConfig` is a 1.1.1 item. Results → `validation-log.md`, summary → `release-contract.md`.
    - [ ] Gate 3: every screen, no clipped text.

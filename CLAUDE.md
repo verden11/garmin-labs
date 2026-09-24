@@ -15,6 +15,8 @@ file only covers what spans folders.
 `device-test/` is git-ignored scratch for on-watch builds, shared by both
 watch projects.
 
+`reports/` holds market and sales research reports; the sourced notes behind each are in `research_notes/<report title>/`.
+
 ## Cross-folder rules
 
 - **The complication contract binds `HeroSet/` and `heroFace/`.** Fixed field
@@ -36,3 +38,7 @@ watch projects.
 - Simulator passing is not device proof. Say so when reporting.
 - Behaviour change → update the doc describing it, same session. Durable
   decision → an ADR in that project's `docs/decisions.md`.
+- **Every store publication** gets an entry in that app's `CHANGELOG.md`
+  (version, upload date, user-facing changes, ADRs) and a paste-ready
+  What's New block: HeroSet `docs/store-release.md`, HeroFace
+  `docs/listing/listing.md`.

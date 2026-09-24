@@ -4,7 +4,6 @@
         <settingConfig type="list">
             <listEntry value="0">@Strings.mode_auto</listEntry>
             <listEntry value="1">@Strings.mode_everyday</listEntry>
-            <listEntry value="2">@Strings.mode_heroset</listEntry>
         </settingConfig>
     </setting>
 

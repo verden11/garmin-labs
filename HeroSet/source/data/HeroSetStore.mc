@@ -1,4 +1,6 @@
+import Toybox.Application.Storage;
 import Toybox.Lang;
+import Toybox.System;
 
 // Persistence contract for HeroSet. All daily values reset on the LOCAL
 // calendar day (HeroSetCalendar.todayKey), XP is awarded only for net stored
@@ -31,9 +33,11 @@ class HeroSetStore {
     const VALIDATION_LOG_KEY = "hero_validation_log";
 
 
-    private var _storage;
-    private var _clock;
-    private var _writeFailed = false;
+    private var _storage as HeroSetStorage;
+    private var _clock as HeroSetClock;
+    // Sticky until the next user save starts: a later successful write in
+    // the same save must not hide an earlier failed one (ADR-010).
+    private var _writeFailed as Lang.Boolean = false;
 
     function initialize(storage as HeroSetStorage?, clock as HeroSetClock?) {
         _storage = storage == null ? new HeroSetPersistentStorage() : storage;
@@ -50,7 +54,7 @@ class HeroSetStore {
 
     function ensureCurrentDay() as Void {
         var today = _clock.todayKey();
-        var savedDay = _storage.getValue(DAY_KEY);
+        var savedDay = asNumberOrNull(_storage.getValue(DAY_KEY));
         if (savedDay == null || savedDay != today) {
             _set(DAY_KEY, today);
             resetDailyState();
@@ -75,6 +79,7 @@ class HeroSetStore {
     }
 
     function add(exercise as Lang.Symbol, amount as Lang.Number) as Void {
+        _writeFailed = false;
         ensureCurrentDay();
         var key = keyFor(exercise);
         var previous = readNumber(key);
@@ -168,6 +173,7 @@ class HeroSetStore {
     // Lowering the goal below today's counts has to finish the day right
     // away, so the streak doesn't wait for the next rep to be logged.
     function setGoal(goal as Lang.Number) as Void {
+        _writeFailed = false;
         _set(GOAL_KEY, HeroSetRules.clampGoal(goal));
         updateCompletion();
     }
@@ -228,7 +234,7 @@ class HeroSetStore {
         var label = exercise == :pushups ? "PU" : (exercise == :situps ? "SU" : "SQ");
         var error = savedCount - detected;
         var errorText = error > 0 ? ("+" + error) : error.toString();
-        var monthDay = _clock.todayKey() % 10000;
+        var monthDay = (_clock.todayKey() % 10000).format("%04d");
         return monthDay + " " + label + " " + detected + "->" + savedCount + " " + errorText;
     }
 
@@ -264,12 +270,15 @@ class HeroSetStore {
         return _writeFailed;
     }
 
-    private function _set(key as Lang.String, value as Lang.Object) as Void {
+    // Broad catch on purpose: StorageFullException is the expected case, but
+    // any failed write means the numbers on screen may not survive a restart,
+    // which is exactly what the footer warning says.
+    private function _set(key as Lang.String, value as Storage.ValueType) as Void {
         try {
             _storage.setValue(key, value);
-            _writeFailed = false;
         } catch (ex) {
             _writeFailed = true;
+            System.println("[HeroSet] write " + key + ": " + ex.getErrorMessage());
         }
     }
 

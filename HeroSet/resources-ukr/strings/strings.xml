@@ -41,13 +41,16 @@
     <string id="workout_hint_finish">START: ЗАВЕРШИТИ</string>
     <string id="workout_metrics_wide">$1$  HR $2$  КАЛ $3$</string>
     <string id="workout_metrics_tight">$1$ HR $2$ КАЛ $3$</string>
+    <string id="workout_no_sensor">НЕМАЄ ДАТЧИКА</string>
     <string id="picker_detected">ВИЯВЛЕНО $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: НАЛАШТУВАТИ</string>
+    <string id="picker_hint_adjust_touch">ПРОВЕДІТЬ: НАЛАШТУВАТИ</string>
     <string id="picker_hint_save">START: ЗБЕРЕГТИ</string>
     <string id="goal_title">ДЕННА ЦІЛЬ</string>
 
 
     <string id="validation_log_hint">UP/DOWN: СТОРІНКА</string>
+    <string id="validation_log_hint_touch">ПРОВЕДІТЬ: СТОРІНКА</string>
     <string id="validation_log_empty">НЕМАЄ ДАНИХ ЖУРНАЛУ</string>
     <string id="validation_log_page">ЖУРНАЛ $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC НОВИЙ</string>

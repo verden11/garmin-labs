@@ -18,16 +18,13 @@ class HeroFaceApp extends Application.AppBase {
         _link.start();
     }
 
-    // The delegate exists only to open HeroSet on a hold; watches without the
-    // class take the view alone, and on those with it, a hold is a no-op until
-    // the face is actually linked.
+    // The delegate exists only to open HeroSet on a hold, which is a no-op
+    // until the face is actually linked. WatchFaceDelegate is API 2.3, below
+    // every supported product.
     function getInitialView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] {
         var view = new HeroFaceView(_link);
         _view = view;
-        if (WatchUi has :WatchFaceDelegate) {
-            return [view, new HeroFaceDelegate(_link)];
-        }
-        return [view];
+        return [view, new HeroFaceDelegate(_link)];
     }
 
     function view() as HeroFaceView? {

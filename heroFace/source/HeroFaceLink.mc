@@ -21,17 +21,26 @@ class HeroFaceLink {
         _raw = cached instanceof String ? cached : null;
     }
 
+    // Called at start and, while unlinked, once a minute: a face that is
+    // already running when HeroSet gets installed links without a restart.
     function start() as Void {
         if (!(Toybox has :Complications)) {
             return;
         }
         var found = find();
-        if (found == null) {
+        var id = found != null ? found.complicationId : null;
+        if (found == null || id == null) {
             return;
         }
-        _id = found.complicationId;
-        Complications.registerComplicationChangeCallback(method(:onComplicationChanged));
-        Complications.subscribeToUpdates(found.complicationId);
+        try {
+            Complications.registerComplicationChangeCallback(method(:onComplicationChanged));
+            Complications.subscribeToUpdates(id);
+        } catch (e instanceof Lang.Exception) {
+            // Subscribing is the whole link; without it the face stays in
+            // Everyday mode rather than failing to start.
+            return;
+        }
+        _id = id;
         remember(found.value);
     }
 

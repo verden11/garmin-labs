@@ -35,7 +35,6 @@
     <string id="setting_mode">Görevler</string>
     <string id="mode_auto">Kuruluysa HeroSet, değilse günlük hedefler</string>
     <string id="mode_everyday">Günlük hedefler</string>
-    <string id="mode_heroset">HeroSet tekrarları</string>
     <string id="setting_slot1">Soldaki görev</string>
     <string id="setting_slot2">Ortadaki görev</string>
     <string id="setting_slot3">Sağdaki görev</string>

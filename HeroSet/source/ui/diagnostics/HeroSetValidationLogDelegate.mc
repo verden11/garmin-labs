@@ -3,24 +3,23 @@ import Toybox.WatchUi;
 
 class HeroSetValidationLogDelegate extends WatchUi.BehaviorDelegate {
 
-    private var _view;
+    private var _view as HeroSetValidationLogView;
 
     function initialize(view as HeroSetValidationLogView) {
         BehaviorDelegate.initialize();
         _view = view;
     }
 
-    function onKeyPressed(keyEvent as WatchUi.KeyEvent) as Lang.Boolean {
-        var key = keyEvent.getKey();
-        if (key == WatchUi.KEY_UP) {
-            _view.previousPage();
-            return true;
-        }
-        if (key == WatchUi.KEY_DOWN) {
-            _view.nextPage();
-            return true;
-        }
-        return false;
+    // Page behaviors, not raw keys: UP/DOWN on a five-button watch, swipes
+    // on a touch-first one (ADR-048).
+    function onPreviousPage() as Lang.Boolean {
+        _view.previousPage();
+        return true;
+    }
+
+    function onNextPage() as Lang.Boolean {
+        _view.nextPage();
+        return true;
     }
 
     function onBack() as Lang.Boolean {

@@ -39,7 +39,6 @@
     <string id="setting_mode">Missions</string>
     <string id="mode_auto">HeroSet when installed, else everyday goals</string>
     <string id="mode_everyday">Everyday goals</string>
-    <string id="mode_heroset">HeroSet reps</string>
     <string id="setting_slot1">Left mission</string>
     <string id="setting_slot2">Middle mission</string>
     <string id="setting_slot3">Right mission</string>

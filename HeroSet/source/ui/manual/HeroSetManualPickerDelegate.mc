@@ -1,38 +1,22 @@
 import Toybox.Lang;
 import Toybox.WatchUi;
 
-// Each Up/Down press steps the delta by exactly 1. No hold-to-accelerate
-// (ADR-029): on the FR965 long-pressing Up/Down opens watch-level shortcuts,
-// so a hold can't be claimed as an in-app gesture. Page behaviors rather
-// than raw key events, so a press is one step and nothing else.
-class HeroSetManualPickerDelegate extends WatchUi.BehaviorDelegate {
+// Delta picker input: one step is one rep (HeroSetPickerDelegate).
+class HeroSetManualPickerDelegate extends HeroSetPickerDelegate {
 
-    private var _view;
+    private var _view as HeroSetManualPickerView;
 
     function initialize(view as HeroSetManualPickerView) {
-        BehaviorDelegate.initialize();
+        HeroSetPickerDelegate.initialize();
         _view = view;
     }
 
-    function onPreviousPage() as Lang.Boolean {
-        _view.adjust(1);
-        return true;
+    function adjust(steps as Lang.Number) as Void {
+        _view.adjust(steps);
     }
 
-    function onNextPage() as Lang.Boolean {
-        _view.adjust(-1);
-        return true;
-    }
-
-    function onSelect() as Lang.Boolean {
+    function commit() as Void {
         _view.saveEntry();
-        // Every caller pops its own predecessor view before pushing the
-        // picker (HeroSetMenuDelegate, HeroSetWorkoutDelegate), so the
-        // picker always sits directly on the dashboard — one pop is
-        // deterministic regardless of which screen opened it.
-        WatchUi.popView(WatchUi.SLIDE_DOWN);
-        WatchUi.requestUpdate();
-        return true;
     }
 
     // Back never silently drops a pending correction: with a non-zero delta,

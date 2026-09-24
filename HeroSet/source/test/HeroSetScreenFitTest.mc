@@ -57,6 +57,8 @@ function everyScreenFitsThisDisplay(logger as Test.Logger) as Lang.Boolean {
         HeroSetDraw.misfits = null;
         HeroSetDraw.boxes = null;
     }
+    // Which hint set was measured: SWIPE on touch-first products (ADR-048).
+    logger.debug("touchFirst=" + HeroSetInput.touchFirst());
     for (var i = 0; i < problems.size(); i++) {
         logger.debug(settings.screenWidth + "px: " + problems[i]);
     }

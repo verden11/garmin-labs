@@ -134,7 +134,7 @@ The site refuses the indie-studio default of icon, headline, badge and screensho
 - Archivo variable at wide stretch (112-125%) and heavy weight (800-850) for display; hierarchy by size, not by decoration.
 - Pictograms on a 64-unit grid: thick butt-capped bars with gaps at the joints and a detached round head.
 - Thick 3px ink rules as the structural line; 1px rules only as quiet dividers.
-- Discrete-step motion only, and none under reduced motion.
+- Discrete-step motion only, and none under reduced motion. One exception: page-to-page navigation uses the browser's default view-transition crossfade (`@view-transition`), so the shared bars don't flash blank between pages.
 
 ## Colors
 

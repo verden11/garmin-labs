@@ -35,7 +35,6 @@
     <string id="setting_mode">Tehtävät</string>
     <string id="mode_auto">HeroSet jos asennettu, muuten päivän tavoitteet</string>
     <string id="mode_everyday">Päivän tavoitteet</string>
-    <string id="mode_heroset">HeroSet-toistot</string>
     <string id="setting_slot1">Vasen tehtävä</string>
     <string id="setting_slot2">Keskimmäinen tehtävä</string>
     <string id="setting_slot3">Oikea tehtävä</string>
