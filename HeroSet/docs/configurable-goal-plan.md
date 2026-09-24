@@ -4,7 +4,7 @@ Status: 2026-09-20. **Implemented** (ADR-045) in both builds and in HeroFace, si
 
 ## Problem
 
-The daily goal is the constant `HeroSetConfig.MISSION_GOAL = 100`, used in 8 source files and hardcoded again in the sibling watch face (`../heroFace/source/HeroFaceConfig.mc: HEROSET_GOAL = 100`). 100 push-ups/sit-ups/squats a day is too much for beginners and too little for strong users, so the app fits one audience and the store listing promises exactly that audience.
+The daily goal is the constant `HeroSetConfig.MISSION_GOAL = 100`, used in 8 source files and hardcoded again in the sibling watch face (`../HeroFace/source/HeroFaceConfig.mc: HEROSET_GOAL = 100`). 100 push-ups/sit-ups/squats a day is too much for beginners and too little for strong users, so the app fits one audience and the store listing promises exactly that audience.
 
 ## Decisions (made, do not re-open during implementation)
 
@@ -52,12 +52,12 @@ Domain must not read Storage (layer rule), and a mutable static would break the 
 
 ### Step 4 — complication contract (breaks HeroFace if done wrong)
 
-`../heroFace/source/HeroFaceContract.mc` was read on 2026-09-20: `numbers()` reads the first 9 fields and **ignores anything beyond**, but `parse()` returns null if field 1 != `HeroFaceConfig.HEROSET_CONTRACT_VERSION`. So the dangerous combination is new HeroSet + old HeroFace (every existing face user, since HeroSet updates first), and it is a version-number problem, not a field-count problem.
+`../HeroFace/source/HeroFaceContract.mc` was read on 2026-09-20: `numbers()` reads the first 9 fields and **ignores anything beyond**, but `parse()` returns null if field 1 != `HeroFaceConfig.HEROSET_CONTRACT_VERSION`. So the dangerous combination is new HeroSet + old HeroFace (every existing face user, since HeroSet updates first), and it is a version-number problem, not a field-count problem.
 
 - **Keep `HeroSetComplicationPublisher.VERSION = 1`.** Append `goal` as field 10 only (ADR-044: new fields go on the end). Old HeroFace then keeps working, ignoring field 10 and drawing bars against its own 100. Bumping the version would blank the missions on every not-yet-updated face.
-- `../heroFace/source/HeroFaceContract.mc`: read field 10 when the value has it, default 100 when absent; return it alongside the existing six values. Do not raise `FIELDS`/the version check — parse the tail separately so a 9-field value stays valid.
-- `../heroFace/source/HeroFaceConfig.mc`: `HEROSET_GOAL = 100` becomes the fallback only; `HeroFaceMissions` computes fill from the parsed goal.
-- Update the data-contract section of `../heroFace/docs/plan.md` and add a HeroFace-side test for a 9-field (old) and a 10-field (new) value, same session.
+- `../HeroFace/source/HeroFaceContract.mc`: read field 10 when the value has it, default 100 when absent; return it alongside the existing six values. Do not raise `FIELDS`/the version check — parse the tail separately so a 9-field value stays valid.
+- `../HeroFace/source/HeroFaceConfig.mc`: `HEROSET_GOAL = 100` becomes the fallback only; `HeroFaceMissions` computes fill from the parsed goal.
+- Update the data-contract section of `../HeroFace/docs/plan.md` and add a HeroFace-side test for a 9-field (old) and a 10-field (new) value, same session.
 
 ### Step 5 — tests
 
@@ -72,7 +72,7 @@ Domain must not read Storage (layer rule), and a mutable static would break the 
 - New **ADR-045** at the end of `docs/decisions.md` (verify it is still the next free number): user-set daily goal, on-watch Storage not phone settings, XP pinned to 100 reps. Mark **ADR-002 Amended** (XP no longer follows the goal) and note ADR-044's field append.
 - `docs/input-and-ux.md`: new menu item + picker screen, `TODAY N/<goal>` wording. Its line "XP: 2 per rep, counted up to each daily goal (max 600 a day, ADR-002)" goes false with a configurable goal — reword to *counted up to 100 per exercise per day whatever your goal*.
 - `docs/architecture.md`: goal is store-owned, passed down; domain stays Storage-free.
-- `PRODUCT.md` (line 13 and line 32, "daily goal 100 each (fixed, not user-configurable)"), `docs/release-contract.md` + `docs/store-release.md`: "100 a day" is a user-facing claim; it becomes "100 a day by default, any goal from 10 to 500". Also a claim, so it belongs in `release-contract.md` and on the support page: **rank reflects reps done, not goals hit**.
+- `PRODUCT.md` (line 13 and line 32, "daily goal 100 each (fixed, not user-configurable)"), `docs/release-contract.md` + `listing/README.md`: "100 a day" is a user-facing claim; it becomes "100 a day by default, any goal from 10 to 500". Also a claim, so it belongs in `release-contract.md` and on the support page: **rank reflects reps done, not goals hit**.
 - `../verden-site/src/apps/heroset/` landing + support pages and the store listing description, same session.
 - `go-to-market.md`: move this item out of backlog into open items when work starts; **gate 5 must be re-checked** — it verified "release menu: exercises + manual log only", and this adds a third kind of item.
 

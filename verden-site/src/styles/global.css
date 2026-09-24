@@ -6,9 +6,9 @@
   --ink-2: #4b515a;
   --rule: #dcdfe4;
   --link: #0f5fc7;
-  --studio: #62b0ea;
-  --on-studio: #0b1824;
-  --studio-ink: #1a5fb4;
+  --studio: #c3c9cf;
+  --on-studio: #15181c;
+  --studio-ink: #4b5663;
   --field: var(--studio);
   --inverse: #14161a;
   --on-inverse: #ffffff;
@@ -33,7 +33,7 @@
     --ink-2: #a6adb7;
     --rule: #2a2f36;
     --link: #7db6ff;
-    --studio-ink: #62b0ea;
+    --studio-ink: #c3c9cf;
     --inverse: #1b1f25;
     --on-inverse: #eceef1;
     color-scheme: dark;
@@ -93,7 +93,9 @@ img { max-width: 100%; height: auto; display: block; }
 
 .studio-mark { display: inline-flex; gap: 3px; }
 .studio-mark > span { width: 6px; height: 18px; }
-.studio-mark > span:last-child { background: var(--studio); }
+/* The studio's bar is a foreground on paper, so it takes the studio ink:
+   silver itself nearly vanishes on white (Field-Is-Ground Rule). */
+.studio-mark > span:last-child { background: var(--studio-ink); }
 
 /* App bar: every page of an app wears the app's field color ---------------- */
 
@@ -110,7 +112,10 @@ img { max-width: 100%; height: auto; display: block; }
 }
 .app-bar ul a:hover { border-bottom-color: color-mix(in srgb, var(--on-field) 35%, transparent); }
 .app-bar ul a[aria-current='page'] { border-bottom-color: var(--on-field); }
-.app-bar :focus-visible, .field :focus-visible { outline-color: var(--on-field); }
+.app-bar :focus-visible, .field :focus-visible, .note :focus-visible { outline-color: var(--on-field); }
+@media (prefers-color-scheme: dark) {
+  .truth :focus-visible { outline-color: var(--on-field); }
+}
 
 /* Field: a full-bleed app-colored region --------------------------------- */
 
@@ -123,11 +128,11 @@ img { max-width: 100%; height: auto; display: block; }
   display: inline-flex; align-items: center; min-height: 3rem; padding: 0.75rem 1.4rem;
   font-weight: 700; font-size: 1rem; line-height: 1.2;
 }
-.button {
-  background: var(--on-field); color: var(--field); text-decoration: none;
-  transition: transform 180ms var(--ease-out);
+.button { background: var(--on-field); color: var(--field); text-decoration: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .button { transition: transform 180ms var(--ease-out); }
+  .button:hover { transform: translateY(-2px); }
 }
-.button:hover { transform: translateY(-2px); }
 .status { border: 2px dashed var(--on-field); }
 
 /* Hero ------------------------------------------------------------------- */
@@ -195,12 +200,14 @@ img { max-width: 100%; height: auto; display: block; }
 .band__title { font-size: clamp(2rem, 4.6vw, 3.4rem); font-weight: 800; font-stretch: 112%; letter-spacing: -0.03em; }
 .band__lede { font-size: 1.15rem; max-width: 60ch; color: var(--ink-2); }
 .band__aside { color: var(--ink-2); max-width: 70ch; }
+.band__figure { display: flex; justify-content: center; }
 
 /* The set as a course: stops along one rule, keys named like the bezel */
 
 .course {
   list-style: none; margin: var(--space-3) 0 0; padding: 0;
-  display: grid; grid-template-columns: repeat(5, minmax(0, 1fr));
+  /* One column per stop, however many an app has. */
+  display: grid; grid-auto-flow: column; grid-auto-columns: minmax(0, 1fr);
   border-top: 3px solid var(--ink);
 }
 .course__stop { position: relative; padding: var(--space-3) var(--space-3) 0 0; display: grid; gap: 0.5rem; align-content: start; }
@@ -209,6 +216,7 @@ img { max-width: 100%; height: auto; display: block; }
   background: var(--field); border: 3px solid var(--ink); border-radius: 50%;
 }
 .course__keys { display: flex; gap: 0.4rem; min-height: 2.1rem; align-items: center; }
+.course__keys:empty { display: none; }
 .course__stop h3 { font-size: 1.2rem; font-weight: 750; }
 .course__stop p { color: var(--ink-2); font-size: 0.98rem; }
 .key {
@@ -334,10 +342,9 @@ main:has(> .close:last-child, > .program:last-child) + .site-footer { margin-top
 @media (max-width: 60rem) {
   .hero__inner, .truth__inner { grid-template-columns: minmax(0, 1fr); }
   .hero__copy, .hero__reps { grid-column: 1 / -1; }
-  .course { grid-template-columns: 1fr; border-top: 0; border-left: 3px solid var(--ink); margin-left: 6px; }
+  .course { grid-auto-flow: row; grid-template-columns: 1fr; border-top: 0; border-left: 3px solid var(--ink); margin-left: 6px; }
   .course__stop { padding: 0 0 var(--space-3) var(--space-3); }
   .course__stop::before { top: 4px; left: -9px; }
-  .course__keys:empty { display: none; }
   .truth h2, .truth__text { grid-column: 1 / -1; }
   .screens { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .program__inner { grid-template-columns: auto 1fr; }

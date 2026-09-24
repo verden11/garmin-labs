@@ -1,13 +1,13 @@
 # Screenshots and store images
 
-Status: 2026-09-21. Everything below is captured and lives in `../../listing/`.
+Status: 2026-09-21. Everything below is captured and lives in `listing/`.
 The always-on shot was **deferred to a post-launch listing update** (user call,
 2026-09-21) — it needs a human at the simulator GUI, and the five screens here
 satisfy the store requirement without it.
 
 ## What exists
 
-`../../listing/screens/`, in upload order:
+`listing/screens/`, in upload order:
 
 | File | Screen | Mode | State | Source |
 |---|---|---|---|---|
@@ -17,7 +17,7 @@ satisfy the store requirement without it.
 | `4-heroset-complete.png` | 454 px | HeroSet | All three met, rank 2, streak 1 | **FR965** |
 | `5-no-barometer.png` | 240 px | Everyday | STEPS / INT / **MOVE** — the fallback when the watch has no barometer | `fr245` simulator |
 
-The composed images, all in `../../listing/`: `cover-500.png` (store cover),
+The composed images, all in `listing/`: `cover-500.png` (store cover),
 `hero-1440x720.png`, `icon-24-128.png` and `icon-64-128.png` (optional device
 icons). Sources are in `listing/src/`; re-render after re-taking any screen:
 
@@ -40,7 +40,7 @@ python3 src/quantize64.py icon-24-128.png icon-64-128.png
 
 **Always on.** Capture it on the FR965, not the simulator: the sleep render is
 the one thing the simulator cannot vouch for, and it is what Garmin's burn-in
-rules apply to (`../go-to-market.md` §1).
+rules apply to (`docs/go-to-market.md` §1).
 
 ## Which source for which shot
 
@@ -66,9 +66,9 @@ monkeydo bin/HeroFace.prg fr965
 ## Where they go
 
 - **Store:** upload in the submission form, in the numbered order above.
-- **Website:** copied to `../../../verden-site/public/heroface/screens/` as
+- **Website:** copied to `../verden-site/public/heroface/screens/` as
   `everyday.png`, `goals-met.png`, `heroset.png`, and wired into
-  `../../../verden-site/src/apps/heroface/facts.ts`. The `Always on` slot there
+  `../verden-site/src/apps/heroface/facts.ts`. The `Always on` slot there
   still renders a "Screenshot pending" placeholder.
 
 ## Honesty rules
@@ -76,4 +76,4 @@ monkeydo bin/HeroFace.prg fr965
 - Capture the real face, never a mock-up.
 - The numbers on screen must be ones the watch could actually produce.
 - No claim in the image that the listing itself could not make
-  (`../go-to-market.md`).
+  (`docs/go-to-market.md`).

@@ -1,8 +1,7 @@
 import type { CSSProperties } from 'react'
 import type { App } from '../apps/types.ts'
 import { Shell } from './Shell.tsx'
-
-export type Section = 'landing' | 'support' | 'privacy'
+import { appUrl, type Section } from '../urls.ts'
 
 const tabs: [Section, string][] = [['landing', 'Overview'], ['support', 'Support'], ['privacy', 'Privacy']]
 
@@ -14,11 +13,11 @@ export function AppPage({ app, section }: { app: App; section: Section }) {
       <Shell>
         <nav className="app-bar" aria-label={app.name}>
           <div className="wrap app-bar__inner">
-            <a className="app-bar__name" href={`/${app.slug}/`}><app.Mark size={28} />{app.name}</a>
+            <a className="app-bar__name" href={appUrl(app.slug)}><app.Mark size={28} />{app.name}</a>
             <ul>
               {tabs.map(([id, label]) => (
                 <li key={id}>
-                  <a href={id === 'landing' ? `/${app.slug}/` : `/${app.slug}/${id}/`} aria-current={id === section ? 'page' : undefined}>
+                  <a href={appUrl(app.slug, id)} aria-current={id === section ? 'page' : undefined}>
                     {label}
                   </a>
                 </li>

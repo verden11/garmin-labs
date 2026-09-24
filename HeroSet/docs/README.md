@@ -11,13 +11,14 @@ Resuming? Read [`go-to-market.md`](go-to-market.md) first (open items), then [`a
 | [`development.md`](development.md) | Build, test, sign, device crash logs |
 | [`testing-plan.md`](testing-plan.md) | What's tested where |
 | [`release-contract.md`](release-contract.md) | Allowed/forbidden claims; check before user-facing copy |
-| [`store-release.md`](store-release.md) | Store economics, upload-form answers, description |
 | [`compatibility.md`](compatibility.md) | Supported watches, why others aren't, adding one |
 | [`connect-sync-plan.md`](connect-sync-plan.md) | v1.1 Connect sync: limits, behavior, device acceptance |
 | [`configurable-goal-plan.md`](configurable-goal-plan.md) | User-set daily goal: research + decisions behind ADR-045 (implemented) |
 | [`validation-log.md`](validation-log.md) | On-watch accuracy trial data |
 | [`battery.md`](battery.md) | Battery analysis + measurement plan (post-launch) |
 | [`ideas.md`](ideas.md) | Candidate features, ranked. Not open items |
+| [`../listing/README.md`](../listing/README.md) | Store listing: economics, upload-form answers, description, What's New per version; images beside it |
+| [`../CHANGELOG.md`](../CHANGELOG.md) | One entry per store publication |
 | [`../PRODUCT.md`](../PRODUCT.md) | Product truth for design work (Impeccable) |
 | `../verden-site` | Public site: landing, support, privacy |
 

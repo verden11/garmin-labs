@@ -7,13 +7,27 @@ that serves all of their public pages.
 
 | Folder | What | Status |
 |---|---|---|
-| [`HeroSet/`](HeroSet) | Watch app — daily 100 push-ups, sit-ups, squats with automatic rep counting, XP, rank and streak. 67 products. | In Garmin store review |
-| [`heroFace/`](heroFace) | Watch face — time-first, in HeroSet's visual language. Works standalone; richer with HeroSet installed. 117 round products. | Pre-submission |
+| [`HeroSet/`](HeroSet) | Watch app — daily push-ups, sit-ups, squats with automatic rep counting, XP, rank and streak. 80 products. | 1.1.0 live; 1.1.1 in review |
+| [`HeroFace/`](HeroFace) | Watch face — time-first, in HeroSet's visual language. Works standalone; richer with HeroSet installed. 117 round products. | 1.0.0 live; 1.0.1 in review |
 | [`verden-site/`](verden-site) | The public site: studio home plus landing, support and privacy pages per app. Live at **https://verden.watch/** | Live |
 
-Each folder has its own `README.md`, `CLAUDE.md` and `docs/`, and is built and
-released independently. They share this repo so cross-cutting changes land in
-one commit.
+Each folder is built and released independently. They share this repo so
+cross-cutting changes land in one commit.
+
+## Layout
+
+Both watch apps use the same shape, so the same file is in the same place:
+
+```
+HeroSet/ · HeroFace/
+  README.md  CLAUDE.md  PRODUCT.md  CHANGELOG.md   one CHANGELOG entry per store publication
+  docs/        engineering and product docs (go-to-market, decisions/plan, compatibility, development)
+  listing/     the store listing: README.md (paste-ready form answers, description,
+               What's New per version), screenshots.md, screens/, src/, images
+  source/  resources*/  manifest*.xml  *.jungle
+verden-site/   the public website (its own README, CLAUDE.md, DESIGN.md)
+reports/       research and review reports; the notes behind each in research_notes/<report title>/
+```
 
 ## The one coupling
 
@@ -33,7 +47,7 @@ Each project builds on its own; see its `README.md` for the full commands.
 
 ```sh
 cd HeroSet     && monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y $KEY
-cd heroFace    && monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y $KEY
+cd HeroFace    && monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y $KEY
 cd verden-site && npm install && npm run dev
 ```
 

@@ -1,6 +1,7 @@
 import { Doc, Note } from '../../components/Doc.tsx'
 import { studio } from '../../site.ts'
 import { watchCount, linkedWatchCount } from './facts.ts'
+import { appUrl } from '../../urls.ts'
 
 export function Support() {
   return (
@@ -54,14 +55,14 @@ export function Support() {
       </p>
       <h3>How do I show my HeroSet reps?</h3>
       <p>
-        Install <a href="/heroset/">HeroSet</a> and open it once. On the {linkedWatchCount} watches that support it, the
+        Install <a href={appUrl('heroset')}>HeroSet</a> and open it once. On the {linkedWatchCount} watches that support it, the
         bars then show push-ups, sit-ups and squats, and the ring shows rank progress. Holding the face opens HeroSet.
         Without HeroSet, the face shows your everyday goals and nothing is missing.
       </p>
       <h3>Which watches are supported?</h3>
       <p>
         {watchCount} Garmin watches with round screens, from Connect IQ 3.0 upwards. The Connect IQ Store shows whether
-        your exact model is listed. HeroFace has been tested on a Forerunner 965; every other model passes each screen
+        your exact model is listed. HeroFace has been tested on a Forerunner 965; every screen size passes each screen
         check in Garmin’s simulator.
       </p>
     </Doc>

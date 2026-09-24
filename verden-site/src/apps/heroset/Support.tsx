@@ -43,9 +43,11 @@ export function Support() {
       <p>At midnight, watch local time. XP, rank and streak carry over; missing a day resets the streak.</p>
       <h3>Which watches are supported?</h3>
       <p>
-        {watchCount} Garmin watches with five buttons and a round screen: Forerunner 70, 165, 170, 255, 265, 570, 945 LTE,
-        955, 965 and 970; epix (Gen 2) and epix Pro (Gen 2); fēnix 6, 6 Pro, 7, 7 Pro, 8, 8 Pro, 9, 9 Pro and fēnix E;
-        Enduro and Enduro 3; MARQ (Gen 1 and Gen 2); D2 Mach; Descent MK2, MK2S, MK3 and G2. HeroSet has been tested on a
+        {watchCount} Garmin watches with a round screen: Forerunner 70, 165, 170, 255, 265, 570, 945 LTE, 955, 965 and 970;
+        epix (Gen 2) and epix Pro (Gen 2); fēnix 6, 6 Pro, 7, 7 Pro, 8, 8 Pro, 9, 9 Pro and fēnix E; Enduro and Enduro 3;
+        MARQ (Gen 1 and Gen 2); D2 Mach and D2 Air X10; Descent MK2, MK2S, MK3 and G2; Venu 2, 2 Plus, 2S, 3, 3S and 4;
+        vívoactive 5 and 6; Approach S50 and S70. On touchscreen watches without UP/DOWN buttons, swipe up or down to
+        adjust a count and press START to save; a tap on the counting or adjust screen never ends or saves a set. HeroSet has been tested on a
         Forerunner 965; every other model passes each screen check in Garmin’s simulator. The Connect IQ Store shows the
         exact list for your model.
       </p>

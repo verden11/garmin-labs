@@ -4,6 +4,8 @@ Status: 2026-09-24.
 
 ## Status checkpoint
 
+**Store device list (store API, 2026-09-25):** 69 of the 117 products are listed. Missing: fēnix 5/5 Plus/5S/5X family, fēnix 6S, fēnix Chronos, FR55, FR245/245M, FR645/645M, FR745, FR935, FR945/945 LTE, vívoactive 3/3M/3 LTE/4/4S, Venu, Venu D, D2 Air, D2 Air X10, D2 Charlie/Delta ×3, Descent MK1/MK2/MK2S, Enduro, Approach S62, MARQ Gen 1 ×8, Legacy Hero/Saga ×4. HeroSet misses the same families, so this looks store-side. **1.0.1 is not live yet** at that check: the store still serves 1.0.0 (released 2026-09-22) while showing the 1.0.1 What's New text.
+
 **Next upload (2026-09-24):** `bin/HeroFace-next.iq` carries the code-review fixes (link null-guard and once-a-minute relink, the "HeroSet" mode entry removed with a stored 2 read as Auto, Fahrenheit rounding; `../reports/Verden code quality review.md`). 16/16 tests on six products in the simulator; not yet on a watch. `bin/HeroFace.iq` stays the 1.0 artifact.
 
 **Live in the store.** Garmin approved the submission on **2026-09-22** and
@@ -18,7 +20,7 @@ testable against the store install.
 | Code | Complete for round watches: everyday mode, HeroSet mode, settings, always-on. A finish review returned `fix`; all six items applied (see `docs/plan.md`) |
 | Simulator evidence | **15/15 tests re-run 2026-09-22 on 11 products** — fr965 plus one per screen size (`fr55`, `fenix5s`, `fenix5`, `vivoactive4`, `fenix7x`, `fr265s`, `fr165`, `epix2`, `fenix9pro51mm`) and the no-barometer `fr245`, so screen fit covers all 10 sizes (208–466 px); the 15th is the power-budget fallback test. 14 languages id/placeholder-clean; `.iq` builds for all 117 |
 | Device evidence | FR965 2026-09-20/22: both apps install, face renders, the HeroSet link updates within seconds, no permission prompt, **reboot survives**, **a full day of wear with no crash**, always-on shift confirmed. **2026-09-22: no AOD retention after a night with sleep mode off, and the midnight reset fires.** **Battery: 66% → 60% over 20h36m (~7%/day), seconds on, sleep mode off.** Still open: **the seconds power budget, settings delivery, MIP** |
-| Store listing | **Approved and live 2026-09-22.** Copy and images shipped (`docs/listing/`): 5 screens, cover, hero, device icons. Always-on screenshot still deferred to a listing update (2026-09-21 user call) — now capturable off the store build |
+| Store listing | **Approved and live 2026-09-22.** Copy and images shipped (`listing/`): 5 screens, cover, hero, device icons. Always-on screenshot still deferred to a listing update (2026-09-21 user call) — now capturable off the store build |
 | Site pages | **Live**: https://verden.watch/heroface/ , `/heroface/support/` , `/heroface/privacy/` (all 200, 2026-09-20). `storeUrl` **set 2026-09-22** in `../verden-site/src/apps/heroface/app.ts` to **https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116** (the store listing returns 200). The site is prerendered, so the Get button appears only after a rebuild and deploy |
 | HeroSet side | Publisher built and tested (HeroSet's suite, 94 / 85 store — `../../HeroSet/CLAUDE.md`). **Working:** HeroSet **1.1.0** is live (2026-09-21) and carries the publisher, so the link works for buyers who own both and have updated (§2) |
 

@@ -1,7 +1,7 @@
 # HeroSet changelog
 
 One entry per Connect IQ Store publication, newest first. The store's
-"What's New" text for each version is in `docs/store-release.md`; the why is in
+"What's New" text for each version is in `listing/README.md`; the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
 ## 1.1.1 — uploaded 2026-09-24 (in review)

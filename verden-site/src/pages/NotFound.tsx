@@ -1,5 +1,6 @@
 import { Shell } from '../components/Shell.tsx'
 import { apps } from '../apps/index.ts'
+import { appUrl } from '../urls.ts'
 
 export function NotFound() {
   return (
@@ -11,7 +12,7 @@ export function NotFound() {
         <ul>
           <li><a href="/">All apps</a></li>
           {apps.map((app) => (
-            <li key={app.slug}><a href={`/${app.slug}/support/`}>{app.name} support</a></li>
+            <li key={app.slug}><a href={appUrl(app.slug, 'support')}>{app.name} support</a></li>
           ))}
         </ul>
       </section>
