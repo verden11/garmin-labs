@@ -111,7 +111,7 @@ Dependencies point down only. Sensor classes take plain args, return plain value
 - **Sync state:** `isSyncEnabled` only (ADR-027/043); `hero_sync_day` retired, never reused.
 - **Diagnostics log:** `logValidationTrial` (validation trials) and `logDiagnostic` (sync lines), one capped ring buffer read by `getValidationLog` (ADR-026/030).
 
-**HeroSetComplicationPublisher** (ADR-044): packs the dashboard state, today's day key and the last completion day into one private complication value for HeroFace (`../heroFace`). `valueFor` is pure; `publish` is a no-op below CIQ 4.2.
+**HeroSetComplicationPublisher** (ADR-044): packs the dashboard state, today's day key and the last completion day into one private complication value for HeroFace (`../HeroFace`). `valueFor` is pure; `publish` is a no-op below CIQ 4.2.
 
 **HeroSetSensorManager**: register/unregister 25 Hz accelerometer listener. Callers must pass `method(:onSensorData)` (ADR-023).
 

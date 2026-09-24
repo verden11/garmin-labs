@@ -20,7 +20,7 @@ Garmin watch app (Forerunner 965 first, 80 round AMOLED + MIP watches supported,
 - XP only for net stored progress (ADR-002). Rank derived, never stored (ADR-031). Persisted key spellings never change (ADR-003).
 - Navigation: Workout/Picker always depth 1 on dashboard; fixed pop counts depend on it, over-popping exits app (ADR-024).
 - Device-only failure modes exist (ADR-022/023). Passing simulator not proof; say so when reporting.
-- Sibling watch face `../heroFace` (HeroFace) reads today's progress through one private complication this app publishes (ADR-044, `HeroSetComplicationPublisher`): CIQ 4.2+ products only, resource in `resources-complications/` added per product in both jungles. Its value is a fixed field order; changing it breaks that app.
+- Sibling watch face `../HeroFace` (HeroFace) reads today's progress through one private complication this app publishes (ADR-044, `HeroSetComplicationPublisher`): CIQ 4.2+ products only, resource in `resources-complications/` added per product in both jungles. Its value is a fixed field order; changing it breaks that app.
 - Public site (landing, support, privacy) lives in sibling directory `../verden-site` (studio "Verden", shared with future apps; its `CLAUDE.md` explains hosting + linking). HeroSet pages: `src/apps/heroset/` there, live at `/heroset/`, `/heroset/support/`, `/heroset/privacy/` on https://verden.watch (Netlify, auto-deploys on push). Store listing uses those URLs. User-facing claim or data-handling change here → update those pages same session.
 
 ## House rules

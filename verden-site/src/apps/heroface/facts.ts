@@ -27,7 +27,7 @@ export const languages = [
 
 // Captures of the real face: the first two from the simulator, the HeroSet one
 // from an FR965, because the link needs HeroSet running to publish. Empty slots
-// render as pending. See HeroFace docs/listing/screenshots.md.
+// render as pending. See HeroFace listing/screenshots.md.
 export const screens: Screenshot[] = [
   { label: 'Everyday', src: '/heroface/screens/everyday.png' },
   { label: 'Goals met', src: '/heroface/screens/goals-met.png' },

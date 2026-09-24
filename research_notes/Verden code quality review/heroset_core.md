@@ -168,7 +168,7 @@ There are no unguarded calls above 3.4 in the core layers. The calls ADR-038's s
 
 ---
 
-## 4. Is the complication contract (ADR-044, HeroSetComplicationPublisher) robust, and does it match what ../heroFace reads?
+## 4. Is the complication contract (ADR-044, HeroSetComplicationPublisher) robust, and does it match what ../HeroFace reads?
 
 ### Takeaway
 The value format matches HeroFace's parser field for field, and both sides pin it with string-literal tests. The jungle complication resource paths are consistent for all 80 products against the SDK's CIQ versions.
@@ -181,9 +181,9 @@ Three risks remain:
 ### Cited Findings
 - **Format matches.**
   - HeroSet emits `1|day|push|sit|squat|rank|pct|streak|lastDone|goal` ([HeroSetComplicationPublisher.mc:35-55](file:///Users/mbp/dev/garmin/HeroSet/source/app/HeroSetComplicationPublisher.mc)).
-  - HeroFace requires 9 fields and reads an optional 10th as the goal, falling back to 100 when it is missing or 0 ([heroFace/source/HeroFaceContract.mc:19-39,53-70](file:///Users/mbp/dev/garmin/heroFace/source/HeroFaceContract.mc)).
-  - Both sides use version 1 ([HeroFaceConfig.mc:36](file:///Users/mbp/dev/garmin/heroFace/source/HeroFaceConfig.mc)).
-  - Tests: [HeroSetComplicationTest.mc](file:///Users/mbp/dev/garmin/HeroSet/source/test/HeroSetComplicationTest.mc) asserts `"1|20260920|37|52|100|4|0|12|20260919|100"`. [heroFace/source/test/HeroFaceLogicTest.mc:35-55](file:///Users/mbp/dev/garmin/heroFace/source/test/HeroFaceLogicTest.mc) parses the 9- and 10-field forms.
+  - HeroFace requires 9 fields and reads an optional 10th as the goal, falling back to 100 when it is missing or 0 ([HeroFace/source/HeroFaceContract.mc:19-39,53-70](file:///Users/mbp/dev/garmin/HeroFace/source/HeroFaceContract.mc)).
+  - Both sides use version 1 ([HeroFaceConfig.mc:36](file:///Users/mbp/dev/garmin/HeroFace/source/HeroFaceConfig.mc)).
+  - Tests: [HeroSetComplicationTest.mc](file:///Users/mbp/dev/garmin/HeroSet/source/test/HeroSetComplicationTest.mc) asserts `"1|20260920|37|52|100|4|0|12|20260919|100"`. [HeroFace/source/test/HeroFaceLogicTest.mc:35-55](file:///Users/mbp/dev/garmin/HeroFace/source/test/HeroFaceLogicTest.mc) parses the 9- and 10-field forms.
 - **Med (a) Uncaught documented exception on every launch.**
   - SDK doc: `updateComplication` "Throws: (Lang.OperationNotAllowedException) — Thrown if the id of the complication is not associated with this application".
   - It is called with no catch from `HeroSetApp.onStart` ([HeroSetApp.mc:18](file:///Users/mbp/dev/garmin/HeroSet/source/app/HeroSetApp.mc)), every save ([HeroSetSaveFeedback.mc:19](file:///Users/mbp/dev/garmin/HeroSet/source/ui/HeroSetSaveFeedback.mc)), goal save ([HeroSetGoalPickerView.mc:50](file:///Users/mbp/dev/garmin/HeroSet/source/ui/settings/HeroSetGoalPickerView.mc)) and midnight ([HeroSetDayTracker.mc:34](file:///Users/mbp/dev/garmin/HeroSet/source/ui/dashboard/HeroSetDayTracker.mc)).
@@ -191,12 +191,12 @@ Three risks remain:
   - Today they agree. I checked all 80 manifest products against `Devices/<id>/compiler.json` max `connectIQVersion`: every ≥4.2 product has the `resources-complications` line in both jungles, and every <4.2 product has it in neither ("80 consistent").
   - **Fix:** `try { … } catch (e instanceof Lang.OperationNotAllowedException) { }` with a why-comment. This is a documented throw, so it fits "catch only what can throw". Alternatively, add a jungle/manifest consistency test to the release checklist.
 - **Low (e)(c) The real binding key is the label string, not id 0.**
-  - HeroFace finds HeroSet's complication by iterating `Complications.getComplications()` and matching `HEROSET_COMPLICATION_LABEL.equals(complication.longLabel)` ([heroFace/source/HeroFaceLink.mc:82-92](file:///Users/mbp/dev/garmin/heroFace/source/HeroFaceLink.mc), [HeroFaceConfig.mc:38](file:///Users/mbp/dev/garmin/heroFace/source/HeroFaceConfig.mc) `"HeroSet"`). It keeps `complicationId` only in memory.
+  - HeroFace finds HeroSet's complication by iterating `Complications.getComplications()` and matching `HEROSET_COMPLICATION_LABEL.equals(complication.longLabel)` ([HeroFace/source/HeroFaceLink.mc:82-92](file:///Users/mbp/dev/garmin/HeroFace/source/HeroFaceLink.mc), [HeroFaceConfig.mc:38](file:///Users/mbp/dev/garmin/HeroFace/source/HeroFaceConfig.mc) `"HeroSet"`). It keeps `complicationId` only in memory.
   - HeroSet's label is `longLabel="@Strings.complication_label"` ([resources-complications/complications.xml:9](file:///Users/mbp/dev/garmin/HeroSet/resources-complications/complications.xml)). That comes from `resources/strings/strings.xml:80` `<string id="complication_label">HeroSet</string>`, which has no `translatable` attribute.
   - It is not translated in any `resources-<lang>` today (grep), so it works. But a translator pass that adds it would silently unlink HeroFace in that language.
   - ADR-044 says "Complication id `0` is stored by subscribers and never changes", which does not describe HeroFace's code.
   - **Fix:** add `translatable="false"` (the attribute exists in SDK `bin/resources.xsd:52`) and a comment naming HeroFace. Amend ADR-044, which lives in HeroSet/docs/decisions.md, to say the contract key is `longLabel == "HeroSet"`. Per the cross-folder rule, touch both folders in the same commit.
-- **Low (a) The non-negative invariant is implicit.** HeroFace's `numbers()` returns null (drops the whole value) if any field is `< 0` ([HeroFaceContract.mc:60](file:///Users/mbp/dev/garmin/heroFace/source/HeroFaceContract.mc)).
+- **Low (a) The non-negative invariant is implicit.** HeroFace's `numbers()` returns null (drops the whole value) if any field is `< 0` ([HeroFaceContract.mc:60](file:///Users/mbp/dev/garmin/HeroFace/source/HeroFaceContract.mc)).
   - HeroSet's fields are non-negative today: counts are floored at 0 ([HeroSetStore.mc:82-84](file:///Users/mbp/dev/garmin/HeroSet/source/data/HeroSetStore.mc)), XP is clamped in `xpIntoRank`, rank ≥ 1, `lastCompletionDay` null→0, goal ≥ 10.
   - **Fix:** one line in the `valueFor` comment ("every field is a non-negative integer; HeroFace drops the value otherwise").
 - **Low (a), uncertain. Duplicate "HeroSet" complications.** If a sideloaded build under the *old* app id is still installed (ADR-033: "Dev build sideloaded under old id is separate app on watch"), its complication carries the same label. HeroFace would bind to whichever `getComplications()` returns first.

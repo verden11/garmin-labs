@@ -9,7 +9,7 @@ English is the fallback; the rest match the in-app translations
 (`resources-<lang>/`).
 
 **Stale as of 2026-09-21:** the English row below was replaced by option B (see
-`listing.md`), which adds the HeroSet clause. The other 14 rows are still the
+`listing/README.md`), which adds the HeroSet clause. The other 14 rows are still the
 old wording and say nothing about HeroSet. Either retranslate them to match, or
 accept that non-English listings open differently — but do not ship a mix
 silently.
@@ -34,7 +34,7 @@ silently.
 
 ## Longer descriptions
 
-Only English is drafted (`listing.md`). If the store asks for a full
+Only English is drafted (`listing/README.md`). If the store asks for a full
 description per language, either paste the English one for all of them (common,
-and honest) or translate the sections in `listing.md` the same way. **FILL**:
+and honest) or translate the sections in `listing/README.md` the same way. **FILL**:
 your call.

@@ -20,7 +20,7 @@ Each app live in own top-level folder of the monorepo; this site only hold publi
 | App | Site folder | Pages | App folder | Copy must match |
 |---|---|---|---|---|
 | HeroSet (Garmin Connect IQ) | `src/apps/heroset/` | `/heroset/`, `/heroset/support/`, `/heroset/privacy/` | `../HeroSet` | `../HeroSet/docs/release-contract.md` (claims), `docs/compatibility.md` (watch list → `facts.ts`) |
-| HeroFace (Garmin Connect IQ watch face) | `src/apps/heroface/` | `/heroface/`, `/heroface/support/`, `/heroface/privacy/` | `../heroFace` | `../heroFace/docs/compatibility.md` (watch list + count → `facts.ts`), `docs/go-to-market.md` (claims) |
+| HeroFace (Garmin Connect IQ watch face) | `src/apps/heroface/` | `/heroface/`, `/heroface/support/`, `/heroface/privacy/` | `../HeroFace` | `../HeroFace/docs/compatibility.md` (watch list + count → `facts.ts`), `docs/go-to-market.md` (claims) |
 
 Support and privacy URLs get entered in each app store listing, so **never change or remove published app URL**.
 
