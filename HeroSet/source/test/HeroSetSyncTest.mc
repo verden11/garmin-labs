@@ -31,7 +31,7 @@ class HeroSetTestActivity extends HeroSetActivitySync {
         return _open;
     }
 
-    function open() as Lang.Boolean {
+    function open(name as Lang.String, reps as Lang.String) as Lang.Boolean {
         calls.add("open");
         _open = opens;
         return opens;
@@ -171,7 +171,7 @@ function syncTurnedOffDropsTheVisit(logger as Test.Logger) as Lang.Boolean {
 (:test :sync)
 function syncRealRecordingOpensLapsAndSaves(logger as Test.Logger) as Lang.Boolean {
     var activity = new HeroSetActivitySync();
-    Test.assert(activity.open());
+    Test.assert(activity.open("HeroSet", "reps"));
     activity.pause();
     activity.resume();
     activity.closeLap("A name far longer than the thirty-one bytes a lap string can hold", 20);

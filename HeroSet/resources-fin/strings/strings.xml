@@ -41,13 +41,16 @@
     <string id="workout_hint_finish">START: PÄÄTÄ</string>
     <string id="workout_metrics_wide">$1$  HR $2$  KAL $3$</string>
     <string id="workout_metrics_tight">$1$ HR $2$ KAL $3$</string>
+    <string id="workout_no_sensor">EI ANTURIA</string>
     <string id="picker_detected">HAVAINTO $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: SÄÄDÄ</string>
+    <string id="picker_hint_adjust_touch">PYYHKÄISE: SÄÄDÄ</string>
     <string id="picker_hint_save">START: TALLENNA</string>
     <string id="goal_title">PÄIVÄTAVOITE</string>
 
 
     <string id="validation_log_hint">UP/DOWN: SIVU</string>
+    <string id="validation_log_hint_touch">PYYHKÄISE: SIVU</string>
     <string id="validation_log_empty">EI LOGGAUSTA</string>
     <string id="validation_log_page">LOGI $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC UUSI</string>

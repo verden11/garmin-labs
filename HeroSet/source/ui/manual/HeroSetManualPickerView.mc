@@ -34,7 +34,7 @@ class HeroSetManualPickerView extends WatchUi.View {
         // Cached: every Up/Down press redraws.
         _label = HeroSetText.exerciseLabel(exercise);
         _saveHint = HeroSetText.load(Rez.Strings.picker_hint_save);
-        _adjustHint = HeroSetText.load(Rez.Strings.picker_hint_adjust);
+        _adjustHint = HeroSetInput.adjustHint();
         _delta = initialDelta;
         _detectedSeed = detectedSeed;
         _detectedText = detectedText(detectedSeed, detectedLive);

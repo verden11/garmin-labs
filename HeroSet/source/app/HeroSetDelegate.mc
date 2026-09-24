@@ -26,4 +26,12 @@ class HeroSetDelegate extends WatchUi.BehaviorDelegate {
         return onMenu();
     }
 
+    // Some products map START to no behavior (d2airx10's simulator
+    // definition), so the select behavior never fires and START would do
+    // nothing despite the `START: MENU` hint. Where START is select,
+    // onSelect already returned true and this never runs.
+    function onKey(keyEvent as WatchUi.KeyEvent) as Boolean {
+        return HeroSetInput.isStart(keyEvent) ? onMenu() : false;
+    }
+
 }

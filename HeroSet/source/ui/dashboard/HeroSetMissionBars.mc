@@ -12,6 +12,9 @@ class HeroSetMissionBars {
     // not per-instance, and threading it through five signatures buys
     // nothing while draw() is the only way into them.
     private var _goal as Lang.Number = HeroSetConfig.DEFAULT_MISSION_GOAL;
+    // Same per-draw state: false when a DONE label can't share its row with
+    // the count even at the smallest font.
+    private var _doneWords as Lang.Boolean = true;
 
     function initialize() {
         var exercises = HeroSetRules.EXERCISES;
@@ -29,14 +32,24 @@ class HeroSetMissionBars {
         _goal = goal;
         var pitch = (bottom - top) / counts.size();
         var column = column(layout, top, bottom - top);
+        _doneWords = true;
         var font = countFont(dc, layout, pitch, counts, column);
+        if (font == null) {
+            // Long translations (Ukrainian, Danish, Dutch, ...) on 360 px:
+            // the full bar and a count at goal still say done without green.
+            _doneWords = false;
+            font = countFont(dc, layout, pitch, counts, column);
+        }
+        if (font == null) {
+            font = Graphics.FONT_XTINY;
+        }
         for (var i = 0; i < counts.size(); i++) {
             drawRow(dc, layout, top + pitch * i, i, counts[i], font, column);
         }
     }
 
     // All rows share the edges of the block's narrowest point, so labels,
-    // counts and bars line up as columns (ADR-029). Measured against the
+    // counts and bars line up as columns (ADR-031). Measured against the
     // content circle, so the bars stay clear of the XP ring.
     function column(layout as HeroSetLayout, blockTop as Lang.Number, blockHeight as Lang.Number) as [Lang.Number, Lang.Number] {
         var radius = layout.contentRadius();
@@ -50,15 +63,16 @@ class HeroSetMissionBars {
     }
 
     // One count font for all rows so the block reads as a unit: the largest
-    // whose row fits the pitch and whose label + count fit the column.
-    function countFont(dc as Graphics.Dc, layout as HeroSetLayout, pitch as Lang.Number, counts as Lang.Array<Lang.Number>, column as [Lang.Number, Lang.Number]) as Graphics.FontDefinition {
-        var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY] as Lang.Array<Graphics.FontDefinition>;
+    // whose row fits the pitch and whose label + count fit the column; null
+    // when none does.
+    function countFont(dc as Graphics.Dc, layout as HeroSetLayout, pitch as Lang.Number, counts as Lang.Array<Lang.Number>, column as [Lang.Number, Lang.Number]) as Graphics.FontDefinition? {
+        var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
         for (var f = 0; f < fonts.size(); f++) {
             if (rowsFit(dc, layout, pitch, counts, fonts[f], column)) {
                 return fonts[f];
             }
         }
-        return Graphics.FONT_XTINY;
+        return null;
     }
 
     private function rowsFit(dc as Graphics.Dc, layout as HeroSetLayout, pitch as Lang.Number, counts as Lang.Array<Lang.Number>, font as Graphics.FontDefinition, column as [Lang.Number, Lang.Number]) as Lang.Boolean {
@@ -77,7 +91,7 @@ class HeroSetMissionBars {
 
     // DONE in the label means a finished goal never depends on the green alone.
     private function labelFor(index as Lang.Number, count as Lang.Number) as Lang.String {
-        return count >= _goal ? _doneLabels[index] : _labels[index];
+        return count >= _goal && _doneWords ? _doneLabels[index] : _labels[index];
     }
 
     // The XTINY label shares the count's baseline so mixed sizes read as one

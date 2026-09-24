@@ -1,8 +1,10 @@
 # Go to market — HeroFace
 
-Status: 2026-09-22.
+Status: 2026-09-24.
 
 ## Status checkpoint
+
+**Next upload (2026-09-24):** `bin/HeroFace-next.iq` carries the code-review fixes (link null-guard and once-a-minute relink, the "HeroSet" mode entry removed with a stored 2 read as Auto, Fahrenheit rounding; `../reports/Verden code quality review.md`). 16/16 tests on six products in the simulator; not yet on a watch. `bin/HeroFace.iq` stays the 1.0 artifact.
 
 **Live in the store.** Garmin approved the submission on **2026-09-22** and
 the listing resolves: https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116
@@ -169,9 +171,8 @@ complication. Cross-link with HeroSet's pages, and add the row to
 
 ### 5. Known gaps that are not blockers
 
-- English only (by decision). Translations after launch.
 - Rectangle and Instinct-shaped watches unsupported (phase 4).
-- The 13 round watches below CIQ 3.0 are out of scope permanently.
+- The 15 round watches below CIQ 3.0 are out of scope permanently (`plan.md` decision 1).
 - No external beta tester. **Decided 2026-09-20 (user call): submit after the
   maintainer's own FR965 run, no beta round.** MIP daylight contrast and
   all-day battery on a non-FR965 watch therefore stay unverified at launch, and
@@ -218,5 +219,6 @@ Allowed: the metric list, the 117 supported watches, "nothing leaves your
 watch", the HeroSet link on Connect IQ 4.2+ watches, the settings.
 
 Forbidden until measured on a watch: any battery-life number, any always-on
-claim, "works with every Garmin", accuracy claims of any kind, and any review,
+claim beyond what the FR965 night of 2026-09-21/22 backs (§1: the face works
+always-on without burn-in retention on that watch), "works with every Garmin", accuracy claims of any kind, and any review,
 rating or user count — none exist.

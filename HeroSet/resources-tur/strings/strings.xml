@@ -41,13 +41,16 @@
     <string id="workout_hint_finish">START: BİTİR</string>
     <string id="workout_metrics_wide">$1$  HR $2$  KAL $3$</string>
     <string id="workout_metrics_tight">$1$ HR $2$ KAL $3$</string>
+    <string id="workout_no_sensor">SENSÖR YOK</string>
     <string id="picker_detected">TESPİT $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: AYARLA</string>
+    <string id="picker_hint_adjust_touch">KAYDIR: AYARLA</string>
     <string id="picker_hint_save">START: KAYDET</string>
     <string id="goal_title">GÜNLÜK HEDEF</string>
 
 
     <string id="validation_log_hint">UP/DOWN: SAYFA</string>
+    <string id="validation_log_hint_touch">KAYDIR: SAYFA</string>
     <string id="validation_log_empty">LOG VERİSİ YOK</string>
     <string id="validation_log_page">LOG $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC YENİ</string>

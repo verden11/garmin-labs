@@ -1,5 +1,6 @@
 import Toybox.Complications;
 import Toybox.Lang;
+import Toybox.System;
 
 // Publishes today's progress as one private complication so HeroFace (the
 // sibling watch face, same developer key) can show it. Private access means
@@ -10,8 +11,8 @@ import Toybox.Lang;
 // everyday goals.
 class HeroSetComplicationPublisher {
 
-    // Must match the id in resources/complications.xml, and never change:
-    // subscribers store it.
+    // Must match the id in resources-complications/complications.xml. HeroFace
+    // finds the complication by its label (ADR-044), not this id.
     private static const COMPLICATION_ID = 0;
     private static const VERSION = 1;
     private static const SEPARATOR = "|";
@@ -22,7 +23,14 @@ class HeroSetComplicationPublisher {
         }
         var lastDay = store.getLastCompletionDay();
         var value = valueFor(store.getDashboardState(), HeroSetCalendar.todayKey(), lastDay);
-        Complications.updateComplication(COMPLICATION_ID, {:value => value});
+        // `has` reflects the firmware, but the complication resource is added
+        // per product in the jungles: a product listed without it throws
+        // here, and a missing watch-face bridge must never crash the app.
+        try {
+            Complications.updateComplication(COMPLICATION_ID, {:value => value});
+        } catch (e instanceof Lang.OperationNotAllowedException) {
+            System.println("[HeroSet] publish: " + e.getErrorMessage());
+        }
     }
 
     // "v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay|goal"

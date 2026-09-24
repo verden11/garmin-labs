@@ -150,6 +150,9 @@ function longestLearnableSetFinishes(logger as Test.Logger) as Lang.Boolean {
     var saving = System.getTimer() - started;
     logger.debug(swings.size() + " reps: counting " + counting + " ms across the set, saving " + saving + " ms");
     Test.assert(saving < 50);
-    Test.assert(counting < 400);
+    // Simulator time on the host: ~100 ms idle, 560-610 ms seen under load
+    // (2026-09-24). The bound catches a return to replaying the set, not
+    // host noise; saving is the watchdog-critical figure.
+    Test.assert(counting < 1000);
     return true;
 }

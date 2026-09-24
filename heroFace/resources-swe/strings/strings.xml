@@ -35,7 +35,6 @@
     <string id="setting_mode">Uppdrag</string>
     <string id="mode_auto">HeroSet om det är installerat, annars dagens mål</string>
     <string id="mode_everyday">Dagens mål</string>
-    <string id="mode_heroset">HeroSet-repetitioner</string>
     <string id="setting_slot1">Vänster uppdrag</string>
     <string id="setting_slot2">Mittersta uppdraget</string>
     <string id="setting_slot3">Höger uppdrag</string>

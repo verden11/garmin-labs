@@ -24,6 +24,9 @@ class HeroSetWorkoutView extends WatchUi.View {
     private var _metrics;
     private var _refreshTimer;
     private var _setBegun = false;
+    // False when the accelerometer refused to start: the count would sit at
+    // 0 with no reason given, so the metrics row says so instead.
+    private var _sensing = true;
 
     function initialize(exercise as Lang.Symbol) {
         View.initialize();
@@ -47,7 +50,7 @@ class HeroSetWorkoutView extends WatchUi.View {
     function onShow() as Void {
         _storedCount = getApp().getStore().getCount(_exercise);
         _metrics.begin();
-        _sensorManager.start(method(:onSensorData), HeroSetConfig.SENSOR_SAMPLE_RATE);
+        _sensing = _sensorManager.start(method(:onSensorData), HeroSetConfig.SENSOR_SAMPLE_RATE);
         enableHeartRate();
         startRefresh();
         // Opt-in Connect sync (ADR-043): this view's first show starts the
@@ -209,16 +212,30 @@ class HeroSetWorkoutView extends WatchUi.View {
 
         var footerY = HeroSetDraw.hint(dc, layout, layout.footerRowBottom(), labelBottom, _finishHint);
         var metricsY = footerY - dc.getFontHeight(Graphics.FONT_XTINY);
-        dc.setColor(HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
-        var metrics = HeroSetDraw.firstFitting(dc, layout, layout.displayRadius(), layout.textMargin(), metricsY, Graphics.FONT_XTINY, _metrics.candidates());
-        HeroSetDraw.text(dc, layout, layout.centerX(), metricsY, Graphics.FONT_XTINY, metrics, Graphics.TEXT_JUSTIFY_CENTER);
+        drawMetrics(dc, layout, metricsY);
 
-        var todayY = metricsY - dc.getFontHeight(Graphics.FONT_TINY);
+        // Measured like the picker's TODAY row: long translations on 360 px
+        // drop to XTINY rather than clip.
         var total = _storedCount + _detected;
+        var today = Lang.format(_todayFormat, [total, _goal]);
+        var fonts = [Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
+        var font = HeroSetDraw.largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), metricsY - dc.getFontHeight(Graphics.FONT_TINY), today, fonts);
+        var todayY = metricsY - dc.getFontHeight(font);
         dc.setColor(total >= _goal ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), todayY, Graphics.FONT_TINY, Lang.format(_todayFormat, [total, _goal]), Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.text(dc, layout, layout.centerX(), todayY, font, today, Graphics.TEXT_JUSTIFY_CENTER);
 
         drawCount(dc, layout, labelBottom, todayY);
+    }
+
+    private function drawMetrics(dc as Dc, layout as HeroSetLayout, y as Lang.Number) as Void {
+        if (!_sensing) {
+            dc.setColor(HeroSetPalette.ALERT, HeroSetPalette.BACKGROUND);
+            HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, HeroSetText.load(Rez.Strings.workout_no_sensor), Graphics.TEXT_JUSTIFY_CENTER);
+            return;
+        }
+        dc.setColor(HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
+        var metrics = HeroSetDraw.firstFitting(dc, layout, layout.displayRadius(), layout.textMargin(), y, Graphics.FONT_XTINY, _metrics.candidates());
+        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, metrics, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     private function drawCount(dc as Dc, layout as HeroSetLayout, top as Lang.Number, bottom as Lang.Number) as Void {

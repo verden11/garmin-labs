@@ -10,15 +10,14 @@ class HeroFaceSettings {
     var weather as Boolean;
 
     function initialize() {
-        mode = number("Mode", HeroFaceConfig.MODE_AUTO);
-        slots = [
-            number("Slot1", HeroFaceConfig.METRIC_AUTO),
-            number("Slot2", HeroFaceConfig.METRIC_AUTO),
-            number("Slot3", HeroFaceConfig.METRIC_AUTO)
-        ] as Array<Number>;
-        accent = HeroFacePalette.accent(number("Accent", 0));
-        seconds = flag("Seconds", false);
-        weather = flag("Weather", true);
+        mode = number(HeroFaceConfig.SETTING_MODE, HeroFaceConfig.MODE_AUTO);
+        slots = [] as Array<Number>;
+        for (var i = 0; i < HeroFaceConfig.SETTING_SLOTS.size(); i++) {
+            slots.add(number(HeroFaceConfig.SETTING_SLOTS[i], HeroFaceConfig.METRIC_AUTO));
+        }
+        accent = HeroFacePalette.accent(number(HeroFaceConfig.SETTING_ACCENT, 0));
+        seconds = flag(HeroFaceConfig.SETTING_SECONDS, false);
+        weather = flag(HeroFaceConfig.SETTING_WEATHER, true);
     }
 
     // A property missing after an update (or a wrong type pushed by an old

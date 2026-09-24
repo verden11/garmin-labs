@@ -2,9 +2,9 @@ import Toybox.Lang;
 import Toybox.WatchUi;
 
 // Shared "what did that save achieve" feedback for every path that can bank
-// a count: the workout quick-save (Save in the workout's Back menu) and the
+// a count: the workout quick-save (Save in the workout's Back menu), the
 // manual delta picker (standalone from the main menu and as the post-workout
-// correction step). One place keeps the toast tiers consistent regardless of
+// correction step) and the daily-goal picker. One place keeps the toast tiers consistent regardless of
 // entry point.
 class HeroSetSaveFeedback {
 
@@ -55,6 +55,22 @@ class HeroSetSaveFeedback {
         } else {
             WatchUi.showToast(HeroSetText.format(Rez.Strings.toast_saved, [HeroSetText.signed(delta)]), null);
         }
+    }
+
+    // A goal lowered under today's counts finishes the day here, and the
+    // mission outranks the plain confirmation (ADR-041). Published at once:
+    // the publisher only runs while the app runs, so otherwise the watch
+    // face draws against the old goal until the next set is saved.
+    static function saveGoal(store as HeroSetStore, goal as Lang.Number) as Void {
+        var completedBefore = store.isDailyMissionComplete();
+        store.setGoal(goal);
+        HeroSetComplicationPublisher.publish(store);
+        if (!completedBefore && store.isDailyMissionComplete()) {
+            WatchUi.showToast(Rez.Strings.toast_mission_complete, null);
+            HeroSetHaptics.missionComplete();
+            return;
+        }
+        WatchUi.showToast(HeroSetText.format(Rez.Strings.toast_goal_saved, [goal]), null);
     }
 
     static function showDiscarded() as Void {

@@ -1,6 +1,7 @@
 import Toybox.Activity;
 import Toybox.ActivityMonitor;
 import Toybox.Lang;
+import Toybox.Math;
 import Toybox.System;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
@@ -66,7 +67,8 @@ class HeroFaceReadings {
         }
         var celsius = conditions.temperature as Numeric;
         var value = System.getDeviceSettings().temperatureUnits == System.UNIT_STATUTE ? celsius * 9 / 5.0 + 32 : celsius;
-        return HeroFaceText.format(Rez.Strings.value_temperature, [value.toNumber()]);
+        // Rounded, as Garmin's own widgets show it: 21 °C is 70 °F, not 69.
+        return HeroFaceText.format(Rez.Strings.value_temperature, [Math.round(value).toNumber()]);
     }
 
     private static function heroProgress(link as HeroFaceLink) as Array<Number>? {

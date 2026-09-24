@@ -17,18 +17,33 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
     // its goal so starting the next set is usually a single Select.
     static function prepare(menu as WatchUi.Menu2) as Void {
         var store = getApp().getStore();
-        // The store build's menu has no sync toggle (ADR-033); getItem(-1)
-        // must never run.
-        var syncIndex = menu.findItemById(:sync_toggle);
-        var sync = syncIndex < 0 ? null : menu.getItem(syncIndex);
-        if (sync instanceof WatchUi.ToggleMenuItem) {
-            sync.setEnabled(store.isSyncEnabled());
-        }
+        stampSync(menu, store);
         var goal = store.getGoal();
         var goalIndex = menu.findItemById(:daily_goal);
         if (goalIndex >= 0) {
             menu.getItem(goalIndex).setSubLabel(goal.toString());
         }
+        // All done: leave focus at the top rather than pointing at a
+        // finished exercise.
+        var focus = stampProgress(menu, store, goal);
+        if (focus != null) {
+            menu.setFocus(focus);
+        }
+    }
+
+    // The store build's menu has no sync toggle (ADR-033); getItem(-1) must
+    // never run.
+    private static function stampSync(menu as WatchUi.Menu2, store as HeroSetStore) as Void {
+        var syncIndex = menu.findItemById(:sync_toggle);
+        var sync = syncIndex < 0 ? null : menu.getItem(syncIndex);
+        if (sync instanceof WatchUi.ToggleMenuItem) {
+            sync.setEnabled(store.isSyncEnabled());
+        }
+    }
+
+    // Today's progress under each Start item; returns the index of the first
+    // exercise still short of its goal.
+    private static function stampProgress(menu as WatchUi.Menu2, store as HeroSetStore, goal as Lang.Number) as Lang.Number? {
         var ids = [:start_pushups, :start_situps, :start_squats] as Lang.Array<Lang.Symbol>;
         var exercises = HeroSetRules.EXERCISES;
         var focus = null;
@@ -44,11 +59,7 @@ class HeroSetMenuDelegate extends WatchUi.Menu2InputDelegate {
                 focus = index;
             }
         }
-        // All done: leave focus at the top rather than pointing at a
-        // finished exercise.
-        if (focus != null) {
-            menu.setFocus(focus);
-        }
+        return focus;
     }
 
     private static function progressSubLabel(count as Lang.Number, goal as Lang.Number) as Lang.String {

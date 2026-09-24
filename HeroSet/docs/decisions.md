@@ -38,7 +38,7 @@ If only read five: **ADR-002** (XP can't be farmed), **ADR-018** (measure text, 
 | 026 | On-watch validation log (dev build) | Active |
 | 027 | Main menu on `Menu2`; sync is a toggle | Active, amended by 033, 043 |
 | 028 | UX pass: Back action menus, menu focus, feedback | Active |
-| 029 | Button rules: no long-press, bezel names | Active |
+| 029 | Button rules: no long-press, bezel names | Active, amended by 048 |
 | 030 | Sync diagnostics + empty-session guard | Superseded by 043 (its device result still stands) |
 | 031 | Dashboard redesign + rank curve | Active |
 | 032 | Rep detector follows tilt (push-ups, sit-ups) or height (squats) | Active, **unvalidated on the watch** |
@@ -51,6 +51,9 @@ If only read five: **ADR-002** (XP can't be farmed), **ADR-018** (measure text, 
 | 039 | First paid submission lists all 67 products; no in-app trial for v1 | Active |
 | 040 | Thresholds learned from saved counts; calibration screen removed; no position gating | Active, **simulator-verified**, amends 032/033 |
 | 043 | Connect sync: one activity per workout, one lap per set with exercise + reps | Dev build only, **unverified on the watch** |
+| 048 | Wave 5: 13 touch-first round watches (Venu 2/3/4, vívoactive 5/6, Approach S50/S70, D2 Air X10); swipe adjusts, only START commits | Active, **simulator-verified**, amends 029 |
+| 049 | Long translations on 360 px: dashboard drops `DONE` word, titles move down | Active, **simulator-verified**, fixes live 1.1.0 |
+| 050 | Owner calls after the 2026-09-24 review: Back gate on the saveable count, swipe up = +1 kept, exit-menu order kept, next upload is 1.1.1 | Active |
 
 ---
 
@@ -79,7 +82,7 @@ Couldn't express "discard".
 Origin of the `store.jungle` + `resources-store/` menu overlay.
 
 ### ADR-010: Storage write failures
-`Storage.setValue` wrapped in try/catch (`StorageFullException`); app keeps running, dashboard footer shows `! COULD NOT SAVE`.
+`Storage.setValue` wrapped in try/catch (any exception, `StorageFullException` being the expected one; logged with `println`); app keeps running, dashboard footer shows `! COULD NOT SAVE`. The flag is sticky for the rest of the save: a later successful write can't clear it, only the next save that writes cleanly (2026-09-24, `aFailedWriteStaysFlaggedThroughTheRestOfTheSave`).
 
 ### ADR-011: No `SensorLogging` permission
 Not requested until raw sensor export actually built.
@@ -106,14 +109,14 @@ Fit decided by `dc.getTextWidthInPixels` against round chord (`HeroSetLayout.fit
 Storage returns `Object` (Number *or* Float). Read through `asNumber`/`asNumberOrNull` (`instanceof` narrowing); `.toNumber()` on `Object` fails to compile on current SDK.
 
 ### ADR-020: `HeroSetStore` size. **Open debt**
-472 lines (2026-09-17) against 250-line budget. Natural splits: schema migration, calibration profiles, diagnostics log. Deferred because it guards real user data: do it with store test suite green *and* device upgrade check (go-to-market gate 4), not as drive-by.
+472 lines (2026-09-17), ~340 after calibration was removed (ADR-040), against 250-line budget. Natural splits now: learning state, diagnostics log. Deferred because it guards real user data: do it with store test suite green *and* device upgrade check (go-to-market gate 4), not as drive-by.
 
 ### ADR-021: Workout metrics without a FIT session
 Live HR from `Sensor.getInfo().heartRate`; calories = change in `ActivityMonitor.getInfo().calories` (Garmin whole-day total) since set started. No Training Effect/Load, accepted. (`Fit` permission came back for ADR-025 sync only; readouts still don't use a session.)
 
 ### ADR-022: Device-only crashes (lesson)
 Found in `CIQ_LOG.YAML` from real FR965; simulator never reproduced them.
-1. `Storage.setValue` throws on **Symbol** dictionary keys/values: calibration dictionary keyed by exercise *strings* (`exerciseKeyString`). Guarded by `calibrationDictionaryUsesStringKeysNotSymbols`.
+1. `Storage.setValue` throws on **Symbol** dictionary keys/values: calibration dictionary keyed by exercise *strings* (`exerciseKeyString`). Guarded by `learningDictionaryUsesStringKeysNotSymbols` (the calibration dictionary it once guarded became the learning dictionary, ADR-040), and since 2026-09-24 at compile time: the storage seam takes `Storage.ValueType`, which excludes Symbol.
 2. `as Lang.Array` cast on firmware-built accelerometer arrays throws. Read `x/y/z` untyped, guard with `instanceof Array`, index directly.
 
 ### ADR-023: Sensor listener binding (lesson)
@@ -138,7 +141,7 @@ Main menu is `Menu2` so Connect Sync is `ToggleMenuItem` with visible On/Off; no
 - **Honest calibration:** manual stop can't succeed (10 cycles auto-finish), so it reads `STOP`; rejections say `ONLY n/10 REPS` or `WEAK SIGNAL`.
 - Picker delta clamped at `-storedCount`; workout redraws at 1 Hz; all text in `strings.xml` via `HeroSetText`; hints light gray for contrast.
 
-### ADR-029: Button rules
+### ADR-029: Button rules. **Amended by ADR-048**
 - **No long-press gestures:** holding button opens watch shortcuts on FR965. Picker is ±1 per press, calibration ignores Menu.
 - **Hints use bezel names:** `START`, `UP/DOWN`, never `SELECT`/`DN`.
 - **Sync label** is `Connect Sync` so toggle switch doesn't cut it off.
@@ -254,17 +257,18 @@ Decided 2026-09-19 (user call); full reasoning and platform limits in `connect-s
 - **Still dev-only.** Store build (ADR-033) unchanged until the FR965 acceptance in `connect-sync-plan.md` device acceptance passes; then `Fit` + `FitContributor` go into `manifest-store.xml` and privacy/store copy change the same session.
 - **Unverified:** whether Connect (web and phone) shows string lap fields (fallback: three numeric lap fields); that `onStop` covers every exit path (it does **not** run if HeroSet crashes, so a crash mid-visit may still leave a session for the watch to save); where the lap boundary falls when `addLap()` runs right after `start()`; session memory on the 128 KB watches (fēnix 6/6S, Enduro).
 
-### ADR-044: HeroSet publishes today's progress to our own watch face
+### ADR-044: HeroSet publishes today's progress to our own watch face. **Amended 2026-09-24**
 Decided 2026-09-20 while building HeroFace, the sibling watch face (`../heroFace`, its `docs/plan.md`).
 - **Complications are the only bridge.** An app's `Storage` is private to that app, so a watch face cannot read HeroSet's counts. Connect IQ's complication publish/subscribe (CIQ 4.2+) is the one supported channel: a device app publishes, and only watch faces may subscribe.
-- **Private access, one complication.** `access="private"` limits readers to apps signed with the same developer key, so the data reaches our face and nothing else — not other developers' apps, and not Face It (which is why the resource carries no `faceIt` element). Complication id `0` is stored by subscribers and never changes.
-- **One packed string, not four values.** The value is `v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay`. HeroSet only publishes while it runs, so the face needs the day keys to tell today's counts from yesterday's and to break a streak HeroSet has not yet seen expire. Field order is fixed; new fields go on the end and `v` only changes on a breaking change. `HeroSetComplicationPublisher.valueFor` is pure and unit-tested.
+- **Private access, one complication.** `access="private"` limits readers to apps signed with the same developer key, so the data reaches our face and nothing else — not other developers' apps, and not Face It (which is why the resource carries no `faceIt` element). Complication id `0` never changes. **Subscribers find it by its long label `HeroSet`** (`complication_label`, `translatable="false"`; HeroFace `HeroFaceLink`), so that label is part of the contract too.
+- **One packed string, not four values.** The value is `v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay|goal` (ten fields; `goal` appended by ADR-045 without a version bump). Every field is a non-negative integer: HeroFace drops the whole value if any field is negative or non-numeric. HeroSet only publishes while it runs, so the face needs the day keys to tell today's counts from yesterday's and to break a streak HeroSet has not yet seen expire. Field order is fixed; new fields go on the end and `v` only changes on a breaking change. `HeroSetComplicationPublisher.valueFor` is pure and unit-tested.
 - **Published on every stored change:** app start, every save (`HeroSetSaveFeedback`, the one path all stored counts go through), and midnight while the dashboard is open (`HeroSetDayTracker`).
 - **Older watches build without it.** The resource only compiles for products that have the API, so `resources-complications/` is added per product in both jungles for the 50 products at CIQ 4.2+; the 17 at 3.4–4.1 (ADR-038 wave, e.g. fēnix 6, MARQ Gen 1, Enduro) build without it, and `Toybox has :Complications` makes every publish call a no-op there. Those users' faces fall back to their own everyday goals.
 - **Store build publishes too** (unlike Connect sync, ADR-043): nothing leaves the watch, it needs no network and no new user-facing claim, and a face that only worked in dev builds could never ship. The `ComplicationPublisher` permission is in both manifests.
 - **Verified on FR965 2026-09-20:** the store build sideloaded over an existing install showed **no permission prompt** for `ComplicationPublisher`, and a saved set reached HeroFace within seconds (publish → subscribe → redraw works on real firmware, not just the simulator).
 - **Also verified 2026-09-20:** progress survived a watch reboot, on the face and in HeroSet. From outside it cannot be told whether the system kept the published value or HeroFace read back its own cached copy; both are designed to produce this, so the face needs no publish-on-boot from HeroSet.
 - **Still unverified:** the midnight publish path in `HeroSetDayTracker`, which only runs once a day.
+- **Publishing never crashes the app** (2026-09-24): `updateComplication` throws `OperationNotAllowedException` if a product is listed without the complication resource; the publisher catches exactly that.
 
 ### ADR-045: User-set daily goal, fixed XP cap
 Decided 2026-09-20 (user call), researched in [`configurable-goal-plan.md`](configurable-goal-plan.md). 100 reps suits neither a beginner nor a strong user, so the goal is now the user's; everything about the rank economy stays where it was.
@@ -296,3 +300,43 @@ Decided 2026-09-21 (user call), the day Garmin approved the 2026-09-19 upload. T
 - **Consequence for the launch plan:** private beta and announcing the paid launch wait for 1.1.0 — there is no point recruiting testers onto a build with a known crash. Gate 2's 30+ rep set on the watch is still owed before the upload, since ADR-046's 1 ms is simulator only.
 - **The version number is not in the repo.** CIQ manifest v3 carries no version attribute; "1.1.0" is typed into the store upload form.
 - **Outcome (2026-09-22):** 1.1.0 was uploaded from the 2026-09-21 23:45 `bin/HeroSet-store.iq` and is live, so every consequence above is discharged: the save crash is gone from the shipping app, the complication publishes, the daily goal is real, and the site's `storeUrl` is set. 1.0.0 was exposed to buyers for roughly one day. Next submission is 1.2.0 (Connect sync).
+
+### ADR-048: Wave 5 — touch-first watches; swipe adjusts, only START commits
+
+**Context.** A buyer asked for Venu 4. 13 round products at Connect IQ 4.2+ have no UP/DOWN keys: `venu441mm`, `venu445mm`, `venu3`, `venu3s`, `venu2`, `venu2plus`, `venu2s`, `vivoactive5`, `vivoactive6`, `d2airx10`, `approachs50`, `approachs7042mm`, `approachs7047mm`. Their simulators map swipe up → next page, swipe down → previous page, tap → select, swipe right from the edge → back. The Venu 4 manual names its two buttons START and BACK.
+
+**Decision.**
+- **Supported, one build.** Added to both manifests and, since all are CIQ 4.2+, to the complication resource path in both jungles (ADR-044).
+- **Swipe replaces UP/DOWN.** The pickers already act on page behaviors, so swipes drive them unchanged; the validation log moved from raw `KEY_UP`/`KEY_DOWN` to page behaviors for the same reason. On touch-first products (`DeviceSettings.inputButtons` has no `BUTTON_INPUT_UP`, `HeroSetInput`), swipe up raises the value: under a finger, pushing the screen up reads as "more". Five-button watches are unchanged (UP raises).
+- **Commits are START only, on every product.** A tap is also the select behavior, so Finish (workout) and Save (both pickers) now return false from `onSelect` and act in `onKey` on `KEY_ENTER`; taps fall through and do nothing. A palm or wet wrist on the screen mid-set can't end the set, and a stray tap can't save an uncorrected count the detector then learns from (ADR-040). The FR965 has a touchscreen too, so this closes the same hole there. The dashboard tap still opens the menu, which is harmless.
+- **Hints.** `START:` hints stay (the button is called START). `UP/DOWN:` hints become `SWIPE:` on touch-first products, chosen at runtime so each product's screen-fit run measures its own text. New string ids `picker_hint_adjust_touch`, `validation_log_hint_touch` in every language.
+- **Scope of the guard:** the counting and adjust screens only. Native `Menu2` menus (Back's Resume/Save/Discard, the picker exit menu) still select by tap, as all Garmin menus do.
+- **Amends ADR-029 / `input-and-ux.md`:** "no critical action may require touch" becomes "a tap on the counting or adjust screen never finishes or saves"; adjusting by swipe is the only way on a watch without UP/DOWN.
+
+**Known gaps.**
+- Swipe right from the edge is Back. Mid-set that opens the Resume/Save/Discard menu and pauses counting. Nothing is lost, but it interrupts; some devices send it as `KEY_ESC`, so it can't be told apart from the button. Not engineered around until a Venu owner reports it.
+- `dashboard_hint` still says `START: MENU` (true); a tap also works.
+- Venu 2/3, vívoactive 5 and Approach have a third (menu) button, unused beyond the dashboard's existing `onMenu`.
+
+**Evidence (2026-09-24).** Final state (with ADR-049 and the review fixes): dev tests 97/97 on all 80 products, and in all 15 languages on venu2s and fr265s; store tests 88/88 on fr965, venu441mm and d2airx10; 98/98 dev on fr965 with the picker-dispatch test added last. `d2airx10`'s simulator maps START to no behavior, so the dashboard also opens the menu from `onKey` (`HeroSetDelegate`). `everyScreenFitsThisDisplay` passes with the `SWIPE:` hints (the test logs `touchFirst=`: true on venu441mm, vivoactive5, venu2s; false on fr965, fenix6, fenix7, enduro; every one of the 67 earlier products has an UP key in its simulator definition). English only: translated `SWIPE:` hints not written by native speakers, and not fit-checked by hand in the widest language (Ukrainian) on the narrowest screen (venu2s, 360 px). **Simulator only:** the tap-guard and swipe direction have not been exercised by hand in the simulator or on any touch-first watch; the FR965 START path after the `onSelect` → `onKey` move needs one on-wrist check.
+
+### ADR-049: Long translations on 360 px — dashboard drops `DONE`, titles move down
+
+**Context.** The per-language screen-fit run (`development.md` asks for it after string changes) had not been repeated on the 360 px products since ADR-045 widened the count to 500. Done on 2026-09-24 by overlaying each language's strings on the base resources in a scratch jungle (the simulator has no CLI language switch). The live 1.1.0 fails on `fr265s` and `venu2s` in Ukrainian, Danish, Dutch, Finnish, French, Polish and Portuguese: the dashboard's `<EXERCISE> DONE` label overlaps the count (e.g. `ПІДЙОМИ ТУЛУБА ГОТОВО` and `500`), and the Dutch `BUIKSPIEROEFENINGEN` title pokes past the bezel in the top band even at `FONT_XTINY`.
+
+**Decision.**
+- **Mission bars:** `countFont` now returns null when no font fits; the rows then use the plain labels. Done still doesn't rely on color: the bar is full and the count is at or over the goal, and the footer reads `MISSION COMPLETE` once all three are.
+- **Titles:** `HeroSetDraw.title` steps down 2 px at a time (never past center) until the smallest font fits the chord. Everything under the title stacks from its returned y, so rows below shift, and the fit test still checks them.
+- **Workout `TODAY` row** is measured like the picker's (`FONT_TINY` → `FONT_XTINY`) instead of fixed `FONT_TINY`.
+- **Shorter translations** where no layout fallback was enough on `fr265s` (checked with `tools/fit-sweep.sh`): Dutch sit-ups `BUIKSPIEROEFENINGEN` → `SIT-UPS` (the common Dutch word; menus and FIT label follow), French squats `FLEXIONS DE JAMBES` → `SQUATS` (likewise), French `AUJOURD'HUI` → `AUJ.`, Portuguese storage warning `! NÃO FOI POSSÍVEL SALVAR` → `! ERRO AO SALVAR` (the wide footer pushed the bars into each other). Not reviewed by native speakers.
+- The layout changes are fallbacks: where the old layout fitted, nothing moves.
+
+**Evidence.** See the sweep line in ADR-048's evidence and `go-to-market.md`. Simulator fonts are not device fonts.
+
+### ADR-050: Owner calls after the 2026-09-24 review
+Decided 2026-09-24 on the review's open items (`../reports/Verden code quality review.md`).
+- **Back gates on the count Save would bank** (`getCount()`, not the live detected count). A lone rep the learner drops as getting up (ADR-040) used to open a `0 reps` menu whose Save banked nothing. Back now just leaves; START still opens the picker at `DETECTED 1 (-1)`, where one press keeps the rep. Banking the dropped rep instead was rejected: it saves what the learner already judged to be getting up. Pinned by `backLeavesWhenTheOnlyRepIsDropped`.
+- **Swipe up = +1 on touch-first watches stays** (ADR-048); flip only if testers disagree.
+- **Exit-menu order stays** (Save first in the picker exit menu, Resume first after a set). On a touchscreen a tap picks whatever it lands on, so order doesn't guard against stray taps; revisit only on a mis-tap report.
+- **The next upload is 1.1.1**: it fixes a live bug (ADR-049) and adds devices (ADR-048) with no new feature. 1.2.0 stays Connect sync (ADR-043/047).
+

@@ -1,3 +1,4 @@
+import Toybox.Application.Storage;
 import Toybox.Lang;
 
 // Storage seam: production code uses the persistent Toybox storage; unit
@@ -8,11 +9,11 @@ class HeroSetStorage {
     function initialize() {
     }
 
-    function getValue(key as Lang.String) as Lang.Object? {
+    function getValue(key as Lang.String) as Storage.ValueType? {
         return null;
     }
 
-    function setValue(key as Lang.String, value as Lang.Object) as Void {
+    function setValue(key as Lang.String, value as Storage.ValueType) as Void {
     }
 }
 

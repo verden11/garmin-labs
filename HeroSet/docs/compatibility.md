@@ -1,10 +1,10 @@
 # Compatibility
 
-Status: 2026-09-20. Decision records: ADR-034/035/037/038 (waves 1–4).
+Status: 2026-09-24. Decision records: ADR-034/035/037/038 (waves 1–4), ADR-048 (wave 5).
 
 ## Supported products
 
-67 products in both manifests, four waves. Every one: round screen, five-button layout (START, BACK, UP, DOWN, LIGHT), Connect IQ 3.4+ (`minApiLevel`), accelerometer (app samples 25 Hz), optical HR. Layout proportional, every text row measured (ADR-006, ADR-018) — no per-device resources exist.
+80 products in both manifests, five waves. Every one: round screen, Connect IQ 3.4+ (`minApiLevel`), accelerometer (app samples 25 Hz), optical HR. Waves 1–4 have the five-button layout (START, BACK, UP, DOWN, LIGHT); wave 5 is touch-first (START, BACK, touchscreen), where swipes replace UP/DOWN (ADR-048). Layout proportional, every text row measured (ADR-006, ADR-018) — no per-device resources exist.
 
 ### Wave 1 — round AMOLED (ADR-034)
 
@@ -61,9 +61,22 @@ Older five-button MIP watches, reached by lowering `minApiLevel` 4.2.0 → 3.4.0
 | Forerunner 945 LTE | `fr945lte` | 240 px |
 | Enduro (Gen 1) | `enduro` | 280 px |
 
+### Wave 5 — touch-first round AMOLED (ADR-048)
+
+No UP/DOWN keys: swipe up/down adjusts, `SWIPE:` hints, START (physical) finishes and saves; taps never commit. All CIQ 4.2+, so all publish the HeroFace complication.
+
+| Family | Products (`manifest` id) | Screen |
+|---|---|---|
+| Venu 4 | `venu441mm`, `venu445mm` | 390 / 454 px |
+| Venu 3 | `venu3`, `venu3s` | 454 / 390 px |
+| Venu 2 | `venu2`, `venu2plus`, `venu2s` | 416 / 416 / 360 px |
+| vívoactive 5 / 6 | `vivoactive5`, `vivoactive6` | 390 px |
+| D2 Air X10 | `d2airx10` | 416 px |
+| Approach S50 / S70 | `approachs50`, `approachs7042mm`, `approachs7047mm` | 390 / 390 / 454 px |
+
 `fenix6`, `fenix6s`, `enduro` cap watch apps at 128 KB — smallest supported memory. Measured in simulator (store build): dashboard ~52 KB, workout ~54 KB used, ~73 KB free.
 
-**Evidence per product:** store build compiles, and `everyScreenFitsThisDisplay` passes in that device simulator: renders every screen in widest state with device real fonts, fails on text outside round display, overlapping text, or screen that drew fewer rows than it promises. Full suite run on FR965 plus size and screen-type representatives (`fr265s`, `fenix7`, `fenix7x`, `fr255s`, `fenix9prosolar51mm`, `fenix9pro51mm`) and on every wave 4 product.
+**Evidence per product:** store build compiles, and `everyScreenFitsThisDisplay` passes in that device simulator: renders every screen in widest state with device real fonts, fails on text outside round display, overlapping text, or screen that drew fewer rows than it promises. Full suite run on FR965 plus size and screen-type representatives (`fr265s`, `fenix7`, `fenix7x`, `fr255s`, `fenix9prosolar51mm`, `fenix9pro51mm`) and on every wave 4 and wave 5 product.
 
 **Only FR965 used on real watch.** Rep detection not device-dependent (accelerometer read in milli-g everywhere), but button feel, strap fit, MIP contrast in daylight, real rendering unconfirmed until beta testers run them.
 
@@ -71,7 +84,7 @@ Older five-button MIP watches, reached by lowering `minApiLevel` 4.2.0 → 3.4.0
 
 | Group | Examples | What's missing |
 |---|---|---|
-| Two/three-button touch watches | `venu3`, `venu3s`, `venu441mm`, `vivoactive5`, `vivoactive6`, `approachs50`, `approachs7047mm` | No UP/DOWN keys. Picker, workout, hints button-first (ADR-029) — need touch or swipe input and different hint text |
+| Touch-first below Connect IQ 3.4 | `venu`, `venud`, `d2air`, `vivoactive4`, `vivoactive4s` | Below `minApiLevel` (ADR-038) |
 | Instinct (AMOLED and MIP) | `instinct3amoled45mm`, `instinct3solar45mm`, `instinctcrossoveramoled`, `instincte45mm` | Screen has sub-window cut-out that round-chord layout doesn't model. Instinct E also caps apps at 128 KB |
 | Square / rectangle | `venusq2`, `venux1` | Layout square path untested, these touch-first too |
 | Below Connect IQ 3.4 | fēnix 5 / 5 Plus, Forerunner 245/645/745/935/945, D2 Charlie/Delta, Descent MK1, vívoactive 3/4 | Below `minApiLevel`. `WatchUi.showToast` (save confirmation) is 3.4+, and fēnix 5 Plus fails screen fit (older, larger system fonts). FR945/745/245M pass the suite in simulator with a `has :showToast` guard — candidate wave, needs another save confirmation (ADR-038) |

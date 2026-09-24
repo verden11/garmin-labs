@@ -3,12 +3,12 @@ import Toybox.Sensor;
 import Toybox.System;
 
 class HeroSetSensorManager {
-    private var _enabled = false;
+    private var _enabled as Lang.Boolean = false;
 
     function initialize() {
     }
 
-    function start(callback, sampleRate as Lang.Number) as Lang.Boolean {
+    function start(callback as Method(data as Sensor.SensorData) as Void, sampleRate as Lang.Number) as Lang.Boolean {
         if (_enabled || !(Sensor has :registerSensorDataListener)) {
             return _enabled;
         }

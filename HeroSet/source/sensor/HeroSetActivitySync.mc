@@ -36,11 +36,12 @@ class HeroSetActivitySync {
 
     // Creates the session and its fields, then starts timing the first set.
     // False when the watch refused to start recording (e.g. another
-    // activity is already recording); nothing is left open then.
-    function open() as Lang.Boolean {
-        var reps = HeroSetText.load(Rez.Strings.fit_unit_reps);
+    // activity is already recording); nothing is left open then. The
+    // activity name and unit come from the caller: this layer doesn't load
+    // UI text.
+    function open(name as Lang.String, reps as Lang.String) as Lang.Boolean {
         var session = ActivityRecording.createSession({
-            :name => HeroSetText.load(Rez.Strings.AppName),
+            :name => name,
             :sport => Activity.SPORT_TRAINING,
             :subSport => Activity.SUB_SPORT_STRENGTH_TRAINING
         });

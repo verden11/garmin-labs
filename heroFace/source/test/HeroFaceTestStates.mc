@@ -19,7 +19,7 @@ class HeroFaceTestStates {
             new HeroFaceMetric(HeroFaceConfig.FLOORS, 7, 10)
         ] as Array<HeroFaceMetric>;
         state.ringPermille = HeroFaceReadings.dayScore(state.metrics);
-        state.streakLines = ["12-DAY STREAK", "STREAK 12"] as Array<String>;
+        state.streakLines = [HeroFaceText.format(Rez.Strings.streak_long, [9999]), HeroFaceText.format(Rez.Strings.streak_short, [9999])] as Array<String>;
         state.streakKept = true;
         return state;
     }
@@ -35,7 +35,8 @@ class HeroFaceTestStates {
             new HeroFaceMetric(HeroFaceConfig.CALORIES, 2480, 0),
             new HeroFaceMetric(HeroFaceConfig.MOVE, 5, 5)
         ] as Array<HeroFaceMetric>;
-        state.streakLines = ["0-DAY STREAK", "STREAK 0"] as Array<String>;
+        // No streak yet: production shows no streak line at all.
+        state.streakLines = [] as Array<String>;
         return state;
     }
 
@@ -49,7 +50,7 @@ class HeroFaceTestStates {
         ] as Array<HeroFaceMetric>;
         state.ringPermille = 630;
         state.ringColor = HeroFacePalette.GOLD;
-        state.streakLines = ["RANK 999  STREAK 9999", "RANK 999"] as Array<String>;
+        state.streakLines = [HeroFaceText.format(Rez.Strings.rank_streak, [999, 9999]), HeroFaceText.format(Rez.Strings.rank_only, [999])] as Array<String>;
         state.streakKept = true;
         return state;
     }

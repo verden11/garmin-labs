@@ -4,8 +4,8 @@ import Toybox.WatchUi;
 
 class HeroSetApp extends Application.AppBase {
 
-    private var _store;
-    private var _sync;
+    private var _store as HeroSetStore;
+    private var _sync as HeroSetSyncCoordinator;
 
     function initialize() {
         AppBase.initialize();

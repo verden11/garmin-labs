@@ -72,6 +72,9 @@ class HeroFaceView extends WatchUi.WatchFace {
     private function frameFor(clock as System.ClockTime) as HeroFaceState {
         var state = _state;
         if (state == null || clock.min != _stateMinute || _link.version() != _stateLink) {
+            if (!_link.isLinked()) {
+                _link.start();
+            }
             state = HeroFaceReadings.take(_settings, _kinds, _streak, _link, _settings.seconds);
             _state = state;
             _stateMinute = clock.min;

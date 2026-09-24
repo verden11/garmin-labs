@@ -59,3 +59,17 @@ descentg2.resourcePath = $(descentg2.resourcePath);resources-complications
 fr170.resourcePath = $(fr170.resourcePath);resources-complications
 fr170m.resourcePath = $(fr170m.resourcePath);resources-complications
 fr70.resourcePath = $(fr70.resourcePath);resources-complications
+# Touch-first watches (ADR-048).
+venu441mm.resourcePath = $(venu441mm.resourcePath);resources-complications
+venu445mm.resourcePath = $(venu445mm.resourcePath);resources-complications
+venu3.resourcePath = $(venu3.resourcePath);resources-complications
+venu3s.resourcePath = $(venu3s.resourcePath);resources-complications
+venu2.resourcePath = $(venu2.resourcePath);resources-complications
+venu2plus.resourcePath = $(venu2plus.resourcePath);resources-complications
+venu2s.resourcePath = $(venu2s.resourcePath);resources-complications
+vivoactive5.resourcePath = $(vivoactive5.resourcePath);resources-complications
+vivoactive6.resourcePath = $(vivoactive6.resourcePath);resources-complications
+d2airx10.resourcePath = $(d2airx10.resourcePath);resources-complications
+approachs50.resourcePath = $(approachs50.resourcePath);resources-complications
+approachs7042mm.resourcePath = $(approachs7042mm.resourcePath);resources-complications
+approachs7047mm.resourcePath = $(approachs7047mm.resourcePath);resources-complications

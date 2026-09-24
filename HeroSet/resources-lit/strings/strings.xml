@@ -41,13 +41,16 @@
     <string id="workout_hint_finish">START: BAIGTI</string>
     <string id="workout_metrics_wide">$1$  HR $2$  KAL $3$</string>
     <string id="workout_metrics_tight">$1$ HR $2$ KAL $3$</string>
+    <string id="workout_no_sensor">NĖRA JUTIKLIO</string>
     <string id="picker_detected">APTIKTA $1$</string>
     <string id="picker_hint_adjust">UP/DOWN: REGULIUOTI</string>
+    <string id="picker_hint_adjust_touch">BRAUKITE: REGULIUOTI</string>
     <string id="picker_hint_save">START: SAUGOTI</string>
     <string id="goal_title">DIENOS TIKSLAS</string>
 
 
     <string id="validation_log_hint">UP/DOWN: PUSLAPIS</string>
+    <string id="validation_log_hint_touch">BRAUKITE: PUSLAPIS</string>
     <string id="validation_log_empty">NĖRA ŽURNALO</string>
     <string id="validation_log_page">LOGAS $1$/$2$</string>
     <string id="sync_log_new">$1$ SYNC NAUJAS</string>

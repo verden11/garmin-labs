@@ -1,13 +1,12 @@
 # HeroFace — plan
 
-Status: 2026-09-20. Watch face from studio Verden, companion to HeroSet (`../HeroSet`).
+Status: 2026-09-24. Live in the store since 2026-09-22. Watch face from studio Verden, companion to HeroSet (`../HeroSet`).
 
-**Built so far:** phases 0, 1 and 3 (the face, its settings, always-on, the
-screen-fit suite, and both sides of the HeroSet link), plus all 15 languages,
-the store listing pack (`listing/`) and the three website pages in
-`../../verden-site`. **Left:** the rest of the device session, screenshots
-(which need a human at the simulator), submission itself, and the other screen
-shapes (phase 4). Per-phase notes below.
+**Built and shipped:** phases 0, 1 and 3 (the face, its settings, always-on, the
+screen-fit suite, and both sides of the HeroSet link), all 15 languages, the
+store listing and the three website pages in `../../verden-site`. **Left:**
+the open device checks in `go-to-market.md` and the other screen shapes
+(phase 4). The phase notes below are the build history.
 
 ## Goal
 
@@ -59,7 +58,7 @@ The 130 products at 3.0.0 break down as 117 round, 8 semi-octagon (Instinct fami
 | **Everyday** (default) | Always available, all 117 shipped products | The day as a whole (average of the goal-bearing missions) | Steps · Intensity min · Floors, each with a fallback (below) | Goal streak (from `getHistory`) · battery · HR |
 | **HeroSet** | CIQ ≥ 4.2 (66 of them), HeroSet installed, user picks it (or `Auto`) | Rank progress (XP) | Push-ups · Sit-ups · Squats today | Rank · HeroSet streak |
 
-`Auto` = HeroSet mode when the complication exists, otherwise Everyday. If HeroSet is uninstalled (`ComplicationNotFoundException`), the face drops back to Everyday on its own. It never shows an empty or "install HeroSet" state.
+`Auto` = HeroSet mode when the complication exists, otherwise Everyday. While unlinked the face looks for HeroSet once a minute, so installing HeroSet links a face that is already running. If HeroSet is uninstalled (`ComplicationNotFoundException`), the face drops back to Everyday on its own. It never shows an empty or "install HeroSet" state.
 
 HeroSet's wave-4 watches (fēnix 6, MARQ Gen 1, FR945 LTE, Enduro, Descent MK2) stop at CIQ 3.4, so they only get Everyday.
 
@@ -78,11 +77,11 @@ Users can override each slot in settings.
 ### User settings (`resources/settings`, `Application.Properties`)
 
 Kept deliberately short, since each setting costs memory on the smallest watches (96 KB for the round products that shipped):
-- Mode: Auto / Everyday / HeroSet
+- Mode: Auto / Everyday. A third entry, HeroSet, shipped in 1.0 and did exactly what Auto does; it was removed 2026-09-24 and a stored value of 2 still reads as Auto.
 - Slot 1–3 metric (list above, "Auto" default)
-- Accent colour: 4–6 choices from the Garmin 64-colour palette
-- Seconds on/off (only where `onPartialUpdate` is supported)
-- Weather on/off (only shown where `Toybox has :Weather`, CIQ 3.2+; default on)
+- Accent colour: three choices from the Garmin 64-colour palette
+- Seconds on/off (shown on every product; ignored where `onPartialUpdate` is missing)
+- Weather on/off (shown on every product; the row stays empty where `Toybox has :Weather` is false, CIQ 3.2+; default on)
 - 12/24 h follows the system setting and isn't a face setting
 
 ## Decisions
@@ -95,7 +94,7 @@ Kept deliberately short, since each setting costs memory on the smallest watches
 6. **Mirror HeroSet's house rules** (typed functions, no magic numbers, one class per file, `HeroFace` prefix, comments explain why).
 7. **Name: HeroFace.** It stands on its own; "HeroSet Face" would read as an accessory.
 8. **Price: paid at the lowest tier, USD 2.00 (shown as $1.99 US)**, the same as HeroSet. Garmin's 48-hour return window is the only try-before-keep, as for HeroSet. The listing must sell Everyday mode, because most buyers won't own HeroSet.
-9. **English first, built for translation.** v1 ships English only (`resources/strings/strings.xml`), but:
+9. **Built for translation.** Planned as English-first; all 15 languages shipped at launch (phase notes, item 6). The rules that made that cheap:
    - All visible text lives in `strings.xml`: labels, weekday and month abbreviations, and the "done" text. Nothing is baked into drawings or code.
    - Text fit is measured with the longest wording that fits, as in HeroSet, so longer languages (German, Finnish) shrink or pick a short form instead of overflowing.
    - Every label gets a short form (`Steps` / `St`) for small screens and long words.
@@ -121,7 +120,7 @@ value = "1|20260920|37|52|100|4|63|12|20260919|100"
 ## Screen (round)
 
 ```
-        ╭────── ring (steps │ rank XP) ──────╮
+        ╭─── ring (the day │ rank XP) ───────╮
        ╱   🔔3  ᛒ        streak 12   72°     ╲
       │               10:42                  │
       │             SAT 20 SEP               │
@@ -130,7 +129,7 @@ value = "1|20260920|37|52|100|4|63|12|20260919|100"
 ```
 
 - Time is the biggest element. Everything else is secondary and must be readable in one glance.
-- **Always-on / low power:** AMOLED sleep mode keeps under 10% of pixels lit, shows time plus a thin ring only, and shifts position each minute. MIP keeps the full face and updates once a minute.
+- **Always-on / low power:** AMOLED sleep mode keeps under 10% of pixels lit, shows the time only (no ring, see the finish-review notes below), and shifts it by 4 px each minute. MIP keeps the full face and updates once a minute.
 - **Accessibility:** a finished mission shows a check mark and label, not colour alone. Icons are drawn with primitives plus a text label on small screens.
 
 ## Phases

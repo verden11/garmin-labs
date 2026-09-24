@@ -2,18 +2,18 @@
 
 Paid, USD 2.00 (→ $1.99 US), no trial (ADR-039; Garmin's 48-hour return window is the only try-before-keep). Garmin takes 15% of tax-exclusive price; $100/yr merchant fee; $10 minimum payout (re-verify, values change). Merchant approved 2026-09-18.
 
-Garmin expects every listed product tested, screenshots matching the app, permissions justified. Accepted gap: 66 of 67 simulator-verified only (ADR-039). Refs: [monetization](https://developer.garmin.com/connect-iq/monetization/), [publishing](https://developer.garmin.com/connect-iq/core-topics/publishing-to-the-store/), [app review](https://developer.garmin.com/connect-iq/app-review-guidelines/).
+Garmin expects every listed product tested, screenshots matching the app, permissions justified. Accepted gap: 79 of 80 simulator-verified only (ADR-039, ADR-048). Refs: [monetization](https://developer.garmin.com/connect-iq/monetization/), [publishing](https://developer.garmin.com/connect-iq/core-topics/publishing-to-the-store/), [app review](https://developer.garmin.com/connect-iq/app-review-guidelines/).
 
 ## Upload form — copy/paste answers
 
-For `apps.garmin.com/en-US/developer/upload`, step 2. Upload a freshly exported `bin/HeroSet-store.iq` (`development.md`; older `.iq` files in `bin/` are stale). For 1.1.0 that export was made 2026-09-21 23:45, 105/105 device variants; the shipped 1.0.0 artifact is kept beside it as `bin/HeroSet-store-1.0.0-shipped.iq` — never upload that one.
+For `apps.garmin.com/en-US/developer/upload`, step 2. **1.1.1: upload `bin/HeroSet-store-next.iq`** (exported 2026-09-24, 126 device variants, includes the 13 touch-first products). Otherwise upload a freshly exported `bin/HeroSet-store.iq` (`development.md`; older `.iq` files in `bin/` are stale). For 1.1.0 that export was made 2026-09-21 23:45, 105/105 device variants; the shipped 1.0.0 artifact is kept beside it as `bin/HeroSet-store-1.0.0-shipped.iq` — never upload that one.
 
 | Field | Value |
 |---|---|
 | Title | `HeroSet - Bodyweight Rep Counter` (32/50 chars). Form limits (saved page, 2026-09-19): Title 50, Description 4000, What's New 4000, App Version 20. |
 | Description | Block below. Plain text, keep line breaks; first line is what list views show. Re-checked against `release-contract.md` (2026-09-21) forbidden claims on 2026-09-22 — the 2026-09-19 check predates both the daily-goal line and the current contract. |
-| App Version | **`1.1.0`** shipped 2026-09-21 (live). Next upload is `1.2.0` (Connect sync) or `1.1.1` (accuracy). Free text, not read from manifest; bump every upload (patch for fixes, minor for features). 1.0.0 was approved and went live 2026-09-21. |
-| What's New | 1.1.0 block below, as used. (1.0.0 was `First release.`) |
+| App Version | **`1.1.1`** (uploaded 2026-09-24; ADR-050). `1.1.0` live since 2026-09-22. Next after this: `1.2.0` (Connect sync). History in `../CHANGELOG.md`. Free text, not read from manifest; bump every upload (patch for fixes, minor for features). 1.0.0 was approved and went live 2026-09-21. |
+| What's New | **1.1.1 block below.** Earlier blocks kept as used. (1.0.0 was `First release.`) |
 | Hero Image | `listing/hero-1440x720.png`: real store-build screens from `listing/screens/`, no watch frame. Source `listing/src/hero.html` (cover: `src/cover.html` → `cover-500-designed.png`, 500×500); re-render after re-taking screens: `"/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=5000 --window-size=1440,720 --screenshot="$PWD/listing/hero-1440x720.png" "file://$PWD/listing/src/hero.html"` |
 | Category | **Strength Training**. Options (2026-09-19): Beliefs, Business, Celestial, Communication, Education, Entertainment, Finance, Food & Drink, Games, Golf, Health & Fitness, Home Automation, Lifestyle, Marine, Medical, Navigation, Social, Sports, Strength Training, Tools, Travel, Weather, Wellness. |
 | Subcategory | **Other** (options: Cycling, Geocaching, Hiking, Other, Running, Swimming, Walking; no strength option). Not marked required; leave blank if form allows. |
@@ -26,7 +26,7 @@ For `apps.garmin.com/en-US/developer/upload`, step 2. Upload a freshly exported 
 | Email Address | `hello@verden.watch` (dedicated support address, also on the Verden site support and privacy pages). |
 | Source Code URL | Leave blank (not open source). |
 | Review Notification | Yes. |
-| App Migration (new compatible devices) | **No** — support is explicit list of 67 products (`docs/compatibility.md`, ADR-034/035/037/038); don't let store auto-add untested devices. |
+| App Migration (new compatible devices) | **No** — support is explicit list of 80 products (`docs/compatibility.md`, ADR-034/035/037/038/048); don't let store auto-add untested devices. |
 | Monetization | **Paid:** Yes, USD 2.00. |
 | Companion App / Additional Hardware | Leave blank — not applicable. |
 
@@ -36,8 +36,8 @@ For `apps.garmin.com/en-US/developer/upload`, step 2. Upload a freshly exported 
 100 push-ups, 100 sit-ups and 100 squats a day, or your own goal from 10 to 500. Your Garmin counts the reps.
 
 - Start a set, do your reps: HeroSet counts them with the watch's motion sensor.
-- Everything runs on the bezel buttons — START, UP, DOWN. No touchscreen, no phone, no account.
-- After every set, check the count and adjust it with UP/DOWN before it's saved.
+- Everything runs on the watch's buttons — START, UP, DOWN — or, on touchscreen watches, START and a swipe. No phone, no account.
+- After every set, check the count and adjust it (UP/DOWN, or swipe) before it's saved. Only the START button saves, so a tap on the screen never does.
 - HeroSet learns from the counts you save, so counting adapts to how you move.
 - Earn XP for every rep up to 100 per exercise a day, climb ranks and keep your streak alive. Rank reflects the reps you do, not the goal you pick.
 - Set your own daily goal on the watch: 10 to 500 reps, no phone needed.
@@ -48,6 +48,19 @@ Everything stays on your watch. HeroSet has no network access, records no activi
 
 Good to know: counting depends on how you wear the watch and how you move, so the number can be off. Calories are the change in Garmin's own daily total, an estimate. Not a medical device.
 ```
+
+### What's New (1.1.1)
+
+```text
+- Now on touchscreen watches: Venu 2, 2 Plus, 2S, 3, 3S and 4, vívoactive 5 and 6, Approach S50 and S70, and D2 Air X10. Swipe up or down to adjust a count; START saves.
+- A tap on the screen no longer ends or saves a set by accident, on any watch. Only the START button does.
+- Better text fit on smaller screens in several languages.
+- If the motion sensor can't start, the workout screen now says so.
+- Works with our HeroFace watch face, now in the Connect IQ Store: on watches running Connect IQ 4.2 or later, today's progress can appear on the face.
+- Reliability improvements.
+```
+
+Paste the description block above too: its button line changed for touchscreen watches. After review, check the listing's Compatible Devices tab shows the 13 new products.
 
 ### What's New (1.1.0)
 

@@ -3,9 +3,10 @@ import Toybox.Lang;
 // Every tunable and identifier in one place (HeroSet house rule: no magic
 // numbers). Setting values here must match resources/settings.
 class HeroFaceConfig {
+    // A third value, 2 ("HeroSet"), shipped in 1.0 and behaved exactly like
+    // Auto; it was dropped from the list, and a stored 2 still reads as Auto.
     static const MODE_AUTO = 0;
     static const MODE_EVERYDAY = 1;
-    static const MODE_HEROSET = 2;
 
     // Mission metrics. 0 in a slot setting means "first one this watch has".
     static const METRIC_AUTO = 0;
@@ -44,13 +45,19 @@ class HeroFaceConfig {
     // Distance is stored in tenths of the display unit (5.2 km -> 52).
     static const CM_PER_TENTH_KM = 10000;
     static const CM_PER_TENTH_MILE = 16093;
-    static const MINUTES_PER_HOUR = 60;
     static const HOURS_PER_HALF_DAY = 12;
     // AOD: the time block walks a 3 x 3 grid, one step per minute. Garmin's
     // watch-face guidance caps the move at four pixels, enough to spread wear
     // without the time visibly hopping.
     static const BURN_IN_GRID = 3;
     static const BURN_IN_STEP_PX = 4;
+
+    // Settings property ids (resources/settings/properties.xml); never change.
+    static const SETTING_MODE = "Mode";
+    static const SETTING_SLOTS = ["Slot1", "Slot2", "Slot3"] as Array<String>;
+    static const SETTING_ACCENT = "Accent";
+    static const SETTING_SECONDS = "Seconds";
+    static const SETTING_WEATHER = "Weather";
 
     // Storage keys; spellings never change once shipped.
     static const STREAK_KEY = "face_streak";

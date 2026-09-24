@@ -1,9 +1,10 @@
 # Compatibility
 
-Status: 2026-09-20. 117 products, every round watch-face product at Connect IQ
+Status: 2026-09-24. 117 products, every round watch-face product at Connect IQ
 3.0 or newer in SDK 9.2.0. A watch face needs no buttons, so touch-only watches
-(Venu, vívoactive, Instinct AMOLED) are supported here even though HeroSet
-excludes them.
+(Venu, vívoactive, Instinct AMOLED) are supported here. HeroSet added Venu 2/3/4,
+vívoactive 5/6, Approach S50/S70 and D2 Air X10 in its ADR-048 (not yet in a
+HeroSet store build); older Venu/vívoactive and Instinct are still HeroSet-less.
 
 ## Supported products
 
@@ -35,7 +36,7 @@ everyday goals. Nothing breaks: the face never mentions a link it cannot make.
 
 `everyStateFitsThisDisplay` renders the face's widest states with that device's
 real fonts and fails on text outside the round display or overlapping rows. Run
-so far, all passing (whole suite re-run **2026-09-22**, 15/15 each): `fr55`
+so far, all passing (whole suite re-run **2026-09-22**, 15/15 each; after the 2026-09-24 review fixes, 16/16 on `fr965`, `fenix5s`, `venu`, `fr55`, `fenix9pro51mm`, `venu2s`): `fr55`
 (208), `fenix5s` (218), `fenix5` (240), `vivoactive4` (260), `fenix7x` (280),
 `fr265s` (360), `fr165` (390), `epix2` (416), `fr965` (454), `fenix9pro51mm`
 (466) — one per screen size.
@@ -46,9 +47,13 @@ instead of steps / intensity / floors, and the face runs with no empty bar.
 `fenix5` and `fr245` also report no `Complications` and, on `fenix5`, no
 `Weather`, so both fallbacks are exercised there.
 
-**No watch has run it yet.** The simulator proves geometry and fonts, not
-always-on behaviour, daylight contrast on MIP, battery cost, or the HeroSet
-link, which needs two apps on real hardware.
+**Only the FR965 has run it** (2026-09-20 onward: install, render, the HeroSet
+link, reboot survival, a day of always-on wear; `go-to-market.md` §1). On every
+other product the simulator proves geometry and fonts, not always-on
+behaviour, daylight contrast on MIP or battery cost. The original Venu
+(`venu`, `venud`, `d2air`) has a stricter burn-in rule than the FR965 — no
+pixel lit for more than 3 minutes — and the sleep screen is unchecked against
+it.
 
 ## Not supported, and why
 

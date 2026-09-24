@@ -16,7 +16,10 @@ class HeroFaceClock {
             return null;
         }
         var x = layout.centerX() + dc.getTextWidthInPixels(state.time, font) / 2 + layout.stackGap() * 2;
-        var width = dc.getTextWidthInPixels("00", Graphics.FONT_XTINY);
+        // Widest two digits, so the partial-update clip box never cuts one off.
+        var width = dc.getTextWidthInPixels("88", Graphics.FONT_XTINY);
+        var zeros = dc.getTextWidthInPixels("00", Graphics.FONT_XTINY);
+        width = zeros > width ? zeros : width;
         var height = dc.getFontHeight(Graphics.FONT_XTINY);
         // On the digits' baseline, but never so low that it reaches the row
         // below: on a small screen the time's box already ends close to it.

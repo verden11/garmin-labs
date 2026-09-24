@@ -89,6 +89,17 @@ is used, or the listing says different things in different languages).
 >
 > Support and answers: https://verden.watch/heroface/support/
 
+## What's new (version 1.0.1)
+
+App Version: **`1.0.1`** — upload `bin/HeroFace-next.iq` (exported 2026-09-24). History in `../../CHANGELOG.md`.
+
+```text
+- Install HeroSet while the face is running and the link now connects within a minute, no restart needed.
+- Temperatures in Fahrenheit are rounded the way Garmin's own widgets show them.
+- The "HeroSet" mode setting is gone: it did the same as Auto, which stays the default.
+- Reliability improvements.
+```
+
 ## What's new (version 1.0.0)
 
 > First release.
