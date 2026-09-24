@@ -1,5 +1,5 @@
-import { Doc, Note } from '../../components/Doc.tsx'
-import { studio } from '../../site.ts'
+import { Doc, Note, PrivacyTail } from '../../components/Doc.tsx'
+import { appUrl } from '../../urls.ts'
 
 export function Privacy() {
   return (
@@ -25,7 +25,7 @@ export function Privacy() {
 
       <h2>HeroSet</h2>
       <p>
-        If you also own <a href="/heroset/">HeroSet</a> and your watch supports it, HeroFace can show your reps, rank and
+        If you also own <a href={appUrl('heroset')}>HeroSet</a> and your watch supports it, HeroFace can show your reps, rank and
         streak. HeroSet publishes that progress on the watch itself, readable only by apps from this developer. It never
         leaves the watch, and neither app needs an internet connection for it to work.
       </p>
@@ -39,20 +39,7 @@ export function Privacy() {
         choices: which metrics the bars show, the accent colour, and whether seconds and temperature appear.
       </p>
 
-      <h2>Purchases</h2>
-      <p>
-        Garmin handles purchases through the Connect IQ Store under{' '}
-        <a href="https://www.garmin.com/privacy/">Garmin’s privacy policy</a>. The developer never sees your payment details.
-      </p>
-
-      <h2>This website</h2>
-      <p>No cookies, analytics or third-party scripts. The web host may keep standard access logs.</p>
-
-      <h2>Changes and contact</h2>
-      <p>
-        This policy may change; the effective date above shows the current version. Questions:{' '}
-        <a href={`mailto:${studio.email}`}>{studio.email}</a>.
-      </p>
+      <PrivacyTail />
     </Doc>
   )
 }

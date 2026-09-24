@@ -7,17 +7,19 @@ colors:
   ink-secondary: "#4b515a"
   rule: "#dcdfe4"
   link: "#0f5fc7"
-  studio-blue: "#62b0ea"
-  on-studio: "#0b1824"
-  studio-ink: "#1a5fb4"
+  studio-silver: "#c3c9cf"
+  on-studio: "#15181c"
+  studio-ink: "#4b5663"
   heroset-amber: "#ffaa00"
   on-heroset: "#15130f"
+  heroface-blue: "#55aaff"
+  on-heroface: "#0a1420"
   paper-dark: "#0e1013"
   ink-dark: "#eceef1"
   ink-secondary-dark: "#a6adb7"
   rule-dark: "#2a2f36"
   link-dark: "#7db6ff"
-  studio-ink-dark: "#62b0ea"
+  studio-ink-dark: "#c3c9cf"
 typography:
   display:
     fontFamily: "'Archivo Variable', 'Archivo', system-ui, sans-serif"
@@ -123,7 +125,7 @@ components:
 
 **Creative North Star: "The Games Program"**
 
-Verden is a studio site built like a Munich-72 identity program. Every app is an event in one program: it owns one flat spectral color field, its own set of geometric pictograms, and a mark; everything else (grid, type, ink, paper, rules, components) is shared studio infrastructure. HeroSet is event #1 in amber; the studio itself wears silver-blue. A visitor should be able to tell which event they are in from the color alone and still recognize the program from the grid and type.
+Verden is a studio site built like a Munich-72 identity program. Every app is an event in one program: it owns one flat spectral color field, its own set of geometric pictograms, and a mark; everything else (grid, type, ink, paper, rules, components) is shared studio infrastructure. HeroSet is event #1 in amber, HeroFace event #2 in blue; the studio itself wears silver, the one neutral in the program, so it never competes with an event's hue. A visitor should be able to tell which event they are in from the color alone and still recognize the program from the grid and type.
 
 The system is flat and typographic. Full-bleed color fields alternate with white paper bands; hierarchy comes from scale contrast alone: a huge, wide, heavy grotesque against small tracked caps labels, with big tabular numerals as the loudest element when a count is on screen. Depth is color, not shadow. Lines are thick and structural (3px ink rules, cut-bar pictograms), and a count is always a visible event, ticking in discrete steps rather than tweening.
 
@@ -138,16 +140,17 @@ The site refuses the indie-studio default of icon, headline, badge and screensho
 
 ## Colors
 
-A white-paper, near-black-ink program where each app contributes one saturated field color and the studio contributes one silver-blue.
+A white-paper, near-black-ink program where each app contributes one saturated field color and the studio contributes one silver.
 
 ### Primary
 - **Event Field** (per app): the app's own color, supplied via the registry (`color`) and bound to the field slot. It fills the app bar, the hero, the closing call, notes, the course stop dots and called rank ticks. For HeroSet this is **Signal Amber** (heroset-amber).
 - **Event Ink** (per app): the app's readable ink on its field (`onColor`), for all text, pictograms and buttons on the field. For HeroSet, **Warm Carbon** (on-heroset).
 
 ### Secondary
-- **Studio Silver-Blue** (studio-blue): the studio's own field. It fills the studio home intro, is the last bar of the studio mark, and is the default field when no app has claimed the page.
+- **HeroFace Blue** (heroface-blue) with **Deep Night** ink (on-heroface, 7.6:1): HeroFace's event field, the watch face's own accent.
+- **Studio Silver** (studio-silver): the studio's own field, Munich-72 silver. It fills the studio home intro and is the default field when no app has claimed the page. It is neutral on purpose: every hue belongs to an event. Changed from silver-blue 2026-09-24, which read as the same color as HeroFace blue (1.04:1).
 - **Studio Night Ink** (on-studio): readable ink on the studio field.
-- **Studio Blue Ink** (studio-ink; studio-ink-dark in the dark scheme): the studio blue as foreground on paper, deepened for light paper (6.3:1) and returning to the field value on dark paper (8.1:1). Used for the 404 numeral.
+- **Studio Slate Ink** (studio-ink; studio-ink-dark in the dark scheme): the studio silver as foreground on paper, deepened to slate for light paper (7.5:1) and returning to the field value on dark paper (11.4:1). Used for the 404 numeral and the studio mark's own bar.
 
 ### Neutral
 - **Program Paper** (paper): page ground for every paper band and document.
@@ -160,9 +163,9 @@ A white-paper, near-black-ink program where each app contributes one saturated f
 ### Named Rules
 **The One Field Rule.** A page belongs to exactly one event. Its field color and field ink come from the app registry; shared components read the field slot and never name an app color.
 
-**The Field Ink Rule.** Text, pictograms, buttons, focus rings and selection on a field use that field's ink, never paper-white or link blue. A new app must supply an ink pair that reads at body size on its field (HeroSet amber/carbon is 9.7:1; studio blue/night is 7.6:1).
+**The Field Ink Rule.** Text, pictograms, buttons, focus rings and selection on a field use that field's ink, never paper-white or link blue. A new app must supply an ink pair that reads at body size on its field (HeroSet amber/carbon is 9.7:1; studio silver/night is 10.7:1).
 
-**The Field-Is-Ground Rule.** A field color is a ground, never a text color on paper. When a field hue must appear as text on paper, it gets its own ink token deepened for legibility (as studio-ink does for studio-blue). Field color as text is allowed only on the ink field, as in the honesty headline (9.5:1).
+**The Field-Is-Ground Rule.** A field color is a ground, never a text color on paper. When a field hue must appear as text on paper, it gets its own ink token deepened for legibility (as studio-ink does for studio-silver; the studio mark's own bar is drawn in studio-ink for the same reason). Field color as text is allowed only on the ink field, as in the honesty headline (9.5:1).
 
 ## Typography
 
@@ -231,7 +234,7 @@ Bezel-button names ("START", "UP", "DOWN") as pill outlines: 2px ink border, 700
 Numbered steps strung along one 3px ink rule, each stop marked by a 15px field-colored dot with a 3px ink ring, with its keys above the step title.
 
 ### Rep Counter (signature)
-A pictogram figure over a 3px field-ink baseline, then a huge tabular count with a small "/100" and a caption label. Two poses swap in hard steps (no tweening) while the count ticks toward 100 one rep per swap; at 100 the label reads DONE. Under reduced motion it shows a static pose and starting count.
+A pictogram figure over a 3px field-ink baseline, then a huge tabular count with a small "/100" and a caption label. Two poses swap in hard steps (no tweening) while the count ticks toward 100 one rep per swap; at 100 the label reads DONE. Every run ends within 5 s of load, delay included (WCAG 2.2.2 needs no pause control then), so the hero shows the last few reps and the finish; the three counters use different tempos and finish apart. Under reduced motion it shows a static pose and starting count.
 
 ### Emblem
 The app's pictograms side by side at rest pose on the studio home, each over the same baseline. An app with no pictograms falls back to its mark.

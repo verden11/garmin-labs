@@ -11,6 +11,8 @@ export type App = {
   name: string
   // One line: what it is. Used on the studio home and in meta descriptions.
   summary: string
+  // The landing page's <title>: short, since search results cut at ~60.
+  title: string
   platform: string
   // The app's field color on the shared grid, plus readable ink on it.
   color: string

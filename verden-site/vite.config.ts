@@ -27,7 +27,9 @@ function devRender(): Plugin {
 }
 
 export function fill(template: string, page: { head: string; body: string }): string {
-  return template.replace('<!--head-->', page.head).replace('<!--body-->', page.body)
+  // Function replacers: page HTML is inserted verbatim, so a `$&` in page
+  // content is never read as a replacement pattern.
+  return template.replace('<!--head-->', () => page.head).replace('<!--body-->', () => page.body)
 }
 
 export default defineConfig({ plugins: [devRender()] })

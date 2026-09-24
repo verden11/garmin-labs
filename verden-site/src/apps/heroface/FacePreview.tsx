@@ -9,7 +9,7 @@ export function FacePreview({ size = 220, heroset = false }: Props) {
     ? [{ w: 0.37, done: false, label: 'PUSH', value: '37' }, { w: 0.52, done: false, label: 'SIT', value: '52' }, { w: 1, done: true, label: 'SQT', value: '100' }]
     : [{ w: 0.84, done: false, label: 'STEPS', value: '8420' }, { w: 0.81, done: false, label: 'INT', value: '18' }, { w: 1, done: true, label: 'FLR', value: '10' }]
   const top = heroset ? 'RANK 4' : 'WED 30 SEP'
-  const under = heroset ? 'STREAK 12' : 'STREAK 12'
+  const under = 'STREAK 12'
   return (
     <svg className="face" width={size} height={size} viewBox="0 0 454 454" role="img"
       aria-label={heroset

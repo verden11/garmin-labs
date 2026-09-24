@@ -1,12 +1,9 @@
 import { FacePreview } from './FacePreview.tsx'
 import { heroface } from './app.ts'
 import { screens, watchFamilies, languages, watchCount, linkedWatchCount } from './facts.ts'
+import { CallToAction, HeroActions, Screens, Watches } from '../../components/AppSections.tsx'
+import { appUrl } from '../../urls.ts'
 
-function StoreAction() {
-  return heroface.storeUrl
-    ? <a className="button" href={heroface.storeUrl}>Get it on the {heroface.storeName}</a>
-    : <p className="status">Coming soon to the {heroface.storeName}</p>
-}
 
 const rows = [
   { title: 'The time, first', text: 'The largest thing on the screen, in the largest size that fits your watch. Everything else stays out of its way.' },
@@ -23,10 +20,7 @@ export function Landing() {
           <div className="hero__copy">
             <h1 className="hero__name">{heroface.name}</h1>
             <p className="hero__offer">The time first, and today’s goals right under it.</p>
-            <div className="hero__actions">
-              <StoreAction />
-              <a className="hero__support" href="/heroface/support/">Support and answers</a>
-            </div>
+            <HeroActions app={heroface} />
           </div>
           <div className="hero__reps">
             <FacePreview size={260} />
@@ -67,51 +61,27 @@ export function Landing() {
           <div><dt>{languages.length} languages</dt><dd>Including the weekday and month, taken from your watch’s own language.</dd></div>
           <div><dt>Nothing leaves the watch</dt><dd>No account, no internet, no analytics, no ads.</dd></div>
         </dl>
-        <p><a href="/heroface/privacy/">Read the privacy policy</a></p>
+        <p><a href={appUrl(heroface.slug, 'privacy')}>Read the privacy policy</a></p>
       </section>
 
       <section className="wrap band" aria-labelledby="heroset-title">
         <h2 id="heroset-title" className="band__title">Better with HeroSet.</h2>
-        <p className="band__lede">If you also own <a href="/heroset/">HeroSet</a>, the bars can show today’s push-ups, sit-ups and squats, the ring becomes your progress to the next rank, and holding the face opens the app. On the {linkedWatchCount} watches that support it, and entirely on the watch. Without HeroSet, nothing is missing.</p>
-        <div className="hero__reps">
+        <p className="band__lede">If you also own <a href={appUrl('heroset')}>HeroSet</a>, the bars can show today’s push-ups, sit-ups and squats, the ring becomes your progress to the next rank, and holding the face opens the app. On the {linkedWatchCount} watches that support it, and entirely on the watch. Without HeroSet, nothing is missing.</p>
+        <div className="band__figure">
           <FacePreview size={240} heroset />
         </div>
       </section>
 
-      <section className="wrap band" aria-labelledby="screens-title">
-        <h2 id="screens-title" className="band__title">On the wrist.</h2>
-        <ul className="screens">
-          {screens.map((shot) => (
-            <li key={shot.label}>
-              {shot.src
-                ? <img src={shot.src} alt={`HeroFace ${shot.label.toLowerCase()} screen`} width="454" height="454" loading="lazy" />
-                : <span className="screens__pending">Screenshot pending</span>}
-              <span className="screens__label">{shot.label}</span>
-            </li>
-          ))}
-        </ul>
-      </section>
+      <Screens app={heroface} screens={screens} />
 
-      <section className="wrap band" aria-labelledby="watches-title">
-        <h2 id="watches-title" className="band__title">{watchCount} Garmin watches.</h2>
-        <p className="band__lede">Round screens, AMOLED and memory-in-pixel, Connect IQ 3.0 and newer. Tested on a Forerunner 965; every other model passes each screen check in Garmin’s simulator. The {heroface.storeName} shows whether your exact model is listed.</p>
-        <dl className="watches">
-          {watchFamilies.map(([family, models]) => (
-            <div key={family}><dt>{family}</dt><dd>{models}</dd></div>
-          ))}
-        </dl>
-        <p className="band__aside">In {languages.length} languages: {languages.join(', ')}.</p>
-      </section>
+      <Watches
+        count={watchCount}
+        lede={`Round screens, AMOLED and memory-in-pixel, Connect IQ 3.0 and newer. Tested on a Forerunner 965; every screen size passes each screen check in Garmin’s simulator. The ${heroface.storeName} shows whether your exact model is listed.`}
+        families={watchFamilies}
+        languages={languages}
+      />
 
-      <section className="field close">
-        <div className="wrap close__inner">
-          <h2>Put the day where you already look.</h2>
-          <div className="hero__actions">
-            <StoreAction />
-            <a className="hero__support" href="/heroface/support/">Support and answers</a>
-          </div>
-        </div>
-      </section>
+      <CallToAction app={heroface} title="Put the day where you already look." />
     </>
   )
 }

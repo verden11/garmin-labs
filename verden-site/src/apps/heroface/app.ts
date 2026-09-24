@@ -7,6 +7,7 @@ import { Privacy } from './Privacy.tsx'
 export const heroface: App = {
   slug: 'heroface',
   name: 'HeroFace',
+  title: 'HeroFace — a time-first Garmin watch face',
   summary: 'A watch face that shows the time first and today’s goals underneath.',
   platform: 'Garmin watches · Connect IQ',
   color: '#55aaff',

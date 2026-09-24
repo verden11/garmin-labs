@@ -8,6 +8,7 @@ import { Privacy } from './Privacy.tsx'
 export const heroset: App = {
   slug: 'heroset',
   name: 'HeroSet',
+  title: 'HeroSet — rep counter for Garmin watches',
   summary: '100 push-ups, sit-ups and squats a day — or your own goal — counted on your Garmin.',
   platform: 'Garmin watches · Connect IQ',
   color: '#ffaa00',

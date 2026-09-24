@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react'
 import { apps } from '../apps/index.ts'
 import { studio } from '../site.ts'
+import { appUrl } from '../urls.ts'
 
 // The studio mark is the program's color key: one bar per app, in registry order.
 export function StudioMark() {
@@ -20,7 +21,7 @@ export function Shell({ children }: { children: ReactNode }) {
         <div className="wrap studio-bar__inner">
           <a className="wordmark" href="/"><StudioMark />{studio.name}</a>
           <nav aria-label="Apps">
-            {apps.map((app) => <a key={app.slug} href={`/${app.slug}/`}>{app.name}</a>)}
+            {apps.map((app) => <a key={app.slug} href={appUrl(app.slug)}>{app.name}</a>)}
           </nav>
         </div>
       </header>
