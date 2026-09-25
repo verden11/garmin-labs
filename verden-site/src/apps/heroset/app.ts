@@ -15,6 +15,7 @@ export const heroset: App = {
   onColor: '#15130f',
   storeName: 'Connect IQ Store',
   storeUrl: 'https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377',
+  ogImage: '/heroset/screens/dashboard.png',
   Mark: HeroSetMark,
   Emblem,
   Landing,

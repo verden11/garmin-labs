@@ -18,6 +18,7 @@
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    Strict-Transport-Security = "max-age=31536000"
     Permissions-Policy = "camera=(), microphone=(), geolocation=()"
     # Report-only until a deploy preview shows no violations; then rename the
     # header to Content-Security-Policy. The site ships no scripts at all.

@@ -12,7 +12,6 @@ colors:
   accent-blue: "#55AAFF"
   accent-cyan: "#00FFFF"
   accent-magenta: "#FF55FF"
-  accent-white: "#FFFFFF"
   sleep-text: "#555555"
 typography:
   time:
@@ -122,13 +121,13 @@ The face refuses the category default it was built against: a bezel of six tiny 
 A black field with a single white number, a muted grey voice for everything secondary, and three meaning-bearing colours that are never spent decoratively.
 
 ### Primary
-- **Effort Blue** (`{colors.accent-blue}`): today's progress still under way — the mission-bar fill and the everyday ring fill. Default of four user-selectable accents.
+- **Effort Blue** (`{colors.accent-blue}`): today's progress still under way — the mission-bar fill and the everyday ring fill. Default of three user-selectable accents.
 - **Kept Gold** (`{colors.gold}`): reserved for what the user has *kept*, never for what they are doing. The streak line once the streak is non-zero, the rank line and the XP ring in HeroSet mode. Nothing else may be gold.
 - **Finished Green** (`{colors.done}`): a goal that is complete. The bar fill, the column label, and the ring at full sweep.
 
 ### Secondary
 - **Alert Red** (`{colors.alert}`): two uses only — a move-bar in the alert state, and battery at or below 15%. Never a progress colour.
-- **Accent alternatives** (`{colors.accent-cyan}`, `{colors.accent-magenta}`, `{colors.accent-white}`): the three other settings-selectable accents. Each clears 3:1 against the track so a part-filled bar still reads, and none is gold or green.
+- **Accent alternatives** (`{colors.accent-cyan}`, `{colors.accent-magenta}`): the two other settings-selectable accents. Each clears 3:1 against the track so a part-filled bar still reads, and none is gold or green.
 
 ### Neutral
 - **Void Black** (`{colors.ground}`): the only background. It is never tinted, never layered, never lightened into a card.

@@ -29,8 +29,8 @@ export const languages = [
 // from an FR965, because the link needs HeroSet running to publish. Empty slots
 // render as pending. See HeroFace listing/screenshots.md.
 export const screens: Screenshot[] = [
-  { label: 'Everyday', src: '/heroface/screens/everyday.png' },
-  { label: 'Goals met', src: '/heroface/screens/goals-met.png' },
+  { label: 'Everyday', src: '/heroface/screens/everyday.png', size: 240 },
+  { label: 'Goals met', src: '/heroface/screens/goals-met.png', size: 240 },
   { label: 'With HeroSet', src: '/heroface/screens/heroset.png' },
   { label: 'Always on' },
 ]
