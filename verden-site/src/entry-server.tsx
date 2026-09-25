@@ -6,7 +6,9 @@ import { NotFound } from './pages/NotFound.tsx'
 import { AppPage, type Section } from './components/AppPage.tsx'
 import { studio } from './site.ts'
 
-type Route = { title: string; description: string; image?: string; page: ReactElement }
+type JsonLd = Record<string, unknown>
+
+type Route = { title: string; description: string; image?: string; jsonLd?: JsonLd; page: ReactElement }
 
 const table = new Map<string, Route>([
   ['/', { title: `${studio.name} — apps`, description: studio.tagline, page: <Home /> }],
@@ -19,7 +21,17 @@ for (const app of apps) {
   ]
   for (const [section, title, description] of sections) {
     const url = section === 'landing' ? `/${app.slug}/` : `/${app.slug}/${section}/`
-    table.set(url, { title, description, image: app.ogImage, page: <AppPage app={app} section={section} /> })
+    const jsonLd: JsonLd | undefined = section === 'landing' ? {
+      '@context': 'https://schema.org',
+      '@type': 'SoftwareApplication',
+      name: app.name,
+      description: app.summary,
+      applicationCategory: 'HealthApplication',
+      operatingSystem: 'Garmin Connect IQ',
+      url: `${studio.origin}${url}`,
+      ...(app.storeUrl ? { sameAs: app.storeUrl } : {}),
+    } : undefined
+    table.set(url, { title, description, image: app.ogImage, jsonLd, page: <AppPage app={app} section={section} /> })
   }
 }
 
@@ -30,10 +42,11 @@ const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').rep
 export function render(url: string): { status: number; head: string; body: string } {
   const withSlash = url.endsWith('/') ? url : `${url}/`
   const route = table.get(withSlash)
-  const { title, description, image, page } = route ?? {
+  const { title, description, image, jsonLd, page } = route ?? {
     title: `Not found — ${studio.name}`,
     description: studio.tagline,
     image: undefined,
+    jsonLd: undefined,
     page: <NotFound />,
   }
   const canonical = `${studio.origin}${withSlash}`
@@ -54,6 +67,12 @@ export function render(url: string): { status: number; head: string; body: strin
     const absoluteImage = `${studio.origin}${image}`
     tags.push(`<meta property="og:image" content="${escape(absoluteImage)}">`)
     tags.push(`<meta name="twitter:image" content="${escape(absoluteImage)}">`)
+  }
+  if (jsonLd) {
+    // </script> can't appear literally inside a script body even in a JSON
+    // string value, so escape the one dangerous substring before embedding.
+    const json = JSON.stringify(jsonLd).replace(/<\/script/gi, '<\\/script')
+    tags.push(`<script type="application/ld+json">${json}</script>`)
   }
   return {
     status: route ? 200 : 404,

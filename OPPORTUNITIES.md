@@ -82,6 +82,24 @@ compounds with the third — every estimate below assumes the Barrel exists;
 without it, add ~1 day per face for hand-copying and re-adapting those
 three files instead of importing them.
 
+**Concrete mechanism, confirmed by a second research pass against real
+code** (the first pass only had a search-summarized syntax sketch):
+Garmin's own `garmin/connectiq-apps` repo ships four official example
+barrels (`LogMonkey`, `Semicircles`, `BluetoothMeshBarrel`,
+`GenericChannelHeartRateBarrel`) proving the mechanism is real and
+Garmin-supported, not third-party-only. A better pattern for this
+monorepo specifically, found in a live multi-project repo
+(`finfinack/depth`, a widget + gauge app + two data fields all sharing one
+barrel, sitting as siblings the same way Verden's projects would):
+each consuming project's `monkey.jungle` needs just one line —
+`base.barrelPath = ../DepthCore/monkey.jungle` — pointing directly at a
+sibling barrel project's own jungle file. Applied here:
+`base.barrelPath = ../VerdenFaceKit/monkey.jungle` in each new face's
+jungle, `VerdenFaceKit/` sitting alongside `HeroSet/`, `heroFace/`, and
+each new project at the repo root. Cleaner than the manifest-declares/
+jungle-links-a-built-`.barrel`-file version for a monorepo where
+everything is already a sibling folder.
+
 ---
 
 ### A. Field Face — battery-first, MIP-native, outdoor contrast
@@ -117,9 +135,20 @@ larger-screen set first.
   fallback-chain idea it already implements for floors on
   no-barometer devices (`heroFace/source/HeroFaceMetrics.mc` is the
   pattern to fork).
-- Barometric pressure trend via `Toybox.SensorHistory` (gated behind
-  `Toybox has :SensorHistory` and a barometer check, same style as
-  HeroFace's existing `has` guards) `(searched, not fetched)`.
+- Barometric pressure trend via `Toybox.SensorHistory.getPressureHistory`
+  (gated behind `(Toybox has :SensorHistory) && (Toybox.SensorHistory has
+  :getPressureHistory)`, same style as HeroFace's existing `has` guards) —
+  method name and has-check idiom confirmed by a second research pass
+  against real shipped code (`warmsound/crystal-face`,
+  `RyanDam/Infocal`, `ludw/Segment34mkII`, all using this exact pattern).
+  **Real caveat the same pass surfaced**: `getPressureHistory` returns
+  **ambient pressure**, which conflates altitude change with actual
+  weather-front pressure trend — a hiker climbing sees "pressure dropping"
+  that means "gained elevation," not "storm coming." A naive trend readout
+  risks being actively misleading outdoors, which cuts against this
+  face's own "genuinely useful, not decorative" bar unless the design
+  compensates for altitude (e.g. via `Position`/altitude data) rather than
+  reading raw pressure as a weather signal.
 - Sunrise/sunset via `Toybox.Weather.getSunrise(location, date)` /
   `getSunset(location, date)`, both returning `Time.Moment or Null`, taking
   a `Position.Location` and a `Time.Moment` — confirmed real signatures via
@@ -164,10 +193,22 @@ the closest reference point (`heroFace/docs/plan.md`'s dated decisions
 show it went from spike to store-ready inside about a day of focused
 work, and Field Face does strictly less than heroFace).
 
-**Risk.** "Outdoor/battery-first watch face" is a crowded Connect IQ
-Store category — differentiation has to be real (barometric trend +
-sunrise/sunset are genuinely useful, not decorative) or it's a commodity
-entry with a different color scheme.
+**Risk.** Confirmed crowded, more strongly than assumed — a second
+research pass found named, live competitors: "Infocal" (also a real
+open-source repo, `RyanDam/Infocal`, already reading pressure history and
+a training-status complication — a mature, feature-rich competitor, not a
+toy), "Crystal" (a 2019 Connect IQ Developer Award winner, open-source as
+`warmsound/crystal-face`, also already reading pressure history), "Barometer
+Watch Face", and "Steam Gauge" (a Garmin-featured 2019 face). **At least
+two of these already implement the exact barometric-trend +
+sunrise/sunset pattern this spec proposes as differentiation** — so
+"genuinely useful, not decorative" is the right bar, but that specific
+feature list alone clears it for existing competitors too, not just this
+one. A real differentiator needs to be something neither does — the
+HeroSet-family visual identity, or a genuinely different data
+presentation, not the raw feature list, and possibly the altitude-aware
+pressure handling noted above if those competitors don't already do it
+(not independently checked here).
 
 **Day 1 checklist.**
 1. Extract the `VerdenFaceKit` Barrel from heroFace first (see above) —
@@ -276,38 +317,75 @@ existing product reads HR zones or recovery-style metrics. This is the
 only concept here needing genuinely new domain logic, not a layout reskin
 of existing data — the real differentiator, and the real risk (see below).
 
-**Data sources — real APIs, checked, with what's confirmed vs. not:**
+**Data sources — corrected by a second research pass against real, shipped
+Monkey C source (GitHub code search across `ludw/Segment34mkII`,
+`ahuggel/SwissRailwayClock`, `fevieira27/MoveToBeActive`,
+`krasimir/kago` and others), not just search-result summaries. Two of the
+four field names in the first draft of this spec were wrong — corrected
+below, with the wrong name kept struck through so a reader who saw the
+old version isn't confused mid-build:**
 - `UserProfile.getHeartRateZones(sport as UserProfile.SportHrZone)` — an
-  `Array` of zone threshold bpm values `(searched: official
-  Toybox.UserProfile docs, forum confirmation)`. `getHeartRateZones2(sport
-  as Activity.Sport) as Array<Number> or Null` also exists, added in SDK
-  9.1.0 `(searched, not fetched — verify minApiLevel against the installed
-  SDK before use)`.
+  `Array` of zone threshold bpm values. `getHeartRateZones2(sport as
+  Activity.Sport) as Array<Number> or Null` also exists (confirmed as a
+  distinct, real method — both have their own SDK method IDs in a
+  GitHub-hosted SDK metadata dump), covers every sport not just
+  run/bike/swim, reportedly added around SDK 9.1.0 `(still searched, not
+  fetched — exact minApiLevel unconfirmed either pass)`. **Use a has-check
+  with fallback**: `(UserProfile has :getHeartRateZones2) ?
+  UserProfile.getHeartRateZones2(sport) : UserProfile.getHeartRateZones(
+  legacySport)` — don't assume CIQ 4.2+ alone clears
+  `getHeartRateZones2`'s real floor, since a method reportedly added
+  around SDK 9.1 plausibly requires a newer API level than 4.2 lets in.
 - `ActivityMonitor.Info.stress` — current stress score, rolling 30s
-  average `(searched: official Toybox.ActivityMonitor.Info docs)`.
-- `ActivityMonitor.Info.recoveryTime` — hours since last activity's
-  recovery need, **nullable** `(searched, same source)`.
-- `ActivityMonitor.Info.vo2Max` — confirmed to exist as a field
-  `(searched, same source)`, exact type/nullability not independently
-  verified here — check before use.
-- **Explicitly not to build against**: Garmin's proprietary "Training
-  Status"/"Training Load" figures. Search turned up no confirmed Connect
-  IQ SDK exposure of those specific derived metrics (as opposed to their
-  raw inputs — stress, recovery time, HR history — which are confirmed).
-  **Recommendation**: build the "readiness" read from `recoveryTime` +
-  `stress` + a simple resting-HR trend from
-  `ActivityMonitor.getHeartRateHistory()` (already used by HeroFace, so
-  the API call pattern is proven in this codebase), not from a metric
-  that may not be readable at all. Whoever builds this should re-check
-  directly against the installed SDK's `Toybox.ActivityMonitor` docs
-  before committing to the "readiness" feature's scope.
+  average, nullable Number. Confirmed both passes.
+- ~~`ActivityMonitor.Info.recoveryTime`~~ → **`ActivityMonitor.Info
+  .timeToRecovery`** — the first draft had the wrong field name. Confirmed
+  correct via five independent real, compiling, shipped repos all using
+  `timeToRecovery` (hours since last activity's recovery need, nullable),
+  none using `recoveryTime`. This would have been a compile error.
+- ~~`ActivityMonitor.Info.vo2Max`~~ → **`UserProfile.getProfile()
+  .vo2maxRunning` / `.vo2maxCycling`** — wrong module *and* wrong shape in
+  the first draft: it's on `UserProfile.Profile` (via
+  `UserProfile.getProfile()`), not `ActivityMonitor.Info`, and it's two
+  sport-specific fields, not one generic one. Confirmed via four
+  independent real repos, all branching on activity type. Code should
+  pick the field matching what the face is actually showing (running vs.
+  cycling), not assume one number covers both.
+- **Training Status — reverse of the first draft's conclusion.**
+  Garmin's proprietary Training Status **is** confirmed available, just
+  not where the first search pass looked: it's a **system complication**,
+  `Complications.COMPLICATION_TYPE_TRAINING_STATUS`, read via
+  `Complications.getComplication(new Complications.Id(
+  Complications.COMPLICATION_TYPE_TRAINING_STATUS))` behind `Toybox has
+  :Complications` — the same subscribe mechanism HeroFace already uses
+  for HeroSet's private complication, just a **system** complication type
+  instead of a custom one (new integration work, not a drop-in reuse of
+  `HeroFaceContract`/`HeroFaceLink`, which only know HeroSet's private
+  one). Confirmed via five independent real, shipped faces reading and
+  displaying Garmin's actual vocabulary (`PEAKING`, `PRODUCTIVE`,
+  `MAINTAINING`, `RECOVERY`, `UNPRODUCTIVE`, `DETRAINING`, `UNDEFINED`,
+  `PAUSED`). **This changes the recommendation below**: showing this
+  string directly is likely a stronger, cheaper, more differentiated
+  feature than reconstructing an approximate "readiness" read from raw
+  stress+recovery+HR-trend. Numeric **Training Load** (as opposed to the
+  Training Status label) remains unconfirmed by either research pass —
+  treat those as two separate claims with different evidence, not one.
+- `SensorHistory.getBodyBatteryHistory` — not in the first draft at all;
+  surfaced by the second pass, confirmed real via the same has-check idiom
+  as `getPressureHistory` (§1A). Body Battery is arguably the single most
+  recognizable "should I train today" number in Garmin's own ecosystem —
+  worth adding as a candidate input, or explicitly deciding not to and
+  saying why, rather than leaving it unconsidered.
 
-**Target devices (v1).** CIQ 4.2+ round AMOLED Forerunners only, so
-`getHeartRateZones2`'s likely-higher `minApiLevel` isn't a blocker on
-day one: `fr965`, `fr970`, `fr570`, `fr170`, `fr165`, `fr265`, `fr70` — 7
-products, all already in HeroFace's own compatibility table so the round
-AMOLED layout math is proven. Widen after v1 once the zone/readiness
-logic is confirmed correct against real hardware.
+**Target devices (v1).** CIQ 4.2+ round AMOLED Forerunners as a starting
+list — `fr965`, `fr970`, `fr570`, `fr170`, `fr165`, `fr265`, `fr70`, all
+already in HeroFace's own compatibility table so the round AMOLED layout
+math is proven — but **don't assume this floor clears
+`getHeartRateZones2` or the system Training Status complication**
+without checking; both may need a higher `minApiLevel` than 4.2, in which
+case the has-check/fallback above is what keeps older-in-this-list devices
+working rather than crashing. Widen after v1 once confirmed against real
+hardware.
 
 **File/class plan:**
 | File | Source | Est. lines |
@@ -317,36 +395,56 @@ logic is confirmed correct against real hardware.
 | `PaceFaceLayout.mc` | Barrel import + new rows | ~50 new |
 | `PaceFaceDraw.mc` | Barrel import, unchanged | 0 new |
 | `PaceFacePalette.mc` | new — zone-colored (a color per HR zone is the one place per-zone color, not just accent color, earns its keep) | ~30 |
-| `PaceFaceZones.mc` | new: HR-zone math against `getHeartRateZones`/`2` | ~50 |
-| `PaceFaceReadiness.mc` | new: `recoveryTime`/`stress`/HR-trend formatting, all behind `has` checks since these are newer fields not on every device | ~60 |
+| `PaceFaceZones.mc` | new: HR-zone math against `getHeartRateZones`/`2`, has-checked | ~50 |
+| `PaceFaceReadiness.mc` | new: `timeToRecovery`/`stress`/HR-trend formatting **plus the Training Status system complication read**, all behind `has` checks | ~75 |
 | `PaceFaceSettings.mc` | Barrel import + own keys | ~20 new |
 
 **Effort estimate.** Largest of the three. **5–8 dev days** for v1 core
 (the zone math and the readiness has-check fan-out are genuinely new, not
-forked), **+1–2 days** store/site work.
+forked; the Training Status complication read adds a day of new
+integration work not in the original estimate, offset by it likely
+replacing rather than adding to the from-scratch "readiness" derivation),
+**+1–2 days** store/site work.
 
-**Risk.** Also the most crowded Connect IQ category — running-metric
-faces are extremely common. Differentiation has to be sharp (HeroSet's
-mission-bar visual language applied to training metrics is one candidate
-hook, not evaluated further here) or it's a commodity entry in the
-hardest-to-win category of the three.
+**Risk.** Confirmed, not just assumed, as the most crowded Connect IQ
+category in this document: real named competitors with live store
+listings include HR Zones Indicator, Visual HR Zones, ZoneFields HR, and
+a whole shipped multi-face family (`ludw`'s Segment34/Segment7 line) that
+already reads HR zones, VO2max, time-to-recovery, and the Training Status
+complication across several products — i.e. most of this spec's proposed
+feature set already exists, from one prolific developer. Differentiation
+has to be sharp (HeroSet's mission-bar visual language applied to
+training metrics is one candidate hook, not evaluated further here) or
+it's a commodity entry in the hardest-to-win category of the three.
 
 **Day 1 checklist.**
 1. **Before scaffolding anything**, open the installed SDK's own
-   `Toybox.UserProfile` and `Toybox.ActivityMonitor` API docs and confirm
-   `getHeartRateZones`/`getHeartRateZones2`'s exact `minApiLevel` and
-   `ActivityMonitor.Info.stress`/`.recoveryTime`/`.vo2Max`'s nullability —
-   every estimate and device list above assumed search-result accuracy,
-   not a primary-source read. This is the one spec in this document where
-   that check gates everything else.
-2. Scaffold targeting `fr965` (already in the CIQ 4.2+ round AMOLED set).
+   `Toybox.UserProfile`, `Toybox.ActivityMonitor` and
+   `Toybox.Complications` API docs and confirm: `getHeartRateZones`/
+   `getHeartRateZones2`'s exact `minApiLevel`; `ActivityMonitor.Info
+   .stress`/`.timeToRecovery`'s nullability; `UserProfile.getProfile()
+   .vo2maxRunning`/`.vo2maxCycling`'s exact type; and
+   `Complications.COMPLICATION_TYPE_TRAINING_STATUS`'s `minApiLevel`. Two
+   rounds of search-based research (see the corrected field names above)
+   already fixed two wrong names and one reversed availability claim —
+   there may be more; this is the one spec in this document where a
+   primary-source check gates everything else.
+2. Scaffold targeting `fr965` (already in the CIQ 4.2+ round AMOLED set,
+   and the one device with HeroFace's own complication link independently
+   verified on real hardware — useful precedent if the Training Status
+   system-complication integration hits similar snags).
 3. Build `PaceFaceZones.mc` standalone first, unit-testable with fixture
    zone arrays and fixture HR values, no simulator needed — pure math,
    fastest thing to get right or wrong early.
-4. Then `PaceFaceReadiness.mc`, each field behind its own `has` check,
-   logging what's actually present on the test device/simulator (device
-   support for `stress`/`recoveryTime`/`vo2Max` is uneven — expect gaps).
-5. Layout/draw code last, once the data layer's shape is known for real.
+4. Then the Training Status complication read in isolation (subscribe,
+   log the raw string) before `PaceFaceReadiness.mc`'s other fields — it's
+   the newest, least-precedented integration in this spec and the one
+   most likely to need iteration.
+5. Then `PaceFaceReadiness.mc`'s remaining fields, each behind its own
+   `has` check, logging what's actually present on the test
+   device/simulator (device support for `stress`/`timeToRecovery`/
+   `vo2maxRunning` is uneven — expect gaps).
+6. Layout/draw code last, once the data layer's shape is known for real.
 
 ---
 
@@ -390,12 +488,23 @@ cleanly (pure functions, `HeroSet/CLAUDE.md`: "94 tests"). **This is a
 simpler build than HeroSet, not a harder one** — it skips the one part of
 HeroSet that's still "beta" and device-unverified for its hardest cases.
 
-**Why it's distinct, not a HeroSet reskin.** Different market entirely:
-HeroSet sells to people who specifically want push-up/sit-up/squat
-counting; Habits sells to anyone who wants a Duolingo-style streak on
-*anything*, a much larger and more generic Connect IQ Store category (habit
-trackers are a proven mobile-app category; a watch-native one with no
-phone-required check-in is a real differentiator versus phone habit apps).
+**Why it's distinct, not a HeroSet reskin — corrected after a second
+research pass.** Different market entirely: HeroSet sells to people who
+specifically want push-up/sit-up/squat counting; Habits sells to anyone
+who wants a Duolingo-style streak on *anything*, a larger and more
+generic Connect IQ Store category. **The original claim that "watch-native,
+no phone check-in" is itself the differentiator does not hold** — a
+second research pass found at least 7 existing watch-native Connect IQ
+habit trackers with live store listings (Habit Tracker, GarminQ, Tracker
+Pro 2, Habit Tree, Habbits, Loop Tracker, SHN Habits), one of which
+("Habbits") already ships essentially the same loop this spec proposes:
+one-tap daily check-off, current streak, longest streak, a percentage
+habit score. **The real, narrower, still-defensible differentiator is the
+*proven XP/rank/streak game engine* inherited wholesale from HeroSet
+(pure, unit-tested, not a fresh implementation) plus visual/brand
+continuity with the rest of the Verden family** — not phone-freeness
+itself, which is already commodity in this category. Positioning copy
+should lead with the game-engine/family angle, not "no phone required."
 
 **Data/domain reuse.** `HeroSetRules`'s XP/rank math (`xpForReps`,
 `rankCost`, `rankThreshold`, `rankForXp`) is pure and exercise-agnostic
@@ -429,9 +538,10 @@ need at all, since habits are self-reported.
 because it inherits a *proven, already-tested* game loop and skips
 HeroSet's hardest subsystem outright.
 
-**Risk.** "Habit tracker" is a crowded category on phones; the pitch has
-to be "fully on your watch, no phone check-in required, no subscription"
-to stand out — differentiation is positioning, not technical.
+**Risk.** "Habit tracker" is crowded on-watch too, not just on phones —
+see the corrected positioning note above. Differentiation is the game
+engine and brand family, not technical novelty or platform (watch vs.
+phone) alone.
 
 **Day 1 checklist.**
 1. Extract `VerdenGameKit` from HeroSet's `HeroSetRules.mc` first (copy the
@@ -453,13 +563,14 @@ to stand out — differentiation is positioning, not technical.
 
 **Positioning.** Pace Face's research (§1C) already confirmed real,
 usable Connect IQ APIs for stress (`ActivityMonitor.Info.stress`),
-recovery time (`ActivityMonitor.Info.recoveryTime`), and HR history
-(`ActivityMonitor.getHeartRateHistory()`, already used by HeroFace). A
-standalone app built around **just** those — not bolted onto a running
-face — is a focused, single-purpose "should I train hard today or ease
-off" tool: open it, see a plain-language readiness read and the numbers
-behind it, no GPS, no activity recording, nothing else. Reuses the exact
-research already done for Pace Face, so this costs no new investigation.
+recovery time (`ActivityMonitor.Info.timeToRecovery` — corrected field
+name, see §1C), and HR history (`ActivityMonitor.getHeartRateHistory()`,
+already used by HeroFace). A standalone app built around those — not
+bolted onto a running face — is a focused, single-purpose "should I train
+hard today or ease off" tool: open it, see a plain-language readiness
+read and the numbers behind it, no GPS, no activity recording, nothing
+else. Reuses the research already done for Pace Face, so this costs no
+new investigation.
 
 **Why it's distinct.** Different app type and different moment: Pace Face
 is glanced at all day; Ready is opened deliberately, once a day, before a
@@ -468,29 +579,50 @@ workout decision — the same "open, check, close" daily-ritual shape
 every day because logging a set is faster than skipping it"), applied to a
 different question, rather than a face's ambient all-day read.
 
-**Data/domain.** Same fields as Pace Face's `PaceFaceReadiness.mc` design
-(§1C) — `stress`, `recoveryTime`, resting-HR trend from
-`getHeartRateHistory()` — **all behind `has` checks**, same caveat as §1C:
-Garmin's proprietary Training Status/Load figures are **not** confirmed
-readable via the Connect IQ SDK and this app should not depend on them
-being available.
+**Data/domain — corrected and expanded after a second research pass, same
+findings as §1C.** `stress`, `timeToRecovery`, resting-HR trend from
+`getHeartRateHistory()`, all behind `has` checks. **Garmin's Training
+Status label (not the raw numeric Training Load) is confirmed available**
+via the system complication `Complications
+.COMPLICATION_TYPE_TRAINING_STATUS` (§1C has the full citation) — showing
+that string directly (`PEAKING`/`PRODUCTIVE`/`RECOVERY`/etc., Garmin's own
+vocabulary) is likely a stronger, cheaper core feature for an app whose
+whole job is "should I train today" than reconstructing an approximate
+read from raw inputs, and worth making the primary readout with
+stress/recovery/HR-trend as supporting detail rather than the other way
+around. Also newly surfaced: `SensorHistory.getBodyBatteryHistory`
+(confirmed real, same has-check idiom as pressure history) — Body
+Battery is arguably the most recognizable "should I train today" number
+in Garmin's own ecosystem and isn't in the current design; add it as an
+input or explicitly decide not to and say why.
 
-**File/class plan:** essentially `PaceFaceReadiness.mc` (§1C, ~60 lines)
-promoted to a full app with its own `App`/`Delegate`/`View` (~120 lines) —
-by far the smallest of the five concepts in this document, because the
-hard part (confirming which readiness-adjacent fields are real) is
-already done above.
+**File/class plan:** essentially `PaceFaceReadiness.mc` (§1C, ~75 lines
+with the Training Status read) promoted to a full app with its own
+`App`/`Delegate`/`View` (~120 lines) — still by far the smallest of the
+five concepts in this document, though the Training Status integration
+adds a bit more than the original "confirming which fields are real"
+framing implied.
 
-**Effort estimate.** **1.5–2.5 dev days** for v1 core, **+1 day**
+**Effort estimate.** **2–3 dev days** for v1 core (nudged up slightly
+from the original 1.5–2.5 to account for the Training Status system
+complication being new integration work, not a field read), **+1 day**
 store/site (a one-screen app needs less listing content than a face or a
-multi-view app). Cheapest build in this entire document.
+multi-view app). Still the cheapest build in this entire document.
 
-**Risk.** Thin as a standalone product if the free Garmin Connect phone
-app already surfaces the same numbers prominently — the pitch has to be
-"on your wrist, no phone, one glance" or it's redundant. Worth checking
-what the stock Garmin watch face/widget already shows before committing
-to this one, since it's the one idea here that risks competing with
-Garmin's own first-party surface rather than filling a gap.
+**Risk.** Two risks now, not one. (1) Thin as a standalone product if the
+free Garmin Connect phone app already surfaces the same numbers
+prominently — still the pitch has to be "on your wrist, no phone, one
+glance" or it's redundant, per the original note. (2) **Confirmed by a
+second research pass, not just a hypothetical**: real, live competitors
+already exist and one is a close positioning match — "HRV and Recovery —
+Readiness & Resting HR" (resting HRV plus a guided breathing session,
+explicitly "no subscription, no accounts, no data collection" — nearly
+the exact pitch this spec proposes, already shipped), plus "AI Coach"
+(reads body battery/stress/recovery/resting HR for recommendations) and
+"Health Dashboard." The Training Status angle above is the strongest
+available differentiator against these, since none of the named
+competitors were found reading it — not independently confirmed absent
+from them, just not found reading it in this pass's research.
 
 **Day 1 checklist.**
 1. **Before writing any code**: check what the stock Garmin watch/Connect
@@ -503,7 +635,7 @@ Garmin's own first-party surface rather than filling a gap.
    full-screen layout.
 4. First and only real test: confirm the plain-language readiness read
    (e.g. "train hard" / "ease off") maps sensibly across the field
-   combinations that are actually possible (stress present + recoveryTime
+   combinations that are actually possible (stress present + timeToRecovery
    null, both present, both null/device-unsupported) — a small decision
    table, not sensor logic, is the actual product here.
 

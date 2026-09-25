@@ -16,6 +16,97 @@ Ranked by gain/effort, strongest evidence first.
 
 ## Done
 
+### ✅✅ CRITICAL, confirmed live on `main` — the store CTA button was invisible on both app landing pages — fixed
+
+Found by a background sub-agent running a real axe-core accessibility
+scan (not just structural checks) against the built `dist/` output via
+the pre-installed Chromium. `verden-site/src/styles/global.css:117`:
+`.field a { color: inherit; }` has CSS specificity (0,1,1) — a type
+selector (`a`) plus a class (`.field`) — which **beats** `.button`'s
+`color: var(--field)` at specificity (0,1,0), regardless of which rule
+comes later in the file. Since `.button`'s `background` is
+`var(--on-field)` and the inherited `color` was also `var(--on-field)`,
+the "Get it on the Connect IQ Store" button rendered with **identical
+text and background color — completely invisible text** — on every page
+with a live store link (`/heroset/`, `/heroface/`, both hero section and
+closing-band CTA, 4 instances total).
+
+**Confirmed live in production, not just on this session's branch**:
+`git show main:verden-site/src/styles/global.css` has the exact same
+bug — this shipped to verden.watch, the site's actual store-conversion
+button was unreadable for real visitors until this fix.
+
+**How it was caught**: axe-core didn't report it as a hard "violation" —
+it flagged the 4 elements under `color-contrast` **incomplete** ("1:1
+contrast ratio with the background"), which is why a plain
+violation-count check (the earlier Chromium pass in this file, which only
+checked structure/console-errors/alt-text) wouldn't have caught it. The
+sub-agent's manual follow-up on every `incomplete` axe result — plus a
+direct `getComputedStyle` check and a screenshot — is what surfaced it.
+
+**Fixed**: `.field a { color: inherit; }` → `.field :where(a) { color:
+inherit; }`. `:where()` has zero specificity contribution, so the rule
+still applies to plain text links inside `.field` (unchanged behavior
+there) but no longer outranks `.button`'s own `color` rule by specificity
+— cascade order decides instead, and `.button` (declared later) wins as
+originally intended. **Verified three ways**: (1) real build, (2) a real
+browser `getComputedStyle` check on the live `.button` element —
+`color: rgb(255, 170, 0)` (the intended amber `--field`) against
+`background: rgb(21, 19, 15)` (`--on-field`), correct contrast restored;
+(3) confirmed the same CSS with the actual shipped CSP header served (not
+just built) produces zero console/CSP errors — the fix doesn't interact
+with the CSP in this file's other entries.
+
+### ✅ `verden-site`: JSON-LD structured data on both app landing pages — shipped
+
+Found as a gap by the same sub-agent: zero `application/ld+json` anywhere
+on the site (confirmed via grep on `src/` and `dist/`, and a full read of
+`entry-server.tsx`). Added a `SoftwareApplication` schema, emitted only
+on `landing` routes (not support/privacy/home), built from data already
+in each app's registry entry — no fabricated fields: `name`, `description`
+(from `app.summary`), `applicationCategory: "HealthApplication"`,
+`operatingSystem: "Garmin Connect IQ"`, canonical `url`, and `sameAs`
+pointing at the Connect IQ Store listing when `storeUrl` exists. Checked
+`HeroSet/docs/release-contract.md` for banned claim types first — no
+price/rating fields are emitted, since none exist in the site's data
+model, avoiding any risk of fabricating an `offers`/`aggregateRating`
+schema.org still expects.
+
+**Verified**: real build produces the expected `<script
+type="application/ld+json">` tag with correct data on `/heroset/`
+and `/heroface/` only, absent on `/`. Also verified against the actual
+shipped CSP header (`script-src 'self'`, no `'unsafe-inline'`) served
+through a local HTTP server with the header attached — a real concern
+since inline `<script>` tags are normally CSP-blocked — confirmed zero
+console/CSP errors: `type="application/ld+json"` isn't treated as
+executable script by the browser, so it isn't subject to `script-src`
+at all. `</script>` is escaped inside the embedded JSON as a defensive
+measure (can't currently occur in this data, but cheap to guard).
+
+### ✅ `verden-site`: Netlify header hardening (HSTS + Permissions-Policy) — shipped
+
+Also from the same sub-agent's Netlify config read. Added to
+`netlify.toml`: `Strict-Transport-Security: max-age=63072000;
+includeSubDomains` (site is HTTPS-only via Netlify-managed cert per
+`verden-site/CLAUDE.md`; `includeSubDomains` is safe since HSTS only
+affects HTTP(S), not the mail subdomain's SMTP/MX records) and
+`Permissions-Policy: camera=(), microphone=(), geolocation=()` (zero
+client JS site, no reason any of these should ever be requested).
+**One thing this container can't check, same limitation as the CSP
+entry above**: whether Netlify already injects HSTS by default for
+custom domains — if so this header is a harmless duplicate; if not, it's
+now explicit. Needs a `curl -I` against the live deploy to confirm either
+way, not possible from here.
+
+### ✅ `verden-site`: `vite` patch bump 8.3.0 → 8.3.1 — shipped
+
+`npm outdated` (run by the sub-agent) found one outdated dependency, a
+patch release already inside the existing `^8.3.0` range in
+`package.json` — just not reflected in the lockfile yet. `npm update
+vite` picked it up; `npm run build` still clean afterward. No other
+outdated or unused dependencies found (checked: `react`, `react-dom`,
+`@fontsource-variable/archivo`, and all devDeps confirmed actually used).
+
 ### ✅ `verden-site`: Open Graph / Twitter Card / canonical tags — shipped `4d275e7`
 
 `entry-server.tsx`'s `head` now emits `og:*`, `twitter:*` and a canonical
@@ -175,6 +266,34 @@ builder should confirm the guard doesn't change any of the four
 `HeroSetScreenFitTest` states' rendering (it shouldn't, since none hits
 the branch).
 
+### 4. `verden-site`: the one non-Latin-script word on the site silently falls back to a system font
+
+Found by a background sub-agent running a real axe-core + font-coverage
+check. Both app landing pages list all 15 supported languages, ending in
+native-script `Українська` (`src/apps/heroset/facts.ts:18`,
+`src/apps/heroface/facts.ts:24`). The three loaded Archivo Variable
+woff2 subsets (confirmed via `@fontsource-variable/archivo`'s own
+`unicode.json`: only `latin`, `latin-ext`, `vietnamese` are shipped by
+this package at all — **no Cyrillic subset exists to add**, correcting
+the sub-agent's own suggested fix option, which assumed one might be
+available) don't cover Cyrillic (U+0400–04FF), so that one word renders
+in a visibly different fallback font — a real, screenshot-confirmed break
+of `DESIGN.md`'s "one grotesque doing every job" rule, not just a
+theoretical gap.
+- **Real options, correctly narrowed**: (a) pull in a different font
+  package/subset that does cover Cyrillic for just this one word (adds a
+  font-loading cost for one label in a list — probably not worth it); (b)
+  accept the fallback as a conscious, documented choice rather than a
+  silent gap, since it's one label among fifteen, not body copy.
+- **Recommendation**: (b), with a one-line note added to `DESIGN.md`'s
+  typography section saying so explicitly — this is a product/design call
+  the owner should make deliberately, not something to silently code
+  around. **Not fixed here** — genuinely a decision, not a bug.
+- **Effort**: trivial either way (one doc line, or one font-loading
+  change). **Verification**: confirmed via direct read of the font
+  package's own `unicode.json` plus a screenshot of the rendered
+  fallback — real, not speculative.
+
 ---
 
 ## Verified clean (no action needed)
@@ -222,6 +341,50 @@ links, exactly one `<h1>` per page, 4–6 landmark elements per page,
 concerns visible in `domContentLoadedEventEnd` (18–45ms across all 7
 pages, served locally so not representative of real network latency, but
 confirms no render-blocking resource pileup).
+
+### ✅ `verden-site`: real axe-core contrast/ARIA scan — found the one critical bug above, everything else clean
+
+A background sub-agent went deeper than the Chromium pass above: ran a
+real `axe.run()` (WCAG 2.0/2.1 A+AA + best-practice rules) against all 7
+built pages. **Zero hard violations.** The only `incomplete`
+(needs-manual-review) results were the 4 store-button instances that
+turned out to be the critical bug fixed above, plus contrast-check
+noise inside the two decorative preview SVGs (`FacePreview.tsx`) — those
+sit inside a `role="img"` element, which already hides their internal
+text nodes from assistive tech, so axe's flag there isn't a real a11y
+gap. Tab order/focus-order-adjacent checks are covered by axe's
+best-practice ruleset and returned nothing, though a scripted manual
+Tab-key walkthrough wasn't additionally run — call that a lighter-confidence
+"clean" than the directly-measured contrast data.
+
+Also checked and confirmed genuinely clean, not just assumed:
+- **Font subsetting is not actually over-broad.** Real network requests
+  traced per page: only the `latin` subset (and `latin-ext` where needed
+  for `fēnix`/`Português`/etc.) is ever fetched — the `vietnamese`
+  subset exists in `dist/assets/` but modern browsers skip it via
+  `unicode-range` since nothing on any page needs it. The one real gap in
+  this area is the Cyrillic fallback documented above, not over-fetching.
+- **`tsconfig.json`'s strictness** already has `strict: true` plus
+  `noUnusedLocals`/`noUnusedParameters`. Checked whether adding
+  `noUncheckedIndexedAccess` would catch anything real: grepped all
+  dynamic indexing in the codebase, found one hit
+  (`Pictograms.tsx:25`'s `pose.head[0]`/`[1]`), which is a fixed-length
+  tuple type already exempt from that flag's narrowing. **Would not
+  currently catch any real bug** — reasonable defensive default for
+  future code, not sized as worth flipping today.
+- **No redirect/legacy-URL gaps.** Checked git history of
+  `src/apps/`: slugs were only ever added, never renamed or removed,
+  consistent with the "never change a published URL" rule already being
+  followed.
+- **`font-display: swap`** already present on all 3 `@font-face` rules
+  (checked the built CSS directly) — no invisible-text-on-load risk.
+  The one real gap: no `<link rel="preload">` for the primary `latin`
+  subset (the one actually fetched on every route), which would shave a
+  font-discovery round trip on a real network — a real LCP element is the
+  hero `<h1>` on every page (confirmed via a real `PerformanceObserver`
+  measurement), so the font matters for it. Small, well-targeted,
+  low-urgency addition, not done this pass — this container can't
+  produce a real-network-latency number to size the actual gain.
 
 ## Not investigated this pass
 

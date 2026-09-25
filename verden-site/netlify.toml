@@ -22,3 +22,9 @@
     # per-app accent colors (e.g. FacePreview). No inline/external script,
     # no data: URIs in the built CSS (checked before writing this).
     Content-Security-Policy = "default-src 'self'; img-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; form-action 'none'"
+    # HTTPS-only site (Netlify-managed cert, http/www already redirect per
+    # verden-site/CLAUDE.md); includeSubDomains is safe here since HSTS only
+    # affects HTTP(S), not the mail subdomain's SMTP/MX records.
+    Strict-Transport-Security = "max-age=63072000; includeSubDomains"
+    # Zero client JS site: no reason any of these should ever be needed.
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
