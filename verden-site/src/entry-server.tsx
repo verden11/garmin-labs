@@ -62,7 +62,7 @@ export function render(url: string): { status: number; head: string; body: strin
   }
   const head = [`<title>${escape(title)}</title>`, `<meta name="description" content="${escape(description)}">`]
   if (route) {
-    // One canonical host, since the Netlify subdomain serves the same pages.
+    // One canonical host, since the web.app subdomain serves the same pages.
     const canonical = escape(studio.origin + withSlash)
     head.push(
       `<link rel="canonical" href="${canonical}">`,

@@ -37,10 +37,10 @@ export function Screens({ app, screens }: { app: App; screens: Screenshot[] }) {
   )
 }
 
-export function Watches({ count, lede, families, languages }: { count: number; lede: string; families: [string, string][]; languages: string[] }) {
+export function Watches({ title, lede, families, languages }: { title: string; lede: string; families: [string, string][]; languages: string[] }) {
   return (
     <section className="wrap band" aria-labelledby="watches-title">
-      <h2 id="watches-title" className="band__title">{count} Garmin watches.</h2>
+      <h2 id="watches-title" className="band__title">{title}</h2>
       <p className="band__lede">{lede}</p>
       <dl className="watches">
         {families.map(([family, models]) => (

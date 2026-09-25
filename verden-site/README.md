@@ -1,7 +1,5 @@
 # Verden site
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/d26d0261-d940-4cf3-bf49-d3a10d635897/deploy-status)](https://app.netlify.com/projects/verden-watch/deploys)
-
 Static website for Verden apps: a studio home plus, for each app, a landing page, a support page and a privacy policy. HeroSet is the first app; more apps, each in its own folder, will be added. `CLAUDE.md` lists the linked apps and the hosting setup.
 
 Vite + React + TypeScript, but React only runs at build time: every page is prerendered to plain HTML + CSS. The browser gets no JavaScript, so pages work with JS off, and deep links such as `/heroset/privacy/` work on any static host without rewrite rules.
@@ -13,9 +11,10 @@ npm install
 npm run dev       # http://localhost:5173, pages rendered on request
 npm run build     # type-check, build CSS/fonts, prerender every route into dist/
 npm run preview   # serve dist/
+npm run deploy    # build + firebase deploy --only hosting
 ```
 
-Hosted on Netlify: pushing to `main` builds and deploys using `netlify.toml`. Serve it from the domain root (links are root-absolute). Any other static host works too: upload `dist/`. `dist/404.html` is the not-found page those hosts pick up automatically.
+Hosted on Firebase Hosting (project `verden-watch-87da4`, config `firebase.json`): `npm run deploy`. Serve it from the domain root (links are root-absolute). Any other static host works too: upload `dist/`. `dist/404.html` is the not-found page those hosts pick up automatically.
 
 ## Routes
 

@@ -1,8 +1,9 @@
 import { RepCounter } from './Pictograms.tsx'
 import { RankScale } from './RankScale.tsx'
 import { heroset } from './app.ts'
-import { screens, watchFamilies, languages, watchCount } from './facts.ts'
+import { screens, watchFamilies, languages } from './facts.ts'
 import { CallToAction, HeroActions, Screens, Watches } from '../../components/AppSections.tsx'
+import { studio } from '../../site.ts'
 import { appUrl } from '../../urls.ts'
 
 
@@ -83,8 +84,8 @@ export function Landing() {
       <Screens app={heroset} screens={screens} />
 
       <Watches
-        count={watchCount}
-        lede={`Round-screen watches, AMOLED and memory-in-pixel, with five buttons or a touchscreen. Tested on a Forerunner 965; every other model passes each screen check in Garmin’s simulator. The ${heroset.storeName} shows whether your exact model is listed.`}
+        title="Works on most Garmin watches."
+        lede={`Round-screen watches, AMOLED and memory-in-pixel, with five buttons or a touchscreen. Tested on a Forerunner 965; every other model passes each screen check in Garmin’s simulator. The ${heroset.storeName} shows whether your exact model is listed. Don’t see yours? Email ${studio.email} with your model.`}
         families={watchFamilies}
         languages={languages}
       />

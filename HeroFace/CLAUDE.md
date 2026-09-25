@@ -4,9 +4,9 @@ Garmin watch face (Connect IQ, Monkey C) from studio Verden. Time-first, in
 HeroSet's visual language: bezel ring, three mission bars, gold streak.
 117 round products, `minApiLevel` 3.0.0. Paid, USD 2.00, 15 languages.
 
-**Read first:** `docs/plan.md` (what is built, what is next, and why),
-`PRODUCT.md` (product truth), `DESIGN.md` (the visual system),
-`docs/compatibility.md` (products and the evidence per screen size).
+**Read first:** [`docs/plan.md`](docs/plan.md) (what is built, what is next, and why),
+[`PRODUCT.md`](PRODUCT.md) (product truth), [`DESIGN.md`](DESIGN.md) (the visual system),
+[`docs/compatibility.md`](docs/compatibility.md) (products and the evidence per screen size).
 
 ## Fast facts
 
@@ -15,7 +15,7 @@ HeroSet's visual language: bezel ring, three mission bars, gold streak.
   a whole; the gold line is the step-goal streak. With HeroSet installed on a
   CIQ 4.2+ watch, the bars become push-ups/sit-ups/squats and the ring the XP
   into the current rank.
-- The HeroSet link is one **private complication** (HeroSet ADR-044,
+- The HeroSet link is one **private complication** (HeroSet [ADR-044](../HeroSet/docs/decisions.md#adr-044),
   `HeroSetComplicationPublisher`). Value:
   `v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay|goal`. Field order
   is a cross-project contract: changing it on one side breaks the other. New
@@ -35,12 +35,12 @@ HeroSet's visual language: bezel ring, three mission bars, gold streak.
 - The FR965 has run it (2026-09-20 onward): install, render, the HeroSet link,
   reboot survival and a full day of always-on wear. Battery, ghosting, the
   seconds power budget and settings delivery are still open — see
-  `docs/go-to-market.md` §1. Simulator evidence is not device evidence; say so
+  [`docs/go-to-market.md`](docs/go-to-market.md) §1. Simulator evidence is not device evidence; say so
   when reporting.
 
 ## House rules
 
-Same as HeroSet (`../HeroSet/CLAUDE.md` house rules), which this project mirrors:
+Same as HeroSet ([`../HeroSet/CLAUDE.md`](../HeroSet/CLAUDE.md) house rules), which this project mirrors:
 
 - Every function: typed params and `as` return type. No `as Any`. Cast only
   after an `instanceof` or null guard.
@@ -58,8 +58,8 @@ Same as HeroSet (`../HeroSet/CLAUDE.md` house rules), which this project mirrors
 
 ## Keeping things in sync
 
-- Behaviour change → update `docs/plan.md` (and `DESIGN.md` if it is visual).
-- Contract change → both projects and HeroSet's ADR-044, same session.
+- Behaviour change → update [`docs/plan.md`](docs/plan.md) (and [`DESIGN.md`](DESIGN.md) if it is visual).
+- Contract change → both projects and HeroSet's [ADR-044](../HeroSet/docs/decisions.md#adr-044), same session.
 - New product or layout change → run the screen-fit test for that screen size
-  and update `docs/compatibility.md`.
+  and update [`docs/compatibility.md`](docs/compatibility.md).
 - Test count appears in `README.md` and here; update both.

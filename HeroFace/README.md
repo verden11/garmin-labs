@@ -10,7 +10,7 @@ you hit your step goal. On watches with Connect IQ 4.2+ and
 and squats, with your HeroSet rank and streak.
 
 117 round watches, Connect IQ 3.0 and up, in 15 languages:
-`docs/compatibility.md`.
+[`docs/compatibility.md`](docs/compatibility.md).
 
 ## Build
 
@@ -21,12 +21,12 @@ KEY=~/.garmin-connectiq/keys/developer_key
 monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y $KEY
 monkeydo bin/HeroFace.prg fr965            # with the simulator running
 
-# Tests (15)
+# Tests (16)
 monkeyc -t -d fr965 -f monkey.jungle -o bin/t-fr965.prg -y $KEY
 monkeydo bin/t-fr965.prg fr965 -t
 
 # Store upload package
-monkeyc -e -r -f monkey.jungle -o bin/HeroFace.iq -y $KEY
+monkeyc -e -r -f monkey.jungle -o dist/HeroFace.iq -y $KEY
 ```
 
 `monkeyc`/`monkeydo` live in the SDK's `bin/` folder if they aren't on `PATH`.
@@ -75,6 +75,6 @@ PRODUCT.md                product truth
 DESIGN.md                 the visual system
 ```
 
-House rules follow HeroSet's (`../HeroSet/CLAUDE.md`): typed functions, no
+House rules follow HeroSet's ([`../HeroSet/CLAUDE.md`](../HeroSet/CLAUDE.md)): typed functions, no
 magic numbers, one class per file, text fit measured and never guessed,
 comments explain *why*.

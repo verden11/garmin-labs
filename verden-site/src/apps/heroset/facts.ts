@@ -1,7 +1,6 @@
 import type { Screenshot } from '../types.ts'
 
 // Mirrors HeroSet docs/compatibility.md; update both together.
-export const watchCount = 80
 export const watchFamilies: [string, string][] = [
   ['Forerunner', '70, 165, 170, 255, 265, 570, 945 LTE, 955, 965, 970'],
   ['fēnix', '6, 6 Pro, 7, 7 Pro, 8, 8 Pro, 9, 9 Pro, E'],

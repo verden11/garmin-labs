@@ -18,16 +18,16 @@ Dashboard 60 s day check, storage writes (per save only) and learning (one burst
 
 ## Don't change
 
-- **25 Hz / 1 s period:** detector constants are counted in samples and stored learning (ADR-040) was fitted at 25 Hz. Changing it retunes everything.
-- Sensors + HR start in `onShow`, stop in `onHide`; `method(:onSensorData)` binding (ADR-023).
+- **25 Hz / 1 s period:** detector constants are counted in samples and stored learning ([ADR-040](decisions.md#adr-040)) was fitted at 25 Hz. Changing it retunes everything.
+- Sensors + HR start in `onShow`, stop in `onHide`; `method(:onSensorData)` binding ([ADR-023](decisions.md#adr-023)).
 - Per-rep vibration, black background, no backlight/background/GPS, no recording in store build.
 
 ## Candidates (verify on watch first)
 
 1. **No inactivity timeout on the workout screen.** Sensors + HR + redraw run forever if a set is left open. If the system times the app out instead, an unsaved set is **silently lost** — the bigger bug. Candidate: pause after N minutes without a rep (Back menu has Resume). Needs ADR + `HeroSetConfig` tunable.
 2. **Redraw with display off:** timer stops only in `onHide`; likely keeps redrawing a dark screen. Item 1 covers most of it.
-3. **Redraw cost:** new `HeroSetLayout` + font fitting every second. Cache layout and count font (recompute on digit-count change); keep measuring (ADR-018).
-4. **Is `setEnabledSensors([SENSOR_ONBOARD_HEARTRATE])` needed?** `Sensor.getInfo().heartRate` may read at all-day rate without it. HR readout is decorative (ADR-021).
+3. **Redraw cost:** new `HeroSetLayout` + font fitting every second. Cache layout and count font (recompute on digit-count change); keep measuring ([ADR-018](decisions.md#adr-018)).
+4. **Is `setEnabledSensors([SENSOR_ONBOARD_HEARTRATE])` needed?** `Sensor.getInfo().heartRate` may read at all-day rate without it. HR readout is decorative ([ADR-021](decisions.md#adr-021)).
 
 ## Measurement (gate 7)
 

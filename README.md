@@ -1,14 +1,13 @@
 # Verden
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/d26d0261-d940-4cf3-bf49-d3a10d635897/deploy-status)](https://app.netlify.com/projects/verden-watch/deploys)
 
 Studio monorepo: Garmin Connect IQ apps and watch faces, plus the one website
 that serves all of their public pages.
 
 | Folder | What | Status |
 |---|---|---|
-| [`HeroSet/`](HeroSet) | Watch app — daily push-ups, sit-ups, squats with automatic rep counting, XP, rank and streak. 80 products. | 1.1.0 live; 1.1.1 in review |
-| [`HeroFace/`](HeroFace) | Watch face — time-first, in HeroSet's visual language. Works standalone; richer with HeroSet installed. 117 round products. | 1.0.0 live; 1.0.1 in review |
+| [`HeroSet/`](HeroSet) | Watch app — daily push-ups, sit-ups, squats with automatic rep counting, XP, rank and streak. 80 products. | 1.1.1 live |
+| [`HeroFace/`](HeroFace) | Watch face — time-first, in HeroSet's visual language. Works standalone; richer with HeroSet installed. 117 round products. | 1.0.1 live |
 | [`verden-site/`](verden-site) | The public site: studio home plus landing, support and privacy pages per app. Live at **https://verden.watch/** | Live |
 
 Each folder is built and released independently. They share this repo so
@@ -32,14 +31,14 @@ reports/       research and review reports; the notes behind each in research_no
 ## The one coupling
 
 HeroSet publishes today's progress as a **private complication** that HeroFace
-reads (HeroSet `docs/decisions.md`, ADR-044). Its value is a fixed field order:
+reads (HeroSet `docs/decisions.md`, [ADR-044](HeroSet/docs/decisions.md#adr-044)). Its value is a fixed field order:
 
 ```
 v | dayKey | push | sit | squat | rank | rankPct | streak | lastDoneDay | goal
 ```
 
 Changing that order breaks the other project. A contract change touches both
-folders and ADR-044 in the same commit.
+folders and [ADR-044](HeroSet/docs/decisions.md#adr-044) in the same commit.
 
 ## Build
 
@@ -56,6 +55,6 @@ The Connect IQ signing key lives outside this repo at
 
 ## Hosting
 
-Netlify builds `verden-site/` on every push to `main`. Its **base directory**
-must stay `verden-site`, which is how `verden-site/netlify.toml` is found.
+Firebase Hosting (project `verden-watch-87da4`) serves `verden-site/dist`; deploy with
+`npm run deploy` inside `verden-site/`.
 Details in [`verden-site/CLAUDE.md`](verden-site/CLAUDE.md).

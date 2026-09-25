@@ -1,12 +1,12 @@
 # Compatibility
 
-Status: 2026-09-24. Decision records: ADR-034/035/037/038 (waves 1–4), ADR-048 (wave 5).
+Status: 2026-09-24. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
 
 ## Supported products
 
-80 products in both manifests, five waves. Every one: round screen, Connect IQ 3.4+ (`minApiLevel`), accelerometer (app samples 25 Hz), optical HR. Waves 1–4 have the five-button layout (START, BACK, UP, DOWN, LIGHT); wave 5 is touch-first (START, BACK, touchscreen), where swipes replace UP/DOWN (ADR-048). Layout proportional, every text row measured (ADR-006, ADR-018) — no per-device resources exist.
+80 products in both manifests, five waves. Every one: round screen, Connect IQ 3.4+ (`minApiLevel`), accelerometer (app samples 25 Hz), optical HR. Waves 1–4 have the five-button layout (START, BACK, UP, DOWN, LIGHT); wave 5 is touch-first (START, BACK, touchscreen), where swipes replace UP/DOWN ([ADR-048](decisions.md#adr-048)). Layout proportional, every text row measured ([ADR-006](decisions.md#adr-006), [ADR-018](decisions.md#adr-018)) — no per-device resources exist.
 
-### Wave 1 — round AMOLED (ADR-034)
+### Wave 1 — round AMOLED ([ADR-034](decisions.md#adr-034))
 
 Same hardware shape as FR965.
 
@@ -21,7 +21,7 @@ Same hardware shape as FR965.
 | fēnix 8 AMOLED | `fenix847mm`, `fenix8pro47mm`, `fenix843mm` | 454 / 416 px |
 | fēnix E | `fenixe` | 416 px |
 
-### Wave 2 — round MIP (ADR-035)
+### Wave 2 — round MIP ([ADR-035](decisions.md#adr-035))
 
 Memory-in-pixel screens, 218–280 px, 8 bits per pixel. Needed no code change: `HeroSetPalette` colors already Garmin 64-color palette (every channel 00, 55, AA or FF), and layout shrinks its fonts.
 
@@ -35,7 +35,7 @@ Memory-in-pixel screens, 218–280 px, 8 bits per pixel. Needed no code change: 
 
 218 px `fr255s` = smallest supported screen, and 512 KB of app memory against 768 KB elsewhere in this wave. It is not the memory floor: wave 4's fēnix 6 family and Enduro cap watch apps at 128 KB (below).
 
-### Wave 3 — more round AMOLED (ADR-037)
+### Wave 3 — more round AMOLED ([ADR-037](decisions.md#adr-037))
 
 Same input model as FR965 (`enter, up, menu, down, esc`), Connect IQ 5.1+, 768 KB. No code change, manifest entry plus verification only.
 
@@ -49,7 +49,7 @@ Same input model as FR965 (`enter, up, menu, down, esc`), Connect IQ 5.1+, 768 K
 
 466 px `fenix9pro51mm` = largest supported screen, and the first `round-466x466` device family here.
 
-### Wave 4 — Connect IQ 3.4 MIP (ADR-038)
+### Wave 4 — Connect IQ 3.4 MIP ([ADR-038](decisions.md#adr-038))
 
 Older five-button MIP watches, reached by lowering `minApiLevel` 4.2.0 → 3.4.0. Every Toybox symbol the app uses exists at 3.4; no app code changed.
 
@@ -61,7 +61,7 @@ Older five-button MIP watches, reached by lowering `minApiLevel` 4.2.0 → 3.4.0
 | Forerunner 945 LTE | `fr945lte` | 240 px |
 | Enduro (Gen 1) | `enduro` | 280 px |
 
-### Wave 5 — touch-first round AMOLED (ADR-048)
+### Wave 5 — touch-first round AMOLED ([ADR-048](decisions.md#adr-048))
 
 No UP/DOWN keys: swipe up/down adjusts, `SWIPE:` hints, START (physical) finishes and saves; taps never commit. All CIQ 4.2+, so all publish the HeroFace complication.
 
@@ -84,15 +84,15 @@ No UP/DOWN keys: swipe up/down adjusts, `SWIPE:` hints, START (physical) finishe
 
 | Group | Examples | What's missing |
 |---|---|---|
-| Touch-first below Connect IQ 3.4 | `venu`, `venud`, `d2air`, `vivoactive4`, `vivoactive4s` | Below `minApiLevel` (ADR-038) |
+| Touch-first below Connect IQ 3.4 | `venu`, `venud`, `d2air`, `vivoactive4`, `vivoactive4s` | Below `minApiLevel` ([ADR-038](decisions.md#adr-038)) |
 | Instinct (AMOLED and MIP) | `instinct3amoled45mm`, `instinct3solar45mm`, `instinctcrossoveramoled`, `instincte45mm` | Screen has sub-window cut-out that round-chord layout doesn't model. Instinct E also caps apps at 128 KB |
 | Square / rectangle | `venusq2`, `venux1` | Layout square path untested, these touch-first too |
-| Below Connect IQ 3.4 | fēnix 5 / 5 Plus, Forerunner 245/645/745/935/945, D2 Charlie/Delta, Descent MK1, vívoactive 3/4 | Below `minApiLevel`. `WatchUi.showToast` (save confirmation) is 3.4+, and fēnix 5 Plus fails screen fit (older, larger system fonts). FR945/745/245M pass the suite in simulator with a `has :showToast` guard — candidate wave, needs another save confirmation (ADR-038) |
+| Below Connect IQ 3.4 | fēnix 5 / 5 Plus, Forerunner 245/645/745/935/945, D2 Charlie/Delta, Descent MK1, vívoactive 3/4 | Below `minApiLevel`. `WatchUi.showToast` (save confirmation) is 3.4+, and fēnix 5 Plus fails screen fit (older, larger system fonts). FR945/745/245M pass the suite in simulator with a `has :showToast` guard — candidate wave, needs another save confirmation ([ADR-038](decisions.md#adr-038)) |
 | Forerunner 55 | `fr55` | 208 px screen: dashboard rows overlap (fails `everyScreenFitsThisDisplay`) |
 
 ## Adding a product
 
 1. Check its `compiler.json`/`simulator.json` in SDK `Devices/` folder: display shape and type, keys, Connect IQ version, `maxAccelRate`, memory.
 2. Add to **both** manifests.
-3. Compile store build for it, then run full unit suite in its simulator (`development.md`). `everyScreenFitsThisDisplay` must pass.
+3. Compile store build for it, then run full unit suite in its simulator ([`development.md`](development.md)). `everyScreenFitsThisDisplay` must pass.
 4. Add to table above, and to store listing device list.

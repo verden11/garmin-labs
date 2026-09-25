@@ -111,7 +111,7 @@ Other HeroFace notes items: sleep screen and `onPartialUpdate` bypass `HeroFaceD
 | W9 route strings | Low | FIXED | `src/urls.ts` `appUrl` used by Shell, AppPage, AppSections, entry-server |
 | W10 focus ring on note/truth | Low | FIXED | `global.css:117-120` |
 | W11 hover motion gating | Low | FIXED | `global.css:132-135` |
-| W12 CSP / Permissions-Policy | Low | PARTIAL | `netlify.toml`: Permissions-Policy on, HSTS explicit (no includeSubDomains), CSP is `Content-Security-Policy-Report-Only`; enforcement needs a deploy-preview console check (HeroSet go-to-market C2). Report-Only with no report endpoint only logs to the browser console |
+| W12 CSP / Permissions-Policy | Low | PARTIAL | `firebase.json`: Permissions-Policy on, HSTS explicit (no includeSubDomains), CSP is `Content-Security-Policy-Report-Only`; enforcement needs a deploy-preview console check (HeroSet go-to-market C2). Report-Only with no report endpoint only logs to the browser console |
 | W13 titles | Low | FIXED | `app.ts` per-app `title`; support/privacy titles carry ` · Verden` |
 | W14 HeroFace screenshots | Low | PARTIAL | `heroface/facts.ts:31-32` declare `size: 240` (honest dimensions, still soft at 454 px); "Always on" slot still `Screenshot pending` (`:34`) |
 | W15 misc | Low | FIXED | ternary gone (`FacePreview.tsx:12`), `@types/node ^26.6.2`, README HeroFace section, favicon three bars, family list has Chronos and Legacy |

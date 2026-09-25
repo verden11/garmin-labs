@@ -9,19 +9,20 @@ Built on Forerunner 965; 66 more round five-button watches supported,
 simulator-checked only — AMOLED (Forerunner 70/165/170/265/570/970, epix Gen 2
 and Pro, fēnix 8/9 AMOLED, fēnix E, MARQ Gen 2, D2 Mach, Descent MK3/G2) and
 MIP (fēnix 6/7/8 Solar/9 Pro Solar, MARQ Gen 1, Forerunner 255/945 LTE/955,
-Enduro and Enduro 3, Descent MK2), Connect IQ 3.4+:
+Enduro and Enduro 3, Descent MK2) plus 13 touch-first watches (Venu 2/3/4,
+vívoactive 5/6, Approach S50/S70, D2 Air X10), Connect IQ 3.4+:
 [`docs/compatibility.md`](docs/compatibility.md).
 
-Goal: publish as paid app on Connect IQ Store.
+Live as a paid app on the Connect IQ Store.
 
-## Status (2026-09-20)
+## Status (2026-09-26)
 
-- **v1 uploaded, in Garmin review.** Counting that learns from saved counts
-  (ADR-040), manual correction, goals, XP/rank/streak, live HR/calories,
+- **1.1.1 live.** Counting that learns from saved counts
+  ([ADR-040](docs/decisions.md#adr-040)), manual correction, goals, XP/rank/streak, live HR/calories,
   15 languages. 99 unit tests pass (88 in the store build).
 - **Not proven on a wrist:** counting accuracy beyond a few FR965 sets; the
-  other 66 watches (simulator only).
-- **v1.1 Connect sync:** dev build only, unverified (ADR-043).
+  other 79 watches and the touch UI (simulator only).
+- **1.2.0 Connect sync:** dev build only, unverified ([ADR-043](docs/decisions.md#adr-043)).
 - Open items: [`docs/go-to-market.md`](docs/go-to-market.md). Allowed claims:
   [`docs/release-contract.md`](docs/release-contract.md).
 
@@ -46,7 +47,7 @@ monkeydo bin/HeroSet-tests.prg fr965 -t
 monkeyc -d fr965 -f store.jungle -o bin/HeroSet-store.prg -y /path/to/developer_key
 
 # Store upload package
-monkeyc -e -r -f store.jungle -o bin/HeroSet-store.iq -y /path/to/developer_key
+monkeyc -e -r -f store.jungle -o dist/HeroSet-store.iq -y /path/to/developer_key
 ```
 
 `monkeyc`/`monkeydo` live in SDK's `bin/` folder if not on `PATH`. VS Code
@@ -60,10 +61,10 @@ users can use Monkey C extension instead.
 | Know *why* something is the way it is | [`docs/decisions.md`](docs/decisions.md) |
 | Change a screen or button behavior | [`docs/input-and-ux.md`](docs/input-and-ux.md) |
 | Build, test, debug on a real watch | [`docs/development.md`](docs/development.md) |
-| See what's left before launch | [`docs/go-to-market.md`](docs/go-to-market.md) |
+| See what's open | [`docs/go-to-market.md`](docs/go-to-market.md) |
 
 Full index: [`docs/README.md`](docs/README.md). Contributor house rules
-(typed functions, no magic numbers, measured text fit): `docs/architecture.md`
+(typed functions, no magic numbers, measured text fit): [`docs/architecture.md`](docs/architecture.md)
 §6. AI-assistant orientation: [`CLAUDE.md`](CLAUDE.md).
 
 ## Project layout
@@ -78,5 +79,6 @@ resources/         strings, menus, launcher icon
 resources-store/   release menu overlay (no Connect Sync, no validation log)
 docs/              architecture, decisions, UX, testing, launch plan
 listing/           Connect IQ Store upload images (screens/, cover, hero, device icons; sources in src/)
-bin/               build output (git-ignored)
+bin/               scratch build output (git-ignored)
+dist/              store .iq only (git-ignored)
 ```
