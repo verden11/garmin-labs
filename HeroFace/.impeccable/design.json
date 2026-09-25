@@ -14,7 +14,6 @@
       "accent-blue": { "role": "primary", "displayName": "Effort Blue", "canonical": "#55AAFF", "tonalRamp": ["#04182B", "#072947", "#0B3D66", "#10538A", "#146AAD", "#2E8AD4", "#55AAFF", "#9CCDFF"] },
       "accent-cyan": { "role": "primary", "displayName": "Effort Cyan", "canonical": "#00FFFF", "tonalRamp": ["#002B2B", "#004747", "#006666", "#008A8A", "#00ADAD", "#00D4D4", "#00FFFF", "#77FFFF"] },
       "accent-magenta": { "role": "primary", "displayName": "Effort Magenta", "canonical": "#FF55FF", "tonalRamp": ["#2B042B", "#470747", "#660B66", "#8A108A", "#AD22AD", "#D43BD4", "#FF55FF", "#FF9CFF"] },
-      "accent-white": { "role": "primary", "displayName": "Effort White", "canonical": "#FFFFFF", "tonalRamp": ["#272727", "#3D3D3D", "#555555", "#6E6E6E", "#8A8A8A", "#AAAAAA", "#D4D4D4", "#FFFFFF"] },
       "sleep-text": { "role": "neutral", "displayName": "Sleep Grey", "canonical": "#555555", "tonalRamp": ["#0D0D0D", "#1A1A1A", "#2B2B2B", "#3D3D3D", "#555555", "#6E6E6E", "#8A8A8A", "#AAAAAA"] }
     },
     "typographyMeta": {

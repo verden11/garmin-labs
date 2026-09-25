@@ -1,6 +1,18 @@
 # Go to market — HeroFace
 
-Status: 2026-09-24.
+Status: 2026-09-25.
+
+## Next session (from the 2026-09-25 store check)
+
+Order and the HeroSet half: `../../HeroSet/docs/go-to-market.md`, "Next session".
+
+- [ ] 1. Developer dashboard: is 1.0.1 in review, or was only the text saved? If the `.iq` never went up, upload `bin/HeroFace-next.iq` as 1.0.1. The live page shows the 1.0.1 What's New under version 1.0.0 until then.
+- [ ] 2. Paste the Description block from `listing/README.md` as one plain-text block (live page has only the hard-wrapped opening).
+- [ ] 3. Once 1.0.1 is live, re-read the store API (version, date, text) and mark it live in `CHANGELOG.md`.
+- [ ] 4. FR965, store install of 1.0.1: face still links to HeroSet; install HeroSet after the face and the link appears within a minute (relink); temperature in °F rounds; a stored mode 2 shows Auto.
+- [ ] 5. Gate 4 items still open (§1): settings round-trip through Connect, seconds power budget, 96 KB memory headroom, MIP contrast.
+- [ ] 6. Review W14: re-capture the site screenshots at 454 px plus the always-on screen; original-Venu heat map (simulator GUI). The always-on shot also goes into the listing (§3).
+- [ ] 7. Device list: 69 of 117 listed; same Garmin question as HeroSet A4.
 
 ## Status checkpoint
 
