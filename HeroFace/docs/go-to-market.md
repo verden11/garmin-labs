@@ -6,9 +6,9 @@ Status: 2026-09-25.
 
 Order and the HeroSet half: `../../HeroSet/docs/go-to-market.md`, "Next session".
 
-- [ ] 1. Developer dashboard: is 1.0.1 in review, or was only the text saved? If the `.iq` never went up, upload `bin/HeroFace-next.iq` as 1.0.1. The live page shows the 1.0.1 What's New under version 1.0.0 until then.
-- [ ] 2. Paste the Description block from `listing/README.md` as one plain-text block (live page has only the hard-wrapped opening).
-- [ ] 3. Once 1.0.1 is live, re-read the store API (version, date, text) and mark it live in `CHANGELOG.md`.
+- [x] 1. Dashboard 2026-09-25: 1.0.1 (internal 2) is approved and live since 2026-09-24; the binary did go up.
+- [x] 2. Description pasted via Edit Details 2026-09-25 (live text 1,821 chars). No re-review and no release-date change seen in the API.
+- [x] 3. Store API re-read 2026-09-25: 1.0.1, released 2026-09-24 15:41 UTC, category Digital (168). Marked live in `CHANGELOG.md`.
 - [ ] 4. FR965, store install of 1.0.1: face still links to HeroSet; install HeroSet after the face and the link appears within a minute (relink); temperature in °F rounds; a stored mode 2 shows Auto.
 - [ ] 5. Gate 4 items still open (§1): settings round-trip through Connect, seconds power budget, 96 KB memory headroom, MIP contrast.
 - [ ] 6. Review W14: re-capture the site screenshots at 454 px plus the always-on screen; original-Venu heat map (simulator GUI). The always-on shot also goes into the listing (§3).
@@ -16,7 +16,7 @@ Order and the HeroSet half: `../../HeroSet/docs/go-to-market.md`, "Next session"
 
 ## Status checkpoint
 
-**Store device list (store API, 2026-09-25):** 69 of the 117 products are listed. Missing: fēnix 5/5 Plus/5S/5X family, fēnix 6S, fēnix Chronos, FR55, FR245/245M, FR645/645M, FR745, FR935, FR945/945 LTE, vívoactive 3/3M/3 LTE/4/4S, Venu, Venu D, D2 Air, D2 Air X10, D2 Charlie/Delta ×3, Descent MK1/MK2/MK2S, Enduro, Approach S62, MARQ Gen 1 ×8, Legacy Hero/Saga ×4. HeroSet misses the same families, so this looks store-side. **1.0.1 is not live yet** at that check: the store still serves 1.0.0 (released 2026-09-22) while showing the 1.0.1 What's New text.
+**Store device list (store API, 2026-09-25):** 69 of the 117 products are listed. Missing: fēnix 5/5 Plus/5S/5X family, fēnix 6S, fēnix Chronos, FR55, FR245/245M, FR645/645M, FR745, FR935, FR945/945 LTE, vívoactive 3/3M/3 LTE/4/4S, Venu, Venu D, D2 Air, D2 Air X10, D2 Charlie/Delta ×3, Descent MK1/MK2/MK2S, Enduro, Approach S62, MARQ Gen 1 ×8, Legacy Hero/Saga ×4. HeroSet misses the same families, so this looks store-side. **1.0.1 went live 2026-09-24** (confirmed in the dashboard and API 2026-09-25).
 
 **Next upload (2026-09-24):** `bin/HeroFace-next.iq` carries the code-review fixes (link null-guard and once-a-minute relink, the "HeroSet" mode entry removed with a stored 2 read as Auto, Fahrenheit rounding; `../reports/Verden code quality review.md`). 16/16 tests on six products in the simulator; not yet on a watch. `bin/HeroFace.iq` stays the 1.0 artifact.
 

@@ -75,7 +75,7 @@ export function Landing() {
       <Screens app={heroface} screens={screens} />
 
       <Watches
-        count={watchCount}
+        title={`${watchCount} Garmin watches.`}
         lede={`Round screens, AMOLED and memory-in-pixel, Connect IQ 3.0 and newer. Tested on a Forerunner 965; every screen size passes each screen check in Garmin’s simulator. The ${heroface.storeName} shows whether your exact model is listed.`}
         families={watchFamilies}
         languages={languages}

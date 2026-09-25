@@ -1,6 +1,5 @@
 # Verden
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/d26d0261-d940-4cf3-bf49-d3a10d635897/deploy-status)](https://app.netlify.com/projects/verden-watch/deploys)
 
 Studio monorepo: Garmin Connect IQ apps and watch faces, plus the one website
 that serves all of their public pages.
@@ -56,6 +55,6 @@ The Connect IQ signing key lives outside this repo at
 
 ## Hosting
 
-Netlify builds `verden-site/` on every push to `main`. Its **base directory**
-must stay `verden-site`, which is how `verden-site/netlify.toml` is found.
+Firebase Hosting (project `verden-watch-87da4`) serves `verden-site/dist`; deploy with
+`npm run deploy` inside `verden-site/`.
 Details in [`verden-site/CLAUDE.md`](verden-site/CLAUDE.md).

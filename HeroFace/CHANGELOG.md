@@ -3,7 +3,7 @@
 One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in `listing/README.md`.
 
-## 1.0.1 — uploaded 2026-09-24 (in review)
+## 1.0.1 — uploaded 2026-09-24, live 2026-09-24
 
 - The HeroSet link connects within a minute of installing HeroSet, without
   restarting the face; a failed link setup can no longer stop the face starting.

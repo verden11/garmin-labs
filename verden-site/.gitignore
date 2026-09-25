@@ -8,3 +8,10 @@ dist
 .env
 .env.*
 !.env.example
+
+# Firebase CLI: local cache/logs, and agent skills `firebase init` installs.
+.firebase
+*-debug.log
+.agents
+.claude
+skills-lock.json

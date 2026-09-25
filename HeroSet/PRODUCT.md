@@ -37,7 +37,7 @@ A button-first daily challenge that lives entirely on the watch: automatic rep c
 - Watch UI: round screens only, AMOLED and MIP, 67 products from ~208 to 466 px; min Connect IQ API 3.4.0; one class per file; text fit measured, never guessed (ADR-018); render only in `onUpdate`.
 - Input: five physical buttons; no long-press gestures (ADR-029); on-screen hints name bezel buttons (`START`, `UP/DOWN`, `BACK`). Touch works where the watch passes it through but is never required.
 - Languages: English (fallback), German, French, Spanish, Italian, Portuguese, Dutch, Polish, Swedish, Danish, Norwegian Bokmål, Finnish, Turkish, Lithuanian, Ukrainian. Russian intentionally unsupported.
-- Site: `../verden-site`, a multi-app static site (prerendered, no client JS) shared with future Verden apps; live at https://verden.watch (Netlify); must match actual app behavior.
+- Site: `../verden-site`, a multi-app static site (prerendered, no client JS) shared with future Verden apps; live at https://verden.watch (Firebase Hosting); must match actual app behavior.
 
 ## Brand Commitments
 

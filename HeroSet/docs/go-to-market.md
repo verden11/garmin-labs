@@ -12,17 +12,18 @@ Status: 2026-09-25. **Only home for open items and blockers.** History: ADRs + `
 - **Waived for launch (ADR-042, amended 2026-09-21):** full gate 2 accuracy trial. The validation log was cleared and the FR965 fresh-installed 2026-09-21, so there is almost no current accuracy data (one 35-rep set, −4); the detector is unchanged and accuracy work is a **1.1.1** item if buyers report it.
 - **Proven only in simulator:** everything except FR965 counting basics and menus.
 - **Touch-first wave (ADR-048) and the 2026-09-24 review fixes (ADR-049, `../reports/Verden code quality review.md`), **live as 1.1.1** (released 2026-09-24 15:32 UTC, store API):** 13 Venu/vívoactive/Approach/D2 Air products in both manifests. **97/97 dev tests on all 80 products** (English) and in all 15 languages on `venu2s` + `fr265s` (`tools/fit-sweep.sh`); store tests 88/88 on fr965, venu441mm, d2airx10; 99/99 on fr965 after the last tests (picker dispatch, ADR-050 Back gate) were added (2026-09-24). `longestLearnableSetFinishes` failed three times under simulator load (563–610 ms against its 400 ms counting bound), so that bound is now 1000 ms; the watchdog-critical saving bound stays 50 ms. Upload candidate `bin/HeroSet-store-next.iq` re-exported 2026-09-24 after ADR-050 (126 device variants; the copy first sideloaded on the FR965 predates the ADR-050 Back gate); `bin/HeroSet-store.iq` is still the 1.1.0 artifact. Requested by a buyer email (Venu 4).
-- **Unpushed (2026-09-25):** `main` is 6 commits ahead of `origin`, including the site's 80-watch HeroSet copy; the live site still says 67. Pushing deploys it (Netlify), so settle next-session item C1 first.
+- **Site device copy (2026-09-26):** `/heroset/` and its support page say "works on most Garmin watches" with no count, and invite people to email their model if it is unsupported. The 80-vs-66 gap (C1) is closed by wording, not by a number to keep in sync.
 
 ## Next session (from the 2026-09-25 store check)
 
 Cross-app order; HeroFace's half is in `../../HeroFace/docs/go-to-market.md`. Tick here, then fold results into the items below.
 
 **A. Listings**
-- [ ] A1. Paste the reviewed Description + What's New from `listing/README.md` (live page still has the pre-review text, incl. "a tap on the screen never does"). If the dashboard only edits text with a new version, carry it to the next upload.
-- [ ] A2. Re-read both listings via `https://apps.garmin.com/api/appsLibraryExternalServices/api/asw/apps/{id}`: version, release date, description, device count.
-- [ ] A3. Reply to the Venu 4 buyer email: 1.1.1 lists Venu 4 (touch UI simulator-tested only; ask them to report back).
-- [ ] A4. Device list (item 1): check the dashboard's Compatible Devices tab, then ask Garmin why 14 of 80 are missing (and 48 of HeroFace's 117). Record the answer in item 1.
+- [x] A1. Reviewed Description + What's New pasted via Edit Details 2026-09-25 (live text 1,344 / 623 chars). Edit Details changes text with no new binary, and the store showed no re-review and an unchanged release date. **Category still reads 219 (Health & Fitness) in the API**: check the dashboard saved Strength Training / Other, or whether the change needs review.
+- [x] A2 (2026-09-25 evening; re-run after the category check). Re-read both listings via `https://apps.garmin.com/api/appsLibraryExternalServices/api/asw/apps/{id}`: version, release date, description, device count.
+- [x] A3. Venu 4 request (2026-09-25): Garmin relays these from the store as a `noreply@garmin.com` mail ("Venu 4 is missing", from a Connect IQ user), so there is no address to reply to. Venu 4 (41 and 45 mm) is on the live Compatible Devices list since 1.1.1, so the request predates it; nothing to send. The touch UI is still simulator-only, so a Venu 4 owner's report is the first real evidence.
+- [ ] A4. Device list (item 1): the public Compatible Devices tab was read 2026-09-25 (it lists fēnix 9, Forerunner 170 and Venu 4; it does not list Venu 1, D2 Air X10, Descent MK2, MARQ Gen 1, fēnix 5, FR245/945). Ask Garmin why 14 of 80 are missing (and 48 of HeroFace's 117). Record the answer in item 1.
+- [x] A6. Findability, FR965-paired phone, mobile Connect IQ app (2026-09-25): "rep counter" lists HeroSet 2nd; "heroset" lists HeroSet 1st, HeroFace 2nd; "heroface" lists HeroFace 1st, HeroSet 2nd. So keyword search works in the mobile app. Still to do: repeat "HeroFace" with a fēnix 9 or Forerunner 170 selected (a colleague, Monday), for the reported paid-listings-hidden bug.
 - [ ] A5. Optional: a Venu screenshot showing `SWIPE: ADJUST` for the listing.
 
 **B. Device and simulator checks (post-release by owner call, ADR-048/050)**
@@ -32,8 +33,8 @@ Cross-app order; HeroFace's half is in `../../HeroFace/docs/go-to-market.md`. Ti
 - [ ] B4. Native-speaker read of the strings changed in 1.1.1 (touch hints), at least `deu`, `lit`, `pol`.
 
 **C. Site**
-- [ ] C1. Decide what the site's 80 means while the store lists 66: keep the manifest count, or say "66 in the store today, see Compatible Devices". Then push (6 local commits) and check `/heroset/` live.
-- [ ] C2. CSP is Report-Only: open the deploy preview, read the console for violations, then enforce.
+- [x] C1. Site device wording (2026-09-26): no count on the site; "works on most Garmin watches", store shows exact list, unsupported owners email their model.
+- [x] C2. CSP enforced (2026-09-26): checked all 8 pages with a `ReportingObserver` (the Chrome console tool cannot see Report-Only violations), zero violations, then `Content-Security-Policy` shipped in `verden-site/firebase.json` and confirmed live with curl.
 
 **D. Housekeeping**
 - [ ] D1. Test counts: 99/88 in the four places `CLAUDE.md` lists; the "Where things stand" first bullet still says 94/85.
@@ -51,7 +52,7 @@ Cross-app order; HeroFace's half is in `../../HeroFace/docs/go-to-market.md`. Ti
 5b. **Touch-first wave (ADR-048)** — ships as **1.1.1** (ADR-050): live-bug fix (ADR-049) plus devices, no new feature; 1.2.0 stays Connect sync. **Owner call 2026-09-24: upload now, device checks after** — the FR965 START/`onKey` check below is therefore post-release, on a build all 80 products already run.
    - [ ] Simulator by hand, `venu441mm`: tap mid-set does nothing; START finishes; swipe up = +1 in picker; tap in picker does nothing; START saves; swipe-right mid-set shows Resume menu.
    - [ ] FR965 on wrist (dev build): START still finishes a set and saves the picker (moved from `onSelect` to `onKey`, ADR-048).
-   - [ ] Store device list: see item 1 and next-session item A4; site (`../verden-site`, `watchCount` 80) must go live **after** it is settled, not before.
+   - [ ] Store device list: see item 1 and next-session item A4; the site (`../verden-site`) no longer states a count, so nothing to sync.
    - [ ] Reply to the Venu 4 buyer once live.
 6. **Post-launch watch checks** (FR965, dev build unless noted):
    - [ ] Gate 2 (evidence, not a 1.1.0 gate — log cleared 2026-09-21, fresh install): 3 × 10 reps per exercise at slow/medium/fast; 60 s still in position per exercise (count phantoms, then Discard); one 30+ rep set. Known risks from the deleted data: push-ups over-count on 15–25 rep sets, squats collapsed to 3-for-10 twice, fast squats, push-up getting-up rep. Tuning `HeroSetConfig` is a 1.1.1 item. Results → `validation-log.md`, summary → `release-contract.md`.
