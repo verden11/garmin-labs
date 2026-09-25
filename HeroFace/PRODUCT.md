@@ -6,7 +6,7 @@
 
 web
 
-The only web surface is the HeroFace page in `../verden-site`. The product itself is a native Garmin Connect IQ watch face (Monkey C), which is neither web, iOS nor Android. Watch UI follows `docs/plan.md` and HeroSet's watch conventions, not web conventions.
+The only web surface is the HeroFace page in `../verden-site`. The product itself is a native Garmin Connect IQ watch face (Monkey C), which is neither web, iOS nor Android. Watch UI follows [`docs/plan.md`](docs/plan.md) and HeroSet's watch conventions, not web conventions.
 
 ## Users
 
@@ -29,7 +29,7 @@ The mission-bar and progress-ring language from HeroSet, applied to everyday goa
 
 ## Capabilities and Constraints
 
-- Connect IQ watch face, `minApiLevel` 3.0.0, one build. Newer APIs sit behind `has` checks. Round screens first; rectangle and Instinct shapes come later (`docs/plan.md` phase 4).
+- Connect IQ watch face, `minApiLevel` 3.0.0, one build. Newer APIs sit behind `has` checks. Round screens first; rectangle and Instinct shapes come later ([`docs/plan.md`](docs/plan.md) phase 4).
 - The smallest watch-face memory budget among the 117 shipped round products is 96 KB, so it draws only with primitives and system fonts and uses no bitmaps. (64 KB belongs to the rectangle and Instinct products, which are not in scope yet.)
 - No network, no permissions except `ComplicationSubscriber`. Nothing leaves the watch.
 - Price: paid, lowest tier USD 2.00 ($1.99 US), same as HeroSet. Garmin's 48-hour return window is the only trial.
@@ -38,7 +38,7 @@ The mission-bar and progress-ring language from HeroSet, applied to everyday goa
 ## Brand Commitments
 
 - Name: HeroFace. Studio: Verden. Support contact: `hello@verden.watch`.
-- Visual language is inherited from HeroSet (`../HeroSet/source/ui/HeroSetPalette.mc`, ADR-031). The colour roles are: gold for what the user keeps, blue for today's effort, green for a finished goal. Black ground, Garmin 64-colour palette.
+- Visual language is inherited from HeroSet (`../HeroSet/source/ui/HeroSetPalette.mc`, [ADR-031](../HeroSet/docs/decisions.md#adr-031)). The colour roles are: gold for what the user keeps, blue for today's effort, green for a finished goal. Black ground, Garmin 64-colour palette.
 - Voice: terse uppercase watch copy, game-coach vocabulary only where the mechanic needs a name (streak, rank).
 
 ## Evidence on Hand

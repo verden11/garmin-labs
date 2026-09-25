@@ -1,10 +1,9 @@
 # Compatibility
 
-Status: 2026-09-24. 117 products, every round watch-face product at Connect IQ
+Status: 2026-09-26. 117 products, every round watch-face product at Connect IQ
 3.0 or newer in SDK 9.2.0. A watch face needs no buttons, so touch-only watches
 (Venu, vívoactive, Instinct AMOLED) are supported here. HeroSet added Venu 2/3/4,
-vívoactive 5/6, Approach S50/S70 and D2 Air X10 in its ADR-048 (not yet in a
-HeroSet store build); older Venu/vívoactive and Instinct are still HeroSet-less.
+vívoactive 5/6, Approach S50/S70 and D2 Air X10 in its [ADR-048](../../HeroSet/docs/decisions.md#adr-048) (live in HeroSet 1.1.1); older Venu/vívoactive and Instinct are still HeroSet-less.
 
 ## Supported products
 
@@ -28,7 +27,7 @@ and system fonts.
 ## HeroSet link
 
 66 of the 117 run Connect IQ 4.2+ and can read HeroSet's private complication
-(HeroSet ADR-044). The rest — including HeroSet's own fēnix 6, MARQ Gen 1,
+(HeroSet [ADR-044](../../HeroSet/docs/decisions.md#adr-044)). The rest — including HeroSet's own fēnix 6, MARQ Gen 1,
 FR945 LTE, Enduro and Descent MK2 users, who cap at CIQ 3.4 — always show
 everyday goals. Nothing breaks: the face never mentions a link it cannot make.
 
@@ -48,7 +47,7 @@ instead of steps / intensity / floors, and the face runs with no empty bar.
 `Weather`, so both fallbacks are exercised there.
 
 **Only the FR965 has run it** (2026-09-20 onward: install, render, the HeroSet
-link, reboot survival, a day of always-on wear; `go-to-market.md` §1). On every
+link, reboot survival, a day of always-on wear; [`go-to-market.md`](go-to-market.md) §1). On every
 other product the simulator proves geometry and fonts, not always-on
 behaviour, daylight contrast on MIP or battery cost. The original Venu
 (`venu`, `venud`, `d2air`) has a stricter burn-in rule than the FR965 — no
@@ -59,7 +58,7 @@ it.
 
 | Group | Examples | What's missing |
 |---|---|---|
-| Rectangle | `venusq2`, `venux1` | The row stack assumes a round chord; a rectangle wants its own proportions (`docs/plan.md` phase 4) |
+| Rectangle | `venusq2`, `venux1` | The row stack assumes a round chord; a rectangle wants its own proportions ([`docs/plan.md`](plan.md) phase 4) |
 | Semi-octagon | Instinct 2/3 MIP, Instinct E, Descent G1 | Their sub-window covers part of the screen and the layout doesn't model it yet (phase 4) |
 | Below Connect IQ 3.0 | fēnix 3, FR230/235/630, vívoactive Gen 1, FR45 | No `Application.Properties`, 48–64 KB, 4-bit colour: a second render path for 15 old watches |
 

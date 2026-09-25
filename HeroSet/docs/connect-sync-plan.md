@@ -1,6 +1,6 @@
-# Garmin Connect sync (v1.1)
+# Garmin Connect sync (1.2.0)
 
-Status: 2026-09-22. **Implemented in dev build (ADR-043), not committed, unverified on watch.** Open: steps 0, 7, 8 below. 1.1.0 shipped 2026-09-21 without sync; this is **1.2.0**, the next submission (ADR-047).
+Status: 2026-09-26. **Implemented in the dev build ([ADR-043](decisions.md#adr-043)), committed, unverified on watch.** Open: steps 0, 7, 8 below. Not in the store build: 1.1.0 and 1.1.1 shipped without sync; this is **1.2.0**, the next submission ([ADR-047](decisions.md#adr-047)).
 
 ## Summary
 
@@ -15,7 +15,7 @@ Why a day can't be one activity, and why not native strength sets:
 | Limit | Source |
 |---|---|
 | Only route into Connect: a live `ActivityRecording.Session` saved on the watch. No backdating (`Session` = `start/stop/save/discard/addLap/createField/isRecording`) | `ActivityRecording.html`, `Session.html` |
-| Session doesn't survive app close (FR965: stray activities, ADR-030). Garmin's `RecordSample` saves in `onStop` | ADR-030, `RecordSample/RecordSampleApp.mc` |
+| Session doesn't survive app close (FR965: stray activities, [ADR-030](decisions.md#adr-030)). Garmin's `RecordSample` saves in `onStop` | [ADR-030](decisions.md#adr-030), `RecordSample/RecordSampleApp.mc` |
 | No file API; `PersistedContent` read-only | Toybox module list |
 | Background services killed after 30 s | Core Topics "Backgrounding" |
 | No Garmin API accepts a finished activity (`makeWebRequest` JSON/URL only; Activity/Training APIs read or push plans) | `Communications.html`, gc-developer-program |
@@ -34,15 +34,15 @@ Why a day can't be one activity, and why not native strength sets:
 | `AppBase.onStop` | ≥ 1 saved workout rep → write last lap + totals, `save()` (refused save → `discard()`). Else `discard()`. Never left open |
 
 Rules:
-- Only workout-seeded saves count (same boundary as learning, ADR-040); main-menu manual entries never start or join a session.
+- Only workout-seeded saves count (same boundary as learning, [ADR-040](decisions.md#adr-040)); main-menu manual entries never start or join a session.
 - Discarded / empty sets keep a 0-rep lap; their time stays.
 - Negative correction: lap = `max(0, delta)`; exercise total drops by it (≥ 0). Earlier laps keep their counts, so laps can sum above the summary.
 - Sync turned off mid-visit → discard immediately.
 - `createSession`/`start` refused, or no `ActivityRecording` → no sync that visit, `SYNC FAIL`.
 
-**Fields** (ids 0–4 fixed forever, baked into saved FIT files like ADR-003 keys): lap `Exercise` (string, 32 bytes, name truncated) + `Reps`; session `Push-ups`, `Sit-ups`, `Squats`. Fallback if Connect hides string lap fields: three numeric lap fields.
+**Fields** (ids 0–4 fixed forever, baked into saved FIT files like [ADR-003](decisions.md#adr-003) keys): lap `Exercise` (string, 32 bytes, name truncated) + `Reps`; session `Push-ups`, `Sit-ups`, `Squats`. Fallback if Connect hides string lap fields: three numeric lap fields.
 
-**UX:** existing `Connect Sync` toggle and `hero_sync_enabled` key (ADR-027); sublabels `Saves to Connect` / `Watch only` (native `Menu2`, fit unmeasurable in tests; longest: French). No recording indicator, no save toast (saves at exit). Copy never promises "automatic", Strava rep counts, or native set lists.
+**UX:** existing `Connect Sync` toggle and `hero_sync_enabled` key ([ADR-027](decisions.md#adr-027)); sublabels `Saves to Connect` / `Watch only` (native `Menu2`, fit unmeasurable in tests; longest: French). No recording indicator, no save toast (saves at exit). Copy never promises "automatic", Strava rep counts, or native set lists.
 
 **Log lines** (Validation Log, dev build): `HH:MM SYNC NEW` · `SAVED m:ss` · `EMPTY` · `OFF` · `FAIL`.
 
@@ -52,9 +52,9 @@ Rules:
 |---|---|
 | 0 | **Spike on FR965:** does Connect web **and** phone show the string lap field and blank unit (`fit_unit_none`)? Does `addLap()` right after `start()` put the boundary where expected? Decides string vs numeric fallback. |
 | 7 | Device acceptance below, dev build. |
-| 8 | Only after 7: `Fit` + `FitContributor` into `manifest-store.xml`, stop excluding `sync` in `store.jungle`, toggle into `resources-store/` menu, delete `HeroSetSyncCoordinatorOff.mc`. Same session: `../verden-site` privacy + support, store description, `release-contract.md` sync rows, go-to-market "never promise". Existing users may need to approve the new permission. |
+| 8 | Only after 7: `Fit` + `FitContributor` into `manifest-store.xml`, stop excluding `sync` in `store.jungle`, toggle into `resources-store/` menu, delete `HeroSetSyncCoordinatorOff.mc`. Same session: `../verden-site` privacy + support, store description, [`release-contract.md`](release-contract.md) sync rows, go-to-market "never promise". Existing users may need to approve the new permission. |
 
-## Device acceptance (FR965; simulator isn't proof, ADR-022/023)
+## Device acceptance (FR965; simulator isn't proof, [ADR-022](decisions.md#adr-022)/[023](decisions.md#adr-023))
 
 Check `SYNC …` log and Connect after phone sync.
 
@@ -64,7 +64,7 @@ Check `SYNC …` log and Connect after phone sync.
 4. Discarded set → its lap 0, others right.
 5. Two visits in a day → 2 activities.
 6. Only discarded sets / only manual entries / sync Off → 0 activities.
-7. Exit via Back chain, watch app switch/shortcut, mid-set → no stray or duplicate activity (ADR-030 failure).
+7. Exit via Back chain, watch app switch/shortcut, mid-set → no stray or duplicate activity ([ADR-030](decisions.md#adr-030) failure).
 8. Strava (if linked): time + HR arrive.
 9. Phone notification mid-set → still one lap.
 10. Store build (step 8): preview shows `Fit` permission; compatible-device list doesn't shrink.

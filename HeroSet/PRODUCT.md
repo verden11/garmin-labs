@@ -6,11 +6,11 @@
 
 web
 
-Two surfaces share this record: the website (sibling directory `../verden-site`: studio home plus HeroSet landing, support and privacy pages, the `web` platform above) and the watch app itself, a native Garmin Connect IQ app (Monkey C) that is neither web, iOS nor Android. Watch UI follows the constraints below and the ADRs in `docs/decisions.md`, not web conventions.
+Two surfaces share this record: the website (sibling directory `../verden-site`: studio home plus HeroSet landing, support and privacy pages, the `web` platform above) and the watch app itself, a native Garmin Connect IQ app (Monkey C) that is neither web, iOS nor Android. Watch UI follows the constraints below and the ADRs in [`docs/decisions.md`](docs/decisions.md), not web conventions.
 
 ## Users
 
-Garmin watch athletes of any main sport (runners, cyclists, hikers, gym-goers) who want short daily bodyweight strength work alongside it: 100 push-ups, 100 sit-ups and 100 squats a day by default — any goal from 10 to 500 — counted and tracked on the wrist without reaching for a phone. They own one of the 67 supported round five-button Garmin watches (`docs/compatibility.md`) and use it mid-workout, often sweaty, on the floor, glancing between reps.
+Garmin watch athletes of any main sport (runners, cyclists, hikers, gym-goers) who want short daily bodyweight strength work alongside it: 100 push-ups, 100 sit-ups and 100 squats a day by default — any goal from 10 to 500 — counted and tracked on the wrist without reaching for a phone. They own one of the 67 supported round five-button Garmin watches ([`docs/compatibility.md`](docs/compatibility.md)) and use it mid-workout, often sweaty, on the floor, glancing between reps.
 
 ## Product Purpose
 
@@ -18,7 +18,7 @@ HeroSet turns a daily bodyweight challenge into a repeatable ritual on the watch
 
 ## Positioning
 
-A button-first daily challenge that lives entirely on the watch: automatic rep counting (beta) that learns from the counts the user saves (ADR-040), with every set correctable before it is stored, plus game progression (XP, ranks, streaks) and live heart-rate/calorie readouts. Nothing leaves the watch: no account, no sync, no activity recording in v1.
+A button-first daily challenge that lives entirely on the watch: automatic rep counting (beta) that learns from the counts the user saves ([ADR-040](docs/decisions.md#adr-040)), with every set correctable before it is stored, plus game progression (XP, ranks, streaks) and live heart-rate/calorie readouts. Nothing leaves the watch: no account, no sync, no activity recording in v1.
 
 ## Operating Context
 
@@ -29,13 +29,13 @@ A button-first daily challenge that lives entirely on the watch: automatic rep c
 
 ## Capabilities and Constraints
 
-- Exercises: push-ups, sit-ups, squats; daily goal 100 each by default, user-set on the watch from 10 to 500 in steps of 10 (ADR-045). XP still stops at 100 reps per exercise per day, so rank reflects reps done, not goals hit.
-- Automatic counting is beta and can miscount; accuracy numbers may not be claimed until launch gate 2 passes (`docs/release-contract.md`).
-- Manual correction and manual logging on every path; XP only for net stored progress (ADR-002); rank derived, never stored.
+- Exercises: push-ups, sit-ups, squats; daily goal 100 each by default, user-set on the watch from 10 to 500 in steps of 10 ([ADR-045](docs/decisions.md#adr-045)). XP still stops at 100 reps per exercise per day, so rank reflects reps done, not goals hit.
+- Automatic counting is beta and can miscount; accuracy numbers may not be claimed until launch gate 2 passes ([`docs/release-contract.md`](docs/release-contract.md)).
+- Manual correction and manual logging on every path; XP only for net stored progress ([ADR-002](docs/decisions.md#adr-002)); rank derived, never stored.
 - Live HR and calorie estimate during a set; calories are the change in Garmin's daily total, an estimate, not a medical or native session measurement.
-- Store build: `Sensor` permission only, no network, no Garmin Connect/Strava sync, no FIT activity (ADR-033). Opt-in Connect sync (one activity per workout, ADR-043) exists in the dev build only, unverified; planned for v1.1.
-- Watch UI: round screens only, AMOLED and MIP, 67 products from ~208 to 466 px; min Connect IQ API 3.4.0; one class per file; text fit measured, never guessed (ADR-018); render only in `onUpdate`.
-- Input: five physical buttons; no long-press gestures (ADR-029); on-screen hints name bezel buttons (`START`, `UP/DOWN`, `BACK`). Touch works where the watch passes it through but is never required.
+- Store build: `Sensor` permission only, no network, no Garmin Connect/Strava sync, no FIT activity ([ADR-033](docs/decisions.md#adr-033)). Opt-in Connect sync (one activity per workout, [ADR-043](docs/decisions.md#adr-043)) exists in the dev build only, unverified; planned for v1.1.
+- Watch UI: round screens only, AMOLED and MIP, 80 products from ~208 to 466 px; min Connect IQ API 3.4.0; one class per file; text fit measured, never guessed ([ADR-018](docs/decisions.md#adr-018)); render only in `onUpdate`.
+- Input: five physical buttons; no long-press gestures ([ADR-029](docs/decisions.md#adr-029)); on-screen hints name bezel buttons (`START`, `UP/DOWN`, `BACK`). Touch works where the watch passes it through but is never required.
 - Languages: English (fallback), German, French, Spanish, Italian, Portuguese, Dutch, Polish, Swedish, Danish, Norwegian Bokmål, Finnish, Turkish, Lithuanian, Ukrainian. Russian intentionally unsupported.
 - Site: `../verden-site`, a multi-app static site (prerendered, no client JS) shared with future Verden apps; live at https://verden.watch (Firebase Hosting); must match actual app behavior.
 
@@ -45,13 +45,13 @@ A button-first daily challenge that lives entirely on the watch: automatic rep c
 - Voice: game coach. Short, upbeat, game vocabulary where the mechanic needs a name (missions, ranks, XP, streaks); never cheesy, never medical, never overpromising. Watch copy is terse uppercase.
 - Support contact: `hello@verden.watch`.
 - Launcher icon: `resources/drawables/launcher_icon.svg`.
-- Claims are bounded by `docs/release-contract.md` (allowed and forbidden claims); check it before any user-facing copy.
+- Claims are bounded by [`docs/release-contract.md`](docs/release-contract.md) (allowed and forbidden claims); check it before any user-facing copy.
 
 ## Evidence on Hand
 
-- On-watch trial data from one FR965 owner (`docs/validation-log.md`), not yet enough to claim accuracy.
+- On-watch trial data from one FR965 owner ([`docs/validation-log.md`](docs/validation-log.md)), not yet enough to claim accuracy.
 - Site: `../verden-site/src/apps/heroset/` (landing, support, privacy).
-- Listing screenshots: simulator captures of the store build in `listing/` (ADR-039). No mockups.
+- Listing screenshots: simulator captures of the store build in `listing/` ([ADR-039](docs/decisions.md#adr-039)). No mockups.
 - None exist and must not be invented: user reviews, testimonials, ratings, user counts, press, accuracy percentages, partnerships or Garmin endorsement.
 
 ## Product Principles
