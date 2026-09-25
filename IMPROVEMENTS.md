@@ -14,42 +14,27 @@ Ranked by gain/effort, strongest evidence first.
 
 ---
 
-### 1. `verden-site`: No Open Graph / Twitter Card / canonical tags
+## Done
 
-- `verden-site/src/entry-server.tsx:38` builds `head` from only `<title>` and
-  `<meta name="description">`. No `og:title`, `og:description`, `og:image`,
-  `og:url`, `twitter:card`, or `<link rel="canonical">` on any of the 7 pages
-  (measured: grepped `src/` for `og:`/`twitter:`/canonical — zero hits).
-- **Effect**: links to `/heroset/` or `/heroface/` shared on Discord/Slack/X
-  render as bare text, no preview card — real friction for a store-launch
-  site whose job is conversions from shared links.
-- **Fix**: extend the `Route` type in `entry-server.tsx` with an optional
-  `image`, and add `og:*` + `twitter:card` meta + canonical link to the
-  `head` template. **`og:image`, `og:url` and the canonical href must be
-  absolute** (`https://verden.watch/...`) — relative paths don't work for
-  share-card scrapers. The origin isn't a constant anywhere yet; add it in
-  `src/site.ts` next to `studio`/contact-email, which is where site-level
-  constants already live. Stays zero client JS — this is build-time SSR
-  string output, not a runtime script, so it doesn't trip the "Zero client
-  JS" rule in `verden-site/CLAUDE.md`.
-- **Effort**: small (one file + one constant). **Verification**: measured
-  here (grep); the rendered `<head>` can be checked against
-  `dist/*/index.html` after build, no browser needed.
+### ✅ `verden-site`: Open Graph / Twitter Card / canonical tags — shipped `4d275e7`
 
-### 2. `verden-site`: No `robots.txt` or `sitemap.xml`
+`entry-server.tsx`'s `head` now emits `og:*`, `twitter:*` and a canonical
+link per page, absolute URLs via a new `studio.origin` constant in
+`site.ts`. Verified: `npm run build` clean, `dist/heroset/index.html`
+inspected directly — all tags present and absolute.
 
-- `verden-site/public/` has only `favicon.svg` (measured: `ls public/`). A
-  7-page fully-prerendered static site with no `robots.txt`/`sitemap.xml` is
-  a free, zero-risk SEO win skipped for no stated reason — nothing in
-  `verden-site/CLAUDE.md` forbids it.
-- **Fix**: add `public/robots.txt` (`User-agent: *\nAllow: /\nSitemap:
-  https://verden.watch/sitemap.xml`) and generate `sitemap.xml` from the
-  `routes` array already computed in `prerender.ts` (loop already has every
-  URL; just also write a sitemap file alongside the HTML).
-- **Effort**: small. **Verification**: measured here (`ls public/`); output
-  can be diffed against `routes` after build, no server needed.
+### ✅ `verden-site`: `robots.txt` + `sitemap.xml` — shipped `4d275e7`
 
-### 3. `heroFace`: Two draw calls bypass `HeroFaceDraw.text`, invisible to the screen-fit test — fix must also extend the harness
+`public/robots.txt` added; `prerender.ts` now also writes
+`dist/sitemap.xml` from the same `routes` array the HTML pages come from,
+so it can't drift out of sync with the route list. Verified: build output
+inspected, all 7 routes present.
+
+---
+
+## Open
+
+### 1. `heroFace`: Two draw calls bypass `HeroFaceDraw.text`, invisible to the screen-fit test — fix must also extend the harness
 
 - `heroFace/CLAUDE.md` states: "Text fit is measured, never guessed: draw
   through `HeroFaceDraw.text`." `HeroFaceDraw.text` itself
@@ -81,7 +66,7 @@ Ranked by gain/effort, strongest evidence first.
   `unverified: needs local monkeyc build + sim` per product. Simulator
   passing is not device proof.
 
-### 4. `HeroSet`: `complication_label`/`complication_short` missing from all 14 non-English string files — leave as is, but document why
+### 2. `HeroSet`: `complication_label`/`complication_short` missing from all 14 non-English string files — leave as is, but document why
 
 - Diffed every `id="..."` key in each `HeroSet/resources-<lang>/strings/*.xml`
   against the base `HeroSet/resources/strings/*.xml`. All 14 translated
@@ -112,33 +97,29 @@ Ranked by gain/effort, strongest evidence first.
   `complications.xml`). heroFace's own strings had zero missing/extra
   keys — clean, no equivalent risk there.
 
-### 5. (minor, deferred) `verden-site`: `Content-Security-Policy` header — needs `'unsafe-inline'` for styles, not a drop-in
+### ✅ `verden-site`: `Content-Security-Policy` header — shipped, needs one post-deploy check
 
-- `verden-site/netlify.toml:14-19` sets `X-Content-Type-Options`,
-  `X-Frame-Options`, `Referrer-Policy` — no CSP, despite the site's own
-  claim of zero third-party script/analytics.
-- **Checked before proposing a policy**: every prerendered page has inline
-  `style="..."` attributes from React (`grep -oc 'style="' dist/*.html
-  dist/*/*.html dist/*/*/*.html` → 1+ per page; e.g. `FacePreview`'s accent
-  colors). A naive `style-src 'self'` policy **breaks the page** — those
-  inline styles would be blocked. No `data:` URIs turned up in the built
-  CSS, so `img-src 'self'` is safe as-is.
-- **Fix**: `default-src 'self'; img-src 'self'; style-src 'self'
-  'unsafe-inline'; base-uri 'self'; frame-ancestors 'none'; object-src
-  'none'; form-action 'none'`. `'unsafe-inline'` on styles is a real
-  weakening (not the clean "zero functional cost" originally claimed) —
-  worth doing since it's still strictly tighter than no CSP, but it doesn't
-  fully back the "no third-party script" claim with enforcement the way a
-  nonce-based policy would. A stronger version (nonces per inline style, or
-  moving accent colors to CSS custom properties set via a class instead of
-  inline `style`) is more effort and out of scope for this pass.
-- **Effort**: small for the weakened version above; medium for the
-  nonce/no-inline-style version. **Verification**: measured here (`grep -oc
-  'style="'` on `dist/`, grep for `data:` in built CSS — done); the header
-  itself needs a `curl -I` check against a real Netlify deploy, not
-  available in this container.
+- Added to `verden-site/netlify.toml`: `default-src 'self'; img-src 'self';
+  style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self';
+  frame-ancestors 'none'; object-src 'none'; form-action 'none'`.
+  `'unsafe-inline'` on styles is required and is a real (documented)
+  weakening: React SSR emits inline `style="..."` on every page (e.g.
+  `FacePreview`'s accent colors) — checked via `grep -oc 'style="'
+  dist/*.html dist/*/*.html dist/*/*/*.html` before adding the policy, all
+  pages have 1+. `script-src 'self'` is safe as written: re-checked after
+  adding it, zero `<script>` tags anywhere in `dist/` (`grep -o
+  '<script[^>]*>'` → empty), matching the "zero client JS" claim exactly.
+  No `data:` URIs in the built CSS, so `img-src 'self'` is safe too.
+- A stronger version (nonces per inline style, or moving accent colors to
+  CSS custom properties set via a class instead of inline `style`) would
+  drop `'unsafe-inline'` entirely — more effort, left as a future step, not
+  done here.
+- **Verification**: measured here (`npm run build` clean, grep checks
+  above); **one thing this container can't check**: a `curl -I` against the
+  live Netlify deploy to confirm the header actually reaches the browser
+  (Netlify header config isn't exercised by a local `vite build`).
 
-### 6. (minor, corrected) `verden-site`: `everyface.png`/`goals-met.png` width/height attributes don't match file dimensions, but likely no visible effect
+### 4. (minor, corrected) `verden-site`: `everyface.png`/`goals-met.png` width/height attributes don't match file dimensions, but likely no visible effect
 
 - `verden-site/src/apps/heroface/facts.ts:31-32` lists `everyday.png` and
   `goals-met.png` at 240×240 actual (measured: `file`), while

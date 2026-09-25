@@ -18,3 +18,7 @@
     X-Content-Type-Options = "nosniff"
     X-Frame-Options = "DENY"
     Referrer-Policy = "strict-origin-when-cross-origin"
+    # style-src needs 'unsafe-inline': React SSR emits inline style="" for
+    # per-app accent colors (e.g. FacePreview). No inline/external script,
+    # no data: URIs in the built CSS (checked before writing this).
+    Content-Security-Policy = "default-src 'self'; img-src 'self'; style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self'; frame-ancestors 'none'; object-src 'none'; form-action 'none'"
