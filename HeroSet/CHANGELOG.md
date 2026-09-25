@@ -4,7 +4,7 @@ One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in `listing/README.md`; the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
-## 1.1.1 — uploaded 2026-09-24 (in review)
+## 1.1.1 — uploaded 2026-09-24, live 2026-09-24
 
 - **Touchscreen watches:** 13 new products (Venu 2, 2 Plus, 2S, 3, 3S, 4 41/45 mm;
   vívoactive 5, 6; Approach S50, S70 42/47 mm; D2 Air X10), 80 in total. A swipe
