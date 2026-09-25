@@ -18,6 +18,8 @@ export type App = {
   // Store listing; absent until the app is live.
   storeUrl?: string
   storeName: string
+  // Path under public/, used for og:image / twitter:image on this app's pages.
+  ogImage?: string
   Mark: ComponentType<{ size?: number }>
   // The app's pictogram set on the studio home; falls back to Mark.
   Emblem?: ComponentType
