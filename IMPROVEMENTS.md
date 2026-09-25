@@ -71,6 +71,29 @@ Added optional `size` to the `Screenshot` type (defaults to 454), set
 Correctness only — confirmed earlier this had no visible-blur effect since
 `.screens img { width: 100% }` already renders below native size.
 
+### ✅ `heroFace`: `DESIGN.md`'s accent-white token contradicted shipped code — fixed
+
+Found by a background sub-agent cross-checking `DESIGN.md` against
+`heroFace/docs/plan.md`, `HeroFacePalette.mc`, and
+`resources/settings/settings.xml`. `DESIGN.md`'s front matter still
+defined an `accent-white: "#FFFFFF"` token and its "Accent alternatives"
+prose listed white as one of three settings-selectable accents, and a
+separate line still said "four user-selectable accents." But
+`heroFace/docs/plan.md`'s finish-review item 3 records a real, shipped
+decision: "The white accent is gone: a white bar read as the clock's own
+material. Three accents remain." Code agrees with `plan.md`, not the old
+`DESIGN.md`: `HeroFacePalette.ACCENTS` (`HeroFacePalette.mc:23`) has
+exactly 3 entries — blue/cyan/magenta, no white — matching
+`settings.xml`'s 3 `listEntry` values exactly.
+`heroFace/CLAUDE.md`'s own sync rule ("Behaviour change → update
+`docs/plan.md` (and `DESIGN.md` if it is visual)") was followed on the
+`plan.md` side and missed on the `DESIGN.md` side until now. **Fixed**:
+removed the `accent-white` token from the front matter, "four" → "three"
+accents, "Accent alternatives" now names only cyan and magenta. Doc-only,
+zero compile risk, applied directly (unlike the Monkey C findings below,
+which stay documented-only since this container can't compile/verify
+them).
+
 ---
 
 ## Open
@@ -107,21 +130,78 @@ Correctness only — confirmed earlier this had no visible-blur effect since
   `unverified: needs local monkeyc build + sim` per product. Simulator
   passing is not device proof.
 
+### 2. `heroFace`: dead parameter in `HeroFaceFooter.iconSize`
+
+Found by a background sub-agent's independent read-through of all 20
+heroFace source files. `heroFace/source/HeroFaceFooter.mc:38`:
+```
+private static function iconSize(layout as HeroFaceLayout) as Number {
+    return Graphics.getFontAscent(Graphics.FONT_XTINY) * 2 / 3;
+}
+```
+`layout` is accepted but never referenced in the body; all 3 call sites
+(`HeroFaceFooter.mc:39,45,52`) pass it for nothing. Low stakes on its own,
+but the kind of thing that quietly misleads a future editor into thinking
+the parameter is load-bearing. **Fix**: drop the parameter, update the 3
+call sites. **Effort**: trivial. **Verification**: confirmed by direct
+source read (not compiled) — this is exactly the class of issue a
+`monkeyc` compile would also just flag statically, no device needed.
+
+### 3. `HeroSet`: `HeroSetMissionBars.drawBar` divides by `goal` with no zero-guard — currently unreachable, still worth the one-line fix
+
+Found by a background sub-agent's full read-through of `HeroSet/source/`.
+`HeroSet/source/ui/dashboard/HeroSetMissionBars.mc:106`:
+```
+var fill = done ? width : (count <= 0 ? 0 : width * count / goal);
+```
+Throws on integer divide-by-zero if `goal` is ever 0. **Confirmed
+currently unreachable**: every caller reaches `goal` through
+`HeroSetStore.getGoal()` (`HeroSet/source/data/HeroSetStore.mc:161-166`,
+falls back to `DEFAULT_MISSION_GOAL` on null/≤0) and
+`HeroSetRules.clampGoal` clamps into `[10, 500]`
+(`HeroSet/source/domain/HeroSetRules.mc:87-94`) — the sub-agent checked
+every constructor call of `HeroSetDashboardState` (production and both
+test harnesses) and none passes 0. **Worth fixing anyway**: every
+comparable division elsewhere in the codebase is explicitly guarded
+(`HeroSetLayout.ringSweepFor` guards `whole <= 0`,
+`HeroSetComplicationPublisher.valueFor` guards `cost > 0 ? … : 0`) — this
+is the one place that pattern was skipped, and `HeroSetDashboardState` is
+a plain public constructor with no invariant enforcement of its own, so a
+future caller that stops routing through `getGoal()` could reintroduce a
+live crash silently. **Fix**: `var fill = (done || goal <= 0) ? width :
+(count <= 0 ? 0 : width * count / goal);` — one line. **Effort**: trivial.
+**Verification**: `unverified: needs local monkeyc build + sim` — a
+builder should confirm the guard doesn't change any of the four
+`HeroSetScreenFitTest` states' rendering (it shouldn't, since none hits
+the branch).
+
 ---
 
 ## Verified clean (no action needed)
 
-### ✅ `HeroSet`/`heroFace`: second source pass — no new findings
+### ✅ `HeroSet`/`heroFace`: two source passes, second one deeper — 3 small items found, everything else clean
 
-Grepped both source trees for `TODO`/`FIXME`/`XXX`/`HACK` (zero hits),
-re-checked `dc.drawText` bypasses in HeroSet (still zero, confirming the
-earlier finding), and checked every repeated function name across
-`HeroSet/source` for copy-paste duplication. The one that looked
-suspicious — `todayKey()` in three places — turned out to be a deliberate
-test-seam delegation chain (`HeroSetStoreTest`'s double →
-`HeroSetClock.todayKey()` → `HeroSetCalendar.todayKey()`, documented
-inline as "Clock seam so store tests can advance days deterministically"),
-not duplicated logic. Genuinely clean codebase on this pass.
+First pass (grep-level): both source trees checked for `TODO`/`FIXME`/
+`XXX`/`HACK` (zero hits), `dc.drawText` bypasses re-checked in HeroSet
+(zero), and every repeated function name checked for copy-paste
+duplication — the one that looked suspicious, `todayKey()` in three
+places, turned out to be a deliberate test-seam delegation chain
+(`HeroSetStoreTest`'s double → `HeroSetClock.todayKey()` →
+`HeroSetCalendar.todayKey()`), not duplicated logic.
+
+Second pass (two background sub-agents, one per project, full line-by-line
+read of every non-test source file against each project's own house rules
+and ADRs — see "Open" items 2–3 above and the DESIGN.md fix above for what
+they found): confirmed the first pass's conclusion at far higher
+confidence — no new layering violations, no function/file over the
+documented size ceilings beyond what's already tracked, no un-guarded
+null/empty edge case in either project's domain logic beyond the one
+divide-by-zero above, no magic numbers outside the Config/Layout/Palette
+convention, no `has`-guard gaps against either project's own documented
+device-capability tables. Both sub-agents independently used the phrase
+"unusually disciplined" / "genuinely clean" — three small, honestly-caveated
+items surfaced (one dead parameter, one stale doc, one unreachable-but-
+worth-guarding division), nothing structural.
 
 ### ✅ `verden-site`: real Chromium pass — no findings, site is clean
 

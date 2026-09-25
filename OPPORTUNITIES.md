@@ -592,9 +592,105 @@ phase-4 items).
   pure function, one draw call); the space-budget conflict with
   sunrise/sunset is the real design question, not the math.
 - **Performance**: none identified beyond what's already in `IMPROVEMENTS.md`
-  item 3 (heroFace's two uninstrumented `dc.drawText` calls) — no new
+  item 1 (heroFace's two uninstrumented `dc.drawText` calls) — no new
   perf findings this pass; a real profiling pass needs a device or simulator
   profiler this container doesn't have.
+
+### heroFace: 3 ideas from a background sub-agent's full source read, all reusing already-unused native data (no new research, no new permission)
+
+All three read Toybox data `heroFace/docs/plan.md`'s own "native data a
+face can read" table already names as available at the 3.0/2.1 floor but
+that nothing in `heroFace/source` currently reads (confirmed by grep, zero
+hits for each). None touch the complication contract, none add a settings
+screen (auto-detected/always-on, same pattern as the existing notification
+count), so none conflict with `plan.md`'s "Deliberately not planned" list.
+
+- **Phone-disconnected icon in the footer.** `DeviceSettings.phoneConnected`
+  is named available at the 3.0 floor (`heroFace/docs/plan.md:44`) but
+  unread. The footer already has a measured overflow mechanism — it drops
+  items from the right when they don't fit (`HeroFaceFooter.mc:28-31`) —
+  so a 4th icon kind slots into existing, already-measured logic rather
+  than adding new layout code. **Honest tradeoff**: the footer already
+  carries up to 3 items on some frames and is documented as tight; a 4th
+  competes for the same shrinking space on 208–240px screens, where it may
+  simply never show. Also: a disconnected phone is common and often
+  unremarkable, so it risks being a chronically-lit, low-information icon
+  rather than a rare alert worth a glance — worth validating against real
+  usage before building. **Effort**: small (one footer `kind`, one drawn
+  glyph, one boolean read).
+- **Do-not-disturb icon, same footer.** `DeviceSettings.doNotDisturb`
+  (API 2.1.0, named at `heroFace/docs/plan.md:45`, unread in source) — same
+  "honest glance" logic (a DND state the user set on purpose and might
+  forget is silently swallowing notifications on a face checked "many
+  times a day, mid-workout"). **Competes for the exact same footer space
+  as the phone-disconnected icon above — these two should not both ship
+  without re-checking the footer's total item budget**, the same
+  don't-assume-both-fit caveat already applied to sunrise/sunset vs. moon
+  phase above. **Effort**: small, same shape.
+- **Battery footer: "days remaining" fallback near empty.** "84%" is
+  today's number; "3D" (days left, via `System.Stats.batteryInDays`,
+  "3.3+, behind `has`", named at `heroFace/docs/plan.md:43`, unread in
+  source) is closer to the decision a low-battery user actually wants.
+  Fits the existing terse, iconless-number footer convention exactly
+  (DESIGN.md: "the battery number carries no percent sign — the icon
+  already says 'battery'"); a natural gate is the same
+  `LOW_BATTERY_PERCENT` threshold the existing alert-red coloring already
+  uses (`HeroFaceConfig.mc:40`), so it wouldn't invent a second threshold.
+  **Honest risk**: `batteryInDays` is a device-computed estimate this
+  container can't evaluate for plausibility — needs a real-device sanity
+  check (does the number update sensibly) before shipping, same
+  "simulator is not device proof" caveat as everything else in this repo.
+  **Effort**: small (one `has`-gated read, one formatting branch, one
+  string resource mirroring the existing `streak_short` "D" suffix shape).
+
+### HeroSet: 3 ideas from a background sub-agent's full source read
+
+None duplicate `ideas.md`'s 5 ranked ideas or its rejected day-history
+item; none touch the complication contract or ADR-024's navigation-depth
+invariant.
+
+- **"Reset Detector Learning" menu item.** ADR-040 describes the learned
+  rep threshold as a rolling belief where roughly the last 6-7 sets decide
+  (`LEARN_MEMORY = 0.85`) with no way to force it back immediately if a
+  user's form or wrist placement changes abruptly. `HeroSetStore
+  .setLearningState` and `HeroSetThresholdLearner.initialState()` are
+  already public — the reset itself is a one-line call per exercise.
+  **Cost**: a new menu item id in both jungle's menu resource files, a
+  handler, a confirmation toast (this is destructive to weeks of learned
+  state, so confirm-before-reset matters), 15-language string keys, a
+  screen-fit re-check. **Effort**: small. **Open design question,
+  correctly left open rather than assumed**: reset one exercise or all
+  three.
+- **"Undo last save."** No mechanism today records what the last save
+  added — correcting a mis-save means manually dialing in the negative,
+  one press per rep (ADR-029: no hold-to-accelerate). A minimal version
+  stashes `(exercise, delta, dayKey)` after every
+  `HeroSetSaveFeedback.save` and reuses the *existing* manual picker
+  pre-seeded with `-delta` — reusing the current Save/Discard/Keep-Editing
+  flow rather than a new screen. **Real tradeoff, surfaced not hidden**:
+  XP is credited against a high-water-mark ratchet
+  (`HeroSetStore.awardXpFor`/`creditKeyFor`) that a negative `add()` does
+  not lower by design (ADR-002's anti-farming rule) — so undo-then-redo
+  the same day earns 0 XP the second time, a correct but surprising
+  consequence that needs explicit confirmation copy, not silent discovery.
+  Also needs a day-boundary guard (`ensureCurrentDay()` resets at
+  midnight) so a stale undo can't fire against the wrong day. **Effort**:
+  small-to-medium — mostly wiring, since it reuses the picker
+  view/delegate/exit-menu machinery entirely. **Risk**: the XP-ratchet
+  interaction is a real product decision, probably worth its own ADR
+  before building, not a silent implementation detail.
+- **Optional per-rep haptic mute.** `HeroSetWorkoutView.vibrateForRep`
+  fires one pulse on every detected rep, unconditionally, for the whole
+  set — 40-50 buzzes in a row for a big set. A mute toggle on just that
+  tier (not the rarer goal/mission/rank-up tiers, which stay untouched)
+  serves users with motion sensitivity or who simply trust the count.
+  **Not a duplicate** of this document's own "approaching-goal" haptic
+  idea above — that's a new, additive tier; this is a mute on an existing
+  one, orthogonal to it. **Effort**: small (one storage key defaulting
+  true, one `ToggleMenuItem` following the existing `sync_toggle`
+  pattern, one gate in `vibrateForRep`). **Lowest-risk of the three** —
+  no storage-key interactions, no navigation change, no ratchet
+  interaction.
 
 ---
 
