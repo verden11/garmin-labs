@@ -109,14 +109,48 @@ Correctness only — confirmed earlier this had no visible-blur effect since
 
 ---
 
+## Verified clean (no action needed)
+
+### ✅ `HeroSet`/`heroFace`: second source pass — no new findings
+
+Grepped both source trees for `TODO`/`FIXME`/`XXX`/`HACK` (zero hits),
+re-checked `dc.drawText` bypasses in HeroSet (still zero, confirming the
+earlier finding), and checked every repeated function name across
+`HeroSet/source` for copy-paste duplication. The one that looked
+suspicious — `todayKey()` in three places — turned out to be a deliberate
+test-seam delegation chain (`HeroSetStoreTest`'s double →
+`HeroSetClock.todayKey()` → `HeroSetCalendar.todayKey()`, documented
+inline as "Clock seam so store tests can advance days deterministically"),
+not duplicated logic. Genuinely clean codebase on this pass.
+
+### ✅ `verden-site`: real Chromium pass — no findings, site is clean
+
+Actually run this time (previous entries above only grepped source/build
+output): installed `playwright-core` in the scratchpad (not the project —
+nothing committed), pointed it at the pre-installed
+`/opt/pw-browsers/chromium-1194` binary, served the real `dist/` build via
+`vite preview`, and loaded all 7 pages headless. Checked per page: console
+errors/warnings, failed network requests, page errors, missing `alt`,
+empty/unlabeled links, heading structure, landmark elements, and
+navigation-timing byte counts.
+
+**Result: nothing to fix.** Zero console errors or warnings on any page,
+zero failed requests, zero missing `alt` attributes, zero empty/unlabeled
+links, exactly one `<h1>` per page, 4–6 landmark elements per page,
+`lang="en"` set. Heaviest page (`/heroset/`, `/heroface/`) transfers
+~182KB total including web fonts; lightest (`/`) ~95KB. No CLS/blocking
+concerns visible in `domContentLoadedEventEnd` (18–45ms across all 7
+pages, served locally so not representative of real network latency, but
+confirms no render-blocking resource pileup).
+
 ## Not investigated this pass
 
 - Battery/allocation profiling inside `onUpdate`/`onPartialUpdate` beyond
   the static text-draw check above — needs a device or simulator profiler,
   not available in this container.
-- `verden-site` Lighthouse/accessibility audit with the pre-installed
-  Chromium — not run this pass; alt text on images was spot-checked and is
-  in good shape (`width`/`height`/`loading="lazy"`/`alt` all present).
+- Color-contrast ratios and focus-visibility/tab-order — the Chromium pass
+  above checked structure and errors, not pixel-level contrast; would need
+  `axe-core` or similar injected into the page, not done this pass.
 - `HeroSetStoreTest.mc` (377 lines) exceeds the 250-line file budget and
   isn't listed alongside `HeroSetStore.mc` (330 lines) in
   `HeroSet/docs/architecture.md` §8's known-debt table — noted but not

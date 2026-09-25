@@ -169,6 +169,25 @@ Store category — differentiation has to be real (barometric trend +
 sunrise/sunset are genuinely useful, not decorative) or it's a commodity
 entry with a different color scheme.
 
+**Day 1 checklist.**
+1. Extract the `VerdenFaceKit` Barrel from heroFace first (see above) —
+   everything below assumes it exists.
+2. Scaffold a new Connect IQ project (`Monkey C: New Project` in the SDK's
+   VS Code extension, or `monkeyc`'s project-new equivalent), type Watch
+   Face, product `fr255` (smallest 260px target, catches layout problems
+   earliest), min API matching HeroFace's own floor.
+3. Add the `VerdenFaceKit` Barrel dependency to the new manifest + jungle.
+4. Write `FieldFaceLayout.mc` first, off the Barrel's row-stacker, and get
+   a static time-only screen building and rendering in the simulator
+   before adding any data row — this is the same order HeroFace's own
+   spike phase used (`heroFace/docs/plan.md` phase 0).
+5. Add `ActivityMonitor.Info` steps/intensity/floors next (proven API, no
+   risk), then `FieldFaceWeather.mc`'s sunrise/sunset/pressure (the
+   `(searched, not fetched)` APIs) last, so any surprise there doesn't
+   block a working v0.
+6. First test to write: a screen-fit case per the 23-product list above,
+   following `HeroFaceScreenFitTest.mc`'s exact pattern.
+
 ---
 
 ### B. Rank Face — a HeroSet-only companion face
@@ -227,6 +246,25 @@ included in this estimate.
 HeroSet owners only). Depends more heavily on the complication contract
 holding steady than HeroFace does, since it has no fallback data path to
 lean on besides the required-but-secondary "install HeroSet" screen.
+
+**Day 1 checklist.**
+1. Scaffold the project as a Watch Face targeting `fr965` first (not the
+   smallest screen this time — start where HeroFace's own complication
+   link is already verified on real hardware, per
+   `heroFace/docs/go-to-market.md`, so the hardest part is tested on known
+   ground).
+2. Copy `HeroFaceContract.mc` and `HeroFaceLink.mc` **unchanged** (via the
+   Barrel or direct copy) — get the complication subscribe/parse working
+   and printing raw values to the log before writing any draw code.
+3. Build `RankFaceFallback.mc` (the no-HeroSet screen) **second**, not
+   last — it's required for store review and it's the path you'll be
+   looking at for most of early development anyway (this container, and
+   most dev machines, won't have HeroSet actively publishing on every
+   test run).
+4. Then `RankFaceLayout.mc`/`View.mc` for the linked state.
+5. First test to write: a parse test against `HeroFaceContract`'s known
+   value format (the exact string from `heroFace/PRODUCT.md`), confirming
+   rank/rankPct/streak/goal extraction before any drawing exists.
 
 ---
 
@@ -292,6 +330,23 @@ faces are extremely common. Differentiation has to be sharp (HeroSet's
 mission-bar visual language applied to training metrics is one candidate
 hook, not evaluated further here) or it's a commodity entry in the
 hardest-to-win category of the three.
+
+**Day 1 checklist.**
+1. **Before scaffolding anything**, open the installed SDK's own
+   `Toybox.UserProfile` and `Toybox.ActivityMonitor` API docs and confirm
+   `getHeartRateZones`/`getHeartRateZones2`'s exact `minApiLevel` and
+   `ActivityMonitor.Info.stress`/`.recoveryTime`/`.vo2Max`'s nullability —
+   every estimate and device list above assumed search-result accuracy,
+   not a primary-source read. This is the one spec in this document where
+   that check gates everything else.
+2. Scaffold targeting `fr965` (already in the CIQ 4.2+ round AMOLED set).
+3. Build `PaceFaceZones.mc` standalone first, unit-testable with fixture
+   zone arrays and fixture HR values, no simulator needed — pure math,
+   fastest thing to get right or wrong early.
+4. Then `PaceFaceReadiness.mc`, each field behind its own `has` check,
+   logging what's actually present on the test device/simulator (device
+   support for `stress`/`recoveryTime`/`vo2Max` is uneven — expect gaps).
+5. Layout/draw code last, once the data layer's shape is known for real.
 
 ---
 
@@ -378,6 +433,22 @@ HeroSet's hardest subsystem outright.
 to be "fully on your watch, no phone check-in required, no subscription"
 to stand out — differentiation is positioning, not technical.
 
+**Day 1 checklist.**
+1. Extract `VerdenGameKit` from HeroSet's `HeroSetRules.mc` first (copy the
+   four pure functions verbatim into a Barrel — they take no
+   exercise-specific input already, so this is closer to a file move than
+   a rewrite).
+2. Scaffold a Watch App (not a Watch Face) targeting `fr965`, min API
+   matching HeroSet's own 3.4.0 floor (nothing here needs anything newer).
+3. Build `HabitsStore.mc` and a throwaway CLI-less test harness for it
+   first, following `HeroSetStoreTest.mc`'s pattern — storage correctness
+   is the one thing genuinely worth getting right before any UI exists.
+4. `HabitsCheckoffView.mc` next (the entire interaction is simpler than
+   HeroSet's — one button, no picker, no auto-detect state machine).
+5. `HabitsSettingsMenu.mc` and the phone-side habit-naming `Properties`
+   last — it's the one piece that needs a companion Connect IQ app
+   settings page to test end-to-end, so it's the natural last step.
+
 ### E. Ready — a standalone readiness/recovery app
 
 **Positioning.** Pace Face's research (§1C) already confirmed real,
@@ -421,6 +492,21 @@ what the stock Garmin watch face/widget already shows before committing
 to this one, since it's the one idea here that risks competing with
 Garmin's own first-party surface rather than filling a gap.
 
+**Day 1 checklist.**
+1. **Before writing any code**: check what the stock Garmin watch/Connect
+   app already shows for stress/recovery/body battery on a real device —
+   this spec's own risk note above. If it's already prominent and
+   glanceable there, stop and reconsider positioning before building.
+2. If proceeding: scaffold as a Watch App, single view, `fr965`.
+3. Reuse `PaceFaceReadiness.mc`'s design (§1C) directly — same fields,
+   same `has`-check structure, just promoted from a face row to a
+   full-screen layout.
+4. First and only real test: confirm the plain-language readiness read
+   (e.g. "train hard" / "ease off") maps sensibly across the field
+   combinations that are actually possible (stress present + recoveryTime
+   null, both present, both null/device-unsupported) — a small decision
+   table, not sensor logic, is the actual product here.
+
 ### Ranking
 
 **D (Habits) > E (Ready) > —**: Habits has the larger, proven-pattern
@@ -455,6 +541,56 @@ phase-4 items).
   without a launch, the face answers it without even a glance. Worth noting
   in whichever ships second that the other exists, so they're built with
   the pairing in mind (e.g., matching visual shorthand for streak).
+- **HeroSet: a distinct "approaching goal" haptic cue.** `HeroSetHaptics.mc`
+  already tells four tiers apart purely by pulse count (1=rep, 2=exercise
+  goal, 3=mission complete, 4=rank up — `pulses(count)`, built from one
+  shared vibe-profile shape). A 90%-of-goal cue would need a **genuinely
+  different feel** (e.g. one longer pulse via a different
+  `VibeProfile` duration, not a 5th pulse-count tier — five short buzzes in
+  a row stops being countable by feel, the whole point of the scheme) fired
+  once per set from inside the counting loop, gated by a new
+  `HeroSetConfig` threshold constant. Fits `HeroSet/PRODUCT.md`'s "used
+  mid-exercise... glanceable at arm's length" positioning: the exact moment
+  a sweaty user benefits from a felt cue instead of a look. **Effort**:
+  small — one new config constant, one new `HeroSetHaptics` method, one
+  call site in the counting loop. **Does not** touch Storage, the
+  complication contract, or navigation depth (ADR-024), so it's low-risk
+  relative to anything touching screens/menus.
+- **HeroSet: a "best set today" note — flagged as adjacent to a rejected
+  idea, not silently proposed.** `HeroSet/docs/ideas.md`'s "Considered and
+  rejected" list has "Day history (last 30 days)," rejected 2026-09-21,
+  "don't re-propose without new reasoning." A **single persisted
+  all-time-best rep count per exercise** (one integer per exercise,
+  updated on save, no list/log/browse UI — closer to a personal-record
+  badge than a history view) is a materially different shape of feature,
+  but it's adjacent territory and the owner should make that call
+  explicitly rather than have it slide in via this document. **Not
+  ranked or sized** — surfaced only so the distinction is on record; skip
+  unless the owner confirms it's different enough from what was rejected.
+- **heroFace: sunrise/sunset as an optional under-time readout, reusing
+  Field Face's already-researched API.** heroFace already has a `has
+  :Weather` path and a weather setting (temperature, per
+  `heroFace/PRODUCT.md`'s "Turn seconds and the temperature on or off").
+  `Toybox.Weather.getSunrise(location, date)`/`getSunset(...)` (§1A,
+  `(searched, not fetched)`) is the same call Field Face would use — no new
+  research cost to add it here too, as an alternative or additional item
+  in the weather-adjacent row when the weather setting is on. **Effort**:
+  small, one new data field in `HeroFaceReadings.mc`'s gathering pass and
+  one row in `HeroFaceFooter.mc`/under-time drawing. **Risk**: row space is
+  already tight and measured (`heroFace/docs/plan.md`'s finish review:
+  "the top row is 209 px of usable chord on fr965... the date with a
+  temperature needs 243 and would lose its month") — this needs the same
+  measured-fit treatment (ADR-018-style), not eyeballing, before it ships.
+- **heroFace: a locally-computed moon phase, no new permission.** Moon
+  phase is a pure date-math formula (no API call, no network, no new
+  permission — fits "Nothing leaves the watch" and the no-bitmaps
+  constraint if drawn as a text fraction or a simple primitive-drawn arc
+  rather than an icon). A candidate for the same under-time row as
+  sunrise/sunset above, competing for the same tight space — **these two
+  ideas should be prioritized against each other, not both assumed to
+  fit**, given the row-space constraint just cited. **Effort**: small (one
+  pure function, one draw call); the space-budget conflict with
+  sunrise/sunset is the real design question, not the math.
 - **Performance**: none identified beyond what's already in `IMPROVEMENTS.md`
   item 3 (heroFace's two uninstrumented `dc.drawText` calls) — no new
   perf findings this pass; a real profiling pass needs a device or simulator
