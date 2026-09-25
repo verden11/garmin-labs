@@ -2,9 +2,7 @@
 
 Status: 2026-09-25. Incremental, implementable-cold findings from a read-only
 + measured audit of all three projects. This is not `HeroSet/docs/ideas.md`
-(feature ideas) — this is small correctness/perf/quality gains, ranked by
-gain/effort, meant to be picked up on a machine with the full Connect IQ
-toolchain.
+(feature ideas) — this is small correctness/perf/quality gains.
 
 Each item states verification status. Anything under `HeroSet/`/`heroFace/`
 was **not** compiled or run here (no `monkeyc`/simulator/device in this
@@ -16,26 +14,7 @@ Ranked by gain/effort, strongest evidence first.
 
 ---
 
-## verden-site (measured: `npm ci && npm run build`, tsc clean, 7 pages + 404 prerendered)
-
-### 1. Two heroFace screenshots are served at the wrong intrinsic size (blurry upscale)
-
-- `verden-site/src/apps/heroface/facts.ts:31-32` lists `everyday.png` and
-  `goals-met.png`. Their files
-  (`verden-site/public/heroface/screens/{everyday,goals-met}.png`) are
-  **240×240** (measured: `file public/heroface/screens/*.png`), but
-  `verden-site/src/apps/heroface/Landing.tsx:87` hardcodes
-  `width="454" height="454"` for every shot in the list, including these two.
-  `heroset.png` in the same list is actually 454×454, so it's fine — only
-  these two are wrong.
-- **Effect**: the browser lays out a 454px box and upscales a 240px source
-  into it — visibly softer than the other screenshot on the same page.
-- **Fix**: read `width`/`height` per-shot in `facts.ts` (or re-export the two
-  screenshots at 454×454) instead of a single hardcoded pair in the map call.
-- **Effort**: trivial (data change + one prop). **Verification**: measured
-  here (`file`, then visually confirm in a local `npm run dev`).
-
-### 2. No Open Graph / Twitter Card / canonical tags
+### 1. `verden-site`: No Open Graph / Twitter Card / canonical tags
 
 - `verden-site/src/entry-server.tsx:38` builds `head` from only `<title>` and
   `<meta name="description">`. No `og:title`, `og:description`, `og:image`,
@@ -45,136 +24,158 @@ Ranked by gain/effort, strongest evidence first.
   render as bare text, no preview card — real friction for a store-launch
   site whose job is conversions from shared links.
 - **Fix**: extend the `Route` type in `entry-server.tsx` with an optional
-  `image` (point at an existing screenshot, e.g.
-  `/heroset/screens/dashboard.png`), and add the four `og:*` + one
-  `twitter:card` meta tags + canonical link to the `head` template. Stays
-  zero client JS — this is build-time SSR string, not a runtime script, so it
-  doesn't trip the "Zero client JS" rule in `verden-site/CLAUDE.md`.
-- **Effort**: small (one file). **Verification**: measured here (grep); the
-  rendered `<head>` can be checked against `dist/*/index.html` after build,
-  no browser needed.
+  `image`, and add `og:*` + `twitter:card` meta + canonical link to the
+  `head` template. **`og:image`, `og:url` and the canonical href must be
+  absolute** (`https://verden.watch/...`) — relative paths don't work for
+  share-card scrapers. The origin isn't a constant anywhere yet; add it in
+  `src/site.ts` next to `studio`/contact-email, which is where site-level
+  constants already live. Stays zero client JS — this is build-time SSR
+  string output, not a runtime script, so it doesn't trip the "Zero client
+  JS" rule in `verden-site/CLAUDE.md`.
+- **Effort**: small (one file + one constant). **Verification**: measured
+  here (grep); the rendered `<head>` can be checked against
+  `dist/*/index.html` after build, no browser needed.
 
-### 3. No `robots.txt` or `sitemap.xml`
+### 2. `verden-site`: No `robots.txt` or `sitemap.xml`
 
 - `verden-site/public/` has only `favicon.svg` (measured: `ls public/`). A
   7-page fully-prerendered static site with no `robots.txt`/`sitemap.xml` is
   a free, zero-risk SEO win skipped for no stated reason — nothing in
-  `verden-site/CLAUDE.md` forbids it (the "zero client JS" and "no
-  analytics" rules don't cover crawl files).
+  `verden-site/CLAUDE.md` forbids it.
 - **Fix**: add `public/robots.txt` (`User-agent: *\nAllow: /\nSitemap:
   https://verden.watch/sitemap.xml`) and generate `sitemap.xml` from the
-  existing `routes` array already computed in `prerender.ts` (loop already
-  has every URL; just also write a sitemap file alongside the HTML).
+  `routes` array already computed in `prerender.ts` (loop already has every
+  URL; just also write a sitemap file alongside the HTML).
 - **Effort**: small. **Verification**: measured here (`ls public/`); output
   can be diffed against `routes` after build, no server needed.
 
-### 4. No `Content-Security-Policy` header despite a "nothing leaves the watch / no third-party script" promise
-
-- `verden-site/netlify.toml:14-19` sets `X-Content-Type-Options`,
-  `X-Frame-Options`, `Referrer-Policy` — no CSP. The site's own privacy
-  pages and `CLAUDE.md` state "Zero client JS... no analytics, no
-  third-party script"; a CSP (`default-src 'self'; img-src 'self';
-  style-src 'self'; base-uri 'self'; frame-ancestors 'none'`) makes that
-  claim enforced by the browser instead of just asserted in prose, at zero
-  functional cost since the site genuinely loads nothing external (measured:
-  `index.html` only references `/src/styles/global.css` and the bundled
-  fonts, both same-origin).
-- **Effort**: small (one `netlify.toml` block). **Verification**: measured
-  here (read `index.html`/`vite.config.ts`); add and then confirm `curl -I`
-  on the Netlify deploy shows the header.
-
-### 5. (minor) Screenshot PNGs are uncompressed screenshots, not optimized
-
-- `verden-site/public/{heroset,heroface}/screens/*.png` total 112KB across 7
-  files (measured: `du -h`), largest 28KB. Already small enough that
-  converting to WebP/AVIF is marginal (a few KB) — noting it but ranking
-  it last; not worth the added `<picture>` complexity for this payload size.
-
----
-
-## HeroSet — localization (verified with python3, no build needed)
-
-### 6. `complication_label` / `complication_short` missing from all 14 non-English string files
-
-- Diffed every `id="..."` key in each `HeroSet/resources-<lang>/strings/*.xml`
-  against the base `HeroSet/resources/strings/*.xml` (script: string-diff by
-  regex, run in this session). Every one of the 14 translated languages
-  (dan, deu, dut, fin, fre, ita, lit, nob, pol, por, spa, swe, tur, ukr) is
-  missing `complication_label` (`"HeroSet"`) and `complication_short`
-  (`"HERO"`) — present only in `resources/strings/strings.xml:78-79`.
-- **Effect**: on a non-English device, the complication picker on a CIQ
-  4.2+ watch falls back to whatever Connect IQ does for a missing string
-  resource for those two ids (likely the base/English value, but that's a
-  device-level fallback, not confirmed here).
-- **Judgment call**: both strings are the brand name and a 4-letter
-  abbreviation of it — arguably intentional to leave untranslated (compare:
-  app name itself isn't translated either). Flagging as a **gap to make a
-  deliberate decision on**, not an assumed bug: either (a) add the same
-  `HeroSet`/`HERO` literal to all 14 files so the key exists everywhere and
-  the source of truth is explicit, or (b) note in `docs/compatibility.md` or
-  `decisions.md` that these two keys are deliberately English-only.
-- **Effort**: trivial if (a). **Verification**: measured here (python
-  key-diff); no Storage/complication contract touched, so no ADR-044 impact.
-  heroFace's own strings had zero missing/extra keys — clean.
-
----
-
-## heroFace — draw-path audit (read-only; not compiled or run here)
-
-### 7. Two draw calls bypass `HeroFaceDraw.text`, invisible to the screen-fit test
+### 3. `heroFace`: Two draw calls bypass `HeroFaceDraw.text`, invisible to the screen-fit test — fix must also extend the harness
 
 - `heroFace/CLAUDE.md` states: "Text fit is measured, never guessed: draw
   through `HeroFaceDraw.text`." `HeroFaceDraw.text` itself
   (`heroFace/source/HeroFaceDraw.mc:15-31`) is a thin wrapper: it calls
   `dc.drawText` and, only when `misfits`/`boxes` are non-null (test builds),
-  records the box so `everyStateFitsThisDisplay` can catch clipping/overlap
-  per device.
-- Two call sites skip the wrapper and call `dc.drawText` directly, so their
-  text is **invisible to that test** on every product:
+  records the box so `everyStateFitsThisDisplay` can catch clipping/overlap.
+- Two call sites skip the wrapper, so their text is invisible to that
+  instrumentation:
   - `heroFace/source/HeroFaceView.mc:108` — the seconds digits in
-    `onPartialUpdate`, which is the highest-frequency draw path in the app
-    (once a second whenever seconds are on).
+    `onPartialUpdate` (redraws once a second whenever seconds are on; same
+    font/justify as the full-frame draw in `HeroFaceClock.mc:34`, so this is
+    not a rendering-mismatch bug, just uninstrumented).
   - `heroFace/source/HeroFaceSleep.mc:21` — the dimmed always-on clock.
-- **Effect**: not a known bug, but a coverage hole — if a future font change
-  or a narrow product ever clips the seconds digits or the sleep clock, the
-  screen-fit test (`docs/compatibility.md`'s evidence source) won't catch
-  it, because these two paths never populate `misfits`/`boxes`.
-- **Fix**: swap both `dc.drawText(...)` calls for `HeroFaceDraw.text(dc,
-  layout, ...)` with the same arguments — behavior-identical outside test
-  builds (the wrapper's non-test path is exactly `dc.drawText`), it only
-  adds instrumentation.
-- **Effort**: trivial, 2 call sites. **Verification**:
-  `unverified: needs local monkeyc build + sim` — must confirm the
-  screen-fit test then actually reports boxes for these two elements, and
-  that no product's simulator run regresses. Simulator passing is not
-  device proof.
+- **Checked and confirmed**: `heroFace/source/test/HeroFaceScreenFitTest.mc`
+  only calls `view.drawState(...)` (the full-frame path) — it never calls
+  `onPartialUpdate` or `HeroFaceSleep.draw`. **Swapping the two
+  `dc.drawText` calls alone adds zero coverage**, because the harness never
+  executes those two lines under test either way. HeroSet's own source has
+  no equivalent violation (checked: `grep -rn "dc\.drawText" HeroSet/source
+  --include=*.mc | grep -v HeroSetDraw.mc` → empty).
+- **Fix, both parts required**: (a) swap the two `dc.drawText(...)` calls
+  for `HeroFaceDraw.text(dc, layout, ...)` — behavior-identical outside test
+  builds; (b) add a harness case that calls `onPartialUpdate` (with a
+  `_secondsBox` primed by an initial `drawState`) and one that calls
+  `HeroFaceSleep.draw`, wrapped in the same `misfits`/`boxes` capture the
+  existing cases use.
+- **Effort**: small (2 call sites + 2 new harness cases, following the
+  existing pattern in `HeroFaceScreenFitTest.mc`). **Verification**:
+  `unverified: needs local monkeyc build + sim` per product. Simulator
+  passing is not device proof.
 
-### 8. (minor, low-confidence) `HeroSetStoreTest.mc` is 377 lines, over the 250-line budget and untracked
+### 4. `HeroSet`: `complication_label`/`complication_short` missing from all 14 non-English string files — leave as is, but document why
 
-- `HeroSet/source/test/HeroSetStoreTest.mc` is 377 lines (measured:
-  `wc -l`), and `HeroSet/source/data/HeroSetStore.mc` is 330 — but only the
-  latter is listed in `HeroSet/docs/architecture.md` §8 "Known technical
-  debt". The house rule ("files ≲250 lines") doesn't explicitly exempt
-  tests, so either split the test file (it's testing one class,
-  `HeroSetStore`, so a per-behavior-group split is natural) or add it to
-  the §8 table alongside its source counterpart so the debt is tracked, not
-  silently over budget.
-- **Effort**: documentation fix is trivial; the split itself is
-  medium (test files are easy to get wrong when split blind).
-  **Verification**: measured here (`wc -l`); ranked last, lowest
-  confidence this is worth doing over just documenting it.
+- Diffed every `id="..."` key in each `HeroSet/resources-<lang>/strings/*.xml`
+  against the base `HeroSet/resources/strings/*.xml`. All 14 translated
+  languages are missing `complication_label` (`"HeroSet"`) and
+  `complication_short` (`"HERO"`), present only in
+  `resources/strings/strings.xml:78-79`.
+- **This is not a bug — translating it would be.** Checked
+  `heroFace/source/HeroFaceLink.mc:86`: HeroFace finds HeroSet's private
+  complication by matching `HeroFaceConfig.HEROSET_COMPLICATION_LABEL`
+  (hardcoded `"HeroSet"` in `HeroFaceConfig.mc:38`) against
+  `complication.longLabel`. `HeroSet/resources-complications/complications.xml:9`
+  sets `longLabel="@Strings.complication_label"`. Connect IQ falls back to
+  the base-locale string when a locale's resource is missing a key — which
+  is exactly why the link works on all 14 non-English builds today: the
+  missing translations keep `longLabel` resolving to the literal `"HeroSet"`
+  HeroFace matches against. **Translating `complication_label` on any
+  locale would break the HeroSet→HeroFace link (ADR-044) on that locale.**
+  This is the opposite of item 6 in the original draft of this file, which
+  wrongly proposed adding the translations.
+- **Fix**: no code/resource change. Add a one-line comment next to
+  `complication_label`/`complication_short` in
+  `HeroSet/resources/strings/strings.xml` noting they're intentionally
+  base-locale-only because HeroFace's complication matcher depends on the
+  literal value, and name that constraint explicitly in ADR-044 (or a new
+  ADR) so a future translator doesn't "fix" the gap.
+- **Effort**: trivial (comment + doc line). **Verification**: measured here
+  (python key-diff, then grep-confirmed against both `HeroFaceLink.mc` and
+  `complications.xml`). heroFace's own strings had zero missing/extra
+  keys — clean, no equivalent risk there.
+
+### 5. (minor, deferred) `verden-site`: `Content-Security-Policy` header — needs `'unsafe-inline'` for styles, not a drop-in
+
+- `verden-site/netlify.toml:14-19` sets `X-Content-Type-Options`,
+  `X-Frame-Options`, `Referrer-Policy` — no CSP, despite the site's own
+  claim of zero third-party script/analytics.
+- **Checked before proposing a policy**: every prerendered page has inline
+  `style="..."` attributes from React (`grep -oc 'style="' dist/*.html
+  dist/*/*.html dist/*/*/*.html` → 1+ per page; e.g. `FacePreview`'s accent
+  colors). A naive `style-src 'self'` policy **breaks the page** — those
+  inline styles would be blocked. No `data:` URIs turned up in the built
+  CSS, so `img-src 'self'` is safe as-is.
+- **Fix**: `default-src 'self'; img-src 'self'; style-src 'self'
+  'unsafe-inline'; base-uri 'self'; frame-ancestors 'none'; object-src
+  'none'; form-action 'none'`. `'unsafe-inline'` on styles is a real
+  weakening (not the clean "zero functional cost" originally claimed) —
+  worth doing since it's still strictly tighter than no CSP, but it doesn't
+  fully back the "no third-party script" claim with enforcement the way a
+  nonce-based policy would. A stronger version (nonces per inline style, or
+  moving accent colors to CSS custom properties set via a class instead of
+  inline `style`) is more effort and out of scope for this pass.
+- **Effort**: small for the weakened version above; medium for the
+  nonce/no-inline-style version. **Verification**: measured here (`grep -oc
+  'style="'` on `dist/`, grep for `data:` in built CSS — done); the header
+  itself needs a `curl -I` check against a real Netlify deploy, not
+  available in this container.
+
+### 6. (minor, corrected) `verden-site`: `everyface.png`/`goals-met.png` width/height attributes don't match file dimensions, but likely no visible effect
+
+- `verden-site/src/apps/heroface/facts.ts:31-32` lists `everyday.png` and
+  `goals-met.png` at 240×240 actual (measured: `file`), while
+  `verden-site/src/apps/heroface/Landing.tsx:87` hardcodes
+  `width="454" height="454"` for every shot including these two.
+- **Checked before claiming a visible blur**: `verden-site/src/styles/global.css:260`
+  sets `.screens img { width: 100%; aspect-ratio: 1; }` — the image is
+  rendered at its grid-cell width (a quarter or half the content width,
+  well under 454 CSS px on any real viewport), not at the HTML `width`
+  attribute. Since displayed size is smaller than even the 240px source in
+  practice, there's likely **no visible upscale**. Also checked
+  `heroFace/listing/screens/`: only 240×240 source assets exist for these
+  two shots there too (no higher-res originals to swap in).
+- **What's actually wrong**: the `width`/`height` HTML attributes are just
+  inaccurate metadata (both declared and actual are 1:1 aspect ratio, so no
+  layout-shift risk either, since `aspect-ratio` CSS matches both). Low
+  value — correctness/consistency only, not a user-visible fix. Downgraded
+  from the original draft, which claimed a visible blur without checking
+  the CSS.
+- **Fix, if done at all**: read `width`/`height` per-shot in `facts.ts`
+  matching actual file dimensions, for correctness.
+- **Effort**: trivial. **Verification**: measured here (`file`, CSS read);
+  no Playwright/rendered check run — genuinely low priority, listed last on
+  purpose.
 
 ---
 
 ## Not investigated this pass
 
-- HeroSet's own draw paths (`HeroSetView.mc` etc.) for the same
-  `dc.drawText`-bypass pattern found in heroFace — worth the same grep next
-  pass.
 - Battery/allocation profiling inside `onUpdate`/`onPartialUpdate` beyond
   the static text-draw check above — needs a device or simulator profiler,
   not available in this container.
 - `verden-site` Lighthouse/accessibility audit with the pre-installed
-  Chromium — not run this pass; alt text and `width`/`height` attributes on
-  images were already spot-checked and are in good shape (see item 1 for
-  the one exception found).
+  Chromium — not run this pass; alt text on images was spot-checked and is
+  in good shape (`width`/`height`/`loading="lazy"`/`alt` all present).
+- `HeroSetStoreTest.mc` (377 lines) exceeds the 250-line file budget and
+  isn't listed alongside `HeroSetStore.mc` (330 lines) in
+  `HeroSet/docs/architecture.md` §8's known-debt table — noted but not
+  sized into an item this pass; low confidence it's worth splitting versus
+  just documenting the debt.
