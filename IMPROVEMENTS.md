@@ -30,6 +30,47 @@ inspected directly — all tags present and absolute.
 so it can't drift out of sync with the route list. Verified: build output
 inspected, all 7 routes present.
 
+### ✅ `HeroSet`: `complication_label`/`complication_short` intentionally untranslated — already documented, no action needed
+
+Diffed every translated string file against the base; all 14 non-English
+locales are missing these two keys. Traced through
+`heroFace/source/HeroFaceLink.mc:86` and
+`HeroSet/resources-complications/complications.xml:9`: this is protective,
+not a gap — HeroFace matches the literal `"HeroSet"` against
+`complication.longLabel`, and Connect IQ's base-locale fallback is what
+keeps that literal in place on every non-English build. Translating either
+key would break the HeroSet→HeroFace link (ADR-044) on that locale.
+Re-checked before proposing a doc fix: a comment already exists at
+`HeroSet/resources/strings/strings.xml:76-77` ("not translated, it is how
+the face finds it"), present since the repo's original import — nothing to
+add.
+
+### ✅ `verden-site`: `Content-Security-Policy` header — shipped, needs one post-deploy check
+
+Added to `verden-site/netlify.toml`: `default-src 'self'; img-src 'self';
+style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self';
+frame-ancestors 'none'; object-src 'none'; form-action 'none'`.
+`'unsafe-inline'` on styles is required and is a real, documented
+weakening: React SSR emits inline `style="..."` on every page (checked via
+`grep -oc 'style="' dist/*.html dist/*/*.html dist/*/*/*.html` before
+adding the policy). `script-src 'self'` is safe as written — re-checked
+after adding it, zero `<script>` tags anywhere in `dist/`. No `data:` URIs
+in the built CSS either. A stronger version (nonces, or moving accent
+colors to CSS classes instead of inline `style`) would drop
+`'unsafe-inline'` entirely — future step, not done here. **One thing this
+container can't check**: a `curl -I` against the live Netlify deploy to
+confirm the header reaches the browser.
+
+### ✅ `verden-site`: screenshot `width`/`height` now match file dimensions — shipped
+
+Added optional `size` to the `Screenshot` type (defaults to 454), set
+`size: 240` on heroFace's two 240×240 shots in `facts.ts`, both
+`Landing.tsx` files now render `width={shot.size ?? 454} height={shot.size
+?? 454}`. Verified: build clean, `dist/heroface/index.html` shows
+`width="240" height="240"` on the two affected images, `454` elsewhere.
+Correctness only — confirmed earlier this had no visible-blur effect since
+`.screens img { width: 100% }` already renders below native size.
+
 ---
 
 ## Open
@@ -65,85 +106,6 @@ inspected, all 7 routes present.
   existing pattern in `HeroFaceScreenFitTest.mc`). **Verification**:
   `unverified: needs local monkeyc build + sim` per product. Simulator
   passing is not device proof.
-
-### 2. `HeroSet`: `complication_label`/`complication_short` missing from all 14 non-English string files — leave as is, but document why
-
-- Diffed every `id="..."` key in each `HeroSet/resources-<lang>/strings/*.xml`
-  against the base `HeroSet/resources/strings/*.xml`. All 14 translated
-  languages are missing `complication_label` (`"HeroSet"`) and
-  `complication_short` (`"HERO"`), present only in
-  `resources/strings/strings.xml:78-79`.
-- **This is not a bug — translating it would be.** Checked
-  `heroFace/source/HeroFaceLink.mc:86`: HeroFace finds HeroSet's private
-  complication by matching `HeroFaceConfig.HEROSET_COMPLICATION_LABEL`
-  (hardcoded `"HeroSet"` in `HeroFaceConfig.mc:38`) against
-  `complication.longLabel`. `HeroSet/resources-complications/complications.xml:9`
-  sets `longLabel="@Strings.complication_label"`. Connect IQ falls back to
-  the base-locale string when a locale's resource is missing a key — which
-  is exactly why the link works on all 14 non-English builds today: the
-  missing translations keep `longLabel` resolving to the literal `"HeroSet"`
-  HeroFace matches against. **Translating `complication_label` on any
-  locale would break the HeroSet→HeroFace link (ADR-044) on that locale.**
-  This is the opposite of item 6 in the original draft of this file, which
-  wrongly proposed adding the translations.
-- **Fix**: no code/resource change. Add a one-line comment next to
-  `complication_label`/`complication_short` in
-  `HeroSet/resources/strings/strings.xml` noting they're intentionally
-  base-locale-only because HeroFace's complication matcher depends on the
-  literal value, and name that constraint explicitly in ADR-044 (or a new
-  ADR) so a future translator doesn't "fix" the gap.
-- **Effort**: trivial (comment + doc line). **Verification**: measured here
-  (python key-diff, then grep-confirmed against both `HeroFaceLink.mc` and
-  `complications.xml`). heroFace's own strings had zero missing/extra
-  keys — clean, no equivalent risk there.
-
-### ✅ `verden-site`: `Content-Security-Policy` header — shipped, needs one post-deploy check
-
-- Added to `verden-site/netlify.toml`: `default-src 'self'; img-src 'self';
-  style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self';
-  frame-ancestors 'none'; object-src 'none'; form-action 'none'`.
-  `'unsafe-inline'` on styles is required and is a real (documented)
-  weakening: React SSR emits inline `style="..."` on every page (e.g.
-  `FacePreview`'s accent colors) — checked via `grep -oc 'style="'
-  dist/*.html dist/*/*.html dist/*/*/*.html` before adding the policy, all
-  pages have 1+. `script-src 'self'` is safe as written: re-checked after
-  adding it, zero `<script>` tags anywhere in `dist/` (`grep -o
-  '<script[^>]*>'` → empty), matching the "zero client JS" claim exactly.
-  No `data:` URIs in the built CSS, so `img-src 'self'` is safe too.
-- A stronger version (nonces per inline style, or moving accent colors to
-  CSS custom properties set via a class instead of inline `style`) would
-  drop `'unsafe-inline'` entirely — more effort, left as a future step, not
-  done here.
-- **Verification**: measured here (`npm run build` clean, grep checks
-  above); **one thing this container can't check**: a `curl -I` against the
-  live Netlify deploy to confirm the header actually reaches the browser
-  (Netlify header config isn't exercised by a local `vite build`).
-
-### 4. (minor, corrected) `verden-site`: `everyface.png`/`goals-met.png` width/height attributes don't match file dimensions, but likely no visible effect
-
-- `verden-site/src/apps/heroface/facts.ts:31-32` lists `everyday.png` and
-  `goals-met.png` at 240×240 actual (measured: `file`), while
-  `verden-site/src/apps/heroface/Landing.tsx:87` hardcodes
-  `width="454" height="454"` for every shot including these two.
-- **Checked before claiming a visible blur**: `verden-site/src/styles/global.css:260`
-  sets `.screens img { width: 100%; aspect-ratio: 1; }` — the image is
-  rendered at its grid-cell width (a quarter or half the content width,
-  well under 454 CSS px on any real viewport), not at the HTML `width`
-  attribute. Since displayed size is smaller than even the 240px source in
-  practice, there's likely **no visible upscale**. Also checked
-  `heroFace/listing/screens/`: only 240×240 source assets exist for these
-  two shots there too (no higher-res originals to swap in).
-- **What's actually wrong**: the `width`/`height` HTML attributes are just
-  inaccurate metadata (both declared and actual are 1:1 aspect ratio, so no
-  layout-shift risk either, since `aspect-ratio` CSS matches both). Low
-  value — correctness/consistency only, not a user-visible fix. Downgraded
-  from the original draft, which claimed a visible blur without checking
-  the CSS.
-- **Fix, if done at all**: read `width`/`height` per-shot in `facts.ts`
-  matching actual file dimensions, for correctness.
-- **Effort**: trivial. **Verification**: measured here (`file`, CSS read);
-  no Playwright/rendered check run — genuinely low priority, listed last on
-  purpose.
 
 ---
 

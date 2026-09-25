@@ -90,7 +90,7 @@ export function Landing() {
           {screens.map((shot) => (
             <li key={shot.label}>
               {shot.src
-                ? <img src={shot.src} alt={`HeroSet ${shot.label.toLowerCase()} screen`} width="454" height="454" loading="lazy" />
+                ? <img src={shot.src} alt={`HeroSet ${shot.label.toLowerCase()} screen`} width={shot.size ?? 454} height={shot.size ?? 454} loading="lazy" />
                 : <span className="screens__pending">Screenshot pending</span>}
               <span className="screens__label">{shot.label}</span>
             </li>

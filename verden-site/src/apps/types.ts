@@ -4,6 +4,10 @@ export type Screenshot = {
   label: string
   // Path under public/. Missing = render a labelled placeholder slot.
   src?: string
+  // Actual pixel size of the file at `src`. Defaults to 454 (the common
+  // simulator capture size) when omitted — set explicitly for any shot
+  // captured at a different size so width/height attributes stay accurate.
+  size?: number
 }
 
 export type App = {
