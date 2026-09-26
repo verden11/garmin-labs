@@ -1,0 +1,26 @@
+# Connect IQ build output
+/bin/
+/gen/
+/mir/
+/internal-mir/
+/external-mir/
+*.prg
+*.iq
+*.barrel
+*.debug.xml
+*.mcgen
+*.mir
+
+# Device/test artifacts
+*.fit
+
+# Connect IQ signing keys: never commit these files
+/developer_key
+/developer_key.*
+*.der
+*.pem
+
+# Beta build (tools/make_beta.py) and store packages
+/manifest-beta.xml
+/beta.jungle
+/dist/

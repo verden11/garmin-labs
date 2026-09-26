@@ -91,6 +91,7 @@ https://verden.watch/heroset/privacy/
 3. [`screens/3-review.png`](screens/3-review.png)
 4. [`screens/4-saved.png`](screens/4-saved.png)
 5. [`screens/5-menu.png`](screens/5-menu.png) (optional)
+6. [`screens/6-review-touch.png`](screens/6-review-touch.png) (optional, touch-watch hint `SWIPE: ADJUST`; Venu 4 41mm simulator, 390 px scaled to 454)
 
 ## Device icons (optional, 128×128)
 

@@ -1,0 +1,65 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Days To Go</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). Words on the face. Labels, not sentences, so no language needs plural agreement. Singular is used only for exactly 1. -->
+    <string id="cap_day">ДЕНЬ</string>
+    <string id="cap_days">ДНІВ</string>
+    <string id="cap_week">ТИЖДЕНЬ</string>
+    <string id="cap_weeks">ТИЖНІВ</string>
+    <string id="cap_hours">ГОДИН</string>
+    <string id="cap_since_day">ДЕНЬ ТОМУ</string>
+    <string id="cap_since_days">ДНІВ ТОМУ</string>
+    <string id="cap_today">СЬОГОДНІ</string>
+    <string id="cap_invalid">ОБЕРІТЬ ДАТУ</string>
+    <!-- Bottom line: $1$ is thousands of steps, for example 12.3 gives 12.3K. -->
+    <string id="value_thousands">$1$K</string>
+
+    <!-- The watch's own settings screen. -->
+    <string id="settings_title">Days To Go</string>
+    <string id="menu_set_date">Встановити дату</string>
+
+    <!-- Phone settings. -->
+    <string id="setting_event">Подія</string>
+    <string id="event_new_year">Новий рік</string>
+    <string id="event_christmas">Різдво</string>
+    <string id="event_custom">Власна дата</string>
+    <string id="setting_name">Назва (16 символів, необов'язково)</string>
+    <string id="setting_month">Місяць</string>
+    <string id="setting_day">День</string>
+    <string id="setting_year">Рік</string>
+    <string id="year_every">Щороку</string>
+    <string id="setting_hour">Час</string>
+    <string id="hour_none">Увесь день</string>
+    <string id="setting_unit">Лічити в</string>
+    <string id="unit_days">Днях</string>
+    <string id="unit_weeks">Тижнях і днях</string>
+    <string id="setting_datestyle">Формат дати</string>
+    <string id="datestyle_auto">Автоматично</string>
+    <string id="datestyle_day">Спочатку день</string>
+    <string id="datestyle_month">Спочатку місяць</string>
+    <string id="setting_footer">Нижній рядок</string>
+    <string id="footer_none">Нічого</string>
+    <string id="footer_battery">Батарея</string>
+    <string id="footer_steps">Кроки</string>
+    <string id="setting_accent">Колір акценту</string>
+    <string id="accent_mint">М'ята</string>
+    <string id="accent_amber">Бурштин</string>
+    <string id="accent_sky">Небо</string>
+    <string id="accent_pink">Рожевий</string>
+    <string id="accent_violet">Фіолетовий</string>
+    <string id="accent_white">Білий</string>
+
+    <string id="month_1">Січень</string>
+    <string id="month_2">Лютий</string>
+    <string id="month_3">Березень</string>
+    <string id="month_4">Квітень</string>
+    <string id="month_5">Травень</string>
+    <string id="month_6">Червень</string>
+    <string id="month_7">Липень</string>
+    <string id="month_8">Серпень</string>
+    <string id="month_9">Вересень</string>
+    <string id="month_10">Жовтень</string>
+    <string id="month_11">Листопад</string>
+    <string id="month_12">Грудень</string>
+</strings>

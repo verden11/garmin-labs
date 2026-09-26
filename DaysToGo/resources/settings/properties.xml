@@ -1,0 +1,13 @@
+<properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- Values match DaysToGoConfig; ids never change once shipped. -->
+    <property id="Event" type="number">0</property>
+    <property id="Name" type="string"></property>
+    <property id="Month" type="number">1</property>
+    <property id="Day" type="number">1</property>
+    <property id="Year" type="number">0</property>
+    <property id="Hour" type="number">0</property>
+    <property id="Unit" type="number">0</property>
+    <property id="DateStyle" type="number">0</property>
+    <property id="Footer" type="number">0</property>
+    <property id="Accent" type="number">0</property>
+</properties>

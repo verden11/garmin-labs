@@ -1,0 +1,65 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Days To Go</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). Words on the face. Labels, not sentences, so no language needs plural agreement. Singular is used only for exactly 1. -->
+    <string id="cap_day">DAG</string>
+    <string id="cap_days">DAGEN</string>
+    <string id="cap_week">WEEK</string>
+    <string id="cap_weeks">WEKEN</string>
+    <string id="cap_hours">UREN</string>
+    <string id="cap_since_day">DAG SINDS</string>
+    <string id="cap_since_days">DAGEN SINDS</string>
+    <string id="cap_today">VANDAAG</string>
+    <string id="cap_invalid">KIES EEN DATUM</string>
+    <!-- Bottom line: $1$ is thousands of steps, for example 12.3 gives 12.3K. -->
+    <string id="value_thousands">$1$K</string>
+
+    <!-- The watch's own settings screen. -->
+    <string id="settings_title">Days To Go</string>
+    <string id="menu_set_date">Datum instellen</string>
+
+    <!-- Phone settings. -->
+    <string id="setting_event">Gebeurtenis</string>
+    <string id="event_new_year">Nieuwjaar</string>
+    <string id="event_christmas">Kerstmis</string>
+    <string id="event_custom">Eigen datum</string>
+    <string id="setting_name">Naam (16 tekens, optioneel)</string>
+    <string id="setting_month">Maand</string>
+    <string id="setting_day">Dag</string>
+    <string id="setting_year">Jaar</string>
+    <string id="year_every">Elk jaar</string>
+    <string id="setting_hour">Tijdstip</string>
+    <string id="hour_none">Hele dag</string>
+    <string id="setting_unit">Tellen in</string>
+    <string id="unit_days">Dagen</string>
+    <string id="unit_weeks">Weken en dagen</string>
+    <string id="setting_datestyle">Datumnotatie</string>
+    <string id="datestyle_auto">Automatisch</string>
+    <string id="datestyle_day">Dag eerst</string>
+    <string id="datestyle_month">Maand eerst</string>
+    <string id="setting_footer">Onderste regel</string>
+    <string id="footer_none">Niets</string>
+    <string id="footer_battery">Batterij</string>
+    <string id="footer_steps">Stappen</string>
+    <string id="setting_accent">Accentkleur</string>
+    <string id="accent_mint">Munt</string>
+    <string id="accent_amber">Amber</string>
+    <string id="accent_sky">Hemelsblauw</string>
+    <string id="accent_pink">Roze</string>
+    <string id="accent_violet">Violet</string>
+    <string id="accent_white">Wit</string>
+
+    <string id="month_1">januari</string>
+    <string id="month_2">februari</string>
+    <string id="month_3">maart</string>
+    <string id="month_4">april</string>
+    <string id="month_5">mei</string>
+    <string id="month_6">juni</string>
+    <string id="month_7">juli</string>
+    <string id="month_8">augustus</string>
+    <string id="month_9">september</string>
+    <string id="month_10">oktober</string>
+    <string id="month_11">november</string>
+    <string id="month_12">december</string>
+</strings>

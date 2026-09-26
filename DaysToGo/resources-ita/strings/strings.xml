@@ -1,0 +1,65 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Days To Go</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). Words on the face. Labels, not sentences, so no language needs plural agreement. Singular is used only for exactly 1. -->
+    <string id="cap_day">GIORNO</string>
+    <string id="cap_days">GIORNI</string>
+    <string id="cap_week">SETTIMANA</string>
+    <string id="cap_weeks">SETTIMANE</string>
+    <string id="cap_hours">ORE</string>
+    <string id="cap_since_day">GIORNO FA</string>
+    <string id="cap_since_days">GIORNI FA</string>
+    <string id="cap_today">OGGI</string>
+    <string id="cap_invalid">IMPOSTA UNA DATA</string>
+    <!-- Bottom line: $1$ is thousands of steps, for example 12.3 gives 12.3K. -->
+    <string id="value_thousands">$1$K</string>
+
+    <!-- The watch's own settings screen. -->
+    <string id="settings_title">Days To Go</string>
+    <string id="menu_set_date">Imposta data</string>
+
+    <!-- Phone settings. -->
+    <string id="setting_event">Evento</string>
+    <string id="event_new_year">Capodanno</string>
+    <string id="event_christmas">Natale</string>
+    <string id="event_custom">Data personale</string>
+    <string id="setting_name">Nome (16 caratteri, facoltativo)</string>
+    <string id="setting_month">Mese</string>
+    <string id="setting_day">Giorno</string>
+    <string id="setting_year">Anno</string>
+    <string id="year_every">Ogni anno</string>
+    <string id="setting_hour">Ora</string>
+    <string id="hour_none">Tutto il giorno</string>
+    <string id="setting_unit">Conta in</string>
+    <string id="unit_days">Giorni</string>
+    <string id="unit_weeks">Settimane e giorni</string>
+    <string id="setting_datestyle">Formato data</string>
+    <string id="datestyle_auto">Automatico</string>
+    <string id="datestyle_day">Prima il giorno</string>
+    <string id="datestyle_month">Prima il mese</string>
+    <string id="setting_footer">Riga in basso</string>
+    <string id="footer_none">Niente</string>
+    <string id="footer_battery">Batteria</string>
+    <string id="footer_steps">Passi</string>
+    <string id="setting_accent">Colore d'accento</string>
+    <string id="accent_mint">Menta</string>
+    <string id="accent_amber">Ambra</string>
+    <string id="accent_sky">Cielo</string>
+    <string id="accent_pink">Rosa</string>
+    <string id="accent_violet">Viola</string>
+    <string id="accent_white">Bianco</string>
+
+    <string id="month_1">Gennaio</string>
+    <string id="month_2">Febbraio</string>
+    <string id="month_3">Marzo</string>
+    <string id="month_4">Aprile</string>
+    <string id="month_5">Maggio</string>
+    <string id="month_6">Giugno</string>
+    <string id="month_7">Luglio</string>
+    <string id="month_8">Agosto</string>
+    <string id="month_9">Settembre</string>
+    <string id="month_10">Ottobre</string>
+    <string id="month_11">Novembre</string>
+    <string id="month_12">Dicembre</string>
+</strings>
