@@ -2,7 +2,7 @@
 
 Status: 2026-09-26. Live in the store since 2026-09-22 (1.0.1 since 2026-09-24). Watch face from studio Verden, companion to HeroSet (`../HeroSet`).
 
-**Built and shipped:** the round face (117 products), its settings, always-on, the screen-fit suite, both sides of the HeroSet link, all 15 languages, the store listing and the three website pages in `../../verden-site`. **Left:** the open device checks in [`go-to-market.md`](go-to-market.md), and the other screen shapes (phase 4 below). History: [`../CHANGELOG.md`](../CHANGELOG.md), `git log`.
+**Built and shipped:** the round face (117 products), its settings, always-on, the screen-fit suite, both sides of the HeroSet link, all 15 languages, the store listing and the three website pages in `../../site`. **Left:** the open device checks in [`go-to-market.md`](go-to-market.md), and the other screen shapes (phase 4 below). History: [`../CHANGELOG.md`](../CHANGELOG.md), `git log`.
 
 ## Goal
 

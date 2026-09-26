@@ -22,7 +22,7 @@ const softwareApplication = (app: App, url: string) => ({
 })
 
 const table = new Map<string, Route>([
-  ['/', { title: `${studio.name} — apps`, description: studio.tagline, page: <Home /> }],
+  ['/', { title: `${studio.name}: Garmin watch apps and faces`, description: studio.intro, page: <Home /> }],
 ])
 for (const app of apps) {
   const sections: [Section, string, string][] = [

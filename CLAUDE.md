@@ -11,7 +11,7 @@ file only covers what spans folders.
 | `HeroSet/` | Garmin watch app (Connect IQ, Monkey C) | [`HeroSet/CLAUDE.md`](HeroSet/CLAUDE.md) |
 | `HeroFace/` | Garmin watch face (Connect IQ, Monkey C) | [`HeroFace/CLAUDE.md`](HeroFace/CLAUDE.md) |
 | `DaysToGo/` | Garmin countdown watch face (Connect IQ, Monkey C) | [`DaysToGo/CLAUDE.md`](DaysToGo/CLAUDE.md) |
-| `verden-site/` | Public website (Vite + React, prerendered) | [`verden-site/CLAUDE.md`](verden-site/CLAUDE.md) |
+| `site/` | Public website (Vite + React, prerendered) | [`site/CLAUDE.md`](site/CLAUDE.md) |
 
 `device-test/` is git-ignored scratch for on-watch builds, shared by both
 watch projects.
@@ -30,9 +30,9 @@ Keep new files in that shape.
   the same commit.
 - **User-facing claims live in two places.** A behaviour or data-handling
   change in a watch project → update its pages under
-  `verden-site/src/apps/<slug>/` the same session. Store listings link those
+  `site/src/apps/<slug>/` the same session. Store listings link those
   URLs, so **never change or remove a published URL**.
-- Relative paths between folders (`../HeroFace`, `../verden-site`) still work
+- Relative paths between folders (`../HeroFace`, `../site`) still work
   and are used throughout the docs. Keep them.
 
 ## House rules everywhere

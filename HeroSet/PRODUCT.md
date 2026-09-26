@@ -6,7 +6,7 @@
 
 web
 
-Two surfaces share this record: the website (sibling directory `../verden-site`: studio home plus HeroSet landing, support and privacy pages, the `web` platform above) and the watch app itself, a native Garmin Connect IQ app (Monkey C) that is neither web, iOS nor Android. Watch UI follows the constraints below and the ADRs in [`docs/decisions.md`](docs/decisions.md), not web conventions.
+Two surfaces share this record: the website (sibling directory `../site`: studio home plus HeroSet landing, support and privacy pages, the `web` platform above) and the watch app itself, a native Garmin Connect IQ app (Monkey C) that is neither web, iOS nor Android. Watch UI follows the constraints below and the ADRs in [`docs/decisions.md`](docs/decisions.md), not web conventions.
 
 ## Users
 
@@ -37,7 +37,7 @@ A button-first daily challenge that lives entirely on the watch: automatic rep c
 - Watch UI: round screens only, AMOLED and MIP, 80 products from ~208 to 466 px; min Connect IQ API 3.4.0; one class per file; text fit measured, never guessed ([ADR-018](docs/decisions.md#adr-018)); render only in `onUpdate`.
 - Input: five physical buttons; no long-press gestures ([ADR-029](docs/decisions.md#adr-029)); on-screen hints name bezel buttons (`START`, `UP/DOWN`, `BACK`). Touch works where the watch passes it through but is never required.
 - Languages: English (fallback), German, French, Spanish, Italian, Portuguese, Dutch, Polish, Swedish, Danish, Norwegian Bokmål, Finnish, Turkish, Lithuanian, Ukrainian. Russian intentionally unsupported.
-- Site: `../verden-site`, a multi-app static site (prerendered, no client JS) shared with future Verden apps; live at https://verden.watch (Firebase Hosting); must match actual app behavior.
+- Site: `../site`, a multi-app static site (prerendered, no client JS) shared with future Verden apps; live at https://verden.watch (Firebase Hosting); must match actual app behavior.
 
 ## Brand Commitments
 
@@ -50,7 +50,7 @@ A button-first daily challenge that lives entirely on the watch: automatic rep c
 ## Evidence on Hand
 
 - On-watch trial data from one FR965 owner ([`docs/validation-log.md`](docs/validation-log.md)), not yet enough to claim accuracy.
-- Site: `../verden-site/src/apps/heroset/` (landing, support, privacy).
+- Site: `../site/src/apps/heroset/` (landing, support, privacy).
 - Listing screenshots: simulator captures of the store build in `listing/` ([ADR-039](docs/decisions.md#adr-039)). No mockups.
 - None exist and must not be invented: user reviews, testimonials, ratings, user counts, press, accuracy percentages, partnerships or Garmin endorsement.
 

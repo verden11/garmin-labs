@@ -44,6 +44,6 @@ Same as HeroFace ([`../HeroFace/CLAUDE.md`](../HeroFace/CLAUDE.md)), which this 
 
 - Behaviour change → `docs/spec.md` (and `DESIGN.md` if visual) in the same session; a durable decision → an ADR in `docs/decisions.md`.
 - New layout or string → run the screen-fit test for each screen size and update `docs/compatibility.md`.
-- User-facing claims live in the listing and `../verden-site/src/apps/days-to-go/`; change both together, never change a published URL.
+- User-facing claims live in the listing and `../site/src/apps/days-to-go/`; change both together, never change a published URL.
 - Every store publication gets a `CHANGELOG.md` entry and a What's New block in `listing/README.md`.
 - Test count appears in `README.md` and here (**43**); update both.

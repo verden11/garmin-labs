@@ -8,7 +8,7 @@ Paid, USD 2.00 (→ $1.99 US), no trial ([ADR-039](../docs/decisions.md#adr-039)
 
 Garmin expects every listed product tested, screenshots matching the app, permissions justified. Accepted gap: 79 of 80 simulator-verified only ([ADR-039](../docs/decisions.md#adr-039), [ADR-048](../docs/decisions.md#adr-048)). Refs: [monetization](https://developer.garmin.com/connect-iq/monetization/), [publishing](https://developer.garmin.com/connect-iq/core-topics/publishing-to-the-store/), [app review](https://developer.garmin.com/connect-iq/app-review-guidelines/).
 
-Live listing: https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377. Support page (not a form field): https://verden.watch/heroset/support/. Site source: `../../verden-site`.
+Live listing: https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377. Support page (not a form field): https://verden.watch/heroset/support/. Site source: `../../site`.
 
 ## Upload file
 
@@ -29,7 +29,7 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 | App Version | Free text, not read from the manifest; bump on every upload (patch for fixes, minor for features). 1.1.1 live ([ADR-050](../docs/decisions.md#adr-050)); next 1.2.0. |
 | Collects user data | No: the store build has no network access, no activity recording, no sync ([ADR-033](../docs/decisions.md#adr-033)). The privacy policy is still linked (gate 6). |
 | Cover Image | Shield + name only: it shows at about 100 px in browse, so no screen text. |
-| Screen Images | Simulator captures of the store build ([ADR-039](../docs/decisions.md#adr-039)), no mockups. If a shot shows a changed UI, re-take it and update the site copy in `../../verden-site/public/heroset/screens/`. |
+| Screen Images | Simulator captures of the store build ([ADR-039](../docs/decisions.md#adr-039)), no mockups. If a shot shows a changed UI, re-take it and update the site copy in `../../site/public/heroset/screens/`. |
 | Email | The dedicated support address, also on the site's support and privacy pages. |
 | App Migration | No: support is an explicit list of 80 products ([`../docs/compatibility.md`](../docs/compatibility.md), [ADR-034](../docs/decisions.md#adr-034)/[035](../docs/decisions.md#adr-035)/[037](../docs/decisions.md#adr-037)/[038](../docs/decisions.md#adr-038)/[048](../docs/decisions.md#adr-048)); don't let the store add untested devices. |
 | Monetization | Paid through the store. |

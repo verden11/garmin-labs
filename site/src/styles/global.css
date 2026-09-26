@@ -5,7 +5,6 @@
   --ink: #14161a;
   --ink-2: #4b515a;
   --rule: #dcdfe4;
-  --link: #0f5fc7;
   --studio: #c3c9cf;
   --on-studio: #15181c;
   --studio-ink: #4b5663;
@@ -32,7 +31,6 @@
     --ink: #eceef1;
     --ink-2: #a6adb7;
     --rule: #2a2f36;
-    --link: #7db6ff;
     --studio-ink: #c3c9cf;
     --inverse: #1b1f25;
     --on-inverse: #eceef1;
@@ -59,8 +57,21 @@ body {
 
 ::selection { background: var(--field); color: var(--on-field); }
 
-a { color: var(--link); text-decoration-thickness: 1px; text-underline-offset: 0.2em; }
-a:hover { text-decoration-thickness: 2px; }
+/* Links are ink, not browser blue: the page is black on white with thick cut rules, so a link is the same ink
+   with a 2px underline that firms up to full ink and 3px on hover (the site's own rule weight). In prose
+   they also carry weight 600, so they never rely on the underline alone. Fields already use field ink. */
+a {
+  color: var(--ink);
+  text-decoration-line: underline;
+  text-decoration-thickness: 2px;
+  text-decoration-color: var(--ink-2);
+  text-decoration-color: color-mix(in srgb, currentColor 40%, transparent);
+  text-underline-offset: 0.24em;
+  transition: text-decoration-color 160ms var(--ease-out), text-decoration-thickness 160ms var(--ease-out);
+}
+a:hover { text-decoration-color: currentColor; text-decoration-thickness: 3px; }
+.doc__body a, .band__lede a, .truth__text a, .facts a, .band > p a { font-weight: 600; }
+@media (prefers-reduced-motion: reduce) { a { transition: none; } }
 :focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; border-radius: 2px; }
 
 h1, h2, h3 { line-height: 1.08; text-wrap: balance; margin: 0; }
@@ -82,7 +93,7 @@ img { max-width: 100%; height: auto; display: block; }
 .studio-bar { border-bottom: 1px solid var(--rule); }
 .studio-bar__inner { display: flex; align-items: center; justify-content: space-between; gap: var(--space-2); min-height: 3.5rem; }
 .studio-bar nav { display: flex; gap: var(--space-3); font-weight: 560; }
-.studio-bar nav a { color: var(--ink); text-decoration: none; }
+.studio-bar nav a { color: var(--ink); text-decoration: none; padding-block: 0.9rem; }
 .studio-bar nav a:hover { text-decoration: underline; }
 
 .wordmark {
@@ -129,6 +140,8 @@ img { max-width: 100%; height: auto; display: block; }
   font-weight: 700; font-size: 1rem; line-height: 1.2;
 }
 .button { background: var(--on-field); color: var(--field); text-decoration: none; }
+/* The button is already on-field ink on field: the inverted field selection would match its own ground and vanish. */
+.button ::selection, .button::selection { background: var(--field); color: var(--on-field); }
 @media (prefers-reduced-motion: no-preference) {
   .button { transition: transform 180ms var(--ease-out); }
   .button:hover { transform: translateY(-2px); }
@@ -295,14 +308,19 @@ img { max-width: 100%; height: auto; display: block; }
 
 .program__entry { background: var(--field); color: var(--on-field); }
 .program__entry a { color: inherit; }
+.program__entry a.button { color: var(--field); }
 .program__entry :focus-visible { outline-color: var(--on-field); }
-.program__inner { display: grid; grid-template-columns: auto 1fr auto; gap: var(--space-4); align-items: center; padding-block: var(--space-4); }
+.program__inner { display: grid; grid-template-columns: clamp(6.5rem, 20vw, 15rem) 1fr auto; gap: var(--space-4); align-items: center; padding-block: var(--space-4); }
+.program__inner > :first-child { justify-self: start; }
 .program__entry h2 { font-size: clamp(2.2rem, 5vw, 3.5rem); font-weight: 850; font-stretch: 112%; letter-spacing: -0.03em; }
 .program__entry h2 a { text-decoration: none; }
 .program__entry h2 a:hover { text-decoration: underline; text-decoration-thickness: 3px; }
 .program__summary { font-size: 1.2rem; margin-top: 0.4rem; max-width: 40ch; }
 .program__platform { font-size: 0.8rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-top: var(--space-2); }
-.program__links { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.4rem; font-weight: 600; }
+/* The store action leads each row; Support and Privacy sit under it as quiet 44px-tall targets. */
+.program__actions { display: grid; gap: var(--space-1); justify-items: start; }
+.program__links { list-style: none; margin: 0; padding: 0; display: flex; gap: var(--space-3); font-weight: 500; }
+.program__links a { display: inline-block; padding-block: 0.7rem; min-height: 2.75rem; }
 
 /* Documents -------------------------------------------------------------- */
 
@@ -347,8 +365,8 @@ main:has(> .close:last-child, > .program:last-child) + .site-footer { margin-top
   .course__stop::before { top: 4px; left: -9px; }
   .truth h2, .truth__text { grid-column: 1 / -1; }
   .screens { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .program__inner { grid-template-columns: auto 1fr; }
-  .program__links { grid-column: 1 / -1; display: flex; gap: var(--space-3); }
+  .program__inner { grid-template-columns: clamp(6.5rem, 20vw, 15rem) 1fr; }
+  .program__actions { grid-column: 1 / -1; }
 }
 
 @media (max-width: 34rem) {

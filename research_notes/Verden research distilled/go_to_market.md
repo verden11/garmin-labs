@@ -116,7 +116,7 @@ The docs already handled the *product* side of the research (accurate claims, pr
 | Accuracy proof on wrist before selling (stage 1b) | **ADR-042 waived gate 2**; only one 35-rep set (-4) of current data; docs list known risks (push-ups over-count 15-25 reps, squats "3-for-10" twice, fast squats). Marketing has not stopped | **CONFLICT** |
 | Publish accuracy method/results on verden.watch and in listing | "Never promise ... perfect or measured counting accuracy" (`release-contract.md`); landing copy was already stripped of "gets closer with every set" | **CONFLICT** |
 | Trial for HeroSet | **ADR-039: no trial**, because `iq:trialMode` needs a developer-run HTTPS unlock backend (my fetch of Garmin's Trial Apps page confirms exactly that) | **Report's "unconfirmed inference" resolved: trial exists for apps but only via your own unlock server. ADR-039 stands.** |
-| UTM links, tracked outbound click, landing to store handoff >=10% gate | `verden-site` promises **zero client JS, no analytics, host analytics off, privacy page says none**. UTMs alone measure nothing | **CONFLICT** |
+| UTM links, tracked outbound click, landing to store handoff >=10% gate | `site` promises **zero client JS, no analytics, host analytics off, privacy page says none**. UTMs alone measure nothing | **CONFLICT** |
 | Keep both paid; no free face yet | Consistent with GTM (no free twin planned). Hero/complication design assumes paid | ALIGNED |
 | Connect activity sync (parity gap, #2 complaint cluster) | HeroSet 1.2.0 (ADR-043), already the next submission | ALIGNED |
 | Monthly threat watch (Garmin firmware, Strafe combined app, F3b, Push Up Master) | Not in docs | OPEN, 15 min/month |

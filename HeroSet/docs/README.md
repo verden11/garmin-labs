@@ -19,6 +19,6 @@ Resuming? Read [`go-to-market.md`](go-to-market.md) first (open items), then [`a
 | [`../listing/README.md`](../listing/README.md) | Store listing: paste-ready form values (`README.md`), notes on economics, limits and history (`NOTES.md`); images beside them |
 | [`../CHANGELOG.md`](../CHANGELOG.md) | One entry per store publication |
 | [`../PRODUCT.md`](../PRODUCT.md) | Product truth for design work (Impeccable) |
-| `../verden-site` | Public site: landing, support, privacy |
+| `../site` | Public site: landing, support, privacy |
 
 Rules: behavior change → update its doc same session · durable decision → new ADR · status-dated docs bump their date · one fact, one home: link, don't copy.

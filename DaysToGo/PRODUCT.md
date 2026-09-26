@@ -6,7 +6,7 @@
 
 web
 
-The only web surface is the Days To Go page in `../verden-site`. The product itself is a native Garmin Connect IQ watch face (Monkey C). Watch UI follows [`docs/spec.md`](docs/spec.md), not web conventions.
+The only web surface is the Days To Go page in `../site`. The product itself is a native Garmin Connect IQ watch face (Monkey C). Watch UI follows [`docs/spec.md`](docs/spec.md), not web conventions.
 
 ## Users
 

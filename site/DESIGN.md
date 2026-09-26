@@ -6,7 +6,6 @@ colors:
   ink: "#14161a"
   ink-secondary: "#4b515a"
   rule: "#dcdfe4"
-  link: "#0f5fc7"
   studio-silver: "#c3c9cf"
   on-studio: "#15181c"
   studio-ink: "#4b5663"
@@ -14,11 +13,12 @@ colors:
   on-heroset: "#15130f"
   heroface-blue: "#55aaff"
   on-heroface: "#0a1420"
+  daystogo-mint: "#55ffaa"
+  on-daystogo: "#04140c"
   paper-dark: "#0e1013"
   ink-dark: "#eceef1"
   ink-secondary-dark: "#a6adb7"
   rule-dark: "#2a2f36"
-  link-dark: "#7db6ff"
   studio-ink-dark: "#c3c9cf"
 typography:
   display:
@@ -148,6 +148,7 @@ A white-paper, near-black-ink program where each app contributes one saturated f
 
 ### Secondary
 - **HeroFace Blue** (heroface-blue) with **Deep Night** ink (on-heroface, 7.6:1): HeroFace's event field, the watch face's own accent.
+- **Days To Go Mint** (daystogo-mint) with **Deep Green** ink (on-daystogo, above 12:1): Days To Go's event field, the face's default accent.
 - **Studio Silver** (studio-silver): the studio's own field, Munich-72 silver. It fills the studio home intro and is the default field when no app has claimed the page. It is neutral on purpose: every hue belongs to an event. Changed from silver-blue 2026-09-24, which read as the same color as HeroFace blue (1.04:1).
 - **Studio Night Ink** (on-studio): readable ink on the studio field.
 - **Studio Slate Ink** (studio-ink; studio-ink-dark in the dark scheme): the studio silver as foreground on paper, deepened to slate for light paper (7.5:1) and returning to the field value on dark paper (11.4:1). Used for the 404 numeral and the studio mark's own bar.
@@ -157,13 +158,13 @@ A white-paper, near-black-ink program where each app contributes one saturated f
 - **Program Ink** (ink): headlines, 3px structural rules, key outlines, focus rings. Also the light-mode inverse ground of the honesty field.
 - **Quiet Ink** (ink-secondary): ledes, step text, definitions, captions, footer.
 - **Hairline** (rule): 1px dividers only (studio bar, footer, fact columns). Never text.
-- **Link Blue** (link): inline links on paper. On fields, links take the field ink instead.
-- Dark scheme swaps the neutrals (paper-dark, ink-dark, ink-secondary-dark, rule-dark, link-dark, studio-ink-dark) and leaves every field color untouched.
+- **Links** have no color of their own: they are Program Ink with a 2px underline at 40% ink that firms to full ink and 3px on hover, weight 600 in prose (never browser blue; changed 2026-09-26). On fields they take the field ink.
+- Dark scheme swaps the neutrals (paper-dark, ink-dark, ink-secondary-dark, rule-dark, studio-ink-dark) and leaves every field color untouched.
 
 ### Named Rules
 **The One Field Rule.** A page belongs to exactly one event. Its field color and field ink come from the app registry; shared components read the field slot and never name an app color.
 
-**The Field Ink Rule.** Text, pictograms, buttons, focus rings and selection on a field use that field's ink, never paper-white or link blue. A new app must supply an ink pair that reads at body size on its field (HeroSet amber/carbon is 9.7:1; studio silver/night is 10.7:1).
+**The Field Ink Rule.** Text, pictograms, buttons, focus rings and selection on a field use that field's ink, never paper-white. A new app must supply an ink pair that reads at body size on its field (HeroSet amber/carbon is 9.7:1; studio silver/night is 10.7:1).
 
 **The Field-Is-Ground Rule.** A field color is a ground, never a text color on paper. When a field hue must appear as text on paper, it gets its own ink token deepened for legibility (as studio-ink does for studio-silver; the studio mark's own bar is drawn in studio-ink for the same reason). Field color as text is allowed only on the ink field, as in the honesty headline (9.5:1).
 
@@ -219,6 +220,9 @@ Blunt and inverted.
 - **Hover:** lifts 2px over 180ms on the program ease-out; no color change.
 - **Status plate:** when the store link is absent, the same box renders as a 2px dashed field-ink outline reading "Coming soon". It is a state, not a button, and it is not clickable.
 - **Secondary action:** a plain underlined field-ink link beside it, 600 weight.
+
+### Program rows (studio home)
+Each app row on the home page leads with the store action (the field-ink button, or the dashed "Coming soon" plate when there is no store link), with Support and Privacy under it as quiet 44px-tall links. The app name links to the overview; there is no separate Overview link. Columns are fixed so every app name starts at the same x.
 
 ### Navigation
 - **Studio bar:** paper, 1px hairline bottom, wordmark left (studio mark + uppercase wide name), app names right at 560 weight.

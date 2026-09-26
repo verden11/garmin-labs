@@ -50,7 +50,7 @@ Every idea is checked against [`release-contract.md`](release-contract.md) (forb
 
 **Why.** Streaks break by forgetting, not by quitting. The highest-leverage retention feature here, and the only one that acts when the app is closed.
 
-**Cost.** High, mostly not code. A background temporal event needs the `Background` permission, which changes the listing's permission line, the privacy page in `../../verden-site/src/apps/heroset/` and [`release-contract.md`](release-contract.md)'s permission row, all in the same session. Background processes get a small memory budget and a minimum interval.
+**Cost.** High, mostly not code. A background temporal event needs the `Background` permission, which changes the listing's permission line, the privacy page in `../../site/src/apps/heroset/` and [`release-contract.md`](release-contract.md)'s permission row, all in the same session. Background processes get a small memory budget and a minimum interval.
 
 **Risks.** A nagging fitness app gets deleted: default off, switchable on the watch. Adding a permission is its own review cycle, so 1.3 at the earliest.
 

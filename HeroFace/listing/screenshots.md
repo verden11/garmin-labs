@@ -66,9 +66,9 @@ monkeydo bin/HeroFace.prg fr965
 ## Where they go
 
 - **Store:** upload in the submission form, in the numbered order above.
-- **Website:** copied to `../verden-site/public/heroface/screens/` as
+- **Website:** copied to `../site/public/heroface/screens/` as
   `everyday.png`, `goals-met.png`, `heroset.png`, and wired into
-  `../verden-site/src/apps/heroface/facts.ts`. The `Always on` slot there
+  `../site/src/apps/heroface/facts.ts`. The `Always on` slot there
   still renders a "Screenshot pending" placeholder.
 
 ## Honesty rules
