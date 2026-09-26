@@ -21,7 +21,7 @@ export const languages = [
 
 // Simulator captures of the store build (HeroSet ADR-039). Drop files in
 // public/heroset/screens/ and set src; empty slots render as pending.
-// Originals + store-listing set: ~/screenshots (originals/, store/).
+// Store-listing set: HeroSet/listing/screens; framed marketing set: HeroSet/listing/framed.
 export const screens: Screenshot[] = [
   { label: 'Dashboard', src: '/heroset/screens/dashboard.png' },
   { label: 'Counting', src: '/heroset/screens/counting.png' },

@@ -1,0 +1,65 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Days To Go</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). Words on the face. Labels, not sentences, so no language needs plural agreement. Singular is used only for exactly 1. -->
+    <string id="cap_day">DIENA</string>
+    <string id="cap_days">DIENOS</string>
+    <string id="cap_week">SAVAITĖ</string>
+    <string id="cap_weeks">SAVAITĖS</string>
+    <string id="cap_hours">VALANDOS</string>
+    <string id="cap_since_day">DIENA PRAĖJO</string>
+    <string id="cap_since_days">DIENŲ PRAĖJO</string>
+    <string id="cap_today">ŠIANDIEN</string>
+    <string id="cap_invalid">PASIRINKITE DATĄ</string>
+    <!-- Bottom line: $1$ is thousands of steps, for example 12.3 gives 12.3K. -->
+    <string id="value_thousands">$1$K</string>
+
+    <!-- The watch's own settings screen. -->
+    <string id="settings_title">Days To Go</string>
+    <string id="menu_set_date">Nustatyti datą</string>
+
+    <!-- Phone settings. -->
+    <string id="setting_event">Įvykis</string>
+    <string id="event_new_year">Naujieji metai</string>
+    <string id="event_christmas">Kalėdos</string>
+    <string id="event_custom">Mano data</string>
+    <string id="setting_name">Pavadinimas (16 simbolių, nebūtina)</string>
+    <string id="setting_month">Mėnuo</string>
+    <string id="setting_day">Diena</string>
+    <string id="setting_year">Metai</string>
+    <string id="year_every">Kasmet</string>
+    <string id="setting_hour">Laikas</string>
+    <string id="hour_none">Visą dieną</string>
+    <string id="setting_unit">Skaičiuoti</string>
+    <string id="unit_days">Dienomis</string>
+    <string id="unit_weeks">Savaitėmis ir dienomis</string>
+    <string id="setting_datestyle">Datos formatas</string>
+    <string id="datestyle_auto">Automatinis</string>
+    <string id="datestyle_day">Diena pirma</string>
+    <string id="datestyle_month">Mėnuo pirma</string>
+    <string id="setting_footer">Apatinė eilutė</string>
+    <string id="footer_none">Nieko</string>
+    <string id="footer_battery">Baterija</string>
+    <string id="footer_steps">Žingsniai</string>
+    <string id="setting_accent">Akcento spalva</string>
+    <string id="accent_mint">Mėta</string>
+    <string id="accent_amber">Gintaras</string>
+    <string id="accent_sky">Dangus</string>
+    <string id="accent_pink">Rožinė</string>
+    <string id="accent_violet">Violetinė</string>
+    <string id="accent_white">Balta</string>
+
+    <string id="month_1">Sausis</string>
+    <string id="month_2">Vasaris</string>
+    <string id="month_3">Kovas</string>
+    <string id="month_4">Balandis</string>
+    <string id="month_5">Gegužė</string>
+    <string id="month_6">Birželis</string>
+    <string id="month_7">Liepa</string>
+    <string id="month_8">Rugpjūtis</string>
+    <string id="month_9">Rugsėjis</string>
+    <string id="month_10">Spalis</string>
+    <string id="month_11">Lapkritis</string>
+    <string id="month_12">Gruodis</string>
+</strings>

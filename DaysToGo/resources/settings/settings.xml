@@ -1,0 +1,163 @@
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <setting propertyKey="@Properties.Event" title="@Strings.setting_event">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.event_new_year</listEntry>
+            <listEntry value="1">@Strings.event_christmas</listEntry>
+            <listEntry value="2">@Strings.event_custom</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Name" title="@Strings.setting_name">
+        <settingConfig type="alphaNumeric" maxLength="16" />
+    </setting>
+    <setting propertyKey="@Properties.Month" title="@Strings.setting_month">
+        <settingConfig type="list">
+            <listEntry value="1">@Strings.month_1</listEntry>
+            <listEntry value="2">@Strings.month_2</listEntry>
+            <listEntry value="3">@Strings.month_3</listEntry>
+            <listEntry value="4">@Strings.month_4</listEntry>
+            <listEntry value="5">@Strings.month_5</listEntry>
+            <listEntry value="6">@Strings.month_6</listEntry>
+            <listEntry value="7">@Strings.month_7</listEntry>
+            <listEntry value="8">@Strings.month_8</listEntry>
+            <listEntry value="9">@Strings.month_9</listEntry>
+            <listEntry value="10">@Strings.month_10</listEntry>
+            <listEntry value="11">@Strings.month_11</listEntry>
+            <listEntry value="12">@Strings.month_12</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Day" title="@Strings.setting_day">
+        <settingConfig type="list">
+            <listEntry value="1">@Strings.n1</listEntry>
+            <listEntry value="2">@Strings.n2</listEntry>
+            <listEntry value="3">@Strings.n3</listEntry>
+            <listEntry value="4">@Strings.n4</listEntry>
+            <listEntry value="5">@Strings.n5</listEntry>
+            <listEntry value="6">@Strings.n6</listEntry>
+            <listEntry value="7">@Strings.n7</listEntry>
+            <listEntry value="8">@Strings.n8</listEntry>
+            <listEntry value="9">@Strings.n9</listEntry>
+            <listEntry value="10">@Strings.n10</listEntry>
+            <listEntry value="11">@Strings.n11</listEntry>
+            <listEntry value="12">@Strings.n12</listEntry>
+            <listEntry value="13">@Strings.n13</listEntry>
+            <listEntry value="14">@Strings.n14</listEntry>
+            <listEntry value="15">@Strings.n15</listEntry>
+            <listEntry value="16">@Strings.n16</listEntry>
+            <listEntry value="17">@Strings.n17</listEntry>
+            <listEntry value="18">@Strings.n18</listEntry>
+            <listEntry value="19">@Strings.n19</listEntry>
+            <listEntry value="20">@Strings.n20</listEntry>
+            <listEntry value="21">@Strings.n21</listEntry>
+            <listEntry value="22">@Strings.n22</listEntry>
+            <listEntry value="23">@Strings.n23</listEntry>
+            <listEntry value="24">@Strings.n24</listEntry>
+            <listEntry value="25">@Strings.n25</listEntry>
+            <listEntry value="26">@Strings.n26</listEntry>
+            <listEntry value="27">@Strings.n27</listEntry>
+            <listEntry value="28">@Strings.n28</listEntry>
+            <listEntry value="29">@Strings.n29</listEntry>
+            <listEntry value="30">@Strings.n30</listEntry>
+            <listEntry value="31">@Strings.n31</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Year" title="@Strings.setting_year">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.year_every</listEntry>
+            <listEntry value="2026">@Strings.y2026</listEntry>
+            <listEntry value="2027">@Strings.y2027</listEntry>
+            <listEntry value="2028">@Strings.y2028</listEntry>
+            <listEntry value="2029">@Strings.y2029</listEntry>
+            <listEntry value="2030">@Strings.y2030</listEntry>
+            <listEntry value="2031">@Strings.y2031</listEntry>
+            <listEntry value="2032">@Strings.y2032</listEntry>
+            <listEntry value="2033">@Strings.y2033</listEntry>
+            <listEntry value="2034">@Strings.y2034</listEntry>
+            <listEntry value="2035">@Strings.y2035</listEntry>
+            <listEntry value="2036">@Strings.y2036</listEntry>
+            <listEntry value="2037">@Strings.y2037</listEntry>
+            <listEntry value="2038">@Strings.y2038</listEntry>
+            <listEntry value="2039">@Strings.y2039</listEntry>
+            <listEntry value="2040">@Strings.y2040</listEntry>
+            <listEntry value="2041">@Strings.y2041</listEntry>
+            <listEntry value="2042">@Strings.y2042</listEntry>
+            <listEntry value="2043">@Strings.y2043</listEntry>
+            <listEntry value="2044">@Strings.y2044</listEntry>
+            <listEntry value="2045">@Strings.y2045</listEntry>
+            <listEntry value="2046">@Strings.y2046</listEntry>
+            <listEntry value="2047">@Strings.y2047</listEntry>
+            <listEntry value="2048">@Strings.y2048</listEntry>
+            <listEntry value="2049">@Strings.y2049</listEntry>
+            <listEntry value="2050">@Strings.y2050</listEntry>
+            <listEntry value="2051">@Strings.y2051</listEntry>
+            <listEntry value="2052">@Strings.y2052</listEntry>
+            <listEntry value="2053">@Strings.y2053</listEntry>
+            <listEntry value="2054">@Strings.y2054</listEntry>
+            <listEntry value="2055">@Strings.y2055</listEntry>
+            <listEntry value="2056">@Strings.y2056</listEntry>
+            <listEntry value="2057">@Strings.y2057</listEntry>
+            <listEntry value="2058">@Strings.y2058</listEntry>
+            <listEntry value="2059">@Strings.y2059</listEntry>
+            <listEntry value="2060">@Strings.y2060</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Hour" title="@Strings.setting_hour">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.hour_none</listEntry>
+            <listEntry value="1">@Strings.h0</listEntry>
+            <listEntry value="2">@Strings.h1</listEntry>
+            <listEntry value="3">@Strings.h2</listEntry>
+            <listEntry value="4">@Strings.h3</listEntry>
+            <listEntry value="5">@Strings.h4</listEntry>
+            <listEntry value="6">@Strings.h5</listEntry>
+            <listEntry value="7">@Strings.h6</listEntry>
+            <listEntry value="8">@Strings.h7</listEntry>
+            <listEntry value="9">@Strings.h8</listEntry>
+            <listEntry value="10">@Strings.h9</listEntry>
+            <listEntry value="11">@Strings.h10</listEntry>
+            <listEntry value="12">@Strings.h11</listEntry>
+            <listEntry value="13">@Strings.h12</listEntry>
+            <listEntry value="14">@Strings.h13</listEntry>
+            <listEntry value="15">@Strings.h14</listEntry>
+            <listEntry value="16">@Strings.h15</listEntry>
+            <listEntry value="17">@Strings.h16</listEntry>
+            <listEntry value="18">@Strings.h17</listEntry>
+            <listEntry value="19">@Strings.h18</listEntry>
+            <listEntry value="20">@Strings.h19</listEntry>
+            <listEntry value="21">@Strings.h20</listEntry>
+            <listEntry value="22">@Strings.h21</listEntry>
+            <listEntry value="23">@Strings.h22</listEntry>
+            <listEntry value="24">@Strings.h23</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Unit" title="@Strings.setting_unit">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.unit_days</listEntry>
+            <listEntry value="1">@Strings.unit_weeks</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.DateStyle" title="@Strings.setting_datestyle">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.datestyle_auto</listEntry>
+            <listEntry value="1">@Strings.datestyle_day</listEntry>
+            <listEntry value="2">@Strings.datestyle_month</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Footer" title="@Strings.setting_footer">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.footer_none</listEntry>
+            <listEntry value="1">@Strings.footer_battery</listEntry>
+            <listEntry value="2">@Strings.footer_steps</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Accent" title="@Strings.setting_accent">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.accent_mint</listEntry>
+            <listEntry value="1">@Strings.accent_amber</listEntry>
+            <listEntry value="2">@Strings.accent_sky</listEntry>
+            <listEntry value="3">@Strings.accent_pink</listEntry>
+            <listEntry value="4">@Strings.accent_violet</listEntry>
+            <listEntry value="5">@Strings.accent_white</listEntry>
+        </settingConfig>
+    </setting>
+</settings>

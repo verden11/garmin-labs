@@ -36,6 +36,7 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 
 ## Image sources
 
+- **Framed** (`framed/`, 1300×1300, watch frame around the store screens): marketing extras for ads and social. Not part of the store form. Only copy of the art, no source file.
 - **Hero** (`hero-1440x720.png`): real store-build screens from `screens/`, no watch frame. Source `src/hero.html`. Re-render after re-taking screens:
 
   ```sh

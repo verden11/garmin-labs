@@ -1,6 +1,6 @@
 # Verden — CLAUDE.md
 
-Studio monorepo. Three independent projects, one git history.
+Studio monorepo. Four independent projects, one git history.
 
 **Each folder has its own `CLAUDE.md` and `docs/` — those are the source of
 truth for that project. Read the one for the folder you are working in.** This
@@ -10,6 +10,7 @@ file only covers what spans folders.
 |---|---|---|
 | `HeroSet/` | Garmin watch app (Connect IQ, Monkey C) | [`HeroSet/CLAUDE.md`](HeroSet/CLAUDE.md) |
 | `HeroFace/` | Garmin watch face (Connect IQ, Monkey C) | [`HeroFace/CLAUDE.md`](HeroFace/CLAUDE.md) |
+| `DaysToGo/` | Garmin countdown watch face (Connect IQ, Monkey C) | [`DaysToGo/CLAUDE.md`](DaysToGo/CLAUDE.md) |
 | `verden-site/` | Public website (Vite + React, prerendered) | [`verden-site/CLAUDE.md`](verden-site/CLAUDE.md) |
 
 `device-test/` is git-ignored scratch for on-watch builds, shared by both

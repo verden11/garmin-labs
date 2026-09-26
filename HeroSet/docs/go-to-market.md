@@ -21,7 +21,7 @@ Cross-app order; HeroFace's half is in [`../../HeroFace/docs/go-to-market.md`](.
 - [ ] A1. Ask Garmin why 14 of 80 products (and 48 of HeroFace's 117) are not listed; record the answer in "Where things stand". "Signature check failed" → Garmin developer forum.
 - [ ] A2. The API reads category 219 (Health & Fitness): check the dashboard saved Strength Training / Other, or whether the change needs review. (Description and What's New edits via Edit Details need no re-review.)
 - [ ] A3. Findability: mobile Connect IQ search lists HeroSet for "heroset" and "rep counter" (2026-09-25). Still to do: search "HeroFace" with a fēnix 9 or Forerunner 170 selected, for the reported paid-listings-hidden bug.
-- [ ] A4. Optional: a Venu screenshot showing `SWIPE: ADJUST` for the listing.
+- [ ] A4. Venu screenshot for the listing is in `listing/screens/6-review-touch.png` (2026-09-26). To do: upload it as an extra Screen Image on the HeroSet store listing.
 
 **B. Device and simulator checks** (post-release by owner call, [ADR-048](decisions.md#adr-048)/[050](decisions.md#adr-050)). A Venu 4 owner's report would be the first real evidence for the touch UI; Garmin relays such requests as `noreply@garmin.com` mail, so there is no address to reply to.
 - [ ] B1. FR965 on wrist, dev build: START finishes a set; START saves the manual and goal pickers; reps still count; picker hint reads `UP/DOWN`; Back after a lone dropped rep leaves the set ([ADR-050](decisions.md#adr-050)).

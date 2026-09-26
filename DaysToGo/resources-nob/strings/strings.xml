@@ -1,0 +1,65 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Days To Go</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). Words on the face. Labels, not sentences, so no language needs plural agreement. Singular is used only for exactly 1. -->
+    <string id="cap_day">DAG</string>
+    <string id="cap_days">DAGER</string>
+    <string id="cap_week">UKE</string>
+    <string id="cap_weeks">UKER</string>
+    <string id="cap_hours">TIMER</string>
+    <string id="cap_since_day">DAG SIDEN</string>
+    <string id="cap_since_days">DAGER SIDEN</string>
+    <string id="cap_today">I DAG</string>
+    <string id="cap_invalid">VELG DATO</string>
+    <!-- Bottom line: $1$ is thousands of steps, for example 12.3 gives 12.3K. -->
+    <string id="value_thousands">$1$K</string>
+
+    <!-- The watch's own settings screen. -->
+    <string id="settings_title">Days To Go</string>
+    <string id="menu_set_date">Angi dato</string>
+
+    <!-- Phone settings. -->
+    <string id="setting_event">Hendelse</string>
+    <string id="event_new_year">Nyttårsdag</string>
+    <string id="event_christmas">Første juledag</string>
+    <string id="event_custom">Egen dato</string>
+    <string id="setting_name">Navn (16 tegn, valgfritt)</string>
+    <string id="setting_month">Måned</string>
+    <string id="setting_day">Dag</string>
+    <string id="setting_year">År</string>
+    <string id="year_every">Hvert år</string>
+    <string id="setting_hour">Klokkeslett</string>
+    <string id="hour_none">Hele dagen</string>
+    <string id="setting_unit">Tell i</string>
+    <string id="unit_days">Dager</string>
+    <string id="unit_weeks">Uker og dager</string>
+    <string id="setting_datestyle">Datoformat</string>
+    <string id="datestyle_auto">Automatisk</string>
+    <string id="datestyle_day">Dag først</string>
+    <string id="datestyle_month">Måned først</string>
+    <string id="setting_footer">Nederste linje</string>
+    <string id="footer_none">Ingenting</string>
+    <string id="footer_battery">Batteri</string>
+    <string id="footer_steps">Skritt</string>
+    <string id="setting_accent">Aksentfarge</string>
+    <string id="accent_mint">Mynte</string>
+    <string id="accent_amber">Rav</string>
+    <string id="accent_sky">Himmel</string>
+    <string id="accent_pink">Rosa</string>
+    <string id="accent_violet">Fiolett</string>
+    <string id="accent_white">Hvit</string>
+
+    <string id="month_1">januar</string>
+    <string id="month_2">februar</string>
+    <string id="month_3">mars</string>
+    <string id="month_4">april</string>
+    <string id="month_5">mai</string>
+    <string id="month_6">juni</string>
+    <string id="month_7">juli</string>
+    <string id="month_8">august</string>
+    <string id="month_9">september</string>
+    <string id="month_10">oktober</string>
+    <string id="month_11">november</string>
+    <string id="month_12">desember</string>
+</strings>
