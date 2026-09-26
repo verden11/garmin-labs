@@ -166,6 +166,8 @@ A white-paper, near-black-ink program where each app contributes one saturated f
 
 **The Field Ink Rule.** Text, pictograms, buttons, focus rings and selection on a field use that field's ink, never paper-white. A new app must supply an ink pair that reads at body size on its field (HeroSet amber/carbon is 9.7:1; studio silver/night is 10.7:1).
 
+**The Selection Rule.** Selected text is always the inverse of the ground it sits on: on paper the highlight is ink with paper text; on any block painted with a field color (`.field`, `.note`, `.program__entry`, `.status`, the app bar) the highlight is the field ink with field-color text; on a button it is the field color with field ink. A highlight that matches its own ground is invisible, which reads as unselectable. Checked 2026-09-26 on all 11 routes in light and dark: every text element has at least 3:1 between highlight and ground and 4.5:1 between text and highlight.
+
 **The Field-Is-Ground Rule.** A field color is a ground, never a text color on paper. When a field hue must appear as text on paper, it gets its own ink token deepened for legibility (as studio-ink does for studio-silver; the studio mark's own bar is drawn in studio-ink for the same reason). Field color as text is allowed only on the ink field, as in the honesty headline (9.5:1).
 
 ## Typography

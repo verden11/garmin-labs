@@ -55,7 +55,9 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-::selection { background: var(--field); color: var(--on-field); }
+/* Selection is always the inverse of the ground it sits on, so it reads at once: ink on paper becomes paper on ink,
+   and on a field colour the field ink becomes the highlight. (A field-colour highlight on a field is invisible.) */
+::selection { background: var(--ink); color: var(--paper); }
 
 /* Links are ink, not browser blue: the page is black on white with thick cut rules, so a link is the same ink
    with a 2px underline that firms up to full ink and 3px on hover (the site's own rule weight). In prose
@@ -131,8 +133,9 @@ img { max-width: 100%; height: auto; display: block; }
 /* Field: a full-bleed app-colored region --------------------------------- */
 
 .field { background: var(--field); color: var(--on-field); }
-/* On the app color, invert the selection: the default one is field on field, i.e. invisible. */
-.app-bar ::selection, .field ::selection { background: var(--on-field); color: var(--field); }
+/* Every block painted with the field colour inverts: field ink as the highlight, field colour as its text. */
+.app-bar ::selection, .field ::selection, .note ::selection, .program__entry ::selection, .status ::selection,
+.app-bar::selection, .field::selection, .note::selection, .program__entry::selection, .status::selection { background: var(--on-field); color: var(--field); }
 .field a:not(.button) { color: inherit; }
 
 .button, .status {
@@ -250,9 +253,9 @@ img { max-width: 100%; height: auto; display: block; }
   .truth { background: var(--field); color: var(--on-field); }
   .truth h2 { color: inherit; }
 }
-.truth ::selection { background: var(--field); color: var(--on-field); }
+.truth ::selection, .truth::selection { background: var(--field); color: var(--on-field); }
 @media (prefers-color-scheme: dark) {
-  .truth ::selection { background: var(--on-field); color: var(--field); }
+  .truth ::selection, .truth::selection { background: var(--on-field); color: var(--field); }
 }
 
 /* Rank scale: ranks plotted on a day axis */
