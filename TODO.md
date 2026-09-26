@@ -34,7 +34,7 @@ Capture: run the app in the simulator on the product named, get the same state a
 - [ ] HeroFace 2, sim, all three goals met, 1-day streak (product not recorded in docs; note which you use). Name: `heroface-2-goals-met.png`.
 - [ ] HeroFace 5, `fr245` sim, STEPS / INT / MOVE (no-barometer fallback). Name: `heroface-5-no-barometer.png`.
 - [ ] HeroFace 3-4 (HeroSet mode, rank 2) are FR965 System → Screenshot files with no chassis. Open question: can the simulator show HeroSet mode? If not, leave these two plain.
-- [ ] After captures (Claude): update `listing/README.md`/`screenshots.md`, site copies in `verden-site/public/{heroset,heroface}/screens/` (never rename published URLs), re-render hero + cover, then upload to both store listings.
+- [ ] After captures (Claude): update `listing/README.md`/`screenshots.md`, site copies in `site/public/{heroset,heroface}/screens/` (never rename published URLs), re-render hero + cover, then upload to both store listings.
 
 ## Simulator
 
@@ -45,6 +45,6 @@ Capture: run the app in the simulator on the product named, get the same state a
 ## Other
 
 - [ ] B4. Native-speaker read of 1.1.1 touch-hint strings (`deu`, `lit`, `pol`).
-- [ ] **Due 2026-10-10:** DMARC `p=none` → `p=quarantine` after checking rua reports in hello@verden.watch. Then delete the "Due" line in `verden-site/CLAUDE.md`.
+- [ ] **Due 2026-10-10:** DMARC `p=none` → `p=quarantine` after checking rua reports in hello@verden.watch. Then delete the "Due" line in `site/CLAUDE.md`.
 - [ ] Later: private beta, paid-launch announcement.
 - [ ] Next feature: 1.2.0 Connect sync (ADR-043), gated on FR965 spike.

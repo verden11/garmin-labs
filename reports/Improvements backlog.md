@@ -35,7 +35,7 @@ Ranked by gain/effort, strongest evidence first.
 
 Found by a background sub-agent running a real axe-core accessibility
 scan (not just structural checks) against the built `dist/` output via
-the pre-installed Chromium. `verden-site/src/styles/global.css:117`:
+the pre-installed Chromium. `site/src/styles/global.css:117`:
 `.field a { color: inherit; }` has CSS specificity (0,1,1) — a type
 selector (`a`) plus a class (`.field`) — which **beats** `.button`'s
 `color: var(--field)` at specificity (0,1,0), regardless of which rule
@@ -47,7 +47,7 @@ with a live store link (`/heroset/`, `/heroface/`, both hero section and
 closing-band CTA, 4 instances total).
 
 **Confirmed live in production, not just on this session's branch**:
-`git show main:verden-site/src/styles/global.css` has the exact same
+`git show main:site/src/styles/global.css` has the exact same
 bug — this shipped to verden.watch, the site's actual store-conversion
 button was unreadable for real visitors until this fix.
 
@@ -72,7 +72,7 @@ browser `getComputedStyle` check on the live `.button` element —
 just built) produces zero console/CSP errors — the fix doesn't interact
 with the CSP in this file's other entries.
 
-### ✅ `verden-site`: JSON-LD structured data on both app landing pages — shipped
+### ✅ `site`: JSON-LD structured data on both app landing pages — shipped
 
 Found as a gap by the same sub-agent: zero `application/ld+json` anywhere
 on the site (confirmed via grep on `src/` and `dist/`, and a full read of
@@ -98,12 +98,12 @@ executable script by the browser, so it isn't subject to `script-src`
 at all. `</script>` is escaped inside the embedded JSON as a defensive
 measure (can't currently occur in this data, but cheap to guard).
 
-### ✅ `verden-site`: Netlify header hardening (HSTS + Permissions-Policy) — shipped
+### ✅ `site`: Netlify header hardening (HSTS + Permissions-Policy) — shipped
 
 Also from the same sub-agent's Netlify config read. Added to
 `netlify.toml`: `Strict-Transport-Security: max-age=63072000;
 includeSubDomains` (site is HTTPS-only via Netlify-managed cert per
-`verden-site/CLAUDE.md`; `includeSubDomains` is safe since HSTS only
+`site/CLAUDE.md`; `includeSubDomains` is safe since HSTS only
 affects HTTP(S), not the mail subdomain's SMTP/MX records) and
 `Permissions-Policy: camera=(), microphone=(), geolocation=()` (zero
 client JS site, no reason any of these should ever be requested).
@@ -113,7 +113,7 @@ custom domains — if so this header is a harmless duplicate; if not, it's
 now explicit. Needs a `curl -I` against the live deploy to confirm either
 way, not possible from here.
 
-### ✅ `verden-site`: `vite` patch bump 8.3.0 → 8.3.1 — shipped
+### ✅ `site`: `vite` patch bump 8.3.0 → 8.3.1 — shipped
 
 `npm outdated` (run by the sub-agent) found one outdated dependency, a
 patch release already inside the existing `^8.3.0` range in
@@ -122,14 +122,14 @@ vite` picked it up; `npm run build` still clean afterward. No other
 outdated or unused dependencies found (checked: `react`, `react-dom`,
 `@fontsource-variable/archivo`, and all devDeps confirmed actually used).
 
-### ✅ `verden-site`: Open Graph / Twitter Card / canonical tags — shipped `4d275e7`
+### ✅ `site`: Open Graph / Twitter Card / canonical tags — shipped `4d275e7`
 
 `entry-server.tsx`'s `head` now emits `og:*`, `twitter:*` and a canonical
 link per page, absolute URLs via a new `studio.origin` constant in
 `site.ts`. Verified: `npm run build` clean, `dist/heroset/index.html`
 inspected directly — all tags present and absolute.
 
-### ✅ `verden-site`: `robots.txt` + `sitemap.xml` — shipped `4d275e7`
+### ✅ `site`: `robots.txt` + `sitemap.xml` — shipped `4d275e7`
 
 `public/robots.txt` added; `prerender.ts` now also writes
 `dist/sitemap.xml` from the same `routes` array the HTML pages come from,
@@ -151,9 +151,9 @@ Re-checked before proposing a doc fix: a comment already exists at
 the face finds it"), present since the repo's original import — nothing to
 add.
 
-### ✅ `verden-site`: `Content-Security-Policy` header — shipped, needs one post-deploy check
+### ✅ `site`: `Content-Security-Policy` header — shipped, needs one post-deploy check
 
-Added to `verden-site/netlify.toml`: `default-src 'self'; img-src 'self';
+Added to `site/netlify.toml`: `default-src 'self'; img-src 'self';
 style-src 'self' 'unsafe-inline'; script-src 'self'; base-uri 'self';
 frame-ancestors 'none'; object-src 'none'; form-action 'none'`.
 `'unsafe-inline'` on styles is required and is a real, documented
@@ -167,7 +167,7 @@ colors to CSS classes instead of inline `style`) would drop
 container can't check**: a `curl -I` against the live Netlify deploy to
 confirm the header reaches the browser.
 
-### ✅ `verden-site`: screenshot `width`/`height` now match file dimensions — shipped
+### ✅ `site`: screenshot `width`/`height` now match file dimensions — shipped
 
 Added optional `size` to the `Screenshot` type (defaults to 454), set
 `size: 240` on HeroFace's two 240×240 shots in `facts.ts`, both
@@ -281,7 +281,7 @@ builder should confirm the guard doesn't change any of the four
 `HeroSetScreenFitTest` states' rendering (it shouldn't, since none hits
 the branch).
 
-### 4. `verden-site`: the one non-Latin-script word on the site silently falls back to a system font
+### 4. `site`: the one non-Latin-script word on the site silently falls back to a system font
 
 Found by a background sub-agent running a real axe-core + font-coverage
 check. Both app landing pages list all 15 supported languages, ending in
@@ -337,7 +337,7 @@ device-capability tables. Both sub-agents independently used the phrase
 items surfaced (one dead parameter, one stale doc, one unreachable-but-
 worth-guarding division), nothing structural.
 
-### ✅ `verden-site`: real Chromium pass — no findings, site is clean
+### ✅ `site`: real Chromium pass — no findings, site is clean
 
 Actually run this time (previous entries above only grepped source/build
 output): installed `playwright-core` in the scratchpad (not the project —
@@ -357,7 +357,7 @@ concerns visible in `domContentLoadedEventEnd` (18–45ms across all 7
 pages, served locally so not representative of real network latency, but
 confirms no render-blocking resource pileup).
 
-### ✅ `verden-site`: real axe-core contrast/ARIA scan — found the one critical bug above, everything else clean
+### ✅ `site`: real axe-core contrast/ARIA scan — found the one critical bug above, everything else clean
 
 A background sub-agent went deeper than the Chromium pass above: ran a
 real `axe.run()` (WCAG 2.0/2.1 A+AA + best-practice rules) against all 7

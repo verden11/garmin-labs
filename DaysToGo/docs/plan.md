@@ -5,7 +5,7 @@ Written 2026-09-26 for an implementer agent that has none of this conversation's
 the owner can make. Where it says **[GATE]**, the next phase depends on the result.
 
 The product is defined in [`spec.md`](spec.md); the evidence is in [`reports/Countdown face research.md`](../../reports/Countdown%20face%20research.md)
-and `research_notes/Countdown face research/`. Verified code you copy from is in [`reference/`](reference/). Read those three first.
+and `research_notes/Countdown face research/`. The verified first draft of the logic that phase 1 copied from has been superseded by [`../source/`](../source/) and [`../tools/`](../tools/); where this plan says `docs/reference/`, it means that draft. Read the spec, the report and the notes first.
 
 ## Implementation status (2026-09-26)
 
@@ -18,25 +18,25 @@ and `research_notes/Countdown face research/`. Verified code you copy from is in
 | 4 Real face | Done in code; **owner has not looked at it in the simulator** (design gate open) |
 | 5 Screen-fit tests | Done: ten sizes pass in the simulator (`tools/fit_all.sh`) |
 | 6 Languages | Done, machine-drafted, unread by native speakers; not run in a non-English simulator |
-| 7 Docs | Done except `DaysToGo/docs/reference/` is still present (see below) |
+| 7 Docs | Done |
 | 8 Listing and site | Written; images missing; site built, **not deployed** |
 | 9 Device evidence and submission | Submitted 2026-09-26 without the beta round trip (owner's decision); wear day and always-on night not yet reported |
 | 10 After approval | Not started |
 
-`docs/reference/` (the verified first draft) still exists because the delete was not run; its files are copied into `source/` and `tools/`, and `monkey.jungle` sets `base.sourcePath = source` so it is not compiled. Delete it when convenient.
+The text of phases 1 to 8 below is the original plan; where it says `docs/reference/` it means the first draft of the code, which is superseded by `source/` and `tools/` (and its folder is to be deleted). Nothing builds from it: `monkey.jungle` sets `base.sourcePath = source`.
 
 ## 0. Ground rules (they override anything below if in conflict)
 
 1. **Do not stage, commit, stash or reset.** The git index is mixed staged/unstaged and belongs to the owner. Leave everything in the working tree and end each phase by listing the files you created or changed.
 2. **The signing key** is `~/.garmin-connectiq/keys/developer_key`, outside the repo. Never copy it in, never commit any `.der` or `.pem`. The project `.gitignore` (phase 1) copies HeroFace's.
 3. **Simulator passing is not device proof.** Every report says, per watch product, what was run in the simulator and what (only the owner's FR965, and only after phase 3) ran on a wrist. MIP contrast, battery, always-on ghosting and phone settings delivery stay "unverified" until the owner's tests say otherwise.
-4. **Behaviour change → update the doc that describes it in the same session. A durable decision → an ADR** in `docs/decisions.md` (list in phase 7). User-facing claims live in two places: the listing and `verden-site`; change both together and never change or remove a published URL.
+4. **Behaviour change → update the doc that describes it in the same session. A durable decision → an ADR** in `docs/decisions.md` (list in phase 7). User-facing claims live in two places: the listing and `site`; change both together and never change or remove a published URL.
 5. **Code rules** (from `HeroFace/CLAUDE.md`, which this project mirrors): every function has typed parameters and an `as` return type; no `as Any`; cast only after `instanceof` or a null guard; no magic numbers (tunables and keys in `DaysToGoConfig`, geometry in `DaysToGoLayout`, colours in `DaysToGoPalette`, words in `strings.xml`); text fit is measured, never guessed; render only in `onUpdate`, gather data in `DaysToGoReadings`, draw from a `DaysToGoState`; one class per file with the `DaysToGo` prefix; functions of about 30 lines or fewer, files about 250 or fewer; comments explain why; property key spellings never change once shipped.
 6. **Forbidden in this app** (each was found to hurt a rival or a wearer; the research notes say why): `type="date"` settings; `numeric` settings with min/max; `Time.Moment` arithmetic for day counts; `Application.Storage` (Properties only); any permission in the manifest; bitmaps or per-device resources; the network; notifications or heart-rate/weather/complication features; seconds.
 7. **Build with warnings and strict typing on** and keep them at zero: `-w --typecheck 3`.
 8. **Trust the printed `PASSED (…)` line, not an exit code.** The simulator wedges every few runs; `tools/run_tests.sh` restarts it once. A run that prints nothing means wedged, not failed.
 9. **Do not invent evidence**: no reviews, downloads, screenshots, battery figures or accuracy claims in any doc or listing.
-10. **Edits outside `DaysToGo/` are limited to**: the root `CLAUDE.md` project table (one row), the root `README.md` layout note if it lists projects, and `verden-site/` (phase 8 only). Ask before touching `HeroSet/` or `HeroFace/`. Copy from `HeroFace/source/` at commit `d63d30d`; do not import from it.
+10. **Edits outside `DaysToGo/` are limited to**: the root `CLAUDE.md` project table (one row), the root `README.md` layout note if it lists projects, and `site/` (phase 8 only). Ask before touching `HeroSet/` or `HeroFace/`. Copy from `HeroFace/source/` at commit `d63d30d`; do not import from it.
 
 **Never decide alone**: the store name, the price, the visual identity, the launcher icon, any upload to the Connect IQ store (beta or release), any phone or watch test, a site deploy, and shipping machine translations that no native speaker has read.
 
@@ -44,12 +44,9 @@ and `research_notes/Countdown face research/`. Verified code you copy from is in
 
 ```
 Countdown/  (rename to DaysToGo/ once the name is confirmed; use `mv`, it is untracked)
-  docs/spec.md  docs/plan.md  docs/reference/   ← given
-reference/source/*.mc            logic (verified): Config, Calendar, Event, LocalTime, Result, Countdown
-reference/source/test/*.mc       15 unit tests (all pass on fr965, fenix6pro, venu2s in SDK 9.2.0)
-reference/source/settings/*.mc   on-watch date picker (compiles strict; NOT yet run)
-reference/tools/gen_settings.py  generates settings.xml, properties.xml and the number strings
-reference/tools/run_tests.sh     build + run tests on one device, restarts a wedged simulator
+  docs/spec.md  docs/plan.md  ...            docs (see docs/)
+  source/*.mc  source/test/*.mc  source/settings/*.mc   the app (was docs/reference/ in the original plan)
+  tools/gen_settings.py  tools/run_tests.sh  ...        generators and test runners
 ```
 
 Reference for HeroFace patterns to copy (adapt names and geometry, do not depend on them): `HeroFaceLayout.mc` (proportional rows, circle chord insets, ring sweep), `HeroFaceDraw.mc` (measured text, `firstFitting`), `HeroFaceText.mc` (cached string loading), `HeroFaceSleep.mc` (always-on grid shift), `HeroFaceReadings.timeText` (12/24 h), `HeroFaceSettings.mc` (Properties read with fallback), `HeroFacePalette.mc`, `source/test/HeroFaceScreenFitTest.mc` (`everyStateFitsThisDisplay`), `docs/development.md` (commands, translation parity script), `listing/` (form fields, generators).
@@ -172,7 +169,7 @@ Create, mirroring HeroFace's shape: `PRODUCT.md`, `DESIGN.md` (frontmatter token
 
 - `listing/README.md` (paste-ready, fields in form order, exactly like `HeroFace/listing/README.md`): title (max 50), description (max 4000, plain text, first sentence carries the weight, last line the support URL), version, what's new, tags (only things the app does), category, the No answers, images, email `hello@verden.watch`. `listing/NOTES.md` holds the why. **Descriptions may only state what the release contract allows**; no watch count; no battery figure; no "works on X" for a watch that only the simulator has seen. Review guidelines: no brand names, no rating manipulation, disclose the refund position if paid.
 - Screenshots: **[OWNER]** captures simulator or device screens; the agent adapts the generators in `HeroFace/listing/src/` and writes `listing/screenshots.md`. One device is enough.
-- `verden-site/src/apps/<slug>/`: copy `heroface/` (its landing, support and privacy pages, `facts.ts`, `app.ts`), add the line in `src/apps/index.ts`, check that `npm run build` writes `dist/days-to-go/index.html` (existing slugs are single words; `appUrl` in `src/urls.ts` accepts a hyphen), add a row to the app table in `verden-site/CLAUDE.md`. Privacy page: no permissions, no data leaves the watch, no account. Support page: how to set the date on the phone **and on the watch**, Garmin Express as the fallback, what "Every year" means, the 29 Feb rule. The watch list may only name watches in a **live** store build; before approval the page carries no list and the store button falls back to "Coming soon". `npm run build` must pass. **Do not deploy**: [OWNER] runs `npm run deploy` (support and privacy must be live before the store submission, because reviewers and users open them).
+- `site/src/apps/<slug>/`: copy `heroface/` (its landing, support and privacy pages, `facts.ts`, `app.ts`), add the line in `src/apps/index.ts`, check that `npm run build` writes `dist/days-to-go/index.html` (existing slugs are single words; `appUrl` in `src/urls.ts` accepts a hyphen), add a row to the app table in `site/CLAUDE.md`. Privacy page: no permissions, no data leaves the watch, no account. Support page: how to set the date on the phone **and on the watch**, Garmin Express as the fallback, what "Every year" means, the 29 Feb rule. The watch list may only name watches in a **live** store build; before approval the page carries no list and the store button falls back to "Coming soon". `npm run build` must pass. **Do not deploy**: [OWNER] runs `npm run deploy` (support and privacy must be live before the store submission, because reviewers and users open them).
 
 ### Phase 9. Device evidence and submission [OWNER] (≈ 1 day of wear + 72 h review)
 
@@ -189,10 +186,10 @@ Create, mirroring HeroFace's shape: `PRODUCT.md`, `DESIGN.md` (frontmatter token
 
 ## 3. Definition of done for the whole project
 
-- All unit tests and the ten screen-fit runs pass, strict typing, zero warnings.
+- All unit tests and the ten screen-fit runs pass, strict typing, zero warnings (bar the launcher-icon size notices).
 - Phase 3 results recorded, and `spec.md` updated to match what the watch actually did.
 - Memory gate met on the smallest products; always-on frame checked in the heat map.
-- Docs, ADRs, listing, site pages written; `docs/reference/` removed.
+- Docs, ADRs, listing, site pages written; the superseded `docs/reference/` draft deleted (owner's `rm -r`).
 - Every report states: FR965 device evidence only; everything else simulator only.
 
 ## 4. Stop and ask the owner when

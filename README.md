@@ -9,7 +9,7 @@ that serves all of their public pages.
 | [`HeroSet/`](HeroSet) | Watch app — daily push-ups, sit-ups, squats with automatic rep counting, XP, rank and streak. 80 products. | 1.1.1 live |
 | [`HeroFace/`](HeroFace) | Watch face — time-first, in HeroSet's visual language. Works standalone; richer with HeroSet installed. 117 round products. | 1.0.1 live |
 | [`DaysToGo/`](DaysToGo) | Watch face — days until a date, one big number, counted in whole calendar days. 117 round + 3 rectangular products. | Built, simulator-tested; not submitted |
-| [`verden-site/`](verden-site) | The public site: studio home plus landing, support and privacy pages per app. Live at **https://verden.watch/** | Live |
+| [`site/`](site) | The public site: studio home plus landing, support and privacy pages per app. Live at **https://verden.watch/** | Live |
 
 Each folder is built and released independently. They share this repo so
 cross-cutting changes land in one commit.
@@ -25,7 +25,7 @@ HeroSet/ · HeroFace/ · DaysToGo/
   listing/     the store listing: README.md (paste-ready form answers, description,
                What's New per version), screenshots.md, screens/, src/, images
   source/  resources*/  manifest*.xml  *.jungle
-verden-site/   the public website (its own README, CLAUDE.md, DESIGN.md)
+site/   the public website (its own README, CLAUDE.md, DESIGN.md)
 reports/       research and review reports; the notes behind each in research_notes/<report title>/
 ```
 
@@ -49,7 +49,7 @@ Each project builds on its own; see its `README.md` for the full commands.
 cd HeroSet     && monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y $KEY
 cd HeroFace    && monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y $KEY
 cd DaysToGo    && monkeyc -d fr965 -f monkey.jungle -o bin/DaysToGo.prg -y $KEY
-cd verden-site && npm install && npm run dev
+cd site && npm install && npm run dev
 ```
 
 The Connect IQ signing key lives outside this repo at
@@ -57,6 +57,6 @@ The Connect IQ signing key lives outside this repo at
 
 ## Hosting
 
-Firebase Hosting (project `verden-watch-87da4`) serves `verden-site/dist`; deploy with
-`npm run deploy` inside `verden-site/`.
-Details in [`verden-site/CLAUDE.md`](verden-site/CLAUDE.md).
+Firebase Hosting (project `verden-watch-87da4`) serves `site/dist`; deploy with
+`npm run deploy` inside `site/`.
+Details in [`site/CLAUDE.md`](site/CLAUDE.md).

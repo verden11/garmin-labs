@@ -6,7 +6,7 @@
 
 web
 
-The only web surface is the HeroFace page in `../verden-site`. The product itself is a native Garmin Connect IQ watch face (Monkey C), which is neither web, iOS nor Android. Watch UI follows [`docs/plan.md`](docs/plan.md) and HeroSet's watch conventions, not web conventions.
+The only web surface is the HeroFace page in `../site`. The product itself is a native Garmin Connect IQ watch face (Monkey C), which is neither web, iOS nor Android. Watch UI follows [`docs/plan.md`](docs/plan.md) and HeroSet's watch conventions, not web conventions.
 
 ## Users
 

@@ -27,7 +27,7 @@ Gates still required (the owner may waive any of them too, but they are cheap): 
 | 6 | Look approved | You have seen the face in the simulator on at least `fr965` and `fenix7x` (or replaced the direction with your own mock-up, then `spec.md` and `DESIGN.md` are updated) | **Open** |
 | 7 | Real assets | Launcher icon, cover 500×500, hero 1440×720 (optional), one device's screenshots, device icons (optional); paths filled in `listing/README.md` and `listing/screenshots.md` written | **Partly done**: one screenshot (`listing/screens/1-countdown.png`) and a cover (`cover-500.png`) exist; the real launcher icon is still the placeholder; hero and device icons optional |
 | 8 | Languages decided | Ship English only, or English plus the 14 machine-drafted on-watch languages; a native speaker has read any language you ship as store copy | **Open** |
-| 9 | Site live | `cd ../verden-site && npm run build && npm run deploy`; then `/days-to-go/support/` and `/days-to-go/privacy/` open without login. Reviewers and users open them | **Open**. Built, not deployed. Deploying also shows a "Coming soon" card on the studio home |
+| 9 | Site live | `cd ../site && npm run build && npm run deploy`; then `/days-to-go/support/` and `/days-to-go/privacy/` open without login. Reviewers and users open them | **Done 2026-09-26**: `/days-to-go/`, `/support/` and `/privacy/` return 200 on verden.watch (checked after the owner's deploy). The landing page's store button says "Coming soon" until `storeUrl` is set |
 | 10 | Price confirmed | Paid, the lowest tier (USD 2.00, shown as $1.99 in the US, same as HeroFace and HeroSet), (ADR-002). The risk is on record: 15 paid countdown faces all at 10 downloads or fewer | Decided; confirm at submit |
 | 11 | Baseline recorded | Download buckets, review counts and ratings of HeroSet and HeroFace on the submission day, plus their store links, written in `CHANGELOG.md` or the memory file | **Open** |
 | 12 | Tests green | `tools/fit_all.sh` and `tools/run_tests.sh fr965` pass on the commit you submit | Last sweep: 42 tests, ten sizes, fenix6pro, venu2s and the two rectangles (simulator) |
@@ -53,7 +53,7 @@ Gates still required (the owner may waive any of them too, but they are cheap): 
 
 1. Open the live listing page. Check the title, description, images and price. Check the support and privacy links open.
 2. **Price review date:** approval date + 45 days. Write "Price review due <date>" in `../CLAUDE.md` (project file) and add it to the memory index. Then follow [`spec.md`](spec.md) "Price review": email Connect IQ developer support before any flip, never cancel the merchant account, proposed rule to confirm: fewer than 5 sales in 45 days and a download bucket of 10 or lower.
-3. In `verden-site/src/apps/days-to-go/app.ts` set `storeUrl`; add the live store's device list to `facts.ts` only once it is shown there. Rebuild and redeploy the site.
+3. In `site/src/apps/days-to-go/app.ts` set `storeUrl`; add the live store's device list to `facts.ts` only once it is shown there. Rebuild and redeploy the site.
 4. Update the root `README.md` status and `CLAUDE.md` price line.
 5. Day 60: run the success test in `spec.md` (the day-45 price review comes first).
 

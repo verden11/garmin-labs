@@ -4,7 +4,7 @@
 name: Deploy to Firebase Hosting on PR
 on:
   pull_request:
-    paths: ['verden-site/**', '.github/workflows/firebase-hosting-*.yml']
+    paths: ['site/**', '.github/workflows/firebase-hosting-*.yml']
 permissions:
   checks: write
   contents: read
@@ -19,12 +19,12 @@ jobs:
         with:
           node-version: 26
           cache: npm
-          cache-dependency-path: verden-site/package-lock.json
+          cache-dependency-path: site/package-lock.json
       - run: npm ci && npm run build
-        working-directory: verden-site
+        working-directory: site
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_VERDEN_WATCH_87DA4 }}
           projectId: verden-watch-87da4
-          entryPoint: verden-site
+          entryPoint: site

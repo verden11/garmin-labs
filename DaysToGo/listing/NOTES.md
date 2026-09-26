@@ -10,7 +10,7 @@ The full runbook, with the order, the timing and what to do after approval, is [
 2. **Waived by the owner on 2026-09-26** (`../docs/publish-checklist.md`): the beta round trip on the FR965 (T2 phone date survives, T4 picker and phone do not destroy each other). It can still be run any time with a Beta App upload. Until it is, the description must not promise that the phone saves the date, and the "set it on the watch" sentence stays out.
 3. The always-on night and wear day on the FR965 (checklist gates 4 and 5).
 4. Real launcher icon (the file in `resources/drawables/` is a simple placeholder: a mint ring and a "1"), cover, hero and screenshots.
-5. Site pages live (`npm run deploy` in `verden-site/`): support and privacy must be reachable before review.
+5. Site pages live (`npm run deploy` in `site/`): support and privacy must be reachable before review.
 6. Native-speaker read of any translation you ship as store copy (see "Languages").
 
 ## Edits that depend on the device test (only if the beta round trip is run later)

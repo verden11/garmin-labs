@@ -52,7 +52,7 @@ Rules:
 |---|---|
 | 0 | **Spike on FR965:** does Connect web **and** phone show the string lap field and blank unit (`fit_unit_none`)? Does `addLap()` right after `start()` put the boundary where expected? Decides string vs numeric fallback. |
 | 7 | Device acceptance below, dev build. |
-| 8 | Only after 7: `Fit` + `FitContributor` into `manifest-store.xml`, stop excluding `sync` in `store.jungle`, toggle into `resources-store/` menu, delete `HeroSetSyncCoordinatorOff.mc`. Same session: `../verden-site` privacy + support, store description, [`release-contract.md`](release-contract.md) sync rows, go-to-market "never promise". Existing users may need to approve the new permission. |
+| 8 | Only after 7: `Fit` + `FitContributor` into `manifest-store.xml`, stop excluding `sync` in `store.jungle`, toggle into `resources-store/` menu, delete `HeroSetSyncCoordinatorOff.mc`. Same session: `../site` privacy + support, store description, [`release-contract.md`](release-contract.md) sync rows, go-to-market "never promise". Existing users may need to approve the new permission. |
 
 ## Device acceptance (FR965; simulator isn't proof, [ADR-022](decisions.md#adr-022)/[023](decisions.md#adr-023))
 

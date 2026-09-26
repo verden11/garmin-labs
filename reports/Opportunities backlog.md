@@ -4,7 +4,7 @@ Status: 2026-09-25, refined same day after a deeper pass (API research +
 five build-ready product specs added to what was originally three
 lightly-sketched concepts). Grounded in what's already documented
 (`HeroSet/docs/`, `HeroFace/docs/`, `HeroFace/PRODUCT.md`,
-`verden-site/CLAUDE.md`) so nothing here contradicts a settled decision or
+`site/CLAUDE.md`) so nothing here contradicts a settled decision or
 re-proposes something already rejected. This is planning text plus code
 structure/file plans — no visual mockups. Visual design for anything here
 belongs in the design tool (uizze.com) once connected; keeping this doc
@@ -31,7 +31,7 @@ fetching the primary source directly).
 ## 1. New, distinct watch faces — build-ready specs
 
 Verden is explicitly set up for more than one app
-(`verden-site/CLAUDE.md`: "HeroSet first app; more apps come later"), and
+(`site/CLAUDE.md`: "HeroSet first app; more apps come later"), and
 HeroFace already proved the pattern: shared drawing/layout engine
 (`HeroFaceDraw`, measured-text-fit, proportional `HeroFaceLayout`), one
 private complication for HeroSet integration (ADR-044), one build per shape.
@@ -180,7 +180,7 @@ Field Face doesn't need, because MIP has no AOD mode to draw for.
 
 **Store/site work** (not counted above, same pattern as HeroFace's own
 phase 2, "partly done" per `HeroFace/docs/plan.md`): listing copy,
-per-screen-size screenshots from the simulator, `verden-site/src/apps/
+per-screen-size screenshots from the simulator, `site/src/apps/
 field/` (landing/support/privacy), cross-linked from HeroFace's and
 HeroSet's listings.
 
@@ -663,10 +663,10 @@ phase-4 items).
   settings") becomes a brand asset, not just a per-app setting — worth a
   one-paragraph ADR the day a second face ships, so the pattern is
   deliberate rather than accidental.
-- **verden-site: a studio-level "family" page once app #2 (HeroFace) and any
+- **site: a studio-level "family" page once app #2 (HeroFace) and any
   future face ship**, so a buyer of one Verden app discovers the others —
   currently `src/apps/index.ts` lists apps but the home page's job as a
-  cross-sell surface isn't described in `verden-site/CLAUDE.md` one way or
+  cross-sell surface isn't described in `site/CLAUDE.md` one way or
   the other; worth deciding explicitly rather than defaulting silently.
 - **HeroSet: the glance view (`ideas.md` #1) and this file's Rank Face (§1B)
   are complementary, not competing** — a glance answers "am I done today"
