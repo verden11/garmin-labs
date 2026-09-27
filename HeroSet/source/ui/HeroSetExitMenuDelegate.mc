@@ -22,6 +22,11 @@ class HeroSetExitMenuDelegate extends WatchUi.Menu2InputDelegate {
     function save() as Void {
     }
 
+    // Overridden by the workout end menu to clear its recoverable draft
+    // (ADR-052): a set the user threw away must not resume next time.
+    function discard() as Void {
+    }
+
     function onSelect(item as WatchUi.MenuItem) as Void {
         var id = item.getId();
         if (id == :save) {
@@ -30,6 +35,7 @@ class HeroSetExitMenuDelegate extends WatchUi.Menu2InputDelegate {
         } else if (id == :discard) {
             // Nothing banked means nothing to validate either — saving is
             // the only place a validation trial is logged (ADR-026).
+            discard();
             HeroSetSaveFeedback.showDiscarded();
             leave();
         } else {

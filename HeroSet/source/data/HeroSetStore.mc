@@ -31,6 +31,14 @@ class HeroSetStore {
     // Retired with the one-activity-per-day design (ADR-043): watches that
     // ran a dev build may still hold "hero_sync_day". Never reuse the name.
     const VALIDATION_LOG_KEY = "hero_validation_log";
+    // Recoverable workout draft (ADR-052): the running detected count of an
+    // in-progress set, checkpointed periodically so a set killed by the
+    // glance-launch idle timeout resumes instead of vanishing. Day 0 never
+    // matches a real day key, so it doubles as "no draft".
+    const DRAFT_DAY_KEY = "hero_draft_day";
+    const DRAFT_EXERCISE_KEY = "hero_draft_exercise";
+    const DRAFT_COUNT_KEY = "hero_draft_count";
+    const NO_DRAFT_DAY = 0;
 
 
     private var _storage as HeroSetStorage;
@@ -260,6 +268,40 @@ class HeroSetStore {
         }
         learning[exerciseKeyString(exercise)] = state;
         _set(LEARNING_KEY, learning);
+    }
+
+    // ------------------------------------------------------------------
+    // Recoverable workout draft (ADR-052)
+    // ------------------------------------------------------------------
+
+    // Checkpointed periodically by the live workout screen; not a saved rep
+    // (XP/streak/complication are untouched), just enough to resume counting
+    // instead of restarting at 0 after the process is killed.
+    function saveWorkoutDraft(exercise as Lang.Symbol, detected as Lang.Number) as Void {
+        _set(DRAFT_DAY_KEY, _clock.todayKey());
+        _set(DRAFT_EXERCISE_KEY, exerciseKeyString(exercise));
+        _set(DRAFT_COUNT_KEY, detected);
+    }
+
+    // Terminal points only (Finish, Save, Discard): a set that ended on
+    // purpose leaves nothing to resume.
+    function clearWorkoutDraft() as Void {
+        _set(DRAFT_DAY_KEY, NO_DRAFT_DAY);
+    }
+
+    // Null unless today's draft is for this exact exercise: a different
+    // exercise's leftover draft must never bleed into a fresh one, and a
+    // draft from an earlier day is exactly as stale as any other daily value.
+    function getWorkoutDraft(exercise as Lang.Symbol) as Lang.Number? {
+        var day = readNumber(DRAFT_DAY_KEY);
+        if (day != _clock.todayKey()) {
+            return null;
+        }
+        var stored = _storage.getValue(DRAFT_EXERCISE_KEY);
+        if (!(stored instanceof Lang.String) || !stored.equals(exerciseKeyString(exercise))) {
+            return null;
+        }
+        return readNumber(DRAFT_COUNT_KEY);
     }
 
     // ------------------------------------------------------------------

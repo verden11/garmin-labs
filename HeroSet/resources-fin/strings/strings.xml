@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP TASOLLE $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP JÄLLELLÄ</string>
     <string id="dashboard_mission_done">$1$ VALMIS</string>
-    <string id="dashboard_streak">$1$ PÄIVÄN PUTKI</string>
-    <string id="dashboard_streak_short">PUTKI $1$</string>
-    <string id="dashboard_streak_none">EI PUTKEA</string>
+    <string id="dashboard_streak" scope="glance">$1$ PÄIVÄN PUTKI</string>
+    <string id="dashboard_streak_short" scope="glance">PUTKI $1$</string>
+    <string id="dashboard_streak_none" scope="glance">EI PUTKEA</string>
     <string id="dashboard_hint">START: VALIKKO</string>
-    <string id="dashboard_mission_complete">TEHTÄVÄ VALMIS</string>
+    <string id="dashboard_mission_complete" scope="glance">TEHTÄVÄ VALMIS</string>
     <string id="dashboard_storage_warning">! EI VOITU TALLENTAA</string>
 
     <string id="today_progress">TÄNÄÄN $1$/$2$</string>

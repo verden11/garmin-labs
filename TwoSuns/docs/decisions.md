@@ -15,7 +15,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 007 | Always-on is time, Body Battery value and sun sentence, dim, drifting; no ring, no curve | Active (device check open) |
 | 008 | No verdicts on Body Battery; the curve setting is called "Energy curve" | Active |
 | 009 | Device set: 69 products at API 4.2+ (tier A); tier B is 1.1 | Active |
-| 010 | Name **Two Suns** (working name), slug `two-suns` | **Open**: owner to confirm |
+| 010 | Name **Two Suns**, slug `two-suns` | Active (confirmed 2026-09-27) |
 | 011 | The 24-hour ring is wall-clock | Active |
 | 012 | The local UTC offset is derived exactly from the clock | Active |
 | 013 | Sky states: the calculation fills what Garmin leaves null | Active |
@@ -24,6 +24,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 016 | Rows are stacked from font heights; fixed drop order on small screens | Active |
 | 017 | Ring, curve and glyph encodings; state is never colour alone | Active (look **not approved**) |
 | 018 | List settings only | Active |
+| 019 | On-watch Customize (`getSettingsView`) | Active (confirmed on FR965, 2026-09-27) |
 
 ## ADR-001: Concept
 
@@ -91,10 +92,10 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 ## ADR-010: Name and slug
 
-**Decision.** **Two Suns** is a working name; site slug `two-suns`; code prefix `TwoSuns`; runner-up **Sun Battery**. The slug is permanent once a site page is published. The app id (`6c3c5a3d-b312-4c0f-bf37-2a3fc3a79580`) never changes once published.
+**Decision.** **Two Suns**, confirmed by the owner 2026-09-27; site slug `two-suns`; code prefix `TwoSuns`; runner-up **Sun Battery**, not taken. The slug is permanent once a site page is published. The app id (`6c3c5a3d-b312-4c0f-bf37-2a3fc3a79580`) never changes once published.
 **Why.** Zero store collisions for both in a keyword search, no trademark search done. "Sun Battery" invites confusion with a device-battery face.
-**Evidence.** Desk research (`naming.md`). Owner has not confirmed.
-**Reversed by.** The owner's choice or a trademark finding. The rename is mechanical: `strings.xml` `AppName`, the site slug, the docs; the code prefix and folder can stay or be renamed before the first commit.
+**Evidence.** Desk research (`naming.md`); owner confirmed 2026-09-27, no trademark search done.
+**Reversed by.** A trademark finding. The rename is mechanical: `strings.xml` `AppName`, the site slug, the docs; the code prefix and folder can stay or be renamed before the first commit.
 
 ## ADR-011: The 24-hour ring is wall-clock
 
@@ -151,3 +152,10 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Why.** Days To Go ADR-003: Garmin Connect's date picker and numeric limits failed in rival faces; a list has nothing to validate.
 **Evidence.** Simulator test: `TwoSunsSettingsTest`; `tools/gen_settings.py --check` verifies the generated files and the `KEY_*` constants (a Monkey C test cannot see a changed default in `properties.xml`, because the simulator keeps the last saved settings). Not tested on a phone or in Garmin Connect.
 **Reversed by.** A phone test showing a list setting failing to save.
+
+## ADR-019: On-watch Customize (`getSettingsView`)
+
+**Decision.** `TwoSunsApp.getSettingsView()` returns a `Menu2`/`Menu2InputDelegate` pair (`TwoSunsSettingsMenu`/`Delegate`, `source/settings/`) reaching the same five settings and the same Properties keys as `settings.xml`. Accent and Orientation push a second `Menu2` (`TwoSunsListMenu`/`Delegate`, one reusable pair, item id = the value to store); Golden, Curve and Date are `ToggleMenuItem`s that write on select. Same rule as Days To Go ADR-005: whichever route was used last wins, no merge. Like Days To Go, `getSettingsView` is wrapped in a try/catch that returns `null` on failure, so a settings-menu bug can never take the face down.
+**Why.** Found 2026-09-27, on the owner's FR965: a sideloaded (non-Store) app gets no settings route at all from the phone's Garmin Connect app, which only renders a settings page for Store-installed apps. Without `getSettingsView`, none of the five settings were reachable during development. Days To Go already carries this exact pattern (ADR-005); Two Suns had only `settings.xml`, reversing spec.md's original "not part of v1" call.
+**Evidence.** Compiles clean (`-w --typecheck 3`), zero warnings; simulator tests unaffected (no test yet exercises the menu itself — Menu2 interaction is not covered by `TwoSunsSettingsTest`, which only checks the Properties/defaults layer). Confirmed on the owner's FR965, 2026-09-27: Customize appears next to Apply, and all five settings round-trip.
+**Reversed by.** A device check showing Customize missing, wrong values after a round trip, or a crash opening the menu.

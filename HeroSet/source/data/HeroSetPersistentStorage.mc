@@ -5,6 +5,7 @@ import Toybox.Lang;
 // the device flash is full; it propagates on purpose — HeroSetStore._set
 // catches it and surfaces a visible "couldn't save" indicator instead of
 // crashing mid-set.
+(:glance)
 class HeroSetPersistentStorage extends HeroSetStorage {
 
     function initialize() {

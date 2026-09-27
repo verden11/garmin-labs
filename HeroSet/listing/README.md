@@ -1,6 +1,6 @@
 # HeroSet — store listing (paste-ready)
 
-Status: 2026-09-26. **1.1.1 is live**; next upload is 1.2.0 (Connect sync).
+Status: 2026-09-27. **1.1.2 uploaded, awaiting Garmin review** (the glance + idle-kill fix, [ADR-051](../docs/decisions.md#adr-051)/[052](../docs/decisions.md#adr-052)); fields below are what was submitted. Next after it clears: 1.2.0 (Connect sync).
 
 Fields are in the order of the upload form (https://apps.garmin.com/en-US/developer/upload, step 2). One block = one field: copy the block, paste it. Nothing else is in this file; limits, why each answer is what it is, image sources and history are in [`NOTES.md`](NOTES.md).
 
@@ -26,6 +26,7 @@ HeroSet - Bodyweight Rep Counter
 - Earn XP for every rep up to 100 per exercise a day, climb ranks and keep your streak alive. Rank reflects the reps you do, not the goal you pick.
 - Set your own daily goal on the watch: 10 to 500 reps, no phone needed.
 - Live heart rate and a calorie estimate during each set.
+- A glance on watches with Connect IQ 4.0 or later: see today's progress and your streak from your glance list without opening the app.
 - In 15 languages, including German, French, Spanish, Italian, Polish and Ukrainian.
 
 Everything stays on your watch. HeroSet has no network access, records no activity and sends nothing to Garmin Connect. The store lists "Communication & Data Transmission" because HeroSet hands today's progress to our HeroFace watch face on the same watch; nothing is sent anywhere.
@@ -36,18 +37,13 @@ Good to know: counting depends on how you wear the watch and how you move, so th
 ## App Version (max 20)
 
 ```text
-1.1.1
+1.1.2
 ```
 
 ## What's New (max 4000)
 
 ```text
-- Now on touchscreen watches: Venu 2, 2 Plus, 2S, 3, 3S and 4, vívoactive 5 and 6, Approach S50 and S70, and D2 Air X10. Swipe up or down to adjust a count, then press START to save.
-- A stray tap on the counting or adjust screen can no longer end or save a set, on any watch. Only the START button does.
-- Text fits better on smaller screens in several languages.
-- If the motion sensor can't start, the workout screen now says so instead of staying at 0.
-- HeroFace, our watch face, is now in the Connect IQ Store. On watches with Connect IQ 4.2 or later, it can show today's HeroSet progress.
-- Reliability improvements.
+- New glance: add HeroSet to your watch's glance list to see today's push-ups, sit-ups, squats and your streak without opening the app. On watches with Connect IQ 4.0 or later.
 ```
 
 ## Hero Image (1440×720)

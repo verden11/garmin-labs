@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP TILL RANG $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP KVAR</string>
     <string id="dashboard_mission_done">$1$ KLART</string>
-    <string id="dashboard_streak">$1$ DAGARS SVIT</string>
-    <string id="dashboard_streak_short">SVIT $1$</string>
-    <string id="dashboard_streak_none">INGEN SVIT</string>
+    <string id="dashboard_streak" scope="glance">$1$ DAGARS SVIT</string>
+    <string id="dashboard_streak_short" scope="glance">SVIT $1$</string>
+    <string id="dashboard_streak_none" scope="glance">INGEN SVIT</string>
     <string id="dashboard_hint">START: MENY</string>
-    <string id="dashboard_mission_complete">UPPGIFT KLAR</string>
+    <string id="dashboard_mission_complete" scope="glance">UPPGIFT KLAR</string>
     <string id="dashboard_storage_warning">! KUNDE INTE SPARA</string>
 
     <string id="today_progress">IDAG $1$/$2$</string>

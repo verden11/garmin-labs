@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP PER RANGO $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP RIMASTI</string>
     <string id="dashboard_mission_done">$1$ FATTO</string>
-    <string id="dashboard_streak">$1$ GIORNO DI STRISCIA</string>
-    <string id="dashboard_streak_short">STRISCIA $1$</string>
-    <string id="dashboard_streak_none">NESSUNA STRISCIA</string>
+    <string id="dashboard_streak" scope="glance">$1$ GIORNO DI STRISCIA</string>
+    <string id="dashboard_streak_short" scope="glance">STRISCIA $1$</string>
+    <string id="dashboard_streak_none" scope="glance">NESSUNA STRISCIA</string>
     <string id="dashboard_hint">START: MENU</string>
-    <string id="dashboard_mission_complete">MISSIONE COMPLETATA</string>
+    <string id="dashboard_mission_complete" scope="glance">MISSIONE COMPLETATA</string>
     <string id="dashboard_storage_warning">! IMPOSSIBILE SALVARE</string>
 
     <string id="today_progress">OGGI $1$/$2$</string>

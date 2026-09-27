@@ -48,3 +48,12 @@ Venu 2/3/4, vívoactive 5/6, Approach S50/S70, D2 Air X10 have START and BACK bu
 - **Swipe right from the edge** is Back: mid-set it opens the `N reps` menu (Resume returns to counting).
 
 **Every watch:** a tap on the workout or picker screen never finishes or saves (FR965 too). Native menus (Back's Resume/Save/Discard, the picker's exit menu) still select by tap, as every Garmin menu does. Adjusting may need touch only where there are no UP/DOWN buttons.
+
+## Glance ([ADR-051](decisions.md#adr-051))
+
+On Connect IQ 4.0+ watches the glance list (scroll from the watch face) shows a HeroSet entry: one status row over three pill bars, push-ups, sit-ups, squats left to right.
+
+- **Status row:** the streak (`N DAY STREAK`, shorter wording if it does not fit, `NO STREAK YET` at zero), muted while today is open. When all three goals are met it becomes a green check and gold `MISSION COMPLETE`, or the streak in gold if that does not fit.
+- **Pills:** blue fill up to the goal; a finished pill is full and green. Done is the full bar and the check, never colour alone ([ADR-049](decisions.md#adr-049)). The first pill that is not full is the exercise the main menu opens on.
+- **Read-only, no input.** Selecting the entry starts HeroSet on the dashboard; Back should return to the glance list (unverified on a watch, [`go-to-market.md`](go-to-market.md) E3). There is no hint text and no time-of-day cue.
+- **Right at midnight:** the glance reads the day itself, so at 00:01 it shows zeros and the streak the dashboard would show, before the app has been opened.

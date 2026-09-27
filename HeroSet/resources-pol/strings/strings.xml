@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP DO RANGI $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP DO KOŃCA</string>
     <string id="dashboard_mission_done">$1$ ZAKOŃCZONE</string>
-    <string id="dashboard_streak">$1$ DZIEŃ SERII</string>
-    <string id="dashboard_streak_short">SERIA $1$</string>
-    <string id="dashboard_streak_none">BRAK SERII</string>
+    <string id="dashboard_streak" scope="glance">$1$ DZIEŃ SERII</string>
+    <string id="dashboard_streak_short" scope="glance">SERIA $1$</string>
+    <string id="dashboard_streak_none" scope="glance">BRAK SERII</string>
     <string id="dashboard_hint">START: MENU</string>
-    <string id="dashboard_mission_complete">MISJA ZAKOŃCZONA</string>
+    <string id="dashboard_mission_complete" scope="glance">MISJA ZAKOŃCZONA</string>
     <string id="dashboard_storage_warning">! NIE UDAŁO SIĘ ZAPISAĆ</string>
 
     <string id="today_progress">DZISIAJ $1$/$2$</string>

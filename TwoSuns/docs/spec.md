@@ -1,6 +1,6 @@
 # Two Suns: spec
 
-Status: 2026-09-27. **Built, not shipped.** Plan phases 2 to 6 are done and pass in the simulator (122 tests); nothing has run on a wrist, the owner has not approved the look, and nothing is submitted. The location probes have run (M1, M2 only; ADR-005): Positioning is confirmed, not provisional. "Two Suns" is a **working name**; the owner has not confirmed it. Folder `TwoSuns/`, code prefix `TwoSuns`. A Connect IQ watch face, independent of HeroSet, HeroFace and Days To Go: own look, own app id, no complication publishing. Where this spec and the build differ, see "Built vs specified" at the end; the reasons are in [`decisions.md`](decisions.md).
+Status: 2026-09-27. **Built, not shipped.** Plan phases 2 to 6 are done and pass in the simulator (122 tests); nothing has run on a wrist, the owner has not approved the look, and nothing is submitted. The location probes have run (M1, M2 only; ADR-005): Positioning is confirmed, not provisional. "Two Suns" is confirmed (ADR-010, 2026-09-27); no trademark search done. Folder `TwoSuns/`, code prefix `TwoSuns`. A Connect IQ watch face, independent of HeroSet, HeroFace and Days To Go: own look, own app id, no complication publishing. Where this spec and the build differ, see "Built vs specified" at the end; the reasons are in [`decisions.md`](decisions.md).
 
 Sources: [`reports/Body Battery and sun face research.md`](../../reports/Body%20Battery%20and%20sun%20face%20research.md) and the notes in `research_notes/Body Battery and sun face research/` (start with `platform.md`). The build order and state are in [`plan.md`](plan.md); each decision below has an ADR in [`decisions.md`](decisions.md).
 
@@ -98,7 +98,7 @@ All lists (Properties only for settings; `Application.Storage` only for the reme
 
 Property keys: `Accent`, `Orientation`, `Golden`, `Curve`, `Date`; they never change once shipped. The curve setting is labelled "Energy curve", not "Body Battery" (trademark, D9). Values are validated; anything unexpected falls back to the default. Settings are re-read on every update.
 
-Time format follows the system's 12/24 h. No numeric fields. Settings reach the watch from Garmin Connect; **the face works with all defaults if the phone round trip fails** (the Days To Go lesson). An on-watch settings route (`getSettingsView`) is not part of v1.
+Time format follows the system's 12/24 h. No numeric fields. Settings reach the watch from Garmin Connect, or on-watch via `getSettingsView` (Customize, next to Apply in the watch-face picker; ADR-019) — both write the same Properties, last write wins. **The face works with all defaults if neither round trip ever runs** (the Days To Go lesson).
 
 ## Design brief (as built; the owner has not approved the look)
 

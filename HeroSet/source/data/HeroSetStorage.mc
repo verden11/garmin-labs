@@ -4,6 +4,7 @@ import Toybox.Lang;
 // Storage seam: production code uses the persistent Toybox storage; unit
 // tests inject an in-memory implementation. The store never talks to
 // Toybox.Application.Storage directly.
+(:glance)
 class HeroSetStorage {
 
     function initialize() {

@@ -1,0 +1,10 @@
+PROBE run 1 api=[5, 2, 0]
+PROBE Position.getInfo pos=null acc=0
+PROBE Activity.currentLocation=null
+PROBE Weather.observationLocationPosition=38.855,-94.799 temp=21.000000
+PROBE sun Hawaii rise=19:20(1790439642) set=07:26(1790396767)
+PROBE sun Dubai rise=05:08(1790388510) set=17:12(1790431973)
+PROBE sun Tromso rise=07:34(1790397286) set=19:37(1790440632)
+PROBE sun London rise=08:50(1790401844) set=20:53(1790445232)
+PROBE sun Sydney rise=22:40(1790451617) set=10:53(1790409209)
+Error: Symbol Not Found Error

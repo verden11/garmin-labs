@@ -2,6 +2,7 @@ import Toybox.Lang;
 
 // Pure game rules (XP, rank curve, streaks, goal transitions): no Storage,
 // no UI, so every rule is unit-tested without a simulator.
+(:glance)
 class HeroSetRules {
     // The three exercises, in the fixed order the store reset, the menu, the
     // mission bars and the complication field list all walk. A static const

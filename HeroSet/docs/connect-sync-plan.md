@@ -1,6 +1,6 @@
 # Garmin Connect sync (1.2.0)
 
-Status: 2026-09-26. **Implemented in the dev build ([ADR-043](decisions.md#adr-043)), committed, unverified on watch.** Open: steps 0, 7, 8 below. Not in the store build: 1.1.0 and 1.1.1 shipped without sync; this is **1.2.0**, the next submission ([ADR-047](decisions.md#adr-047)).
+Status: 2026-09-26. **Implemented in the dev build ([ADR-043](decisions.md#adr-043)), committed, unverified on watch.** Open: steps 0, 7, 8 below. Not in the store build: 1.1.0 and 1.1.1 shipped without sync; this is **1.2.0** ([ADR-047](decisions.md#adr-047)), after 1.1.2, the glance ([ADR-051](decisions.md#adr-051)).
 
 ## Summary
 

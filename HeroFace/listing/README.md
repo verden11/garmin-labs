@@ -62,12 +62,6 @@ The form reads it from the package; if a field asks, type:
 - Reliability improvements.
 ```
 
-## Keywords / tags (only if the form asks; trim from the end if it caps the count)
-
-```text
-watch face, steps, daily goals, intensity minutes, floors, streak, always-on, minimal, data face, HeroSet
-```
-
 ## Hero Image (optional, 1440×720, under 2048 KB)
 
 [`hero-1440x720.png`](hero-1440x720.png)

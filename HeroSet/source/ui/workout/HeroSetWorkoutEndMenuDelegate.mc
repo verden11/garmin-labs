@@ -15,4 +15,8 @@ class HeroSetWorkoutEndMenuDelegate extends HeroSetExitMenuDelegate {
     function save() as Void {
         _view.saveSet();
     }
+
+    function discard() as Void {
+        _view.discardDraft();
+    }
 }

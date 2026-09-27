@@ -4,17 +4,17 @@ Status: 2026-09-26. Candidate features, ranked by value per unit of cost.
 
 **Not open items.** Nothing here is committed, scheduled or blocking; [`go-to-market.md`](go-to-market.md) stays the only home for open items. 1.2.0 is Connect sync ([ADR-043](decisions.md#adr-043)); these come after it. Anything that graduates gets an ADR in [`decisions.md`](decisions.md) and moves to the go-to-market backlog; the entry here then says so.
 
-Every idea is checked against [`release-contract.md`](release-contract.md) (forbidden claims), [ADR-029](decisions.md#adr-029) (no long-press gestures), [ADR-044](decisions.md#adr-044) (the complication field order HeroFace depends on) and the store build's `Sensor`-only permission ([ADR-033](decisions.md#adr-033)). Where one of those is the real cost, the entry says it.
+Every idea is checked against [`release-contract.md`](release-contract.md) (forbidden claims), [ADR-029](decisions.md#adr-029) (no long-press gestures), [ADR-044](decisions.md#adr-044) (the complication field order HeroFace depends on) and the store build's `Sensor` + `ComplicationPublisher` permissions ([ADR-033](decisions.md#adr-033)). Where one of those is the real cost, the entry says it.
 
 ---
 
-## 1. Glance view
+## 1. Glance view. **Graduated: [ADR-051](decisions.md#adr-051), ships in 1.1.2**
 
 **What.** The Connect IQ glance for HeroSet: today's three mission bars and the streak, no app launch. Scrolling past it answers "am I done today?".
 
 **Why first.** The app's whole loop is a daily check, and today that costs a full app launch for a question three bars answer. A glance is the difference between a habit app you open and one you pass twenty times a day. It pairs with HeroFace: the face covers the watch-face slot, the glance the widget carousel.
 
-**Cost.** Small. `AppBase.getGlanceView()` plus a `(:glance)` view drawing a cut-down `HeroSetMissionBars`, reading the store like the dashboard. No new permission, storage key or contract change.
+**Cost.** Small to medium: `AppBase.getGlanceView()`, a `(:glance)` view and a read-only reader, plus a lazy `HeroSetApp` (see [ADR-051](decisions.md#adr-051)). No new permission, storage key or contract change.
 
 **Risks.** Glance support is per-device, not universal across the 80 products: sweep it into [`compatibility.md`](compatibility.md) before claiming it. Glances have a tighter memory budget, so the layout is a rewrite at glance size. They run on the system's schedule, so they must not assume `ensureCurrentDay` ran recently.
 

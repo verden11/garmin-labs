@@ -34,7 +34,7 @@ Launch language list identical in both manifests: `eng`, `deu`, `fre`, `spa`, `i
 
 After string change: compare every qualified file's IDs and placeholders with `resources/strings/strings.xml`, then run the screen-fit suite in every language on the narrowest screens: `tools/fit-sweep.sh venu2s fr265s` (overlays each language's strings in a throwaway jungle, since the simulator has no CLI language switch; [ADR-049](decisions.md#adr-049)). `tools/fit-sweep.sh -l eng <product>…` checks products in English. Simulator evidence no replace real-device font and layout checks.
 
-## Unit tests (99 tests; 88 in store build)
+## Unit tests (112 tests; 101 in store build)
 
 ```bash
 monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y /path/to/developer_key
@@ -44,6 +44,16 @@ monkeydo bin/HeroSet-tests.prg fr965 -t
 Inspect printed summary for PASSED/failed counts — current SDK may return non-zero shell status even on passing run.
 
 Test run hangs → quit, restart simulator, run again. Tests drawing to off-screen bitmaps must reuse single `Graphics.createBufferedBitmap`; one per case exhausted simulator graphics memory and hung it.
+
+### Glance scope check (after any change to `(:glance)` code or `HeroSetApp`)
+
+```bash
+tools/glance-scope-check.sh [product...]     # default fr965; prints nothing but "clean" when it passes
+```
+
+The glance process ([ADR-051](decisions.md#adr-051)) only has `(:glance)` code, and the default build (and `-l 2`) compiles without a word when glance code calls something that isn't. The script builds both jungles, app and tests, at `-l 3` and greps `not available in all function scopes`; `-l 3` also prints many unrelated type errors that predate the glance, which it ignores. To see the glance closure's size: `monkeyc -d fr965 -f store.jungle … --build-stats 0` (`Glance:` lines, limit 64 KB).
+
+The glance itself has to be looked at in the simulator by hand: Settings → Glance Launch Mode (greyed out unless `getGlanceView` is overridden; a GUI setting with no CLI switch). Unit tests cover its layout at every glance content area of the running screen width, so run the suite on one product per width (`fr255s`, `fenix7s`, `fenix7`, `fenix7x`, `venu2s`, `venu441mm`, `fr265`, `venu3`, `fenix9pro51mm`, plus `fr965`).
 
 ### Checking another product
 

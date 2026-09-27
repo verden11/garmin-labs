@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">RÜTBE $2$ İÇİN $1$ XP</string>
     <string id="dashboard_xp_to_go">$1$ XP KALDI</string>
     <string id="dashboard_mission_done">$1$ BİTTİ</string>
-    <string id="dashboard_streak">$1$ GÜN SERİSİ</string>
-    <string id="dashboard_streak_short">SERİ $1$</string>
-    <string id="dashboard_streak_none">SERİ YOK</string>
+    <string id="dashboard_streak" scope="glance">$1$ GÜN SERİSİ</string>
+    <string id="dashboard_streak_short" scope="glance">SERİ $1$</string>
+    <string id="dashboard_streak_none" scope="glance">SERİ YOK</string>
     <string id="dashboard_hint">START: MENÜ</string>
-    <string id="dashboard_mission_complete">GÖREV BİTTİ</string>
+    <string id="dashboard_mission_complete" scope="glance">GÖREV BİTTİ</string>
     <string id="dashboard_storage_warning">! KAYDEDİLEMEDİ</string>
 
     <string id="today_progress">BUGÜN $1$/$2$</string>

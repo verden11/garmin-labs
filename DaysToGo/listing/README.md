@@ -22,19 +22,16 @@ Languages are added one at a time: pick a language, press **Add**, fill Title + 
 A countdown watch face: one big number for the days left until your date.
 
 One number
-The days left is the biggest thing on the screen, in the largest size your watch can draw. The time sits above it and the date below. A thin ring around the bezel drains through the last year and fills on the day itself. Nothing else is on by default: no steps, no heart rate, no weather.
+The days left is the biggest thing on the screen, at the largest size your watch can draw. The time above it, the date below. A thin ring around the bezel drains through the last year and fills on the day itself. No steps, no heart rate, no weather.
 
-Set the date from plain lists
-Choose the month, day and year from three simple lists in Garmin Connect or the Connect IQ app. First set Event to My own date. Nothing set up yet? It counts to the next New Year's Day, so it is never empty. Choose "Every year" for birthdays and anniversaries and it rolls over by itself.
-
-Count what you need
-Days, or weeks and days. An optional event time turns the last 24 hours into hours and minutes. Give the event a name (up to 16 characters). Choose day-first or month-first order for the date. Pick one of six accent colours. Optionally show battery or steps on a bottom line.
+Any date, your own event
+A birthday, an anniversary, a race, a trip — any date, with your own name for it (up to 16 characters), a set of six accent colours, and a count in days or in weeks and days. New Year's Day by default, so it is never empty; "Every year" makes a birthday or anniversary roll over by itself. An event with a time turns its last 24 hours into hours and minutes, and an optional bottom line can show your battery or step count.
 
 Whole calendar days
-The count is whole days on your calendar: tomorrow is 1 day, the day itself says TODAY, and afterwards it counts the days since. A date that does not exist, like 30 February, asks you to set a date instead of showing a wrong number.
+The count is whole days on your calendar: tomorrow is 1 day, the day itself says TODAY, and afterwards it counts the days since. A date that does not exist, like 30 February, is never shown as a wrong number.
 
-One design, many screens
-It measures itself to your screen. On AMOLED watches the always-on screen dims to a quiet number and clock that shifts position every minute; other watches keep the full face. See Compatible Devices for your model.
+One design, every screen
+Round and rectangular watches alike, full detail down to the smallest, dimming to a quiet number and clock when the screen sleeps.
 
 Nothing leaves your watch
 No permissions, no account, no internet, no analytics, no ads.
@@ -54,12 +51,6 @@ The form reads it from the package; if a field asks, type:
 
 ```text
 Long event names on small screens now end in "..." instead of being cut off without a marker.
-```
-
-## Keywords / tags (only if the form asks; trim from the end if it caps the count)
-
-```text
-watch face, countdown, days left, days until, event, birthday, holiday, weeks, minimal, always-on
 ```
 
 ## Hero Image (optional, 1440×720, under 2048 KB)

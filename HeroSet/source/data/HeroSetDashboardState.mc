@@ -1,5 +1,6 @@
 import Toybox.Lang;
 
+(:glance)
 class HeroSetDashboardState {
     var pushups as Lang.Number;
     var situps as Lang.Number;

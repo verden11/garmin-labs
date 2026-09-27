@@ -15,6 +15,10 @@ class HeroSetWorkoutView extends WatchUi.View {
     private var _todayFormat;
     private var _finishHint;
     private var _detected = 0;
+    // What was last checkpointed to the recoverable draft (ADR-052), so a
+    // tick with no new reps since then writes nothing.
+    private var _draftedCount = 0;
+    private var _refreshTicks = 0;
     private var _storedCount = 0;
     private var _goal = HeroSetConfig.DEFAULT_MISSION_GOAL;
     private var _sensorManager;
@@ -45,6 +49,14 @@ class HeroSetWorkoutView extends WatchUi.View {
         _counter = new HeroSetRepCounter(threshold, HeroSetConfig.SENSOR_SAMPLE_RATE, HeroSetConfig.SENSOR_COOLDOWN_MS, HeroSetRepCounter.integratesMotion(exercise));
         _sensorManager = new HeroSetSensorManager();
         _metrics = new HeroSetWorkoutMetrics();
+        // Resume a set the glance-launch idle timeout killed mid-count
+        // (ADR-052) instead of starting back at 0; a leftover draft for a
+        // different exercise or an earlier day is ignored.
+        var draft = store.getWorkoutDraft(exercise);
+        if (draft != null) {
+            _detected = draft;
+            _draftedCount = draft;
+        }
     }
 
     function onShow() as Void {
@@ -70,6 +82,10 @@ class HeroSetWorkoutView extends WatchUi.View {
         _sensorManager.stop();
         disableHeartRate();
         getApp().getSync().pauseSet();
+        // Flush now: no more periodic checkpoints run while this view is
+        // hidden (Resume/Save/Discard menu on top), and that menu can be
+        // idled just as easily as the workout screen itself (ADR-052).
+        checkpointDraft();
     }
 
     // HR/calories/elapsed change between reps; rep detection alone would
@@ -92,7 +108,30 @@ class HeroSetWorkoutView extends WatchUi.View {
     // Public: method(:symbol) needs indirect lookup, which can't see
     // private methods (ADR-023).
     function onRefreshTick() as Void {
+        _refreshTicks += 1;
+        if (_refreshTicks >= HeroSetConfig.DRAFT_CHECKPOINT_TICKS) {
+            _refreshTicks = 0;
+            checkpointDraft();
+        }
         WatchUi.requestUpdate();
+    }
+
+    // Recoverable draft (ADR-052): a checkpoint every DRAFT_CHECKPOINT_TICKS
+    // and once more when this view is hidden, skipped when nothing detected
+    // has changed since the last one.
+    private function checkpointDraft() as Void {
+        if (_detected == _draftedCount) {
+            return;
+        }
+        getApp().getStore().saveWorkoutDraft(_exercise, _detected);
+        _draftedCount = _detected;
+    }
+
+    // Terminal points only (HeroSetWorkoutDelegate, HeroSetWorkoutEndMenuDelegate):
+    // Finish, quick-Save, Discard and the no-count Back all end this set for
+    // good, so nothing is left to resume.
+    function discardDraft() as Void {
+        getApp().getStore().clearWorkoutDraft();
     }
 
     // Quick-save path: Save in the Back menu banks the detected count as-is,
@@ -104,6 +143,7 @@ class HeroSetWorkoutView extends WatchUi.View {
             return;
         }
         _saved = true;
+        discardDraft();
         var count = getCount();
         if (count <= 0) {
             return;

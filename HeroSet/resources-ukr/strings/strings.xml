@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP ДО РАНГУ $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP ЗАЛИШИЛОСЬ</string>
     <string id="dashboard_mission_done">$1$ ГОТОВО</string>
-    <string id="dashboard_streak">$1$ ДНІВ СЕРІЇ</string>
-    <string id="dashboard_streak_short">СЕРІЯ $1$</string>
-    <string id="dashboard_streak_none">НЕМАЄ СЕРІЇ</string>
+    <string id="dashboard_streak" scope="glance">$1$ ДНІВ СЕРІЇ</string>
+    <string id="dashboard_streak_short" scope="glance">СЕРІЯ $1$</string>
+    <string id="dashboard_streak_none" scope="glance">НЕМАЄ СЕРІЇ</string>
     <string id="dashboard_hint">START: МЕНЮ</string>
-    <string id="dashboard_mission_complete">МІСІЯ ВИКОНАНА</string>
+    <string id="dashboard_mission_complete" scope="glance">МІСІЯ ВИКОНАНА</string>
     <string id="dashboard_storage_warning">! НЕ ВДАЛОСЯ ЗБЕРЕГТИ</string>
 
     <string id="today_progress">СЬОГОДНІ $1$/$2$</string>

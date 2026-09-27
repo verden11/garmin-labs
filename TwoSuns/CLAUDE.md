@@ -1,11 +1,11 @@
 # Two Suns — CLAUDE.md
 
-Garmin watch face (Connect IQ, Monkey C) from studio Verden. **"Two Suns" is a working name.** One question at a glance: how much light, and how much energy, do I have left today? A 24-hour ring is the sky's sun, a 24-hour curve under the time is the watch's own Body Battery, one sentence at the bottom is the light left or the next sunrise. 69 products (66 round, 3 rectangular AMOLED), API 4.2 and newer, `minApiLevel` 4.2.0, permissions `SensorHistory`, `ComplicationSubscriber` and `Positioning`. Paid, USD 1.99. **Built, not shipped.**
+Garmin watch face (Connect IQ, Monkey C) from studio Verden. **"Two Suns" is confirmed** (ADR-010). One question at a glance: how much light, and how much energy, do I have left today? A 24-hour ring is the sky's sun, a 24-hour curve under the time is the watch's own Body Battery, one sentence at the bottom is the light left or the next sunrise. 69 products (66 round, 3 rectangular AMOLED), API 4.2 and newer, `minApiLevel` 4.2.0, permissions `SensorHistory`, `ComplicationSubscriber` and `Positioning`. Paid, USD 1.99. **Built, not shipped.**
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (the product and its rules; "Built vs specified" lists what the build changed),
 [`docs/plan.md`](docs/plan.md) (state of each phase, what the build learned, the owner-only steps),
 [`docs/decisions.md`](docs/decisions.md) (ADRs, each with its evidence level and what would reverse it),
-[`docs/publish-checklist.md`](docs/publish-checklist.md) (the gates before a store upload), [`docs/release-contract.md`](docs/release-contract.md) (what may be claimed), [`docs/compatibility.md`](docs/compatibility.md), [`docs/development.md`](docs/development.md).
+[`docs/publish-checklist.md`](docs/publish-checklist.md) (the gates before a store upload), [`docs/release-contract.md`](docs/release-contract.md) (what may be claimed), [`docs/compatibility.md`](docs/compatibility.md), [`docs/development.md`](docs/development.md), [`docs/ideas.md`](docs/ideas.md) (post-v1 candidates, none built).
 The evidence is in [`../reports/Body Battery and sun face research.md`](../reports/Body%20Battery%20and%20sun%20face%20research.md) and `../research_notes/Body Battery and sun face research/` (start with `platform.md`).
 
 ## Fast facts
@@ -26,7 +26,7 @@ The evidence is in [`../reports/Body Battery and sun face research.md`](../repor
 
 ## Open owner decisions
 
-Not decided, and not to be decided alone: the store name; the category (Health & Fitness or Utility); the look (colours, glyph, layout, the rectangles) and the launcher icon (a generic placeholder now); the price wording and the flip rule; which languages ship (14 machine-drafted, never fit-tested, no native reader); tier B (v1.1); screenshots; the site deploy; the store submission. The Positioning permission is now decided (kept; ADR-005). Full list with gates: [`docs/publish-checklist.md`](docs/publish-checklist.md).
+Not decided, and not to be decided alone: the look (colours, glyph, layout, the rectangles) and the launcher icon (a generic placeholder now); the price flip rule; tier B (v1.1); screenshots (owner supplies); the site deploy; the store submission. Decided: the name (Two Suns, ADR-010), the category (Utility), the Positioning permission (kept; ADR-005), languages (ship all 15). Full list with gates: [`docs/publish-checklist.md`](docs/publish-checklist.md).
 
 Price: paid, USD 1.99, Garmin's first paid price step, same tier as Days To Go (spec D3, ADR-002).
 Price review due: not set until approval. On the day approval arrives set it to approval + 45 days here and in the memory index.
