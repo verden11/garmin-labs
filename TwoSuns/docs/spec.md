@@ -98,7 +98,7 @@ All lists (Properties only for settings; `Application.Storage` only for the reme
 
 Property keys: `Accent`, `Orientation`, `Golden`, `Curve`, `Date`; they never change once shipped. The curve setting is labelled "Energy curve", not "Body Battery" (trademark, D9). Values are validated; anything unexpected falls back to the default. Settings are re-read on every update.
 
-Time format follows the system's 12/24 h. No numeric fields. Settings reach the watch from Garmin Connect; **the face works with all defaults if the phone round trip fails** (the Days To Go lesson). An on-watch settings route (`getSettingsView`) is not part of v1.
+Time format follows the system's 12/24 h. No numeric fields. Settings reach the watch from Garmin Connect, or on-watch via `getSettingsView` (Customize, next to Apply in the watch-face picker; ADR-019) — both write the same Properties, last write wins. **The face works with all defaults if neither round trip ever runs** (the Days To Go lesson).
 
 ## Design brief (as built; the owner has not approved the look)
 

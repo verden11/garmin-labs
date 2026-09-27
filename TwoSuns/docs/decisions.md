@@ -24,6 +24,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 016 | Rows are stacked from font heights; fixed drop order on small screens | Active |
 | 017 | Ring, curve and glyph encodings; state is never colour alone | Active (look **not approved**) |
 | 018 | List settings only | Active |
+| 019 | On-watch Customize (`getSettingsView`) | Active (confirmed on FR965, 2026-09-27) |
 
 ## ADR-001: Concept
 
@@ -151,3 +152,10 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Why.** Days To Go ADR-003: Garmin Connect's date picker and numeric limits failed in rival faces; a list has nothing to validate.
 **Evidence.** Simulator test: `TwoSunsSettingsTest`; `tools/gen_settings.py --check` verifies the generated files and the `KEY_*` constants (a Monkey C test cannot see a changed default in `properties.xml`, because the simulator keeps the last saved settings). Not tested on a phone or in Garmin Connect.
 **Reversed by.** A phone test showing a list setting failing to save.
+
+## ADR-019: On-watch Customize (`getSettingsView`)
+
+**Decision.** `TwoSunsApp.getSettingsView()` returns a `Menu2`/`Menu2InputDelegate` pair (`TwoSunsSettingsMenu`/`Delegate`, `source/settings/`) reaching the same five settings and the same Properties keys as `settings.xml`. Accent and Orientation push a second `Menu2` (`TwoSunsListMenu`/`Delegate`, one reusable pair, item id = the value to store); Golden, Curve and Date are `ToggleMenuItem`s that write on select. Same rule as Days To Go ADR-005: whichever route was used last wins, no merge. Like Days To Go, `getSettingsView` is wrapped in a try/catch that returns `null` on failure, so a settings-menu bug can never take the face down.
+**Why.** Found 2026-09-27, on the owner's FR965: a sideloaded (non-Store) app gets no settings route at all from the phone's Garmin Connect app, which only renders a settings page for Store-installed apps. Without `getSettingsView`, none of the five settings were reachable during development. Days To Go already carries this exact pattern (ADR-005); Two Suns had only `settings.xml`, reversing spec.md's original "not part of v1" call.
+**Evidence.** Compiles clean (`-w --typecheck 3`), zero warnings; simulator tests unaffected (no test yet exercises the menu itself — Menu2 interaction is not covered by `TwoSunsSettingsTest`, which only checks the Properties/defaults layer). Confirmed on the owner's FR965, 2026-09-27: Customize appears next to Apply, and all five settings round-trip.
+**Reversed by.** A device check showing Customize missing, wrong values after a round trip, or a crash opening the menu.
