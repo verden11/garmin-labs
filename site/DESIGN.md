@@ -15,6 +15,8 @@ colors:
   on-heroface: "#0a1420"
   daystogo-mint: "#55ffaa"
   on-daystogo: "#04140c"
+  twosuns-coral: "#ff6f8f"
+  on-twosuns: "#240a10"
   paper-dark: "#0e1013"
   ink-dark: "#eceef1"
   ink-secondary-dark: "#a6adb7"
@@ -149,6 +151,7 @@ A white-paper, near-black-ink program where each app contributes one saturated f
 ### Secondary
 - **HeroFace Blue** (heroface-blue) with **Deep Night** ink (on-heroface, 7.6:1): HeroFace's event field, the watch face's own accent.
 - **Days To Go Mint** (daystogo-mint) with **Deep Green** ink (on-daystogo, above 12:1): Days To Go's event field, the face's default accent.
+- **Two Suns Coral** (twosuns-coral) with **Deep Wine** ink (on-twosuns, 7.0:1): Two Suns' event field. Not the face's default accent (amber belongs to HeroSet); a warm dusk hue that stays clear of amber, blue and mint. Provisional with the app's working name; the owner may change it.
 - **Studio Silver** (studio-silver): the studio's own field, Munich-72 silver. It fills the studio home intro and is the default field when no app has claimed the page. It is neutral on purpose: every hue belongs to an event. Changed from silver-blue 2026-09-24, which read as the same color as HeroFace blue (1.04:1).
 - **Studio Night Ink** (on-studio): readable ink on the studio field.
 - **Studio Slate Ink** (studio-ink; studio-ink-dark in the dark scheme): the studio silver as foreground on paper, deepened to slate for light paper (7.5:1) and returning to the field value on dark paper (11.4:1). Used for the 404 numeral and the studio mark's own bar.

@@ -66,3 +66,9 @@ vite.config.ts          dev middleware that renders pages on request
 - `src/apps/days-to-go/` has no `storeUrl` until the store approves the app (the page shows "Coming soon"); its `facts.ts` carries only the language list, no watch list, until a live store build exists. Slug has a hyphen: `dist/days-to-go/index.html` is verified.
 - `FacePreview.tsx` redraws the face in SVG from HeroFace's `HeroFaceLayout.mc` proportions; if the watch layout changes, update it.
 - Claims follow HeroFace `docs/go-to-market.md` ("Claims allowed and forbidden"). Screen checks cover every screen size, not every model: say so.
+
+## Two Suns specifics
+
+- `src/apps/two-suns/` has no `storeUrl` until the store approves the app; its `facts.ts` holds the working name (`appName`), the language list and the permission list (mirrors `TwoSuns/manifest.xml`; Positioning is provisional), and no watch list.
+- `FacePreview.tsx` is a drawing built from SVG primitives with example numbers, captioned as not a screenshot on the landing page. Replace it with real captures (`Screens`) once the owner has them.
+- Claims follow `TwoSuns/docs/spec.md` "Claims that may be made": no sunrise-matches-the-glance claim and no works-without-GPS-or-phone claim until the device checks pass.

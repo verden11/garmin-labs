@@ -1,0 +1,42 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Two Suns</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). $1$ is a time (Sunrise 6:41) or a duration (3:42 of daylight); keep it. -->
+    <string id="sky_daylight_left">$1$ de luz</string>
+    <string id="sky_sun_up">Sol visible</string>
+    <string id="sky_sunrise">Amanecer $1$</string>
+    <string id="sky_sunrise_estimate">Amanecer ~$1$</string>
+    <string id="sky_sunset">Puesta de sol $1$</string>
+    <string id="sky_midnight_sun">El sol no se pone hoy</string>
+    <string id="sky_polar_night">El sol no sale hoy</string>
+    <string id="sky_no_sunrise">Mañana sin amanecer</string>
+    <string id="sky_daylight_left_short">$1$ luz</string>
+    <string id="sky_sunrise_short">Alba $1$</string>
+    <string id="sky_sunrise_estimate_short">Alba ~$1$</string>
+    <string id="sky_sunset_short">Ocaso $1$</string>
+    <string id="sky_midnight_sun_short">Sol no se pone</string>
+    <string id="sky_polar_night_short">Sol no sale</string>
+    <string id="sky_no_sunrise_short">Sin amanecer</string>
+    <string id="sky_midnight_sun_min">Sin ocaso</string>
+    <string id="sky_polar_night_min">Sin alba</string>
+    <string id="sky_no_place">Sin ubicación</string>
+    <string id="sky_no_data">Sin datos</string>
+    <string id="value_none">--</string>
+    <string id="setting_accent">Color de acento</string>
+    <string id="accent_autumn">Otoño</string>
+    <string id="accent_mint">Menta</string>
+    <string id="accent_sky">Celeste</string>
+    <string id="accent_pink">Rosa</string>
+    <string id="accent_violet">Violeta</string>
+    <string id="accent_winter">Invierno</string>
+    <string id="setting_orientation">Orientación del anillo</string>
+    <string id="orientation_noon">Mediodía arriba</string>
+    <string id="orientation_midnight">Medianoche arriba</string>
+    <string id="setting_golden">Hora dorada</string>
+    <string id="setting_curve">Curva de energía</string>
+    <string id="setting_date">Fecha</string>
+    <string id="on">Activado</string>
+    <string id="off">Desactivado</string>
+
+</strings>

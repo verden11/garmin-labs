@@ -1,5 +1,6 @@
 import { Doc, Note } from '../../components/Doc.tsx'
 import { studio } from '../../site.ts'
+import { glanceLive } from './facts.ts'
 
 export function Support() {
   return (
@@ -40,6 +41,17 @@ export function Support() {
       </p>
       <h3>When do the daily counts reset?</h3>
       <p>At midnight, watch local time. XP, rank and streak carry over; missing a day resets the streak.</p>
+      {glanceLive && (
+        <>
+          <h3>Is there a glance?</h3>
+          <p>
+            Yes, on watches with Connect IQ 4.0 or later, which is most supported models: scroll through your glance
+            list (add HeroSet to it if it is not there) to see today’s push-ups, sit-ups and squats and your streak
+            without opening the app, and select it to open HeroSet. It is not available on fēnix 6, MARQ Gen 1,
+            Descent MK2 and MK2S, Forerunner 945 LTE or the original Enduro.
+          </p>
+        </>
+      )}
       <h3>Which watches are supported?</h3>
       <p>
         Most Garmin watches with a round screen: Forerunner 70, 165, 170, 255, 265, 570, 945 LTE, 955, 965 and 970;

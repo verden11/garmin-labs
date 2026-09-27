@@ -14,6 +14,11 @@ export const watchFamilies: [string, string][] = [
   ['Approach', 'S50, S70'],
 ]
 
+// Flip to true in the same session HeroSet 1.1.2 (the glance) goes live in the store, then deploy
+// (HeroSet docs/go-to-market.md E5). The support FAQ describes the glance only while this is true,
+// so an unrelated site deploy can't announce a feature the store doesn't have yet.
+export const glanceLive = false
+
 export const languages = [
   'English', 'Dansk', 'Deutsch', 'Español', 'Français', 'Italiano', 'Lietuvių', 'Nederlands',
   'Norsk bokmål', 'Polski', 'Português', 'Suomi', 'Svenska', 'Türkçe', 'Українська',

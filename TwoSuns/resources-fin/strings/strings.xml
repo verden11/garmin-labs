@@ -1,0 +1,42 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Two Suns</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). $1$ is a time (Sunrise 6:41) or a duration (3:42 of daylight); keep it. -->
+    <string id="sky_daylight_left">$1$ päivänvaloa</string>
+    <string id="sky_sun_up">On valoisaa</string>
+    <string id="sky_sunrise">Auringonnousu $1$</string>
+    <string id="sky_sunrise_estimate">Auringonnousu ~$1$</string>
+    <string id="sky_sunset">Auringonlasku $1$</string>
+    <string id="sky_midnight_sun">Aurinko ei laske tänään</string>
+    <string id="sky_polar_night">Aurinko ei nouse tänään</string>
+    <string id="sky_no_sunrise">Ei auringonnousua huomenna</string>
+    <string id="sky_daylight_left_short">$1$ valoa</string>
+    <string id="sky_sunrise_short">Nousu $1$</string>
+    <string id="sky_sunrise_estimate_short">Nousu ~$1$</string>
+    <string id="sky_sunset_short">Lasku $1$</string>
+    <string id="sky_midnight_sun_short">Aurinko ei laske</string>
+    <string id="sky_polar_night_short">Aurinko ei nouse</string>
+    <string id="sky_no_sunrise_short">Ei nousua</string>
+    <string id="sky_midnight_sun_min">Ei laskua</string>
+    <string id="sky_polar_night_min">Ei nousua</string>
+    <string id="sky_no_place">Ei paikkaa</string>
+    <string id="sky_no_data">Ei tietoja</string>
+    <string id="value_none">--</string>
+    <string id="setting_accent">Korostusväri</string>
+    <string id="accent_autumn">Syksy</string>
+    <string id="accent_mint">Minttu</string>
+    <string id="accent_sky">Taivaansininen</string>
+    <string id="accent_pink">Vaaleanpunainen</string>
+    <string id="accent_violet">Violetti</string>
+    <string id="accent_winter">Talvi</string>
+    <string id="setting_orientation">Renkaan suunta</string>
+    <string id="orientation_noon">Keskipäivä ylhäällä</string>
+    <string id="orientation_midnight">Keskiyö ylhäällä</string>
+    <string id="setting_golden">Kultainen hetki</string>
+    <string id="setting_curve">Energiakäyrä</string>
+    <string id="setting_date">Päivämäärä</string>
+    <string id="on">Päällä</string>
+    <string id="off">Pois</string>
+
+</strings>

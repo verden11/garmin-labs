@@ -1,0 +1,42 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Two Suns</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). $1$ is a time (Sunrise 6:41) or a duration (3:42 of daylight); keep it. -->
+    <string id="sky_daylight_left">$1$ dienos šviesos</string>
+    <string id="sky_sun_up">Saulė danguje</string>
+    <string id="sky_sunrise">Saulėtekis $1$</string>
+    <string id="sky_sunrise_estimate">Saulėtekis ~$1$</string>
+    <string id="sky_sunset">Saulėlydis $1$</string>
+    <string id="sky_midnight_sun">Saulė šiandien nenusileis</string>
+    <string id="sky_polar_night">Saulė šiandien nepatekės</string>
+    <string id="sky_no_sunrise">Rytoj saulėtekio nebus</string>
+    <string id="sky_daylight_left_short">$1$ šviesos</string>
+    <string id="sky_sunrise_short">Teka $1$</string>
+    <string id="sky_sunrise_estimate_short">Teka ~$1$</string>
+    <string id="sky_sunset_short">Leidžiasi $1$</string>
+    <string id="sky_midnight_sun_short">Saulė nenusileis</string>
+    <string id="sky_polar_night_short">Saulė nepatekės</string>
+    <string id="sky_no_sunrise_short">Nėra saulėtekio</string>
+    <string id="sky_midnight_sun_min">Be saulėlydžio</string>
+    <string id="sky_polar_night_min">Be saulėtekio</string>
+    <string id="sky_no_place">Vietos nėra</string>
+    <string id="sky_no_data">Nėra duomenų</string>
+    <string id="value_none">--</string>
+    <string id="setting_accent">Akcento spalva</string>
+    <string id="accent_autumn">Rudeninė</string>
+    <string id="accent_mint">Mėtinė</string>
+    <string id="accent_sky">Žydra</string>
+    <string id="accent_pink">Rožinė</string>
+    <string id="accent_violet">Violetinė</string>
+    <string id="accent_winter">Žieminė</string>
+    <string id="setting_orientation">Žiedo padėtis</string>
+    <string id="orientation_noon">Vidurdienis viršuje</string>
+    <string id="orientation_midnight">Vidurnaktis viršuje</string>
+    <string id="setting_golden">Auksinė valanda</string>
+    <string id="setting_curve">Energijos kreivė</string>
+    <string id="setting_date">Data</string>
+    <string id="on">Įjungta</string>
+    <string id="off">Išjungta</string>
+
+</strings>
