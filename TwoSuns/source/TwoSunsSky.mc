@@ -80,7 +80,9 @@ class TwoSunsSky {
         var next = null;
         var tomorrowRise = tomorrow == null ? null : tomorrow.rise;
         var todayRise = today == null ? null : today.rise;
-        if (tomorrow != null && tomorrow.kind == TwoSunsConfig.SUN_DOWN_ALL_DAY) {
+        if (tomorrow != null && tomorrow.kind != TwoSunsConfig.SUN_NORMAL) {
+            // Polar night (no sunrise ever) and midnight sun starting tomorrow (already up, so no
+            // sunrise to wait for) both leave tomorrowRise null; either way there is no next rise.
             noNextRise = true;
         } else if (tomorrowRise != null) {
             next = garminRise != null && todayRise != null ? tomorrowRise + garminRise - todayRise : tomorrowRise;

@@ -52,5 +52,5 @@ Same as Days To Go ([`../DaysToGo/CLAUDE.md`](../DaysToGo/CLAUDE.md)) and HeroFa
 - Settings change → `tools/gen_settings.py`, then `--check`.
 - User-facing claims live in the listing and `../site/src/apps/two-suns/`; change both together, never change a published URL. Check every claim against `docs/release-contract.md`.
 - Every store publication gets a `CHANGELOG.md` entry and a What's New block in `listing/README.md`.
-- Test count appears in `README.md` and here (**120**); update both.
+- Test count appears in `README.md` and here (**122**); update both.
 - Edits outside `TwoSuns/` are limited to the root `CLAUDE.md` table row, the root `README.md`, and `site/`. Ask before touching `HeroSet/`, `HeroFace/` or `DaysToGo/`.

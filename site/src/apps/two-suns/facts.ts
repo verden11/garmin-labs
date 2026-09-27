@@ -11,9 +11,9 @@ export const languages = [
   'Norsk bokmål', 'Polski', 'Português', 'Suomi', 'Svenska', 'Türkçe', 'Українська',
 ]
 
-// Mirrors TwoSuns/manifest.xml. PROVISIONAL: Positioning is declared until the
-// on-watch location probes report. If it is dropped: delete its entry here and
-// the "Location" paragraph in Privacy.tsx (see TwoSuns/listing/NOTES.md).
+// Mirrors TwoSuns/manifest.xml. Positioning is confirmed (TwoSuns/docs/decisions.md
+// ADR-005, 2026-09-27). If it is ever dropped: delete its entry here and the
+// "Location" paragraph in Privacy.tsx (see TwoSuns/listing/NOTES.md).
 export const permissions: [string, string][] = [
   ['Sensor history', 'to read your Body Battery for the last 24 hours, for the curve and the number.'],
   ['Complications', 'to read the watch’s own sunrise and sunset values and its current Body Battery value.'],

@@ -2,7 +2,7 @@
 
 Every durable design decision, newest last. [`spec.md`](spec.md) says what the product is; this file says why. Add an ADR at the end for any decision a future contributor would otherwise re-litigate. Mark old ADRs **Superseded** or **Amended**, never delete.
 
-**Evidence levels used below.** *Owner choice*: the owner decided, nothing tests it. *Desk research*: the research report and notes, no code ran. *Simulator test*: a unit or screen-fit test that passed in the SDK 9.2.0 simulator (120 tests, 2026-09-26; the tests do not check pixels). Nothing here has run on a watch. Each ADR also says what would reverse it.
+**Evidence levels used below.** *Owner choice*: the owner decided, nothing tests it. *Desk research*: the research report and notes, no code ran. *Simulator test*: a unit or screen-fit test that passed in the SDK 9.2.0 simulator (122 tests, 2026-09-27; the tests do not check pixels). Nothing here has run on a watch. Each ADR also says what would reverse it.
 
 | ADR | Decision | Status |
 |---|---|---|
@@ -10,7 +10,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 002 | Price: paid, USD 1.99, the same tier as Days To Go | Active |
 | 003 | Sunrise and sunset from Complications; `Weather.getSunrise` is a cross-check and tier B fallback only | Active |
 | 004 | Own NOAA calculation for everything Garmin does not give; tomorrow's sunrise keeps Garmin's offset | Active |
-| 005 | Location order and the Positioning permission (provisional); `Position.getInfo` isolated | **Open**: gated by the on-watch probes |
+| 005 | Location order and the Positioning permission (confirmed, 2026-09-27); `Position.getInfo` isolated | Active |
 | 006 | The remembered place: rounded to 0.1 degree, `Application.Storage`, replaced only when it moved | Active |
 | 007 | Always-on is time, Body Battery value and sun sentence, dim, drifting; no ring, no curve | Active (device check open) |
 | 008 | No verdicts on Body Battery; the curve setting is called "Energy curve" | Active |

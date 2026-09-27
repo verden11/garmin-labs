@@ -36,7 +36,7 @@ class TwoSunsView extends WatchUi.WatchFace {
             state = null;
         }
         if (state == null) {
-            drawFallback(dc, layout);
+            drawFallback(dc, layout, _sleeping && _burnIn);
         } else if (_sleeping && _burnIn) {
             TwoSunsSleep.draw(dc, layout, state, System.getClockTime().min);
         } else {
@@ -84,11 +84,24 @@ class TwoSunsView extends WatchUi.WatchFace {
         TwoSunsDraw.line(dc, layout, radius, top, bandHeight, fonts, candidates, 0);
     }
 
-    // Never leave a blank screen: a question mark says "something went wrong", not "no data".
-    private function drawFallback(dc as Graphics.Dc, layout as TwoSunsLayout) as Void {
-        dc.setColor(TwoSunsPalette.TEXT, TwoSunsPalette.BACKGROUND);
+    // Never leave a blank screen: a question mark says "something went wrong", not "no data". Asleep
+    // on a burn-in-protection watch it follows the same dim, drifting rule as TwoSunsSleep.draw, so a
+    // stuck fallback (a read failure that persists across updates) never burns in either.
+    private function drawFallback(dc as Graphics.Dc, layout as TwoSunsLayout, dim as Boolean) as Void {
+        var color = dim ? TwoSunsPalette.SLEEP_TEXT : TwoSunsPalette.TEXT;
+        dc.setColor(color, TwoSunsPalette.BACKGROUND);
         dc.clear();
-        dc.drawText(layout.centerX(), layout.centerY(), Graphics.FONT_MEDIUM, "?", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        var x = layout.centerX();
+        var y = layout.centerY();
+        if (dim) {
+            var grid = TwoSunsConfig.BURN_IN_GRID;
+            var minute = System.getClockTime().min;
+            var step = layout.driftStep();
+            x += (minute % grid - 1) * step;
+            y += (minute / grid % grid - 1) * step;
+        }
+        dc.drawText(x, y, Graphics.FONT_MEDIUM, "?", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
     }
 
     function onEnterSleep() as Void {
