@@ -65,12 +65,11 @@ class TwoSunsCurve {
             dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
             var inner = band.glyphWidth - 2 * (pen + 1);
             var filled = inner * level / TwoSunsConfig.BATTERY_MAX;
-            // A fill narrower than the radius would draw a rounded rectangle wider than it is tall, which
-            // some firmware clamps oddly; a plain rectangle below that width reads the same at this size.
-            if (filled >= radius) {
-                dc.fillRoundedRectangle(band.glyphLeft + pen + 1, band.glyphTop + pen + 1, filled,
-                                        band.glyphHeight - 2 * (pen + 1), radius - pen - 1);
-            } else if (filled > 0) {
+            // A square-edged fill inside the rounded outline reads as a level, the standard battery/
+            // progress idiom. Rounding the fill's own leading edge (the old behaviour, matching the
+            // outline's corners once the fill was wide enough) made a mid-level reading look like a
+            // toggle-switch thumb floating in a track — caught from a real screenshot, owner, 2026-09-27.
+            if (filled > 0) {
                 dc.fillRectangle(band.glyphLeft + pen + 1, band.glyphTop + pen + 1, filled, band.glyphHeight - 2 * (pen + 1));
             }
         }

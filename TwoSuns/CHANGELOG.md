@@ -22,6 +22,8 @@ Built 2026-09-26, extended 2026-09-27. Evidence: mostly simulator (SDK 9.2.0), p
 
 Two findings are still open, not fixable from a coding session alone: settings persistence across a real Garmin Connect sync is untested (ADR-018); the always-on Body Battery number still has no context marker distinguishing it from a battery percentage (spec.md "Ideas", not designed).
 
+One more caught from a real FR965 screenshot, same day: the Body Battery glyph's fill rounded its own leading edge once wide enough, which at a mid-level reading (59%, the owner's real value at the time) looked like a toggle switch, not a level. Fill is now a plain rectangle inside the rounded outline.
+
 Built:
 
 - Watch face for 69 products (66 round, 3 rectangular AMOLED), Connect IQ 4.2 and up, one build, no bitmaps.
