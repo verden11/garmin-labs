@@ -9,6 +9,7 @@ that serves all of their public pages.
 | [`HeroSet/`](HeroSet) | Watch app — daily push-ups, sit-ups, squats with automatic rep counting, XP, rank and streak. 80 products. | 1.1.1 live |
 | [`HeroFace/`](HeroFace) | Watch face — time-first, in HeroSet's visual language. Works standalone; richer with HeroSet installed. 117 round products. | 1.0.1 live |
 | [`DaysToGo/`](DaysToGo) | Watch face — days until a date, one big number, counted in whole calendar days. 117 round + 3 rectangular products. | Built, simulator-tested; not submitted |
+| [`TwoSuns/`](TwoSuns) | Watch face — the time, a 24-hour sun ring and the day's Body Battery as a curve; working name. 69 products (66 round + 3 rectangular). | Built, simulator-tested; not run on a wrist, not submitted |
 | [`site/`](site) | The public site: studio home plus landing, support and privacy pages per app. Live at **https://verden.watch/** | Live |
 
 Each folder is built and released independently. They share this repo so
@@ -19,7 +20,7 @@ cross-cutting changes land in one commit.
 Both watch apps use the same shape, so the same file is in the same place:
 
 ```
-HeroSet/ · HeroFace/ · DaysToGo/
+HeroSet/ · HeroFace/ · DaysToGo/ · TwoSuns/
   README.md  CLAUDE.md  PRODUCT.md  CHANGELOG.md   one CHANGELOG entry per store publication
   docs/        engineering and product docs (go-to-market, decisions/plan, compatibility, development)
   listing/     the store listing: README.md (paste-ready form answers, description,

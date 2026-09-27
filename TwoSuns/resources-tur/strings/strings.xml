@@ -1,0 +1,42 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Two Suns</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). $1$ is a time (Sunrise 6:41) or a duration (3:42 of daylight); keep it. -->
+    <string id="sky_daylight_left">$1$ gün ışığı</string>
+    <string id="sky_sun_up">Güneş yukarıda</string>
+    <string id="sky_sunrise">Gün doğumu $1$</string>
+    <string id="sky_sunrise_estimate">Gün doğumu ~$1$</string>
+    <string id="sky_sunset">Gün batımı $1$</string>
+    <string id="sky_midnight_sun">Güneş bugün batmıyor</string>
+    <string id="sky_polar_night">Güneş bugün doğmuyor</string>
+    <string id="sky_no_sunrise">Yarın gün doğumu yok</string>
+    <string id="sky_daylight_left_short">$1$ ışık</string>
+    <string id="sky_sunrise_short">Doğuş $1$</string>
+    <string id="sky_sunrise_estimate_short">Doğuş ~$1$</string>
+    <string id="sky_sunset_short">Batış $1$</string>
+    <string id="sky_midnight_sun_short">Güneş batmıyor</string>
+    <string id="sky_polar_night_short">Güneş doğmuyor</string>
+    <string id="sky_no_sunrise_short">Doğuş yok</string>
+    <string id="sky_midnight_sun_min">Batış yok</string>
+    <string id="sky_polar_night_min">Doğuş yok</string>
+    <string id="sky_no_place">Konum yok</string>
+    <string id="sky_no_data">Veri yok</string>
+    <string id="value_none">--</string>
+    <string id="setting_accent">Vurgu rengi</string>
+    <string id="accent_autumn">Sonbahar</string>
+    <string id="accent_mint">Nane</string>
+    <string id="accent_sky">Gök mavisi</string>
+    <string id="accent_pink">Pembe</string>
+    <string id="accent_violet">Mor</string>
+    <string id="accent_winter">Kış</string>
+    <string id="setting_orientation">Halka yönü</string>
+    <string id="orientation_noon">Öğlen üstte</string>
+    <string id="orientation_midnight">Gece yarısı üstte</string>
+    <string id="setting_golden">Altın saat</string>
+    <string id="setting_curve">Enerji eğrisi</string>
+    <string id="setting_date">Tarih</string>
+    <string id="on">Açık</string>
+    <string id="off">Kapalı</string>
+
+</strings>

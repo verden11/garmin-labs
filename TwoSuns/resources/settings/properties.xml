@@ -1,0 +1,8 @@
+<properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- Values match TwoSunsConfig; ids never change once shipped. -->
+    <property id="Accent" type="number">0</property>
+    <property id="Orientation" type="number">0</property>
+    <property id="Golden" type="number">0</property>
+    <property id="Curve" type="number">1</property>
+    <property id="Date" type="number">1</property>
+</properties>

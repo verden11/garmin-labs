@@ -1,0 +1,46 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Two Suns</string>
+
+    <!-- The line at the bottom. $1$ is a time (Sunrise 6:41) or a duration (3:42 of daylight). Sentences the wearer reads, so keep them short. -->
+    <string id="sky_daylight_left">$1$ of daylight</string>
+    <string id="sky_sun_up">Sun is up</string>
+    <string id="sky_sunrise">Sunrise $1$</string>
+    <string id="sky_sunrise_estimate">Sunrise ~$1$</string>
+    <string id="sky_sunset">Sunset $1$</string>
+    <string id="sky_midnight_sun">Sun stays up today</string>
+    <string id="sky_polar_night">Sun stays down today</string>
+    <string id="sky_no_sunrise">No sunrise tomorrow</string>
+    <!-- Shorter wordings for a narrow row: the same information, fewer characters. -->
+    <string id="sky_daylight_left_short">$1$ light</string>
+    <string id="sky_sunrise_short">Rise $1$</string>
+    <string id="sky_sunrise_estimate_short">Rise ~$1$</string>
+    <string id="sky_sunset_short">Set $1$</string>
+    <string id="sky_midnight_sun_short">Sun stays up</string>
+    <string id="sky_polar_night_short">Sun stays down</string>
+    <string id="sky_no_sunrise_short">No sunrise</string>
+    <string id="sky_midnight_sun_min">No sunset</string>
+    <string id="sky_polar_night_min">No sunrise</string>
+    <string id="sky_no_place">No place yet</string>
+    <string id="sky_no_data">No sun data</string>
+    <!-- Shown where a value is missing. -->
+    <string id="value_none">--</string>
+
+    <!-- Phone settings. -->
+    <string id="setting_accent">Accent colour</string>
+    <string id="accent_sky">Sky</string>
+    <string id="accent_mint">Mint</string>
+    <string id="accent_autumn">Autumn</string>
+    <string id="accent_violet">Violet</string>
+    <string id="accent_pink">Pink</string>
+    <string id="accent_winter">Winter</string>
+    <string id="setting_orientation">Ring orientation</string>
+    <string id="orientation_noon">Noon at the top</string>
+    <string id="orientation_midnight">Midnight at the top</string>
+    <string id="setting_golden">Golden hour</string>
+    <string id="setting_curve">Energy curve</string>
+    <string id="setting_date">Date</string>
+    <string id="on">On</string>
+    <string id="off">Off</string>
+
+</strings>
