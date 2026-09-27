@@ -1,6 +1,6 @@
 # Release contract
 
-Status: 2026-09-26. What the **store build** (`store.jungle`, [ADR-033](decisions.md#adr-033)) may honestly claim. Check before any user-facing copy (site, listing, What's New).
+Status: 2026-09-27. What the **store build** (`store.jungle`, [ADR-033](decisions.md#adr-033)) may honestly claim. Check before any user-facing copy (site, listing, What's New).
 
 | Capability | Status | Evidence / limit |
 |---|---|---|
@@ -8,7 +8,7 @@ Status: 2026-09-26. What the **store build** (`store.jungle`, [ADR-033](decision
 | Automatic reps | Beta, learns from saved counts ([ADR-040](decisions.md#adr-040)); gate 2 accuracy waived for launch ([ADR-042](decisions.md#adr-042), amended 2026-09-21) | **No current device data**: log cleared and FR965 fresh-installed 2026-09-21 ([`validation-log.md`](validation-log.md)). The detector is unchanged; [ADR-046](decisions.md#adr-046) rounded the learner's candidate thresholds to integers (≤ 1.5% of a step). Accuracy work is a 1.1.1 item. Pre-reset findings, not evidence for a claim: push-ups over-count on 15–25 rep sets, squats collapsed to 3-for-10 twice |
 | Manual correction + logging | Implemented: buttons, or swipe on touch-first watches; a tap on the counting or adjust screen never finishes or saves (native menus still select by tap) | [ADR-024](decisions.md#adr-024)/[028](decisions.md#adr-028)/[029](decisions.md#adr-029)/[048](decisions.md#adr-048) |
 | Goals, XP, rank, streak | Implemented | Unit tests; missed day shows streak 0 ([ADR-031](decisions.md#adr-031)) |
-| Glance | Read-only glance-list entry: today's three bars and the streak, on 63 of the 80 watches (Connect IQ 4.0+; not fēnix 6, MARQ Gen 1, Descent Mk2, FR945 LTE, Enduro Gen 1) ([ADR-051](decisions.md#adr-051)). **Ships in 1.1.2, not in a store build yet** | Simulator only, no glance on any wrist. The idle timeout of an app launched from the glance is unmeasured (hard gate, [`go-to-market.md`](go-to-market.md) E) |
+| Glance | Read-only glance-list entry: today's three bars and the streak, on 63 of the 80 watches (Connect IQ 4.0+; not fēnix 6, MARQ Gen 1, Descent Mk2, FR945 LTE, Enduro Gen 1) ([ADR-051](decisions.md#adr-051)). **Shipped as 1.2.0 (submitted, not this doc's original 1.1.2, ADR-053)** | Simulator only, no glance on any wrist. The idle timeout of an app launched from the glance is unmeasured (hard gate, [`go-to-market.md`](go-to-market.md) E) |
 | Daily goal | 100 each by default, user-set on the watch, 10–500 in steps of 10 ([ADR-045](decisions.md#adr-045)) | Unit tests; picker fits 218–466 px in simulator. **Gate 5 re-check open** (store menu gained the item) |
 | XP vs the goal | XP stops at 100 reps per exercise per day whatever the goal is | `xpStillCapsAtTheFixedRepCapWithAHighGoal`. Claim: **rank reflects reps done, not goals hit** — never say a higher goal earns rank faster |
 | Storage upgrade | Implemented | Flat `hero_*` keys unchanged ([ADR-003](decisions.md#adr-003)/[036](decisions.md#adr-036)); FR965 upgrade kept progress (2026-09-18) |

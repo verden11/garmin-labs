@@ -4,7 +4,9 @@ One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/README.md`](listing/README.md); the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
-## 1.1.2 — uploaded 2026-09-27, awaiting Garmin review
+## 1.2.0 — uploaded 2026-09-27, awaiting Garmin review
+
+Submitted as `1.2.0`, not `1.1.2` as this build was called during development — App Version is free text on the upload form, not read from the manifest, so nothing in the package changed ([ADR-053](docs/decisions.md#adr-053)). No Connect sync in this release; sync (which would have been 1.3.0) is shelved the same day — Garmin Connect doesn't render the developer fields it needed ([ADR-054](docs/decisions.md#adr-054)).
 
 - **Glance:** a HeroSet entry for the glance list on the 63 watches with Connect IQ
   4.0 or later: today's push-ups, sit-ups and squats as three bars, and the streak

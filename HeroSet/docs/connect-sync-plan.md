@@ -1,6 +1,6 @@
-# Garmin Connect sync (1.2.0)
+# Garmin Connect sync (shelved, was 1.3.0)
 
-Status: 2026-09-26. **Implemented in the dev build ([ADR-043](decisions.md#adr-043)), committed, unverified on watch.** Open: steps 0, 7, 8 below. Not in the store build: 1.1.0 and 1.1.1 shipped without sync; this is **1.2.0** ([ADR-047](decisions.md#adr-047)), after 1.1.2, the glance ([ADR-051](decisions.md#adr-051)).
+Status: 2026-09-27. **Shelved ([ADR-054](decisions.md#adr-054)).** Step 0 run on FR965 (dev build, sideloaded, sync On): Garmin Connect (mobile + web) never renders our `FitContributor` lap/session fields — the Sets/Exercises table shows only the native "Choose an Exercise" placeholder, Reps 0, and a full-text search of the web export found zero mentions of pushups/situps/squats. This isn't the string-vs-numeric question step 0 was meant to answer; it's that Connect's Sets UI doesn't read developer fields at all, matching the platform limit already named below. Two further device bugs found in the same session, not investigated further: exiting HeroSet mid-visit leaves the session recording (blocks reopening — the ADR-030 failure class this design was meant to close off) and Discard still creates a lap. **Not shipping as designed.** Code stays as committed (`(:sync)`-scoped, excluded from `store.jungle`); resuming needs a different product answer to "where does the exercise breakdown live", not a re-run of the checklist below.
 
 ## Summary
 
