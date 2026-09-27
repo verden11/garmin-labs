@@ -1,0 +1,14 @@
+{
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [],
+    "ignoreValues": [
+      {
+        "rule": "design-system-font",
+        "value": "archivo",
+        "createdAt": "2026-09-27T16:15:33.957Z",
+        "reason": "Archivo is the studio's established listing-image web font (HeroSet/HeroFace listing/src/*.html use it too, unflagged there — no DESIGN.md in this studio governs marketing HTML, only on-watch Monkey C typography)"
+      }
+    ]
+  }
+}

@@ -1,0 +1,36 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Store hero image (1440x720). Render: see ../screenshots.md.
+     Needs a real screen capture at ../screens/1-face.png (454x454 native, no
+     simulator chrome/band/wordmark) before this renders correctly — draft
+     until then. Add a second slot (2-sleep.png) once the AOD state is
+     captured on the FR965. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#000;}
+  body{display:flex;align-items:center;font-family:'Archivo',sans-serif;color:#fff;
+       background:radial-gradient(900px 600px at 72% 50%,#0d1a2a 0%,#000 70%);}
+  .copy{box-sizing:border-box;width:560px;padding-left:72px;padding-right:24px;}
+  .mark{width:74px;height:74px;display:block;margin-bottom:24px;}
+  h1{margin:0;font-size:72px;font-weight:800;font-stretch:112%;letter-spacing:-2px;line-height:1;}
+  h1 span{color:#55AAFF;}
+  p{margin:24px 0 0;font-size:30px;line-height:1.3;color:#cfd6df;font-weight:450;}
+  .screens{display:flex;align-items:center;gap:20px;padding-right:40px;}
+  .w{border-radius:50%;overflow:hidden;background:#000;flex:none;
+     box-shadow:0 0 0 8px #1b1f25,0 0 0 10px #2f353d,0 30px 80px rgba(0,0,0,.8);}
+  .w img{width:100%;height:100%;display:block;}
+  .l{width:400px;height:400px;}
+</style></head><body>
+  <div class="copy">
+    <svg class="mark" viewBox="0 0 100 100">
+      <circle cx="50" cy="50" r="42" fill="none" stroke="#5555AA" stroke-width="7"/>
+      <path d="M50 8 A42 42 0 0 1 92 50" fill="none" stroke="#55AAFF" stroke-width="7" stroke-linecap="round"/>
+      <circle cx="50" cy="8" r="6" fill="#fff"/>
+    </svg>
+    <h1>Two <span>Suns</span></h1>
+    <p>The sky's day and your energy, on one dial.</p>
+  </div>
+  <div class="screens">
+    <div class="w l"><img src="../screens/1-face.png"></div>
+  </div>
+</body></html>
