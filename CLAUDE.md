@@ -11,7 +11,7 @@ file only covers what spans folders.
 | `HeroSet/` | Garmin watch app (Connect IQ, Monkey C) | [`HeroSet/CLAUDE.md`](HeroSet/CLAUDE.md) |
 | `HeroFace/` | Garmin watch face (Connect IQ, Monkey C) | [`HeroFace/CLAUDE.md`](HeroFace/CLAUDE.md) |
 | `DaysToGo/` | Garmin countdown watch face (Connect IQ, Monkey C) | [`DaysToGo/CLAUDE.md`](DaysToGo/CLAUDE.md) |
-| `TwoSuns/` | Garmin sun and Body Battery watch face, working name (Connect IQ, Monkey C) | [`TwoSuns/CLAUDE.md`](TwoSuns/CLAUDE.md) |
+| `TwoSuns/` | Garmin sun and Body Battery watch face, "Two Suns" (Connect IQ, Monkey C) — submitted 2026-09-27, pending review | [`TwoSuns/CLAUDE.md`](TwoSuns/CLAUDE.md) |
 | `site/` | Public website (Vite + React, prerendered) | [`site/CLAUDE.md`](site/CLAUDE.md) |
 
 `device-test/` is git-ignored scratch for on-watch builds, shared by both

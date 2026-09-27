@@ -50,12 +50,14 @@ If only read five: **[ADR-002](#adr-002)** (XP can't be farmed), **[ADR-018](#ad
 | 038 | Wave 4: `minApiLevel` 3.4.0, 17 fēnix 6 / MARQ Gen 1 / Descent MK2 / FR945 LTE / Enduro watches | Active, **simulator-verified** |
 | 039 | First paid submission lists all 67 products; no in-app trial for v1 | Active |
 | 040 | Thresholds learned from saved counts; calibration screen removed; no position gating | Active, **simulator-verified**, amends 032/033 |
-| 043 | Connect sync: one activity per workout, one lap per set with exercise + reps | Dev build only, **unverified on the watch** |
+| 043 | Connect sync: one activity per workout, one lap per set with exercise + reps | Shelved, see 054 |
 | 048 | Wave 5: 13 touch-first round watches (Venu 2/3/4, vívoactive 5/6, Approach S50/S70, D2 Air X10); swipe adjusts, only START commits | Active, **simulator-verified**, amends 029 |
 | 049 | Long translations on 360 px: dashboard drops `DONE` word, titles move down | Active, **simulator-verified**, fixes live 1.1.0 |
 | 050 | Owner calls after the 2026-09-24 review: Back gate on the saveable count, swipe up = +1 kept, exit-menu order kept, next upload is 1.1.1 | Active |
 | 051 | App glance: read-only, `(:glance)`-scoped, 63 of 80 watches; lazy `HeroSetApp`; publish point moves to `getInitialView` | Active; simulator-verified only |
 | 052 | Recoverable workout draft: checkpoint the in-progress rep count so the glance-launch idle-kill (E1) doesn't lose it | Active; FR965 device test still owed |
+| 053 | Glance upload submitted as 1.2.0, not 1.1.2; Connect sync moves to 1.3.0 | Active |
+| 054 | Connect sync shelved: Connect's UI never renders developer lap/session fields; two device bugs found (stray recording on exit, discard still lapping) | Active, amends 043 |
 
 ---
 
@@ -250,7 +252,7 @@ Decided 2026-09-19 (user call) after the first learning-build session on FR965: 
 - **Amended 2026-09-21 (with [ADR-047](#adr-047)):** the validation log was cleared and the FR965 fresh-installed, so every row above is gone — it mixed three detector eras on a learner trained by those same sets. The detector is unchanged and stays unchanged for 1.1.0 ([ADR-046](#adr-046) only rounded the learner's candidate thresholds to integers, ≤ 1.5% of a step): accuracy work is a **1.1.1** item, taken up only if buyers report it. **Gate 2 for 1.1.0 is crash-only**: one 30+ rep set saved on the watch without a `Watchdog Tripped Error`, proving [ADR-046](#adr-046) on device. The old data's findings, kept because they still name where to look first: push-ups over-count on 15–25 rep sets, squats collapsed to 3-for-10 twice, sit-ups clean.
 - **Amends** [`go-to-market.md`](go-to-market.md) Phase 1 "accuracy validation method" and the [`release-contract.md`](release-contract.md) release decision: gate 2 becomes a post-launch check; a failure is fixed in an update, and the listing is rewritten manual-first if counting can't be defended as beta.
 
-### <a id="adr-043"></a>ADR-043: Connect sync: one activity per workout, laps per set. **Scheduled for 1.2.0 ([ADR-047](#adr-047))**
+### <a id="adr-043"></a>ADR-043: Connect sync: one activity per workout, laps per set. **Shelved, [ADR-054](#adr-054)** (was scheduled for 1.3.0, [ADR-047](#adr-047), renumbered by [ADR-053](#adr-053))
 Decided 2026-09-19 (user call); full reasoning and platform limits in [`connect-sync-plan.md`](connect-sync-plan.md).
 - **A day can't be merged into one activity.** A Connect IQ session records live only (no backdating), doesn't survive the app closing ([ADR-030](#adr-030)'s device result), can't run in a 30 s background service, and no Garmin API accepts a finished activity from outside. So the unit is one HeroSet **visit**. The user is fine with several activities a day and mutes Strava noise on Strava's side.
 - **Behavior (sync On):** a visit's first workout set opens a `SPORT_TRAINING`/`STRENGTH_TRAINING` session; the timer runs only while a set screen is up. Each set is one lap, closed when the next set begins, carrying FIT developer fields `Exercise` (string) and `Reps`; session fields hold push-up/sit-up/squat totals. Only workout-seeded saves count (same boundary as learning, [ADR-040](#adr-040)); negative corrections count as 0. `AppBase.onStop` always saves (≥ 1 saved rep) or discards, and a refused save is discarded: on a normal exit nothing is left open, which should stop the stray activities of [ADR-030](#adr-030). Negative corrections lower the visit total (lap stays ≥ 0).
@@ -382,3 +384,25 @@ Decided 2026-09-27, the day the owner ran gate E1 on FR965 (dev build, sideloade
 **Evidence.** Written without the simulator (shared with another session), then verified once it was free: 112/112 dev, 101/101 store, `tools/glance-scope-check.sh` clean. Caught by that run: two tests used `Test.assertEqual(x, null)`, which the runner throws on — fixed to `Test.assert(x == null)`, the pattern already used elsewhere in the suite. **Confirmed on FR965 the same day:** a set killed by the idle timeout resumes when the same exercise is started again; a different exercise correctly shows 0 (no cross-exercise bleed). Not yet checked, not blocking: a draft surviving unresumed to the next calendar day reads as 0.
 
 **Consequences.** Three new flat keys, spellings fixed by [ADR-003](#adr-003) like every other `hero_*` key. No manifest, permission or complication change. Test count: +N (`HeroSetWorkoutDraftTest`, store-level only — no UI test, since nothing is drawn differently).
+
+### <a id="adr-053"></a>ADR-053: Glance upload submitted to the store as 1.2.0, not 1.1.2; Connect sync renumbered to 1.3.0
+Decided 2026-09-27 (owner call). The glance + idle-kill fix build (ADR-051/052, `dist/HeroSet-store.iq`, permissions unchanged: `Sensor` + `ComplicationPublisher`) was uploaded to the Connect IQ Store with **App Version `1.2.0`**, not the `1.1.2` this doc set had been calling it. No Connect sync code, `Fit`/`FitContributor` permission, or manifest change is in this build — App Version is free text typed into the upload form ([`listing/NOTES.md`](../listing/NOTES.md)), not derived from the manifest, so nothing on the watch or in the package changed as a result.
+
+**Consequence:** `1.2.0` is spent. Connect sync ([ADR-043](#adr-043), [`connect-sync-plan.md`](connect-sync-plan.md)) now targets **1.3.0** — its own permission and manifest change still gates that upload exactly as before, only the number moves. Nothing else about the sync plan changes.
+
+### <a id="adr-054"></a>ADR-054: Connect sync shelved — step 0 spike failed, two device bugs found. **Amends [ADR-043](#adr-043)**
+Decided 2026-09-27 (owner call), on FR965, dev build, sideloaded. Step 0 of [`connect-sync-plan.md`](connect-sync-plan.md) run before the 10-item device acceptance.
+
+**Step 0 spike result: fail, and not the string-vs-numeric question it was written to answer.** One visit, one set, sync On. Checked both Garmin Connect mobile (Overview → Exercises) and Connect web (exported page): the Strength Training activity's Sets/Exercises table shows exactly one row, `Exercise Name` = the native "Choose an Exercise" placeholder link, `Reps` and `Time` both `0`. Searched the full web export for `pushup`/`situp`/`squat`/`developer`: zero matches. None of our `FitContributor` fields (`exercise`, `reps` on the lap; `pushups`/`situps`/`squats` on the session) render anywhere in Garmin Connect, on either platform. Session-level native fields work fine (0:35 total time, 66 bpm avg HR, 1 cal all came through correctly).
+
+**Root cause, matching a limit this doc already named** ([`connect-sync-plan.md`](connect-sync-plan.md) platform-limits table: "no FIT `set`/exercise-category API → no native set list"): Garmin Connect's Sets/Exercises UI is built entirely around FIT's *native* `Set` message, not developer fields on LAP/SESSION messages. The plan's central promise — "one lap per set, exercise + reps in the summary" — can't be shown in Connect's own app on either platform. Whether the developer fields exist at all in the raw FIT bytes was not checked (no export pulled); moot regardless, since what a buyer sees in Connect is what matters for the store description.
+
+**Two further bugs found in the same session, independent of the above:**
+- **Exiting HeroSet mid-visit leaves the native session recording.** Reopening the app afterward reports it's still recording and refuses a clean restart — the exact stray-activity failure class [ADR-030](#adr-030) already found and this design's `onStop` save-or-discard-always rule ([ADR-043](#adr-043)) was meant to close off. It isn't closing it off on this exit path.
+- **Discard still creates a lap.** A discarded set was expected to leave a 0-rep lap only ([ADR-043](#adr-043) "Discarded / empty sets keep a 0-rep lap"); instead new laps kept appearing after Discard, which reads as the boundary logic firing independent of the discard path.
+
+Neither bug was investigated further (not worth root-causing a design whose main value can't render).
+
+**Decision.** Connect sync does not ship. Not this session, not as designed. 1.3.0 is not uploaded today; no store publication happens. `dist/` and the store listing are untouched — 1.2.0 (glance, [ADR-053](#adr-053)) stays the only thing awaiting Garmin review.
+
+**Consequences.** [ADR-043](#adr-043) is shelved, not superseded — the dev-build code stays as-is (still `(:sync)`-scoped, still excluded from `store.jungle`), nothing to revert. Resuming this feature later means solving the actual product question first (own exercise log inside HeroSet, since Connect can't show it: a "Health & Fitness" positioning built around it, not "Health & Fitness *and syncs to Connect*"), not re-running the same acceptance checklist expecting a different render result. `docs/connect-sync-plan.md` and `docs/go-to-market.md`'s 1.3.0 backlog item both note this.

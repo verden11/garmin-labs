@@ -10,7 +10,7 @@ Last consolidated 2026-09-26.
 - [x] A2. Category (2026-09-26): re-set on HeroSet; the developer page HTML (incognito) shows STRENGTH_TRAINING. Not checked: whether the store API still reads 219.
 - [x] A3. Dropped 2026-09-26: the mobile app only selects a device by linking a real one, and there is no fēnix 9 / FR170 to link. Store-side bug, not ours anyway.
 - [x] HeroFace 1. FR965 store install of 1.0.1 (2026-09-26): live; face and HeroSet both installed, link works. °F rounding checked on the FR965, shows correct. Not checked: stored mode 2 → Auto.
-- [ ] A4. Upload `HeroSet/listing/screens/6-review-touch.png` as an extra Screen Image on the HeroSet store listing (Venu 4 41mm simulator, `SWIPE: ADJUST`; edit details need no re-review). Source frame: `HeroSet/listing/src/venu4-41mm-simulator-full.png`.
+- [ ] A4. Upload all 7 `HeroSet/listing/screens-framed/*.png` as the Screen Images on the HeroSet store listing (edit details need no re-review) — supersedes the old single-file plan below it.
 
 ## Device checks (FR965, dev build, all-day wear)
 
@@ -33,19 +33,20 @@ Capture: run the app in the simulator on the product named, get the state shown,
 | # | App | Simulator product | State to capture | Save as (`~/screenshots/`) | Status |
 |---|---|---|---|---|---|
 | 1 | HeroSet | `fr965` store build, goal 100 | Dashboard | `goal 100 full.png` | done, no streak. Source moved to `HeroSet/listing/src/fr965-dashboard-goal100-{window,454}.png`; cropped to `screens-framed/dashboard.png` |
-| 2 | HeroSet | `fr965`, goal 100 | Counting push-ups (TODAY x/100) | `push up with hr full.png` | **retake** (has /30) |
-| 3 | HeroSet | `fr965`, goal 100 | Review picker: DETECTED, +N, `UP/DOWN: ADJUST` | `adjust full.png` | **retake** (has /30) |
-| 4 | HeroSet | `fr965`, goal 100 | `+N SAVED` dashboard | `save full.png` | **retake** (has /30) |
-| 5 | HeroSet | `fr965`, goal 100 | Menu, `Start Squats` whole (scroll position of `menu 5 full.png`) | `menu 5 full.png` | **retake** (has /30, clip fixed) |
+| 2 | HeroSet | `fr965`, goal 100 | Counting push-ups (TODAY x/100) | `push up with hr full.png` | **done 2026-09-27.** Source `HeroSet/listing/src/fr965-counting-window.png`; cropped to `screens-framed/counting.png` |
+| 3 | HeroSet | `fr965`, goal 100 | Review picker: DETECTED, +N, `UP/DOWN: ADJUST` | `adjust full.png` | **done 2026-09-27.** Source `HeroSet/listing/src/fr965-review-window.png`; cropped to `screens-framed/review.png` |
+| 4 | HeroSet | `fr965`, goal 100 | `+N SAVED` dashboard | `save full.png` | **done 2026-09-27.** Source `HeroSet/listing/src/fr965-saved-window.png`; cropped to `screens-framed/saved.png` |
+| 5 | HeroSet | `fr965`, goal 100 | Menu, `Start Squats` whole (scroll position of `menu 5 full.png`) | `menu 5 full.png` | **done 2026-09-27** (scroll rests on Sit-ups, Squats fully visible, not centered — close enough, retake only if that's wrong). Source `HeroSet/listing/src/fr965-menu-window.png`; cropped to `screens-framed/menu.png` |
 | 6 | HeroSet | `fr965`, goal 100 | DAILY MISSION COMPLETE, 1 day streak | `complete full.png` | done. Source moved to `HeroSet/listing/src/fr965-complete-streak-{window,454}.png`; cropped to `screens-framed/complete.png` |
-| 7 | HeroSet | `venu441mm` (touch) | Review picker, `SWIPE: ADJUST` | `venu 4 full.png` | have small 390 px window shot in `HeroSet/listing/src/`; recapture at goal 100 if soft |
+| 7 | HeroSet | `venu441mm` (touch), goal 100 | Review picker, `SWIPE: ADJUST` | `venu 4 full.png` | **done 2026-09-27.** Source `HeroSet/listing/src/venu441mm-review-touch-window.png`; cropped to `screens-framed/venu-review-touch.png`, swipe-gesture glyph added (the one non-capture addition) |
 | 8 | HeroFace | `fenix5` (240 px) | Everyday, part-filled: 3406 steps, 20 int min, 7 floors | `heroface-1-everyday.png` | open |
 | 9 | HeroFace | any round sim (docs don't say) | Everyday, all three goals met, 1-day streak | `heroface-2-goals-met.png` | open; note product used |
 | 10 | HeroFace | `fr965` | HeroSet mode, 20/45/10 reps, rank 2, orange ring | `heroface-3-heroset.png` | open: only a real watch had HeroSet data; can the sim? else leave plain |
 | 11 | HeroFace | `fr965` | HeroSet mode, all three met, rank 2, streak 1 | `heroface-4-heroset-complete.png` | same as #10 |
 | 12 | HeroFace | `fr245` (no barometer) | STEPS / INT / MOVE | `heroface-5-no-barometer.png` | open |
 
-- [ ] After captures (Claude): crop (678² from x=58 y=181, pad white to 720²), move into `listing/screens/`, update `listing/README.md` and `HeroFace/listing/screenshots.md`, site copies in `site/public/{heroset,heroface}/screens/` (never rename published URLs), re-render hero + cover (their layouts need rework for tall framed shots), then upload to both store listings.
+- [x] All 7 HeroSet rows cropped, padded to 720², placed in `listing/screens-framed/`, `listing/README.md` Screen Images list rewired to them (2026-09-27).
+- [ ] Still open: site copies in `site/public/heroset/screens/` (never rename published URLs), re-render hero + cover (their layouts need rework for tall framed shots — `hero.html` still points at the old `screens/2-counting.png` etc), upload all 7 to the live HeroSet store listing. HeroFace rows (8-12) untouched.
 
 ## HeroSet 1.1.2 glance (built 2026-09-26, not uploaded; gates the upload, [ADR-051](HeroSet/docs/decisions.md#adr-051))
 

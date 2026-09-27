@@ -83,8 +83,9 @@ class TwoSunsConfig {
 
     static const PERMILLE = 1000;
 
-    // Always-on drift: the block steps across a grid of BURN_IN_GRID squared spots, a step wider than a
-    // digit stroke (Days To Go ADR-007: at most 10% of pixels lit, a pixel on for at most 3 updates).
+    // Always-on drift: the block steps across a grid of BURN_IN_GRID squared spots every update, a step
+    // wider than a digit stroke, so any one pixel is part of the lit stroke for at most one update — see
+    // TwoSunsSleep.mc's header for the reasoning and the caveat on the underlying (uncited) 10% figure.
     static const BURN_IN_GRID = 3;
     static const BURN_IN_STEP_PERMILLE = 35;
 

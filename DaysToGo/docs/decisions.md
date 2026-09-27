@@ -88,4 +88,4 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 ## Reference code
 
-`docs/reference/` (the verified first draft of the logic, the on-watch picker and the tools) is superseded by `source/` and `tools/` and is to be deleted; its history is in the research notes.
+`docs/reference/` (the verified first draft of the logic, the on-watch picker and the tools) was superseded by `source/` and `tools/`, then deleted; its history is in the research notes.

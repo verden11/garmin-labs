@@ -33,7 +33,7 @@ A button-first daily challenge that lives entirely on the watch: automatic rep c
 - Automatic counting is beta and can miscount; accuracy numbers may not be claimed until launch gate 2 passes ([`docs/release-contract.md`](docs/release-contract.md)).
 - Manual correction and manual logging on every path; XP only for net stored progress ([ADR-002](docs/decisions.md#adr-002)); rank derived, never stored.
 - Reliability: a set survives the glance-launch idle kill (confirmed on FR965, exactly 120s) by resuming from a periodic checkpoint instead of restarting at 0 ([ADR-052](docs/decisions.md#adr-052)).
-- Glance (1.1.2, [ADR-051](docs/decisions.md#adr-051)): a read-only glance-list entry with today's three bars and the streak, on the 63 products with Connect IQ 4.0+; it never writes and needs no permission.
+- Glance (1.2.0, [ADR-051](docs/decisions.md#adr-051)): a read-only glance-list entry with today's three bars and the streak, on the 63 products with Connect IQ 4.0+; it never writes and needs no permission.
 - Live HR and calorie estimate during a set; calories are the change in Garmin's daily total, an estimate, not a medical or native session measurement.
 - Store build: `Sensor` + `ComplicationPublisher` permissions only, no network, no Garmin Connect/Strava sync, no FIT activity ([ADR-033](docs/decisions.md#adr-033)). Opt-in Connect sync (one activity per workout, [ADR-043](docs/decisions.md#adr-043)) exists in the dev build only, unverified; planned for v1.1.
 - Watch UI: round screens only, AMOLED and MIP, 80 products from ~208 to 466 px; min Connect IQ API 3.4.0; one class per file; text fit measured, never guessed ([ADR-018](docs/decisions.md#adr-018)); render only in `onUpdate`.

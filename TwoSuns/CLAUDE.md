@@ -1,6 +1,6 @@
 # Two Suns — CLAUDE.md
 
-Garmin watch face (Connect IQ, Monkey C) from studio Verden. **"Two Suns" is confirmed** (ADR-010). One question at a glance: how much light, and how much energy, do I have left today? A 24-hour ring is the sky's sun, a 24-hour curve under the time is the watch's own Body Battery, one sentence at the bottom is the light left or the next sunrise. 69 products (66 round, 3 rectangular AMOLED), API 4.2 and newer, `minApiLevel` 4.2.0, permissions `SensorHistory`, `ComplicationSubscriber` and `Positioning`. Paid, USD 1.99. **Built, not shipped.**
+Garmin watch face (Connect IQ, Monkey C) from studio Verden. **"Two Suns" is confirmed** (ADR-010). One question at a glance: how much light, and how much energy, do I have left today? A 24-hour ring is the sky's sun, a 24-hour curve under the time is the watch's own Body Battery, one sentence at the bottom is the light left or the next sunrise. 69 products (66 round, 3 rectangular AMOLED), API 4.2 and newer, `minApiLevel` 4.2.0, permissions `SensorHistory`, `ComplicationSubscriber` and `Positioning`. Paid, USD 1.99. **Submitted 2026-09-27, pending review**: https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b (live once approved — Garmin's own app id, distinct from the manifest AppID below).
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (the product and its rules; "Built vs specified" lists what the build changed),
 [`docs/plan.md`](docs/plan.md) (state of each phase, what the build learned, the owner-only steps),
@@ -19,10 +19,10 @@ The evidence is in [`../reports/Body Battery and sun face research.md`](../repor
 - Property keys `Accent`, `Orientation`, `Golden`, `Curve`, `Date` and the Storage key `place` never change once shipped.
 - Build: `monkeyc -d fr965 -f monkey.jungle -o bin/TwoSuns.prg -y ~/.garmin-connectiq/keys/developer_key -w --typecheck 3`
 - Tests: `tools/run_tests.sh <device> [testName]`. Trust the printed `PASSED (…)` line, not the exit code. A run that prints nothing means the simulator wedged (the script restarts it once).
-- Screen fit, ten devices: `tools/fit_all.sh`. All 69 products: `tools/fit_products.sh` (slow; **not yet run**). One size: `tools/run_tests.sh <device> everyStateFitsThisDisplay`; `twoSunsLayoutReport` prints every row's box.
+- Screen fit, ten devices: `tools/fit_all.sh`. All 69 products: `tools/fit_products.sh` (slow; **run 2026-09-27, `done: 69 pass, 0 fail`, `bin/fit-products.txt`** — predates the 2026-09-27 fixes below, re-run before submit). One size: `tools/run_tests.sh <device> everyStateFitsThisDisplay`; `twoSunsLayoutReport` prints every row's box.
 - Generated and checked files: `python3 tools/gen_settings.py [--check|--ids]`, `python3 tools/gen_sun_tests.py` (writes `source/test/TwoSunsSunReferenceTest.mc` from the research notes' USNO table), `python3 tools/check_strings.py`, `tools/fit_languages.sh [-l "deu fin"] <product>`.
 - **Shared simulator.** `tools/run_tests.sh`, `tools/fit_all.sh`, `tools/fit_products.sh` and `tools/fit_languages.sh` `pkill -f monkeydo` after every run (which ends any app another session has running in the simulator) and `pkill` the simulator itself when it wedges. If another session or the owner is using it, do not run them; check first. Never `pkill` it by hand for someone else.
-- **The face itself has not run on a wrist.** Everything but the location probes is simulator-only until the owner's FR965 wear test (plan phase 9) says otherwise. The simulator has no GPS position, canned weather, canned sun values and synthetic Body Battery: it can prove layout and logic, never data. No screenshot of the face exists; the environment cannot capture the simulator. The location probes DID run on the FR965 (2026-09-27, M1 and M2; `device-test/LocationProbe-RESULTS.md`), and confirmed Positioning (ADR-005) — M3, M4 and the glance/widget comparisons are still open, not blocking.
+- **No full wear day yet.** Everything but a few spot-checks is simulator-only until the owner's FR965 wear test (plan phase 9). The simulator has no GPS position, canned weather, canned sun values and synthetic Body Battery: it can prove layout and logic, never data. No screenshot of the face exists; the environment cannot capture the simulator. What HAS run on the FR965: the location probes (2026-09-27, M1 and M2; `device-test/LocationProbe-RESULTS.md`, confirmed Positioning, ADR-005 — M3, M4 and the glance/widget comparisons still open, not blocking), a sunrise/sunset comparison against the native glance (exact match, gate 3), and on-watch Customize (ADR-019).
 
 ## Open owner decisions
 
@@ -52,5 +52,5 @@ Same as Days To Go ([`../DaysToGo/CLAUDE.md`](../DaysToGo/CLAUDE.md)) and HeroFa
 - Settings change → `tools/gen_settings.py`, then `--check`.
 - User-facing claims live in the listing and `../site/src/apps/two-suns/`; change both together, never change a published URL. Check every claim against `docs/release-contract.md`.
 - Every store publication gets a `CHANGELOG.md` entry and a What's New block in `listing/README.md`.
-- Test count appears in `README.md` and here (**122**); update both.
+- Test count appears in `README.md` and here (**124**); update both.
 - Edits outside `TwoSuns/` are limited to the root `CLAUDE.md` table row, the root `README.md`, and `site/`. Ask before touching `HeroSet/`, `HeroFace/` or `DaysToGo/`.

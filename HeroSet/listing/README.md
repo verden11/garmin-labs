@@ -1,6 +1,6 @@
 # HeroSet — store listing (paste-ready)
 
-Status: 2026-09-27. **1.1.2 uploaded, awaiting Garmin review** (the glance + idle-kill fix, [ADR-051](../docs/decisions.md#adr-051)/[052](../docs/decisions.md#adr-052)); fields below are what was submitted. Next after it clears: 1.2.0 (Connect sync).
+Status: 2026-09-27. **1.2.0 uploaded, awaiting Garmin review** (the glance + idle-kill fix, [ADR-051](../docs/decisions.md#adr-051)/[052](../docs/decisions.md#adr-052); submitted as `1.2.0` rather than `1.1.2`, [ADR-053](../docs/decisions.md#adr-053)); fields below are what was submitted. Connect sync (1.3.0) is shelved, [ADR-054](../docs/decisions.md#adr-054); no next version decided yet.
 
 Fields are in the order of the upload form (https://apps.garmin.com/en-US/developer/upload, step 2). One block = one field: copy the block, paste it. Nothing else is in this file; limits, why each answer is what it is, image sources and history are in [`NOTES.md`](NOTES.md).
 
@@ -37,7 +37,7 @@ Good to know: counting depends on how you wear the watch and how you move, so th
 ## App Version (max 20)
 
 ```text
-1.1.2
+1.2.0
 ```
 
 ## What's New (max 4000)
@@ -82,12 +82,17 @@ https://verden.watch/heroset/privacy/
 
 ## Screen Images (upload in this order)
 
-1. [`screens/1-dashboard.png`](screens/1-dashboard.png)
-2. [`screens/2-counting.png`](screens/2-counting.png)
-3. [`screens/3-review.png`](screens/3-review.png)
-4. [`screens/4-saved.png`](screens/4-saved.png)
-5. [`screens/5-menu.png`](screens/5-menu.png) (optional)
-6. [`screens/6-review-touch.png`](screens/6-review-touch.png) (optional, touch-watch hint `SWIPE: ADJUST`; Venu 4 41mm simulator, 390 px scaled to 454)
+Garmin caps this at 5 images; upload in this exact order (filenames are numbered to match).
+
+1. [`screens-framed/1-dashboard.png`](screens-framed/1-dashboard.png) (fr965, goal 100)
+2. [`screens-framed/2-counting.png`](screens-framed/2-counting.png) (fr965, mid-set, HR live)
+3. [`screens-framed/3-review.png`](screens-framed/3-review.png) (fr965, review picker, `UP/DOWN: ADJUST`)
+4. [`screens-framed/4-saved.png`](screens-framed/4-saved.png) (fr965, `+N SAVED` dashboard)
+5. [`screens-framed/5-complete.png`](screens-framed/5-complete.png) (fr965, `DAILY MISSION COMPLETE`, 1 day streak)
+
+All chassis + strap simulator captures of the store build (real, no mockups, [ADR-039](../docs/decisions.md#adr-039)). Replaces the earlier tight-crop `screens/1-6` set.
+
+**Not used, kept as spares in the same folder** (menu and touch-device shots didn't make the 5-image cap): [`screens-framed/menu.png`](screens-framed/menu.png), [`screens-framed/venu-review-touch.png`](screens-framed/venu-review-touch.png) (Venu 4 41mm, `SWIPE: ADJUST`, has an added swipe-gesture glyph — the one non-capture graphic in this set).
 
 ## Device icons (optional, 128×128)
 

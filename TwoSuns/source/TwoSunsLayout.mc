@@ -10,7 +10,11 @@ class TwoSunsLayout {
     // Row height caps in thousandths of D. A row takes the largest font up to its cap (or the smallest
     // font, on a screen too small for the cap).
     static const DATE_MAX_PERMILLE = 60;
-    static const TIME_MAX_PERMILLE = 230;
+    // Raised from 230 on the owner's own FR965 feedback (2026-09-27: "plenty of space" at the old cap).
+    // Proportional to D like every cap here, so it scales the same way across all 69 products; a screen
+    // too small for the new cap already falls back through TIME_FONTS via fontUpTo, same as before.
+    // Not yet re-confirmed by a fit sweep or a new device photo — do before the submit gate closes.
+    static const TIME_MAX_PERMILLE = 260;
     static const VALUE_MAX_PERMILLE = 80;
     static const LINE_MAX_PERMILLE = 75;
     // The Body Battery band is at least this tall when it carries the curve.
@@ -29,8 +33,11 @@ class TwoSunsLayout {
     static const TIME_FONTS = [Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
     static const VALUE_FONTS = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     static const LINE_FONTS = [Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
-    // Always-on time: two sizes smaller than awake, to stay far under the 10% lit-pixel limit.
-    static const SLEEP_TIME_FONTS = [Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
+    // Always-on time is derived from TIME_FONTS at draw time (TwoSunsFrame, TwoSunsDraw.fontsBelow), two
+    // steps below whatever font awake actually picked — not a second, independent list. The old
+    // independent list started at MEDIUM regardless of what awake chose, so it matched awake exactly
+    // whenever awake had already fallen back to MEDIUM, contradicting the "two sizes smaller" it
+    // documented (caught by watch-design-reviewer, 2026-09-27).
 
     private var _width as Number;
     private var _height as Number;

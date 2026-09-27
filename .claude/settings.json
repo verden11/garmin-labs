@@ -4,5 +4,16 @@
       "Bash(monkeyc *)",
       "Bash(monkeydo *)"
     ]
+  },
+  "extraKnownMarketplaces": {
+    "watch-design-kit": {
+      "source": {
+        "source": "directory",
+        "path": "/Users/mbp/dev/watch-design-kit"
+      }
+    }
+  },
+  "enabledPlugins": {
+    "watch-design-kit@watch-design-kit": true
   }
 }

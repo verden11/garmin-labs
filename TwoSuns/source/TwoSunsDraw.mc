@@ -65,6 +65,24 @@ class TwoSunsDraw {
         return [fonts[fonts.size() - 1]] as Array<Graphics.FontDefinition>;
     }
 
+    // The fonts starting `drop` steps below `first` in `fonts` (largest first), floored at the smallest —
+    // for a row that must shrink further than another row's own choice, e.g. always-on time kept visibly
+    // smaller than whatever awake picked, not just re-picking independently and sometimes landing on the
+    // same size (caught by watch-design-reviewer, 2026-09-27: the old independent SLEEP_TIME_FONTS list
+    // matched awake's font exactly whenever awake had already fallen back from its largest choice).
+    static function fontsBelow(fonts as Array<Graphics.FontDefinition>, first as Graphics.FontDefinition, drop as Number) as Array<Graphics.FontDefinition> {
+        for (var i = 0; i < fonts.size(); i++) {
+            if (fonts[i] == first) {
+                var start = i + drop;
+                if (start >= fonts.size()) {
+                    start = fonts.size() - 1;
+                }
+                return fonts.slice(start, fonts.size()) as Array<Graphics.FontDefinition>;
+            }
+        }
+        return [fonts[fonts.size() - 1]] as Array<Graphics.FontDefinition>;
+    }
+
     // Draws one line centred in its band, in the largest font (fonts are
     // listed largest first) and longest wording (candidates, longest first)
     // that fits: height within the band, width within the chord of `radius`

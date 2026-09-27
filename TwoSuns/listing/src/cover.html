@@ -1,0 +1,22 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Store cover (500x500): shows at ~100 px in browse, so wordmark only. Render: see ../screenshots.md. -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;width:500px;height:500px;overflow:hidden;}
+  body{display:flex;flex-direction:column;align-items:center;justify-content:center;
+       font-family:'Archivo',sans-serif;color:#fff;background:radial-gradient(360px 360px at 50% 45%,#0d1a2a 0%,#000 75%);}
+  /* The ring's own arc + sun, not a separate invented mark — same vocabulary as the face itself
+     (TwoSunsRing.mc): a night/day arc and a solid marker, still a draft, needs owner sign-off same
+     as the app's launcher-icon placeholder. */
+  .mark{width:220px;height:220px;display:block;}
+  h1{margin:20px 0 0;font-size:76px;font-weight:800;font-stretch:112%;letter-spacing:-2px;line-height:1;}
+  h1 span{color:#55AAFF;}
+</style></head><body>
+  <svg class="mark" viewBox="0 0 100 100">
+    <circle cx="50" cy="50" r="42" fill="none" stroke="#5555AA" stroke-width="7"/>
+    <path d="M50 8 A42 42 0 0 1 92 50" fill="none" stroke="#55AAFF" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="50" cy="8" r="6" fill="#fff"/>
+  </svg>
+  <h1>Two <span>Suns</span></h1>
+</body></html>

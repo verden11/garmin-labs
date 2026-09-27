@@ -3,11 +3,28 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/README.md`](listing/README.md).
 
-**There has been no store publication.** Nothing is submitted, no version number is confirmed.
+## 1.0.0 — submitted 2026-09-27, pending review
 
-## Unreleased / 1.0.0 in preparation
+Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
 
-Built 2026-09-26, extended 2026-09-27. Evidence: mostly simulator (SDK 9.2.0), plus two checks on the owner's FR965 (sunrise/sunset match to the native glance; Positioning). 122 tests pass on `fr965`, `fenix7`, `venu3`; the full 69-product fit sweep (`tools/fit_products.sh`) prints `done: 69 pass, 0 fail`, 122 of 122 on every product including Venu X1 (`bin/fit-products.txt`, 2026-09-27). Tests do not check pixels.
+Built 2026-09-26, extended 2026-09-27. Evidence: mostly simulator (SDK 9.2.0), plus spot-checks on the owner's FR965 (sunrise/sunset match to the native glance; Positioning; on-watch Customize, ADR-019). 124 tests pass on `fr965`, `fenix7`, `venu3` (compile-checked after the 2026-09-27 fixes below; the full run and the 69-product fit sweep predate them and need re-confirming once the simulator is free — the sweep last printed `done: 69 pass, 0 fail`, 122 of 122 on every product including Venu X1, `bin/fit-products.txt`, 2026-09-27). Tests do not check pixels.
+
+What's New (initial release): blank, per the store form — no field for "first release" text.
+
+`watch-design-reviewer` (`watch-design-kit`) ran against this build 2026-09-27 and found 8 material issues; fixed same day:
+
+- Winter-accent/`MUTED` colour collision fixed (ADR-017 amendment, `docs/decisions.md`).
+- Always-on text contrast fixed (ADR-007 amendment, `docs/decisions.md`).
+- Always-on time's "two sizes smaller" claim fixed to derive from awake's actual font choice (ADR-007 amendment, `docs/decisions.md`).
+- AMOLED burn-in limit's three conflicting doc/code accounts reconciled to one (ADR-007 amendment, `docs/decisions.md`).
+- Energy-curve halo width fixed, was same radius as the dot (ADR-017 amendment, `docs/decisions.md`).
+- Doc headers claiming "nothing has run on a watch" were stale (ADR-005 and ADR-019 both have real FR965 evidence); corrected across `DESIGN.md`, `decisions.md`, `spec.md`, `CLAUDE.md`.
+- `spec.md`'s non-goals still listed "an on-watch settings screen," which ADR-019 built; removed.
+- Time size raised (230→260 permille of D) on the owner's own FR965 feedback ("plenty of space"); not yet re-confirmed by a fit sweep or a new device photo.
+
+Two findings are still open, not fixable from a coding session alone: settings persistence across a real Garmin Connect sync is untested (ADR-018); the always-on Body Battery number still has no context marker distinguishing it from a battery percentage (spec.md "Ideas", not designed).
+
+One more caught from a real FR965 screenshot, same day: the Body Battery glyph's fill rounded its own leading edge once wide enough, which at a mid-level reading (59%, the owner's real value at the time) looked like a toggle switch, not a level. Fill is now a plain rectangle inside the rounded outline.
 
 Built:
 
@@ -24,7 +41,7 @@ Built:
 
 Not done, and not to be claimed:
 
-- Device evidence is two checks only (sunrise/sunset match; Positioning). Not yet done: a full wear day, always-on night, DST, a run with phone and GPS off, battery figure.
+- Device evidence is three spot-checks (sunrise/sunset match; Positioning; on-watch Customize), no full wear day. Not yet done: a full wear day, always-on night, DST, a run with phone and GPS off, battery figure, settings persistence across a real Garmin Connect sync.
 - The owner has not approved the look or the launcher icon (a generic placeholder). No screenshot exists.
 - No language has been fit-tested (`tools/fit_languages.sh` written, not run); no store description translated.
 - The `.iq` export prints "89 OUT OF 89 DEVICES BUILT" for a manifest of 69 products; investigated (the archive itself confirms 89 real entries, keyed by internal part numbers this SDK cannot map back to device ids), still unresolved — the store form's own Compatible Devices list is authoritative at upload.

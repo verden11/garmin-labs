@@ -41,7 +41,7 @@ English plus 14 (dan, deu, dut, fin, fre, ita, lit, nob, pol, por, spa, swe, tur
 
 ## Images
 
-One 454 × 454 FR965 simulator screenshot and a 500 × 500 cover exist; see [`screenshots.md`](screenshots.md). More states (named event in weeks, last day in hours, TODAY) and a real launcher icon would help; generators to adapt are in `../../HeroFace/listing/src/`.
+One 454 × 454 FR965 simulator screenshot and a 500 × 500 cover exist; see [`screenshots.md`](screenshots.md). A hero (1440×720) was drafted 2026-09-27, adapted from HeroFace's own `listing/src/` generators as this file already suggested — **not uploaded**: DaysToGo is mid-review (1.0.1, submitted 2026-09-26) and whether editing a live listing image restarts or affects that review is unconfirmed against Garmin's own published docs. Owner's call before adding it to `README.md`'s Hero Image field. More states (named event in weeks, last day in hours, TODAY) and a real launcher icon would help.
 
 ## Previous What's New blocks
 

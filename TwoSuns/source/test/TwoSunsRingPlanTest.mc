@@ -202,7 +202,10 @@ function ringTwilightSkipsAnInconsistentCalculation(logger as Test.Logger) as Bo
 function dimLowersOnlyFullChannels(logger as Test.Logger) as Boolean {
     Test.assertEqual(TwoSunsPalette.dim(0xFFAA00), 0xAAAA00);
     Test.assertEqual(TwoSunsPalette.dim(0x55FFAA), 0x55AAAA);
-    Test.assertEqual(TwoSunsPalette.dim(0xFFFFFF), 0xAAAAAA);
+    // 0xFFFFFF (winter) is the one exception: naively dimming every full channel lands exactly on
+    // MUTED, so dim() nudges the red channel one further step (see TwoSunsPalette.dim, ADR-017
+    // amendment 2026-09-27) — this assertion used to encode the old, colliding behaviour.
+    Test.assertEqual(TwoSunsPalette.dim(0xFFFFFF), 0x55AAAA);
     Test.assertEqual(TwoSunsPalette.dim(0x000000), 0x000000);
     return true;
 }

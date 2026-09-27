@@ -35,7 +35,7 @@ There is one simulator per machine. `tools/run_tests.sh` (and so `fit_all.sh` an
 
 ## The test kinds
 
-122 tests, 2026-09-27, the same count on every device.
+124 tests, 2026-09-27, the same count on every device.
 
 - **Logic**: the sun calculation and 27 generated USNO reference tests (`TwoSunsSunReferenceTest`), calendar, exact local offset, Body Battery buckets, place rounding and hysteresis, sky states, readings (words), settings validation, date text, ring plan (angles, arcs, ticks, colours and their contrast), curve plan and band. None checks pixels.
 - **Screen fit** (`everyStateFitsThisDisplay`): renders 31 states (10 sun states times 3 Body Battery states, plus one with the date off) at the device's real resolution and fonts. `alwaysOnFrameFitsAtEveryDrift` does the same for the always-on frame at the nine drift positions. Run per screen size after any layout or string change:

@@ -23,7 +23,7 @@ and `research_notes/Countdown face research/`. The verified first draft of the l
 | 9 Device evidence and submission | Submitted 2026-09-26 without the beta round trip (owner's decision); wear day and always-on night not yet reported |
 | 10 After approval | Not started |
 
-The text of phases 1 to 8 below is the original plan; where it says `docs/reference/` it means the first draft of the code, which is superseded by `source/` and `tools/` (and its folder is to be deleted). Nothing builds from it: `monkey.jungle` sets `base.sourcePath = source`.
+The text of phases 1 to 8 below is the original plan; where it says `docs/reference/` it means the first draft of the code, superseded by `source/` and `tools/` (that folder has since been removed). Nothing builds from it: `monkey.jungle` sets `base.sourcePath = source`.
 
 ## 0. Ground rules (they override anything below if in conflict)
 
@@ -163,7 +163,7 @@ Add `resources-<lang>/strings/strings.xml` for each language answered in phase 0
 
 ### Phase 7. Documentation (≈ 1 day)
 
-Create, mirroring HeroFace's shape: `PRODUCT.md`, `DESIGN.md` (frontmatter tokens as in `HeroFace/DESIGN.md`), `docs/decisions.md`, `docs/compatibility.md`, `docs/development.md`, `docs/release-contract.md` (the claims allowed and forbidden, from `spec.md`), `CHANGELOG.md`, `README.md` (test count, layout). ADRs to write (one paragraph each: decision, why, evidence path): **001** any event, countdown-first; **002** price; **003** list settings, never `date`/`numeric`; **004** calendar-day arithmetic, no Moment maths; **005** on-watch picker (result of phase 3); **006** device set (117 round, CIQ 3.0+); **007** always-on = hero + time on a shifting grid; **008** name and site slug; **009** 29 Feb every-year rule (28 Feb in common years); **010** no permissions, no `Storage`, nothing leaves the watch; **011** date style setting and words-only dates. Then delete `docs/reference/` (its files now live in `source/` and `tools/`) and say so in `docs/decisions.md`.
+Create, mirroring HeroFace's shape: `PRODUCT.md`, `DESIGN.md` (frontmatter tokens as in `HeroFace/DESIGN.md`), `docs/decisions.md`, `docs/compatibility.md`, `docs/development.md`, `docs/release-contract.md` (the claims allowed and forbidden, from `spec.md`), `CHANGELOG.md`, `README.md` (test count, layout). ADRs to write (one paragraph each: decision, why, evidence path): **001** any event, countdown-first; **002** price; **003** list settings, never `date`/`numeric`; **004** calendar-day arithmetic, no Moment maths; **005** on-watch picker (result of phase 3); **006** device set (117 round, CIQ 3.0+); **007** always-on = hero + time on a shifting grid; **008** name and site slug; **009** 29 Feb every-year rule (28 Feb in common years); **010** no permissions, no `Storage`, nothing leaves the watch; **011** date style setting and words-only dates. `docs/reference/` has since been removed; its files now live in `source/` and `tools/` ([`docs/decisions.md`](decisions.md) "Reference code").
 
 ### Phase 8. Store listing and site (≈ 1 day)
 
@@ -189,7 +189,7 @@ Create, mirroring HeroFace's shape: `PRODUCT.md`, `DESIGN.md` (frontmatter token
 - All unit tests and the ten screen-fit runs pass, strict typing, zero warnings (bar the launcher-icon size notices).
 - Phase 3 results recorded, and `spec.md` updated to match what the watch actually did.
 - Memory gate met on the smallest products; always-on frame checked in the heat map.
-- Docs, ADRs, listing, site pages written; the superseded `docs/reference/` draft deleted (owner's `rm -r`).
+- Docs, ADRs, listing, site pages written; the superseded `docs/reference/` draft deleted.
 - Every report states: FR965 device evidence only; everything else simulator only.
 
 ## 4. Stop and ask the owner when

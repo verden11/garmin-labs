@@ -59,7 +59,7 @@ Leave blank: this is the initial release, and the form has no field asking for "
 
 ## Hero Image (optional, 1440×720, under 2048 KB)
 
-Not made; leave blank.
+[`hero-1440x720.png`](hero-1440x720.png) — 258 KB. Still a draft: the ring-arc/sun mark and wordmark haven't had an owner sign-off pass (same status as the launcher icon placeholder).
 
 ## Category
 
@@ -83,11 +83,16 @@ Whatever the Category choice offers.
 
 ## Cover Image (500×500, under 300 KB)
 
-Not made: needs a real capture. See [`screenshots.md`](screenshots.md).
+[`cover-500.png`](cover-500.png) — 81 KB. Same draft-mark status as the hero above.
 
 ## Screen Images (under 150 KB each, upload in this order)
 
-None exist yet. The owner supplies them; the states, sizes and order are in [`screenshots.md`](screenshots.md).
+Two real device screens from the owner's FR965 simulator run (2026-09-27, native 454×454, no simulator chrome):
+
+1. [`screens/1-face.png`](screens/1-face.png) — 18 KB, awake state
+2. [`screens/2-sleep.png`](screens/2-sleep.png) — 6 KB, always-on/AOD state
+
+More states (a different accent, a different sky state) would help but these two are real and store-legal as-is.
 
 ## Device icons (optional, 128×128)
 
