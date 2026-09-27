@@ -1,0 +1,42 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Two Suns</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). $1$ is a time (Sunrise 6:41) or a duration (3:42 of daylight); keep it. -->
+    <string id="sky_daylight_left">$1$ światła dziennego</string>
+    <string id="sky_sun_up">Słońce świeci</string>
+    <string id="sky_sunrise">Wschód słońca $1$</string>
+    <string id="sky_sunrise_estimate">Wschód słońca ~$1$</string>
+    <string id="sky_sunset">Zachód słońca $1$</string>
+    <string id="sky_midnight_sun">Słońce dziś nie zachodzi</string>
+    <string id="sky_polar_night">Słońce dziś nie wschodzi</string>
+    <string id="sky_no_sunrise">Jutro brak wschodu słońca</string>
+    <string id="sky_daylight_left_short">$1$ światła</string>
+    <string id="sky_sunrise_short">Wschód $1$</string>
+    <string id="sky_sunrise_estimate_short">Wschód ~$1$</string>
+    <string id="sky_sunset_short">Zachód $1$</string>
+    <string id="sky_midnight_sun_short">Słońce nie zachodzi</string>
+    <string id="sky_polar_night_short">Słońce nie wschodzi</string>
+    <string id="sky_no_sunrise_short">Brak wschodu</string>
+    <string id="sky_midnight_sun_min">Brak zachodu</string>
+    <string id="sky_polar_night_min">Brak wschodu</string>
+    <string id="sky_no_place">Brak lokacji</string>
+    <string id="sky_no_data">Brak danych</string>
+    <string id="value_none">--</string>
+    <string id="setting_accent">Kolor akcentu</string>
+    <string id="accent_autumn">Jesień</string>
+    <string id="accent_mint">Mięta</string>
+    <string id="accent_sky">Błękit</string>
+    <string id="accent_pink">Róż</string>
+    <string id="accent_violet">Fiolet</string>
+    <string id="accent_winter">Zima</string>
+    <string id="setting_orientation">Układ pierścienia</string>
+    <string id="orientation_noon">Południe (12:00) u góry</string>
+    <string id="orientation_midnight">Północ (0:00) u góry</string>
+    <string id="setting_golden">Złota godzina</string>
+    <string id="setting_curve">Krzywa energii</string>
+    <string id="setting_date">Data</string>
+    <string id="on">Wł.</string>
+    <string id="off">Wył.</string>
+
+</strings>

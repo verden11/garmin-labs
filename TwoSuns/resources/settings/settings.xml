@@ -1,0 +1,37 @@
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <setting propertyKey="@Properties.Accent" title="@Strings.setting_accent">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.accent_sky</listEntry>
+            <listEntry value="1">@Strings.accent_mint</listEntry>
+            <listEntry value="2">@Strings.accent_autumn</listEntry>
+            <listEntry value="3">@Strings.accent_violet</listEntry>
+            <listEntry value="4">@Strings.accent_pink</listEntry>
+            <listEntry value="5">@Strings.accent_winter</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Orientation" title="@Strings.setting_orientation">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.orientation_noon</listEntry>
+            <listEntry value="1">@Strings.orientation_midnight</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Golden" title="@Strings.setting_golden">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.off</listEntry>
+            <listEntry value="1">@Strings.on</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Curve" title="@Strings.setting_curve">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.off</listEntry>
+            <listEntry value="1">@Strings.on</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Date" title="@Strings.setting_date">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.off</listEntry>
+            <listEntry value="1">@Strings.on</listEntry>
+        </settingConfig>
+    </setting>
+</settings>

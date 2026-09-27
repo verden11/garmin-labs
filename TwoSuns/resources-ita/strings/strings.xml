@@ -1,0 +1,42 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Two Suns</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). $1$ is a time (Sunrise 6:41) or a duration (3:42 of daylight); keep it. -->
+    <string id="sky_daylight_left">$1$ di luce</string>
+    <string id="sky_sun_up">Sole sorto</string>
+    <string id="sky_sunrise">Alba $1$</string>
+    <string id="sky_sunrise_estimate">Alba ~$1$</string>
+    <string id="sky_sunset">Tramonto $1$</string>
+    <string id="sky_midnight_sun">Il sole non tramonta oggi</string>
+    <string id="sky_polar_night">Il sole non sorge oggi</string>
+    <string id="sky_no_sunrise">Domani niente alba</string>
+    <string id="sky_daylight_left_short">$1$ luce</string>
+    <string id="sky_sunrise_short">Alba $1$</string>
+    <string id="sky_sunrise_estimate_short">Alba ~$1$</string>
+    <string id="sky_sunset_short">Tramonto $1$</string>
+    <string id="sky_midnight_sun_short">Non tramonta</string>
+    <string id="sky_polar_night_short">Non sorge</string>
+    <string id="sky_no_sunrise_short">Niente alba</string>
+    <string id="sky_midnight_sun_min">No tramonto</string>
+    <string id="sky_polar_night_min">No alba</string>
+    <string id="sky_no_place">Luogo ignoto</string>
+    <string id="sky_no_data">Nessun dato</string>
+    <string id="value_none">--</string>
+    <string id="setting_accent">Colore d'accento</string>
+    <string id="accent_autumn">Autunno</string>
+    <string id="accent_mint">Menta</string>
+    <string id="accent_sky">Azzurro</string>
+    <string id="accent_pink">Rosa</string>
+    <string id="accent_violet">Viola</string>
+    <string id="accent_winter">Inverno</string>
+    <string id="setting_orientation">Orientamento dell'anello</string>
+    <string id="orientation_noon">Mezzogiorno in alto</string>
+    <string id="orientation_midnight">Mezzanotte in alto</string>
+    <string id="setting_golden">Ora d'oro</string>
+    <string id="setting_curve">Curva dell'energia</string>
+    <string id="setting_date">Data</string>
+    <string id="on">Attivo</string>
+    <string id="off">Disattivo</string>
+
+</strings>

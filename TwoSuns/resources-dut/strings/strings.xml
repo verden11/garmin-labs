@@ -1,0 +1,42 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">Two Suns</string>
+
+    <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). $1$ is a time (Sunrise 6:41) or a duration (3:42 of daylight); keep it. -->
+    <string id="sky_daylight_left">$1$ daglicht</string>
+    <string id="sky_sun_up">Zon is op</string>
+    <string id="sky_sunrise">Zonsopgang $1$</string>
+    <string id="sky_sunrise_estimate">Zonsopgang ~$1$</string>
+    <string id="sky_sunset">Zonsondergang $1$</string>
+    <string id="sky_midnight_sun">Zon gaat vandaag niet onder</string>
+    <string id="sky_polar_night">Zon komt vandaag niet op</string>
+    <string id="sky_no_sunrise">Morgen geen zonsopgang</string>
+    <string id="sky_daylight_left_short">$1$ licht</string>
+    <string id="sky_sunrise_short">Zon op $1$</string>
+    <string id="sky_sunrise_estimate_short">Zon op ~$1$</string>
+    <string id="sky_sunset_short">Zon onder $1$</string>
+    <string id="sky_midnight_sun_short">Zon gaat niet onder</string>
+    <string id="sky_polar_night_short">Zon komt niet op</string>
+    <string id="sky_no_sunrise_short">Geen opkomst</string>
+    <string id="sky_midnight_sun_min">Geen ondergang</string>
+    <string id="sky_polar_night_min">Geen opkomst</string>
+    <string id="sky_no_place">Geen plaats</string>
+    <string id="sky_no_data">Geen zonnedata</string>
+    <string id="value_none">--</string>
+    <string id="setting_accent">Accentkleur</string>
+    <string id="accent_autumn">Herfst</string>
+    <string id="accent_mint">Munt</string>
+    <string id="accent_sky">Hemelsblauw</string>
+    <string id="accent_pink">Roze</string>
+    <string id="accent_violet">Paars</string>
+    <string id="accent_winter">Winter</string>
+    <string id="setting_orientation">Richting van de ring</string>
+    <string id="orientation_noon">Middag boven</string>
+    <string id="orientation_midnight">Middernacht boven</string>
+    <string id="setting_golden">Gouden uur</string>
+    <string id="setting_curve">Energiecurve</string>
+    <string id="setting_date">Datum</string>
+    <string id="on">Aan</string>
+    <string id="off">Uit</string>
+
+</strings>
