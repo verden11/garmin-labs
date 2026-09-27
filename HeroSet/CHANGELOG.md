@@ -4,6 +4,32 @@ One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/README.md`](listing/README.md); the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
+## 1.1.2 — uploaded 2026-09-27, awaiting Garmin review
+
+- **Glance:** a HeroSet entry for the glance list on the 63 watches with Connect IQ
+  4.0 or later: today's push-ups, sit-ups and squats as three bars, and the streak
+  (a check and `MISSION COMPLETE` once all three goals are met). Read-only; selecting
+  it opens HeroSet. Not on fēnix 6, MARQ Gen 1, Descent Mk2, FR945 LTE, Enduro (Gen 1; Enduro 3 has it)
+  ([ADR-051](docs/decisions.md#adr-051)).
+- **A set no longer vanishes if the watch idles too long after opening HeroSet from
+  the glance.** Garmin kills an app launched from the glance list after a period of
+  inactivity (confirmed on FR965: exactly 120 s); counting now checkpoints
+  periodically, so starting that exercise again picks up where it left off instead
+  of restarting at 0 ([ADR-052](docs/decisions.md#adr-052)). Found, fixed and
+  confirmed on FR965 the same day, before upload.
+- Internal: HeroSet no longer builds its store when the glance loads; the day
+  rollover and the HeroFace publish now run when the app's first screen is
+  requested ([ADR-051](docs/decisions.md#adr-051)/[044](docs/decisions.md#adr-044)).
+- Evidence: simulator and compiler only for the glance itself, confirmed on a real
+  FR965 for the glance appearing, a saved set updating it, and HeroFace matching it
+  (112/112 dev, 101/101 store tests on fr965, all passing; suite passes on one
+  product per glance screen width; all 80 products build). The recoverable-draft
+  fix (ADR-052) is confirmed on FR965. **Owner call, 2026-09-27: uploaded without
+  E2b (saved-set/midnight/streak through the glance), E4 (simulator visual pass) or
+  E5 (crash log, battery comparison)** — see
+  [`docs/go-to-market.md`](docs/go-to-market.md) for exactly what did and didn't
+  run first.
+
 ## 1.1.1 — uploaded 2026-09-24, live 2026-09-24
 
 - **Touchscreen watches:** 13 new products (Venu 2, 2 Plus, 2S, 3, 3S, 4 41/45 mm;

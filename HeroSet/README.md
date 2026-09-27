@@ -15,13 +15,14 @@ vívoactive 5/6, Approach S50/S70, D2 Air X10), Connect IQ 3.4+:
 
 Live as a paid app on the Connect IQ Store.
 
-## Status (2026-09-26)
+## Status (2026-09-27)
 
 - **1.1.1 live.** Counting that learns from saved counts
   ([ADR-040](docs/decisions.md#adr-040)), manual correction, goals, XP/rank/streak, live HR/calories,
-  15 languages. 99 unit tests pass (88 in the store build).
+  15 languages. 112 unit tests pass (101 in the store build).
 - **Not proven on a wrist:** counting accuracy beyond a few FR965 sets; the
   other 79 watches and the touch UI (simulator only).
+- **1.1.2 (glance + idle-kill fix) uploaded 2026-09-27, awaiting Garmin review:** a read-only glance-list entry on 63 of the 80 watches, plus a fix for a set-losing bug found the same day ([ADR-051](docs/decisions.md#adr-051)/[052](docs/decisions.md#adr-052)). Uploaded on an owner call without the full FR965 check list — see [`docs/go-to-market.md`](docs/go-to-market.md).
 - **1.2.0 Connect sync:** dev build only, unverified ([ADR-043](docs/decisions.md#adr-043)).
 - Open items: [`docs/go-to-market.md`](docs/go-to-market.md). Allowed claims:
   [`docs/release-contract.md`](docs/release-contract.md).

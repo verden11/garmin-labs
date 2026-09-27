@@ -10,12 +10,12 @@ Everything marked "simulator" has **not been seen on a watch**. No screenshot of
 
 | Phase | State |
 |---|---|
-| 0 Owner decisions | **Not started**: name (working name Two Suns), category, the look. The owner said on 2026-09-26 to proceed with implementation without further permission questions; the defaults in [`decisions.md`](decisions.md) were taken and are reversible |
+| 0 Owner decisions | **Done in part.** Name (Two Suns, ADR-010), category (Utility) and price (USD 1.99, ADR-002) confirmed 2026-09-27. **The look is still not decided**: no screenshot exists, no approval given. The owner said on 2026-09-26 to proceed with implementation without further permission questions; the defaults in [`decisions.md`](decisions.md) were taken and are reversible |
 | 1 On-watch probes | **Done in part.** Owner ran M1 and M2 on the FR965, 2026-09-27 (results: `device-test/LocationProbe-RESULTS.md`). Positioning is confirmed (Q1 no, Q2 no, Q3 yes → keep it), so the location code and the location path have now run on a watch. **Not run, and not blocking**: M3 (outdoors), M4 (overnight log), Q4/Q5/Q7/Q8's full `diff` — none of these can change the Positioning call; left for before submission. Tier B still gated on the full probe set |
 | 2 Skeleton and verified logic | Done (simulator): sun maths with 27 USNO reference tests, calendar, local time, Body Battery buckets, place, sky states |
 | 3 Plain working face | Done (simulator): readings, state, settings (five lists, `tools/gen_settings.py`), sources for the clock, Complications, history and location |
 | 4 The real face | Built (simulator): layout, sky ring, energy curve band, battery glyph, always-on. **The owner has not approved the look**; no screenshot exists; the rectangles were not looked at by eye |
-| 5 Screen-fit tests | Done for **10 of the 11 screen sizes** (`tools/fit_all.sh`: fr255s, fenix7s, fenix7, fenix7x, fr265s, fr165, epix2, fr965, venusq2, fenix9pro51mm; 122 of 122 on each, 2026-09-27, English only). Venu X1 (448 by 486) not run. `tools/fit_products.sh` (all 69) written, **not run** |
+| 5 Screen-fit tests | **Done for all 69 products** (`tools/fit_products.sh`, 2026-09-27: `bin/fit-products.txt`, `done: 69 pass, 0 fail`, 122 of 122 on each, English only, including Venu X1). Started for the ten screen-size subset first (`tools/fit_all.sh`), then the full sweep completed |
 | 6 Languages | Fourteen machine-drafted translations written; `tools/check_strings.py` passes. **Never fit-tested in any language** (`tools/fit_languages.sh` not run); no native reader |
 | 7 Documentation | Done in this step (`CLAUDE.md`, `README.md`, `PRODUCT.md`, `DESIGN.md`, `CHANGELOG.md`, `docs/*`). `listing/` is written by a parallel step |
 | 8 Listing and site | In progress elsewhere: site pages drafted (`site/src/apps/two-suns/`, staged, not deployed); `listing/` not in the tree when this was written. Screenshots are the owner's |

@@ -25,8 +25,8 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 
 | Field | Reason |
 |---|---|
-| Description | Plain text, keep line breaks; the first line is what list views show. Checked against the forbidden claims in [`../docs/release-contract.md`](../docs/release-contract.md) on 2026-09-22 (the 2026-09-19 check predates the daily-goal line and the current contract). |
-| App Version | Free text, not read from the manifest; bump on every upload (patch for fixes, minor for features). 1.1.1 live ([ADR-050](../docs/decisions.md#adr-050)); next 1.2.0. |
+| Description | Plain text, keep line breaks; the first line is what list views show. Checked against the forbidden claims in [`../docs/release-contract.md`](../docs/release-contract.md) on 2026-09-22, and again on 2026-09-26 for the glance line (63 of 80 watches, no reminder/alert wording) (the 2026-09-19 check predates the daily-goal line and the current contract); submitted for 1.1.2 on 2026-09-27. |
+| App Version | Free text, not read from the manifest; bump on every upload (patch for fixes, minor for features). 1.1.1 live ([ADR-050](../docs/decisions.md#adr-050)); next 1.1.2, the glance ([ADR-051](../docs/decisions.md#adr-051)), then 1.2.0. |
 | Collects user data | No: the store build has no network access, no activity recording, no sync ([ADR-033](../docs/decisions.md#adr-033)). The privacy policy is still linked (gate 6). |
 | Cover Image | Shield + name only: it shows at about 100 px in browse, so no screen text. |
 | Screen Images | Simulator captures of the store build ([ADR-039](../docs/decisions.md#adr-039)), no mockups. If a shot shows a changed UI, re-take it and update the site copy in `../../site/public/heroset/screens/`. |
@@ -48,7 +48,18 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 
 ## What's New: history and copy rules
 
-Copy rules: any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
+Copy rules: the glance is "on watches with Connect IQ 4.0 or later" (63 of 80 products; never "all watches", never "reminder"/"alert", [ADR-051](../docs/decisions.md#adr-051)); any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
+
+**1.1.1**
+
+```text
+- Now on touchscreen watches: Venu 2, 2 Plus, 2S, 3, 3S and 4, vívoactive 5 and 6, Approach S50 and S70, and D2 Air X10. Swipe up or down to adjust a count, then press START to save.
+- A stray tap on the counting or adjust screen can no longer end or save a set, on any watch. Only the START button does.
+- Text fits better on smaller screens in several languages.
+- If the motion sensor can't start, the workout screen now says so instead of staying at 0.
+- HeroFace, our watch face, is now in the Connect IQ Store. On watches with Connect IQ 4.2 or later, it can show today's HeroSet progress.
+- Reliability improvements.
+```
 
 **1.1.0**
 

@@ -15,12 +15,13 @@ The full runbook, with the order, the timing and what to do after approval, is [
 
 ## Edits that depend on the device test (only if the beta round trip is run later)
 
-- **T4 passes** (picker and phone coexist): add to the description, after "Set the date from plain lists": `On many watches you can also set the date on the watch itself: choose the face, then Customize.` Never drop "on many watches": the SDK lists the on-watch settings screen for 94 of the 117 products.
+- **T4 passes** (picker and phone coexist): add to the description, after "Any date, your own event": `On many watches you can also set the date on the watch itself: choose the face, then Customize.` Never drop "on many watches": the SDK lists the on-watch settings screen for 94 of the 117 products.
 - **T2 fails** (phone lists lose the value): the on-watch picker becomes the main route; rewrite that paragraph and escalate to the owner before submitting.
 
 ## Description rules
 
-- One box per language, 4000 characters, plain text: the store shows `**` and `>` literally and keeps every line break.
+- One box per language, 4000 characters, plain text: the store shows `**` and `>` literally and keeps every line break. The English description is **1325 characters**. There is no Keywords field and no What's New field on the form; the README no longer carries a Keywords block (2026-09-27 tidy-up — the form never had one).
+- About what the app **is**, not how to use it: describe the feature, not the tap-by-tap steps to reach it (2026-09-27 tidy-up, applied across all four apps' listings).
 - The first sentence carries the weight (the store truncates in list views); the last line is the support URL (the form has no support field).
 - No watch count, no brand names, no battery or ghosting claims, no download or rating numbers, no "the only countdown with no permissions". Claims allowed: [`../docs/release-contract.md`](../docs/release-contract.md).
 - Paid: disclose the price position honestly; the refund position is Garmin's return window, do not restate it in copy.
@@ -30,7 +31,6 @@ The full runbook, with the order, the timing and what to do after approval, is [
 | Field | Reason |
 |---|---|
 | Category | Utility: it is a utility face; Simple is the alternative |
-| Keywords | Each is something the face does. "always-on" is a real drawn frame, but ghosting is unmeasured; drop it if reviewers object |
 | Collects user data | Nothing leaves the watch; no permissions |
 | Monetization | No. The form's own wording: Yes only if the app asks for payment to enable features, or for tips or donations; Days To Go does neither. HeroFace was submitted the same way and is paid through the store. (HeroSet's README records `Paid: Yes, USD 2.00` for what may be a different step of the form: read the form's wording at submission.) |
 | Price | Paid, the lowest tier: USD 2.00, shown as $1.99 in the US, the same tier as HeroFace and HeroSet (owner decision, ADR-002). The form has no price field of its own in HeroFace's notes; if a merchant step appears choose "Yes, through Garmin CIQ merchant account". The offered watch list and countries shrink to Garmin's lists. Price is set at submission; re-pricing an approved app removes it for re-review (SDK `Monetization/App_Sales`). Price review 45 days after approval |

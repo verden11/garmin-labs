@@ -15,7 +15,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 007 | Always-on is time, Body Battery value and sun sentence, dim, drifting; no ring, no curve | Active (device check open) |
 | 008 | No verdicts on Body Battery; the curve setting is called "Energy curve" | Active |
 | 009 | Device set: 69 products at API 4.2+ (tier A); tier B is 1.1 | Active |
-| 010 | Name **Two Suns** (working name), slug `two-suns` | **Open**: owner to confirm |
+| 010 | Name **Two Suns**, slug `two-suns` | Active (confirmed 2026-09-27) |
 | 011 | The 24-hour ring is wall-clock | Active |
 | 012 | The local UTC offset is derived exactly from the clock | Active |
 | 013 | Sky states: the calculation fills what Garmin leaves null | Active |
@@ -92,10 +92,10 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 ## ADR-010: Name and slug
 
-**Decision.** **Two Suns** is a working name; site slug `two-suns`; code prefix `TwoSuns`; runner-up **Sun Battery**. The slug is permanent once a site page is published. The app id (`6c3c5a3d-b312-4c0f-bf37-2a3fc3a79580`) never changes once published.
+**Decision.** **Two Suns**, confirmed by the owner 2026-09-27; site slug `two-suns`; code prefix `TwoSuns`; runner-up **Sun Battery**, not taken. The slug is permanent once a site page is published. The app id (`6c3c5a3d-b312-4c0f-bf37-2a3fc3a79580`) never changes once published.
 **Why.** Zero store collisions for both in a keyword search, no trademark search done. "Sun Battery" invites confusion with a device-battery face.
-**Evidence.** Desk research (`naming.md`). Owner has not confirmed.
-**Reversed by.** The owner's choice or a trademark finding. The rename is mechanical: `strings.xml` `AppName`, the site slug, the docs; the code prefix and folder can stay or be renamed before the first commit.
+**Evidence.** Desk research (`naming.md`); owner confirmed 2026-09-27, no trademark search done.
+**Reversed by.** A trademark finding. The rename is mechanical: `strings.xml` `AppName`, the site slug, the docs; the code prefix and folder can stay or be renamed before the first commit.
 
 ## ADR-011: The 24-hour ring is wall-clock
 

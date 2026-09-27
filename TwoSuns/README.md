@@ -8,7 +8,7 @@ the bottom says how much daylight is left or when the sun returns. Sunrise
 and sunset are Garmin's own numbers, the same as the watch's Sunrise/Sunset
 glance. Every failure has a sentence, not a blank. Nothing leaves the watch.
 
-**"Two Suns" is a working name**, not confirmed by the owner.
+**"Two Suns" is confirmed** (ADR-010, 2026-09-27); no trademark search done.
 
 69 products at Connect IQ 4.2 and up (66 round, 3 rectangular AMOLED): [`docs/compatibility.md`](docs/compatibility.md).
 Status: **built and simulator-tested, not yet run on a wrist, look not approved, not submitted.**

@@ -15,7 +15,8 @@ Garmin watch app (Forerunner 965 first, 80 round AMOLED + MIP watches supported,
 - Builds: `monkey.jungle` = dev (Connect Sync + validation log); `store.jungle` = release: `manifest-store.xml` (no `Fit`/`FitContributor`), `(:sync)` code excluded, `resources-store/` menu ([ADR-033](docs/decisions.md#adr-033)). Both manifests keep same app id.
 - CLI tools in SDK `bin/` folder, may not be on `PATH` (`~/Library/Application Support/Garmin/ConnectIQ/Sdks/<sdk>/bin/`). Signing key = `~/.garmin-connectiq/keys/developer_key` (outside repo; never commit it).
 - Build: `monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y ~/.garmin-connectiq/keys/developer_key`
-- Tests (99; 88 in store build): `monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y ~/.garmin-connectiq/keys/developer_key`, then `monkeydo bin/HeroSet-tests.prg fr965 -t`. Trust printed `PASSED (…)` line, not exit code. Hung run → restart simulator. Swap `fr965` for other product id to check its screens (`everyScreenFitsThisDisplay`).
+- Tests (112; 101 in store build): `monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y ~/.garmin-connectiq/keys/developer_key`, then `monkeydo bin/HeroSet-tests.prg fr965 -t`. Trust printed `PASSED (…)` line, not exit code. Hung run → restart simulator. Swap `fr965` for other product id to check its screens (`everyScreenFitsThisDisplay`).
+- Glance ([ADR-051](docs/decisions.md#adr-051)): `HeroSetApp` is loaded whole by the glance process, so its `initialize`/`onStart`/`onStop` never build the store; glance code is `(:glance)` and read-only (`HeroSetGlanceReader`, `ui/glance/`). After any change touching `(:glance)` code or `HeroSetApp`, run `tools/glance-scope-check.sh`: the default build is silent about glance code reaching foreground code, and it fails only on the watch. CIQ 4.0+ products only (63 of 80).
 - Layers point down only: Presentation (`app/`, `ui/`, `layout/`) → Sensor / Data → Domain. Only `data/` touches Storage.
 - XP only for net stored progress ([ADR-002](docs/decisions.md#adr-002)). Rank derived, never stored ([ADR-031](docs/decisions.md#adr-031)). Persisted key spellings never change ([ADR-003](docs/decisions.md#adr-003)).
 - Navigation: Workout/Picker always depth 1 on dashboard; fixed pop counts depend on it, over-popping exits app ([ADR-024](docs/decisions.md#adr-024)).
@@ -27,7 +28,7 @@ Garmin watch app (Forerunner 965 first, 80 round AMOLED + MIP watches supported,
 
 - Every function: typed params + `as` return type. No `as Any`. Cast only after `instanceof`/null guard.
 - No magic numbers: tunables in `HeroSetConfig`, geometry in `HeroSetLayout`, colors in `HeroSetPalette`, text in `strings.xml`.
-- Text fit measured, never guessed ([ADR-018](docs/decisions.md#adr-018)). Draw text via `HeroSetDraw.text`, never `dc.drawText` ([ADR-034](docs/decisions.md#adr-034)). `HeroSetDraw.fits`/`firstFitting`/`largestFont` take the radius + margin to measure against ([ADR-036](docs/decisions.md#adr-036)).
+- Text fit measured, never guessed ([ADR-018](docs/decisions.md#adr-018)). Draw text via `HeroSetDraw.text`, never `dc.drawText` ([ADR-034](docs/decisions.md#adr-034)); the one exception is `ui/glance/`, which measures its own text because `HeroSetDraw` is not glance code ([ADR-051](docs/decisions.md#adr-051)). `HeroSetDraw.fits`/`firstFitting`/`largestFont` take the radius + margin to measure against ([ADR-036](docs/decisions.md#adr-036)).
 - Render only in `onUpdate`; logic in delegates/stores/domain.
 - Functions ≲30 lines, files ≲250 lines (current exceptions: architecture §8).
 - Catch only what can throw; degrade + flag, never swallow silently.
@@ -42,5 +43,5 @@ Garmin watch app (Forerunner 965 first, 80 round AMOLED + MIP watches supported,
 - Refer to an ADR as a link, `[ADR-048](docs/decisions.md#adr-048)` (path relative to the file), and start each new ADR heading with `<a id="adr-NNN"></a>` so the anchor survives title edits.
 - Open items + blockers live only in [`go-to-market.md`](docs/go-to-market.md). History lives in git + ADRs, not status sections.
 - Status-dated docs ([`go-to-market.md`](docs/go-to-market.md), [`release-contract.md`](docs/release-contract.md), [`compatibility.md`](docs/compatibility.md), [`battery.md`](docs/battery.md), [`connect-sync-plan.md`](docs/connect-sync-plan.md)): bump date when editing.
-- Test count appears in this file, `README.md`, [`docs/development.md`](docs/development.md), [`docs/release-contract.md`](docs/release-contract.md); update all four.
+- Test count appears in this file, `README.md`, [`docs/development.md`](docs/development.md), [`docs/go-to-market.md`](docs/go-to-market.md) and [`CHANGELOG.md`](CHANGELOG.md) (the newest entry); update all five.
 - Prefer editing existing docs; genuinely new doc gets linked from [`docs/README.md`](docs/README.md).

@@ -1,6 +1,6 @@
 # Two Suns — store listing (paste-ready)
 
-Status: 2026-09-26. **Not submitted. Nothing here has been seen on a watch.** Remaining open answers below are owner decisions; each one is marked **OWNER** and explained in [`NOTES.md`](NOTES.md) ("Open owner decisions"). Do not paste a block marked OWNER until you have decided it.
+Status: 2026-09-27. **Text finalised; not submitted.** Every field is decided except images (owner supplies later: launcher icon, cover, screenshots — see [`NOTES.md`](NOTES.md) items 4–5). Two device checks have run on the owner's FR965 (sunrise/sunset match, Positioning); the rest of the build is still simulator-only.
 
 Fields are in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Nothing else is in this file; limits, why each answer is what it is, and history are in [`NOTES.md`](NOTES.md).
 
@@ -34,7 +34,7 @@ One line for the sun
 How much daylight is left, or when the sun returns — from your watch's own sunrise and sunset, and, where it has a place, a calculation for what those don't give: tomorrow's sunrise, twilight, the golden hour.
 
 Five settings
-Accent colour, ring orientation, golden hour, the energy curve, the date — plain lists in Garmin Connect, defaults work if you never touch them.
+Accent colour, ring orientation, golden hour, the energy curve, the date — plain lists, changeable in Garmin Connect or right on the watch (Customize, next to Apply), defaults work if you never touch them.
 
 One face, every screen
 Fits round and rectangular watches alike, full detail down to the smallest, and dims to a quiet time, number and sun line when the screen sleeps.
@@ -71,7 +71,7 @@ Whatever the Category choice offers.
 
 ## Does your app collect user data?
 
-**OWNER.** Draft answer: No. The face reads a location on the watch, keeps a rounded place on the watch and sends nothing; the Connect IQ review guidelines ask for consent before collecting location, so you decide the wording (see [`NOTES.md`](NOTES.md), "Collects user data"). The privacy-policy URL field is conditional on Yes, so it may not appear. The policy is https://verden.watch/two-suns/privacy/
+**No** (owner, confirmed 2026-09-27). Nothing leaves the watch: no network code, no Communications permission. The face reads a location on the watch and keeps a rounded place there, never sent — see [`NOTES.md`](NOTES.md) ("Collects user data") for the reasoning. The privacy-policy URL field is conditional on Yes, so it may not appear; the policy is https://verden.watch/two-suns/privacy/ regardless.
 
 ## Does your app decode/encode any ANT+ profiles?
 

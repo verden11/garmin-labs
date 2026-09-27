@@ -1,0 +1,7 @@
+Same source (no Position.getInfo call), fr965 simulator, alternating runs. Only difference: Positioning in the manifest.
+A-nopos (SensorHistory, ComplicationSubscriber):  PROBE Weather.observationLocationPosition=null temp=16.000000        x3
+B-pos   (+ Positioning):                          PROBE Weather.observationLocationPosition=38.855,-94.799 temp=16.000000  x3
+Order: A B A B A B. Earlier runs agree: every run with Positioning returned the location, every run without it returned null.
+Probe v2 (P and N variants), Weather.getCurrentConditions() is non-null in both; only observationLocationPosition differs:
+  PROBE-P: Wx obsLoc 38.86,-94.80 ; API rise 26/15:08 set 26/03:13
+  PROBE-N: Wx obsLoc null         ; API rise null set null   (no location, so no API sun times)

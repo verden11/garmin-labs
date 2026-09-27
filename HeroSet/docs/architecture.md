@@ -18,7 +18,8 @@ Target: 80 round watches, AMOLED and MIP, five-button and touch-first ([ADR-048]
 
 ```
 source/
-├── app/          HeroSetApp               entry point, owns the store
+├── app/          HeroSetApp               entry point; builds the store and sync lazily
+│                                          (the glance process loads this class, ADR-051)
 │                 HeroSetComplicationPublisher  today's progress for our own
 │                                          watch face (private, ADR-044)
 │                 HeroSetDelegate          dashboard input → main menu
@@ -36,6 +37,8 @@ source/
 │                 HeroSetPersistentStorage real Toybox Storage backend
 │                 HeroSetClock             day seam (tests control "today")
 │                 HeroSetDashboardState    one read of everything the dashboard draws
+│                 HeroSetGlanceReader      read-only copy of that read for the glance,
+│                                          no HeroSetStore, never writes (ADR-051)
 ├── sensor/       HeroSetSensorManager     accelerometer listener lifecycle
 │                 HeroSetActivitySync      FIT session + lap/session fields (dev
 │                                          only, `(:sync)`; ADR-043)
@@ -50,6 +53,9 @@ source/
 │   ├── settings/   HeroSetGoalPickerView, HeroSetGoalPickerDelegate,
 │   │               HeroSetGoalExitMenuDelegate (daily goal, ADR-045)
 │   ├── diagnostics/ HeroSetValidationLogView, …Delegate      (dev build only)
+│   ├── glance/     HeroSetGlanceView (the glance-list entry: streak/check row +
+│   │               three pill bars), HeroSetGlanceLayout (rectangle geometry);
+│   │               `(:glance)`, CIQ 4.0+ products only (ADR-051)
 │   ├── HeroSetPickerDelegate  shared picker input: one step per press/swipe,
 │   │                          save on the START key only (ADR-029/048)
 │   ├── HeroSetInput          button-first vs touch-first hints and swipe
@@ -71,7 +77,7 @@ resources-<lang>/  translated strings for launch languages (`deu`, `fre`, `spa`,
                   `lit`, `ukr`); Garmin selects by device language
 resources-store/  release overlay: main menu without sync toggle and log (ADR-033)
 manifest.xml      dev build: Sensor + Fit permissions
-manifest-store.xml release build: Sensor only; same app id as manifest.xml
+manifest-store.xml release build: Sensor + ComplicationPublisher; same app id as manifest.xml
 ```
 
 Builds: `monkey.jungle` = dev (excludes `(:nosync)`), `store.jungle` = release (overlays `resources-store/`, uses `manifest-store.xml`, excludes `(:sync)`; [ADR-033](decisions.md#adr-033)). All user-visible text resource-backed: English fallback in `resources/strings/strings.xml`, language-qualified translations in `resources-<lang>/strings/strings.xml` folders. `HeroSetText` stay runtime access seam.
@@ -84,6 +90,8 @@ Sensor        sensor/                Toybox.Sensor / ActivityRecording; no Stora
 Data          data/                  Toybox.Application.Storage; the only place
 Domain        domain/                Toybox.Lang only (Calendar: Time.Gregorian)
 ```
+
+**The glance is a second process entry** ([ADR-051](decisions.md#adr-051)). On CIQ 4.0+ products the system loads only `(:glance)` code (plus the whole `HeroSetApp` class) to draw the glance list entry. That code reads Storage through `HeroSetGlanceReader` and never constructs `HeroSetStore`, `HeroSetSyncCoordinator` or anything else outside the annotated set; `tools/glance-scope-check.sh` guards it, because the default build is silent about violations.
 
 Dependencies point down only. Sensor classes take plain args, return plain values, and load no UI text (the activity name and unit are passed in); anything needing both sensor and store orchestrated in Presentation (e.g. `HeroSetSyncCoordinator` combine `HeroSetActivitySync` with `HeroSetStore`). `HeroSetDashboardState` lives in `data/` because the store builds it.
 
@@ -110,6 +118,9 @@ Dependencies point down only. Sensor classes take plain args, return plain value
 - **Learned thresholds:** `hero_learning` dict keyed by exercise strings, never Symbols ([ADR-022](decisions.md#adr-022)); wrong `model` or malformed state reads as fresh ([ADR-040](decisions.md#adr-040)). Old `hero_calibration` profiles not read.
 - **Sync state:** `isSyncEnabled` only ([ADR-027](decisions.md#adr-027)/[043](decisions.md#adr-043)); `hero_sync_day` retired, never reused.
 - **Diagnostics log:** `logValidationTrial` (validation trials) and `logDiagnostic` (sync lines), one capped ring buffer read by `getValidationLog` ([ADR-026](decisions.md#adr-026)/[030](decisions.md#adr-030)).
+- **Recoverable workout draft** ([ADR-052](decisions.md#adr-052)): `saveWorkoutDraft`/`getWorkoutDraft`/`clearWorkoutDraft`, a checkpoint of the live workout screen's in-progress count, not a saved value — untouched by XP, streak or the complication. Day `0` means no draft; a draft for a different exercise or an earlier day reads as none.
+
+**HeroSetGlanceReader** ([ADR-051](decisions.md#adr-051)): `read(storage, todayKey)` → a `HeroSetDashboardState` of today's counts, the goal and the streak, for the glance. Same flat keys and number narrowing as `HeroSetStore` (spellings duplicated on purpose; `HeroSetGlanceReaderTest` compares it with a real store). Never writes: a count from an earlier day reads 0 and the streak comes from `HeroSetRules.activeStreak`, so the glance is right at 00:01 before the app has run `ensureCurrentDay`.
 
 **HeroSetComplicationPublisher** ([ADR-044](decisions.md#adr-044)): packs the dashboard state, today's day key and the last completion day into one private complication value for HeroFace (`../HeroFace`). `valueFor` is pure; `publish` is a no-op below CIQ 4.2.
 
@@ -123,12 +134,18 @@ Dependencies point down only. Sensor classes take plain args, return plain value
 
 **UI**:
 - **Dashboard:** render `HeroSetDashboardState` snapshot. `HeroSetRankHeader` draw ring and rank lines, `HeroSetMissionBars` three bars, `HeroSetDayTracker` redraw at midnight ([ADR-031](decisions.md#adr-031), [ADR-012](decisions.md#adr-012)).
-- **Workout:** count via `HeroSetRepCounter`, show live metrics from `HeroSetWorkoutMetrics` (no FIT session, [ADR-021](decisions.md#adr-021)), hand off to picker on Finish ([ADR-024](decisions.md#adr-024)).
+- **Workout:** count via `HeroSetRepCounter`, show live metrics from `HeroSetWorkoutMetrics` (no FIT session, [ADR-021](decisions.md#adr-021)), hand off to picker on Finish ([ADR-024](decisions.md#adr-024)). Seeds from and periodically checkpoints a recoverable draft ([ADR-052](decisions.md#adr-052)), cleared at Finish, Save, Discard and the no-count Back.
+- **Glance:** `HeroSetGlanceView` (`(:glance)`) draws one status row (streak; a drawn check and `MISSION COMPLETE` when all three goals are met) over three pill bars, in the rectangle the system gives it, on a transparent background. It measures and draws its own text (`HeroSetDraw` and `HeroSetText` assume the round display and are not glance code) and picks the longest wording that fits ([ADR-051](decisions.md#adr-051)). Read-only; selecting it starts the app.
 - **Picker:** edit signed delta, ±1 per press ([ADR-017](decisions.md#adr-017)/[029](decisions.md#adr-029)); on save after a workout, feed set trace + saved count to learner ([ADR-040](decisions.md#adr-040)).
 
 ## 5. Data flow
 
 ```
+Launch → getInitialView → store built lazily → ensureCurrentDay → publish complication → dashboard
+(onStart is empty: it also runs when the system loads the glance, ADR-051)
+Glance list → getGlanceView → HeroSetGlanceView.onUpdate → GlanceReader.read(Storage, today) → draw
+  (read-only; select → app launch with :launchedFromGlance)
+
 Sensor listener → WorkoutView.onSensorData → RepCounter.feedSample(x, y, z)
   → true: _detected += 1, haptic tap (double on goal crossing), requestUpdate
 Workout 1 Hz timer → requestUpdate (HR / calories / elapsed)

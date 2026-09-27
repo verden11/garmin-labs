@@ -1,0 +1,34 @@
+PROBE run 1 api=[5, 2, 0]
+PROBE Activity.currentLocation=null
+PROBE Weather.observationLocationPosition=null temp=21.000000
+PROBE sun Hawaii rise=19:20(1790439642) set=07:26(1790396767)
+PROBE sun Dubai rise=05:08(1790388510) set=17:12(1790431973)
+PROBE sun Tromso rise=07:34(1790397286) set=19:37(1790440632)
+PROBE sun London rise=08:50(1790401844) set=20:53(1790445232)
+PROBE sun Sydney rise=22:40(1790451617) set=10:53(1790409209)
+PROBE complication 13 value=54535
+PROBE complication 14 value=11599
+PROBE complication 23 value=53
+PROBE BB sample 88.000000 at 16:05(1790427931)
+PROBE BB sample 84.000000 at 16:06(1790427991)
+PROBE BB sample 78.000000 at 16:07(1790428051)
+PROBE BB sample 72.000000 at 16:08(1790428111)
+PROBE BB sample 65.000000 at 16:09(1790428171)
+PROBE BB samples=5
+PROBE run 2 api=[5, 2, 0]
+PROBE Activity.currentLocation=null
+PROBE Weather.observationLocationPosition=null temp=21.000000
+PROBE sun Hawaii rise=19:20(1790439642) set=07:26(1790396767)
+PROBE sun Dubai rise=05:08(1790388510) set=17:12(1790431973)
+PROBE sun Tromso rise=07:34(1790397286) set=19:37(1790440632)
+PROBE sun London rise=08:50(1790401844) set=20:53(1790445232)
+PROBE sun Sydney rise=22:40(1790451617) set=10:53(1790409209)
+PROBE complication 13 value=54535
+PROBE complication 14 value=11599
+PROBE complication 23 value=50
+PROBE BB sample 88.000000 at 16:05(1790427931)
+PROBE BB sample 84.000000 at 16:06(1790427991)
+PROBE BB sample 78.000000 at 16:07(1790428051)
+PROBE BB sample 72.000000 at 16:08(1790428111)
+PROBE BB sample 65.000000 at 16:09(1790428171)
+PROBE BB samples=5

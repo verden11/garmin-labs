@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP IKI RANGO $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP LIKO</string>
     <string id="dashboard_mission_done">$1$ ATLIKTA</string>
-    <string id="dashboard_streak">$1$ DIENŲ SERIJA</string>
-    <string id="dashboard_streak_short">SERIJA $1$</string>
-    <string id="dashboard_streak_none">NĖRA SERIJOS</string>
+    <string id="dashboard_streak" scope="glance">$1$ DIENŲ SERIJA</string>
+    <string id="dashboard_streak_short" scope="glance">SERIJA $1$</string>
+    <string id="dashboard_streak_none" scope="glance">NĖRA SERIJOS</string>
     <string id="dashboard_hint">START: MENIU</string>
-    <string id="dashboard_mission_complete">UŽDUOTIS ATLIKTA</string>
+    <string id="dashboard_mission_complete" scope="glance">UŽDUOTIS ATLIKTA</string>
     <string id="dashboard_storage_warning">! NEPAVYKO IŠSAUGOTI</string>
 
     <string id="today_progress">ŠIANDIEN $1$/$2$</string>

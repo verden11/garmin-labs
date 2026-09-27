@@ -24,6 +24,10 @@ class HeroSetWorkoutDelegate extends WatchUi.BehaviorDelegate {
         if (!HeroSetInput.isStart(keyEvent)) {
             return false;
         }
+        // The picker now owns review; its own delta isn't checkpointed
+        // (ADR-052 residual risk), but the workout draft it superseded must
+        // not linger and get wrongly resumed by a later set.
+        _view.discardDraft();
         var pickerView = new HeroSetManualPickerView(_view.getExercise(), _view.getCount(), _view.getCount(), _view.getDetectedCount(), _view.getTrace());
         // Pop the workout view first so the picker sits directly on the
         // dashboard (depth 1) — the same depth every other picker caller
@@ -42,6 +46,9 @@ class HeroSetWorkoutDelegate extends WatchUi.BehaviorDelegate {
     // the picker at DETECTED 1 (-1) for anyone who wants that rep.
     function onBack() as Boolean {
         if (_view.getCount() <= 0) {
+            // Leaving for good either way (ADR-050): a single dropped rep
+            // isn't bankable through this path, so any draft goes with it.
+            _view.discardDraft();
             return false;
         }
         var menu = new Rez.Menus.WorkoutEndMenu();

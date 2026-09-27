@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP TIL RANG $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP TILBAGE</string>
     <string id="dashboard_mission_done">$1$ FÆRDIG</string>
-    <string id="dashboard_streak">$1$ DAGES SERIE</string>
-    <string id="dashboard_streak_short">SERIE $1$</string>
-    <string id="dashboard_streak_none">INGEN SERIE</string>
+    <string id="dashboard_streak" scope="glance">$1$ DAGES SERIE</string>
+    <string id="dashboard_streak_short" scope="glance">SERIE $1$</string>
+    <string id="dashboard_streak_none" scope="glance">INGEN SERIE</string>
     <string id="dashboard_hint">START: MENU</string>
-    <string id="dashboard_mission_complete">OPGAVE FÆRDIG</string>
+    <string id="dashboard_mission_complete" scope="glance">OPGAVE FÆRDIG</string>
     <string id="dashboard_storage_warning">! KUNNE IKKE GEMME</string>
 
     <string id="today_progress">IDAG $1$/$2$</string>

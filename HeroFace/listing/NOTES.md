@@ -4,6 +4,8 @@ What sits behind [`README.md`](README.md), the paste-ready copy. Nothing here is
 
 **Live since 2026-09-22:** https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116. Every field is checked against what the build does ([`../docs/go-to-market.md`](../docs/go-to-market.md), "Claims allowed and forbidden"). Review takes about 72 hours; a rejection comes back with specific reasons.
 
+**No Keywords field.** The upload form has no keywords/tags field; the README's Keywords section is removed (it never matched the real form). Same fix applied across all four apps' listing docs.
+
 ## Other files here
 
 | File | What it is |
@@ -35,7 +37,6 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 
 | Field | Reason |
 |---|---|
-| Keywords | Every one is something the face actually does: a keyword the build does not deliver reads as a false claim in review ([`../docs/go-to-market.md`](../docs/go-to-market.md)). |
 | Screen Images | One device is enough (HeroSet shipped five shots from a single device and passed review). The always-on shot is deferred ([`../docs/go-to-market.md`](../docs/go-to-market.md), item 3); see [`screenshots.md`](screenshots.md). All five are 3.5–20 KB; the hero is 241 KB, the cover 76 KB. |
 | Collects user data | Nothing leaves the watch. |
 | App Migration | No: support is the explicit 117-product list in [`../docs/compatibility.md`](../docs/compatibility.md); letting the store add untested devices would ship a layout nobody has run. |

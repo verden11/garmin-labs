@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP FÜR RANG $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP ÜBRIG</string>
     <string id="dashboard_mission_done">$1$ ERLEDIGT</string>
-    <string id="dashboard_streak">$1$ TAG-REIHE</string>
-    <string id="dashboard_streak_short">REIHE $1$</string>
-    <string id="dashboard_streak_none">KEINE REIHE</string>
+    <string id="dashboard_streak" scope="glance">$1$ TAG-REIHE</string>
+    <string id="dashboard_streak_short" scope="glance">REIHE $1$</string>
+    <string id="dashboard_streak_none" scope="glance">KEINE REIHE</string>
     <string id="dashboard_hint">START: MENÜ</string>
-    <string id="dashboard_mission_complete">AUFGABE ERLEDIGT</string>
+    <string id="dashboard_mission_complete" scope="glance">AUFGABE ERLEDIGT</string>
     <string id="dashboard_storage_warning">! NICHT GESPEICHERT</string>
 
     <string id="today_progress">HEUTE $1$/$2$</string>

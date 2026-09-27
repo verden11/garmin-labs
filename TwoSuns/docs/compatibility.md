@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-09-26. The 69 products that can run a watch face at Connect IQ 4.2 or newer in SDK 9.2.0 (`deviceGroup` in the SDK's `Devices/*/compiler.json`), less three Instinct products (below). Permissions `SensorHistory`, `ComplicationSubscriber` and `Positioning` (provisional, [ADR-005](decisions.md#adr-005-location-order-and-the-positioning-permission)) are declared on all of them. **Everything below is simulator evidence; nothing has run on a wrist.**
+Status: 2026-09-27. The 69 products that can run a watch face at Connect IQ 4.2 or newer in SDK 9.2.0 (`deviceGroup` in the SDK's `Devices/*/compiler.json`), less three Instinct products (below). Permissions `SensorHistory`, `ComplicationSubscriber` and `Positioning` (confirmed, not provisional — [ADR-005](decisions.md#adr-005-location-order-and-the-positioning-permission)) are declared on all of them. **Everything below is simulator evidence except the sunrise/sunset and Positioning device checks (`../device-test/`); nothing else has run on a wrist.**
 
 ## Supported products
 
@@ -69,14 +69,13 @@ Screen-fit test (`tools/fit_all.sh` runs `tools/run_tests.sh <device>` on ten de
 | 454 px AMOLED | `fr965` | pass (`venu3` too) |
 | 466 px AMOLED | `fenix9pro51mm` | pass |
 | 320 × 360 AMOLED (rectangle) | `venusq2` | pass |
-| 448 × 486 AMOLED (rectangle) | `venux1` | **not run** |
+| 448 × 486 AMOLED (rectangle) | `venux1` | pass |
 
-That is 10 of 11 screen sizes, one product each. `fr265s` (360 px) and `venusq2` failed an earlier, stronger version of the test with one sentence wording; the three wordings fixed it ([ADR-014](decisions.md#adr-014-three-wordings-for-the-sun-sentence)). A full 69-product compile sweep, run after the 15-language manifest was added, also printed `BUILD SUCCESSFUL` for all 69 at `-w --typecheck 3` with zero errors and no warning beyond the launcher-icon-scaling notice (the icon is 65 px; the placeholder is generic); the build outputs were not kept as artifacts (`bin/` is git-ignored scratch, deleted after each run per house rules), so this rests on the run having happened, not a saved log.
+That is 10 of 11 screen sizes from `tools/fit_all.sh` (one product each), superseded by the full sweep below. `fr265s` (360 px) and `venusq2` failed an earlier, stronger version of the test with one sentence wording; the three wordings fixed it ([ADR-014](decisions.md#adr-014-three-wordings-for-the-sun-sentence)). **`tools/fit_products.sh`, the full 69-product sweep, ran 2026-09-27**: `done: 69 pass, 0 fail`, `PASSED (passed=122, failed=0, errors=0)` on every product including Venu X1 (`bin/fit-products.txt`). This run predates the on-watch Customize menu (ADR-019); the earlier compile-only sweep (all 69, `-w --typecheck 3`, zero errors) is superseded by this one.
 
 ## What was NOT tested
 
-- **The fit of the other 58 products** (eleven have run the suite: the ten fit devices and `venu3`). `tools/fit_products.sh` runs the whole suite on every product in the manifest; it was written but **not run**, because another session was using the shared simulator and the runners kill it on a wedge. Two products of one screen size can differ in fonts.
-- **Venu X1 (448 × 486)** and the rectangles by eye.
+- **The rectangles by eye** (Venu Sq 2, Sq 2 Music, Venu X1): the fit test passed on all three, but the owner has not looked at them.
 - **MIP contrast in daylight** (night track `#5555AA` is 3.3:1 and the stale fill and always-on text `#555555` 2.8:1, computed from hex values, not measured).
 - **Always-on on a real AMOLED**: lit-pixel share, ghosting, whether the screen blanks.
 - **Translations in any language.** The tests run in English; the date line in the test states is fixed English ("Wed 30 Sep"). `tools/fit_languages.sh` was written and not run. `tools/check_strings.py` checks parity and length only.

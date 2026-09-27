@@ -1,4 +1,5 @@
 // Every tunable number in the app lives here (house rule: no magic numbers).
+(:glance)
 class HeroSetConfig {
     // Seed for a fresh install only; the live goal is user-set and lives in
     // HeroSetStore (ADR-045).
@@ -85,4 +86,8 @@ class HeroSetConfig {
     // counts from real workout sets, used for physical accuracy validation
     // (ADR-026). Oldest entries drop once the cap is hit.
     static const VALIDATION_LOG_MAX_ENTRIES = 30;
+    // Recoverable workout draft (ADR-052): a checkpoint every this many
+    // LIVE_REFRESH_MS ticks (15 s), comfortably inside the ~60-120 s idle
+    // kill measured on FR965 for an app launched from the glance.
+    static const DRAFT_CHECKPOINT_TICKS = 15;
 }

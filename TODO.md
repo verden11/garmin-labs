@@ -26,15 +26,35 @@ Last consolidated 2026-09-26.
 
 Real simulator captures of the whole watch (chassis and a bit of strap), not composites: keeps ADR-039 "no mockups". Save each to `~/screenshots/` under the name shown; Claude crops to square, sizes, moves into place, then refreshes site copies and re-renders hero/cover.
 
-Capture: run the app in the simulator on the product named, get the same state as the current plain file, then Cmd+Shift+4 around the watch (chassis plus strap top and bottom).
+Capture: run the app in the simulator on the product named, get the state shown, then Cmd+Shift+4 around the watch (chassis plus strap top and bottom). Window geometry must stay identical to earlier shots (794×1081 window) so one crop fits all.
 
-- [ ] HeroSet 1-5, `fr965` store build, same states as `HeroSet/listing/screens/1-dashboard.png` … `5-menu.png`. Names: `heroset-1-dashboard.png`, `-2-counting`, `-3-review`, `-4-saved`, `-5-menu`.
-- [ ] HeroSet 6, `venu441mm`, review picker showing `SWIPE: ADJUST`. Name: `heroset-6-review-touch.png`. (Have a small window shot already: `HeroSet/listing/src/venu4-41mm-simulator-full.png`; recapture bigger if it looks soft.)
-- [ ] HeroFace 1, `fenix5` sim, everyday part-filled (3406 steps, 20 int min, 7 floors). Name: `heroface-1-everyday.png`.
-- [ ] HeroFace 2, sim, all three goals met, 1-day streak (product not recorded in docs; note which you use). Name: `heroface-2-goals-met.png`.
-- [ ] HeroFace 5, `fr245` sim, STEPS / INT / MOVE (no-barometer fallback). Name: `heroface-5-no-barometer.png`.
-- [ ] HeroFace 3-4 (HeroSet mode, rank 2) are FR965 System → Screenshot files with no chassis. Open question: can the simulator show HeroSet mode? If not, leave these two plain.
-- [ ] After captures (Claude): update `listing/README.md`/`screenshots.md`, site copies in `site/public/{heroset,heroface}/screens/` (never rename published URLs), re-render hero + cover, then upload to both store listings.
+**Capture order matters (learned 2026-09-26):** rows 2-5 need a partly-filled day (counting: non-zero reps, partial TODAY x/100, HR injected before the set; then adjust, save, menu with partial counts). Take them first; finish the day for row 6 last. A completed day makes every later state DONE/100.
+
+| # | App | Simulator product | State to capture | Save as (`~/screenshots/`) | Status |
+|---|---|---|---|---|---|
+| 1 | HeroSet | `fr965` store build, goal 100 | Dashboard | `goal 100 full.png` | done, no streak. Source moved to `HeroSet/listing/src/fr965-dashboard-goal100-{window,454}.png`; cropped to `screens-framed/dashboard.png` |
+| 2 | HeroSet | `fr965`, goal 100 | Counting push-ups (TODAY x/100) | `push up with hr full.png` | **retake** (has /30) |
+| 3 | HeroSet | `fr965`, goal 100 | Review picker: DETECTED, +N, `UP/DOWN: ADJUST` | `adjust full.png` | **retake** (has /30) |
+| 4 | HeroSet | `fr965`, goal 100 | `+N SAVED` dashboard | `save full.png` | **retake** (has /30) |
+| 5 | HeroSet | `fr965`, goal 100 | Menu, `Start Squats` whole (scroll position of `menu 5 full.png`) | `menu 5 full.png` | **retake** (has /30, clip fixed) |
+| 6 | HeroSet | `fr965`, goal 100 | DAILY MISSION COMPLETE, 1 day streak | `complete full.png` | done. Source moved to `HeroSet/listing/src/fr965-complete-streak-{window,454}.png`; cropped to `screens-framed/complete.png` |
+| 7 | HeroSet | `venu441mm` (touch) | Review picker, `SWIPE: ADJUST` | `venu 4 full.png` | have small 390 px window shot in `HeroSet/listing/src/`; recapture at goal 100 if soft |
+| 8 | HeroFace | `fenix5` (240 px) | Everyday, part-filled: 3406 steps, 20 int min, 7 floors | `heroface-1-everyday.png` | open |
+| 9 | HeroFace | any round sim (docs don't say) | Everyday, all three goals met, 1-day streak | `heroface-2-goals-met.png` | open; note product used |
+| 10 | HeroFace | `fr965` | HeroSet mode, 20/45/10 reps, rank 2, orange ring | `heroface-3-heroset.png` | open: only a real watch had HeroSet data; can the sim? else leave plain |
+| 11 | HeroFace | `fr965` | HeroSet mode, all three met, rank 2, streak 1 | `heroface-4-heroset-complete.png` | same as #10 |
+| 12 | HeroFace | `fr245` (no barometer) | STEPS / INT / MOVE | `heroface-5-no-barometer.png` | open |
+
+- [ ] After captures (Claude): crop (678² from x=58 y=181, pad white to 720²), move into `listing/screens/`, update `listing/README.md` and `HeroFace/listing/screenshots.md`, site copies in `site/public/{heroset,heroface}/screens/` (never rename published URLs), re-render hero + cover (their layouts need rework for tall framed shots), then upload to both store listings.
+
+## HeroSet 1.1.2 glance (built 2026-09-26, not uploaded; gates the upload, [ADR-051](HeroSet/docs/decisions.md#adr-051))
+
+- [x] E1. FAILED, then fixed and confirmed same day (2026-09-27, FR965 dev build): killed at exactly 120s idle from a glance launch, reps lost. Fix: ADR-052, a periodic recoverable draft. **Closed:** restarted the same exercise, count resumed; a different exercise correctly showed 0. Not yet checked, not blocking: a draft surviving to the next calendar day reads as 0.
+- [x] E2a. Glance appears by default on FR965 (dev build, 2026-09-27), no listing/FAQ change needed.
+- [~] E2b. **Skipped, owner call 2026-09-27.** Saved set shows on return; 00:01 shows zeros without opening the app; missed day shows no streak. Not verified before upload.
+- [x] E3. HeroFace complication confirmed matching HeroSet after a save (2026-09-27).
+- [~] E4. **Skipped, owner call 2026-09-27.** Simulator by hand, Settings > Glance Launch Mode: `fr965`, `fenix7` (63 px), `fr255s` (140x79): looks right, done state, memory view. Not looked at before upload.
+- [~] E5. **Skipped, owner call 2026-09-27** — `CIQ_LOG.YAML` and battery comparison not done before upload; store build permissions confirmed unchanged by grep/manifest check. **1.1.2 uploaded 2026-09-27, awaiting Garmin review.** Once it's live: `glanceLive = true` in `site/src/apps/heroset/facts.ts`, then `npm run deploy` in `site/` (the FAQ is hidden until then). Screenshots for the listing still owed (owner will add later).
 
 ## Simulator
 

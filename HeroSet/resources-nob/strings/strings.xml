@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP TIL RANG $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP GJENSTÅR</string>
     <string id="dashboard_mission_done">$1$ KLART</string>
-    <string id="dashboard_streak">$1$ DAGER PÅ RAD</string>
-    <string id="dashboard_streak_short">PÅ RAD $1$</string>
-    <string id="dashboard_streak_none">INGEN SERIE</string>
+    <string id="dashboard_streak" scope="glance">$1$ DAGER PÅ RAD</string>
+    <string id="dashboard_streak_short" scope="glance">PÅ RAD $1$</string>
+    <string id="dashboard_streak_none" scope="glance">INGEN SERIE</string>
     <string id="dashboard_hint">START: MENY</string>
-    <string id="dashboard_mission_complete">OPPGAVEN KLAR</string>
+    <string id="dashboard_mission_complete" scope="glance">OPPGAVEN KLAR</string>
     <string id="dashboard_storage_warning">! KUNNE IKKE LAGRE</string>
 
     <string id="today_progress">IDAG $1$/$2$</string>

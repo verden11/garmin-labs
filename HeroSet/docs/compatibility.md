@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-09-24. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
+Status: 2026-09-26. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
 
 ## Supported products
 
@@ -79,6 +79,10 @@ No UP/DOWN keys: swipe up/down adjusts, `SWIPE:` hints, START (physical) finishe
 **Evidence per product:** store build compiles, and `everyScreenFitsThisDisplay` passes in that device simulator: renders every screen in widest state with device real fonts, fails on text outside round display, overlapping text, or screen that drew fewer rows than it promises. Full suite run on FR965 plus size and screen-type representatives (`fr265s`, `fenix7`, `fenix7x`, `fr255s`, `fenix9prosolar51mm`, `fenix9pro51mm`) and on every wave 4 and wave 5 product.
 
 **Only FR965 used on real watch.** Rep detection not device-dependent (accelerometer read in milli-g everywhere), but button feel, strap fit, MIP contrast in daylight, real rendering unconfirmed until beta testers run them.
+
+## App glance ([ADR-051](decisions.md#adr-051))
+
+A watch-app glance needs Connect IQ 4.0, so the glance list entry exists on **63 of the 80 products**: every product at CIQ 5.0 or newer, all with a 64 KB glance limit and live updates (device data, SDK 9.2.0). The other **17 get no glance** (the build is unchanged; the compiler, with `-w`, prints "The (:glance) annotation will be ignored"): fēnix 6 / 6S / 6 Pro / 6S Pro / 6X Pro, MARQ Gen 1 (8 products), Descent Mk2 / Mk2S, Forerunner 945 LTE, Enduro Gen 1 (Enduro 3 has it). Glance content areas run from 140×79 (`fr255s`) and 151×63 (fēnix 7S) to 359×130 (fēnix 9 Pro 51 mm); `HeroSetGlanceFitTest` carries all 32 distinct areas. Simulator only: no glance has run on a watch, the FR965's included. Never claim a glance on all 80 watches.
 
 ## Not yet supported, and why
 

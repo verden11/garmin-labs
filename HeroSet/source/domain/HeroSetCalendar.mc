@@ -6,6 +6,7 @@ import Toybox.Time.Gregorian;
 // LOCAL clock, so consecutive calendar days are consecutive integers and DST
 // (which shifts epochs by 23h/25h) can never break a streak. Never subtract
 // 86400 from epochs here.
+(:glance)
 class HeroSetCalendar {
 
     // Local calendar day of the watch, as an integer day key.

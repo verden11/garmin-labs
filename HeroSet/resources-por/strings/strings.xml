@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP PARA RANK $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP RESTANTES</string>
     <string id="dashboard_mission_done">$1$ CONCLUÍDO</string>
-    <string id="dashboard_streak">SEQUÊNCIA DE $1$ DIAS</string>
-    <string id="dashboard_streak_short">SEQUÊNCIA $1$</string>
-    <string id="dashboard_streak_none">SEM SEQUÊNCIA</string>
+    <string id="dashboard_streak" scope="glance">SEQUÊNCIA DE $1$ DIAS</string>
+    <string id="dashboard_streak_short" scope="glance">SEQUÊNCIA $1$</string>
+    <string id="dashboard_streak_none" scope="glance">SEM SEQUÊNCIA</string>
     <string id="dashboard_hint">START: MENU</string>
-    <string id="dashboard_mission_complete">MISSÃO CONCLUÍDA</string>
+    <string id="dashboard_mission_complete" scope="glance">MISSÃO CONCLUÍDA</string>
     <string id="dashboard_storage_warning">! ERRO AO SALVAR</string>
 
     <string id="today_progress">HOJE $1$/$2$</string>

@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP VOOR RANG $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP OVER</string>
     <string id="dashboard_mission_done">$1$ KLAAR</string>
-    <string id="dashboard_streak">$1$ DAGEN OP RIJ</string>
-    <string id="dashboard_streak_short">REEKS $1$</string>
-    <string id="dashboard_streak_none">GEEN REEKS</string>
+    <string id="dashboard_streak" scope="glance">$1$ DAGEN OP RIJ</string>
+    <string id="dashboard_streak_short" scope="glance">REEKS $1$</string>
+    <string id="dashboard_streak_none" scope="glance">GEEN REEKS</string>
     <string id="dashboard_hint">START: MENU</string>
-    <string id="dashboard_mission_complete">MISSIE KLAAR</string>
+    <string id="dashboard_mission_complete" scope="glance">MISSIE KLAAR</string>
     <string id="dashboard_storage_warning">! KON NIET OPSLAAN</string>
 
     <string id="today_progress">VANDAAG $1$/$2$</string>

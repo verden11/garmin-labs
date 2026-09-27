@@ -30,11 +30,11 @@
     <string id="dashboard_xp_to_rank">$1$ XP PARA RANGO $2$</string>
     <string id="dashboard_xp_to_go">$1$ XP RESTANTES</string>
     <string id="dashboard_mission_done">$1$ HECHO</string>
-    <string id="dashboard_streak">$1$ DÍA DE RACHA</string>
-    <string id="dashboard_streak_short">RACHA $1$</string>
-    <string id="dashboard_streak_none">SIN RACHA</string>
+    <string id="dashboard_streak" scope="glance">$1$ DÍA DE RACHA</string>
+    <string id="dashboard_streak_short" scope="glance">RACHA $1$</string>
+    <string id="dashboard_streak_none" scope="glance">SIN RACHA</string>
     <string id="dashboard_hint">START: MENÚ</string>
-    <string id="dashboard_mission_complete">MISIÓN COMPLETADA</string>
+    <string id="dashboard_mission_complete" scope="glance">MISIÓN COMPLETADA</string>
     <string id="dashboard_storage_warning">! NO SE PUDO GUARDAR</string>
 
     <string id="today_progress">HOY $1$/$2$</string>
