@@ -93,7 +93,7 @@ No place and no sun data: a plain night track and no marker. Midnight sun: fully
 
 ## Palette and contrast
 
-All values have channels 00, 55, AA or FF (the 64-colour palette), so MIP renders them exactly. Contrast ratios below are **computed from the hex values against black (WCAG formula), not measured on a screen**.
+All values have channels 00, 55, AA or FF, the device-safe palette (why: see `watch-design-kit`'s `watch-design-lead` skill). Contrast ratios below are **computed from the hex values against black (WCAG formula), not measured on a screen**.
 
 | Colour | Hex | Against black |
 |---|---|---|
@@ -106,11 +106,11 @@ All values have channels 00, 55, AA or FF (the 64-colour palette), so MIP render
 
 Accents (default first) and their "gone" form: sky `#55AAFF` 8.6 : 1 → `#55AAAA` 7.7 (default, chosen 2026-09-27 over the old amber default: blue carries no "status" meaning, so it never misreads as a low value); mint `#55FFAA` 16.3 → `#55AAAA` 7.7; autumn (the old "amber", renamed not recoloured) `#FFAA00` 11.0 → `#AAAA00` 8.5; violet `#AA55FF` 5.5 → `#AA55AA` 4.6; pink `#FF55AA` 7.1 → `#AA55AA` 4.6; winter (the old "white") `#FFFFFF` 21.0 → `#55AAAA` 7.7 (nudged from the naive `#AAAAAA`, which is bit-identical to MUTED/stale — see "watch-design-reviewer findings, 2026-09-27" below). The unit test `dimPartsStayReadable` asserts at least 3:1 for the night track and for every accent's gone form; `dimNeverEqualsMuted` (new) asserts no accent's gone form ever equals MUTED.
 
-Resolved 2026-09-27 (`watch-design-reviewer`, `watch-design-kit`): the always-on text was `#555555`, 2.8:1, under the project's own 3:1 bar for a persistent/always-on colour. Now `#5555AA` (same value as the night track, 3.3:1) — safe to share because the ring never draws during sleep, so the two never appear together. The stale curve fill stays `#555555`, 2.8:1: it's awake-only (never shown during sleep), carried by shape (hollow glyph, outline dot) as well as colour, so the same bar doesn't apply the same way; still worth a look-approval check in daylight on a MIP watch. `TwoSunsPalette.TRACK` (`#555555`) is defined but no code draws it.
+Always-on text is `#5555AA`, 3.3:1 (fixed 2026-09-27, ADR-007 amendment, `docs/decisions.md`). Stale curve fill stays `#555555`, 2.8:1 (awake-only, carried by shape too); still worth a look-approval check in daylight on a MIP watch. `TwoSunsPalette.TRACK` (`#555555`) is defined but no code draws it.
 
 ## Always-on (AMOLED)
 
-Only on watches that require burn-in protection. The time, the Body Battery value and the sun sentence, `#5555AA`, the block stepping across a 3 × 3 grid every minute in steps of 3.5% of D (15 px on 454); the time is always two font sizes below whatever awake just picked (derived at draw time, `TwoSunsDraw.fontsBelow`), not a fixed independent size — fixed 2026-09-27 after `watch-design-reviewer` found the old fixed list matched awake exactly whenever awake had already fallen back from its largest font. No ring, curve, glyph or date. Text is fitted against a circle smaller by one step, so a shifted block stays inside. MIP watches keep the full face. **Not measured on a watch:** lit-pixel share (a commonly-cited Garmin limit is 10%, uncited — see `knowledge/platform-facts.md` in `watch-design-kit`), ghosting, whether the screen blanks. The block moving every minute means any one pixel is part of the lit stroke for at most a minute, corrected from an earlier "3 minutes" claim that didn't match the code (re-derived 2026-09-27).
+Only on watches that require burn-in protection. The time, the Body Battery value and the sun sentence, `#5555AA`, the block stepping across a 3 × 3 grid every minute in steps of 3.5% of D (15 px on 454); the time is always two font sizes below whatever awake just picked (derived at draw time, `TwoSunsDraw.fontsBelow`, ADR-007 amendment, `docs/decisions.md`). No ring, curve, glyph or date. Text is fitted against a circle smaller by one step, so a shifted block stays inside. MIP watches keep the full face. **Not measured on a watch:** lit-pixel share, ghosting, whether the screen blanks — see `watch-design-kit`'s `knowledge/platform-facts.md` for the (unverified) burn-in limit this design targets.
 
 ## Failure display
 

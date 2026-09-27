@@ -61,4 +61,4 @@ Hero and time only, `#555555`, the block stepping across a 3 × 3 grid (steps of
 
 ## Constraints
 
-Primitives and system fonts only, no bitmaps. Every colour has channels 00, 55, AA or FF (the 64-colour palette), so MIP renders it exactly. The look is the spec's recommended direction; the owner may replace it with a design-tool mock-up (`docs/plan.md` phase 4 gate).
+Primitives and system fonts only, no bitmaps. Every colour has channels 00, 55, AA or FF, the device-safe palette (why: see `watch-design-kit`'s `watch-design-lead` skill). The look is the spec's recommended direction; the owner may replace it with a design-tool mock-up (`docs/plan.md` phase 4 gate).

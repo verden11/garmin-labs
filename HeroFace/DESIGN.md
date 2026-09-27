@@ -142,7 +142,7 @@ A black field with a single white number, a muted grey voice for everything seco
 
 **The Gold Reserve Rule.** Gold means a thing the user has accumulated and can lose. A zero streak is muted grey, not gold, because there is nothing kept yet.
 
-**The Exact-Palette Rule.** Every colour is built from the channel values 00/55/AA/FF. A hex outside Garmin's 64-colour palette is dithered on MIP and is not permitted.
+**The Exact-Palette Rule.** Every colour is built from the channel values 00/55/AA/FF (why: see `watch-design-kit`'s `watch-design-lead` skill).
 
 ## Typography
 

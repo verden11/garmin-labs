@@ -3,19 +3,21 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/README.md`](listing/README.md).
 
-**There has been no store publication.** Nothing is submitted, no version number is confirmed.
+## 1.0.0 — submitted 2026-09-27, pending review
 
-## Unreleased / 1.0.0 in preparation
+Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
 
 Built 2026-09-26, extended 2026-09-27. Evidence: mostly simulator (SDK 9.2.0), plus spot-checks on the owner's FR965 (sunrise/sunset match to the native glance; Positioning; on-watch Customize, ADR-019). 124 tests pass on `fr965`, `fenix7`, `venu3` (compile-checked after the 2026-09-27 fixes below; the full run and the 69-product fit sweep predate them and need re-confirming once the simulator is free — the sweep last printed `done: 69 pass, 0 fail`, 122 of 122 on every product including Venu X1, `bin/fit-products.txt`, 2026-09-27). Tests do not check pixels.
 
+What's New (initial release): blank, per the store form — no field for "first release" text.
+
 `watch-design-reviewer` (`watch-design-kit`) ran against this build 2026-09-27 and found 8 material issues; fixed same day:
 
-- The winter accent (`#FFFFFF`) dimmed to a colour bit-identical to `MUTED`/"no data" — a low reading and no reading were indistinguishable. `TwoSunsPalette.dim()` now avoids that collision for every accent.
-- Always-on text was `#555555`, 2.8:1 against true black — under this project's own ≥3:1 bar for a persistent colour. Now `#5555AA`, 3.3:1.
-- The always-on time's "two sizes smaller than awake" claim was false whenever awake had already fallen back from its largest font. Now derived from awake's actual choice at draw time, genuinely two steps below on every screen.
-- The AMOLED burn-in limit was stated three different, uncited ways across the docs and code. Reconciled to one account of what the code actually does (the block moves every minute, so any one pixel is lit for at most a minute), with the underlying "10%" figure marked uncited rather than presented as settled.
-- The energy curve's current-point "halo" drew at the same radius as the dot itself, leaving no visible margin — invisible with the winter accent, whose dot and the fresh-state line were both white. The halo now draws wider than the dot.
+- Winter-accent/`MUTED` colour collision fixed (ADR-017 amendment, `docs/decisions.md`).
+- Always-on text contrast fixed (ADR-007 amendment, `docs/decisions.md`).
+- Always-on time's "two sizes smaller" claim fixed to derive from awake's actual font choice (ADR-007 amendment, `docs/decisions.md`).
+- AMOLED burn-in limit's three conflicting doc/code accounts reconciled to one (ADR-007 amendment, `docs/decisions.md`).
+- Energy-curve halo width fixed, was same radius as the dot (ADR-017 amendment, `docs/decisions.md`).
 - Doc headers claiming "nothing has run on a watch" were stale (ADR-005 and ADR-019 both have real FR965 evidence); corrected across `DESIGN.md`, `decisions.md`, `spec.md`, `CLAUDE.md`.
 - `spec.md`'s non-goals still listed "an on-watch settings screen," which ADR-019 built; removed.
 - Time size raised (230→260 permille of D) on the owner's own FR965 feedback ("plenty of space"); not yet re-confirmed by a fit sweep or a new device photo.

@@ -1,6 +1,6 @@
 # Two Suns — CLAUDE.md
 
-Garmin watch face (Connect IQ, Monkey C) from studio Verden. **"Two Suns" is confirmed** (ADR-010). One question at a glance: how much light, and how much energy, do I have left today? A 24-hour ring is the sky's sun, a 24-hour curve under the time is the watch's own Body Battery, one sentence at the bottom is the light left or the next sunrise. 69 products (66 round, 3 rectangular AMOLED), API 4.2 and newer, `minApiLevel` 4.2.0, permissions `SensorHistory`, `ComplicationSubscriber` and `Positioning`. Paid, USD 1.99. **Built, not shipped.**
+Garmin watch face (Connect IQ, Monkey C) from studio Verden. **"Two Suns" is confirmed** (ADR-010). One question at a glance: how much light, and how much energy, do I have left today? A 24-hour ring is the sky's sun, a 24-hour curve under the time is the watch's own Body Battery, one sentence at the bottom is the light left or the next sunrise. 69 products (66 round, 3 rectangular AMOLED), API 4.2 and newer, `minApiLevel` 4.2.0, permissions `SensorHistory`, `ComplicationSubscriber` and `Positioning`. Paid, USD 1.99. **Submitted 2026-09-27, pending review**: https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b (live once approved — Garmin's own app id, distinct from the manifest AppID below).
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (the product and its rules; "Built vs specified" lists what the build changed),
 [`docs/plan.md`](docs/plan.md) (state of each phase, what the build learned, the owner-only steps),
