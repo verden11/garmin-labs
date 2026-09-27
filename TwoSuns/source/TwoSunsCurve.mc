@@ -27,18 +27,22 @@ class TwoSunsCurve {
                 dc.drawLine(plan.xs[i], from, plan.xs[i + 1], to);
             }
         }
-        drawDot(dc, plan, stale, accent, dot);
+        drawDot(dc, layout, plan, stale, accent, dot);
         dc.setPenWidth(1);
     }
 
-    private static function drawDot(dc as Graphics.Dc, plan as TwoSunsCurvePlan, stale as Boolean, accent as Number, dot as Number) as Void {
+    // The dot's background "halo" needs to be wider than the dot itself, or it draws exactly the same
+    // circle the accent fill draws next and leaves no visible margin — with the winter accent (white)
+    // over the fresh-state line (also TEXT/white), that made the dot invisible: caught by
+    // watch-design-reviewer, 2026-09-27.
+    private static function drawDot(dc as Graphics.Dc, layout as TwoSunsLayout, plan as TwoSunsCurvePlan, stale as Boolean, accent as Number, dot as Number) as Void {
         var y = plan.lastIndex < 0 ? null : plan.ys[plan.lastIndex];
         if (y == null) {
             return;
         }
         var x = plan.xs[plan.lastIndex];
         dc.setColor(TwoSunsPalette.BACKGROUND, Graphics.COLOR_TRANSPARENT);
-        dc.fillCircle(x, y, dot);
+        dc.fillCircle(x, y, dot + layout.pen());
         dc.setColor(stale ? TwoSunsPalette.MUTED : accent, Graphics.COLOR_TRANSPARENT);
         if (stale) {
             dc.drawCircle(x, y, dot);

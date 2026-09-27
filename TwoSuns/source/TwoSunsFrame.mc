@@ -25,12 +25,20 @@ class TwoSunsFrame {
     // `sleeping` keeps only the time, the value and the sun line (always-on).
     function initialize(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState, sleeping as Boolean) {
         dateFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.DATE_FONTS, layout.capFor(TwoSunsLayout.DATE_MAX_PERMILLE));
-        timeFont = TwoSunsDraw.fontUpTo(dc, sleeping ? TwoSunsLayout.SLEEP_TIME_FONTS : TwoSunsLayout.TIME_FONTS,
-                                        layout.capFor(TwoSunsLayout.TIME_MAX_PERMILLE));
+        // Always-on time is two steps below whatever awake would pick right now, not a separate fixed
+        // list — so it stays visibly smaller than awake on every screen, not just the ones where awake
+        // happens to land on its largest font (TwoSunsLayout.SLEEP_TIME_FONTS comment; 2026-09-27).
+        var awakeTimeFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.TIME_FONTS, layout.capFor(TwoSunsLayout.TIME_MAX_PERMILLE));
+        if (sleeping) {
+            timeFonts = TwoSunsDraw.fontsBelow(TwoSunsLayout.TIME_FONTS, awakeTimeFont, 2);
+            timeFont = timeFonts[0];
+        } else {
+            timeFont = awakeTimeFont;
+            timeFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.TIME_FONTS, timeFont);
+        }
         valueFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.VALUE_FONTS, layout.capFor(TwoSunsLayout.VALUE_MAX_PERMILLE));
         lineFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.LINE_FONTS, layout.capFor(TwoSunsLayout.LINE_MAX_PERMILLE));
         dateFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.DATE_FONTS, dateFont);
-        timeFonts = TwoSunsDraw.fontsFrom(sleeping ? TwoSunsLayout.SLEEP_TIME_FONTS : TwoSunsLayout.TIME_FONTS, timeFont);
         valueFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.VALUE_FONTS, valueFont);
         lineFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.LINE_FONTS, lineFont);
         showDate = !sleeping && state.showDate && state.dateLines.size() > 0;

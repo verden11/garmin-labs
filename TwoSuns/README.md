@@ -11,7 +11,7 @@ glance. Every failure has a sentence, not a blank. Nothing leaves the watch.
 **"Two Suns" is confirmed** (ADR-010, 2026-09-27); no trademark search done.
 
 69 products at Connect IQ 4.2 and up (66 round, 3 rectangular AMOLED): [`docs/compatibility.md`](docs/compatibility.md).
-Status: **built and simulator-tested, not yet run on a wrist, look not approved, not submitted.**
+Status: **built and simulator-tested, spot-checked on a real FR965, no full wear day yet, look not approved, not submitted.**
 
 ## Build
 
@@ -21,7 +21,7 @@ KEY=~/.garmin-connectiq/keys/developer_key      # outside the repo, never commit
 monkeyc -d fr965 -f monkey.jungle -o bin/TwoSuns.prg -y $KEY -w --typecheck 3
 monkeydo bin/TwoSuns.prg fr965                  # with the simulator running
 
-tools/run_tests.sh fr965                        # 122 tests; prints PASSED (…)
+tools/run_tests.sh fr965                        # 124 tests; prints PASSED (…)
 tools/run_tests.sh fr965 everyStateFitsThisDisplay
 tools/fit_all.sh                                # screen fit on ten devices, one per size but Venu X1
 
@@ -61,7 +61,7 @@ source/
   TwoSunsRingPlan / Ring / RingArc  sky ring: plan (pure) and drawing
   TwoSunsCurvePlan / Curve / Band   Body Battery band: plan (pure) and drawing
   TwoSunsLayout/Rows/Frame/Draw/Sleep/Palette/Config/Text/DateText/Settings
-  test/                             unit and screen-fit tests (122)
+  test/                             unit and screen-fit tests (124)
 resources/  resources-<lang>/       strings (English + 14 machine-drafted), settings, properties
 tools/                              run_tests.sh, fit_all.sh, fit_products.sh, fit_languages.sh,
                                     gen_settings.py, gen_sun_tests.py, check_strings.py

@@ -37,7 +37,7 @@ The text of phases 0 to 10 below is the original plan; the table above is the st
 - **Compiler quirks** cost time: see [`development.md`](development.md) "Compiler and SDK quirks".
 - **The simulator wedges, and the test runners kill it.** `tools/run_tests.sh` runs `pkill -f monkeydo` after every run and restarts the simulator with `pkill` on a wedge (`tools/fit_languages.sh` on a no-result retry); another session sharing the simulator makes wedges worse and loses its work to them ([`development.md`](development.md) "Shared simulator").
 - **The `.iq` export prints "89 OUT OF 89 DEVICES BUILT"** for a manifest of 69 products. Unresolved; check the package before submission ([`publish-checklist.md`](publish-checklist.md)).
-- **Open contrast item.** Phase 4 asked for the night track and "the curve's lower level" at 3:1 against black. The night track is 3.3:1 and every dimmed accent at least 4.6:1 (unit-tested); the stale fill and the always-on text are `#555555`, 2.8:1. Decide on the look approval whether that is acceptable.
+- **Contrast item, partly resolved 2026-09-27.** Phase 4 asked for the night track and "the curve's lower level" at 3:1 against black. The night track is 3.3:1 and every dimmed accent at least 4.6:1 (unit-tested). The always-on text was `#555555`, 2.8:1 — under the project's own bar for a persistent colour — fixed to `#5555AA`, 3.3:1 (ADR-007 amendment). Still open: the stale curve fill (`#555555`, 2.8:1, awake-only) — decide on the look approval whether that's acceptable given it's also carried by shape.
 
 ## 0. Ground rules (they override anything below if in conflict)
 

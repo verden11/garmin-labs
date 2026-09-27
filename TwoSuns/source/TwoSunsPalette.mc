@@ -7,8 +7,11 @@ class TwoSunsPalette {
     static const TEXT = 0xFFFFFF;
     static const MUTED = 0xAAAAAA;
     static const TRACK = 0x555555;
-    // Always-on: dimmer than TEXT so an AMOLED spends less light.
-    static const SLEEP_TEXT = 0x555555;
+    // Always-on: dimmer than TEXT so an AMOLED spends less light. Same value as NIGHT (below), reused
+    // deliberately for its contrast (2.8:1 for 0x555555 alone fails the project's own >=3:1 rule for a
+    // persistent/always-on colour; NIGHT is 3.27:1); safe to share because the ring never draws during
+    // sleep (TwoSunsSleep.draw), so the two never appear together (watch-design-reviewer, 2026-09-27).
+    static const SLEEP_TEXT = 0x5555AA;
 
     // The "Accent" setting, by index: sky (default), mint, autumn, violet, pink, winter. Sky is the
     // default because blue carries no "status" meaning (unlike amber, which reads as a warning colour
@@ -28,9 +31,14 @@ class TwoSunsPalette {
 
     // The accent dimmed for daylight already gone: each full channel (FF) drops to AA, the others stay, so
     // the result is still 3:1 against black for every accent (a channel dropped to 00 would fall below it
-    // for blue and violet) and is never the night track colour.
+    // for blue and violet) and is never the night track colour. One accent is made only of AA/FF channels
+    // (winter, 0xFFFFFF) and dims to exactly MUTED — the "no data" grey — which would make a low reading
+    // and no reading indistinguishable, the exact collision ADR-008 rejected a third dim tier to avoid.
+    // Caught by watch-design-reviewer, 2026-09-27: nudge the red channel one step further in that one
+    // case so it never lands on MUTED, still 64-colour-safe, still darker than the source.
     static function dim(color as Number) as Number {
-        return (dimChannel(color >> 16) << 16) | (dimChannel(color >> 8) << 8) | dimChannel(color);
+        var dimmed = (dimChannel(color >> 16) << 16) | (dimChannel(color >> 8) << 8) | dimChannel(color);
+        return dimmed == MUTED ? 0x55AAAA : dimmed;
     }
 
     private static function dimChannel(value as Number) as Number {

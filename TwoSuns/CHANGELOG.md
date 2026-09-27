@@ -7,7 +7,20 @@ text for each version is in [`listing/README.md`](listing/README.md).
 
 ## Unreleased / 1.0.0 in preparation
 
-Built 2026-09-26, extended 2026-09-27. Evidence: mostly simulator (SDK 9.2.0), plus two checks on the owner's FR965 (sunrise/sunset match to the native glance; Positioning). 122 tests pass on `fr965`, `fenix7`, `venu3`; the full 69-product fit sweep (`tools/fit_products.sh`) prints `done: 69 pass, 0 fail`, 122 of 122 on every product including Venu X1 (`bin/fit-products.txt`, 2026-09-27). Tests do not check pixels.
+Built 2026-09-26, extended 2026-09-27. Evidence: mostly simulator (SDK 9.2.0), plus spot-checks on the owner's FR965 (sunrise/sunset match to the native glance; Positioning; on-watch Customize, ADR-019). 124 tests pass on `fr965`, `fenix7`, `venu3` (compile-checked after the 2026-09-27 fixes below; the full run and the 69-product fit sweep predate them and need re-confirming once the simulator is free — the sweep last printed `done: 69 pass, 0 fail`, 122 of 122 on every product including Venu X1, `bin/fit-products.txt`, 2026-09-27). Tests do not check pixels.
+
+`watch-design-reviewer` (`watch-design-kit`) ran against this build 2026-09-27 and found 8 material issues; fixed same day:
+
+- The winter accent (`#FFFFFF`) dimmed to a colour bit-identical to `MUTED`/"no data" — a low reading and no reading were indistinguishable. `TwoSunsPalette.dim()` now avoids that collision for every accent.
+- Always-on text was `#555555`, 2.8:1 against true black — under this project's own ≥3:1 bar for a persistent colour. Now `#5555AA`, 3.3:1.
+- The always-on time's "two sizes smaller than awake" claim was false whenever awake had already fallen back from its largest font. Now derived from awake's actual choice at draw time, genuinely two steps below on every screen.
+- The AMOLED burn-in limit was stated three different, uncited ways across the docs and code. Reconciled to one account of what the code actually does (the block moves every minute, so any one pixel is lit for at most a minute), with the underlying "10%" figure marked uncited rather than presented as settled.
+- The energy curve's current-point "halo" drew at the same radius as the dot itself, leaving no visible margin — invisible with the winter accent, whose dot and the fresh-state line were both white. The halo now draws wider than the dot.
+- Doc headers claiming "nothing has run on a watch" were stale (ADR-005 and ADR-019 both have real FR965 evidence); corrected across `DESIGN.md`, `decisions.md`, `spec.md`, `CLAUDE.md`.
+- `spec.md`'s non-goals still listed "an on-watch settings screen," which ADR-019 built; removed.
+- Time size raised (230→260 permille of D) on the owner's own FR965 feedback ("plenty of space"); not yet re-confirmed by a fit sweep or a new device photo.
+
+Two findings are still open, not fixable from a coding session alone: settings persistence across a real Garmin Connect sync is untested (ADR-018); the always-on Body Battery number still has no context marker distinguishing it from a battery percentage (spec.md "Ideas", not designed).
 
 Built:
 
@@ -24,7 +37,7 @@ Built:
 
 Not done, and not to be claimed:
 
-- Device evidence is two checks only (sunrise/sunset match; Positioning). Not yet done: a full wear day, always-on night, DST, a run with phone and GPS off, battery figure.
+- Device evidence is three spot-checks (sunrise/sunset match; Positioning; on-watch Customize), no full wear day. Not yet done: a full wear day, always-on night, DST, a run with phone and GPS off, battery figure, settings persistence across a real Garmin Connect sync.
 - The owner has not approved the look or the launcher icon (a generic placeholder). No screenshot exists.
 - No language has been fit-tested (`tools/fit_languages.sh` written, not run); no store description translated.
 - The `.iq` export prints "89 OUT OF 89 DEVICES BUILT" for a manifest of 69 products; investigated (the archive itself confirms 89 real entries, keyed by internal part numbers this SDK cannot map back to device ids), still unresolved — the store form's own Compatible Devices list is authoritative at upload.

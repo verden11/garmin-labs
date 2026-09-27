@@ -1,9 +1,13 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 
-// AMOLED always-on: Garmin allows at most 10% of pixels lit and none for more than 3 minutes. So only
-// the time, the Body Battery number and the sun sentence, dim, no ring and no curve, and the whole
-// block steps across a 3 x 3 grid once a minute (Days To Go ADR-007).
+// AMOLED always-on: a commonly-cited Garmin limit is at most 10% of pixels lit, none continuously for
+// more than a few minutes (uncited, copied from Days To Go's ADR-007 without a primary source — see
+// knowledge/platform-facts.md in watch-design-kit, tagged unverified there too). So only the time, the
+// Body Battery number and the sun sentence, dim, no ring and no curve, and the whole block steps across
+// a 3 x 3 grid every minute: any one screen pixel is part of the lit digit stroke for at most one
+// minute before the block moves past it, not the "3 minutes" this comment used to claim — the step
+// happens every update, not every third one (caught re-deriving the actual dwell, 2026-09-27).
 class TwoSunsSleep {
 
     // `minute` picks the spot on the grid (the view passes the clock's minute).
