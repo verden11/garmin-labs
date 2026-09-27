@@ -1,6 +1,6 @@
 # When and how to publish Two Suns
 
-**Status 2026-09-27: built and simulator-tested; nothing submitted.** Three spot-checks have run on the owner's FR965 (sunrise/sunset match, gate 3; Positioning, gate 2; on-watch Customize, ADR-019) — the rest of the build is still simulator-only, no full wear day yet. Every gate below is open unless it says otherwise.
+**Status 2026-09-27: submitted, pending review.** Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b. Three spot-checks have run on the owner's FR965 (sunrise/sunset match, gate 3; Positioning, gate 2; on-watch Customize, ADR-019) — the rest of the build is still simulator-only, no full wear day yet. The gates below record what state the app was in when the owner chose to submit, not a claim that every one closed first — several were explicitly waived by the owner (see each gate's own note).
 
 Owner's runbook. Do the gates in order; each one names what "passed" looks like and where to record it. Status of the build itself: [`plan.md`](plan.md) "Implementation status". What may be claimed: [`release-contract.md`](release-contract.md).
 

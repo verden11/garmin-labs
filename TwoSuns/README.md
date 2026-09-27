@@ -11,7 +11,7 @@ glance. Every failure has a sentence, not a blank. Nothing leaves the watch.
 **"Two Suns" is confirmed** (ADR-010, 2026-09-27); no trademark search done.
 
 69 products at Connect IQ 4.2 and up (66 round, 3 rectangular AMOLED): [`docs/compatibility.md`](docs/compatibility.md).
-Status: **built and simulator-tested, spot-checked on a real FR965, no full wear day yet, look not approved, not submitted.**
+Status: **submitted 2026-09-27, pending review.** Built and simulator-tested, spot-checked on a real FR965, no full wear day yet. Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
 
 ## Build
 
