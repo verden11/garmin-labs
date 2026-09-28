@@ -3,6 +3,24 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/README.md`](listing/README.md).
 
+## 1.0.1 — prepared 2026-09-28, not yet submitted
+
+Owner is holding submission until 1.0.0's review concludes. Built on top of 1.0.0, no other
+changes. Evidence: simulator only — compiled and the full 124-test suite re-run on `fr965`,
+`fenix7`, `venu3` (the same three devices 1.0.0's own note names), all pass, zero regressions. No
+device evidence; this has not run on a wrist.
+
+- Fixed (defensive, `docs/decisions.md` ADR-017's 2026-09-28 amendment): the Body Battery glyph
+  fill's trailing (anchored) edge now rounds to match the track's own curve there, capped so it can
+  never exceed half the fill's own width or height. The moving (leading) edge — the one actually
+  responsible for the 1.0.0 "toggle switch" defect — is untouched at every fill level, so this
+  can't reintroduce that bug. Not confirmed as a visible defect on a real screenshot; found by a
+  geometry check during code review, applied as a precaution.
+- Corrected two mislabelled evidence claims: `docs/decisions.md` ADR-017 and `CHANGELOG.md`'s own
+  1.0.0 entry (below) both said "real FR965 screenshot" for the original toggle-switch fix; the
+  matching capture on file (`listing/screenshots.md`) is a simulator screenshot. Fixed in both
+  places rather than left standing.
+
 ## 1.0.0 — submitted 2026-09-27, pending review
 
 Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
@@ -24,7 +42,7 @@ What's New (initial release): blank, per the store form — no field for "first 
 
 Two findings are still open, not fixable from a coding session alone: settings persistence across a real Garmin Connect sync is untested (ADR-018); the always-on Body Battery number still has no context marker distinguishing it from a battery percentage (spec.md "Ideas", not designed).
 
-One more caught from a real FR965 screenshot, same day: the Body Battery glyph's fill rounded its own leading edge once wide enough, which at a mid-level reading (59%, the owner's real value at the time) looked like a toggle switch, not a level. Fill is now a plain rectangle inside the rounded outline.
+One more caught from a real FR965 **simulator** screenshot, same day (corrected 2026-09-28: previously misstated as a real-device screenshot here and in `docs/decisions.md` ADR-017; the matching capture on file, `listing/screenshots.md`, says "Owner's FR965 simulator"): the Body Battery glyph's fill rounded its own leading edge once wide enough, which at a mid-level reading (59%, the owner's real value at the time) looked like a toggle switch, not a level. Fill is now a plain rectangle inside the rounded outline.
 
 Built:
 

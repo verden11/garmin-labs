@@ -1,0 +1,5 @@
+# Simple build target. Excludes every (:pro)-annotated symbol; see docs/decisions.md ADR-003.
+project.manifest = manifest.simple.xml
+base.sourcePath = source
+base.resourcePath = resources
+base.excludeAnnotations = pro

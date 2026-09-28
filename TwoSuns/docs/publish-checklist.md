@@ -1,6 +1,8 @@
 # When and how to publish Two Suns
 
-**Status 2026-09-27: submitted, pending review.** Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b. Three spot-checks have run on the owner's FR965 (sunrise/sunset match, gate 3; Positioning, gate 2; on-watch Customize, ADR-019) — the rest of the build is still simulator-only, no full wear day yet. The gates below record what state the app was in when the owner chose to submit, not a claim that every one closed first — several were explicitly waived by the owner (see each gate's own note).
+**Status 2026-09-27: 1.0.0 submitted, pending review.** Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b. Three spot-checks have run on the owner's FR965 (sunrise/sunset match, gate 3; Positioning, gate 2; on-watch Customize, ADR-019) — the rest of the build is still simulator-only, no full wear day yet. The gates below record what state the app was in when the owner chose to submit, not a claim that every one closed first — several were explicitly waived by the owner (see each gate's own note).
+
+**1.0.1 prepared 2026-09-28, not submitted.** One defensive rendering fix plus a docs correction (`CHANGELOG.md`, `docs/decisions.md` ADR-017) — see `CHANGELOG.md`'s 1.0.1 entry. Owner is holding submission until 1.0.0's review concludes. All the gates below are 1.0.0's own status, unchanged by 1.0.1's fix (nothing here closes a previously-open gate).
 
 Owner's runbook. Do the gates in order; each one names what "passed" looks like and where to record it. Status of the build itself: [`plan.md`](plan.md) "Implementation status". What may be claimed: [`release-contract.md`](release-contract.md).
 
@@ -54,7 +56,7 @@ Each field's text is in [`../listing/README.md`](../listing/README.md), in form 
 2. Open https://apps.garmin.com/developer/upload, attach `dist/TwoSuns.iq`.
 3. Paste each field from `listing/README.md`, in form order. Add the price in the merchant flow.
 4. Add the images from gate 10.
-5. Same day, update `CHANGELOG.md` (version 1.0.0, upload date, user-facing changes, ADRs) and check that `listing/README.md` has the What's New block and the version.
+5. Same day, update `CHANGELOG.md` (the version being submitted, upload date, user-facing changes, ADRs) and check that `listing/README.md` has the matching What's New block and version number.
 6. Do not commit `dist/*.iq` or any key file.
 
 ## After approval (the day it arrives)

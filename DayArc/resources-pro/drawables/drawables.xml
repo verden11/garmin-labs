@@ -1,0 +1,20 @@
+<drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <bitmap id="LauncherIcon" filename="launcher_icon_pro.svg" dithering="none" />
+    <!-- Grid icons (ADR-013, Pro only): each a permanent hue by icon TYPE, never by value —
+         extends ADR-006's no-verdict rule one level down. Source: Tabler Icons (MIT), see
+         icons/THIRD_PARTY_LICENSES.md. -->
+    <bitmap id="IconGridCalendar" filename="icons/grid_calendar.svg" dithering="none" />
+    <bitmap id="IconGridHeart" filename="icons/grid_heart.svg" dithering="none" />
+    <bitmap id="IconGridBolt" filename="icons/grid_bolt.svg" dithering="none" />
+    <bitmap id="IconGridStairs" filename="icons/grid_stairs.svg" dithering="none" />
+    <bitmap id="IconGridSteps" filename="icons/grid_steps.svg" dithering="none" />
+    <bitmap id="IconGridFlame" filename="icons/grid_flame.svg" dithering="none" />
+    <bitmap id="IconGridBell" filename="icons/grid_bell.svg" dithering="none" />
+    <bitmap id="IconGridThermometer" filename="icons/grid_thermometer.svg" dithering="none" />
+    <bitmap id="IconGridRun" filename="icons/grid_run.svg" dithering="none" />
+    <bitmap id="IconGridBike" filename="icons/grid_bike.svg" dithering="none" />
+    <bitmap id="IconGridRefresh" filename="icons/grid_refresh.svg" dithering="none" />
+    <bitmap id="IconGridBreath" filename="icons/grid_breath.svg" dithering="none" />
+    <bitmap id="IconGridDroplet" filename="icons/grid_droplet.svg" dithering="none" />
+    <bitmap id="IconGridBars" filename="icons/grid_bars.svg" dithering="none" />
+</drawables>

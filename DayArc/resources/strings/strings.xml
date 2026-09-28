@@ -1,0 +1,42 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <string id="AppName">DayArc</string>
+
+    <!-- Shown wherever a value is null. Never a blank field, never a raw error (watch-design-lead UX checklist). -->
+    <string id="value_none">--</string>
+
+    <!-- Morning hero: feels-like temperature. Secondary: high/low (Complications' own preformatted
+         string, already in the device's units — not re-converted), chance of rain. -->
+    <string id="morning_precip">$1$% rain</string>
+    <string id="morning_uv">UV $1$</string>
+    <string id="morning_weather_unavailable">Weather unavailable</string>
+
+    <!-- Midday hero: stress, shown as a number and a single-brightness gauge fill, never a mood word
+         (docs/decisions.md ADR-006 extends TwoSuns ADR-008's no-verdict rule to every metric here). -->
+    <string id="midday_stress_label">Stress</string>
+    <string id="midday_stress_unavailable">Stress unavailable right now</string>
+    <string id="midday_calendar_label">Next event</string>
+    <string id="midday_calendar_none">No upcoming event</string>
+
+    <!-- Evening hero: Body Battery, number only, no mood word. -->
+    <string id="evening_battery_label">Body Battery</string>
+    <string id="evening_battery_of_100">$1$ of 100</string>
+    <string id="evening_battery_unavailable">Body Battery unavailable</string>
+
+    <!-- Pro secondary-field labels. Short: these sit in small grid cells (DESIGN.md). -->
+    <string id="label_battery_pct">Battery</string>
+    <string id="label_heart_rate">HR</string>
+    <string id="label_steps">Steps</string>
+    <string id="label_floors">Floors</string>
+    <string id="label_notifications">Notif</string>
+    <string id="label_intensity_minutes">Intensity min</string>
+    <string id="label_weekly_run">Run/wk</string>
+    <string id="label_weekly_bike">Bike/wk</string>
+    <string id="label_recovery_time">Recovery</string>
+    <string id="label_respiration">Resp</string>
+    <string id="label_pulse_ox">Pulse Ox</string>
+    <string id="label_vo2max">VO2max</string>
+    <string id="label_sunrise">Sunrise</string>
+    <string id="label_sunset">Sunset</string>
+
+</strings>

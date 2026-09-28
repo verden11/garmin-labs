@@ -1,0 +1,7 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <!-- Overrides resources/strings/strings.xml AppName only (monkey.pro.jungle's resourcePath
+         puts this directory after the shared one). Everything else is shared. -->
+    <string id="AppName">DayArc Pro</string>
+
+</strings>

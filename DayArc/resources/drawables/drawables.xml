@@ -1,0 +1,9 @@
+<drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <bitmap id="LauncherIcon" filename="launcher_icon.svg" dithering="none" />
+    <!-- Hero icons (ADR-013): single hue per window, shared by both builds. Pre-coloured, no
+         runtime tint — plain dc.drawBitmap, sidesteps drawBitmap2's FR165/165m tint bug by not
+         tinting at all. Source: Tabler Icons (MIT), see icons/THIRD_PARTY_LICENSES.md. -->
+    <bitmap id="IconHeroWeather" filename="icons/hero_weather.svg" dithering="none" />
+    <bitmap id="IconHeroStress" filename="icons/hero_stress.svg" dithering="none" />
+    <bitmap id="IconHeroBattery" filename="icons/hero_battery.svg" dithering="none" />
+</drawables>

@@ -50,12 +50,14 @@ Support and answers: https://verden.watch/two-suns/support/
 The form reads it from the package; if a field asks, type:
 
 ```text
-1.0.0
+1.0.1
 ```
 
 ## What's new
 
-Leave blank: this is the initial release, and the form has no field asking for "first release" text.
+```text
+Small refinement to the Body Battery level indicator.
+```
 
 ## Hero Image (optional, 1440×720, under 2048 KB)
 

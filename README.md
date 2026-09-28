@@ -10,6 +10,7 @@ that serves all of their public pages.
 | [`HeroFace/`](HeroFace) | Watch face — time-first, in HeroSet's visual language. Works standalone; richer with HeroSet installed. 117 round products. | 1.0.1 live |
 | [`DaysToGo/`](DaysToGo) | Watch face — days until a date, one big number, counted in whole calendar days. 117 round + 3 rectangular products. | Built, simulator-tested; not submitted |
 | [`TwoSuns/`](TwoSuns) | Watch face — the time, a 24-hour sun ring and the day's Body Battery as a curve; "Two Suns". 69 products (66 round + 3 rectangular). | Submitted 2026-09-27, pending review |
+| [`DayArc/`](DayArc) | Watch face pair — content changes on a fixed clock through the day (weather/stress/Body Battery/night); "DayArc" (free) one reading per window, "DayArc Pro" (paid, $1.99) a denser field grid per window. One codebase, two listings. 69 products (66 round + 3 rectangular). | Built, simulator-only — not submitted, no owner look-approval yet |
 | [`site/`](site) | The public site: studio home plus landing, support and privacy pages per app. Live at **https://verden.watch/** | Live |
 
 Each folder is built and released independently. They share this repo so
@@ -26,6 +27,9 @@ HeroSet/ · HeroFace/ · DaysToGo/ · TwoSuns/
   listing/     the store listing: README.md (paste-ready form answers, description,
                What's New per version), screenshots.md, screens/, src/, images
   source/  resources*/  manifest*.xml  *.jungle
+DayArc/    two listings, one codebase: manifest.simple.xml/manifest.pro.xml,
+           monkey.simple.jungle/monkey.pro.jungle, resources/ (shared) + resources-pro/ (override),
+           listing/ (DayArc) + listing-pro/ (DayArc Pro) — otherwise the same shape as above
 site/   the public website (its own README, CLAUDE.md, DESIGN.md)
 reports/       research and review reports; the notes behind each in research_notes/<report title>/
 ```
@@ -50,6 +54,9 @@ Each project builds on its own; see its `README.md` for the full commands.
 cd HeroSet     && monkeyc -d fr965 -f monkey.jungle -o bin/HeroSet.prg -y $KEY
 cd HeroFace    && monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y $KEY
 cd DaysToGo    && monkeyc -d fr965 -f monkey.jungle -o bin/DaysToGo.prg -y $KEY
+cd TwoSuns     && monkeyc -d fr965 -f monkey.jungle -o bin/TwoSuns.prg -y $KEY
+cd DayArc      && monkeyc -d fr965 -f monkey.simple.jungle -o bin/DayArc.prg -y $KEY
+cd DayArc      && monkeyc -d fr965 -f monkey.pro.jungle -o bin/DayArcPro.prg -y $KEY
 cd site && npm install && npm run dev
 ```
 

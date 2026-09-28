@@ -1,0 +1,6 @@
+# Pro build target. Excludes every (:simple)-annotated symbol; see docs/decisions.md ADR-003.
+# resources-pro overrides AppName (and, later, the launcher icon) on top of the shared resources/.
+project.manifest = manifest.pro.xml
+base.sourcePath = source
+base.resourcePath = resources;resources-pro
+base.excludeAnnotations = simple
