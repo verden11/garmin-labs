@@ -24,7 +24,7 @@ const sunrise = 6 * 60 + 41
 const sunset = 19 * 60 + 23
 const now = 10 * 60 + 42
 
-export function FacePreview({ size = 240 }: { size?: number }) {
+export function FacePreview({ size = 240 }: Readonly<{ size?: number }>) {
   return (
     <svg className="face" width={size} height={size} viewBox="0 0 454 454" role="img"
       aria-label="A drawing of the watch face by day: a ring for the 24 hours with the sun's marker, the time 10:42, a Body Battery curve with its number, and the line 8:41 of daylight.">
@@ -42,11 +42,11 @@ export function FacePreview({ size = 240 }: { size?: number }) {
       <text x={C} y="124" fill="#aaa" fontSize="26" textAnchor="middle" fontFamily={font}>Sat 26 Sep</text>
       <text x={C} y="212" fill="#fff" fontSize="96" textAnchor="middle" fontFamily={font} fontWeight="600">10:42</text>
 
-      {/* Body Battery band: glyph, number, curve. */}
-      <rect x="128" y="240" width="22" height="34" rx="3" fill="none" stroke="#fff" strokeWidth="3" />
-      <rect x="135" y="235" width="8" height="5" fill="#fff" />
-      <rect x="131" y="255" width="16" height="16" fill={accent} />
-      <text x="162" y="273" fill={accent} fontSize="32" fontFamily={font} fontWeight="600">64</text>
+      {/* Body Battery band: a level pill (DESIGN.md "Glyph" — no nub, changed 2026-09-27; a battery
+          shape reads as watch battery regardless of fill colour), then the number, then the curve. */}
+      <rect x="126" y="252" width="32" height="18" rx="9" fill="none" stroke="#fff" strokeWidth="3" />
+      <rect x="126" y="252" width="20" height="18" rx="9" fill={accent} />
+      <text x="166" y="273" fill={accent} fontSize="32" fontFamily={font} fontWeight="600">64</text>
       <path d="M212 274L212 262Q226 250 240 258T268 246T296 262L296 274Z" fill="#5555aa" />
       <path d="M212 262Q226 250 240 258T268 246T296 262" fill="none" stroke="#fff" strokeWidth="3" />
       <circle cx="296" cy="262" r="6" fill={accent} stroke="#000" strokeWidth="3" />

@@ -10,6 +10,8 @@ Written 2026-09-26 (plan phase 8); text finalised 2026-09-27 (name, category, pr
 
 **What's New, initial release:** left blank in the README, not "First release." — there is no field asking for that text, and it reads as noise on a first listing. (The sibling apps' 1.0.0 entries did say "First release."; that is their submitted history and is not being changed. This is the rule going forward.)
 
+**What's New, 1.0.1 (prepared 2026-09-28, not yet submitted):** "Small refinement to the Body Battery level indicator." — covers the defensive glyph-fill fix, `../docs/decisions.md` ADR-017's 2026-09-28 amendment. 1.0.0 had no What's New block to move here (it was blank, the initial release). App Version bumped 1.0.0 → 1.0.1 in this README.
+
 ## Open owner decisions
 
 | # | Decision | State | What to do |

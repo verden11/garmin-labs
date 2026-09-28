@@ -63,14 +63,37 @@ class TwoSunsCurve {
         dc.drawRoundedRectangle(band.glyphLeft, band.glyphTop, band.glyphWidth, band.glyphHeight, radius);
         if (level != null && !stale) {
             dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
+            var fillTop = band.glyphTop + pen + 1;
+            var fillHeight = band.glyphHeight - 2 * (pen + 1);
             var inner = band.glyphWidth - 2 * (pen + 1);
             var filled = inner * level / TwoSunsConfig.BATTERY_MAX;
-            // A square-edged fill inside the rounded outline reads as a level, the standard battery/
-            // progress idiom. Rounding the fill's own leading edge (the old behaviour, matching the
+            // A square LEADING edge inside the rounded outline reads as a level, the standard battery/
+            // progress idiom. Rounding the fill's leading edge (the old behaviour, matching the
             // outline's corners once the fill was wide enough) made a mid-level reading look like a
             // toggle-switch thumb floating in a track — caught from a real screenshot, owner, 2026-09-27.
+            // The TRAILING (left, anchored) edge is a different case: it sits at the same x for every
+            // reading, coincident with the track's own left cap, so rounding it can't reproduce the
+            // floating-thumb look — only the moving edge did that. Left unrounded, its flat corners can
+            // sit fractionally outside the true curved boundary there (code review, 2026-09-28: a
+            // geometry check found this plausible in principle, though the current constants keep the
+            // real risk marginal across the product set). Rounded defensively, capped so it can never
+            // exceed what the fill itself has room for, and the leading edge stays exactly as before.
             if (filled > 0) {
-                dc.fillRectangle(band.glyphLeft + pen + 1, band.glyphTop + pen + 1, filled, band.glyphHeight - 2 * (pen + 1));
+                var capRadius = radius - (pen + 1);
+                if (capRadius > filled / 2) {
+                    capRadius = filled / 2;
+                }
+                if (capRadius > fillHeight / 2) {
+                    capRadius = fillHeight / 2;
+                }
+                if (capRadius > 0) {
+                    dc.fillRoundedRectangle(band.glyphLeft + pen + 1, fillTop, filled, fillHeight, capRadius);
+                    if (filled > capRadius) {
+                        dc.fillRectangle(band.glyphLeft + pen + 1 + capRadius, fillTop, filled - capRadius, fillHeight);
+                    }
+                } else {
+                    dc.fillRectangle(band.glyphLeft + pen + 1, fillTop, filled, fillHeight);
+                }
             }
         }
         dc.setPenWidth(1);
