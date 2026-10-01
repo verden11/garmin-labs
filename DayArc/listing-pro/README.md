@@ -34,7 +34,7 @@ fewer. Every window shows the time and date; night shows only those.
 Every reading is shown as a number, never a mood or a verdict. Fields the watch can't provide show
 as "--", not blank and not a guess.
 
-This is the paid, data-rich listing — $1.99, fixed, no free tier. Looking for the simpler one
+This is the paid, data-rich listing — one-time price, no free tier. Looking for the simpler one
 reading-per-window face instead? That's DayArc, a separate free listing.
 
 DayArc Pro reads data your watch already has. Nothing is sent anywhere, no location, no network.
@@ -61,7 +61,7 @@ Blank — initial release.
 ## Monetization
 
 ```text
-Paid — $1.99, one-time, no subscription, no flip-to-free (docs/decisions.md ADR-007).
+Paid — Garmin's second price step (set in the dashboard; no number in the text, ADR-007 amended 2026-10-01), one-time, no subscription, no flip-to-free.
 ```
 
 ## Email Address (shown publicly)

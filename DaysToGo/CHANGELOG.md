@@ -3,7 +3,7 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/README.md`](listing/README.md).
 
-## 1.0.1 — submitted 2026-09-26 on top of 1.0.0, pending review
+## 1.0.1 — submitted 2026-09-26 on top of 1.0.0 (the app was approved 2026-09-28, late afternoon, per the owner; which version Garmin approved is not recorded)
 
 - A name or caption too long for a small screen now ends in "..." (the marker was being dropped). Found by the cloud code review; fixed with a test (43 tests).
 - No other behaviour change. ADRs: none new.

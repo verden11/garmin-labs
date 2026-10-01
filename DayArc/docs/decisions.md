@@ -12,7 +12,7 @@ and Pro says so in its own body.
 | 004 | Window trigger: fixed clock | Active |
 | 005 | UV and pulse ox as bonus fields | Active |
 | 006 | No-verdict wording extends to every metric | Active |
-| 007 | Price: Simple free, Pro $1.99, no flip | Active |
+| 007 | Price: Simple free, Pro paid at Garmin's second price step, no flip | Active (amended 2026-10-01) |
 | 008 | Simple excludes calendar deliberately | Active |
 | 009 | Pro accepts kitchen-sink density on purpose | Active |
 | 010 | Night window (23:00-5:00) | Open — owner-reversible |
@@ -174,7 +174,7 @@ correct the misstatement above, not taken from memory this time).
 **Reversed by:** The owner, or a real-device screenshot showing the gauge reading as a verdict
 despite the single-hue rule.
 
-## ADR-007: Price — Simple free, Pro $1.99, no flip-to-free
+## ADR-007: Price — Simple free, Pro paid (Garmin's second price step), no flip-to-free
 
 **Status:** Active.
 
@@ -187,6 +187,8 @@ no free alternative. Here, Simple already covers free reach, so Pro can hold its
 without needing its own escape hatch.
 
 **Evidence:** Owner decision, 2026-09-27.
+
+**Amended 2026-10-01 (owner):** the price is **the second step of Garmin's price tiers** (the first is $2.00, then every $0.25; so $2.25 in the US store, as Two Suns shows), not $1.99. **No price number appears on the website or in the store text**: Garmin converts each tier into other currencies on its own table (the $2.00 tier shows $1.99 in the US but 2,49 € in the euro store), and a fixed US figure beside a different local one is confusing. Set the tier in the Garmin dashboard; the site and listing say "paid" only.
 
 **Reversed by:** The owner.
 

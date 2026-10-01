@@ -34,7 +34,7 @@ The evidence is in [`../reports/Body Battery and sun face research.md`](../repor
 Not decided, and not to be decided alone: the Free + Pro pair (ADR-020, Free + Pro ladder, and ADR-021, Body Battery in Free: names, prices, icon, uploads, whether the date row and ring orientation are Pro only, the empty Body Battery state's wording); the look (colours, glyph, layout, the rectangles) and the launcher icon (a generic placeholder now); the price flip rule; tier B (v1.1); screenshots (owner supplies); the site deploy; the store submission. Decided: the name (Two Suns, ADR-010), the category (Utility), the Positioning permission (kept; ADR-005), languages (ship all 15). Full list with gates: [`docs/publish-checklist.md`](docs/publish-checklist.md).
 
 Price: paid, USD 1.99, Garmin's first paid price step, same tier as Days To Go (spec D3, ADR-002).
-Price review due: not set until approval. On the day approval arrives set it to approval + 45 days here and in the memory index.
+Approved 2026-09-28 (late afternoon, owner). Price review due 2026-11-12 (approval + 45 days) unless the Free + Pro ladder (OD2) retires it; the store price shows $2.25, a real Garmin tier.
 
 ## House rules
 

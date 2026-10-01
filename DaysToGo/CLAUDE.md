@@ -3,7 +3,7 @@
 Garmin watch face (Connect IQ, Monkey C) from studio Verden. One job: how many
 days until a date, and the date is always right. 120 products (117 round, 3 rectangular AMOLED),
 `minApiLevel` 3.0.0, no permissions. Paid, USD 1.99 first, with one price
-review 45 days after store approval (spec "Price review"; ADR-002, the price and day-45 review).
+review 45 days after store approval (spec "Price review"; ADR-002, the price and day-45 review). Approved 2026-09-28 (late afternoon, owner), so the review is due 2026-11-12 unless the Free + Pro ladder (OD2) retires it.
 
 **Free + Pro (proposed, UNRELEASED, ADR-014 "Free + Pro ladder"; the owner has not signed off, so ADR-002, the price and day-45 review, still governs):** the live paid app
 (`manifest.xml`, `monkey.jungle`) becomes **Days To Go Pro** 1.1.0; a new **Free** twin (`manifest.free.xml`, `monkey.free.jungle`, own app id, 1.0.0) is built beside it from the

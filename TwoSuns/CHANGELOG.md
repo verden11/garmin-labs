@@ -42,9 +42,9 @@ device evidence; this has not run on a wrist.
   matching capture on file (`listing/screenshots.md`) is a simulator screenshot. Fixed in both
   places rather than left standing.
 
-## 1.0.0 — submitted 2026-09-27, pending review
+## 1.0.0 — submitted 2026-09-27, approved 2026-09-28 (late afternoon, owner)
 
-Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
+Store page (live since approval): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
 
 Built 2026-09-26, extended 2026-09-27. Evidence: mostly simulator (SDK 9.2.0), plus spot-checks on the owner's FR965 (sunrise/sunset match to the native glance; Positioning; on-watch Customize, ADR-019). 124 tests pass on `fr965`, `fenix7`, `venu3` (compile-checked after the 2026-09-27 fixes below; the full run and the 69-product fit sweep predate them and need re-confirming once the simulator is free — the sweep last printed `done: 69 pass, 0 fail`, 122 of 122 on every product including Venu X1, `bin/fit-products.txt`, 2026-09-27). Tests do not check pixels.
 

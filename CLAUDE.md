@@ -11,8 +11,8 @@ file only covers what spans folders.
 | `HeroSet/` | Garmin watch app (Connect IQ, Monkey C) | [`HeroSet/CLAUDE.md`](HeroSet/CLAUDE.md) |
 | `HeroFace/` | Garmin watch face (Connect IQ, Monkey C) | [`HeroFace/CLAUDE.md`](HeroFace/CLAUDE.md) |
 | `DaysToGo/` | Garmin countdown watch face (Connect IQ, Monkey C) | [`DaysToGo/CLAUDE.md`](DaysToGo/CLAUDE.md) |
-| `TwoSuns/` | Garmin sun and Body Battery watch face, "Two Suns" (Connect IQ, Monkey C) — submitted 2026-09-27, pending review | [`TwoSuns/CLAUDE.md`](TwoSuns/CLAUDE.md) |
-| `DayArc/` | Garmin time-of-day-adaptive watch face pair, "DayArc" (free) / "DayArc Pro" (paid, $1.99, no flip) — one codebase, two build targets/listings (Connect IQ, Monkey C) — built and tested in the simulator; the only real-device evidence is one owner photo (bug evidence, fixes not re-checked on a wrist) | [`DayArc/CLAUDE.md`](DayArc/CLAUDE.md) |
+| `TwoSuns/` | Garmin sun and Body Battery watch face, "Two Suns" (Connect IQ, Monkey C) — submitted 2026-09-27, approved 2026-09-28 | [`TwoSuns/CLAUDE.md`](TwoSuns/CLAUDE.md) |
+| `DayArc/` | Garmin time-of-day-adaptive watch face pair, "DayArc" (free) / "DayArc Pro" (paid, Garmin's second price step, no flip) — one codebase, two build targets/listings (Connect IQ, Monkey C) — built and tested in the simulator; the only real-device evidence is one owner photo (bug evidence, fixes not re-checked on a wrist) | [`DayArc/CLAUDE.md`](DayArc/CLAUDE.md) |
 | `site/` | Public website (Vite + React, prerendered) | [`site/CLAUDE.md`](site/CLAUDE.md) |
 
 `device-test/` is git-ignored scratch for on-watch builds, shared by both
