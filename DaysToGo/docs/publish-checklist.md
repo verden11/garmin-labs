@@ -42,8 +42,8 @@ Gates still required (the owner may waive any of them too, but they are cheap): 
 
 ## Submit (one sitting, about 30 minutes)
 
-1. `cd DaysToGo && monkeyc -e -r -f monkey.jungle -o dist/DaysToGo.iq -y ~/.garmin-connectiq/keys/developer_key`
-2. Open https://apps.garmin.com/developer/upload, attach `dist/DaysToGo.iq`.
+1. `cd DaysToGo && monkeyc -e -r -f monkey.jungle -o dist/DaysToGoPro.iq -y ~/.garmin-connectiq/keys/developer_key` (the paid app, the live app id; `dist/DaysToGoFree.iq` is the **Free** package, and `dist/DaysToGo-1.0.1-submitted.iq` is the 1.0.1 package as submitted)
+2. Open https://apps.garmin.com/developer/upload, attach `dist/DaysToGoPro.iq`.
 3. Paste each field from [`../listing/README.md`](../listing/README.md), in form order. Category: Utility. Add the price in the merchant flow.
 4. Add the images from gate 7.
 5. Same day, update `CHANGELOG.md` (version 1.0.0, upload date, user-facing changes, ADRs) and check that `listing/README.md` has the What's New block and the version.
@@ -57,6 +57,34 @@ Gates still required (the owner may waive any of them too, but they are cheap): 
 4. Update the root `README.md` status and `CLAUDE.md` price line.
 5. Day 60: run the success test in `spec.md` (the day-45 price review comes first).
 
+## Free + Pro pair (proposed, UNRELEASED: ADR-014 (Free + Pro ladder))
+
+Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP4); the owner has not signed off OD1 to OD4, so the gates above and ADR-002 (price, day-45 review) still govern the live paid app. No store-package quirk is recorded anywhere in this project's docs; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
+
+| # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
+|---|---|---|
+| F1 | Owner signs off OD1 (the ladder), OD2 (retire the day-45 flip rule), OD3 (names), OD4 (Pro price). ADR-014 (Free + Pro ladder) then becomes Active and ADR-002's flip rule Superseded, same commit | **Open** (owner) |
+| F2 | Store names and titles chosen and searched in the store by eye (plan placeholders: app name "Days To Go" / "Days To Go Pro"; proposed titles "Days To Go: Countdown to a Date" / "Days To Go Pro: Countdown, Hours, Footer"). Name is also the on-watch AppName: change `resources-free/strings` and `resources-pro/strings` only | **Open** (owner) |
+| F3 | Pro headline decided: what a buyer pays for beyond timed events and the battery or steps line. No research was run; if none, say Pro is thin | **Open** (owner / watch-pm) |
+| F4 | Launcher icon for each tier (the file is still the placeholder; Free and Pro may differ) | **Open** (owner) |
+| F5 | Tests run on both jungles: `tools/run_tests.sh <device> monkey.jungle` and `... monkey.free.jungle` on fr965, fr55, venusq2; `tools/fit_all.sh monkey.free.jungle` | **Done 2026-10-01, simulator only**: Pro 50 / Free 51 PASSED on fr965, fr55, venusq2; `fit_all.sh` on ten devices passes on both jungles. Free memory not measured separately; not run on a wrist |
+| F6 | Packages exported and checked: `tools/check_free_package.sh --build` | **Done 2026-10-01** after the final edits (compile only; `dist/DaysToGoFree.iq` and `dist/DaysToGoPro.iq`; see `development.md`) |
+| F7 | Device check on the FR965, store-build equivalent: Free shows no Hour or Footer in the phone and Customize screens, the accent change round trip (phone, sync, restart; then on the watch), the on-watch name in the watch-face list | **Open** (owner) |
+| F8 | Listing-free filled from `../listing-free/README.md`; screenshots taken from the Free build (none exist) | **Open** |
+| F9 | Pro's `../listing/README.md` What's New and version bumped for 1.1.0 (draft is in `../listing/NOTES.md`), sibling Free URL on its first line; `CHANGELOG.md` entries get their dates | **Open** (on upload) |
+| F10 | Site: `freeStoreUrl`, a "Free or Pro" section, per-tier privacy and support wording (plan WP8). Do not change a published URL | **Open** (not in this folder) |
+| F11 | Translations of any new string (none were added by this work), machine drafts need the owner's OK | n/a so far |
+
+### Free listing block (when F1 to F8 are green)
+
+1. `cd DaysToGo && tools/check_free_package.sh --build` (or export `monkeyc -e -r -f monkey.free.jungle -o dist/DaysToGoFree.iq -y ~/.garmin-connectiq/keys/developer_key`), then open https://apps.garmin.com/developer/upload, attach `dist/DaysToGoFree.iq` (a **new** app: the form reads the new app id from the package).
+2. Paste each field from [`../listing-free/README.md`](../listing-free/README.md) in form order. Category Utility. Monetization: the free listing asks no payment (confirm the form's wording at submission). Replace the placeholder Pro store URL on line 1 with the real one once Pro 1.1.0 is live, or upload Pro first.
+3. Same day: upload `dist/DaysToGoPro.iq` to the existing app id as 1.1.0 (Pro's price is changed only by the owner, in the same step they choose; re-pricing an approved app removes it for re-review).
+4. Update `CHANGELOG.md` (drop UNRELEASED, add upload dates), the What's New blocks, record both app ids for the measurement plan (WP9), and the review-day dates for gates G1 to G4 in the ladder plan.
+5. Do not commit `dist/*.iq` or any key file.
+
 ## If the review rejects it
 
 The rejection lists reasons. Fix the named item in the listing or build, bump the version if the package changes, re-submit. Do not change the price in the same step.
+
+**Until gate F1 (the Free + Pro pair) is signed off by the owner, build any 1.0.x fix from the commit before the ladder work, not from the current working tree**: this tree names the paid app "Days To Go Pro" on the watch and has restructured resources, neither of which the owner has approved for the live app.

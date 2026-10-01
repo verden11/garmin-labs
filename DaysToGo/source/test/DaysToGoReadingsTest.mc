@@ -119,7 +119,8 @@ function clockWording(logger as Test.Logger) as Boolean {
     return true;
 }
 
-(:test)
+// Pro only: the bottom line (ADR-014 (Free + Pro ladder)).
+(:test, :pro)
 function stepsWording(logger as Test.Logger) as Boolean {
     Test.assertEqual(DaysToGoReadings.stepsText(950), "950");
     Test.assertEqual(DaysToGoReadings.stepsText(1234), "1.2K");

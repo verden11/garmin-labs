@@ -18,4 +18,21 @@ text for each version is in [`listing/README.md`](listing/README.md).
 
 ## Unreleased
 
-- Nothing yet.
+Everything below is **UNRELEASED**: built 2026-10-01 against the Free + Pro plan, **proposed** (`docs/decisions.md` ADR-014 (Free + Pro ladder), owner has not signed off), simulator-only evidence, nothing uploaded. The headings are the versions the owner would upload; dates and uploads are theirs.
+
+### Days To Go (Free) 1.0.0 — UNRELEASED, a new app (new app id), not uploaded
+
+- First release of the Free twin: the same 120 products, 15 languages, no permissions. The big day count, the ring, the time, the event name and date lines, always-on, the on-watch "Set date" picker.
+- Settings: Event, Name, Month, Day, Year, Count in (days or weeks and days), Date style, Accent colour (the six shipped colours: mint, amber, sky, pink, violet, white).
+- Not in Free (Pro only): timed events (the last 24 hours as H:MM) and the battery or steps line.
+- App id `9fde2744-b0f4-4396-927d-e4c7d65bb119` (generated 2026-10-01). Store name and title are the owner's decision (placeholder "Days To Go").
+- ADRs: 014 (Free + Pro ladder, proposed).
+- Evidence: compiled for both jungles on fr965, fr55, venusq2, venux1 and swept across every manifest product (`tools/compile_sweep.sh`); the Free package's contents checked (`tools/check_free_package.sh`: no Hour or Footer setting, no "Pro" anywhere). Simulator, 2026-10-01: the 51 Free tests PASSED on fr965, fr55 and venusq2, and the screen-fit run (`tools/fit_all.sh`: fr55, fenix5s, fenix5, vivoactive4, fenix7x, fr265s, fr165, epix2, fr965, fenix9pro51mm) passes on Free. Free memory was not measured separately. Nothing has run on a wrist.
+
+### Days To Go Pro 1.1.0 — UNRELEASED, an update of the existing paid app id, not uploaded
+
+- The paid app is renamed on the watch to "Days To Go Pro" (placeholder name; the owner decides it and the price). Behaviour, settings, ids and defaults are the same as 1.0.1: `resources-pro/settings` is byte-identical to the old shared settings.
+- No new feature. The plan's other Pro additions (accent ids 6 to 11, a new layout choice) are **deferred**, not built; the Pro headline question is open (Pro is thin: timed events and the battery or steps line).
+- Build change: Pro is now `monkey.jungle` with `resources;resources-pro` and `(:free)` code excluded; `beta.jungle` follows it.
+- ADRs: 014 (Free + Pro ladder, proposed). ADR-002 (price, day-45 review) still governs until the owner signs off.
+- Evidence: as above. The 50 Pro tests (the 43 existing, one of them now Pro-only, plus 7 new) PASSED in the simulator on fr965, fr55 and venusq2 and the same ten-device fit run passes (2026-10-01); nothing on a wrist.

@@ -22,24 +22,61 @@ class DaysToGoSettings {
         month = within(values, DaysToGoConfig.KEY_MONTH, 1, DaysToGoConfig.MONTHS_PER_YEAR, 1);
         day = within(values, DaysToGoConfig.KEY_DAY, 1, DaysToGoConfig.MAX_DAY_OF_MONTH, 1);
         year = yearFrom(values[DaysToGoConfig.KEY_YEAR] as Object?);
-        hour = within(values, DaysToGoConfig.KEY_HOUR, DaysToGoConfig.HOUR_SETTING_ALL_DAY, DaysToGoConfig.HOUR_SETTING_LAST, DaysToGoConfig.HOUR_SETTING_ALL_DAY);
+        hour = hourFrom(values);
         unit = choice(values, DaysToGoConfig.KEY_UNIT, DaysToGoConfig.UNIT_WEEKS, DaysToGoConfig.UNIT_DAYS);
         dateStyle = choice(values, DaysToGoConfig.KEY_DATE_STYLE, DaysToGoConfig.STYLE_MONTH_FIRST, DaysToGoConfig.STYLE_AUTO);
-        footer = choice(values, DaysToGoConfig.KEY_FOOTER, DaysToGoConfig.FOOTER_STEPS, DaysToGoConfig.FOOTER_NONE);
+        footer = footerFrom(values);
         accent = within(values, DaysToGoConfig.KEY_ACCENT, 0, DaysToGoConfig.ACCENT_COUNT - 1, 0);
     }
 
     // Read fresh on every update: the on-watch picker writes Properties
     // without any callback, so a cache would hide the date it just saved.
     static function load() as DaysToGoSettings {
-        var keys = [DaysToGoConfig.KEY_EVENT, DaysToGoConfig.KEY_NAME, DaysToGoConfig.KEY_MONTH, DaysToGoConfig.KEY_DAY,
-                    DaysToGoConfig.KEY_YEAR, DaysToGoConfig.KEY_HOUR, DaysToGoConfig.KEY_UNIT, DaysToGoConfig.KEY_DATE_STYLE,
-                    DaysToGoConfig.KEY_FOOTER, DaysToGoConfig.KEY_ACCENT];
+        var keys = settingKeys();
         var values = {} as Dictionary;
         for (var i = 0; i < keys.size(); i++) {
             values[keys[i]] = read(keys[i]);
         }
         return new DaysToGoSettings(values);
+    }
+
+    // The keys to read, in properties-file order. Pro reads all ten; Free's properties file does not define Hour or
+    // Footer, so the Free build never asks the system for them: no path in it depends on what a missing key does
+    // (docs/decisions.md ADR-014, the Free + Pro ladder).
+    (:pro)
+    private static function settingKeys() as Array<String> {
+        return [DaysToGoConfig.KEY_EVENT, DaysToGoConfig.KEY_NAME, DaysToGoConfig.KEY_MONTH, DaysToGoConfig.KEY_DAY,
+                DaysToGoConfig.KEY_YEAR, DaysToGoConfig.KEY_HOUR, DaysToGoConfig.KEY_UNIT, DaysToGoConfig.KEY_DATE_STYLE,
+                DaysToGoConfig.KEY_FOOTER, DaysToGoConfig.KEY_ACCENT] as Array<String>;
+    }
+
+    (:free)
+    private static function settingKeys() as Array<String> {
+        return [DaysToGoConfig.KEY_EVENT, DaysToGoConfig.KEY_NAME, DaysToGoConfig.KEY_MONTH, DaysToGoConfig.KEY_DAY,
+                DaysToGoConfig.KEY_YEAR, DaysToGoConfig.KEY_UNIT, DaysToGoConfig.KEY_DATE_STYLE,
+                DaysToGoConfig.KEY_ACCENT] as Array<String>;
+    }
+
+    // Pro: the "Time of day" list. Free: always all day (no timed events), whatever a caller passes in.
+    (:pro)
+    private static function hourFrom(values as Dictionary) as Number {
+        return within(values, DaysToGoConfig.KEY_HOUR, DaysToGoConfig.HOUR_SETTING_ALL_DAY, DaysToGoConfig.HOUR_SETTING_LAST, DaysToGoConfig.HOUR_SETTING_ALL_DAY);
+    }
+
+    (:free)
+    private static function hourFrom(values as Dictionary) as Number {
+        return DaysToGoConfig.HOUR_SETTING_ALL_DAY;
+    }
+
+    // Pro: the "Bottom line" list. Free: nothing.
+    (:pro)
+    private static function footerFrom(values as Dictionary) as Number {
+        return choice(values, DaysToGoConfig.KEY_FOOTER, DaysToGoConfig.FOOTER_STEPS, DaysToGoConfig.FOOTER_NONE);
+    }
+
+    (:free)
+    private static function footerFrom(values as Dictionary) as Number {
+        return DaysToGoConfig.FOOTER_NONE;
     }
 
     private static function read(key as String) as Object? {

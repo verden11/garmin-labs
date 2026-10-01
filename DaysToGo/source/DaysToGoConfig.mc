@@ -1,7 +1,7 @@
 import Toybox.Lang;
 
 // Every tunable and identifier in one place (house rule: no magic numbers).
-// Setting values here must match resources/settings.
+// Setting values here must match resources-pro/settings and resources-free/settings (tools/gen_settings.py).
 class DaysToGoConfig {
     // Event kinds (the "Event" setting).
     static const EVENT_NEW_YEAR = 0;
@@ -100,10 +100,13 @@ class DaysToGoConfig {
     static const KEY_MONTH = "Month";
     static const KEY_DAY = "Day";
     static const KEY_YEAR = "Year";
+    // Hour and Footer are Pro-only settings (docs/decisions.md ADR-014 (Free + Pro ladder)): the Free build neither declares nor reads them.
+    (:pro)
     static const KEY_HOUR = "Hour";
     static const KEY_NAME = "Name";
     static const KEY_UNIT = "Unit";
     static const KEY_DATE_STYLE = "DateStyle";
+    (:pro)
     static const KEY_FOOTER = "Footer";
     static const KEY_ACCENT = "Accent";
 }

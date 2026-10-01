@@ -33,9 +33,19 @@ The face keeps its round design: the ring is a circle the size of the shorter si
 
 `AppBase.getSettingsView` (on-watch "Set date") is listed in the SDK for 94 of the 117 products by name match. The 23 not listed are the D2 Charlie/Delta family, Descent Mk1, the vívoactive 3 family, FR645/935, fēnix Chronos, Approach S62 (older CIQ 3.x), and the newest (fēnix 9 family, FR70, FR170). On those the phone is the only way to set the date. The listing and support page must not promise the watch route on every watch, and the FR965 test (plan phase 3, T4) says nothing about the others.
 
+## Free and Pro builds (ADR-014 (Free + Pro ladder), proposed, UNRELEASED)
+
+Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle`) and **Free** (`manifest.free.xml`, new app id, `monkey.free.jungle`). Both list the **same 120 products**, `minApiLevel` 3.0.0, the same 15 languages and an empty permission list; `tools/compile_sweep.sh` refuses to run if the two manifests' product lists differ. Free's permissions are a subset of Pro's, never more.
+
+- **Why a Free twin matters here:** a paid app is sold only on Garmin's own list, so the paid listing can never reach some of the 120 products; a free app is not held to that list (plan WP4: 33 more products; the Free listing's real device list is only known after approval, so no count goes in any listing).
+- Compile evidence, 2026-10-01 (compile only, simulator not used, SDK 9.2.0): both jungles, normal and test builds, `-w --typecheck 3`, zero warnings on `fr965` and `venux1`; on `fr55` and `venusq2` only the known launcher-icon size notice (the placeholder icon, unchanged from before this work). The whole-manifest sweep is `tools/compile_sweep.sh`.
+- Tests: the 43 existing tests are shared (one, the steps wording, is now Pro-only); there are 6 new shared tests (the accent table, Unit unset), 2 Pro-only (the steps wording moved here, Pro settings pass-through) and 3 Free-only. Totals: Pro 50, Free 51. **Run in the simulator 2026-10-01 (main thread): Pro 50 and Free 51 PASSED on `fr965`, `fr55` and `venusq2`.** Not run on a wrist.
+- Screen fit: `tools/fit_all.sh` (the ten devices `fr55`, `fenix5s`, `fenix5`, `vivoactive4`, `fenix7x`, `fr265s`, `fr165`, `epix2`, `fr965`, `fenix9pro51mm`) passes on **both** jungles, simulator, 2026-10-01. Free memory use was **not measured separately**; the fit tests passing is the only Free layout evidence, and the three rectangles were run for tests on `venusq2` only.
+- The on-watch "Customize" menu is the same in both tiers: one item, "Set date" (no accent item, no Pro item).
+
 ## Paid distribution
 
-A paid app is sold only on the SDK's App_Sales product list (lowest tier CIQ 3.4) and in its country list, so the store's list will be shorter than this manifest. No watch count goes in the listing.
+A paid app (Pro) is sold only on the SDK's App_Sales product list (lowest tier CIQ 3.4) and in its country list, so the store's list will be shorter than this manifest. No watch count goes in the listing.
 
 ## Evidence
 
