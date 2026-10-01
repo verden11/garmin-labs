@@ -1,13 +1,18 @@
-// DayArc Pro's own launcher icon motif: the same arc and dot as DayArc, plus the ticks that mark
-// the denser grid underneath (DayArc/resources-pro/drawables/launcher_icon_pro.svg), reused here.
+// DayArc Pro's mark: DayArc's face in miniature plus the grid, drawn as small coloured dots in the
+// fixed per-icon hues (DayArc/DESIGN.md "Iconography").
 export function DayArcProMark({ size = 32 }: { size?: number }) {
   return (
-    <svg className="app-mark" width={size} height={size} viewBox="0 0 65 65" aria-hidden="true">
-      <circle cx="32.5" cy="32.5" r="32.5" fill="#000" />
-      <path d="M8 46A24.5 24.5 0 0 1 57 46" fill="none" stroke="#55ffff" strokeWidth="5" strokeLinecap="round" />
-      <circle cx="44" cy="30" r="4" fill="#fff" />
-      <circle cx="20" cy="38" r="2" fill="#aaa" />
-      <circle cx="32.5" cy="22" r="2" fill="#aaa" />
+    <svg className="app-mark" width={size} height={size} viewBox="0 0 64 64" aria-hidden="true">
+      <circle cx="32" cy="32" r="32" fill="#000" />
+      <path d="M12.1 17.3A26 26 0 0 1 51.9 17.3" fill="none" stroke="#555" strokeWidth="4" strokeLinecap="round" />
+      <path d="M12.1 17.3A26 26 0 0 1 32 6" fill="none" stroke="#55ffff" strokeWidth="4" strokeLinecap="round" />
+      <rect x="22" y="18" width="20" height="4" rx="2" fill="#aaa" />
+      <rect x="23" y="26" width="18" height="8" rx="4" fill="#55ffff" />
+      <rect x="16" y="38" width="32" height="1.5" fill="#555" />
+      <circle cx="22" cy="45" r="3" fill="#ff5555" />
+      <circle cx="42" cy="45" r="3" fill="#ff5500" />
+      <circle cx="22" cy="53" r="3" fill="#55ff55" />
+      <circle cx="42" cy="53" r="3" fill="#aa55ff" />
     </svg>
   )
 }

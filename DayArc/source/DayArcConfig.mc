@@ -62,6 +62,9 @@ class DayArcConfig {
     // optional row (date, label, grid, the second sub line), then everything but clock + hero + gauge.
     // If even that cannot fit, DayArcStack draws only the rows that lie inside the usable area (never a
     // row that would cross the bottom edge). Which devices reach which rung is logged by DayArcStackTest.
+    // Pro: how many icon-only fields may sit in the upper corners beside the date (DayArcCorners).
+    static const CORNER_SLOTS = 2;
+
     static const GRID_ROWS = 2;          // Pro reserves this many grid rows below the hero block...
     static const GRID_ROWS_FALLBACK = 1; // ...or this many on the fallback rungs; the grid then takes whatever is left
     static const TRIM_NONE = 0;

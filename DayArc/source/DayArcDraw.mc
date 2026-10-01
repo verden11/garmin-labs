@@ -1,5 +1,6 @@
 import Toybox.Graphics;
 import Toybox.Lang;
+import Toybox.Math;
 import Toybox.WatchUi;
 
 // Renders one active-window frame or one idle/low-power frame. Which fields a Dictionary carries
@@ -8,6 +9,8 @@ import Toybox.WatchUi;
 // it's in. WHERE every row sits, and in which font, is DayArcStack's plan (a measured dry run of the
 // whole stack); this class only draws what was planned.
 class DayArcDraw {
+    private static const GAUGE_BOTTOM_DEGREES = 270; // Dc.drawArc: the bottom of a circle
+
     static function renderActive(dc as Graphics.Dc, layout as DayArcLayout, window as Number, hero as Dictionary,
                                   clockText as String, windowProgress as Float, plan as DayArcStack) as Void {
         dc.setColor(DayArcPalette.TEXT, DayArcPalette.BACKGROUND);
@@ -24,8 +27,9 @@ class DayArcDraw {
         drawHeroBlock(dc, layout, plan, hero, accent);
         var cells = hero.get(:cells);
         if (cells instanceof Array && plan.ys[DayArcStack.ROW_GRID] >= 0) {
-            drawDivider(dc, layout, plan.ys[DayArcStack.ROW_GRID]);
-            DayArcGrid.draw(dc, layout, plan.gridTop(), cells as Array<Dictionary>);
+            var date = hero.get(:dateText);
+            var rest = DayArcCorners.draw(dc, layout, plan, date instanceof String ? date : null, cells as Array<Dictionary>);
+            DayArcGrid.draw(dc, layout, plan.gridTop(), rest);
         }
     }
 
@@ -101,39 +105,49 @@ class DayArcDraw {
     // band as a brightness verdict, caught by watch-design-reviewer, 2026-09-28. `value` is clamped
     // to `[0, max]`: the SDK documents 0-100 but nothing enforces it at runtime, and this project's
     // own docs already flag several complication fields as unconfirmed on real devices.
+    // Since E1 (2026-10-01) the gauge is a shallow smile: an arc of the layout's gauge circle (the
+    // same curve the grid rows lift onto), round-capped with filled circles (drawArc ends are butt).
     private static function drawGauge(dc as Graphics.Dc, layout as DayArcLayout, top as Number, value as Number, max as Number, accent as Number) as Void {
-        var height = layout.gaugeHeight();
-        // The deliberate visual side padding, capped by the real chord width so it never clips a
-        // bezel on a small round product — code review, 2026-09-28.
+        var pen = layout.gaugeHeight();
+        var radius = layout.gaugeRadius();
+        // The visual side padding, capped by the real chord so it never clips a bezel on a small round
+        // product; the caps stick out pen/2 past each end, so the arc itself is one pen shorter.
+        var chord = layout.rowMaxWidth(top, layout.gaugeBoxHeight());
         var padded = layout.gaugeMaxWidth();
-        var chord = layout.rowMaxWidth(top, height);
-        var width = padded < chord ? padded : chord;
-        var left = layout.centerX() - width / 2;
+        var half = ((padded < chord ? padded : chord) - pen) / 2;
+        if (half < 1 || half >= radius) {
+            return;
+        }
+        var centreX = layout.centerX();
+        var low = top + layout.gaugeSag() + pen / 2;
+        var centreY = low - radius;
+        var span = Math.toDegrees(Math.asin(half.toFloat() / radius)).toNumber();
+        var startDeg = GAUGE_BOTTOM_DEGREES - span;
+        dc.setPenWidth(pen);
         dc.setColor(DayArcPalette.MUTED, Graphics.COLOR_TRANSPARENT);
-        dc.fillRoundedRectangle(left, top, width, height, height / 2);
+        dc.drawArc(centreX, centreY, radius, Graphics.ARC_COUNTER_CLOCKWISE, startDeg, GAUGE_BOTTOM_DEGREES + span);
+        dc.setPenWidth(1);
+        fillCap(dc, centreX, centreY, radius, startDeg, pen);
+        fillCap(dc, centreX, centreY, radius, GAUGE_BOTTOM_DEGREES + span, pen);
         var clamped = value < 0 ? 0 : (value > max ? max : value);
-        var fillWidth = width * clamped / max;
-        if (fillWidth > 0) {
-            // A rounded-rectangle radius wider than half of what it's filling draws as a distorted
-            // blob, not a thin bar — the exact defect TwoSuns hit at low fill (code review,
-            // 2026-09-28). Radius never exceeds half the fill itself.
-            var radius = height / 2;
-            if (fillWidth < height) {
-                radius = fillWidth / 2;
-            }
+        var endDeg = startDeg + 2 * span * clamped / max;
+        if (clamped > 0) {
             dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
-            dc.fillRoundedRectangle(left, top, fillWidth, height, radius);
+            if (endDeg > startDeg) { // equal start/end would draw a full circle (SDK), so a tiny fill is just its caps
+                dc.setPenWidth(pen);
+                dc.drawArc(centreX, centreY, radius, Graphics.ARC_COUNTER_CLOCKWISE, startDeg, endDeg);
+                dc.setPenWidth(1);
+            }
+            fillCap(dc, centreX, centreY, radius, startDeg, pen);
+            fillCap(dc, centreX, centreY, radius, endDeg, pen);
         }
     }
 
-    // Pro only: a faint hairline marking where "glance here first" (clock, date, hero) ends and
-    // "look after" (the grid) begins (ADR-013).
-    private static function drawDivider(dc as Graphics.Dc, layout as DayArcLayout, y as Number) as Void {
-        var width = layout.dividerWidth(y);
-        var left = layout.centerX() - width / 2;
-        dc.setPenWidth(1);
-        dc.setColor(DayArcPalette.ARC_TRACK, Graphics.COLOR_TRANSPARENT);
-        dc.drawLine(left, y, left + width, y);
+    // A round cap: a filled circle of pen/2 on the arc's centre line at `degrees` (Dc convention: 0 = 3
+    // o'clock, counter-clockwise, so 270 is the bottom of the circle).
+    private static function fillCap(dc as Graphics.Dc, centreX as Number, centreY as Number, radius as Number, degrees as Number, pen as Number) as Void {
+        var rad = Math.toRadians(degrees.toFloat());
+        dc.fillCircle(centreX + (radius * Math.cos(rad)).toNumber(), centreY - (radius * Math.sin(rad)).toNumber(), pen / 2);
     }
 
     // AMOLED always-on sleep: time only, dim, stepping across a 3x3 grid every minute so no pixel

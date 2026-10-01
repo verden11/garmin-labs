@@ -89,16 +89,27 @@ class DayArcFields {
 
     private static function eveningHero(sources as DayArcSources) as Dictionary {
         var battery = DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_BODY_BATTERY);
-        var sub = battery == null
-            ? WatchUi.loadResource(Rez.Strings.evening_battery_unavailable) as String
-            : Lang.format(WatchUi.loadResource(Rez.Strings.evening_battery_of_100) as String, [battery]);
         return {
             :label => WatchUi.loadResource(Rez.Strings.evening_battery_label) as String,
             :value => DayArcFormat.count(battery),
-            :sub => sub,
+            :sub => batterySub(battery),
             :gauge => battery,
             :gaugeMax => DayArcConfig.BODY_BATTERY_MAX,
         } as Dictionary;
+    }
+
+    // The empty state is always a sentence. Simple adds "N of 100" under the gauge; Pro does not: the
+    // number and the gauge already say it, and the row is worth more to the grid (E1, 2026-10-01).
+    (:simple)
+    private static function batterySub(battery as Number or Null) as String or Null {
+        return battery == null
+            ? WatchUi.loadResource(Rez.Strings.evening_battery_unavailable) as String
+            : Lang.format(WatchUi.loadResource(Rez.Strings.evening_battery_of_100) as String, [battery]);
+    }
+
+    (:pro)
+    private static function batterySub(battery as Number or Null) as String or Null {
+        return battery == null ? WatchUi.loadResource(Rez.Strings.evening_battery_unavailable) as String : null;
     }
 
     (:pro)
@@ -161,7 +172,7 @@ class DayArcFields {
             iconOnlyCell(DayArcIcons.GRID_HEART, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_HEART_RATE))),
             iconOnlyCell(DayArcIcons.GRID_STEPS, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_STEPS))),
             iconOnlyCell(DayArcIcons.GRID_FLAME, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_CALORIES))),
-            iconCell(Rez.Strings.label_pulse_ox, DayArcIcons.GRID_DROPLET, DayArcFormat.percent(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_PULSE_OX))),
+            iconOnlyCell(DayArcIcons.GRID_DROPLET, DayArcFormat.percent(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_PULSE_OX))),
             iconCell(Rez.Strings.label_vo2max, DayArcIcons.GRID_BARS, DayArcFormat.count(vo2)),
         ] as Array<Dictionary>;
     }

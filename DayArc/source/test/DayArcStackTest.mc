@@ -48,8 +48,9 @@ function dayArcWorstHero(variant as Number, window as Number) as Dictionary {
     } else if (window == DayArcConfig.WINDOW_EVENING) {
         hero.put(:value, empty ? "--" : DayArcConfig.WORST_COUNT);
         hero.put(:gauge, empty ? null : 100);
+        // Pro shows no "N of 100" under the gauge (DayArcFields.batterySub); Simple does.
         hero.put(:sub, empty ? WatchUi.loadResource(Rez.Strings.evening_battery_unavailable) as String
-                             : Lang.format(WatchUi.loadResource(Rez.Strings.evening_battery_of_100) as String, [100]));
+                             : (hero.hasKey(:cells) ? null : Lang.format(WatchUi.loadResource(Rez.Strings.evening_battery_of_100) as String, [100])));
     }
     return hero;
 }

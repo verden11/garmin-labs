@@ -1,3 +1,4 @@
+import type { CSSProperties } from 'react'
 import type { App, Screenshot } from '../apps/types.ts'
 import { appUrl } from '../urls.ts'
 
@@ -20,15 +21,15 @@ export function HeroActions({ app }: { app: App }) {
 }
 
 export function Screens({ app, screens }: { app: App; screens: Screenshot[] }) {
+  // A slot with no image yet is not drawn (an empty dashed circle reads as broken); it appears when `src` is set.
+  const shown = screens.filter((shot) => shot.src)
   return (
     <section className="wrap band" aria-labelledby="screens-title">
       <h2 id="screens-title" className="band__title">On the wrist.</h2>
-      <ul className="screens">
-        {screens.map((shot) => (
+      <ul className="screens" style={{ '--cols': shown.length } as CSSProperties}>
+        {shown.map((shot) => (
           <li key={shot.label}>
-            {shot.src
-              ? <img src={shot.src} alt={`${app.name} ${shot.label.toLowerCase()} screen`} width={shot.size ?? 454} height={shot.size ?? 454} loading="lazy" />
-              : <span className="screens__pending">Screenshot pending</span>}
+            <img src={shot.src} alt={`${app.name} ${shot.label.toLowerCase()} screen`} width={shot.size ?? 454} height={shot.size ?? 454} loading="lazy" />
             <span className="screens__label">{shot.label}</span>
           </li>
         ))}
