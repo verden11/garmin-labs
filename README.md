@@ -63,6 +63,8 @@ cd site && npm install && npm run dev
 The Connect IQ signing key lives outside this repo at
 `~/.garmin-connectiq/keys/developer_key` and is never committed.
 
+**Container option (own simulator per agent, reproducible on a new machine):** [`docker/README.md`](docker/README.md). Run a project's tests with `CIQ_DOCKER=1 <Project>/tools/run_tests.sh <device> …`.
+
 ## Hosting
 
 Firebase Hosting (project `verden-watch-87da4`) serves `site/dist`; deploy with

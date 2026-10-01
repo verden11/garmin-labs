@@ -8,6 +8,8 @@
 # Both tiers run the same suite; the (:pro)/(:free) tests are compiled into only their own tier (ADR-020 (Free + Pro ladder)).
 # Exit 0 only when the simulator prints a PASSED line. Trust that line, not monkeydo's exit code.
 set -u
+# CIQ_DOCKER=1: run in a container with its own simulator (safe beside other sessions, no pkill). See ../docker/README.md
+[ -n "${CIQ_DOCKER:-}" ] && exec "$(dirname "$0")/../../docker/run.sh" "$(dirname "$0")/.." /ciq-docker/ciq-test.sh "$@"
 DEVICE=${1:?usage: tools/run_tests.sh <device> [jungle] [testName]}
 JUNGLE=monkey.jungle
 TEST=
