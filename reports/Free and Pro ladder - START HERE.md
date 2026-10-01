@@ -93,7 +93,7 @@ Each agent gets one work package. Replace nothing; the paths are real. Use a fre
 
 ## 5. Facts an agent might otherwise re-derive wrongly
 
-- Days To Go and Two Suns were approved by 2026-09-28; exact approval dates unknown (ask the owner). Two Suns' store price shows $2.25 (a real Garmin tier), not the documented $1.99.
+- Days To Go and Two Suns were both approved on 2026-09-28, late afternoon (owner, 2026-10-01); their day-45 reviews fall on 2026-11-12 unless OD2 retires them. Two Suns' store price shows $2.25 (a real Garmin tier), not the documented $1.99. DayArc Pro will be Garmin's second price step (owner, 2026-10-01); no price number goes on the site or in listing text.
 - Garmin price tiers: $2.00, then every $0.25 to $10; $2.00 shows $1.99 (US) / 2,49 €; $3.00 shows $2.99 / 3,49 €.
 - Garmin keeps 15%, $100 annual fee, $10 payout minimum. Break-even: 59 sales/yr at $2.00, 39 at $3.00.
 - Garmin developer pages are JS-rendered: read them in a browser. The store API works with plain `curl`.

@@ -1,6 +1,6 @@
 # HeroSet — store listing (paste-ready)
 
-Status: 2026-09-27. **1.2.0 uploaded, awaiting Garmin review** (the glance + idle-kill fix, [ADR-051](../docs/decisions.md#adr-051)/[052](../docs/decisions.md#adr-052); submitted as `1.2.0` rather than `1.1.2`, [ADR-053](../docs/decisions.md#adr-053)); fields below are what was submitted. Connect sync (1.3.0) is shelved, [ADR-054](../docs/decisions.md#adr-054); no next version decided yet.
+Status: 2026-09-27. **1.2.0 uploaded and approved (owner reported 2026-10-01)** (the glance + idle-kill fix, [ADR-051](../docs/decisions.md#adr-051)/[052](../docs/decisions.md#adr-052); submitted as `1.2.0` rather than `1.1.2`, [ADR-053](../docs/decisions.md#adr-053)); fields below are what was submitted. Connect sync (1.3.0) is shelved, [ADR-054](../docs/decisions.md#adr-054); no next version decided yet.
 
 Fields are in the order of the upload form (https://apps.garmin.com/en-US/developer/upload, step 2). One block = one field: copy the block, paste it. Nothing else is in this file; limits, why each answer is what it is, image sources and history are in [`NOTES.md`](NOTES.md).
 

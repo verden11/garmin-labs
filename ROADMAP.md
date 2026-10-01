@@ -3,7 +3,7 @@
 One file. Milestones > initiatives > small tasks. Tick tasks here; evidence stays in each project's docs.
 Draft 2026-10-01. Dates are earliest, never promises. `TODO.md` stays as the HeroSet/HeroFace device-check log until its open items are folded in (see M7).
 
-**NEXT ACTION:** 0.1 below. (Update this line whenever you finish a task.)
+**NEXT ACTION:** 1.1 below, in progress: the owner is wearing the 2026-10-01 DayArc and DayArc Pro sideloads on the FR965 for a day or two, then reports. (Update this line whenever you finish a task.)
 
 ## How to use it
 
@@ -16,9 +16,9 @@ Draft 2026-10-01. Dates are earliest, never promises. `TODO.md` stays as the Her
 ## M0 Land today's work (≈30 min)
 
 Initiative 0A: put the three Free builds into git cleanly.
-- [ ] 0.1 `[you]` Skim `git status` and the three ADRs marked Proposed (DaysToGo ADR-014, TwoSuns ADR-020/021, HeroFace ADR-001). Done when: you say "commit".
-- [ ] 0.2 `[agent]` Commit in 4 commits: DaysToGo, TwoSuns, HeroFace, reports/root docs (deletes of `resources/settings` and new `resources-*` folders together). Done when: `git status` is clean. Do not push until 0.3.
-- [ ] 0.3 `[you]` Decide push. Pushing to main deploys the site by Action, and these commits do not touch `site/`, so it is safe.
+- [x] 0.1 `[you]` Skim `git status` and the three ADRs marked Proposed (DaysToGo ADR-014, TwoSuns ADR-020/021, HeroFace ADR-001). Done when: you say "commit".
+- [x] 0.2 `[agent]` Commit in 4 commits: DaysToGo, TwoSuns, HeroFace, reports/root docs (deletes of `resources/settings` and new `resources-*` folders together). Done when: `git status` is clean. Do not push until 0.3.
+- [x] 0.3 `[you]` Decide push. Pushing to main deploys the site by Action, and these commits do not touch `site/`, so it is safe.
 
 ## M1 Ship pair #1: DayArc and DayArc Pro (first real release)
 
@@ -32,7 +32,7 @@ Initiative 1A: look and fit proven on a wrist.
 Initiative 1B: assets and decisions.
 - [ ] 1.4 `[you]` Names confirmed ("DayArc", "DayArc Pro") plus a store-by-eye search and trademark search. Done when: ticked in publish-checklist gate 1.
 - [ ] 1.5 `[you]` Launcher icons, covers, hero images, screenshots for both tiers (placeholders now).
-- [ ] 1.6 `[you]` Price: $1.99 in ADR-007 vs the plan's $3.00 tier. Pick one.
+- [x] 1.6 `[you]` Price decided 2026-10-01: Garmin's second price step (ADR-007 amended). No price number on the site or in listing text (Garmin converts tiers per currency); the site and DayArc listing text are already updated.
 - [ ] 1.7 `[you]` Night-window default, languages (English only v1?).
 
 Initiative 1C: listing and upload.
@@ -46,7 +46,7 @@ Done when: both live in the store and the site buttons are live.
 
 Initiative 2A: Garmin and money.
 - [ ] 2.1 `[you]` Send the Garmin email (`research_notes/Free and Pro ladder/garmin_questions.md`: does repricing remove an approved app, do twins count as duplicates). Done when: sent.
-- [ ] 2.2 `[you]` Read dashboard: record the real approval dates of Days To Go and Two Suns, and the Two Suns price tier ($2.25 vs $1.99).
+- [x] 2.2 `[you]` Days To Go and Two Suns were both approved 2026-09-28, late afternoon (docs updated; day-45 reviews fall on 2026-11-12 unless OD2 retires them). Still to read from the dashboard: the Two Suns price tier ($2.25 shown vs $1.99 documented).
 - [ ] 2.3 `[you]` Answer OD1 (do the ladder) and OD2 (retire the day-45 flip rule). Done when: yes/no written in `reports/Free and Pro ladder.md`.
 - [ ] 2.4 `[agent]` On OD2 yes: flip the Proposed ADRs to Active, mark ADR-002 superseded, write approval dates, drop the day-45 memory reminders.
 - [ ] 2.5 `[you]` OD3 names and OD4 Pro price for each face (placeholders now: "X" / "X Pro").
@@ -92,7 +92,7 @@ Initiative 3C: upload.
 
 ## M7 HeroSet (app, not face)
 
-- [ ] 7.1 `[you]` Check Garmin review result for 1.1.2. If live: `glanceLive = true` in `site/src/apps/heroset/facts.ts`, push.
+- [x] 7.1 `[you]` HeroSet 1.2.0 (the glance build; developed as 1.1.2, ADR-053) is approved (owner, 2026-10-01); `glanceLive` is now `true`.
 - [ ] 7.2 `[you]` Upload the 7 framed screenshots to the live listing (`TODO.md` A4).
 - [ ] 7.3 `[you]` Accuracy proof: 3x10 reps per exercise at slow, medium, fast, plus one 30+ set (gate 2). Without it there is no HeroSet Free.
 - [ ] 7.4 `[agent]` Then: ADR-044 (complication contract) review, then build HeroSet Free (WP7).
