@@ -13,9 +13,12 @@ in parallel, in the same project folder or different worktrees. Nothing `pkill`s
 ```bash
 docker/build.sh                      # once per machine (~5 min); needs the SDK Manager's Devices/ + Fonts/
 
-# Tests: the projects' own script, opted in with CIQ_DOCKER=1 (same arguments, same exit codes)
-CIQ_DOCKER=1 DayArc/tools/run_tests.sh fr965 monkey.pro.jungle
-CIQ_DOCKER=1 EXPECT=24 HeroFace/tools/run_tests.sh fr965 monkey.jungle
+# Tests: the projects' own scripts. Container is the DEFAULT; arguments and exit codes unchanged.
+DayArc/tools/run_tests.sh fr965 monkey.pro.jungle
+EXPECT=24 HeroFace/tools/run_tests.sh fr965 monkey.jungle
+HeroSet/tools/fit-sweep.sh -l "eng ukr" fr965          # per-language fit sweeps run in a container too
+DaysToGo/tools/fit_languages.sh -l "eng ukr" fr965
+# Host (macOS) simulator instead: CIQ_DOCKER=0 <script> ... (see "Host simulator" below)
 # HeroSet has no run_tests.sh and builds without strict typecheck:
 MC_FLAGS="" docker/run.sh HeroSet /ciq-docker/ciq-test.sh fr965 monkey.jungle
 
@@ -24,9 +27,17 @@ CIQ_IMAGE=verden-ciq-build:9.2.0 docker/run.sh DayArc tools/compile_sweep.sh
 CIQ_IMAGE=verden-ciq-build:9.2.0 docker/run.sh DayArc monkeyc -d fr965 -f monkey.simple.jungle -o bin/DayArc.prg -y /keys/developer_key -w --typecheck 3
 ```
 
+Host simulator: `CIQ_DOCKER=0` runs the old macOS flow (one simulator per machine, `pkill`s on a wedge). Use it only
+for final pre-release verification, when the owner asks (or agrees to your suggestion). Default is the container.
+
 Notes:
 - `ciq-test.sh` builds in a private copy of the project (monkeyc writes `gen/ mir/ internal-mir/` next to
   the sources, which made containers sharing one folder collide) and copies only `bin/t-<device>.{prg,log}` back.
+- Ported: `ciq-run.sh` (private copy + Xvfb + simulator, then your command) runs the two zsh sweep scripts, which
+  is why the images carry `zsh`. Checked 2026-10-01: `fit-sweep.sh` eng+ukr on fr965 112/112; `fit_languages.sh`
+  eng+ukr on fr965 both fit tests PASS (the translated word tests error by design, see the script header).
+- Scripts delegate unless `CIQ_IN_DOCKER` is set (the images set it) or `CIQ_DOCKER=0`. No Docker or no image: a clear error.
+- HeroSet has no `run_tests.sh`; use `MC_FLAGS="" docker/run.sh HeroSet /ciq-docker/ciq-test.sh ...` as above.
 - Tests passed 2026-10-01, all six at once in the real folders (75-89 s each): DayArc simple 20, DayArc Pro 23,
   HeroFace 24, DaysToGo 50, TwoSuns 130, HeroSet 112.
 - Base is `ubuntu:jammy` on purpose: the simulator needs `libwebkit2gtk-4.0` + `libsoup-2.4`, gone in 24.04.

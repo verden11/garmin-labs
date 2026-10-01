@@ -10,6 +10,8 @@
 # running. A run that hangs is killed after RUN_TIMEOUT seconds (restart the
 # simulator if several do).
 set -u
+# Runs in a container by default (own simulator, no pkill, parallel-safe: ../../docker/README.md). CIQ_DOCKER=0 = host simulator.
+[[ -z ${CIQ_IN_DOCKER:-} && ${CIQ_DOCKER:-1} != 0 ]] && exec "${0:A:h:h:h}/docker/run.sh" "${0:A:h:h}" /ciq-docker/ciq-run.sh "tools/${0:t}" "$@"
 PROJECT=${0:A:h:h}
 SDK_BIN=${SDK_BIN:-$(ls -d "$HOME/Library/Application Support/Garmin/ConnectIQ/Sdks/"*/bin | tail -1)}
 KEY=${KEY:-$HOME/.garmin-connectiq/keys/developer_key}

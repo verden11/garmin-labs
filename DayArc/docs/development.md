@@ -40,7 +40,7 @@ Garmin Express.
 
 ## Simulator
 
-Shared resource across concurrent sessions (`knowledge/platform-facts.md` "Tooling"). Compiling
+Scripts run in a container by default (`../docker/README.md`); the host simulator (`CIQ_DOCKER=0`) is a shared resource across concurrent sessions (`knowledge/platform-facts.md` "Tooling"). Compiling
 never needs it; `monkeydo`/`tools/run_tests.sh` do. Check `pgrep -f monkeydo` first if another
 session might be using it.
 

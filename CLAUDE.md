@@ -64,7 +64,7 @@ govern** (for example DaysToGo and TwoSuns ADR-002, the price and day-45 review)
 - Git index is often mixed staged/unstaged: don't stage, commit, stash or
   reset unless asked.
 - Simulator passing is not device proof. Say so when reporting.
-- **Simulator runs by agents: use the container** (`CIQ_DOCKER=1 <Project>/tools/run_tests.sh …`, [`docker/README.md`](docker/README.md)). Each run gets its own simulator, so it never `pkill`s one someone else is using and any number run in parallel. The host simulator stays single-user.
+- **Simulator runs go through the container by default** (`<Project>/tools/run_tests.sh …`, `fit-sweep.sh`, `fit_languages.sh`; [`docker/README.md`](docker/README.md)). Each run gets its own simulator, so it never `pkill`s one someone else is using and any number run in parallel. The **host (macOS) simulator** (`CIQ_DOCKER=0`) is for final pre-release verification only, when the owner asks, or agrees to your suggestion, to use it. Do not switch to it on your own.
 - Behaviour change → update the doc describing it, same session. Durable
   decision → an ADR in that project's `docs/decisions.md`.
 - **Every store publication** gets an entry in that app's `CHANGELOG.md`
