@@ -12,7 +12,7 @@ export function Landing() {
         <div className="wrap hero__inner">
           <div className="hero__copy">
             <h1 className="hero__name">{dayArcPro.name}</h1>
-            <p className="hero__offer">The same four windows as DayArc, denser: a full field grid under every reading. Paid, $1.99, no free tier.</p>
+            <p className="hero__offer">The same four windows as DayArc, denser: a full field grid under every reading. Paid once, no free tier.</p>
             <HeroActions app={dayArcPro} />
           </div>
           <div className="hero__reps">
@@ -48,7 +48,7 @@ export function Landing() {
 
       <section className="wrap band" aria-labelledby="yours-title">
         <h2 id="yours-title" className="band__title">A separate listing, on purpose.</h2>
-        <p className="band__lede">DayArc Pro is a fixed $1.99 with no free tier and no in-app toggle. Want the simpler, one-reading-per-window face instead? That's DayArc, a separate free listing.</p>
+        <p className="band__lede">DayArc Pro is a one-time paid listing with no free tier and no in-app toggle; the Connect IQ Store shows its price in your own currency. Want the simpler, one-reading-per-window face instead? That's DayArc, a separate free listing.</p>
         <dl className="facts">
           <div><dt>One setting</dt><dd>An accent colour, chosen in the Garmin Connect app — Auto by default, where each time of day has its own colour. Which fields show is decided at build time, not a setting; if the colour setting is ever missing the face just shows its normal colours.</dd></div>
           <div><dt>Nothing leaves the watch</dt><dd>No location, no network, no account.</dd></div>

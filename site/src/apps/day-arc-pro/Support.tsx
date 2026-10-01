@@ -30,7 +30,7 @@ export function Support() {
       <h3>The calendar field says "No upcoming event".</h3>
       <p>This can mean either your watch has no calendar sync enabled, or you simply have nothing upcoming — the watch doesn't tell {appName} which.</p>
       <h3>How is this different from DayArc?</h3>
-      <p>Same four time windows, same fixed schedule, same no-verdict wording on stress and Body Battery. {appName} adds a denser field grid under each window's main reading, and costs $1.99 with no free tier.</p>
+      <p>Same four time windows, same fixed schedule, same no-verdict wording on stress and Body Battery. {appName} adds a denser field grid under each window's main reading, and is a one-time paid listing with no free tier.</p>
       <h3>What does the always-on screen show?</h3>
       <p>On AMOLED watches: the time only, dim, moving position every minute to avoid burn-in. The full face shows when the watch is awake. Other watches keep the full face.</p>
       <h3>What does the face store?</h3>
