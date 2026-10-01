@@ -2,7 +2,9 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Test;
 
+// Pro only: the energy curve (docs/decisions.md ADR-020, Free + Pro ladder).
 // Buckets 0..95 as a curve: `levels` at the given indexes, nothing elsewhere.
+(:debug)
 function curveWith(indexes as Array<Number>, levels as Array<Number>) as TwoSunsBatteryCurve {
     var curve = new TwoSunsBatteryCurve();
     for (var i = 0; i < indexes.size(); i++) {
@@ -11,7 +13,7 @@ function curveWith(indexes as Array<Number>, levels as Array<Number>) as TwoSuns
     return curve;
 }
 
-(:test)
+(:test, :pro)
 function curvePlanMapsBucketsToPoints(logger as Test.Logger) as Boolean {
     var plan = TwoSunsCurvePlan.build(curveWith([0, 95, 47] as Array<Number>, [0, 100, 50] as Array<Number>), 10, 20, 96, 51);
     Test.assertEqual(plan.xs[0], 10);
@@ -25,7 +27,7 @@ function curvePlanMapsBucketsToPoints(logger as Test.Logger) as Boolean {
 }
 
 // A bucket with no sample has no point, and the newest bucket that has one is the last index.
-(:test)
+(:test, :pro)
 function curvePlanKeepsGaps(logger as Test.Logger) as Boolean {
     var plan = TwoSunsCurvePlan.build(curveWith([10, 11, 40] as Array<Number>, [30, 40, 60] as Array<Number>), 0, 0, 96, 101);
     Test.assert(plan.ys[9] == null);
@@ -38,7 +40,7 @@ function curvePlanKeepsGaps(logger as Test.Logger) as Boolean {
 }
 
 // Every x is inside the box and never goes backwards; a fill cell reaches the next bucket and no further.
-(:test)
+(:test, :pro)
 function curvePlanStaysInsideItsBox(logger as Test.Logger) as Boolean {
     var widths = [40, 96, 97, 130, 200] as Array<Number>;
     for (var w = 0; w < widths.size(); w++) {
@@ -58,7 +60,7 @@ function curvePlanStaysInsideItsBox(logger as Test.Logger) as Boolean {
 }
 
 // Out-of-range levels (a corrupt sample that reached a bucket) are clamped into the box, not drawn outside it.
-(:test)
+(:test, :pro)
 function curvePlanClampsLevels(logger as Test.Logger) as Boolean {
     var plan = TwoSunsCurvePlan.build(curveWith([1, 2] as Array<Number>, [-20, 250] as Array<Number>), 0, 10, 96, 41);
     Test.assertEqual(sunPresent(plan.ys[1]), 50);   // clamped to 0: the baseline
@@ -67,7 +69,7 @@ function curvePlanClampsLevels(logger as Test.Logger) as Boolean {
 }
 
 // The band: glyph, value and curve as one block, centred, inside the chord; a narrow chord loses the curve, never the value.
-(:test)
+(:test, :pro)
 function bandKeepsTheValueAndDropsTheCurveWhenNarrow(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
@@ -92,7 +94,7 @@ function bandKeepsTheValueAndDropsTheCurveWhenNarrow(logger as Test.Logger) as B
 }
 
 // The glyph and curve are drawn on this device's real resolution for a fresh curve, a stale one, and none, without an error.
-(:test)
+(:test, :pro)
 function curveAndGlyphDrawWithoutError(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);

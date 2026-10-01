@@ -4,14 +4,17 @@ import Toybox.Test;
 // Sky tests use a hand-built calculation so the expectations are plain numbers.
 // Garmin values are seconds since local midnight; everything else is minutes.
 
+(:debug)
 function skyCalc(rise as Number or Null, set as Number or Null) as TwoSunsSunDay {
     return new TwoSunsSunDay(TwoSunsConfig.SUN_NORMAL, rise, set, 780, 400, 1100, 480, 1000);
 }
 
+(:debug)
 function skyGarmin(minutes as Number) as Number {
     return minutes * TwoSunsConfig.SECONDS_PER_MINUTE;
 }
 
+(:debug)
 function skyOf(now as Number, gRise as Number or Null, gSet as Number or Null, today as TwoSunsSunDay or Null,
                tomorrow as TwoSunsSunDay or Null) as TwoSunsSky {
     return TwoSunsSky.resolve(now, gRise, gSet, true, today, tomorrow);
@@ -88,11 +91,21 @@ function skyPolarStates(logger as Test.Logger) as Boolean {
 }
 
 // Garmin nulls and no place: say so. Garmin nulls, no Complications at all: say that instead.
-(:test)
+(:test, :pro)
 function skyNoPlaceAndNoData(logger as Test.Logger) as Boolean {
     Test.assertEqual(TwoSunsSky.resolve(600, null, null, true, null, null).state, TwoSunsConfig.SKY_NO_PLACE);
     Test.assertEqual(TwoSunsSky.resolve(600, null, null, false, null, null).state, TwoSunsConfig.SKY_NO_DATA);
     Test.assertEqual(skyOf(600, 86400, -5, null, null).state, TwoSunsConfig.SKY_NO_PLACE);   // out-of-range Garmin values are null
+    return true;
+}
+
+// Free never has a place, so Garmin's nulls are "No sun data", never "No place yet": the sentence would promise a fix
+// (a place) the Free build cannot take (docs/decisions.md ADR-020, Free + Pro ladder).
+(:test, :free)
+function skyFreeNeverSaysNoPlace(logger as Test.Logger) as Boolean {
+    Test.assertEqual(TwoSunsSky.resolve(600, null, null, true, null, null).state, TwoSunsConfig.SKY_NO_DATA);
+    Test.assertEqual(TwoSunsSky.resolve(600, null, null, false, null, null).state, TwoSunsConfig.SKY_NO_DATA);
+    Test.assertEqual(skyOf(600, 86400, -5, null, null).state, TwoSunsConfig.SKY_NO_DATA);
     return true;
 }
 

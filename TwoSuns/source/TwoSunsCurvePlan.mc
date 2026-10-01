@@ -2,7 +2,8 @@ import Toybox.Lang;
 
 // The 96 buckets of the last 24 hours as screen points inside a box: x by bucket, y by level (0 at the
 // bottom, 100 at the top). A bucket with no sample has no point (a gap, never an invented value).
-// Pure numbers; TwoSunsCurve draws them.
+// Pure numbers; TwoSunsCurve draws them. Pro only: the Free build has no history, so no curve (docs/decisions.md ADR-020, Free + Pro ladder).
+(:pro)
 class TwoSunsCurvePlan {
     var xs as Array<Number> = [] as Array<Number>;
     var ys as Array<Number or Null> = [] as Array<Number or Null>;

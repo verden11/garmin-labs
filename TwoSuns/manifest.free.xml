@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<!-- Two Suns (Free build). Same products, languages and minApiLevel as manifest.xml, its paid twin; a NEW app id of its own, never changes once published. Permissions: ComplicationSubscriber only (Garmin's own sunrise, sunset and Body Battery), a subset of manifest.xml's: no Positioning, no SensorHistory. Built by monkey.free.jungle, which excludes the Pro-only code and ships resources-free (AppName and the Free settings). docs/decisions.md ADR-020 (Free + Pro ladder); docs/compatibility.md. -->
+<iq:manifest version="3" xmlns:iq="http://www.garmin.com/xml/connectiq">
+  <iq:application id="9d5735b5-ac4b-4fa8-86d3-eee0f4f83c04" type="watchface" name="@Strings.AppName" entry="TwoSunsApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="4.2.0">
+    <iq:products>
+      <iq:product id="approachs50"/>
+      <iq:product id="approachs7042mm"/>
+      <iq:product id="approachs7047mm"/>
+      <iq:product id="d2airx10"/>
+      <iq:product id="d2mach1"/>
+      <iq:product id="d2mach2"/>
+      <iq:product id="d2mach2pro"/>
+      <iq:product id="descentg2"/>
+      <iq:product id="descentmk343mm"/>
+      <iq:product id="descentmk351mm"/>
+      <iq:product id="enduro3"/>
+      <iq:product id="epix2"/>
+      <iq:product id="epix2pro42mm"/>
+      <iq:product id="epix2pro47mm"/>
+      <iq:product id="epix2pro51mm"/>
+      <iq:product id="fenix7"/>
+      <iq:product id="fenix7pro"/>
+      <iq:product id="fenix7pronowifi"/>
+      <iq:product id="fenix7s"/>
+      <iq:product id="fenix7spro"/>
+      <iq:product id="fenix7x"/>
+      <iq:product id="fenix7xpro"/>
+      <iq:product id="fenix7xpronowifi"/>
+      <iq:product id="fenix843mm"/>
+      <iq:product id="fenix847mm"/>
+      <iq:product id="fenix8pro47mm"/>
+      <iq:product id="fenix8solar47mm"/>
+      <iq:product id="fenix8solar51mm"/>
+      <iq:product id="fenix943mm"/>
+      <iq:product id="fenix947mm"/>
+      <iq:product id="fenix9pro43mm"/>
+      <iq:product id="fenix9pro47mm"/>
+      <iq:product id="fenix9pro51mm"/>
+      <iq:product id="fenix9prosolar47mm"/>
+      <iq:product id="fenix9prosolar51mm"/>
+      <iq:product id="fenixe"/>
+      <iq:product id="fr165"/>
+      <iq:product id="fr165m"/>
+      <iq:product id="fr170"/>
+      <iq:product id="fr170m"/>
+      <iq:product id="fr255"/>
+      <iq:product id="fr255m"/>
+      <iq:product id="fr255s"/>
+      <iq:product id="fr255sm"/>
+      <iq:product id="fr265"/>
+      <iq:product id="fr265s"/>
+      <iq:product id="fr57042mm"/>
+      <iq:product id="fr57047mm"/>
+      <iq:product id="fr70"/>
+      <iq:product id="fr955"/>
+      <iq:product id="fr965"/>
+      <iq:product id="fr970"/>
+      <iq:product id="instinct3amoled45mm"/>
+      <iq:product id="instinct3amoled50mm"/>
+      <iq:product id="instinctcrossoveramoled"/>
+      <iq:product id="marq2"/>
+      <iq:product id="marq2aviator"/>
+      <iq:product id="venu2"/>
+      <iq:product id="venu2plus"/>
+      <iq:product id="venu2s"/>
+      <iq:product id="venu3"/>
+      <iq:product id="venu3s"/>
+      <iq:product id="venu441mm"/>
+      <iq:product id="venu445mm"/>
+      <iq:product id="venusq2"/>
+      <iq:product id="venusq2m"/>
+      <iq:product id="venux1"/>
+      <iq:product id="vivoactive5"/>
+      <iq:product id="vivoactive6"/>
+    </iq:products>
+    <iq:permissions>
+      <iq:uses-permission id="ComplicationSubscriber"/>
+    </iq:permissions>
+    <iq:languages>
+      <iq:language>eng</iq:language>
+      <iq:language>deu</iq:language>
+      <iq:language>fre</iq:language>
+      <iq:language>spa</iq:language>
+      <iq:language>ita</iq:language>
+      <iq:language>por</iq:language>
+      <iq:language>dut</iq:language>
+      <iq:language>pol</iq:language>
+      <iq:language>swe</iq:language>
+      <iq:language>dan</iq:language>
+      <iq:language>nob</iq:language>
+      <iq:language>fin</iq:language>
+      <iq:language>tur</iq:language>
+      <iq:language>lit</iq:language>
+      <iq:language>ukr</iq:language>
+    </iq:languages>
+    <iq:barrels/>
+  </iq:application>
+</iq:manifest>

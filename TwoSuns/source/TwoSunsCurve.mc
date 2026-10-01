@@ -6,6 +6,8 @@ import Toybox.Lang;
 // dot an outline, so staleness is a shape as well as a colour.
 class TwoSunsCurve {
 
+    // The curve is Pro only (docs/decisions.md ADR-020, Free + Pro ladder); the level pill below is in both tiers.
+    (:pro)
     static function draw(dc as Graphics.Dc, layout as TwoSunsLayout, band as TwoSunsBand, curve as TwoSunsBatteryCurve,
                          stale as Boolean, accent as Number) as Void {
         var dot = layout.dotRadius();
@@ -35,6 +37,7 @@ class TwoSunsCurve {
     // circle the accent fill draws next and leaves no visible margin — with the winter accent (white)
     // over the fresh-state line (also TEXT/white), that made the dot invisible: caught by
     // watch-design-reviewer, 2026-09-27.
+    (:pro)
     private static function drawDot(dc as Graphics.Dc, layout as TwoSunsLayout, plan as TwoSunsCurvePlan, stale as Boolean, accent as Number, dot as Number) as Void {
         var y = plan.lastIndex < 0 ? null : plan.ys[plan.lastIndex];
         if (y == null) {

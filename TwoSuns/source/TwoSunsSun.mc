@@ -6,6 +6,8 @@ import Toybox.Math;
 // 2 minutes on 27 cases: TwoSunsSunReferenceTest). Pure functions, no clock,
 // no permission. Monkey C floats are 32-bit, so the maths runs on days since
 // J2000, never on a Julian date (which would be too big for a Float).
+// Pro only: it needs a place, and Free has none (docs/decisions.md ADR-020, Free + Pro ladder).
+(:pro)
 class TwoSunsSun {
 
     // `offsetMinutes` is the local offset from UTC in minutes (the caller derives it from the clock).

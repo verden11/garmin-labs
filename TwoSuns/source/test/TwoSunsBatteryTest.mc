@@ -1,9 +1,12 @@
 import Toybox.Lang;
 import Toybox.Test;
 
+// Pro only: the history buckets need SensorHistory, which the Free build does not have (docs/decisions.md ADR-020, Free + Pro ladder).
 // Epoch seconds used as "now" in these tests; only differences matter.
+(:pro, :debug)
 const BATTERY_TEST_NOW = 1800000000;
 
+(:pro, :debug)
 function batteryCurve(values as Array<Numeric or Null>, agesMinutes as Array<Number>) as TwoSunsBatteryCurve {
     var whens = [] as Array<Number or Null>;
     for (var i = 0; i < agesMinutes.size(); i++) {
@@ -12,6 +15,7 @@ function batteryCurve(values as Array<Numeric or Null>, agesMinutes as Array<Num
     return TwoSunsBattery.build(values, whens, BATTERY_TEST_NOW);
 }
 
+(:pro, :debug)
 function batteryFilled(curve as TwoSunsBatteryCurve) as Number {
     var filled = 0;
     for (var i = 0; i < curve.buckets.size(); i++) {
@@ -22,7 +26,7 @@ function batteryFilled(curve as TwoSunsBatteryCurve) as Number {
     return filled;
 }
 
-(:test)
+(:test, :pro)
 function batteryEmptyHasNothing(logger as Test.Logger) as Boolean {
     var curve = batteryCurve([] as Array<Numeric or Null>, [] as Array<Number>);
     Test.assert(curve.current == null);
@@ -34,7 +38,7 @@ function batteryEmptyHasNothing(logger as Test.Logger) as Boolean {
 }
 
 // Null, negative, above 100 and 127 (not worn) are dropped; 0 and 100 are real.
-(:test)
+(:test, :pro)
 function batteryDropsInvalidValues(logger as Test.Logger) as Boolean {
     var values = [null, -1, 101, 127, 250.5, 0, 100] as Array<Numeric or Null>;
     var curve = batteryCurve(values, [10, 20, 30, 40, 50, 60, 70] as Array<Number>);
@@ -45,7 +49,7 @@ function batteryDropsInvalidValues(logger as Test.Logger) as Boolean {
     return true;
 }
 
-(:test)
+(:test, :pro)
 function batteryOneSampleIsCurrent(logger as Test.Logger) as Boolean {
     var curve = batteryCurve([61] as Array<Numeric or Null>, [3] as Array<Number>);
     Test.assertEqual(sunPresent(curve.current), 61);
@@ -55,7 +59,7 @@ function batteryOneSampleIsCurrent(logger as Test.Logger) as Boolean {
 }
 
 // Floats round to the nearest whole number.
-(:test)
+(:test, :pro)
 function batteryRoundsFloats(logger as Test.Logger) as Boolean {
     var curve = batteryCurve([61.6, 40.4] as Array<Numeric or Null>, [1, 20] as Array<Number>);
     Test.assertEqual(sunPresent(curve.current), 62);
@@ -63,7 +67,7 @@ function batteryRoundsFloats(logger as Test.Logger) as Boolean {
 }
 
 // Samples arrive newest first from SensorHistory, but nothing here may depend on it.
-(:test)
+(:test, :pro)
 function batteryOrderDoesNotMatter(logger as Test.Logger) as Boolean {
     var newestFirst = batteryCurve([70, 60, 50] as Array<Numeric or Null>, [5, 65, 125] as Array<Number>);
     var oldestFirst = batteryCurve([50, 60, 70] as Array<Numeric or Null>, [125, 65, 5] as Array<Number>);
@@ -76,7 +80,7 @@ function batteryOrderDoesNotMatter(logger as Test.Logger) as Boolean {
 }
 
 // The newest sample in a 15-minute bucket is the one drawn.
-(:test)
+(:test, :pro)
 function batteryBucketKeepsNewest(logger as Test.Logger) as Boolean {
     var curve = batteryCurve([30, 40] as Array<Numeric or Null>, [2, 1] as Array<Number>);
     Test.assertEqual(batteryFilled(curve), 1);
@@ -85,7 +89,7 @@ function batteryBucketKeepsNewest(logger as Test.Logger) as Boolean {
 }
 
 // A gap of hours leaves empty buckets in the middle, and the ends land in the first and last bucket.
-(:test)
+(:test, :pro)
 function batteryGapLeavesHoles(logger as Test.Logger) as Boolean {
     var curve = batteryCurve([80, 20] as Array<Numeric or Null>, [1430, 5] as Array<Number>);
     Test.assertEqual(batteryFilled(curve), 2);
@@ -96,7 +100,7 @@ function batteryGapLeavesHoles(logger as Test.Logger) as Boolean {
 
 // Older than 24 hours is outside the curve; a sample stamped a few minutes ahead is clock skew and kept
 // in the last bucket; one stamped an hour ahead is dropped.
-(:test)
+(:test, :pro)
 function batteryWindowEdges(logger as Test.Logger) as Boolean {
     var old = batteryCurve([55] as Array<Numeric or Null>, [1441] as Array<Number>);
     Test.assert(old.current == null);
@@ -110,7 +114,7 @@ function batteryWindowEdges(logger as Test.Logger) as Boolean {
 }
 
 // Newest sample older than 60 minutes: the value is still there, flagged stale.
-(:test)
+(:test, :pro)
 function batteryStaleAfterAnHour(logger as Test.Logger) as Boolean {
     var fresh = batteryCurve([50] as Array<Numeric or Null>, [60] as Array<Number>);
     Test.assert(!fresh.stale);
@@ -121,7 +125,7 @@ function batteryStaleAfterAnHour(logger as Test.Logger) as Boolean {
 }
 
 // Mismatched arrays never read past the shorter one.
-(:test)
+(:test, :pro)
 function batteryMismatchedArrays(logger as Test.Logger) as Boolean {
     var curve = TwoSunsBattery.build([10, 20, 30] as Array<Numeric or Null>,
         [BATTERY_TEST_NOW - 60] as Array<Number or Null>, BATTERY_TEST_NOW);
@@ -130,7 +134,7 @@ function batteryMismatchedArrays(logger as Test.Logger) as Boolean {
 }
 
 // A null timestamp drops that sample only.
-(:test)
+(:test, :pro)
 function batteryNullWhenIsDropped(logger as Test.Logger) as Boolean {
     var curve = TwoSunsBattery.build([10, 20] as Array<Numeric or Null>,
         [null, BATTERY_TEST_NOW - 60] as Array<Number or Null>, BATTERY_TEST_NOW);

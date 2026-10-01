@@ -1,6 +1,6 @@
 # Two Suns: spec
 
-Status: 2026-09-27. **Submitted to the Connect IQ Store, pending review** (https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b, live once approved). Plan phases 2 to 6 are done and pass in the simulator (124 tests); spot-checks have run on the owner's FR965 (sunrise/sunset match, Positioning, on-watch Customize — ADR-005, ADR-019), but no full wear day yet, and the look has not had a formal approval pass beyond the owner's own submission call. The location probes have run (M1, M2 only; ADR-005): Positioning is confirmed, not provisional. "Two Suns" is confirmed (ADR-010, 2026-09-27); no trademark search done. Folder `TwoSuns/`, code prefix `TwoSuns`. A Connect IQ watch face, independent of HeroSet, HeroFace and Days To Go: own look, own app id, no complication publishing. Where this spec and the build differ, see "Built vs specified" at the end; the reasons are in [`decisions.md`](decisions.md).
+Status: 2026-09-27. **Submitted to the Connect IQ Store, pending review** (https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b, live once approved). Plan phases 2 to 6 are done and pass in the simulator (124 tests); spot-checks have run on the owner's FR965 (sunrise/sunset match, Positioning, on-watch Customize — ADR-005, ADR-019), but no full wear day yet, and the look has not had a formal approval pass beyond the owner's own submission call. The location probes have run (M1, M2 only; ADR-005): Positioning is confirmed, not provisional. "Two Suns" is confirmed (ADR-010, 2026-09-27); no trademark search done. Folder `TwoSuns/`, code prefix `TwoSuns`. A Connect IQ watch face, independent of HeroSet, HeroFace and Days To Go: own look, own app id, no complication publishing. Where this spec and the build differ, see "Built vs specified" at the end; the reasons are in [`decisions.md`](decisions.md). **2026-10-01: a Free twin and Pro 1.1.0 are built, proposed and UNRELEASED (simulator only, nothing uploaded): see "Free and Pro" below and ADR-020 (Free + Pro ladder). Everything else in this spec describes the Pro build (the live app id) unless it says Free.**
 
 Sources: [`reports/Body Battery and sun face research.md`](../../reports/Body%20Battery%20and%20sun%20face%20research.md) and the notes in `research_notes/Body Battery and sun face research/` (start with `platform.md`). The build order and state are in [`plan.md`](plan.md); each decision below has an ADR in [`decisions.md`](decisions.md).
 
@@ -26,6 +26,34 @@ A watch face that answers one question at a glance: **how much light, and how mu
 | D12 | **Languages: English + Days To Go's 14** | Built; machine-drafted, no native reader; **never fit-tested in translation** | Few strings; same caveat as Days To Go |
 | D13 | **Category:** Health & Fitness or Utility | **Owner to choose** at listing time | Body Battery audience browses Health & Fitness; sun users Utility/Outdoor |
 | D14 | **Own Monkey C code; copy the calendar, layout and sleep patterns from Days To Go, no Barrel** | Built | Same reason as Days To Go D10 |
+| D15 | **Free + Pro pair**: the paid app becomes Two Suns Pro (1.1.0), a Free twin is added (1.0.0), one codebase, split at compile time (ADR-020, Free + Pro ladder); Free's Body Battery is Garmin's own number only (ADR-021, Body Battery in Free) | **Proposed, builds against the plan; owner decides names, prices, sign-off** (UNRELEASED) | See "Free and Pro" below. D3 (price and the day-45 review) stays in force until the owner signs off; ADR-020 supersedes the flip rule only then |
+
+### Free and Pro
+
+Status: **Proposed, UNRELEASED, simulator only; nothing built here is uploaded.** Strategy and evidence: `../../reports/Free and Pro ladder.md`; the build plan is WP5 in `../../reports/Free and Pro ladder execution plan.md`. The decision records are ADR-020 (Free + Pro ladder) and ADR-021 (Body Battery in Free) in [`decisions.md`](decisions.md). Names ("Two Suns" and "Two Suns Pro") are the plan's **placeholders**; the owner decides them, the prices and the store titles.
+
+| | **Free** (new app id, $0) | **Pro** (the existing paid app id) |
+|---|---|---|
+| Manifest, jungle | `manifest.free.xml`, `monkey.free.jungle` | `manifest.xml`, `monkey.jungle` |
+| On-watch name | Two Suns | Two Suns Pro |
+| Version | 1.0.0 | 1.1.0 |
+| Permissions | **`ComplicationSubscriber` only** | `ComplicationSubscriber`, `SensorHistory`, `Positioning` (Free's are always a subset of Pro's) |
+| The time, the 24-hour ring from Garmin's own sunrise and sunset, ticks, sun marker, daylight to come and gone | yes | yes |
+| The sun sentence from Garmin's pair ("3:42 of daylight", "Sunrise 06:41", "Sunrise ~06:41" after sunset, "Sun is up", "No sun data") | yes | yes, plus the calculated ones below |
+| Body Battery: Garmin's number in a level pill; `--` and a hollow pill when there is none | yes (ADR-021, Body Battery in Free) | yes |
+| 24-hour energy curve, the stale state (`SensorHistory`) | no | yes |
+| Remembered place, our own calculation: tomorrow's sunrise, civil twilight arcs, "Sun stays up/down today", "No sunrise tomorrow", "No place yet" | no (never says "No place yet": Garmin's null pair is "No sun data") | yes |
+| Golden hour (setting and arc) | no | yes |
+| Ring orientation (noon or midnight at the top) | no (noon at the top) | yes |
+| Date row (setting) | no | yes |
+| Accent colour, ids 0 to 5 (sky, mint, autumn, violet, pink, winter), on the phone and in Customize | **yes** (every face has an accent in Free, studio rule) | yes |
+| Accent ids 6 to 11 | no | **deferred**: not built; Pro only when they come (cyan, lime, yellow, magenta; orange and coral are not admitted: golden hour is `#FF5500`) |
+| Always-on frame (time, value, sun sentence) | yes | yes |
+| Languages (15), the 69 products | yes | yes |
+
+Rules: Free has no "Pro" word, no locked or greyed item, no upgrade text and no Pro state it can reach. A phone that sends Orientation, Golden, Curve or Date to Free is ignored (the Free properties file does not define them and Free code never reads them). Free's rows re-stack without the date and the curve (rows follow font heights, ADR-016), so its layout differs from Pro's default; nothing was redesigned and **the look is not approved**. Whether the date row and the orientation belong in Pro is the plan's call (WP5 step 3) and an **owner decision**.
+
+**Privacy-relevant facts, Free** (they differ from Pro's, below): the manifest asks for no location and no history; the Free build reads no location from any source (not the activity, not the weather observation, not `Position`), keeps **no remembered place and writes nothing to `Application.Storage`** (the accent colour is saved as a Properties setting), and sends nothing anywhere. It reads Garmin's own sunrise, sunset and Body Battery numbers from `Complications`, and writes only the Accent property when the wearer changes it. The Free privacy page and listing must say that, and must not describe Pro's place or history to Free users. The Pro facts are unchanged (the next sections).
 
 ### Price
 
@@ -42,15 +70,15 @@ Ring: 24 hours of local clock time, noon at the top by default, clockwise. Botto
 | Before sunrise | now < sunrise | full night dim; sunrise tick; outline marker | "Sunrise 06:41" |
 | After sunset | now ≥ sunset | as above | "Sunrise 06:41" (tomorrow's: D6) |
 | After sunset, no place | the calculation is unavailable, today's Garmin sunrise is all there is | as above | "Sunrise ~06:41" (today's, flagged as an estimate) |
-| After sunset, sun does not rise tomorrow | the calculation says so | as above | "No sunrise tomorrow" |
+| After sunset, sun does not rise tomorrow (**Pro only**) | the calculation says so | as above | "No sunrise tomorrow" |
 | After sunset, no sunrise known | nothing else to say | as above | "Sunset 20:52", or "No sun data" |
-| Golden hour (setting on) | a place is known; the calculated stretches after sunrise and before sunset (the sun lower than 6°) | warm arc over those stretches | as Day (the sentence does not change) |
-| Sun does not set | both Complication values null and the calculation says midnight sun | ring fully lit, solid marker | "Sun stays up today" |
-| Sun does not rise | as above, polar night | ring dim (twilight if calculable), outline marker | "Sun stays down today" |
-| No place yet | `Complications` exist, both values null and no location | ring plain, no sun marker | "No place yet" |
+| Golden hour (setting on; **Pro only**) | a place is known; the calculated stretches after sunrise and before sunset (the sun lower than 6°) | warm arc over those stretches | as Day (the sentence does not change) |
+| Sun does not set (**Pro only**) | both Complication values null and the calculation says midnight sun | ring fully lit, solid marker | "Sun stays up today" |
+| Sun does not rise (**Pro only**) | as above, polar night | ring dim (twilight if calculable), outline marker | "Sun stays down today" |
+| No place yet (**Pro only**; Free says "No sun data") | `Complications` exist, both values null and no location | ring plain, no sun marker | "No place yet" |
 | No sun data | `Complications` unavailable and no location | as above | "No sun data" |
 
-The sentences have shorter wordings for a narrow row ("3:42 light", "Rise 06:41", "Set 20:52", "Sun stays up", "No sunrise", "No sunset"); the layout takes the longest that fits (ADR-014). Times follow the system's 12/24 h: 24 h keeps the leading zero (06:41), 12 h drops it (6:41) and shows no AM or PM. The date line is words in the watch's language, never numbers; month first only for English with statute units, otherwise day first.
+Free draws only the rows not marked Pro only; the ring has no twilight arc in Free (it needs the calculation). The sentences have shorter wordings for a narrow row ("3:42 light", "Rise 06:41", "Set 20:52", "Sun stays up", "No sunrise", "No sunset"); the layout takes the longest that fits (ADR-014, three wordings for the sun sentence). Times follow the system's 12/24 h: 24 h keeps the leading zero (06:41), 12 h drops it (6:41) and shows no AM or PM. The date line is words in the watch's language, never numbers; month first only for English with statute units, otherwise day first.
 
 Body Battery under the time:
 
@@ -62,7 +90,7 @@ Body Battery under the time:
 | Not worn / none | no valid sample (null, or 127 = not worn) | none | `--` |
 | Not available | `SensorHistory` absent on this watch, or reading it throws | none | from Complication if valid, else `--` |
 
-A history that exists but holds no valid sample shows `--` and **never** falls back to the Complication's number (ADR-015). The level pill beside the number (2026-09-27: changed from a battery-shaped glyph on the owner's real-device read, which read as watch battery rather than Body Battery) is a small rounded outline, filled left to right to the level in the accent, hollow when the value is stale or `--`.
+**Free** has only the last row's path: Garmin's Complication number when it is valid (0 to 100), else `--` and a hollow pill; no curve, and no stale state, because a Complication carries no timestamp (ADR-021, Body Battery in Free). A history that exists but holds no valid sample shows `--` and **never** falls back to the Complication's number (ADR-015, Body Battery data rules). The level pill beside the number (2026-09-27: changed from a battery-shaped glyph on the owner's real-device read, which read as watch battery rather than Body Battery) is a small rounded outline, filled left to right to the level in the accent, hollow when the value is stale or `--`.
 
 The face never shows the words good, low, rest, tired or any face/emoji for Body Battery.
 
@@ -96,7 +124,7 @@ All lists (Properties only for settings; `Application.Storage` only for the reme
 | Energy curve | On / Off | On |
 | Date | On / Off | On |
 
-Property keys: `Accent`, `Orientation`, `Golden`, `Curve`, `Date`; they never change once shipped. The curve setting is labelled "Energy curve", not "Body Battery" (trademark, D9). Values are validated; anything unexpected falls back to the default. Settings are re-read on every update.
+**Free has the Accent row only** (the same six colours, default sky); the other four are Pro only (see "Free and Pro"). Property keys: `Accent`, `Orientation`, `Golden`, `Curve`, `Date`; they never change once shipped (the Free properties file defines `Accent` alone). The curve setting is labelled "Energy curve", not "Body Battery" (trademark, D9). Values are validated; anything unexpected falls back to the default. Settings are re-read on every update.
 
 Time format follows the system's 12/24 h. No numeric fields. Settings reach the watch from Garmin Connect, or on-watch via `getSettingsView` (Customize, next to Apply in the watch-face picker; ADR-019) — both write the same Properties, last write wins. **The face works with all defaults if neither round trip ever runs** (the Days To Go lesson).
 
@@ -134,13 +162,13 @@ Rows are stacked from measured font heights (Days To Go ADR-012), not from fract
 - **Excluded:** Instinct 3 Solar 45 mm, Instinct E 40 and 45 mm (semi-octagon, 64 KB, monochrome) and every product below API 4.2. The fēnix 5 Plus family has no Body Battery in the SDK lists and is out permanently.
 - **Tier B (1.1, gated on the probe): 23 products, API 3.4 to 4.1** (fēnix 6 family, FR55, FR945 LTE, MARQ Gen 1, Enduro, Descent Mk2, Instinct 2 family). No Complications: sunrise and sunset must come from the calculation and a location, which is the failure path the reviews describe, so it ships only when the location probe shows a source that works.
 - The fēnix 9 family, FR70 and FR170 (API 6.0) are in v1 by API level; the SDK's device lists omit them (doc lag), like the settings-view case in Days To Go. Their first run is the risk: **verify on a real watch or say so on the listing.**
-- **Export oddity:** the `.iq` export claims more devices than the manifest lists. Unresolved; details in [`compatibility.md`](compatibility.md#the-export-and-89-devices).
+- **Export oddity:** the `.iq` export claims more devices than the manifest lists (89 against 69). Explained 2026-10-01 from the SDK's own device files (the 69 product ids have exactly 89 part numbers, all in the package); the store form's own list stays authoritative; details in [`compatibility.md`](compatibility.md#the-export-and-89-devices).
 - **Fit test coverage:** 10 of the 11 screen sizes (all but 448 by 486, Venu X1), one product each (plus `venu3` at 454 px), English strings only; the other 58 products have not been run through `tools/fit_products.sh` ([`compatibility.md`](compatibility.md)).
-- Paid only: sold on the SDK's App_Sales product list (lowest tier CIQ 3.4) and its country list, so the store list will be shorter than the manifest. No watch count goes in the listing.
+- Pro (paid) only: sold on the SDK's App_Sales product list (lowest tier CIQ 3.4) and its country list, so the store list will be shorter than the manifest. No watch count goes in the listing. The Free twin lists the same 69 products and is not held to that list (the Free listing's real device list is only known after approval).
 
 ## Permissions, privacy, store form
 
-Manifest permissions (v1): **`SensorHistory`**, **`ComplicationSubscriber`** and **`Positioning`** (D7, confirmed on-device 2026-09-27, ADR-005). The one call that needs it, `Position.getInfo`, stays isolated in `TwoSunsSources.positionLocation` for a cheap reversal if that ever changes. `Application.Storage` needs no permission. No `Background`, `Communications`, `UserProfile` or network. Connect IQ's review guidelines: "seek permission from users prior to collecting location data or data that may be considered sensitive" and no medical claims (SDK `App_Review_Guidelines`). Body Battery is health-adjacent: the privacy page says what is read (Body Battery history, Garmin's own sunrise and sunset, a location rounded to 0.1° that stays on the watch), never sent, never stored beyond the remembered place.
+**Free's manifest permission is `ComplicationSubscriber` alone** (see "Free and Pro" for its privacy facts). Pro's, unchanged: **`SensorHistory`**, **`ComplicationSubscriber`** and **`Positioning`** (D7, confirmed on-device 2026-09-27, ADR-005). The one call that needs it, `Position.getInfo`, stays isolated in `TwoSunsSources.positionLocation` for a cheap reversal if that ever changes. `Application.Storage` needs no permission. No `Background`, `Communications`, `UserProfile` or network. Connect IQ's review guidelines: "seek permission from users prior to collecting location data or data that may be considered sensitive" and no medical claims (SDK `App_Review_Guidelines`). Body Battery is health-adjacent: the privacy page says what is read (Body Battery history, Garmin's own sunrise and sunset, a location rounded to 0.1° that stays on the watch), never sent, never stored beyond the remembered place.
 
 Store name, description and site copy **describe** ("shows your watch's Body Battery, the sun's arc and how much light is left"), never claim ("improves recovery"), never use "Body Battery" as a brand.
 

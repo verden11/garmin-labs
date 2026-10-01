@@ -6,7 +6,9 @@ Fields are in the order of the upload form (https://apps.garmin.com/developer/up
 
 ## App file
 
-Not exported yet. Export after the on-watch checks and the owner's sign-off: `monkeyc -e -r -f monkey.jungle -o dist/TwoSuns.iq -y ~/.garmin-connectiq/keys/developer_key` (run in `TwoSuns/`). The form reads Manifest AppID, App Type (Watch Face) and Compatible Devices from the package. Read the device list it shows before submitting ("Open item" in [`NOTES.md`](NOTES.md)).
+**Note, 2026-10-01 (ADR-020, Free + Pro ladder, proposed):** the 1.0.1 package prepared 2026-09-28 is `../dist/TwoSuns.iq` (a copy is `../dist/TwoSuns-1.0.1-prepared.iq`) and is untouched. The working tree now also builds the Free + Pro pair (Pro 1.1.0 is a rename to "Two Suns Pro"; nothing is approved), so export a 1.0.x from the commit before the ladder work (`3b10044`, a checkout or `git worktree` of it, not this tree). The ladder's packages are `../dist/TwoSunsFree.iq` and `../dist/TwoSunsPro.iq`; Free's listing draft is [`../listing-free/README.md`](../listing-free/README.md).
+
+Not exported yet. Export after the on-watch checks and the owner's sign-off: `monkeyc -e -r -f monkey.jungle -o dist/TwoSuns-1.0.1.iq -y ~/.garmin-connectiq/keys/developer_key` (run in `TwoSuns/` of commit `3b10044`, the last pre-ladder commit; `dist/TwoSuns.iq` is the already-prepared 1.0.1 and is not overwritten). The form reads Manifest AppID, App Type (Watch Face) and Compatible Devices from the package. Read the device list it shows before submitting ("Open item" in [`NOTES.md`](NOTES.md)).
 
 ## Title (max 50)
 

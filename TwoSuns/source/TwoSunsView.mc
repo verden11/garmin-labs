@@ -70,11 +70,22 @@ class TwoSunsView extends WatchUi.WatchFace {
         dc.setColor(state.batteryStale ? TwoSunsPalette.MUTED : state.batteryAccent, Graphics.COLOR_TRANSPARENT);
         var top = frame.rows.bandTop + (frame.bandHeight - dc.getFontHeight(frame.valueFont)) / 2;
         TwoSunsDraw.text(dc, layout, band.valueCenterX, top, frame.valueFont, state.batteryText, Graphics.TEXT_JUSTIFY_CENTER);
+        drawCurve(dc, layout, frame, state);
+    }
+
+    // The energy curve is Pro only: Free has no history, so no state ever carries one.
+    (:pro)
+    private function drawCurve(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
         var curve = state.curve;
         if (frame.showCurve && curve != null) {
+            var band = frame.band;
             TwoSunsCurve.draw(dc, layout, band, curve, state.batteryStale, state.batteryAccent);
             TwoSunsDraw.box(layout, band.curveLeft, band.curveTop, band.curveWidth, band.curveHeight, "curve");
         }
+    }
+
+    (:free)
+    private function drawCurve(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
     }
 
     // One row: the longest wording that fits the chord in the largest font that fits.

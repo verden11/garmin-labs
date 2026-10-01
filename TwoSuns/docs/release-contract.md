@@ -18,7 +18,7 @@ What the listing, the store page and the site may claim. The checkable form of t
 ## Forbidden
 
 - Battery figures, always-on ghosting, MIP contrast: unmeasured on a device.
-- Any watch count, or "works on X" for a watch only the simulator has seen (the store's list is shorter than the manifest; a paid app is sold only on Garmin's own list; the export prints 89 devices for 69 products, unresolved).
+- Any watch count, or "works on X" for a watch only the simulator has seen (the store's list is shorter than the manifest; a paid app is sold only on Garmin's own list; the export prints 89 devices for 69 products: explained 2026-10-01 from the SDK's part numbers, `compatibility.md`; the store form's list stays authoritative).
 - Any download, rating or review number.
 - **Accuracy of Body Battery**, "accurate Body Battery", "the most accurate sun times", and any statement that the face is more accurate than Garmin's own screens.
 - **Anything about health outcomes**: "improves", "optimises", "recovery advice", "know when to rest", diagnosis, treatment, prevention. Body Battery is a wellness estimate; describe what the face shows, never what it means for the body. The store's review guidelines forbid medical claims.
@@ -28,3 +28,14 @@ What the listing, the store page and the site may claim. The checkable form of t
 - "No permissions" or "no location permission" while `Positioning` is in the manifest.
 - Translated store copy that no native speaker has read.
 - A claim about the look, a screenshot, or "designed for" a watch before the owner has approved the look and supplied the images.
+
+## Free and Pro listings (ADR-020 (Free + Pro ladder), proposed)
+
+- The same allowed and forbidden lists apply to both listings. Nothing is claimed that only the other tier ships: the Free listing never mentions the energy curve, golden hour, tomorrow's sunrise, twilight, the date row, ring orientation or a remembered place, and names Pro only in its sibling line (no "Pro adds" list); the Pro listing describes only what Pro has.
+- **Free's privacy wording differs from Pro's.** Free: "no location, no place kept, no history" is allowed as a statement of what the Free code does (the manifest has `ComplicationSubscriber` alone; no location source is read; no `Application.Storage` call is compiled in; checked by `tools/check_free_package.sh` and the compiler). "Nothing stored" is **not** allowed: the accent colour is saved as a Properties setting. The allowed phrase is "it stores no place and no history; the only thing it saves is your accent colour setting", and "no location permission" is allowed **for Free only**. Pro keeps every existing rule (the place rounded to 0.1 degree stays on the watch; never "no location permission" while `Positioning` is declared). The Free page must not describe Pro's place or history to Free users.
+- **Free's Body Battery is "Garmin's own number"**: never "live", "accurate", "the last 24 hours" or "curve" in Free (no history, no timestamp: ADR-021, Body Battery in Free). A missing number is `--`, said as such, not as "not worn" or any state of the person.
+- "Free" wording is allowed **only** in the Free listing (which is $0). The Pro listing keeps the existing rule: no "free" wording while the price is paid.
+- Each listing names the other tier's store URL on its first line; the URL is a placeholder until both are live. No download, rating or review number about either.
+- The device sentence says only what Garmin's store shows after approval. Before approval the Free draft carries "Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for", marked **to verify** (SDK `Monetization/App_Sales` and the store form) before it is pasted, with no watch names or count. The paid listing carries no device sentence and no "free" wording (its sibling line reads "Also available: Two Suns, a lighter version: <URL>").
+- Free's description says nothing is locked or unlockable inside Free (there are no locked items); never "upgrade" wording inside the app or in the Free description's first lines beyond the sibling line.
+- "More from Verden" links only live **free** siblings.

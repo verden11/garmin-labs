@@ -69,9 +69,22 @@ class TwoSunsSky {
     // Neither sunrise nor sunset exists today: polar day or night if we can calculate, else say why not.
     static function noTimesState(hasComplications as Boolean, today as TwoSunsSunDay or Null) as Number {
         if (today == null) {
-            return hasComplications ? TwoSunsConfig.SKY_NO_PLACE : TwoSunsConfig.SKY_NO_DATA;
+            return noCalculationState(hasComplications);
         }
         return today.kind == TwoSunsConfig.SUN_UP_ALL_DAY ? TwoSunsConfig.SKY_MIDNIGHT_SUN : TwoSunsConfig.SKY_POLAR_NIGHT;
+    }
+
+    // No calculation, because the watch has no place yet. Pro says so; the sentence points at what fixes it.
+    (:pro)
+    static function noCalculationState(hasComplications as Boolean) as Number {
+        return hasComplications ? TwoSunsConfig.SKY_NO_PLACE : TwoSunsConfig.SKY_NO_DATA;
+    }
+
+    // Free never has a place and never asks for one, so "No place yet" would be a standing promise it cannot keep:
+    // Garmin's pair is all there is, and when it is null the face says "No sun data" (docs/decisions.md ADR-020, Free + Pro ladder).
+    (:free)
+    static function noCalculationState(hasComplications as Boolean) as Number {
+        return TwoSunsConfig.SKY_NO_DATA;
     }
 
     // Tomorrow's sunrise = calculated tomorrow + (Garmin's today - calculated today), so it keeps Garmin's

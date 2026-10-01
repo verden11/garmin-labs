@@ -1,7 +1,5 @@
 <strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
 
-    <string id="AppName">Two Suns</string>
-
     <!-- Machine-drafted, not read by a native speaker (listing/NOTES.md). $1$ is a time (Sunrise 6:41) or a duration (3:42 of daylight); keep it. -->
     <string id="sky_daylight_left">$1$ di luce</string>
     <string id="sky_sun_up">Sole sorto</string>

@@ -93,3 +93,22 @@ None exist. See [`screenshots.md`](screenshots.md).
 ## Previous What's New blocks
 
 None (1.0.0 is the first).
+
+## Pro 1.1.0: draft What's New and edits (UNRELEASED, proposed under ADR-020 (Free + Pro ladder), nothing uploaded)
+
+Not in `README.md` on purpose: that file is the paste-ready copy of the prepared 1.0.1, and nothing for 1.1.0 is approved. On upload (publish-checklist gate F9), move the then-current What's New block here to history and paste these. Names, the price and the sibling URL are the owner's decisions; the strings below are the plan's placeholders.
+
+- **Title**: `Two Suns Pro` (placeholder; the owner decides and may add device or feature tokens within the 50 characters).
+- **Description line 1** (new): `Also available: Two Suns, a lighter version: <FREE STORE URL: owner fills in once that listing is live>` (no "free" wording in the paid listing: release contract). The rest of the description is unchanged: it already describes only what Pro has (the curve, the place-based sun, golden hour, the date, ring orientation, six accents). Add the Free sibling in a "More from Verden" block only if the owner wants it.
+- **Version**: `1.1.0`.
+- **What's new** (draft):
+
+```text
+The app is now called Two Suns Pro on the watch. Nothing changes in how it works. A lighter Two Suns, with the sun ring and your Body Battery number, is also available.
+```
+
+- No device sentence in the Pro text. The plan's "the free version also runs on more watches" is **to verify** (SDK `Monetization/App_Sales` and the store form's own device lists after approval) before any such claim, and it would name the free app, which the paid listing may not.
+- **To verify, existing Pro text (not edited):** `README.md` line 42, "full detail down to the smallest", is a fit-test claim (simulator, Pro build, English) that the release contract does not list as allowed; decide before the 1.0.1 or 1.1.0 submission whether to keep it.
+- The price is **not** in this file. Re-pricing an approved app removes it for re-review (SDK `Monetization/App_Sales`); the store shows $2.25 against the documented $1.99 (plan WP5 step 1), and the owner decides whether and when.
+- The Pro privacy wording is unchanged (the place, `Positioning`, Body Battery history); the Free listing's differs (`../listing-free/NOTES.md`).
+

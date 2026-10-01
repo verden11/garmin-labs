@@ -3,6 +3,27 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/README.md`](listing/README.md).
 
+## Unreleased
+
+Everything below is **UNRELEASED**: built 2026-10-01 against the Free + Pro plan, **proposed** (`docs/decisions.md` ADR-020 (Free + Pro ladder) and ADR-021 (Body Battery in Free); the owner has not signed off), simulator-grade evidence, nothing uploaded. The headings are the versions the owner would upload; dates and uploads are theirs. The prepared 1.0.1 below is separate: it was built before this work, and its package (`dist/TwoSuns.iq`) is untouched.
+
+### Two Suns (Free) 1.0.0 — UNRELEASED, a new app (new app id), not uploaded
+
+- First release of the Free twin: the same 69 products and 15 languages, permission `ComplicationSubscriber` only (no location, no history), no place kept and no `Application.Storage` (the accent colour is saved as a Properties setting). The time, the 24-hour sun ring from Garmin's own sunrise and sunset (daylight to come and gone, sunrise and sunset ticks, the sun marker), the sun sentence ("3:42 of daylight", "Sunrise 06:41", "Sunrise ~06:41" after sunset, "Sun is up", "No sun data"), Garmin's own Body Battery number in a level pill (`--` and a hollow pill when there is none), always-on, the on-watch Customize screen.
+- Settings: Accent colour (the six shipped colours: sky, mint, autumn, violet, pink, winter), on the phone and in Customize.
+- Not in Free (Pro only): the 24-hour energy curve, golden hour, ring orientation, the date row, civil twilight and tomorrow's own sunrise, polar-day and polar-night sentences, the remembered place.
+- App id `9d5735b5-ac4b-4fa8-86d3-eee0f4f83c04` (generated 2026-10-01). Store name and title are the owner's decision (placeholder "Two Suns").
+- ADRs: 020 (Free + Pro ladder, proposed), 021 (Body Battery in Free, proposed).
+- Evidence, 2026-10-01, **compile only** (the simulator was not used): both jungles, normal and `-t` test builds, on the ten `fit_all.sh` devices plus `venux1`: 44 of 44 pass (zero warnings beyond the known launcher-icon notice); the whole-manifest compile sweep (`tools/compile_sweep.sh`, normal builds): **69 of 69 products pass on each jungle, 0 fail**; 57 per jungle carry only the known launcher-icon size notice, the other 12 are warning-free; `tools/check_free_package.sh --build` passes on the exported `dist/TwoSunsFree.iq` and `dist/TwoSunsPro.iq` (Free: permission `ComplicationSubscriber` only, only the `Accent` key, none of the Pro functions, files or modules in `debug.xml`, no "Pro" anywhere). The 67 Free tests are **written and compiled, not run**. Nothing has run on a wrist.
+
+### Two Suns Pro 1.1.0 — UNRELEASED, an update of the existing paid app id, not uploaded
+
+- The paid app is renamed on the watch to "Two Suns Pro" (placeholder name; the owner decides it and the price). Behaviour, settings, ids, defaults and permissions are the same as 1.0.1: `resources-pro/settings` is byte-identical to the old shared settings, and the 124 existing tests are unchanged apart from annotations and equivalent helper refactors (twins for helpers that touch Pro-only code; one assertion helper).
+- No new feature. The plan's other Pro addition (accent ids 6 to 11) is **deferred**, not built; the shipped accent ids 0 to 5 keep their colours (`TwoSunsAccentTest`).
+- Build change: Pro is now `monkey.jungle` with `resources;resources-pro` and `(:free)` code excluded. Two internal refactors keep Pro identical: `TwoSunsSources.sunDays(time)` calls `updatePlace()` itself in the same order as before, and `Position`, `SensorHistory`, `Weather` and `Activity` are named in full instead of imported.
+- ADRs: 020 (Free + Pro ladder, proposed). ADR-002 (price, day-45 review) still governs until the owner signs off.
+- Evidence: as above (the same compile matrix, sweep and package check cover Pro). The 130 Pro tests (the 124 existing plus 6 new accent-table tests) are written and compiled, **not run**; the main thread's Pro run (expect `passed=130`) is the regression check for the refactors above.
+
 ## 1.0.1 — prepared 2026-09-28, not yet submitted
 
 Owner is holding submission until 1.0.0's review concludes. Built on top of 1.0.0, no other

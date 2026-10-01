@@ -3,6 +3,11 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.Test;
 
+// Round screens at least this wide (px) have room for every row.
+(:debug)
+const BIG_ROUND_SCREEN_PX = 390;
+
+(:debug)
 function testDc() as Graphics.Dc {
     var settings = System.getDeviceSettings();
     var size = {:width => settings.screenWidth, :height => settings.screenHeight};
@@ -82,7 +87,7 @@ function twoSunsLayoutReport(logger as Test.Logger) as Boolean {
     var live = new TwoSunsSources().read(TwoSunsSettings.load());
     logger.debug(dc.getWidth() + "x" + dc.getHeight() + " ring r=" + layout.ringRadius() + " w=" + layout.ringWidth()
         + " content r=" + layout.contentRadius() + " span=" + layout.spanHeight() + " live time=" + live.time + " line=" + live.skyLine);
-    var states = [live, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(100, 3), true)] as Array<TwoSunsState>;
+    var states = [live, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curveOrNull(100, 3), true)] as Array<TwoSunsState>;
     for (var s = 0; s < states.size(); s++) {
         TwoSunsDraw.boxes = [] as Array<Array>;
         view.drawState(dc, layout, states[s]);
@@ -112,10 +117,11 @@ function truncatedKeepsTheMarker(logger as Test.Logger) as Boolean {
 }
 
 // A big screen has room for every row: nothing may be dropped on the 390 px and larger round products.
-(:test)
+// Pro only (the date and curve rows); Free's version is freeBigScreensKeepEveryRow.
+(:test, :pro)
 function bigScreensKeepEveryRow(logger as Test.Logger) as Boolean {
     var dc = testDc();
-    if (dc.getWidth() < 390) {
+    if (dc.getWidth() < BIG_ROUND_SCREEN_PX) {
         return true;
     }
     var layout = new TwoSunsLayout(dc);
@@ -125,8 +131,8 @@ function bigScreensKeepEveryRow(logger as Test.Logger) as Boolean {
     return true;
 }
 
-// The frame keeps the time and the value on every product, and drops date, curve, line in that order.
-(:test)
+// The frame keeps the time and the value on every product, and drops date, curve, line in that order. Pro only.
+(:test, :pro)
 function frameDropsRowsInOrder(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
@@ -145,8 +151,8 @@ function frameDropsRowsInOrder(logger as Test.Logger) as Boolean {
 }
 
 // Rows drop date first, then the curve, then the sun line, and the time and value never drop. Real device
-// fonts on a tiny drawing surface force the drops on any product, so the order is exercised everywhere.
-(:test)
+// fonts on a tiny drawing surface force the drops on any product, so the order is exercised everywhere. Pro only.
+(:test, :pro)
 function framesDropRowsInOrderWhenTheScreenIsTiny(logger as Test.Logger) as Boolean {
     var state = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true);
     var sawADrop = false;
@@ -159,5 +165,26 @@ function framesDropRowsInOrderWhenTheScreenIsTiny(logger as Test.Logger) as Bool
         sawADrop = sawADrop || !frame.showDate;
     }
     Test.assert(sawADrop);
+    return true;
+}
+
+// Free has no date row and no curve: the frame is the time, the pill with the value, and the sun line, on every
+// product and asleep too; the line only drops when the stack cannot fit (never on a 390 px or larger round screen).
+(:test, :free)
+function freeBigScreensKeepEveryRow(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    var state = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true);
+    var frame = new TwoSunsFrame(dc, layout, state, false);
+    Test.assert(!frame.showDate);
+    Test.assert(!frame.showCurve);
+    Test.assert(frame.rows.timeTop > 0);
+    Test.assert(frame.rows.bandTop > frame.rows.timeTop);
+    Test.assertEqual(frame.bandHeight, dc.getFontHeight(frame.valueFont));   // no curve, so the band is only the value tall
+    if (dc.getWidth() >= BIG_ROUND_SCREEN_PX) {
+        Test.assert(frame.showLine);
+    }
+    var asleep = new TwoSunsFrame(dc, layout, state, true);
+    Test.assert(!asleep.showDate && !asleep.showCurve);
     return true;
 }

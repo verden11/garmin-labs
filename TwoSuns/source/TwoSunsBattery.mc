@@ -6,6 +6,8 @@ import Toybox.Math;
 class TwoSunsBattery {
 
     // `whens` are epoch seconds (each sample's own `when`, never getOldestSampleTime). Order does not matter.
+    // Pro only (SensorHistory): the Free build never builds a curve (docs/decisions.md ADR-020, Free + Pro ladder).
+    (:pro)
     static function build(values as Array<Numeric or Null>, whens as Array<Number or Null>, now as Number) as TwoSunsBatteryCurve {
         var curve = new TwoSunsBatteryCurve();
         var bucketWhen = new Array<Number or Null>[TwoSunsConfig.BATTERY_BUCKETS];
@@ -43,6 +45,7 @@ class TwoSunsBattery {
         return value >= 0 && value <= TwoSunsConfig.BATTERY_MAX;
     }
 
+    (:pro)
     static function bucketIndex(when as Number, start as Number) as Number {
         var index = (when - start) / TwoSunsConfig.BATTERY_BUCKET_SECONDS;
         return index < TwoSunsConfig.BATTERY_BUCKETS ? index : TwoSunsConfig.BATTERY_BUCKETS - 1;
