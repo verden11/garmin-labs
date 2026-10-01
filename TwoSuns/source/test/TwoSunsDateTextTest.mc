@@ -1,7 +1,8 @@
 import Toybox.Lang;
 import Toybox.Test;
 
-(:test)
+// Pro only: the date row (docs/decisions.md ADR-020, Free + Pro ladder).
+(:test, :pro)
 function dateLinesDayFirst(logger as Test.Logger) as Boolean {
     var lines = TwoSunsDateText.lines("Sat", 26, "Sep", false);
     Test.assertEqual(lines.size(), 2);
@@ -10,7 +11,7 @@ function dateLinesDayFirst(logger as Test.Logger) as Boolean {
     return true;
 }
 
-(:test)
+(:test, :pro)
 function dateLinesMonthFirst(logger as Test.Logger) as Boolean {
     var lines = TwoSunsDateText.lines("Sat", 26, "Sep", true);
     Test.assertEqual(lines[0], "Sat Sep 26");
@@ -19,7 +20,7 @@ function dateLinesMonthFirst(logger as Test.Logger) as Boolean {
 }
 
 // Month first only for English with statute units.
-(:test)
+(:test, :pro)
 function monthFirstOnlyForUsStyle(logger as Test.Logger) as Boolean {
     Test.assert(TwoSunsDateText.monthFirst(true, true));
     Test.assert(!TwoSunsDateText.monthFirst(true, false));

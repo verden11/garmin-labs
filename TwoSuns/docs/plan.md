@@ -21,6 +21,7 @@ Everything marked "simulator" has **not been seen on a watch**. No screenshot of
 | 8 Listing and site | In progress elsewhere: site pages drafted (`site/src/apps/two-suns/`, staged, not deployed); `listing/` not in the tree when this was written. Screenshots are the owner's |
 | 9 Device evidence and submission | Not started. The owner's checklist `device-test/TwoSuns-CHECKLIST.md` is not written |
 | 10 After approval | Not started |
+| 11 Free + Pro ladder (WP5 of `../../reports/Free and Pro ladder execution plan.md`) | **Built 2026-10-01, UNRELEASED, simulator-grade, proposed.** Free twin and Pro 1.1.0 compile for both jungles; tests written for both, **not run** (the simulator was not used); packages built and their contents checked. Open: owner decisions (names, prices, tier of the date row and orientation, the empty Body Battery wording, icon, translations, uploads), the test runs, a device check. See "Phase 11" below |
 
 Last recorded runs: 120 tests, 2026-09-26, on `fr965`, `fenix7`, `venu3` and the ten fit sizes above, all passing in the simulator (logs `bin/t-<device>.log`, 21:49 to 22:01). A full 69-product compile sweep, run after the 15-language manifest was added, printed `BUILD SUCCESSFUL` for all 69 at `-w --typecheck 3` with zero errors and no warning beyond the launcher-icon-scaling notice (the icon is 65 px and the placeholder is generic); the build outputs were not kept as artifacts (`bin/` is git-ignored scratch, deleted after each run per house rules), so this rests on the run having happened, not a saved log. The translations, the manifest's language list, and the low-battery colour change were all in place for a full re-run on 2026-09-27: `fr965`, `fenix7`, `venu3` and all ten fit-sweep devices, 122 of 122 on every one. The full 69-product compile has not been repeated since (the earlier sweep above still covers build errors for all 69; only the language edit followed it, and English-language builds compile the same regardless of which languages ship). Tests do not check pixels.
 
@@ -145,6 +146,22 @@ English plus Days To Go's 14. Use `tools/check_strings.py` for parity and `tools
 
 Set "Price review due" (approval + 45 days) in `TwoSuns/CLAUDE.md` and the memory index; set `storeUrl` in `site/src/apps/two-suns/app.ts`; update the root README status; record HeroSet, HeroFace and Days To Go download buckets as the baseline for the price review. Tier B (1.1) if the probe allowed it.
 
+### Phase 11. Free + Pro ladder (proposed, UNRELEASED)
+
+Decision records: ADR-020 (Free + Pro ladder) and ADR-021 (Body Battery in Free) in [`decisions.md`](decisions.md); what each tier has is in [`spec.md`](spec.md) "Free and Pro". Builds against the plan; the owner has not signed off OD1 and OD2, so ADR-002 (price, day-45 review) still governs, and the prepared 1.0.1 is separate (plan WP5 step 7).
+
+| Step | State, 2026-10-01 |
+|---|---|
+| Free manifest (new app id), jungle, tier-only resources and settings (`manifest.free.xml`, `monkey.free.jungle`, `resources-free/`, `resources-pro/`), generator with a tier argument, `AppName` only in the tier folders | Done |
+| Pro-only code marked `(:pro)` with `(:free)` twins; Pro behaviour unchanged | Done (compiled; `resources-pro/settings` is byte-identical to the old shared one) |
+| Free manifest permission `ComplicationSubscriber` only; the compiler rejects any `SensorHistory` or `Positioning` call site in the Free jungle | Done (that is how the sites were found) |
+| Tests: 60 shared, 70 Pro-only, 7 Free-only (Free defaults for Pro keys, no "No place yet", Body Battery without history, the missing-key probe, Free frame) plus 6 accent-table tests in Pro's and Free's counts | **Written and compiled for both jungles on the ten `fit_all` devices and `venux1`; not run** |
+| Compile sweep, both jungles, every manifest product | **Run 2026-10-01, compile only: 69 of 69 pass on each jungle** (`tools/compile_sweep.sh`; 57 per jungle carry only the launcher-icon notice, 12 are warning-free); 44 of 44 normal and `-t` builds on 11 screen classes |
+| Packages `dist/TwoSunsFree.iq`, `dist/TwoSunsPro.iq` and the contents check (`tools/check_free_package.sh`) | Done 2026-10-01, both OK (compile only); see `development.md` |
+| `listing-free/` (README, NOTES, screenshots), CHANGELOG entries, publish-checklist block, release-contract section | Drafted; no screenshots exist (none invented) |
+| **Owner:** OD1 to OD4, names and store titles, Pro price tier, Free icon, translations of any new string (none added), whether the date row and orientation are Pro only, the wording of the empty Body Battery state (ADR-021, Body Battery in Free), look approval (no visual redesign was part of this build), uploads (Free 1.0.0 new, Pro 1.1.0 on the existing id, together), site (WP8) | Open |
+| **Tests to run (main thread):** see `development.md`; Pro on a device matrix, Free on the same, then `fit_all.sh` for each jungle | Open |
+
 ## 3. Definition of done for the whole project
 
 - `tools/run_tests.sh` prints `PASSED` on `fr965`, `fenix7` and `venu3`; all reference sun tests pass at 2 minutes; `tools/fit_all.sh` reports zero problems on every size.
@@ -168,7 +185,10 @@ cd TwoSuns
 tools/run_tests.sh fr965                       # unit tests on one product; trust the PASSED line
 tools/run_tests.sh fr965 everyStateFitsThisDisplay
 tools/fit_all.sh                               # screen fit on ten devices (one per size but Venu X1)
-monkeyc -d fr965 -f monkey.jungle -o bin/TwoSuns.prg -y ~/.garmin-connectiq/keys/developer_key -w --typecheck 3
+monkeyc -d fr965 -f monkey.jungle -o bin/TwoSuns.prg -y ~/.garmin-connectiq/keys/developer_key -w --typecheck 3   # Pro; -f monkey.free.jungle is Free
+tools/run_tests.sh fr965 monkey.free.jungle    # the same suite on Free (jungle is the optional second argument)
+tools/compile_sweep.sh                         # compile every product, both jungles (no simulator)
+tools/check_free_package.sh [--build]          # prove both packages' contents
 python3 tools/gen_sun_tests.py                 # regenerate the reference tests from the table
 python3 tools/gen_settings.py --check          # settings files match the tables
 python3 tools/check_strings.py                 # translation parity and length

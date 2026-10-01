@@ -3,6 +3,8 @@ import Toybox.Math;
 
 // The remembered place: [latitude, longitude] rounded to 0.1 degree. That is all the sun maths needs
 // (minutes per quarter degree) and all the face ever stores; it never leaves the watch.
+// Pro only: the Free build has no place and writes no Application.Storage (docs/decisions.md ADR-020, Free + Pro ladder).
+(:pro)
 class TwoSunsPlace {
 
     static function isUsable(latitude as Float, longitude as Float) as Boolean {

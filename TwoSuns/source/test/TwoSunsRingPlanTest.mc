@@ -2,6 +2,7 @@ import Toybox.Lang;
 import Toybox.Math;
 import Toybox.Test;
 
+(:debug)
 function ringSky(state as Number, rise as Number or Null, set as Number or Null) as TwoSunsSky {
     var sky = new TwoSunsSky();
     sky.state = state;
@@ -11,10 +12,12 @@ function ringSky(state as Number, rise as Number or Null, set as Number or Null)
 }
 
 // A calculation: twilight 05:30 to 20:30, golden hour until 08:00 and from 18:00.
+(:debug)
 function ringCalc() as TwoSunsSunDay {
     return new TwoSunsSunDay(TwoSunsConfig.SUN_NORMAL, 420, 1140, 780, 330, 1230, 480, 1080);
 }
 
+(:debug)
 function ringCount(plan as TwoSunsRingPlan, kind as Number) as Number {
     var count = 0;
     for (var i = 0; i < plan.arcs.size(); i++) {
@@ -97,6 +100,7 @@ function ringDay(logger as Test.Logger) as Boolean {
     return true;
 }
 
+(:debug)
 function ringIndex(plan as TwoSunsRingPlan, kind as Number) as Number {
     for (var i = 0; i < plan.arcs.size(); i++) {
         if (plan.arcs[i].kind == kind) {
@@ -211,6 +215,7 @@ function dimLowersOnlyFullChannels(logger as Test.Logger) as Boolean {
 }
 
 // WCAG contrast of a colour against black: (L + 0.05) / 0.05, L from the sRGB channels.
+(:debug)
 function ringContrast(color as Number) as Float {
     var luminance = 0.0;
     var weights = [0.2126, 0.7152, 0.0722] as Array<Float>;

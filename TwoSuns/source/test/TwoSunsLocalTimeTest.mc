@@ -1,6 +1,7 @@
 import Toybox.Lang;
 import Toybox.Test;
 
+(:debug)
 function localOffset(localDate as Array<Number>, localMinute as Number, utcDate as Array<Number>, utcMinute as Number) as Number {
     return TwoSunsLocalTime.offsetBetween(TwoSunsCalendar.dayNumber(localDate[0], localDate[1], localDate[2]), localMinute,
                                           TwoSunsCalendar.dayNumber(utcDate[0], utcDate[1], utcDate[2]), utcMinute);

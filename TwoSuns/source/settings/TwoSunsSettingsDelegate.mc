@@ -12,11 +12,24 @@ class TwoSunsSettingsDelegate extends WatchUi.Menu2InputDelegate {
         var id = item.getId();
         if (id == TwoSunsSettingsMenu.ITEM_ACCENT) {
             pushList(WatchUi.loadResource(Rez.Strings.setting_accent) as String, TwoSunsConfig.KEY_ACCENT, accentLabels(), TwoSunsSettings.load().accent);
-        } else if (id == TwoSunsSettingsMenu.ITEM_ORIENTATION) {
+        } else {
+            selectPro(item);
+        }
+    }
+
+    // The four Pro items. Free has none, and Free must never write a Pro key (setValue of a key the properties
+    // file lacks throws), so this does nothing there.
+    (:pro)
+    private function selectPro(item as WatchUi.MenuItem) as Void {
+        if (item.getId() == TwoSunsSettingsMenu.ITEM_ORIENTATION) {
             pushList(WatchUi.loadResource(Rez.Strings.setting_orientation) as String, TwoSunsConfig.KEY_ORIENTATION, orientationLabels(), TwoSunsSettings.load().orientation);
         } else if (item instanceof WatchUi.ToggleMenuItem) {
             applyToggle(item);
         }
+    }
+
+    (:free)
+    private function selectPro(item as WatchUi.MenuItem) as Void {
     }
 
     function onBack() as Void {
@@ -25,6 +38,7 @@ class TwoSunsSettingsDelegate extends WatchUi.Menu2InputDelegate {
 
     // Menu2 has already flipped the toggle by the time onSelect runs, so the item's state is the
     // wearer's new choice. No confirmation: the state is on screen and one more press undoes it.
+    (:pro)
     private function applyToggle(item as WatchUi.ToggleMenuItem) as Void {
         var key = TwoSunsConfig.KEY_DATE;
         if (item.getId() == TwoSunsSettingsMenu.ITEM_GOLDEN) {
@@ -51,6 +65,7 @@ class TwoSunsSettingsDelegate extends WatchUi.Menu2InputDelegate {
         ];
     }
 
+    (:pro)
     private function orientationLabels() as Array<String> {
         return [
             WatchUi.loadResource(Rez.Strings.orientation_noon) as String,

@@ -4,6 +4,8 @@ import Toybox.System;
 // The small date line: words, never numbers, so it cannot be misread (03/04 is 3 April or 4 March).
 // Weekday and month come from the system in the watch's language; the order is the one thing the
 // system does not tell us, so it follows the watch's language and units.
+// Pro only: the Free build has no date row (docs/decisions.md ADR-020, Free + Pro ladder).
+(:pro)
 class TwoSunsDateText {
 
     // Candidates, longest first, for measured fitting.

@@ -3,6 +3,7 @@ import Toybox.Test;
 
 // Word tests assume the simulator language is English (the same assumption Days To Go's word tests make).
 
+(:debug)
 function readingsSky(state as Number) as TwoSunsSky {
     var sky = new TwoSunsSky();
     sky.state = state;
@@ -88,6 +89,8 @@ function skyLineOtherStates(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// The history curve helpers are Pro only (the Free build has no history).
+(:pro, :debug)
 function readingsCurve(level as Number or Null, ageMinutes as Number) as TwoSunsBatteryCurve {
     var now = 1800000000;
     var values = [level] as Array<Numeric or Null>;
@@ -95,15 +98,28 @@ function readingsCurve(level as Number or Null, ageMinutes as Number) as TwoSuns
     return TwoSunsBattery.build(values, whens, now);
 }
 
+// The Curve setting exists only in Pro. The Free twin does not name the Pro key, so nothing test-side could put it in the Free .prg
+// (tools/check_free_package.sh looks for it there; helpers are also (:debug), which a release export drops).
+(:pro, :debug)
+function readingsSettings(showCurve as Boolean) as TwoSunsSettings {
+    return new TwoSunsSettings({"Curve" => showCurve ? 1 : 0} as Dictionary);
+}
+
+(:free, :debug)
+function readingsSettings(showCurve as Boolean) as TwoSunsSettings {
+    return new TwoSunsSettings({} as Dictionary);
+}
+
+(:debug)
 function readingsState(curve as TwoSunsBatteryCurve or Null, complication as Number or Null, showCurve as Boolean) as TwoSunsState {
-    var settings = new TwoSunsSettings({"Curve" => showCurve ? 1 : 0} as Dictionary);
+    var settings = readingsSettings(showCurve);
     var time = new TwoSunsLocalTime(2026, 9, 27, 15 * 60, 60, 0);
     var sky = readingsSky(TwoSunsConfig.SKY_NO_PLACE);
     return TwoSunsReadings.build(settings, time, true, sky, curve, complication, ["Sun 27 Sep", "27 Sep"] as Array<String>);
 }
 
 // Normal: the newest sample is the number and the curve is drawn; the curve setting hides only the curve.
-(:test)
+(:test, :pro)
 function batteryNormalAndCurveSetting(logger as Test.Logger) as Boolean {
     var shown = readingsState(readingsCurve(62, 3), 99, true);
     Test.assertEqual(shown.batteryText, "62");
@@ -115,7 +131,7 @@ function batteryNormalAndCurveSetting(logger as Test.Logger) as Boolean {
     return true;
 }
 
-(:test)
+(:test, :pro)
 function batteryStaleKeepsTheNumberMuted(logger as Test.Logger) as Boolean {
     var state = readingsState(readingsCurve(40, 90), null, true);
     Test.assertEqual(state.batteryText, "40");
@@ -124,7 +140,7 @@ function batteryStaleKeepsTheNumberMuted(logger as Test.Logger) as Boolean {
 }
 
 // History exists but has no valid sample (not worn): "--", and Garmin's single number is NOT substituted.
-(:test)
+(:test, :pro)
 function batteryNotWornIsDashes(logger as Test.Logger) as Boolean {
     var state = readingsState(readingsCurve(127, 3), 55, true);
     Test.assertEqual(state.batteryText, "--");
@@ -142,7 +158,7 @@ function batteryFallsBackToTheComplication(logger as Test.Logger) as Boolean {
     return true;
 }
 
-(:test)
+(:test, :pro)
 function buildCarriesTheRest(logger as Test.Logger) as Boolean {
     var settings = new TwoSunsSettings({"Accent" => 1, "Orientation" => 1, "Golden" => 1, "Date" => 0} as Dictionary);
     var time = new TwoSunsLocalTime(2026, 9, 27, 15 * 60 + 5, 60, 0);
@@ -213,7 +229,7 @@ function stateListsSentencesLongestFirst(logger as Test.Logger) as Boolean {
 
 // The glyph level follows the number the face shows: the newest sample, Garmin's own number when there is no
 // history, and nothing when the value is "--".
-(:test)
+(:test, :pro)
 function batteryLevelFollowsTheNumber(logger as Test.Logger) as Boolean {
     Test.assertEqual(sunPresent(readingsState(readingsCurve(62, 3), 99, true).batteryLevel), 62);
     Test.assertEqual(sunPresent(readingsState(null, 55, true).batteryLevel), 55);
@@ -238,7 +254,7 @@ function batteryAccentForDimsOnlyBelowTheThreshold(logger as Test.Logger) as Boo
 // The state carries the dimmed or full accent through build(): low from history, low from the Complication
 // fallback, and never below the low colour just because the reading is stale (stale is muted separately by
 // the view, batteryAccent still reflects the level underneath it).
-(:test)
+(:test, :pro)
 function batteryAccentFollowsTheLevel(logger as Test.Logger) as Boolean {
     var accent = TwoSunsPalette.ACCENTS[0];
     var dim = TwoSunsPalette.dim(accent);

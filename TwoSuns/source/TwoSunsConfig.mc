@@ -60,21 +60,28 @@ class TwoSunsConfig {
     static const LONGITUDE_LIMIT = 180.0;
     static const NULL_ISLAND_DEGREES = 0.000001;  // a fix of exactly 0,0 is a "no fix" placeholder, not a place
 
-    // Storage key. Spellings never change once shipped.
+    // Storage key. Spellings never change once shipped. Pro only: the Free build writes no Application.Storage (docs/decisions.md ADR-020, Free + Pro ladder).
+    (:pro)
     static const KEY_PLACE = "place";
 
-    // Settings (docs/spec.md "Settings"). Values match resources/settings; list values are never negative.
+    // Settings (docs/spec.md "Settings"). Values match resources-pro/settings and resources-free/settings (tools/gen_settings.py);
+    // list values are never negative.
     static const ACCENT_COUNT = 6;
     static const ORIENTATION_NOON_TOP = 0;
     static const ORIENTATION_MIDNIGHT_TOP = 1;
     static const OFF = 0;
     static const ON = 1;
 
-    // Property keys. Spellings never change once shipped.
+    // Property keys. Spellings never change once shipped. Accent is in both tiers; the other four are Pro-only
+    // (docs/decisions.md ADR-020, Free + Pro ladder): the Free properties file does not define them and Free code never names them.
     static const KEY_ACCENT = "Accent";
+    (:pro)
     static const KEY_ORIENTATION = "Orientation";
+    (:pro)
     static const KEY_GOLDEN = "Golden";
+    (:pro)
     static const KEY_CURVE = "Curve";
+    (:pro)
     static const KEY_DATE = "Date";
 
     static const HOURS_PER_HALF_DAY = 12;

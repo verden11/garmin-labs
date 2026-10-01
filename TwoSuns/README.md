@@ -10,6 +10,8 @@ glance. Every failure has a sentence, not a blank. Nothing leaves the watch.
 
 **"Two Suns" is confirmed** (ADR-010, 2026-09-27); no trademark search done.
 
+Two builds from one source (proposed, UNRELEASED, `docs/decisions.md` ADR-020 (Free + Pro ladder)): **Two Suns** (Free, `monkey.free.jungle`: the time, the sun ring from Garmin's own sunrise and sunset, Garmin's Body Battery number, an accent colour; permission `ComplicationSubscriber` only, no location) and **Two Suns Pro** (the paid app, `monkey.jungle`: adds the 24-hour energy curve, the place-based sun, golden hour, ring orientation and the date row). Everything below describes Pro unless it says Free.
+
 69 products at Connect IQ 4.2 and up (66 round, 3 rectangular AMOLED): [`docs/compatibility.md`](docs/compatibility.md).
 Status: **submitted 2026-09-27, pending review.** Built and simulator-tested, spot-checked on a real FR965, no full wear day yet. Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
 
@@ -18,16 +20,22 @@ Status: **submitted 2026-09-27, pending review.** Built and simulator-tested, sp
 ```bash
 KEY=~/.garmin-connectiq/keys/developer_key      # outside the repo, never committed
 
-monkeyc -d fr965 -f monkey.jungle -o bin/TwoSuns.prg -y $KEY -w --typecheck 3
+monkeyc -d fr965 -f monkey.jungle -o bin/TwoSuns.prg -y $KEY -w --typecheck 3          # Pro
+monkeyc -d fr965 -f monkey.free.jungle -o bin/TwoSunsFree.prg -y $KEY -w --typecheck 3  # Free
 monkeydo bin/TwoSuns.prg fr965                  # with the simulator running
 
-tools/run_tests.sh fr965                        # 124 tests; prints PASSED (…)
-tools/run_tests.sh fr965 everyStateFitsThisDisplay
-tools/fit_all.sh                                # screen fit on ten devices, one per size but Venu X1
+tools/run_tests.sh fr965                        # Pro: 130 tests (compiled, not yet run); prints PASSED (…)
+tools/run_tests.sh fr965 monkey.free.jungle     # Free: 67 tests (compiled, not yet run)
+tools/run_tests.sh fr965 monkey.jungle everyStateFitsThisDisplay
+tools/fit_all.sh [jungle]                       # screen fit on ten devices, one per size but Venu X1
+tools/compile_sweep.sh                          # compile every product, both jungles, no simulator
 
 python3 tools/gen_settings.py --check           # settings files match their tables
 python3 tools/check_strings.py                  # translation parity and length
-monkeyc -e -r -f monkey.jungle -o dist/TwoSuns.iq -y $KEY      # store package (see docs/publish-checklist.md: the "89 devices" oddity)
+monkeyc -e -r -f monkey.free.jungle -o dist/TwoSunsFree.iq -y $KEY   # Free store package
+monkeyc -e -r -f monkey.jungle -o dist/TwoSunsPro.iq -y $KEY         # Pro store package (the live app id; see docs/publish-checklist.md: the "89 devices" oddity)
+tools/check_free_package.sh                     # Free has only ComplicationSubscriber, only the Accent key, no Pro code or word; Pro has them
+# dist/TwoSuns.iq is the pre-ladder 1.0.1 package, never overwritten (a copy: dist/TwoSuns-1.0.1-prepared.iq)
 ```
 
 The test runners run `pkill -f monkeydo` after every run and restart the simulator with `pkill` when it wedges: do not run them while another session uses it ([`docs/development.md`](docs/development.md)).
@@ -44,7 +52,7 @@ The test runners run `pkill -f monkeydo` after every run and restart the simulat
 
 Always-on (AMOLED): the time, the Body Battery value and the sun sentence, dim, drifting on a 3 × 3 grid; no ring, no curve. MIP watches keep the full face. Body Battery is shown as Garmin reports it: no verdicts, no advice.
 
-Settings (Garmin Connect, lists only): Accent colour, Ring orientation, Golden hour, Energy curve, Date.
+Settings (Garmin Connect, lists only): Accent colour, Ring orientation, Golden hour, Energy curve, Date (Pro). Free has Accent colour only. Free has no curve, no date row, no twilight or golden arc, and keeps no place; a missing Body Battery number is `--` and a hollow pill (ADR-021, Body Battery in Free).
 
 ## Layout
 
@@ -61,10 +69,14 @@ source/
   TwoSunsRingPlan / Ring / RingArc  sky ring: plan (pure) and drawing
   TwoSunsCurvePlan / Curve / Band   Body Battery band: plan (pure) and drawing
   TwoSunsLayout/Rows/Frame/Draw/Sleep/Palette/Config/Text/DateText/Settings
-  test/                             unit and screen-fit tests (124)
-resources/  resources-<lang>/       strings (English + 14 machine-drafted), settings, properties
-tools/                              run_tests.sh, fit_all.sh, fit_products.sh, fit_languages.sh,
-                                    gen_settings.py, gen_sun_tests.py, check_strings.py
+  test/                             unit and screen-fit tests (Pro 130, Free 67)
+resources/  resources-<lang>/       shared strings and drawables (English + 14 machine-drafted); NO settings, NO AppName
+resources-free/  resources-pro/     AppName ("Two Suns" / "Two Suns Pro"), the settings and properties of each tier
+manifest.xml, monkey.jungle              Pro (the live app id)
+manifest.free.xml, monkey.free.jungle    Free (its own app id)
+tools/                              run_tests.sh, fit_all.sh, fit_products.sh, fit_languages.sh, compile_sweep.sh,
+                                    check_free_package.sh, gen_settings.py, gen_sun_tests.py, check_strings.py
 docs/                               spec, plan, decisions, compatibility, development, release contract, publish checklist
-listing/                            store form copy (written separately: listing/README.md, listing/NOTES.md)
+listing/                            store form copy, Pro (the live listing): listing/README.md, listing/NOTES.md
+listing-free/                       store form copy, Free (a draft; nothing uploaded)
 ```

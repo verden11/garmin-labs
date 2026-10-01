@@ -21,7 +21,7 @@ The store name; the price and its wording; the visual identity and the launcher 
 | 5 | Always-on night check | Heat map (simulator, File > View Screen Heat Map) and one night on the FR965 with sleep mode off: no blank screen, no ghosting. If it blanks, raise `BURN_IN_STEP_PERMILLE` or shrink the time ([ADR-007](decisions.md#adr-007-always-on)) and repeat | **Not blocking (owner, 2026-09-27).** Submit without it; fix in a follow-up release if the screen ghosts or blanks |
 | 6 | Wear day on the production build | One full day, this face only, the build that will be exported: correct time and ring at first sight, the ring on the right local day across local midnight and across UTC midnight, a run with the phone and GPS off, Body Battery curve shape against Garmin's own graph, DST if a change day falls in the window. Battery over 24 hours against the same watch on Days To Go is for the owner's information: **no battery figure goes in the listing** | **Not blocking (owner, 2026-09-27).** Submit without it; fix in a follow-up release if something surfaces |
 | 7 | All-69-products fit sweep | `tools/fit_products.sh` prints `done: 69 pass, 0 fail` on the commit you submit (slow; the simulator must not be shared during it) | **Passed, 2026-09-27**: `bin/fit-products.txt`, `done: 69 pass, 0 fail`, `PASSED (passed=122, failed=0, errors=0)` on every product, including Venu X1. Stale: this run predates the on-watch Customize menu (ADR-019) **and** the 2026-09-27 `watch-design-reviewer` fixes (raised time cap, 2 new tests, 124 total). Re-run on the commit you actually submit |
-| 8 | Export checked: 89 versus 69 | Export overreports device count vs. manifest; details in [`compatibility.md`](compatibility.md#the-export-and-89-devices). Decide with the owner before upload if it's wider than the 69 | **Still open.** Resolve at upload: the store form's own Compatible Devices list is authoritative |
+| 8 | Export checked: 89 versus 69 | Export overreports device count vs. manifest; details in [`compatibility.md`](compatibility.md#the-export-and-89-devices). Decide with the owner before upload if it's wider than the 69 | **Count explained 2026-10-01** (SDK-file evidence: the 69 product ids have exactly 89 part numbers in the SDK, all 89 in the package; [`compatibility.md`](compatibility.md#the-export-and-89-devices)). **Still open at upload:** the store form's own Compatible Devices list is authoritative |
 | 9 | Language fit and decision | `tools/fit_languages.sh <product>` run per language on the smallest screen (`fr255s`) and a rectangle (`venusq2`), zero fit failures | **Decided (owner, 2026-09-27): ship all 15** (English + the 14 machine-drafted), no native-speaker read required. Fit-testing still to run when the simulator is free, not blocking submission |
 | 10 | Real assets | Launcher icon (the current one is a generic placeholder), cover 500×500, hero 1440×720 (optional), screenshots **taken by the owner** on a real watch or the simulator; paths filled in `listing/README.md`, `listing/screenshots.md` written | **Partly done, 2026-09-27.** Two real FR965 screens, a cover and a hero exist and are wired into `listing/README.md` (`listing/screenshots.md`). Still open: launcher icon (generic placeholder) and formal owner look-approval of the cover/hero mark |
 | 11 | Listing written and checked | `listing/README.md` in form order, every sentence checked against [`release-contract.md`](release-contract.md); the description says what is shown, never what it means for health; "Body Battery" only descriptively | **Text finalised, 2026-09-27.** Every OWNER field resolved (name, category, price, collects-user-data), images now filled too. Only the launcher icon and formal look sign-off remain |
@@ -52,8 +52,8 @@ Each field's text is in [`../listing/README.md`](../listing/README.md), in form 
 
 ## Submit (one sitting, about 30 minutes)
 
-1. `cd TwoSuns && monkeyc -e -r -f monkey.jungle -o dist/TwoSuns.iq -y ~/.garmin-connectiq/keys/developer_key`
-2. Open https://apps.garmin.com/developer/upload, attach `dist/TwoSuns.iq`.
+1. `cd TwoSuns && monkeyc -e -r -f monkey.jungle -o dist/TwoSuns-1.0.1.iq -y ~/.garmin-connectiq/keys/developer_key` (**for a 1.0.x, from commit `3b10044`, the last one before the ladder work**: this tree builds Pro as "Two Suns Pro". `dist/TwoSuns.iq` today is the already-prepared 1.0.1 and is never overwritten; the ladder's packages are `dist/TwoSunsFree.iq` and `dist/TwoSunsPro.iq`, the Pro one to be renamed with its version at upload)
+2. Open https://apps.garmin.com/developer/upload, attach `dist/TwoSuns-1.0.1.iq` (or the prepared `dist/TwoSuns.iq` if the owner chooses it).
 3. Paste each field from `listing/README.md`, in form order. Add the price in the merchant flow.
 4. Add the images from gate 10.
 5. Same day, update `CHANGELOG.md` (the version being submitted, upload date, user-facing changes, ADRs) and check that `listing/README.md` has the matching What's New block and version number.
@@ -68,6 +68,34 @@ Each field's text is in [`../listing/README.md`](../listing/README.md), in form 
 5. Day 60: run the success test in [`spec.md`](spec.md) "Success and stop test" (the day-45 price review comes first). Record any review that mentions wrong or blank sun times.
 6. Tier B (1.1) only if gate 2 showed a location source that works.
 
+## Free + Pro pair (proposed, UNRELEASED: ADR-020 (Free + Pro ladder))
+
+Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP5); the owner has not signed off OD1 to OD4, so the gates above and ADR-002 (price, day-45 review) still govern the live paid app. The prepared 1.0.1 is **not** held back by this work and is not part of it (plan WP5 step 7); the owner submits it or not. No store-package quirk beyond the known "89 devices" oddity is recorded; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
+
+| # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
+|---|---|---|
+| F1 | Owner signs off OD1 (the ladder), OD2 (retire the day-45 flip rule), OD3 (names), OD4 (Pro price tier; the store shows $2.25 against the documented $1.99, plan WP5 step 1). ADR-020 (Free + Pro ladder) then becomes Active and the flip rule of ADR-002 (price) Superseded, same commit | **Open** (owner) |
+| F2 | Store names and titles chosen and searched in the store by eye (plan placeholders: app name "Two Suns" / "Two Suns Pro"). The name is also the on-watch AppName: change `resources-free/strings` and `resources-pro/strings` only | **Open** (owner) |
+| F3 | Owner decides the tier of the date row and the ring orientation (plan WP5 puts both in Pro; Free is thinner without them), whether Free keeps civil twilight (needs a place, so no), and the wording of a missing Body Battery number (ADR-021, Body Battery in Free: `--` and a hollow pill, or a word) | **Open** (owner) |
+| F4 | Launcher icon for each tier (the file is still the placeholder; Free and Pro may differ) | **Open** (owner) |
+| F5 | Tests run on both jungles: `tools/run_tests.sh <device> monkey.jungle` (expect 130) and `... monkey.free.jungle` (expect 67) on fr965, fr255s, venusq2, venux1; `tools/fit_all.sh monkey.free.jungle` and `tools/fit_all.sh` | **Open**: written and compiled, never run |
+| F6 | Packages exported and checked: `tools/check_free_package.sh --build` | **Done 2026-10-01** (compile only; `development.md` "Checking a store package"); re-run after any source change |
+| F7 | Device check on the FR965, store-build equivalent: Free shows only Accent in the phone and Customize screens, no curve, no date, no twilight; the accent change round trip (phone, sync, restart; then on the watch); the on-watch name; what Garmin's Body Battery complication shows on a watch with no reading (ADR-021, Body Battery in Free) | **Open** (owner) |
+| F8 | `../listing-free/README.md` filled from; screenshots taken from the Free build (none exist) | **Open** |
+| F9 | Pro's `../listing/README.md` What's New and version bumped for 1.1.0 (draft is in `../listing/NOTES.md`), sibling Free URL on its first line; `CHANGELOG.md` entries get their dates | **Open** (on upload) |
+| F10 | Site: `freeStoreUrl`, a "Free or Pro" section, per-tier privacy and support wording (Free keeps no place and asks no location; the Free privacy page must not describe Pro's) (plan WP8). Do not change a published URL | **Open** (not in this folder) |
+| F11 | Translations of any new string (none was added by this work), machine drafts need the owner's OK | n/a so far |
+
+### Free listing block (when F1 to F8 are green)
+
+1. `cd TwoSuns && tools/check_free_package.sh --build` (or export `monkeyc -e -r -f monkey.free.jungle -o dist/TwoSunsFree.iq -y ~/.garmin-connectiq/keys/developer_key`), then open https://apps.garmin.com/developer/upload, attach `dist/TwoSunsFree.iq` (a **new** app: the form reads the new app id from the package).
+2. Paste each field from [`../listing-free/README.md`](../listing-free/README.md) in form order. Category Utility. Monetization: the free listing asks no payment (confirm the form's wording at submission). Replace the placeholder Pro store URL on line 1 with the real one once Pro 1.1.0 is live, or upload Pro first.
+3. Same day: upload `dist/TwoSunsPro.iq` to the existing app id as 1.1.0 (Pro's price is changed only by the owner, in the same step they choose; re-pricing an approved app removes it for re-review).
+4. Update `CHANGELOG.md` (drop UNRELEASED, add upload dates), the What's New blocks, record both app ids for the measurement plan (WP9), and the review-day dates for gates G1 to G4 in the ladder plan.
+5. Do not commit `dist/*.iq` or any key file.
+
 ## If the review rejects it
 
 The rejection lists reasons. Fix the named item in the listing or build, bump the version if the package changes, re-submit. Do not change the price in the same step.
+
+**Until gate F1 (the Free + Pro pair) is signed off by the owner, build any 1.0.x fix from commit `3b10044` (the last before the ladder work), not from the current working tree**: this tree names the paid app "Two Suns Pro" on the watch and has restructured resources and `TwoSunsSources`, none of which the owner has approved for the live app.

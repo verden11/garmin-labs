@@ -7,10 +7,12 @@ class TwoSunsTestStates {
     private static const NOW = 1800000000;
 
     // Every sky state that can be widest, times every Body Battery state, with the widest clock.
+    // Free has no history, so its only Body Battery state is Garmin's number (null here: the value is "--", the widest
+    // text is "100" either way) and it has no place, so no place-dependent sky state (docs/decisions.md ADR-020, Free + Pro ladder).
     static function all() as Array<TwoSunsState> {
         var states = [] as Array<TwoSunsState>;
         var skies = skies();
-        var curves = [curve(100, 3), curve(100, 90), null] as Array<TwoSunsBatteryCurve or Null>;
+        var curves = curves();
         for (var s = 0; s < skies.size(); s++) {
             for (var c = 0; c < curves.size(); c++) {
                 states.add(make(skies[s], curves[c], true));
@@ -39,11 +41,43 @@ class TwoSunsTestStates {
         var setOnly = sky(TwoSunsConfig.SKY_AFTER_SUNSET);
         setOnly.set = 12 * 60 + 59;
         skies.add(setOnly);
+        addPlaceSkies(skies);
+        skies.add(sky(TwoSunsConfig.SKY_NO_DATA));
+        return skies;
+    }
+
+    // Pro only: the states that need our own calculation or a missing place (polar days, "No place yet").
+    (:pro)
+    static function addPlaceSkies(skies as Array<TwoSunsSky>) as Void {
         skies.add(sky(TwoSunsConfig.SKY_MIDNIGHT_SUN));
         skies.add(sky(TwoSunsConfig.SKY_POLAR_NIGHT));
         skies.add(sky(TwoSunsConfig.SKY_NO_PLACE));
-        skies.add(sky(TwoSunsConfig.SKY_NO_DATA));
-        return skies;
+    }
+
+    (:free)
+    static function addPlaceSkies(skies as Array<TwoSunsSky>) as Void {
+    }
+
+    // Pro: fresh, stale and no history. Free: no history ever.
+    (:pro)
+    static function curves() as Array<TwoSunsBatteryCurve or Null> {
+        return [curve(100, 3), curve(100, 90), null] as Array<TwoSunsBatteryCurve or Null>;
+    }
+
+    (:free)
+    static function curves() as Array<TwoSunsBatteryCurve or Null> {
+        return [null] as Array<TwoSunsBatteryCurve or Null>;
+    }
+
+    // A history curve in Pro, null in Free (which has no history): for tests that run in both tiers.
+    (:pro)
+    static function curveOrNull(level as Number, ageMinutes as Number) as TwoSunsBatteryCurve or Null {
+        return curve(level, ageMinutes);
+    }
+
+    (:free)
+    static function curveOrNull(level as Number, ageMinutes as Number) as TwoSunsBatteryCurve or Null {
+        return null;
     }
 
     static function sky(state as Number) as TwoSunsSky {
@@ -52,7 +86,8 @@ class TwoSunsTestStates {
         return sky;
     }
 
-    // A curve whose newest sample is `level`, `ageMinutes` old.
+    // A curve whose newest sample is `level`, `ageMinutes` old. Pro only (it builds the history).
+    (:pro)
     static function curve(level as Number, ageMinutes as Number) as TwoSunsBatteryCurve {
         var values = [level] as Array<Numeric or Null>;
         var whens = [NOW - ageMinutes * TwoSunsConfig.SECONDS_PER_MINUTE] as Array<Number or Null>;

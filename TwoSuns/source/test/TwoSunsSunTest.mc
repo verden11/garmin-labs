@@ -1,8 +1,10 @@
 import Toybox.Lang;
 import Toybox.Test;
 
-// Hand-written checks around the generated USNO reference tests.
+// Hand-written checks around the generated USNO reference tests. The tests are Pro only (TwoSunsSun is not compiled into
+// Free: docs/decisions.md ADR-020, Free + Pro ladder); sunPresent is shared with the tests that run in both tiers.
 
+(:debug)
 function sunPresent(value as Number or Null) as Number {
     if (value == null) {
         Test.assertMessage(false, "expected a time, got null");
@@ -11,7 +13,7 @@ function sunPresent(value as Number or Null) as Number {
     return value;
 }
 
-(:test)
+(:test, :pro)
 function sunDayOrderIsSensible(logger as Test.Logger) as Boolean {
     // London, 27 September 2026, BST (+60): rise < noon < set, civil twilight outside them, golden hour inside.
     var sun = TwoSunsSun.compute(2026, 9, 27, 51.5, -0.12, 60);
@@ -25,7 +27,7 @@ function sunDayOrderIsSensible(logger as Test.Logger) as Boolean {
 }
 
 // A sunset after local midnight is a minute count above 1440, not wrapped (Reykjavik, 21 June).
-(:test)
+(:test, :pro)
 function sunsetAfterMidnightIsNotWrapped(logger as Test.Logger) as Boolean {
     var sun = TwoSunsSun.compute(2026, 6, 21, 64.15, -21.94, 0);
     Test.assert(sunPresent(sun.set) > TwoSunsConfig.MINUTES_PER_DAY);
@@ -33,7 +35,7 @@ function sunsetAfterMidnightIsNotWrapped(logger as Test.Logger) as Boolean {
 }
 
 // The equator's day is about 12 hours all year: a check that Float rounding does not drift with the date.
-(:test)
+(:test, :pro)
 function equatorDayIsAboutTwelveHours(logger as Test.Logger) as Boolean {
     for (var month = 1; month <= 12; month++) {
         var sun = TwoSunsSun.compute(2026, month, 15, 0.0, 0.0, 0);
@@ -44,7 +46,7 @@ function equatorDayIsAboutTwelveHours(logger as Test.Logger) as Boolean {
 }
 
 // Far future and far past years stay inside the Float budget (days since J2000, not a Julian date).
-(:test)
+(:test, :pro)
 function distantYearsStillGiveASensibleNoon(logger as Test.Logger) as Boolean {
     var years = [2001, 2038, 2060, 2100] as Array<Number>;
     for (var i = 0; i < years.size(); i++) {
