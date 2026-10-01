@@ -8,10 +8,12 @@ store's "What's New" text for each version is in that listing's `listing/README.
 
 ## Unreleased / 1.0.0 in preparation (both listings)
 
-Built 2026-09-28, twice: an initial plain-text/single-accent build, then ADR-013's icon/colour
-redesign on top of it the same day. Evidence for both: simulator-only — compile sweep (both
-densities, all 69 products, `docs/compatibility.md`); render/test exercised on 4 representative
-devices (fr965, approachs50, venusq2, venux1), both densities. Nothing has run on a wrist.
+Built 2026-09-28 in three passes the same day: an initial plain-text/single-accent build, ADR-013's
+icon/colour redesign, then a layout rework and an accent-colour setting after the owner's first
+on-wrist photo (ADR-013 amendment, ADR-014). Evidence: simulator-only — compile sweep (both
+densities, all 69 products, `docs/compatibility.md`); render/test exercised per device on 4
+representative devices (fr965, approachs50, venusq2, venux1), both densities. The only real-device
+evidence is that one photo; the fixes and the setting have not been re-checked on a wrist.
 
 Built:
 
@@ -35,7 +37,13 @@ Built:
   (ADR-013 extends ADR-006).
 - AMOLED always-on dim/drift idle frame (TwoSuns's proven burn-in pattern, reused); the idle frame
   deliberately does not gain the new date line, to keep the fewest lit pixels.
-- No settings surface, either listing.
+- Every window's stack planned as a whole against the real display (`DayArcStack`): vertically
+  centred, fonts stepped down only as needed, a long sub line wrapped to two lines instead of cut
+  to a stub, the clock and other rows kept clear of the progress arc; the three rectangular
+  products use full-width rows (ADR-001 amendment, ADR-013 amendment).
+- One setting, both listings: **Accent colour** (Auto default, or cyan/amber/rose/green/blue/purple),
+  in the Garmin Connect app and the watch's own Customize list; applies without a restart
+  (ADR-014, partly reversing ADR-011). Density stays a separate listing.
 
 Not done, and not to be claimed:
 

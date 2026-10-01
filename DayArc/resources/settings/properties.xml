@@ -1,0 +1,4 @@
+<properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- Value matches DayArcConfig.ACCENT_AUTO; the id never changes once shipped. -->
+    <property id="Accent" type="number">0</property>
+</properties>

@@ -31,7 +31,8 @@ through the current window the clock is (morning/midday/evening only, ADR-013).
 - No calendar in Simple — deliberate craft decision, not a gap (ADR-008).
 - No outdoor/break nudges, no sleep score/coach, no companion app, no widget (all cut — see the
   plan doc's "Still cut" table; nothing here reopens them).
-- No settings surface, either density (ADR-011).
+- No settings surface beyond ONE: Accent colour (ADR-014, which partly reverses ADR-011). Density
+  is compile-time, never a setting.
 - No network, no `Communications`, no `Background`, no `UserProfile`.
 
 ## Data sources
@@ -60,13 +61,28 @@ sharing ADR-006's own banned root ("draining") — caught by `watch-design-revie
 
 ## Settings
 
-None (ADR-011). No `settings.xml`, no `getSettingsView()`.
+Exactly one, in both listings (ADR-014, partly reversing ADR-011): **Accent colour**, a list —
+`0` Auto (default: each window's own hue — morning amber, midday cyan, evening rose), `1` Cyan,
+`2` Amber, `3` Rose, `4` Green, `5` Blue, `6` Purple; all 64-colour-safe, never a free colour
+picker. A fixed choice colours the window-progress arc, the hero value, the gauge fill and the hero
+icon in every non-night window; night stays hueless; Pro's 14 grid icons keep their fixed per-type
+hues. Property id `Accent` (never changes once shipped), `resources/settings/settings.xml` +
+`properties.xml`, shared by both jungles. Two writers, last change wins: the Garmin Connect phone
+page (store-installed apps only — a sideloaded build gets none, so it is unverifiable until a store
+install) and the watch's own Customize list (`getSettingsView`, CIQ 4.2+ — the only route a
+sideloaded build has; not claimed in listing copy until it has been tried on a wrist). Read at draw time inside a guard, clamped, any bad
+value falls back to Auto; a change applies on the next redraw with no restart. Density is not a
+setting (ADR-003). No other setting is to be added under this one.
 
 ## Device reach
 
-`minApiLevel="4.2.0"`, TwoSuns ADR-009's 69-product set, reused verbatim (ADR-001). Rectangular
-AMOLED products (Venu Sq 2, Venu Sq 2 Music, Venu X1) get the same round-centred content, scaled to
-the shorter side (`DayArcLayout`) — same convention as TwoSuns.
+`minApiLevel="4.2.0"`, TwoSuns ADR-009's 69-product set, reused verbatim (ADR-001). Round products
+(66 of the 69) are chord-fitted against the inscribed circle. The three rectangular AMOLED products
+(Venu Sq 2, Venu Sq 2 Music, Venu X1) use the full screen width and the screen's own bottom edge —
+they have no bezel to clip against; only the window-progress arc stays on the inscribed circle
+(ADR-001, amended 2026-09-28). Every window's stack — clock, date, hero, gauge, sub line(s) and, in
+Pro, the grid — is planned as a whole against the real display (`DayArcStack`), stepping fonts down
+only as needed; on the smallest screens Pro reserves fewer grid rows (`DESIGN.md` "Layout").
 
 ## Success and stop test
 

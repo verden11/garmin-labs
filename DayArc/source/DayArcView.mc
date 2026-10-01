@@ -9,6 +9,7 @@ import Toybox.WatchUi;
 class DayArcView extends WatchUi.WatchFace {
     private var _sources as DayArcSources = new DayArcSources();
     private var _layout as DayArcLayout or Null = null;
+    private var _plans as DayArcPlanCache = new DayArcPlanCache();
     private var _sleeping as Boolean = false;
     private var _burnIn as Boolean;
 
@@ -20,6 +21,7 @@ class DayArcView extends WatchUi.WatchFace {
 
     function onLayout(dc as Graphics.Dc) as Void {
         _layout = new DayArcLayout(dc);
+        _plans.reset();
     }
 
     function onUpdate(dc as Graphics.Dc) as Void {
@@ -43,7 +45,8 @@ class DayArcView extends WatchUi.WatchFace {
         var progress = DayArcWindow.progressFor(clock.hour, clock.min);
         var epoch = Time.now().value();
         var hero = DayArcFields.forWindow(window, _sources, epoch);
-        DayArcDraw.renderActive(dc, layout, window, hero, clockText, progress);
+        var plan = _plans.get(dc, layout, window, hero);
+        DayArcDraw.renderActive(dc, layout, window, hero, clockText, progress, plan);
     }
 
     function onEnterSleep() as Void {

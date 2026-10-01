@@ -20,15 +20,16 @@ DayArc Pro
 ## Description (max 4000, one box per language)
 
 ```text
-DayArc Pro changes what it shows through the day, on a fixed schedule — no settings, nothing to
-configure.
+DayArc Pro changes what it shows through the day, on a fixed schedule. One setting: an accent
+colour, chosen in the Garmin Connect app — or leave it on Auto, where each time of day has its own
+colour.
 
-The same four windows as DayArc, denser: morning adds sunrise/sunset, date, battery, resting heart
-rate, steps, floors and notifications alongside the weather read; midday adds your next calendar
-event, heart rate, intensity minutes, floors, steps, calories, notifications, current temperature,
-weekly run distance and weekly bike distance alongside the stress read; evening adds recovery time,
-respiration, heart rate, steps, calories, pulse ox and VO2max alongside Body Battery. Night stays
-time and date only.
+The same four windows as DayArc, denser: under each window's main reading, Pro shows as many of your
+watch's other readings as fit its screen — in the morning sunrise/sunset, battery, heart rate, steps,
+floors and notifications; at midday your next calendar event, heart rate, intensity minutes, floors,
+steps, calories, notifications, current temperature and weekly run and bike distance; in the evening
+recovery time, respiration, heart rate, steps, calories, pulse ox and VO2max. A smaller screen shows
+fewer. Every window shows the time and date; night shows only those.
 
 Every reading is shown as a number, never a mood or a verdict. Fields the watch can't provide show
 as "--", not blank and not a guess.

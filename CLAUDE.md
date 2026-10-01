@@ -12,7 +12,7 @@ file only covers what spans folders.
 | `HeroFace/` | Garmin watch face (Connect IQ, Monkey C) | [`HeroFace/CLAUDE.md`](HeroFace/CLAUDE.md) |
 | `DaysToGo/` | Garmin countdown watch face (Connect IQ, Monkey C) | [`DaysToGo/CLAUDE.md`](DaysToGo/CLAUDE.md) |
 | `TwoSuns/` | Garmin sun and Body Battery watch face, "Two Suns" (Connect IQ, Monkey C) — submitted 2026-09-27, pending review | [`TwoSuns/CLAUDE.md`](TwoSuns/CLAUDE.md) |
-| `DayArc/` | Garmin time-of-day-adaptive watch face pair, "DayArc" (free) / "DayArc Pro" (paid, $1.99, no flip) — one codebase, two build targets/listings (Connect IQ, Monkey C) — built and tested in the simulator only, nothing run on real hardware yet | [`DayArc/CLAUDE.md`](DayArc/CLAUDE.md) |
+| `DayArc/` | Garmin time-of-day-adaptive watch face pair, "DayArc" (free) / "DayArc Pro" (paid, $1.99, no flip) — one codebase, two build targets/listings (Connect IQ, Monkey C) — built and tested in the simulator; the only real-device evidence is one owner photo (bug evidence, fixes not re-checked on a wrist) | [`DayArc/CLAUDE.md`](DayArc/CLAUDE.md) |
 | `site/` | Public website (Vite + React, prerendered) | [`site/CLAUDE.md`](site/CLAUDE.md) |
 
 `device-test/` is git-ignored scratch for on-watch builds, shared by both
@@ -37,6 +37,25 @@ restated here. Keep new files in that shape.
   URLs, so **never change or remove a published URL**.
 - Relative paths between folders (`../HeroFace`, `../site`) still work
   and are used throughout the docs. Keep them.
+
+## Studio direction (owner, 2026-09-28)
+
+Three directives from the owner. They apply to every watch project and to every `watch-pm` / `watch-design-lead` run:
+
+- **Free + Pro for every face (apps where possible).**
+- **Every face has a customisable accent colour, and it is in the Free tier.** Lists only, append-only ids, colours checked against the
+  face's own reserved roles (`research_notes/Free and Pro ladder/accent_roster.md`).
+- **Design more daringly**, without more fields: one decisive move per face, category-keyed bold colour, real icons, never a colour
+  keyed to a reading. Design the Free build first. Mockup, browser screenshot and owner look-approval come before Monkey C. 96 KB
+  faces (HeroFace, DaysToGo) have no bitmap budget.
+
+**Agents: start at [`reports/Free and Pro ladder - START HERE.md`](reports/Free%20and%20Pro%20ladder%20-%20START%20HERE.md)** (status, rules, paste-ready prompt per work package).
+
+**Proposed, pending owner sign-off (OD1/OD2 in the plan):** the ladder mechanics in
+[`reports/Free and Pro ladder.md`](reports/Free%20and%20Pro%20ladder.md) and
+[`reports/Free and Pro ladder execution plan.md`](reports/Free%20and%20Pro%20ladder%20execution%20plan.md) (live paid id becomes the
+Pro, the Free is a new app id, no flip-to-free, prices, names, pilots). **Until the owner signs off, each project's existing ADRs
+govern** (for example DaysToGo and TwoSuns ADR-002, the price and day-45 review). Prepare, do not build or upload, against the plan.
 
 ## House rules everywhere
 

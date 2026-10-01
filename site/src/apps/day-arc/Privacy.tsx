@@ -6,7 +6,7 @@ export function Privacy() {
     <Doc title="Privacy policy" lede={`${appName} for Garmin watches. Effective 28 September 2026.`}>
       <Note>
         <strong>In short:</strong> {appName} keeps everything on your watch. It has no account, no internet access, no
-        analytics, no ads, and no settings to store. It asks for one permission, listed below, and sends nothing to the
+        analytics, no ads, and stores just one setting (your accent colour choice). It asks for one permission, listed below, and sends nothing to the
         developer or to anyone else.
       </Note>
 
@@ -27,7 +27,7 @@ export function Privacy() {
       <p>{appName} does not read your location. It has no Positioning permission.</p>
 
       <h2>What {appName} saves</h2>
-      <p>Nothing. There are no settings and no stored readings — every value is read fresh each time the face redraws.</p>
+      <p>One thing: the accent colour you choose, a single small number kept in the app's own settings storage on your watch. No readings are stored — every value is read fresh each time the face redraws. If you change the colour in the Garmin Connect app, Garmin's own app and settings sync carry that choice to your watch; that is Garmin's mechanism, not something {appName} sends anywhere.</p>
 
       <h2>What {appName} shares</h2>
       <p>Nothing. It has no network access, so nothing the face reads is ever sent to the developer, to Garmin Connect, or to anyone else.</p>

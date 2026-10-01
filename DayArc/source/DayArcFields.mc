@@ -26,39 +26,36 @@ class DayArcFields {
         return hero;
     }
 
-    // Date is shown in every window now, not just night (ADR-013; was night-only before).
+    // Date is shown in every window now, not just night (ADR-013; was night-only before). The hero
+    // icon is the window's identity marker, not a data-presence indicator, so it is set here for
+    // every active window whatever the reading — and in the wearer's chosen accent (ADR-014), read
+    // fresh on every gather, never cached.
     private static function heroFor(window as Number, sources as DayArcSources, epoch as Number) as Dictionary {
         var dateText = DayArcSources.complicationString(Complications.COMPLICATION_TYPE_WEEKDAY_MONTHDAY);
+        var hero = {} as Dictionary;
         if (window == DayArcConfig.WINDOW_MORNING) {
-            var hero = morningHero(sources, epoch);
-            hero.put(:dateText, dateText);
-            return hero;
+            hero = morningHero(sources, epoch);
+        } else if (window == DayArcConfig.WINDOW_MIDDAY) {
+            hero = middayHero(sources);
+        } else if (window == DayArcConfig.WINDOW_EVENING) {
+            hero = eveningHero(sources);
         }
-        if (window == DayArcConfig.WINDOW_MIDDAY) {
-            var hero = middayHero(sources);
-            hero.put(:dateText, dateText);
-            return hero;
+        // WINDOW_NIGHT: no data block, time + date only (ADR-010) — an empty hero, so no icon.
+        hero.put(:dateText, dateText);
+        var icon = DayArcIcons.heroFor(window, DayArcSettings.accentChoice());
+        if (icon != null) {
+            hero.put(:icon, icon);
         }
-        if (window == DayArcConfig.WINDOW_EVENING) {
-            var hero = eveningHero(sources);
-            hero.put(:dateText, dateText);
-            return hero;
-        }
-        // WINDOW_NIGHT: no data block, time + date only (ADR-010).
-        return {:dateText => dateText} as Dictionary;
+        return hero;
     }
 
     private static function morningHero(sources as DayArcSources, epoch as Number) as Dictionary {
         var conditions = sources.currentConditions(epoch);
         if (conditions == null) {
-            // The hero icon is the window's identity marker, not a data-presence indicator — it
-            // stays even when the reading itself is unavailable, matching midday/evening's hero
-            // dicts (both set :icon unconditionally) — watch-design-reviewer, 2026-09-28.
             return {
                 :label => null,
                 :value => WatchUi.loadResource(Rez.Strings.value_none) as String,
                 :sub => WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String,
-                :icon => DayArcIcons.heroFor(DayArcConfig.WINDOW_MORNING),
             } as Dictionary;
         }
         var feelsLike = conditions has :feelsLikeTemperature ? conditions.feelsLikeTemperature : null;
@@ -76,7 +73,6 @@ class DayArcFields {
             :label => null,
             :value => DayArcFormat.temperature(feelsLike),
             :sub => sub.length() > 0 ? sub : null,
-            :icon => DayArcIcons.heroFor(DayArcConfig.WINDOW_MORNING),
         } as Dictionary;
     }
 
@@ -88,7 +84,6 @@ class DayArcFields {
             :sub => stress == null ? (WatchUi.loadResource(Rez.Strings.midday_stress_unavailable) as String) : null,
             :gauge => stress, // 0-100 or null; DayArcDraw draws a single-hue fill, never a colour verdict.
             :gaugeMax => DayArcConfig.STRESS_MAX,
-            :icon => DayArcIcons.heroFor(DayArcConfig.WINDOW_MIDDAY),
         } as Dictionary;
     }
 
@@ -103,7 +98,6 @@ class DayArcFields {
             :sub => sub,
             :gauge => battery,
             :gaugeMax => DayArcConfig.BODY_BATTERY_MAX,
-            :icon => DayArcIcons.heroFor(DayArcConfig.WINDOW_EVENING),
         } as Dictionary;
     }
 
@@ -137,7 +131,7 @@ class DayArcFields {
     }
 
     // Icons and the icon-alone cells below are ADR-013, midday/evening only — the owner's own
-    // request named those two windows; morning's grid is unchanged (see DayArcIcons.heroFor's own
+    // request named those two windows; morning's grid is unchanged (see DayArcIcons's own header
     // comment) and still uses plain `cell()` with a text label, no icon.
     (:pro)
     private static function middayCells() as Array<Dictionary> {

@@ -1,0 +1,17 @@
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <!-- The one wearer setting (docs/decisions.md ADR-014). A list only, never a free colour
+         picker; every value is 64-colour-safe (DayArcPalette.ACCENTS). Value 0 = Auto, today's
+         per-window hues. Identical in both listings (resources/ is shared by both jungles). -->
+    <setting propertyKey="@Properties.Accent" title="@Strings.setting_accent">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.accent_auto</listEntry>
+            <listEntry value="1">@Strings.accent_cyan</listEntry>
+            <listEntry value="2">@Strings.accent_amber</listEntry>
+            <listEntry value="3">@Strings.accent_rose</listEntry>
+            <listEntry value="4">@Strings.accent_green</listEntry>
+            <listEntry value="5">@Strings.accent_blue</listEntry>
+            <listEntry value="6">@Strings.accent_purple</listEntry>
+        </settingConfig>
+    </setting>
+</settings>

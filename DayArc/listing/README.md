@@ -21,13 +21,13 @@ DayArc
 ## Description (max 4000, one box per language)
 
 ```text
-DayArc changes what it shows through the day, on a fixed schedule — no settings, nothing to
-configure.
+DayArc changes what it shows through the day, on a fixed schedule. One setting: an accent colour,
+chosen in the Garmin Connect app — or leave it on Auto, where each time of day has its own colour.
 
 Morning: feels-like temperature, the day's high and low, and chance of rain — what to dress for.
 Midday: a stress reading, shown as a number and a plain gauge, never a mood or a verdict.
 Evening: your Body Battery reading, the same way — a number, never good or bad.
-Night: time and date.
+Night: time and date — which every window shows in its header.
 
 DayArc shows one reading at a time, on purpose. Looking for more fields per window? DayArc Pro is a
 separate listing with a denser view of the same four windows.

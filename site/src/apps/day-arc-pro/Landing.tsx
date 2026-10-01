@@ -49,7 +49,7 @@ export function Landing() {
         <h2 id="yours-title" className="band__title">A separate listing, on purpose.</h2>
         <p className="band__lede">DayArc Pro is a fixed $1.99 with no free tier and no in-app toggle. Want the simpler, one-reading-per-window face instead? That's DayArc, a separate free listing.</p>
         <dl className="facts">
-          <div><dt>No settings</dt><dd>Every choice is decided at build time — this platform's most common complaint is settings that don't save, so DayArc Pro has none to fail to save.</dd></div>
+          <div><dt>One setting</dt><dd>An accent colour, chosen in the Garmin Connect app — Auto by default, where each time of day has its own colour. Which fields show is decided at build time, not a setting; if the colour setting is ever missing the face just shows its normal colours.</dd></div>
           <div><dt>Nothing leaves the watch</dt><dd>No location, no network, no account.</dd></div>
         </dl>
         <p><a href={appUrl(dayArcPro.slug, 'privacy')}>Read the privacy policy</a></p>

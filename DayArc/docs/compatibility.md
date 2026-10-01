@@ -7,8 +7,9 @@ densities; the other 65 are compile-only.
 ## Target tier
 
 `minApiLevel="4.2.0"` — `Toybox.Complications`'s own floor. 66 round products, 3 rectangular AMOLED
-(Venu Sq 2, Venu Sq 2 Music, Venu X1) — same round-centred-content convention as TwoSuns
-(`DayArcLayout`, shorter-side scaling). Excluded, same as TwoSuns ADR-009: Instinct 3 Solar 45mm and
+(Venu Sq 2, Venu Sq 2 Music, Venu X1). Round products are chord-fitted against the inscribed circle
+(TwoSuns's convention); the three rectangular ones use full-width rows and the screen's own bottom
+edge, with only the progress arc on the inscribed circle (ADR-001, amended 2026-09-28). Excluded, same as TwoSuns ADR-009: Instinct 3 Solar 45mm and
 Instinct E (semi-octagon, 64KB, monochrome), and every product below API 4.2.
 
 ## Compile sweep
@@ -19,10 +20,12 @@ Compile-only — proves every product builds, not that it renders correctly.
 
 ## Render/test spot check
 
-4 devices, both jungles, via `tools/run_tests.sh` (all 9 tests — `DayArcWindowTest`,
-`DayArcRenderTest`, `DayArcFormatTest`, `DayArcLayoutTest` — in the simulator): **fr965** (default
+6 devices (the 4 below plus fr255s and fenix7s, run 2026-10-01), both jungles, via `tools/run_tests.sh`, each run ON that device in the simulator (20 tests
+Simple / 22 Pro, including `DayArcStackTest`'s per-device worst-case fit — font metrics come from the
+device running the simulator, so this cannot be done with one device and synthetic sizes): **fr965** (default
 round AMOLED — also the device the full dev-loop above ran against),
-**approachs50** (smallest round product in the set — the "does the grid fit at all" case),
+**approachs50** (390px — a small round AMOLED, but NOT the smallest round product: that is
+fr255s/fr255sm at 218px MIP, then fenix7s/fenix7spro at 240px, `../TwoSuns/docs/compatibility.md`),
 **venusq2**, **venux1** (the two rectangular shapes). All pass, both densities, zero warnings past
 the expected launcher-icon-scaling notice (real icons not supplied yet, `docs/publish-checklist.md`
 gate 11).
@@ -37,3 +40,42 @@ would still not be device proof either way.
 None found in the export-count/product-list category yet (no export run — `docs/development.md`
 "Export" is drafted, not executed). Same caveat as every other project here: **nothing here has run
 on a wrist.**
+
+## Export, memory and size (2026-09-28)
+
+`monkeyc -e -r` for each jungle prints "89 OUT OF 89 DEVICES BUILT" against a 69-product manifest —
+the same over-report TwoSuns documented (`../TwoSuns/docs/compatibility.md` "The export and 89
+devices"); the exporter counts internal build units, not manifest products. Not reconciled beyond
+that; no watch count goes in either listing. `dist/DayArc.iq` 1.95 MB, `dist/DayArcPro.iq` 2.27 MB
+(git-ignored), each containing the Accent colour settings resources.
+
+Memory: every one of the 69 products has the same watch-face memory limit, **131,072 bytes**
+(`Devices/*/compiler.json`), so there is no smaller device to single out. Release `.prg` for fr965:
+Simple 39,740 bytes, Pro 46,924 bytes. `DayArcRenderTest` logs `getSystemStats()` after rendering
+all four windows and loading icons: Simple `used` ~34.0 KB, Pro ~39.2 KB, identical across fr965,
+approachs50, venusq2 and venux1 (a TEST build, larger than release; the simulator's own
+`totalMemory` in test mode, 8.4 MB, is not the watch's limit). Simulator numbers, not device ones.
+
+## Smallest screens (218px fr255s/fr255sm, 240px fenix7s/fenix7spro) — compiled, NOT rendered
+
+Only 4 of the 69 products have ever been rendered. fr255s and fenix7s compile clean (normal and
+`monkeyc -t` test builds, both jungles, 2026-09-29); their fit tests are written and unrun.
+Arithmetic from the code and each device's own `simulator.json` (font em sizes: fr255s xtiny 13,
+tiny 15, large 20, number-mild 25, -medium 32, -hot 41; fenix7s 13/17/24, 28/35/46 — much smaller than
+fr965's, box heights estimated at ~1.17x the em, so ~15-18px text rows and a 29/37/48px number box):
+- **Fixed-size bitmaps are the binding constraint, not the fonts.** The hero icons are 56x45, 52x52
+  and 68x48 px and the grid icons 22px, whatever the screen. On 218px the hero row is at least 48px
+  (icon-dominated: a hot number box is ~48 too) = ~22% of the height, against ~12% on fr965.
+- **Simple, evening (worst case):** clock ~29 + date ~18 + label ~18 + hero 48 + gauge 6 + sub ~18 =
+  ~137px plus 5 gaps of ~3px = ~152px, against ~192px usable (13px top and bottom) — fits on the first
+  rungs; hero width 68 + 4 + a 3-digit hot number (~75px) = ~147px against a ~190px chord. The clock
+  (~95px wide) clears the arc's clear radius (~100px) from y~22. So Simple should fit at or near the
+  top of the ladder.
+- **Pro:** grid rows are max(text 15, icon 22) + gap = ~25px, reserve ~54px for two rows; hero block
+  with label ~145px + 54 = ~199px against 192px — needs the small-text rung (or dropping the hero
+  label), then fits with roughly 2 rows of icon+value cells (~78px columns near the bottom chord).
+  Hero tiers do not help there because the 48px icon, not the number, sets the row height.
+- These are estimates, not measurements. If either plan does not really fit, the fallback in
+  `DayArcStack` (TRIM rungs, then `prune()`) keeps it safe to draw — it cannot draw a row across the
+  bottom or throw — but it would then be showing less than intended, which only the run will tell.
+

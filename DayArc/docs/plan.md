@@ -16,11 +16,17 @@ only (ADR-002). No location probe needed — DayArc reads no location at all, un
 
 Done for both densities. `DayArcWindow` (pure, tested), `DayArcFields` (compile-time
 `:simple`/`:pro` split), `DayArcLayout` (chord-math geometry, reused from TwoSuns's proven pattern),
-`DayArcDraw` (hero + gauge + capped grid), `DayArcView`/`DayArcApp` (entry points, no settings).
+`DayArcStack` (whole-stack vertical/width plan) + `DayArcDraw` (draws the plan), `DayArcGrid`, `DayArcArc`, `DayArcView`/`DayArcApp` (entry points; one Accent colour setting, Phase 3).
 
 ## Phase 3 — settings
 
-Skipped, deliberately (ADR-011).
+Was skipped (ADR-011); **one setting added 2026-09-28** at the owner's explicit request after first
+wear: Accent colour, both listings (ADR-014). Built: `resources/settings/{settings,properties}.xml`,
+`DayArcSettings` (guarded read at draw time, clamp, Auto fallback), 18 hero-icon bitmaps
+(`tools/gen_hero_icons.py`), the phone page (required) and the watch's own Customize list
+(`DayArcApp.getSettingsView` + `DayArcAccentDelegate`, TwoSuns's list-menu pattern). **Not done, and
+the actual risk:** neither surface has ever been used on a device — gate 5 in
+`docs/publish-checklist.md` is the test.
 
 ## Phase 4 — always-on / AMOLED
 
@@ -31,9 +37,11 @@ Done: `onEnterSleep`/`onExitSleep` + `requiresBurnInProtection` branch, dim time
 ## Phase 5 — device/fit sweep
 
 Compile sweep: both jungles, all 69 products — see `compatibility.md`. Render/fit exercised on 4
-representative devices (fr965: default round AMOLED; approachs50: smallest round in the set;
-venusq2, venux1: the two rectangular shapes), both densities, via
-`DayArcRenderTest.everyWindowRendersWithoutError` in the simulator — not a full 69×2 render sweep.
+representative devices (fr965: default round AMOLED; approachs50: 390px, NOT the smallest round —
+that is fr255s/fr255sm at 218px MIP, then fenix7s/spro at 240px; venusq2, venux1: the two
+rectangular shapes), both densities, per device in the simulator — only 4 of the 69 products have
+ever been rendered. **First to run when the simulator is free: fr255s and fenix7s, both jungles**
+(`docs/compatibility.md` "Smallest screens").
 
 ## Phase 6 — listing and submission
 
@@ -53,21 +61,79 @@ all 17 icons; a "7 of 17" label-drop miscount corrected to 9) — and `docs/deci
 **Still open:** real-device evidence, an owner screenshot review of the actual build (mockup
 approval ≠ device proof), and a `watch-design-reviewer` re-run against the built version.
 
-**Built, simulator-only:** full render pipeline including ADR-013's icons/arc/divider/date, both
-densities, four windows, both build targets compile clean (`-w --typecheck 3`, zero warnings past
-the expected launcher-icon-scaling notice). `DayArcWindowTest` (2 tests: `windowFor`'s 10 boundary
-cases, `progressFor`'s own boundary/midpoint cases for the arc), `DayArcRenderTest` (6 tests:
-every-window render at three arc-progress fractions including the 0.0 boundary that `Dc.drawArc`
-would otherwise draw as a full circle, a deliberately low-nonzero gauge value for the corner-radius
-edge case, every-drift-position idle render, hero-icon resource-dimension checks, all 14 grid-icon
-resource-dimension checks), `DayArcFormatTest` (4 tests), and `DayArcLayoutTest` (2 tests: the
-a per-row grid-fit check (`DayArcGrid.cellFits`, rows never widen toward the bezel), plus a synthetic-resolution check that the clock
-row's `rowMaxWidth` stays positive across fr965/approachs50/venusq2/venux1's real resolutions
-regardless of which device is actually running the test) — 11 tests (Simple) / 13 (Pro,
-+`gridIconResourcesLoadAtExpectedSize`), pass on fr965, both jungles. Spot-checked on approachs50
-(smallest round), venusq2, venux1 (rectangular) — same test suite, both jungles, all pass. Full
-69-product × 2-jungle **compile** sweep: 69/69 pass, both jungles, zero failures
+**Built, simulator-only:** full render pipeline including ADR-013's icons/arc/divider/date, the
+whole-stack planner and the accent setting, both densities, four windows, both build targets
+compile clean (`-w --typecheck 3`, zero warnings past the expected launcher-icon-scaling notice).
+Tests: `DayArcWindowTest` (`windowFor` boundaries; `progressFor` for the arc), `DayArcRenderTest`
+(every-window render at three arc fractions incl. the 0.0 boundary `Dc.drawArc` would draw as a full
+circle, a low gauge fill, every idle drift position, all 18 hero icons load at their size for every
+window x accent choice, all 14 grid icons — Pro), `DayArcFormatTest`, `DayArcLayoutTest` (per-row
+grid fit; the clock row's chord stays positive across four real resolutions — geometry only, see
+below), `DayArcSettingsTest` (garbage/out-of-range values fall back to Auto; every choice maps to a
+64-colour-safe hue; Auto is exactly the per-window hues) and `DayArcStackTest` (per-device fit,
+below) — **20 tests (Simple) / 22 (Pro)** after the third-review fixes, all passing on fr965, approachs50, venusq2, venux1, fr255s and fenix7s,
+both jungles. Full 69-product x 2-jungle **compile** sweep 69/69 both jungles
 (`bin/compile-sweep-monkey.{simple,pro}.txt`) — compile-only, not a render/fit sweep for all 69.
+
+**Third review (2026-09-29) fixes — compiled AND run (2026-10-01):** the plan cache now keys on date
+presence and replans when a live string is wider than its plan (`DayArcPlanCache`,
+`DayArcSizing.covers`, sizing now pixel-based); every live string in the draw path is null-guarded;
+`DayArcText.truncated` never returns a bare stub; a plan that fits nowhere ends in TRIM rungs and
+`prune()` (never draws across the bottom); a two-line sub is planned only when one line failed and
+drawn on one line when the live string fits; named constants replace the key weights, ladder indices
+and hue indices; the Customize delegate guards its write; the Auto entry has a hint. **Run result,
+simulator only:** `tools/run_tests.sh` on fr255s, fenix7s, fr965, approachs50, venusq2 and venux1,
+both jungles: **20 tests (Simple) / 22 (Pro), all pass** on all six. The first run caught one real
+bug: `planThatFitsNowhereDrawsOnlyInsideTheLimit` (40x40 Dc) threw "Invalid Value" because
+`DayArcArc.penWidth` rounded to 0 and `setPenWidth(0)` throws; floored at 1 (no real screen is that
+small). Full 69-product x 2-jungle compile sweep re-run after the fix: 69/69 both jungles.
+
+**After the owner's first wrist photo (FR965, evening, 2026-09-28) — vertical fit:** the photo showed
+the sub line as "4...", the arc crowding the clock's top corners and a top-heavy stack. Root cause
+confirmed from the REAL render path (not a model): on fr965 evening, "44 of 100", the old stack put
+clock y=27 (maxW 196 < the 217px clock, so even the clock drew "22:..."), date 138, label 193, hero
+248 (h152), sub y=429 h37 with maxW=-18 -> "4". (The owner's photo put the sub near y=423.) Every one
+of the four devices had at least one broken row (approachs50 sub maxW=64 vs 92px; venusq2 hero
+availW=-86; venux1 midday-empty sub y=454, maxW=-16). Now `DayArcStack` plans the whole stack and the
+same row on fr965 is clock 63 (h81, FONT_NUMBER_MILD), date 148, label 189, hero 230 (h121, HOT),
+gauge 355, sub 372 h37, bottom 409 of a usable 427. Arc clearance is the chord math: the clock's box
+corners sit at distance 196.6 from centre on fr965 against a clear radius of 204 (arc stroke inner
+edge 210 minus a 6px gap). **Departure from the request, and why:** the fit tests use the running
+device's own `Dc` and are run once per device via `tools/run_tests.sh`, not synthetic buffered Dcs of
+each resolution — a synthetic Dc changes only the SIZE; the fonts always come from the device
+actually running the simulator, so a synthetic 320x360 Dc under fr965's fonts gives numbers that are
+simply wrong (the earlier `clockRowNeverGoesNegativeAcrossDeviceShapes` therefore proves geometry
+only, and its comment now says so). Worst-case strings per window (`100`, `-40°`, `100 of 100`, the
+longest empty-state sentence, the longest morning sub `104/-40  100% rain  UV 11` built from the
+simulator's real `HIGH_LOW_TEMPERATURE` shape `55/43`, the longest date) all fit, none truncated,
+last row inside the usable area, clock corners inside the arc, on all four devices, both jungles.
+Tier reached per device (rung 0 = largest; 1 gaps halved; 2 clock MILD; 3 date/label/sub XTINY;
+4 hero MEDIUM; 5 hero MILD; 6 clock LARGE; 7 hero label dropped; 8 = + one reserved grid row, gaps
+quartered — the last two are the fallbacks):
+
+| Device | Simple: morning / midday data,empty / evening data,empty / night | Pro: morning / midday data,empty / evening data,empty (grid rows drawn) |
+|---|---|---|
+| fr965 454 | 3 / 2, 4 / 3, 4 / 0 | 5 / 6, 6 / 6, 6 (2 / 3, 2 / 2, 2) |
+| approachs50 390 | 1 / 0, 3 / 1, 3 / 0 | 3 / 3, 4 / 4, 4 (2 each) |
+| venusq2 320x360 | 4 / 2, 5 / 4, 4 / 0 | **8** / 7, **8** / **8**, **8** (1 / 2, 1 / 1, 2) |
+| venux1 448x486 | 2 / 1, 3 / 2, 3 / 0 | 4 / 5, 6 / 6, 6 (2 each) |
+
+Rectangular products (venusq2, venux1) first FAILED at every rung — the inscribed-circle model gave
+Venu Sq 2 a 160px radius — so they now use full-width rows and the screen's own bottom edge
+(ADR-001 amendment). **Only venusq2 Pro reaches the last fallback:** on a 320x360 screen Pro shows
+one grid row (two fields) in morning, midday-empty and evening-data; that is the honest limit of
+font-box heights on that screen, not something the planner can conjure space for. On fr965 Pro shows
+2-3 grid rows, never the 4+ the mockup implied — the real number-font boxes are much taller than the
+mockup's, and the grid competes with a hero that the owner's rule says not to shrink needlessly.
+Font boxes are conservative (padding above the digits), so all of this may look smaller than
+necessary on the wrist; that is the wrist check's job to tune, not a guess made here.
+
+**Accent colour (ADR-014), both listings:** memory. Every one of the 69 products has the same
+watch-face memory limit, 131,072 bytes (`Devices/*/compiler.json` `appTypes`), so there is no
+"smaller" device; the render test logs `System.getSystemStats()` after rendering all four windows
+and loading icons: Simple `used` 34.0 KB, Pro 39.2 KB on all four devices (a TEST build, larger than
+a release build; the simulator's own `totalMemory` of 8.4 MB in test mode is not the watch's limit).
+That is roughly 26% / 30% of 128 KB. Release `.prg` sizes: see the export line in the report.
 
 **A fresh-context review of the ADR-013 build, 2026-09-28, found 8 issues, all fixed:** the clock
 row's `rowMaxWidth` went negative on Venu Sq 2/X1 (320x360, 448x486) because `topMargin`/`gridBottom`
@@ -132,7 +198,8 @@ after that behaviour was removed — corrected. Also deleted three genuinely dea
 (`LABEL_MAX_PERMILLE`, `HERO_MAX_PERMILLE`, `SUB_MAX_PERMILLE`) found in the same pass.
 
 **Not done, and not to be claimed:**
-- No real-device evidence at all — nothing here has run on a wrist. Every "PASSED" above is the
+- Real-device evidence is ONE photo (the defects above); none of the fixes, and none of ADR-014's
+  setting (phone page or watch Customize list), has been seen on a wrist. Every "PASSED" above is the
   simulator's own fabricated Complications/Weather data exercising the code path, not device truth.
 - Full 69-product ×2-jungle render/fit sweep not run — only compiled, not rendered, for products
   outside the 4 spot-checked devices.
