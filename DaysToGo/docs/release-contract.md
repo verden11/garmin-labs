@@ -21,3 +21,12 @@ What the listing, the store page and the site may claim. Copy of the rules in [`
 - Anything about a rival by name. Brand names in tags.
 - "Free" wording while the price is paid; disclose any limited-time free period (store review guideline 4d).
 - Translated store copy that no native speaker has read.
+
+## Free and Pro listings (ADR-014 (Free + Pro ladder), proposed)
+
+- The same allowed and forbidden lists apply to both listings. Nothing is claimed that only the other tier ships: the Free listing never says it has timed events or a battery or steps line; the Pro listing's "adds" list is exactly those two (plus any later Pro-only item once built).
+- "Free" wording is allowed **only** in the Free listing (which is $0). The Pro listing keeps the existing rule: no "free" wording while the price is paid.
+- Each listing names the other tier's store URL on its first line; the URL is a placeholder until both are live. The Free listing says "Get Days To Go Pro: <URL>"; the Pro listing says "Also available: Days To Go (<URL>)", **never "Try free first"** or any "free" wording. No download, rating or review number about either.
+- No device sentence goes in either listing until Garmin's store shows the real device list after approval; then it states only what the list shows, with no watch count. The review request in the plan's skeleton is optional and left to the owner (it is not an allowed claim by itself).
+- Free's description says nothing is locked or unlockable inside Free (there are no locked items); never "upgrade" wording inside the app or in the Free description's first lines beyond the sibling line.
+- "More from Verden" links only live **free** siblings.

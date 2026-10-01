@@ -5,7 +5,7 @@
 # The weekday and month words still come from the simulator's own language
 # (English), so only our own captions and names are checked in translation.
 #
-#   tools/fit_languages.sh [-l "eng deu ukr"] <product>...
+#   [TIER=free] tools/fit_languages.sh [-l "eng deu ukr"] <product>...      (TIER defaults to pro)
 #
 # Prints one line per run; exits 1 if any run failed. Needs the simulator running.
 set -u
@@ -13,6 +13,8 @@ PROJECT=${0:A:h:h}
 SDK_BIN=${SDK_BIN:-$(dirname "$(command -v monkeyc)")}
 KEY=${KEY:-$HOME/.garmin-connectiq/keys/developer_key}
 RUN_TIMEOUT=${RUN_TIMEOUT:-150}
+TIER=${TIER:-pro}
+if [[ $TIER == free ]]; then MANIFEST=manifest.free.xml EXCLUDE=pro; else MANIFEST=manifest.xml EXCLUDE=free; fi
 LANGS=(eng dan deu dut fin fre ita lit nob pol por spa swe tur ukr)
 if [[ ${1:-} == -l ]]; then LANGS=(${=2}); shift 2; fi
 WORK=$(mktemp -d)
@@ -25,9 +27,10 @@ for product in "$@"; do
     if [[ $lang == eng ]]; then src=$PROJECT/resources; else src=$PROJECT/resources-$lang; fi
     cp $src/strings/strings.xml $overlay/
     cat > $WORK/$lang.jungle <<EOF
-project.manifest = $PROJECT/manifest.xml
+project.manifest = $PROJECT/$MANIFEST
 base.sourcePath = $PROJECT/source
-base.resourcePath = $PROJECT/resources;$WORK/$lang
+base.resourcePath = $PROJECT/resources;$PROJECT/resources-$TIER;$WORK/$lang
+base.excludeAnnotations = $EXCLUDE
 EOF
     prg=$WORK/$lang-$product.prg
     if ! "$SDK_BIN/monkeyc" -t -d $product -f $WORK/$lang.jungle -o $prg -y $KEY > $WORK/build.log 2>&1; then

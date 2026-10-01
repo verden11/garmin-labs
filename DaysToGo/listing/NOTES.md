@@ -46,3 +46,19 @@ One 454 × 454 FR965 simulator screenshot and a 500 × 500 cover exist; see [`sc
 ## Previous What's New blocks
 
 - **1.0.0:** `First release.`
+
+## Pro 1.1.0: draft What's New and edits (UNRELEASED, proposed under ADR-014 (Free + Pro ladder), nothing uploaded)
+
+Not in `README.md` on purpose: that file is the paste-ready copy of the submitted 1.0.1, and nothing for 1.1.0 is approved. On upload (publish-checklist gate F9), move the 1.0.1 block here to history and paste these. Names, the price and the sibling URL are the owner's decisions; the strings below are the plan's placeholders.
+
+- **Title** (plan proposal): `Days To Go Pro: Countdown, Hours, Footer`.
+- **Description line 1** (new): `Also available: Days To Go (<STORE URL of the other listing: owner fills in once it is live>)`. The paid listing must not use the word "free" (release contract; store review guideline 4d), so the plan's "Try free first" wording is deliberately not used. The rest of the description is unchanged: it already describes only what Pro has (timed events, the battery or steps line, six accents).
+- **Version**: `1.1.0`.
+- **What's new** (draft):
+
+```text
+The app is now called Days To Go Pro on the watch. Nothing changes in how it works. Also available: Days To Go, with the core countdown.
+```
+
+- Device note (plan WP4 step 6): not in the draft. Add one only after the other listing's real device list is visible, with no "free" wording and no watch names or count.
+- The price is **not** in this file. Re-pricing an approved app removes it for re-review (SDK `Monetization/App_Sales`); the owner decides whether and when.

@@ -23,6 +23,8 @@ and `research_notes/Countdown face research/`. The verified first draft of the l
 | 9 Device evidence and submission | Submitted 2026-09-26 without the beta round trip (owner's decision); wear day and always-on night not yet reported |
 | 10 After approval | Not started |
 
+| 11 Free + Pro ladder (WP4 of `../../reports/Free and Pro ladder execution plan.md`) | **Built 2026-10-01, UNRELEASED, simulator only, proposed.** Free twin and Pro 1.1.0 compile for both jungles; **simulator tests run 2026-10-01: Pro 50 and Free 51 PASSED on fr965, fr55, venusq2; `fit_all.sh` passes on both jungles**; packages built and their contents checked. Open: owner decisions (names, prices, Pro headline, icon, translations, uploads), a device check. See the section "Phase 11" below |
+
 The text of phases 1 to 8 below is the original plan; where it says `docs/reference/` it means the first draft of the code, superseded by `source/` and `tools/` (that folder has since been removed). Nothing builds from it: `monkey.jungle` sets `base.sourcePath = source`.
 
 ## 0. Ground rules (they override anything below if in conflict)
@@ -174,7 +176,7 @@ Create, mirroring HeroFace's shape: `PRODUCT.md`, `DESIGN.md` (frontmatter token
 ### Phase 9. Device evidence and submission [OWNER] (≈ 1 day of wear + 72 h review)
 
 1. **Wear day** on the FR965 with the production-id build (all-day style: no build swaps, this app only): battery window, always-on for a night with sleep mode off (ghosting), midnight flip, the day count against the calendar. Record in the checklist. No battery figure goes in the listing.
-2. Export: `monkeyc -e -r -f monkey.jungle -o dist/DaysToGo.iq -y $KEY`.
+2. Export: `monkeyc -e -r -f monkey.jungle -o dist/DaysToGoPro.iq -y $KEY` (as originally written this was `dist/DaysToGo.iq`; the Free package is now `dist/DaysToGoFree.iq`, ADR-014 (Free + Pro ladder)).
 3. Paste the listing fields from `listing/README.md` into https://apps.garmin.com/developer/upload. **Price**: as answered in phase 0 (default paid $1.99): choose the price point in the merchant flow (SDK `Monetization/App_Sales`, "Yes, through Garmin CIQ merchant account") and expect the offered watch list and countries to shrink to Garmin's lists. If the owner switched to free, no merchant step. Price is set at submission: re-pricing an approved app removes it for re-review.
 4. Record the publication in `CHANGELOG.md` (version, upload date, user-facing changes, ADRs) and `listing/README.md`'s What's New (house rule for every publication).
 5. Record the baseline for the price review: download buckets, reviews and ratings of HeroSet and HeroFace at the day of submission.
@@ -183,6 +185,21 @@ Create, mirroring HeroFace's shape: `PRODUCT.md`, `DESIGN.md` (frontmatter token
 ### Phase 10. After approval
 
 **Price review reminder**: the day approval arrives, compute approval + 45 days and write "Price review due <date>" in `CLAUDE.md` and tell the owner to add it to the memory index; then follow `spec.md` "Price review" on that date. Verify the live listing page and that support and privacy URLs work; add the store URL and the (live) watch list to the site's `facts.ts`; note new-hardware watch launches (day-one support was the one ranking lever found in the research); on day 60 run the success test in `spec.md` (the price review at day 45 comes first).
+
+### Phase 11. Free + Pro ladder (proposed, UNRELEASED)
+
+Decision record: ADR-014 (Free + Pro ladder) in [`decisions.md`](decisions.md); the table of what each tier has is in [`spec.md`](spec.md) "Free and Pro". Builds against the plan; the owner has not signed off OD1 and OD2, so ADR-002 (price, day-45 review) still governs.
+
+| Step | State, 2026-10-01 |
+|---|---|
+| Free manifest, jungle, tier-only resources and settings (`manifest.free.xml`, `monkey.free.jungle`, `resources-free/`, `resources-pro/`), generator with a tier argument | Done |
+| Pro-only code marked `(:pro)` with `(:free)` twins; Pro behaviour unchanged | Done (compiled; Pro `resources-pro/settings` is byte-identical to the old shared one) |
+| Tests: 48 shared, 2 Pro-only, 3 Free-only (accent table, Unit unset, Free defaults for Pro keys, missing-key probe) | **Run in the simulator 2026-10-01: Pro 50 / Free 51 PASSED on fr965, fr55, venusq2; `fit_all.sh` (fr55 fenix5s fenix5 vivoactive4 fenix7x fr265s fr165 epix2 fr965 fenix9pro51mm) passes on both jungles.** Free memory not measured separately; nothing on a wrist |
+| Compile sweep, both jungles, every manifest product | **Run 2026-10-01, compile only: 120 of 120 products pass on each jungle** (`tools/compile_sweep.sh`, `bin/compile-sweep-*.txt`); 108 per jungle carry only the known launcher-icon size notice, the other 12 are warning-free. Normal builds only (test builds were compiled on fr965, fr55, venusq2, venux1) |
+| Packages `dist/DaysToGoFree.iq` (Free), `dist/DaysToGoPro.iq` (Pro) and the contents check (`tools/check_free_package.sh`) | Done, both OK; compile only |
+| `listing-free/` (README, NOTES, screenshots), CHANGELOG entries, publish-checklist block | Drafted; no screenshots exist (none invented) |
+| **Owner:** OD1 to OD4, names and store titles, Pro price, Free icon, translations of any new string, the Pro headline (no research run), look approval (the WP2 mockups were not part of this build: no visual change was made), uploads (Free 1.0.0 new, Pro 1.1.0 on the existing id, together), site (WP8) | Open |
+| **Tests to run (main thread):** see `development.md`; Pro on a device matrix, Free on the same, then `fit_all.sh monkey.free.jungle` | Open |
 
 ## 3. Definition of done for the whole project
 
@@ -204,12 +221,15 @@ Create, mirroring HeroFace's shape: `PRODUCT.md`, `DESIGN.md` (frontmatter token
 
 ```sh
 KEY=~/.garmin-connectiq/keys/developer_key
-monkeyc -d <device> -f monkey.jungle -o bin/DaysToGo.prg -y $KEY -w --typecheck 3     # build
-tools/run_tests.sh <device> [testName]                                                # unit tests, restarts a wedged simulator
+monkeyc -d <device> -f monkey.jungle -o bin/DaysToGo.prg -y $KEY -w --typecheck 3     # build Pro (monkey.free.jungle = Free)
+tools/run_tests.sh <device> [jungle] [testName]                                       # unit tests, restarts a wedged simulator; jungle defaults to monkey.jungle (Pro)
+tools/compile_sweep.sh                                                                # compile every product, both jungles (no simulator)
 monkeydo bin/DaysToGo.prg <device>                                                    # run the face (simulator running)
-monkeyc -e -r -f monkey.jungle -o dist/DaysToGo.iq -y $KEY                            # store package
-monkeyc -e -r -f beta.jungle -o dist/DaysToGo-beta.iq -y $KEY                         # beta package (after tools/make_beta.py)
-python3 tools/gen_settings.py [--ids]                                                 # settings resources
+monkeyc -e -r -f monkey.free.jungle -o dist/DaysToGoFree.iq -y $KEY                   # Free store package
+monkeyc -e -r -f monkey.jungle -o dist/DaysToGoPro.iq -y $KEY                         # Pro store package (the live app id)
+tools/check_free_package.sh                                                           # prove both packages' contents
+monkeyc -e -r -f beta.jungle -o dist/DaysToGo-beta.iq -y $KEY                         # beta package (after tools/make_beta.py; Pro build)
+python3 tools/gen_settings.py [free|pro] [--ids]                                      # settings resources
 pkill -f monkeydo; pkill -f "ConnectIQ.app/Contents/MacOS"                            # reset a wedged simulator
 ```
 

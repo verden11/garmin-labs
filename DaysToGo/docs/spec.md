@@ -29,6 +29,30 @@ No permissions, nothing leaves the watch.
 | D9 | **Languages: English + HeroFace's 14 translations** | Recommended | Few strings; Russian, Greek and Chinese are owner-level additions |
 | D10 | **No code sharing with HeroFace** (copy the few files, no Barrel) | Decided | A Barrel pays off at the third shared face, not the second |
 | D11 | **Date style setting** (Automatic, Day first, Month first) | **Owner confirmed, 2026-09-26** | The system gives no date-order preference; words avoid ambiguity, the setting fixes the order |
+| D12 | **Free + Pro pair**: the paid app becomes Days To Go Pro (1.1.0), a Free twin is added (1.0.0), one codebase, split at compile time (ADR-014 (Free + Pro ladder)) | **Proposed, builds against the plan; owner decides names, prices, sign-off** (UNRELEASED) | See "Free and Pro" below. D2 (price and the day-45 flip review) stays in force until the owner signs off; ADR-014 (Free + Pro ladder) supersedes the flip rule only then |
+
+### Free and Pro
+
+Status: **Proposed, UNRELEASED, simulator only; nothing built here is uploaded.** Strategy and evidence: `../../reports/Free and Pro ladder.md`; the build plan is WP4 in `../../reports/Free and Pro ladder execution plan.md`. The decision record is ADR-014 (Free + Pro ladder) in [`decisions.md`](decisions.md). Names ("Days To Go" and "Days To Go Pro") are the plan's **placeholders**; the owner decides them, the prices and the store titles.
+
+| | **Free** (new app id, $0) | **Pro** (the existing paid app id) |
+|---|---|---|
+| Manifest, jungle | `manifest.free.xml`, `monkey.free.jungle` | `manifest.xml`, `monkey.jungle` |
+| On-watch name | Days To Go | Days To Go Pro |
+| Version | 1.0.0 | 1.1.0 |
+| Event (New Year's Day, Christmas Day, My own date), Name, Month, Day, Year (Every year or 2026 to 2060) | yes | yes |
+| Count in (Days, Weeks and days) | yes | yes |
+| Date style (Automatic, Day first, Month first) | yes | yes |
+| Accent colour, ids 0 to 5 (mint, amber, sky, pink, violet, white) | **yes** (every face has an accent in Free, studio rule) | yes |
+| On-watch "Set date" picker | yes | yes |
+| Always-on frame, ring, hero, time, name, date lines, 15 languages | yes | yes |
+| Time of day for an event (the last 24 h read as `H:MM`, the HOURS state) | no | **yes** (Hour setting) |
+| Bottom line: battery or steps (Footer setting) | no | **yes** |
+| Accent ids 6 to 11 (cyan, lime, yellow, orange, coral, magenta) | no | **deferred**: not built; Pro-only when they come |
+| New layout choice | no | **deferred**: not built |
+| Permissions | none | none (Free's are always a subset of Pro's) |
+
+Rules: Free ships the whole promise (the count, the date, the always-on frame). Its settings, properties, on-watch name and compiled code carry no "Pro" word and no Hour or Footer key, and it has no locked or greyed item and no upgrade text (unreferenced Hour and Footer display strings and the dead HOURS and footer-drawing code still ship, shared with Pro). A phone that sends Hour or Footer to Free is ignored (the Free properties file does not define them). The Pro headline is **open**: no research was run on what countdown buyers pay for beyond the timed event and bottom line, so Pro is thin until that is answered (plan WP4 step 1). On the "Unit unset" case: a wearer who never touches Count in gets calendar days in both tiers (`unitUnsetCountsCalendarDays`, passed in the simulator 2026-10-01).
 
 ### Price
 
@@ -54,21 +78,21 @@ The owner chose paid ($1.99) on 2026-09-26. That stands. The research adds a ris
 | State | When | Hero | Caption | Ring |
 |---|---|---|---|---|
 | Upcoming | days > 0 | the day count, or whole weeks | DAY / DAYS / WEEKS (+ "+ n DAYS" in weeks mode) | square root of the share of the next 365 days still to go (1 day = 5% of the ring, 30 days = 29%); more than 365 days away: grey track only, so a full accent ring means the day itself |
-| Hours | timed event, under 24 h | `H:MM` | HOURS | share of the last 24 h still to go |
+| Hours (**Pro only**: Free has no timed events) | timed event, under 24 h | `H:MM` | HOURS | share of the last 24 h still to go |
 | Today | the event's day (all-day) or its time has arrived | TODAY | | full, accent |
 | Past | after the event | days since | DAY SINCE / DAYS SINCE | empty track, muted |
 | Invalid | a saved date that does not exist (30 Feb 2026) | SET A DATE | | none |
 
 Always: time (device 12/24 h, no seconds), event name (if any), target date small (`Fri 25 Dec 2026`, device language).
-Optional bottom line, off by default: battery or steps. Nothing else: no weather, heart rate, notifications, Bluetooth or alarm icons.
+Optional bottom line, off by default: battery or steps (**Pro only**). Nothing else: no weather, heart rate, notifications, Bluetooth or alarm icons.
 Why nothing else: the requests in rival reviews are "I just want a simple countdown face" (Event Countdown, Countdown!).
 
 ## Setting the date
 
 - **Phone** (Garmin Connect, Connect IQ app, Garmin Express): `Event` (New Year's Day / Christmas Day / My own date), `Name` (text, 16), `Month`, `Day`, `Year`
-  (a list: *Every year*, then 2026 to 2060), `Time of day` (*All day* or 00:00 to 23:00, stored as 0 = all day and 1 to 24, never a negative number), `Count in` (Days / Weeks and days), `Date style` (Automatic / Day first / Month first), `Bottom line`, `Accent`.
+  (a list: *Every year*, then 2026 to 2060), `Time of day` (**Pro only**; *All day* or 00:00 to 23:00, stored as 0 = all day and 1 to 24, never a negative number), `Count in` (Days / Weeks and days), `Date style` (Automatic / Day first / Month first), `Bottom line` (**Pro only**), `Accent`. Free shows Event, Name, Month, Day, Year, Count in, Date style and Accent (see "Free and Pro").
   **All lists**: a list has nothing to validate. The `date` type loses its value on iOS and Android (Countdown!: 32 of 49 low-star reviews are the date or saving it); `numeric`
-  min/max failed in time2race ("must be between 0 and 0"). Generated by `tools/gen_settings.py`.
+  min/max failed in time2race ("must be between 0 and 0"). Generated by `tools/gen_settings.py free|pro` into `resources-free/settings/` and `resources-pro/settings/`.
 - **On the watch** (the watch's own Customize menu, then Set date. **Verified on the FR965, 2026-09-26, sideloaded build:** choose the face in the watch-face list, then *Customize* (next to *Apply*), then *Set date*; the picked date applied at once and survived a restart. The route on other watches is unverified): a three-column Picker (month, day, year) writing the same properties and switching Event to *My own date*.
   No phone, no Garmin Express. **Unverified until phase 3:** whether the phone's next save overwrites it, and whether Garmin Connect shows it.
 - **Never empty**: the shipped default is *New Year's Day* (every year). A face installed and never configured is still a correct, useful countdown.

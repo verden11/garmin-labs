@@ -6,7 +6,7 @@ Fields are in the order of the upload form (https://apps.garmin.com/developer/up
 
 ## App file
 
-`../dist/DaysToGo.iq` for 1.0.1, exported 2026-09-26 (`monkeyc -e -r -f monkey.jungle -o dist/DaysToGo.iq -y ~/.garmin-connectiq/keys/developer_key`). The form reads Manifest AppID, App Type (Watch Face) and Compatible Devices from the package.
+`../dist/DaysToGo.iq` for 1.0.1, exported 2026-09-26 (`monkeyc -e -r -f monkey.jungle -o dist/DaysToGo.iq -y ~/.garmin-connectiq/keys/developer_key`). That file is kept as `../dist/DaysToGo-1.0.1-submitted.iq`; the Free package is `dist/DaysToGoFree.iq` and the paid one exports to `dist/DaysToGoPro.iq` (ADR-014 (Free + Pro ladder), proposed). The form reads Manifest AppID, App Type (Watch Face) and Compatible Devices from the package.
 
 ## Title (max 50)
 

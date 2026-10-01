@@ -93,7 +93,14 @@ class DaysToGoReadings {
         return (hours == 0 ? DaysToGoConfig.HOURS_PER_HALF_DAY : hours) + ":" + minute.format("%02d");
     }
 
+    // Pro only (docs/decisions.md ADR-014 (Free + Pro ladder)); the Free build has no bottom line.
+    (:free)
+    private static function footerText(kind as Number) as String? {
+        return null;
+    }
+
     // A value the watch does not have is hidden, never faked.
+    (:pro)
     private static function footerText(kind as Number) as String? {
         if (kind == DaysToGoConfig.FOOTER_BATTERY) {
             return System.getSystemStats().battery.toNumber() + "%";
@@ -105,7 +112,8 @@ class DaysToGoReadings {
         return null;
     }
 
-    // 950, 1.2K, 12.3K, 99.9K, then whole thousands (123K).
+    // 950, 1.2K, 12.3K, 99.9K, then whole thousands (123K). Pro only: it is the bottom line's text.
+    (:pro)
     static function stepsText(steps as Number) as String {
         if (steps < DaysToGoConfig.STEPS_SHORT_FROM) {
             return steps.toString();

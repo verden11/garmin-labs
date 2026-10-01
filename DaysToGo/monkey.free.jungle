@@ -1,0 +1,24 @@
+# Free build: Days To Go, the free app (manifest.free.xml, its own app id). Excludes every (:pro)-annotated
+# symbol; docs/decisions.md ADR-014 (Free + Pro ladder). resources-free holds what only Free has: AppName and the Free settings
+# and properties (no Hour, no Footer). The shared resources/ has NO settings files, so two never overlap.
+project.manifest = manifest.free.xml
+base.sourcePath = source
+base.resourcePath = resources;resources-free
+base.excludeAnnotations = pro
+# AppName is the one string that differs by tier, and a language does NOT inherit the default's strings
+# (the compiler warns "String id 'AppName' undefined for language ..."). So each language also searches the tier
+# folder; AppName is defined only there, never in resources/ or resources-<lang>/, so no language can override it.
+base.lang.dan = $(base.lang.dan);resources-free
+base.lang.deu = $(base.lang.deu);resources-free
+base.lang.dut = $(base.lang.dut);resources-free
+base.lang.fin = $(base.lang.fin);resources-free
+base.lang.fre = $(base.lang.fre);resources-free
+base.lang.ita = $(base.lang.ita);resources-free
+base.lang.lit = $(base.lang.lit);resources-free
+base.lang.nob = $(base.lang.nob);resources-free
+base.lang.pol = $(base.lang.pol);resources-free
+base.lang.por = $(base.lang.por);resources-free
+base.lang.spa = $(base.lang.spa);resources-free
+base.lang.swe = $(base.lang.swe);resources-free
+base.lang.tur = $(base.lang.tur);resources-free
+base.lang.ukr = $(base.lang.ukr);resources-free
