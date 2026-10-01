@@ -86,7 +86,7 @@ function heroFaceLayoutReport(logger as Test.Logger) as Boolean {
     var boxes = HeroFaceDraw.boxes as Array<Array>;
     for (var i = 0; i < boxes.size(); i++) {
         var b = boxes[i];
-        logger.debug("  '" + b[4] + "' x=" + b[0] + " y=" + b[1] + " w=" + b[2] + " h=" + b[3]);
+        logger.debug("  '" + (b[4] as String) + "' x=" + (b[0] as Number) + " y=" + (b[1] as Number) + " w=" + (b[2] as Number) + " h=" + (b[3] as Number));
     }
     HeroFaceDraw.boxes = null;
     return true;
@@ -150,8 +150,10 @@ function everyLabelFitsThisLanguage(logger as Test.Logger) as Boolean {
 // device can be made to exceed the budget on demand, so this drives the
 // fallback directly: with seconds on the face draws a seconds box, and after
 // disableSeconds() that box is gone — which is what makes onPartialUpdate
-// return early instead of leaving a frozen number beside the time.
-(:test)
+// return early instead of leaving a frozen number beside the time. Pro only: Free
+// has no Seconds key (setValue would throw), no disableSeconds and no onPartialUpdate
+// (docs/decisions.md ADR-001, the Free + Pro ladder).
+(:test, :pro)
 function disabledSecondsDrawNoSecondsBox(logger as Test.Logger) as Boolean {
     var settings = System.getDeviceSettings();
     var size = {:width => settings.screenWidth, :height => settings.screenHeight};

@@ -1,0 +1,18 @@
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <setting propertyKey="@Properties.Mode" title="@Strings.setting_mode">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.mode_auto</listEntry>
+            <listEntry value="1">@Strings.mode_everyday</listEntry>
+        </settingConfig>
+    </setting>
+
+    <setting propertyKey="@Properties.Accent" title="@Strings.setting_accent">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.accent_blue</listEntry>
+            <listEntry value="1">@Strings.accent_cyan</listEntry>
+            <listEntry value="2">@Strings.accent_magenta</listEntry>
+        </settingConfig>
+    </setting>
+
+</settings>

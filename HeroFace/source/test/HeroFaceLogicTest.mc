@@ -32,7 +32,7 @@ function streakExtendsPastStoredHistory(logger as Test.Logger) as Boolean {
 
 (:test)
 function contractReadsHeroSetProgress(logger as Test.Logger) as Boolean {
-    var value = HeroFaceContract.parse("1|20260920|37|52|100|4|63|12|20260919", 20260920, 20260919);
+    var value = HeroFaceContract.parse("1|20260920|37|52|100|4|63|12|20260919", 20260920, 20260919) as Array<Number>;
     Test.assertEqual(value[HeroFaceContract.PUSH], 37);
     Test.assertEqual(value[HeroFaceContract.SQUAT], 100);
     Test.assertEqual(value[HeroFaceContract.RANK], 4);
@@ -46,13 +46,13 @@ function contractReadsHeroSetProgress(logger as Test.Logger) as Boolean {
 // An older HeroSet omits it, and then the face falls back to a hundred.
 (:test)
 function contractReadsTheUsersDailyGoal(logger as Test.Logger) as Boolean {
-    var custom = HeroFaceContract.parse("1|20260920|20|0|0|4|63|12|20260919|50", 20260920, 20260919);
+    var custom = HeroFaceContract.parse("1|20260920|20|0|0|4|63|12|20260919|50", 20260920, 20260919) as Array<Number>;
     Test.assertEqual(custom[HeroFaceContract.GOAL], 50);
     Test.assertEqual(custom[HeroFaceContract.PUSH], 20);
-    var older = HeroFaceContract.parse("1|20260920|20|0|0|4|63|12|20260919", 20260920, 20260919);
+    var older = HeroFaceContract.parse("1|20260920|20|0|0|4|63|12|20260919", 20260920, 20260919) as Array<Number>;
     Test.assertEqual(older[HeroFaceContract.GOAL], 100);
     // A zero or missing goal is never divided by.
-    var zero = HeroFaceContract.parse("1|20260920|20|0|0|4|63|12|20260919|0", 20260920, 20260919);
+    var zero = HeroFaceContract.parse("1|20260920|20|0|0|4|63|12|20260919|0", 20260920, 20260919) as Array<Number>;
     Test.assertEqual(zero[HeroFaceContract.GOAL], 100);
     return true;
 }
@@ -62,11 +62,11 @@ function contractReadsTheUsersDailyGoal(logger as Test.Logger) as Boolean {
 // before yesterday is broken.
 (:test)
 function contractExpiresYesterdaysProgress(logger as Test.Logger) as Boolean {
-    var stale = HeroFaceContract.parse("1|20260919|37|52|100|4|63|12|20260918", 20260920, 20260919);
+    var stale = HeroFaceContract.parse("1|20260919|37|52|100|4|63|12|20260918", 20260920, 20260919) as Array<Number>;
     Test.assertEqual(stale[HeroFaceContract.PUSH], 0);
     Test.assertEqual(stale[HeroFaceContract.RANK], 4);
     Test.assertEqual(stale[HeroFaceContract.STREAK], 0);
-    var kept = HeroFaceContract.parse("1|20260919|37|52|100|4|63|12|20260919", 20260920, 20260919);
+    var kept = HeroFaceContract.parse("1|20260919|37|52|100|4|63|12|20260919", 20260920, 20260919) as Array<Number>;
     Test.assertEqual(kept[HeroFaceContract.STREAK], 12);
     return true;
 }
@@ -83,7 +83,7 @@ function contractRejectsAnythingItCannotTrust(logger as Test.Logger) as Boolean 
     // A truncated publish ends in an empty field, which is not a zero.
     Test.assert(HeroFaceContract.parse("1|20260920|37|52|100|4|63|12|", 20260920, 20260919) == null);
     // Extra fields are a future version's addition, not an error.
-    var extended = HeroFaceContract.parse("1|20260920|1|2|3|4|63|5|20260920|999|extra", 20260920, 20260919);
+    var extended = HeroFaceContract.parse("1|20260920|1|2|3|4|63|5|20260920|999|extra", 20260920, 20260919) as Array<Number>;
     Test.assertEqual(extended[HeroFaceContract.SIT], 2);
     return true;
 }

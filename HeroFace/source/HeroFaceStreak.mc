@@ -33,7 +33,7 @@ class HeroFaceStreak {
             ? stored as Array<Number>
             : null;
         var streak = HeroFaceStreak.throughYesterday(history(), yesterday, previous);
-        Application.Storage.setValue(HeroFaceConfig.STREAK_KEY, [yesterday, streak] as Array<Number>);
+        Application.Storage.setValue(HeroFaceConfig.STREAK_KEY, [yesterday, streak] as Array<Application.Storage.ValueType>);
         return streak;
     }
 
@@ -44,8 +44,10 @@ class HeroFaceStreak {
         for (var i = 0; i < days.size(); i++) {
             var day = days[i];
             var start = day.startOfDay;
-            if (start != null && day.steps != null && day.stepGoal != null && day.stepGoal > 0) {
-                met[dayIndex(start)] = day.steps >= day.stepGoal;
+            var steps = day.steps;
+            var goal = day.stepGoal;
+            if (start != null && steps != null && goal != null && goal > 0) {
+                met[dayIndex(start)] = steps >= goal;
             }
         }
         return met;

@@ -1,0 +1,6 @@
+<properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- Free build: only the keys the Free face reads (docs/decisions.md ADR-001, the Free + Pro ladder). Slot1-3, Seconds and Weather
+         are Pro-only: not declared here, never read. Values match HeroFaceConfig; ids never change once shipped. -->
+    <property id="Mode" type="number">0</property>
+    <property id="Accent" type="number">0</property>
+</properties>

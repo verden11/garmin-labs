@@ -1,7 +1,7 @@
 import Toybox.Lang;
 
 // Every tunable and identifier in one place (HeroSet house rule: no magic
-// numbers). Setting values here must match resources/settings.
+// numbers). Setting values here must match resources-pro/settings and resources-free/settings.
 class HeroFaceConfig {
     // A third value, 2 ("HeroSet"), shipped in 1.0 and behaved exactly like
     // Auto; it was dropped from the list, and a stored 2 still reads as Auto.
@@ -52,11 +52,16 @@ class HeroFaceConfig {
     static const BURN_IN_GRID = 3;
     static const BURN_IN_STEP_PX = 4;
 
-    // Settings property ids (resources/settings/properties.xml); never change.
+    // Settings property ids (resources-pro/settings/properties.xml; Free declares only Mode and Accent); never change.
+    // Slot1-3, Seconds and Weather are Pro-only (docs/decisions.md ADR-001, the Free + Pro ladder): the Free build
+    // neither declares nor reads them, so the key spellings are compiled into Pro only.
     static const SETTING_MODE = "Mode";
-    static const SETTING_SLOTS = ["Slot1", "Slot2", "Slot3"] as Array<String>;
     static const SETTING_ACCENT = "Accent";
+    (:pro)
+    static const SETTING_SLOTS = ["Slot1", "Slot2", "Slot3"] as Array<String>;
+    (:pro)
     static const SETTING_SECONDS = "Seconds";
+    (:pro)
     static const SETTING_WEATHER = "Weather";
 
     // Storage keys; spellings never change once shipped.

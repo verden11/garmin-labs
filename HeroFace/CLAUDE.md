@@ -4,6 +4,12 @@ Garmin watch face (Connect IQ, Monkey C) from studio Verden. Time-first, in
 HeroSet's visual language: bezel ring, three mission bars, gold streak.
 117 round products, `minApiLevel` 3.0.0. Paid, USD 2.00, 15 languages.
 
+**Free + Pro (proposed, UNRELEASED, [`docs/decisions.md`](docs/decisions.md) ADR-001 "Free + Pro ladder"; the owner has not signed off, so plan.md decision 8, the price, still governs):**
+the live paid app (`manifest.xml`, `monkey.jungle`, app id `8cd8f7f5-…`) becomes **HeroFace Pro** 1.1.0, behaviour unchanged; a new **Free** twin (`manifest.free.xml`,
+`monkey.free.jungle`, app id `be68898f-995b-45d9-860e-42ad508bd7fd`, 1.0.0) is built beside it from the same source, split at compile time with `(:pro)` / `(:free)`.
+Free: Everyday and HeroSet mode, slots fixed to Auto, Accent 0 to 2, no seconds, no temperature. Pro adds the metric per slot, Seconds and the temperature. Both keep the shipped three accents.
+Names, prices, icons, uploads are the owner's (the on-watch names "HeroFace" and "HeroFace Pro" are placeholders).
+
 **Read first:** [`docs/plan.md`](docs/plan.md) (what is built, what is next, and why),
 [`PRODUCT.md`](PRODUCT.md) (product truth), [`DESIGN.md`](DESIGN.md) (the visual system),
 [`docs/compatibility.md`](docs/compatibility.md) (products and the evidence per screen size).
@@ -25,11 +31,19 @@ HeroSet's visual language: bezel ring, three mission bars, gold streak.
 - One build for every product; newer APIs sit behind `has` checks
   (`Toybox has :Complications`, `:Weather`, `ActivityMonitor has
   :getHeartRateHistory`). No bitmaps, no per-device resources.
-- Build: `monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y ~/.garmin-connectiq/keys/developer_key`
-- Tests (16): `monkeyc -t -d fr965 …`, then `monkeydo bin/t-fr965.prg fr965 -t`.
+- Build (Pro; `monkey.free.jungle` is Free): `monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y ~/.garmin-connectiq/keys/developer_key -w --typecheck 3`
+  (strict is clean on both jungles; the project used to be built only at the default level).
+- Tier-only code is `(:pro)` / `(:free)` (a `(:free)` twin returns the default); Free never reads Slot1-3, Seconds or Weather, and has no
+  `Toybox.Weather` read and no `onPartialUpdate`. `Application.Properties.getValue` of a key missing from the properties file throws `InvalidKeyException` (SDK 9.2.0 reference).
+  `AppName` lives only in `resources-free/strings` and `resources-pro/strings`, never in `resources/` or a `resources-<lang>/`; each jungle appends its tier folder to every `base.lang.<l>`
+  (`python3 tools/check_strings.py`). There is **no settings file in the shared `resources/`**.
+- Tests: Pro **24**, Free **24** (22 shared; Pro-only `disabledSecondsDrawNoSecondsBox`, `proSettingsReadTheirDefaults`; Free-only `freeReturnsDefaultsForProKeys`, `freeMissingPropertyKeyThrows`),
+  **PASSED in the simulator** on fr965, fenix5s and fr55 on both jungles (2026-10-01; the ten-size fit loop and the memory view on fenix5s/vivoactive3 not yet run; nothing on a wrist): `tools/run_tests.sh <device> [jungle] [testName] [expectedCount]` (jungle defaults to `monkey.jungle`, Pro; run both; `EXPECT=24` fails a full run on a count mismatch).
   Trust the printed `PASSED (…)` line, not the exit code. A hung run means the
   simulator needs restarting.
-- Screen check per size: `monkeydo bin/t-<device>.prg <device> -t everyStateFitsThisDisplay`.
+- Compile every product, both jungles, no simulator: `tools/compile_sweep.sh`. Prove the packages: `tools/check_free_package.sh [--build]` (Free has no Slot/Seconds/Weather key and no "Pro" word; Pro has them).
+  Store packages: Free `dist/HeroFaceFree.iq`, Pro `dist/HeroFacePro.iq` (`dist/old/` holds the earlier packages).
+- Screen check per size: `tools/run_tests.sh <device> <jungle> everyStateFitsThisDisplay`.
   `heroFaceLayoutReport` prints every row's box, which is how layout is read
   without a screenshot.
 - The FR965 has run it (2026-09-20 onward): install, render, the HeroSet link,
@@ -59,7 +73,9 @@ Same as HeroSet ([`../HeroSet/CLAUDE.md`](../HeroSet/CLAUDE.md) house rules), wh
 ## Keeping things in sync
 
 - Behaviour change → update [`docs/plan.md`](docs/plan.md) (and [`DESIGN.md`](DESIGN.md) if it is visual).
-- Contract change → both projects and HeroSet's [ADR-044](../HeroSet/docs/decisions.md#adr-044), same session.
+- Contract change → both projects and HeroSet's [ADR-044](../HeroSet/docs/decisions.md#adr-044) (the complication contract), same session. The Free + Pro split touches none of it.
 - New product or layout change → run the screen-fit test for that screen size
   and update [`docs/compatibility.md`](docs/compatibility.md).
-- Test count appears in `README.md` and here; update both.
+- Test count appears in `README.md` and here (**Pro 24, Free 24**); update both.
+- A new language: its line in **both** manifests and **both** jungles; its folder must not define `AppName` (`python3 tools/check_strings.py`).
+- A change to a tier's settings: both `resources-*/settings` folders, and `tools/check_free_package.sh` (it pins each tier's keys and lists).

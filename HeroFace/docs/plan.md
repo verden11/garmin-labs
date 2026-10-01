@@ -1,6 +1,6 @@
 # HeroFace — plan
 
-Status: 2026-09-26. Live in the store since 2026-09-22 (1.0.1 since 2026-09-24). Watch face from studio Verden, companion to HeroSet (`../HeroSet`).
+Status: 2026-10-01. Live in the store since 2026-09-22 (1.0.1 since 2026-09-24). **A Free twin and a renamed Pro are built but not uploaded (proposed, UNRELEASED: [`decisions.md`](decisions.md) ADR-001, the Free + Pro ladder; see "Free and Pro" below).** Watch face from studio Verden, companion to HeroSet (`../HeroSet`).
 
 **Built and shipped:** the round face (117 products), its settings, always-on, the screen-fit suite, both sides of the HeroSet link, all 15 languages, the store listing and the three website pages in `../../site`. **Left:** the open device checks in [`go-to-market.md`](go-to-market.md), and the other screen shapes (phase 4 below). History: [`../CHANGELOG.md`](../CHANGELOG.md), `git log`.
 
@@ -65,7 +65,7 @@ Each mission slot holds an ordered list of providers. At startup the face picks 
 
 Users can override each slot in settings.
 
-### User settings (`resources/settings`, `Application.Properties`)
+### User settings (`resources-pro/settings` and `resources-free/settings`, `Application.Properties`)
 
 Kept deliberately short, since each setting costs memory on the smallest watches:
 - Mode: Auto / Everyday. A third entry, HeroSet, shipped in 1.0 and did exactly what Auto does; it was removed 2026-09-24 and a stored value of 2 still reads as Auto.
@@ -74,6 +74,23 @@ Kept deliberately short, since each setting costs memory on the smallest watches
 - Seconds on/off (shown on every product; ignored where `onPartialUpdate` is missing)
 - Weather on/off (shown on every product; the row stays empty where `Toybox has :Weather` is false, CIQ 3.2+; default on)
 - 12/24 h follows the system setting and isn't a face setting
+
+### Free and Pro (proposed, UNRELEASED: ADR-001, the Free + Pro ladder)
+
+Two apps from this one source, split at compile time (`(:pro)` / `(:free)`; Free is `monkey.free.jungle`, Pro is `monkey.jungle`, the live app id). Pro behaves exactly as 1.0.1; Free is a new app id.
+
+| | Free (1.0.0) | Pro (1.1.0) |
+|---|---|---|
+| Everyday mode and HeroSet mode (the Mode setting) | yes | yes |
+| Mission slots | fixed to Auto (no setting) | Slot 1 to 3 choose the metric |
+| Accent colour | ids 0 to 2 (Blue, Cyan, Magenta) | the same three |
+| Seconds | no | yes (Show seconds) |
+| Temperature (`Toybox.Weather`) | no | yes (Show temperature) |
+| Streak, battery, heart rate, notifications, always-on, the HeroSet link | yes | yes |
+| Permission | `ComplicationSubscriber` | `ComplicationSubscriber` |
+| On-watch name (placeholder, owner decides) | HeroFace | HeroFace Pro |
+
+Existing paid users lose nothing (Pro keeps every setting and behaviour of 1.0.1); Free is a new, smaller app: no temperature, slots always Auto, no seconds. Free has no "Pro" word, no locked item and no upgrade text on the watch or in its settings. Free's description says HeroSet mode needs HeroSet installed. The alternate layout the plan mentions for Pro and any accent beyond the shipped three are **not built** (owner and design decisions; Magenta's 2.84:1 against the track is open). Names, prices and uploads are the owner's.
 
 ## Decisions
 
@@ -84,7 +101,7 @@ Kept deliberately short, since each setting costs memory on the smallest watches
 5. **HeroSet publishes one private complication** carrying one packed string (contract below).
 6. **Mirror HeroSet's house rules** (typed functions, no magic numbers, one class per file, `HeroFace` prefix, comments explain why).
 7. **Name: HeroFace.** It stands on its own; "HeroSet Face" would read as an accessory.
-8. **Price: paid at the lowest tier, USD 2.00 (shown as $1.99 US)**, the same as HeroSet. Garmin's 48-hour return window is the only try-before-keep. The listing must sell Everyday mode, because most buyers won't own HeroSet.
+8. **Price: paid at the lowest tier, USD 2.00 (shown as $1.99 US)**, the same as HeroSet. (Proposed, not signed off: ADR-001, the Free + Pro ladder, would make this app the Pro beside a free twin; until the owner signs off this stands.) Garmin's 48-hour return window is the only try-before-keep. The listing must sell Everyday mode, because most buyers won't own HeroSet.
 9. **Built for translation** (all 15 languages shipped at launch):
    - All visible text lives in `strings.xml`: labels and the "done" text. Nothing is baked into drawings or code. Weekday and month strings come from the system's own date formatting, so they are already translated on every watch.
    - Text fit is measured with the longest wording that fits, as in HeroSet, so longer languages (German, Finnish) shrink or pick a short form instead of overflowing. `everyLabelFitsThisLanguage` renders the live language's labels, so a long translation fails a test rather than a wrist.

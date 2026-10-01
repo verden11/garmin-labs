@@ -17,6 +17,8 @@ class HeroFaceView extends WatchUi.WatchFace {
     private var _sleeping as Boolean = false;
     private var _burnIn as Boolean;
     // [x, y, width, height] of the seconds, for low-power partial updates.
+    // Pro only: Free draws no seconds (docs/decisions.md ADR-001, the Free + Pro ladder).
+    (:pro)
     private var _secondsBox as Array<Number>?;
     // Last gathered frame, reused until the minute (or the data behind it)
     // changes: reading activity, weather and history every second costs
@@ -42,7 +44,9 @@ class HeroFaceView extends WatchUi.WatchFace {
     }
 
     // The watch stopped granting the partial-update budget: stop promising
-    // seconds until the next settings change.
+    // seconds until the next settings change. Pro only, like every seconds path
+    // that touches the system (docs/decisions.md ADR-001, the Free + Pro ladder).
+    (:pro)
     function disableSeconds() as Void {
         _settings.seconds = false;
         _secondsBox = null;
@@ -59,7 +63,7 @@ class HeroFaceView extends WatchUi.WatchFace {
             return;
         }
         if (_sleeping && _burnIn) {
-            _secondsBox = null;
+            rememberSeconds(null);
             _state = null;
             HeroFaceSleep.draw(dc, layout);
             return;
@@ -91,14 +95,26 @@ class HeroFaceView extends WatchUi.WatchFace {
         dc.clear();
         HeroFaceRing.draw(dc, layout, state.ringPermille, state.ringColor);
         drawDate(dc, layout, state);
-        _secondsBox = HeroFaceClock.draw(dc, layout, state);
+        rememberSeconds(HeroFaceClock.draw(dc, layout, state));
         drawUnderTime(dc, layout, state);
         HeroFaceMissions.draw(dc, layout, state);
         HeroFaceFooter.draw(dc, layout, state);
     }
 
+    (:pro)
+    private function rememberSeconds(box as Array<Number>?) as Void {
+        _secondsBox = box;
+    }
+
+    (:free)
+    private function rememberSeconds(box as Array<Number>?) as Void {
+    }
+
     // Seconds while the rest of the face sleeps (MIP, or AMOLED without
     // burn-in rules): redraw only the seconds' box, within the power budget.
+    // Pro only: the Free face has no seconds, and a face that defines this is
+    // woken every second in low power for nothing.
+    (:pro)
     function onPartialUpdate(dc as Graphics.Dc) as Void {
         var box = _secondsBox;
         var layout = _layout;

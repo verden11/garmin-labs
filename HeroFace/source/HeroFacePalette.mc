@@ -17,9 +17,14 @@ class HeroFacePalette {
     // AOD time: dimmer than TEXT so an always-on AMOLED spends less light.
     static const SLEEP_TEXT = 0x555555;
 
-    // Accent setting, by index. Each clears 3:1 against TRACK so a part-filled
-    // bar still reads. None is gold or green (those carry meaning) and none is
-    // white, which is the time's own colour: a bar must never read as clock.
+    // Accent setting, by index; ids are append-only (a shipped id never changes
+    // colour) and both the Free and the Pro build offer all three (docs/decisions.md
+    // ADR-001, the Free + Pro ladder). The rule is 3:1 against TRACK so a part-filled
+    // bar still reads: Blue (3.05) and Cyan (5.95) clear it, Magenta measures 2.84
+    // and does not (a known issue, test magentaMissesTheTrackRuleKnownIssue; the
+    // colour is the owner's design call, not changed here). None is gold or green
+    // (those carry meaning) and none is white, which is the time's own colour: a
+    // bar must never read as clock.
     static const ACCENTS = [0x55AAFF, 0x00FFFF, 0xFF55FF] as Array<Number>;
 
     static function accent(index as Number) as Number {

@@ -10,6 +10,8 @@
 | Build, test, translate, check a screen | [`development.md`](development.md) |
 | Understand the visual system | [`../DESIGN.md`](../DESIGN.md) |
 | Know the product truth | [`../PRODUCT.md`](../PRODUCT.md) |
+| Know why it is built the way it is (the Free + Pro ladder) | [`decisions.md`](decisions.md) |
+| Fill in the Free store listing (draft, nothing uploaded) | [`../listing-free/README.md`](../listing-free/README.md) |
 
 Device builds and the on-watch tick list are git-ignored, in
 `../../device-test/`, so one folder holds both HeroFace and HeroSet.
