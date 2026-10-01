@@ -65,7 +65,7 @@ class HeroFaceLink {
             return false;
         }
         try {
-            Complications.exitTo(id);
+            Complications.exitTo(id as Complications.Id);
             return true;
         } catch (e instanceof Lang.Exception) {
             // AppNotInstalledException only exists on 4.2+, so it can't be named

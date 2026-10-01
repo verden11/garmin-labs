@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<!-- HeroFace. Products: every round watch-face product at Connect IQ 3.0+ in SDK 9.2.0 (docs/compatibility.md). App id never changes. This is the Pro build (placeholder name "HeroFace Pro"): paid; manifest.free.xml is the Free twin (docs/decisions.md ADR-001, the Free + Pro ladder). -->
+<!-- HeroFace (Free build). Same products, languages and permission as manifest.xml, its paid twin; a NEW app id of its own, never changes once published. Built by monkey.free.jungle, which excludes the paid-only code and ships resources-free (Free settings only). docs/decisions.md ADR-001 (the Free + Pro ladder); docs/compatibility.md. -->
 <iq:manifest version="3" xmlns:iq="http://www.garmin.com/xml/connectiq">
-  <iq:application id="8cd8f7f5-2169-42a6-b6c2-c1e797e2f313" type="watchface" name="@Strings.AppName" entry="HeroFaceApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="3.0.0">
+  <iq:application id="be68898f-995b-45d9-860e-42ad508bd7fd" type="watchface" name="@Strings.AppName" entry="HeroFaceApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="3.0.0">
     <iq:products>
       <iq:product id="approachs50"/>
       <iq:product id="approachs62"/>

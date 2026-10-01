@@ -127,7 +127,9 @@ A black field with a single white number, a muted grey voice for everything seco
 
 ### Secondary
 - **Alert Red** (`{colors.alert}`): two uses only — a move-bar in the alert state, and battery at or below 15%. Never a progress colour.
-- **Accent alternatives** (`{colors.accent-cyan}`, `{colors.accent-magenta}`): the two other settings-selectable accents. Each clears 3:1 against the track so a part-filled bar still reads, and none is gold or green.
+- **Accent alternatives** (`{colors.accent-cyan}`, `{colors.accent-magenta}`): the two other settings-selectable accents. The rule is 3:1 against the track so a part-filled bar still reads; Effort Blue measures 3.05 and Cyan 5.95, but **Magenta measures 2.84 and misses it** (a known issue for the owner, recorded by `magentaMissesTheTrackRuleKnownIssue`; no colour was changed). None is gold or green.
+
+**Accent ids and tiers (no visual change; ADR-001, the Free + Pro ladder in `docs/decisions.md`).** The ids are append-only and a shipped id never changes colour: 0 Effort Blue `#55AAFF` (the default), 1 Cyan `#00FFFF`, 2 Magenta `#FF55FF`. The **Free** build and the **Pro** build offer the same three; HeroFace stays at its shipped three (the plan's WP6 list of ids 3 to 7 is DaysToGo's table pasted in and is not used). Reserved, never admitted as an accent: gold, green, alert red, white and the two greys, so none of Amber, Yellow, Lime, Mint, Orange, Coral or White. A new accent is a new id appended at the end, after the owner's look-approval and a track-contrast decision (`docs/decisions.md`).
 
 ### Neutral
 - **Void Black** (`{colors.ground}`): the only background. It is never tinted, never layered, never lightened into a card.

@@ -1,6 +1,6 @@
 # Go to market — HeroFace
 
-Status: 2026-09-26. **Only home for open items and blockers.** History: [`../CHANGELOG.md`](../CHANGELOG.md), `git log`.
+Status: 2026-10-01 (the Free + Pro pair block added; the rest as of 2026-09-26). **Only home for open items and blockers.** History: [`../CHANGELOG.md`](../CHANGELOG.md), `git log`.
 
 Live since 2026-09-22 (Garmin approval), **1.0.1 live since 2026-09-24**: https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116. Site pages `/heroface/`, `/heroface/support/`, `/heroface/privacy/` are live and the Get button links to the store. Anything that fails now is a code fix plus a listing update, not a withdrawal.
 
@@ -12,6 +12,26 @@ Order and the HeroSet half: [`../../HeroSet/docs/go-to-market.md`](../../HeroSet
 - [ ] 2. The open device evidence in §1: seconds power budget, 96 KB memory headroom, MIP contrast.
 - [ ] 3. Review W14: re-capture the site screenshots at 454 px plus the always-on screen; original-Venu heat map (simulator GUI). The always-on shot also goes into the listing (decided 2026-09-21 to ship without it); the watch's own System → Screenshot may capture the awake face rather than the sleep screen (inferred, untested).
 - [ ] 4. Store device list: 69 of 117 products listed (2026-09-25). Missing: fēnix 5/5 Plus/5S/5X, fēnix 6S, fēnix Chronos, FR55, FR245/245M, FR645/645M, FR745, FR935, FR945/945 LTE, vívoactive 3/3M/3 LTE/4/4S, Venu, Venu D, D2 Air, D2 Air X10, D2 Charlie/Delta ×3, Descent MK1/MK2/MK2S, Enduro, Approach S62, MARQ Gen 1 ×8, Legacy Hero/Saga ×4. HeroSet misses the same families, so this looks store-side: same Garmin question as HeroSet A1.
+
+## Free + Pro pair (proposed, UNRELEASED: ADR-001, the Free + Pro ladder)
+
+Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP6). The plan gates WP6 on the HeroSet/HeroFace 30-day readout and G1; the owner has not signed off OD1 to OD4, so the live paid app and its price are unchanged and the gates above still govern.
+
+| # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
+|---|---|---|
+| F1 | Owner signs off OD1 (the ladder), OD2, OD3 (names), OD4 (Pro price). ADR-001 then becomes Active | **Open** (owner) |
+| F2 | Store names and titles chosen and searched by eye (placeholders: "HeroFace" / "HeroFace Pro"). The name is also the on-watch AppName: change `resources-free/strings` and `resources-pro/strings` only | **Open** (owner) |
+| F3 | Pro's headline: Pro is thin today (the metric per bar, seconds, the temperature). Decide whether to build more (accents, the alternate layout) first; Magenta's 2.84:1 track contrast needs a decision | **Open** (owner / watch-design-lead) |
+| F4 | Launcher icon per tier (still the shared placeholder) | **Open** (owner) |
+| F5 | Tests on both jungles: `tools/run_tests.sh <device> monkey.jungle` and `... monkey.free.jungle` on fr965, fr55, fenix5s and a 96 KB product; the ten-size fit run on both | **Partly done, simulator only:** 24 and 24 PASSED on fr965, fenix5s, fr55 (2026-10-01). **Open:** the ten-size fit loop on both jungles, the memory view on fenix5s and vivoactive3 |
+| F6 | Packages exported and checked: `tools/check_free_package.sh --build` | see CHANGELOG evidence |
+| F7 | Device check on the FR965: the Free app installs beside HeroSet and **links to HeroSet's private complication from its own app id** (same developer key); the phone shows only Missions and Accent; the Pro settings screen is unchanged; the on-watch names | **Open** (owner; never tried) |
+| F8 | `../listing-free/README.md` filled in the store form; screenshots taken from the Free build (none exist) | **Open** |
+| F9 | Pro's `../listing/` repaired and renamed inside the pending listing-repair submission; What's New for 1.1.0; sibling Free URL on its first line | **Open** (owner) |
+| F10 | Site (`../../site/src/apps/heroface/`): a Free or Pro section, per-tier wording. Do not change a published URL | **Open** (not in this folder) |
+| F11 | The exposure-test day-0 and day-30 dates recorded so the ratio stays readable (plan WP6 "Done when") | **Open** |
+
+Until F1, build any 1.0.x fix from the commit before the ladder work, not from the current working tree: this tree names the paid app "HeroFace Pro" on the watch and has restructured resources, neither of which the owner has approved for the live app.
 
 ## Where things stand
 
@@ -32,7 +52,7 @@ Simulator evidence is not device evidence; say so when reporting.
 - **Battery — usable, not publishable.** FR965, seconds on, sleep mode off, always-on on: 66% (2026-09-21 23:24) → 60% (2026-09-22 20:00), 6% over 20h36m, about 0.29 %/h or ~7% a day. It is whole-watch drain (any HeroSet use is inside it) on one AMOLED watch, so **no battery number goes in the listing**. An earlier window was not attributable: sleep mode blanked the display for 8 h. MIP is unverifiable with no MIP watch.
 - **MIP daylight contrast** for `MUTED` text and the `TRACK` grey — open.
 - **Memory headroom on a 96 KB watch** (fēnix 5S, vívoactive 3) — open. Read the simulator's memory view during a real run; the build compiling is not proof.
-- **Settings round-trip through Connect — answered 2026-09-26 (user report, FR965, store 1.0.1): a goal setting changed in Connect showed on the face.** One setting on one watch. A sideloaded face gets no settings entry at all, so this was untestable before the store; the build is wired (`resources/settings/properties.xml` declares all 7 properties, `settings.xml` binds them). It shipped unverified; the store install closed it. The bad-value fallback (`HeroFaceSettings` guards every read with `instanceof` plus a catch on `InvalidKeyException`) has no unit test and can only be exercised in the simulator's settings editor; the `Seconds` power-budget test needs a throwaway build with the default flipped to `true`.
+- **Settings round-trip through Connect — answered 2026-09-26 (user report, FR965, store 1.0.1): a goal setting changed in Connect showed on the face.** One setting on one watch. A sideloaded face gets no settings entry at all, so this was untestable before the store; the build is wired (`properties.xml` declares all 7 properties, `settings.xml` binds them; both now in `resources-pro/settings/`). It shipped unverified; the store install closed it. The bad-value fallback (`HeroFaceSettings` guards every read with `instanceof` plus a catch on `InvalidKeyException`) has no unit test and can only be exercised in the simulator's settings editor; the `Seconds` power-budget test needs a throwaway build with the default flipped to `true`.
 - **HeroSet link end to end — done** (2026-09-20 on the FR965; the midnight reset 2026-09-22): the private complication is found, a save updates it within seconds, the value survives a reboot, a hold opens HeroSet, the goal field drives the ring.
 
 ## 2. The HeroSet link (settled)

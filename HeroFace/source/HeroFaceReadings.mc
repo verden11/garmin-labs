@@ -57,6 +57,14 @@ class HeroFaceReadings {
         return [full, short] as Array<String>;
     }
 
+    // Pro only (docs/decisions.md ADR-001, the Free + Pro ladder): the Free build neither shows a
+    // temperature nor compiles the Weather reads.
+    (:free)
+    private static function temperature() as String? {
+        return null;
+    }
+
+    (:pro)
     private static function temperature() as String? {
         if (!(Toybox has :Weather)) {
             return null;

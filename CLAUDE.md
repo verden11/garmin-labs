@@ -55,7 +55,7 @@ Three directives from the owner. They apply to every watch project and to every 
 [`reports/Free and Pro ladder.md`](reports/Free%20and%20Pro%20ladder.md) and
 [`reports/Free and Pro ladder execution plan.md`](reports/Free%20and%20Pro%20ladder%20execution%20plan.md) (live paid id becomes the
 Pro, the Free is a new app id, no flip-to-free, prices, names, pilots). **Until the owner signs off, each project's existing ADRs
-govern** (for example DaysToGo and TwoSuns ADR-002, the price and day-45 review). Prepare, do not build or upload, against the plan.
+govern** (for example DaysToGo and TwoSuns ADR-002, the price and day-45 review). **2026-10-01: the owner asked for the missing Free builds, so the Free variants of DaysToGo, TwoSuns and HeroFace exist in the working tree (UNRELEASED, new ADRs marked Proposed). Building is done; uploads, names, prices, icons, translations and the site stay owner decisions. HeroSet Free is not built (accuracy-proof gate).**
 
 ## House rules everywhere
 

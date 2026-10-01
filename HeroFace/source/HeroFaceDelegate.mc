@@ -18,7 +18,8 @@ class HeroFaceDelegate extends WatchUi.WatchFaceDelegate {
 
     // Drawing seconds went over the power budget, so the system will stop
     // calling onPartialUpdate. Turn them off rather than leave a frozen number
-    // sitting beside the time.
+    // sitting beside the time. Pro only: Free draws no seconds.
+    (:pro)
     function onPowerBudgetExceeded(info as WatchUi.WatchFacePowerInfo) as Void {
         var view = getApp().view();
         if (view != null) {

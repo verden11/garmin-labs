@@ -1,7 +1,5 @@
 <strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
 
-    <string id="AppName">HeroFace</string>
-
     <!-- Mission labels: long form first, short form when the column is narrow. -->
     <string id="label_steps">PASSOS</string>
     <string id="label_steps_short">PASS</string>

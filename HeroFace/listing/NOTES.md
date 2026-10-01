@@ -4,6 +4,8 @@ What sits behind [`README.md`](README.md), the paste-ready copy. Nothing here is
 
 **Live since 2026-09-22:** https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116. Every field is checked against what the build does ([`../docs/go-to-market.md`](../docs/go-to-market.md), "Claims allowed and forbidden"). Review takes about 72 hours; a rejection comes back with specific reasons.
 
+> **Pointer (2026-10-01):** this is the paid app's listing, unchanged. A Free twin and the Pro 1.1.0 rename are proposed and unreleased ([`../docs/decisions.md`](../docs/decisions.md) ADR-001, the Free + Pro ladder); the Free draft is [`../listing-free/README.md`](../listing-free/README.md). The Pro package is now `../dist/HeroFacePro.iq` (the `../dist/HeroFace.iq` named below is not in the tree; earlier packages are in `../dist/old/`).
+
 **No Keywords field.** The upload form has no keywords/tags field; the README's Keywords section is removed (it never matched the real form). Same fix applied across all four apps' listing docs.
 
 ## Other files here

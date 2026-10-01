@@ -1,5 +1,5 @@
 <properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <!-- Values match HeroFaceConfig; ids never change once shipped. -->
+    <!-- Pro build: every key (docs/decisions.md ADR-001, the Free + Pro ladder). Values match HeroFaceConfig; ids never change once shipped. -->
     <property id="Mode" type="number">0</property>
     <property id="Slot1" type="number">0</property>
     <property id="Slot2" type="number">0</property>

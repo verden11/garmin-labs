@@ -1,0 +1,5 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <!-- The one string that differs by tier. It lives ONLY here (not in resources/ or any resources-<lang>/): a language folder that also defined AppName would override this one on a non-English watch. Unqualified, so every language falls back to it. -->
+    <string id="AppName">HeroFace</string>
+</strings>

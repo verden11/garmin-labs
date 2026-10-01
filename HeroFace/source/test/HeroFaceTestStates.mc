@@ -99,7 +99,7 @@ class HeroFaceTestStates {
                 var b = boxes[j];
                 var apart = a[0] + a[2] <= b[0] || b[0] + b[2] <= a[0] || a[1] + a[3] <= b[1] || b[1] + b[3] <= a[1];
                 if (!apart) {
-                    problems.add("state " + name + " overlap: '" + a[4] + "' and '" + b[4] + "'");
+                    problems.add("state " + name + " overlap: '" + (a[4] as String) + "' and '" + (b[4] as String) + "'");
                 }
             }
         }
