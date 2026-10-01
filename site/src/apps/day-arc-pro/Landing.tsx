@@ -1,6 +1,7 @@
 import { FacePreview } from './FacePreview.tsx'
 import { dayArcPro } from './app.ts'
 import { windows } from './facts.ts'
+import type { Win } from '../day-arc/FaceDrawing.tsx'
 import { CallToAction, HeroActions } from '../../components/AppSections.tsx'
 import { appUrl } from '../../urls.ts'
 
@@ -15,8 +16,8 @@ export function Landing() {
             <HeroActions app={dayArcPro} />
           </div>
           <div className="hero__reps">
-            <FacePreview size={260} />
-            <p>A drawing of the face at midday, with example numbers. Not a screenshot.</p>
+            <FacePreview size={340} />
+            <p>A drawing of the face at midday, with example numbers. Not a screenshot; real captures come with the store listing.</p>
           </div>
         </div>
       </section>
@@ -27,7 +28,7 @@ export function Landing() {
         <ol className="course">
           {windows.map(([title, time, text]) => (
             <li key={title} className="course__stop">
-              <span className="course__keys" />
+              <span className="course__keys"><FacePreview size={200} win={title.toLowerCase() as Win} /></span>
               <h3>{title} · {time}</h3>
               <p>{text}</p>
             </li>

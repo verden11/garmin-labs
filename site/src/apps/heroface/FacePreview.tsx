@@ -3,6 +3,13 @@
 // the real thing rather than a mock-up.
 type Props = { size?: number; heroset?: boolean }
 
+// Arc on the bezel circle (centre 227,227, r 218) from angle a0 to a1, degrees clockwise from 12 o'clock.
+// Endpoints are computed, never typed in: hand-typed ones sat off the circle and the ring drew lopsided.
+const ring = (a0: number, a1: number) => {
+  const pt = (a: number) => `${(227 + 218 * Math.sin((a * Math.PI) / 180)).toFixed(1)} ${(227 - 218 * Math.cos((a * Math.PI) / 180)).toFixed(1)}`
+  return `M${pt(a0)}A218 218 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${pt(a1)}`
+}
+
 export function FacePreview({ size = 220, heroset = false }: Props) {
   const accent = heroset ? '#ffaa00' : '#55aaff'
   const bars = heroset
@@ -16,8 +23,8 @@ export function FacePreview({ size = 220, heroset = false }: Props) {
         ? 'The watch face showing rank, the time, and push-ups, sit-ups and squats as bars.'
         : 'The watch face showing the date, the time, and steps, intensity minutes and floors as bars.'}>
       <circle cx="227" cy="227" r="227" fill="#000" />
-      <path d="M60 373A218 218 0 1 1 394 373" fill="none" stroke="#555" strokeWidth="7" strokeLinecap="round" />
-      <path d={heroset ? 'M60 373A218 218 0 0 1 130 55' : 'M60 373A218 218 0 0 1 340 40'}
+      <path d={ring(-131.2, 131.2)} fill="none" stroke="#555" strokeWidth="7" strokeLinecap="round" />
+      <path d={ring(-131.2, heroset ? -29.4 : 31)}
         fill="none" stroke={accent} strokeWidth="7" strokeLinecap="round" />
       <text x="227" y="80" fill="#aaa" fontSize="30" textAnchor="middle" fontFamily="system-ui, sans-serif">{top}</text>
       <text x="227" y="205" fill="#fff" fontSize="128" textAnchor="middle" fontFamily="system-ui, sans-serif" fontWeight="600">10:42</text>
