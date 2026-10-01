@@ -26,6 +26,11 @@ RUN set -e; base=https://developer.garmin.com/downloads/connect-iq/sdks; \
 COPY --from=ciq Devices /root/.Garmin/ConnectIQ/Devices
 COPY --from=ciq Fonts /root/.Garmin/ConnectIQ/Fonts
 
+# zsh: HeroSet/tools/fit-sweep.sh and DaysToGo/tools/fit_languages.sh are zsh. CIQ_IN_DOCKER stops scripts
+# that delegate to a container from delegating again; SDK_BIN is where those scripts look for monkeyc/monkeydo.
+RUN apt-get update && apt-get install -y --no-install-recommends zsh && rm -rf /var/lib/apt/lists/*
+ENV CIQ_IN_DOCKER=1 SDK_BIN=/connectiq/bin
+
 WORKDIR /work
 CMD ["bash"]
 

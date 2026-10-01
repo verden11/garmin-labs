@@ -3,8 +3,8 @@
 # simulator once if it wedges. Usage: tools/run_tests.sh <device> [jungle] [testName]
 # Exit 0 only when the simulator prints a PASSED line. Trust that line, not monkeydo's exit code.
 set -u
-# CIQ_DOCKER=1: run in a container with its own simulator (safe beside other sessions, no pkill). See ../docker/README.md
-[ -n "${CIQ_DOCKER:-}" ] && exec "$(dirname "$0")/../../docker/run.sh" "$(dirname "$0")/.." /ciq-docker/ciq-test.sh "$@"
+# Runs in a container by default (own simulator, no pkill, parallel-safe: ../docker/README.md). CIQ_DOCKER=0 = host simulator.
+[ -z "${CIQ_IN_DOCKER:-}" ] && [ "${CIQ_DOCKER:-1}" != 0 ] && exec "$(dirname "$0")/../../docker/run.sh" "$(dirname "$0")/.." /ciq-docker/ciq-test.sh "$@"
 DEVICE=${1:?usage: tools/run_tests.sh <device> [jungle] [testName]}
 JUNGLE=${2:-monkey.simple.jungle}
 TEST=${3:-}

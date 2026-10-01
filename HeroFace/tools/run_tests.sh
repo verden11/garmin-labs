@@ -9,11 +9,11 @@
 # Exit 0 only when the simulator prints a PASSED line. Trust that line, not monkeydo's exit code.
 # The full suite is 24 tests on each jungle (2026-10-01): `tools/run_tests.sh fr965 monkey.jungle "" 24` or `EXPECT=24 tools/run_tests.sh fr965 monkey.free.jungle`.
 # With an expected count, the run also exits 4 when the PASSED line's passed= number differs. Single-test runs set no count and behave as before.
-# SINGLE-USER ONLY: the simulator restart uses pkill, which kills every simulator and monkeydo on the machine. Never run two of these
+# SINGLE-USER ONLY (host simulator, CIQ_DOCKER=0; the container default has no such limit): the simulator restart uses pkill, which kills every simulator and monkeydo on the machine. Never run two of these
 # at once (or beside another project's runs); run devices and jungles one after the other.
 set -u
-# CIQ_DOCKER=1: run in a container with its own simulator (safe beside other sessions, no pkill). See ../docker/README.md
-[ -n "${CIQ_DOCKER:-}" ] && exec "$(dirname "$0")/../../docker/run.sh" "$(dirname "$0")/.." /ciq-docker/ciq-test.sh "$@"
+# Runs in a container by default (own simulator, no pkill, parallel-safe: ../docker/README.md). CIQ_DOCKER=0 = host simulator.
+[ -z "${CIQ_IN_DOCKER:-}" ] && [ "${CIQ_DOCKER:-1}" != 0 ] && exec "$(dirname "$0")/../../docker/run.sh" "$(dirname "$0")/.." /ciq-docker/ciq-test.sh "$@"
 DEVICE=${1:?usage: tools/run_tests.sh <device> [jungle] [testName]}
 JUNGLE=monkey.jungle
 TEST=
