@@ -374,6 +374,34 @@ the date and replans when a live string is wider than its plan; the draw path nu
 string; a plan that fits nowhere falls to TRIM rungs and then drops any row that would cross the
 bottom, so it is always safe to draw. Details and per-device numbers: `DESIGN.md` "Layout", `docs/plan.md`.
 
+**Amendment, 2026-10-01 (owner, after a simulator screenshot of Pro evening on the FR965; simulator only, not a wrist):**
+the grid is now **centred pairs of compact cells** (left cell ends at the gutter, right starts after it, a lone cell is
+centred; a 4%-of-width gutter between columns; a cell's label gets what its value does not need; an icon-only cell's value sits
+beside its icon), and **the first two icon-only fields move to the upper corners beside the date** (`DayArcCorners`), in room
+the clock rows leave free — drawn only if they fit the arc-aware chord beside the date's own width, otherwise they stay in the
+grid. On an FR965 that is six fields instead of four. Grid labels are shortened to about four letters (Rec, Resp, Int, Next,
+Run, Bike, SpO2, VO2, Rise, Set, Batt): a cell is ~150 px wide and an XTINY letter ~16 px. Mock approved by the owner
+("lets go for it - adjust if needed later"). Tests: `DayArcCornersTest` plus the existing suites, fr965, approachs50 and venusq2
+(Pro) and fr965 (Simple), simulator only. Per-device corner counts in the test log: fr965 and approachs50 place two, venusq2
+(rectangular) places none and keeps them in the grid. Not changed: the hero, gauge, sub line, arc and night.
+
+**Amendment 2, 2026-10-01 (owner: "do E1", then "less rigid, some curved UI"; mock page reviewed in a browser, simulator-tested,
+not on a wrist):** the look is **softer and curved, in both tiers**. (1) **The gauge is a shallow smile** (an arc of one circle
+whose depth is 44 per mille of the width, round-capped with filled circles because `drawArc` ends are butt; it replaces the straight
+bar in Simple too, since the hero block is shared). (2) **Pro's grid fields sit in rounded pills** (outline in the track grey,
+`ARC_TRACK`, the documented sub-3:1 hairline) **riding the same curve**: a pill's centre lifts onto the smile, clamped to a
+budget reserved once above the rows so the planner's height never depends on live cell widths; the corner fields get pills too and
+are skipped when a pill is taller than the date row. (3) **The Pro divider is gone** (the pills separate the grid from the hero).
+(4) **Pro drops the "N of 100" line under the Body Battery gauge** (the number and the gauge already say it, and the row is worth
+more to the grid; the empty-state sentence stays; Simple keeps the line). Without that, the extra height forced the planner to
+drop the "Body Battery" label on an FR965. (5) **Pulse ox becomes an icon-only field** (the label does not fit a pill on the bottom
+row; the droplet icon carries it; ADR-013's count is now 10 of 17 icon-only). (6) **Body Battery's hero icon is replaced:** the
+old shell with a fixed filled block read as a level (ADR-006 forbids implying one), the new one is Tabler's `battery` shell with
+Tabler's `activity-heartbeat` line scaled into it, one hue, no level, no bolt (a bolt is already the Intensity-minutes grid icon).
+Per-device plan levels before/after: fr965, approachs50 and venusq2 keep or improve their ladder rung in every window except
+approachs50 midday-data (one rung smaller). Not done: curved text (`drawRadialText` needs vector fonts, which only some of the
+69 products have; a later enhancement behind a capability check).
+
 ## ADR-014: One wearer setting — Accent colour (partly reverses ADR-011)
 
 **Status:** Active. Built 2026-09-28; simulator-tested only — it has never been changed in the

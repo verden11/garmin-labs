@@ -151,6 +151,16 @@ Top to bottom, every window but night:
    label only where the icon can't carry the meaning alone (next event, intensity minutes, run/wk,
    bike/wk, recovery, respiration, pulse ox, VO2max — 8 fields, once each).
 
+**Grid cell fit and corner fields, 2026-10-01 (after the owner's FR965 simulator screenshot of Pro evening, simulator only, not a wrist):**
+the screenshot showed a label cut to "Re..." beside "300", a value touching the next column's icon, and an
+icon-only cell's value far from its icon. Fixed in `DayArcGrid`/`DayArcLayout`: a gutter between the two columns
+(`GRID_COLUMN_GAP_PERMILLE`), the label gets whatever the value does not need (at least the 55% cap), an icon-only cell
+draws its value right beside its icon, and grid labels are about four letters (Rec, Resp, Int, Next, Run, Bike, SpO2,
+VO2, Rise, Set, Batt) because a cell on the FR965 is ~150 px wide and an XTINY letter ~16 px. Tests pass on fr965,
+approachs50, venusq2 (Pro) and fr965 (Simple). Then (owner-approved mock) and later "E1" (ADR-013 amendment 2): the gauge is a shallow smile in both tiers, grid fields sit in pills riding the same curve, the divider and Pro's "N of 100" line are gone, pulse ox is icon-only, and Body Battery's hero icon is Tabler's battery shell with a heartbeat line. Grid rows are centred pairs of compact cells, and the first two icon-only
+fields sit in the upper corners beside the date (`DayArcCorners`; ADR-013 amendment), so an FR965 shows six fields. **Open:** "96 of 100"
+repeats the hero number and the gauge; dropping it would buy a third grid row (not done, owner's call).
+
 Night: clock, then the date line, nothing else — no arc, no icon, no gauge, no grid, no hero, the
 one window where Pro and Simple render identically. Deliberately unchanged by ADR-013: night already
 had its date line and was already the studio's reference case for "the simplest window." **Decided

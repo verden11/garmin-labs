@@ -102,9 +102,9 @@ class DayArcStack {
         }
     }
 
-    // Where Pro's grid rows begin: below the 1px divider (drawn at ys[ROW_GRID]) and its gap.
+    // Where Pro's grid rows begin (no divider since E1; the lift budget is part of the grid block).
     function gridTop() as Number {
-        return ys[ROW_GRID] < 0 ? -1 : ys[ROW_GRID] + 1 + gap;
+        return ys[ROW_GRID];
     }
 
     // Live sub line(s) at draw time: two only if the plan budgeted two AND this live string does not
@@ -170,7 +170,7 @@ class DayArcStack {
         }
         hs[ROW_LABEL] = optional && strings.get(:label) != null && !dropLabel ? textHeight : 0;
         hs[ROW_HERO] = DayArcText.max(DayArcText.inkHeight(dc(), heroFont), _iconHeight);
-        hs[ROW_GAUGE] = _hasGauge ? layout.gaugeHeight() : 0;
+        hs[ROW_GAUGE] = _hasGauge ? layout.gaugeBoxHeight() : 0;
         var sub = strings.get(:sub) as String or Null;
         plannedSub = [] as Array<String>;
         if (sub != null && trim != DayArcConfig.TRIM_CORE) {
