@@ -4,7 +4,7 @@ import { Landing } from './Landing.tsx'
 import { Support } from './Support.tsx'
 import { Privacy } from './Privacy.tsx'
 
-// No storeUrl until the store approves the app: the page then says "Coming soon".
+// Store page URL supplied by the owner 2026-10-01. Without storeUrl the page would say "Coming soon".
 export const daysToGo: App = {
   slug: 'days-to-go',
   name: 'Days To Go',
@@ -14,6 +14,7 @@ export const daysToGo: App = {
   color: '#55ffaa',
   onColor: '#04140c',
   storeName: 'Connect IQ Store',
+  storeUrl: 'https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4',
   Mark: DaysToGoMark,
   Landing,
   Support,
