@@ -327,9 +327,9 @@ The studio specifics (the roster, Verden's directives, the pilots) stay in this 
 | WP1 | Accent tables: HeroFace, DaysToGo, TwoSuns | open |
 | WP2 | Daring mockups: DaysToGo | open |
 | WP3 | DayArc pair releasable | blocked on the other session + owner look-approval |
-| WP4 | DaysToGo Free + Pro 1.1.0 | open |
-| WP5 | TwoSuns Free | gated (G1) |
-| WP6 | HeroFace Free | gated (exposure readout + G1) |
+| WP4 | DaysToGo Free + Pro 1.1.0 | built 2026-10-01, unreleased (see START HERE tracker) |
+| WP5 | TwoSuns Free | built 2026-10-01, unreleased (see START HERE tracker) |
+| WP6 | HeroFace Free | built 2026-10-01, unreleased (see START HERE tracker) |
 | WP7 | HeroSet Free | gated (accuracy proof + ADR-044 review) |
 | WP8 | Site | open |
 | WP9 | `tools/store_poll.py` + CSV | open |

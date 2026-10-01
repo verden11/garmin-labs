@@ -41,9 +41,9 @@ Status tracker (update the row you finish; keep a date):
 | WP1 | Accent tables: HeroFace, Days To Go, Two Suns | open |
 | WP2 | Daring mockups: Days To Go first | open |
 | WP3 | DayArc pair releasable | blocked on the other DayArc session + owner look-approval |
-| WP4 | Days To Go Free + Pro 1.1.0 | open |
-| WP5 | Two Suns Free | gated (G1 on WP4) |
-| WP6 | HeroFace Free | gated (exposure readout + G1) |
+| WP4 | Days To Go Free + Pro 1.1.0 | BUILT 2026-10-01, UNRELEASED: both jungles compile, simulator tests pass (Pro 50 / Free 51), packages checked. No new design, no new accents, no upload. Owner gates open (names, price, listing text, look) |
+| WP5 | Two Suns Free | BUILT 2026-10-01 on the owner's go (G1 gate not waited for), UNRELEASED: simulator tests pass (Pro 130 / Free 67). Owner gates open |
+| WP6 | HeroFace Free | BUILT 2026-10-01 on the owner's go (readout and G1 not waited for), UNRELEASED: simulator tests pass (24 / 24). Free has no temperature. Owner gates open |
 | WP7 | HeroSet Free | gated (accuracy proof + complication-contract review) |
 | WP8 | Site | open |
 | WP9 | `tools/store_poll.py` + CSV | open |
