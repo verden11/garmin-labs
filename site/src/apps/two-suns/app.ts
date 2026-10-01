@@ -5,7 +5,7 @@ import { Support } from './Support.tsx'
 import { Privacy } from './Privacy.tsx'
 import { appName } from './facts.ts'
 
-// No storeUrl until the store approves the app: the page then says "Coming soon".
+// Live in the store (page confirmed 2026-10-01). Without storeUrl the page would say "Coming soon".
 // The slug is published in store listings and never changes, even if the name does.
 export const twoSuns: App = {
   slug: 'two-suns',
@@ -19,6 +19,7 @@ export const twoSuns: App = {
   color: '#ff6f8f',
   onColor: '#240a10',
   storeName: 'Connect IQ Store',
+  storeUrl: 'https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b',
   Mark: TwoSunsMark,
   Landing,
   Support,
