@@ -11,11 +11,12 @@ export const permissions: [string, string][] = [
 ]
 
 // Mirrors DayArc/docs/spec.md's Pro field lists (DayArc/docs/decisions.md ADR-009, ADR-013). The
-// date is shown in every window's header now, not just as a grid field, so it's dropped from the
-// per-window field lists below to avoid double-counting it.
+// date is in every window's header, so it is not a grid field. Never state a COUNT of fields: how
+// many show depends on the watch's screen (about 4-6 on an FR965, about 2 on a Venu Sq 2), so each
+// list is "as many as fit".
 export const windows: [string, string, string][] = [
-  ['Morning', '5:00–9:30', 'Weather, plus sunrise/sunset, battery, resting heart rate, steps, floors, notifications.'],
-  ['Midday', '9:30–17:00', 'Your next calendar event, plus stress, heart rate, intensity minutes, floors, steps, calories, notifications, temperature, weekly run and bike distance.'],
-  ['Evening', '17:00–23:00', 'Body Battery, plus recovery time, respiration, heart rate, steps, calories, pulse ox, VO2max.'],
+  ['Morning', '5:00–9:30', 'Weather, plus as many as fit your watch’s screen of: sunrise/sunset, battery, heart rate, steps, floors, notifications.'],
+  ['Midday', '9:30–17:00', 'Stress, plus as many as fit your watch’s screen of: your next calendar event, heart rate, intensity minutes, floors, steps, calories, notifications, temperature, weekly run and bike distance.'],
+  ['Evening', '17:00–23:00', 'Body Battery, plus as many as fit your watch’s screen of: recovery time, respiration, heart rate, steps, calories, pulse ox, VO2max.'],
   ['Night', '23:00–5:00', 'Time and date only — same as DayArc.'],
 ]

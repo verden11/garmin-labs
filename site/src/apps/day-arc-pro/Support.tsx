@@ -12,8 +12,14 @@ export function Support() {
       </p>
 
       <h2>The settings</h2>
-      <p>There are none. {appName} has no phone-app settings and no on-watch Customize menu — every field and every window is fixed at build time.</p>
-      <Note>This is deliberate: settings not saving is this platform's most common complaint, so {appName} has nothing to fail to save.</Note>
+      <p>
+        There is one: <strong>Accent colour</strong>, in the Garmin Connect app (open {appName}'s settings there). It is a
+        short list — Auto, which is the default and gives each time of day its own colour, or Cyan, Amber, Rose, Green,
+        Blue or Purple — and it colours the progress arc, the main number and its icon in every window except night. The
+        small icons in the field grid keep their own fixed colours. It only ever changes the colour, never what a number
+        means. Every field and every window is fixed at build time.
+      </p>
+      <Note>If the setting is ever missing or can't be read, the face simply shows its normal Auto colours.</Note>
 
       <h2>Common questions</h2>
       <h3>Some fields are missing on my watch.</h3>
@@ -28,7 +34,7 @@ export function Support() {
       <h3>What does the always-on screen show?</h3>
       <p>On AMOLED watches: the time only, dim, moving position every minute to avoid burn-in. The full face shows when the watch is awake. Other watches keep the full face.</p>
       <h3>What does the face store?</h3>
-      <p>Nothing. {appName} has no settings and no storage — see the privacy policy.</p>
+      <p>One thing: your accent colour choice, a small number kept in the app's own settings storage on the watch. No readings are stored — see the privacy policy.</p>
     </Doc>
   )
 }

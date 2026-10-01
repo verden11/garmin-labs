@@ -11,7 +11,7 @@ export function Landing() {
         <div className="wrap hero__inner">
           <div className="hero__copy">
             <h1 className="hero__name">{dayArc.name}</h1>
-            <p className="hero__offer">One reading at a time, changing on a fixed schedule through the day. No settings, nothing to configure.</p>
+            <p className="hero__offer">One reading at a time, changing on a fixed schedule through the day. One setting: an accent colour.</p>
             <HeroActions app={dayArc} />
           </div>
           <div className="hero__reps">
@@ -23,7 +23,7 @@ export function Landing() {
 
       <section className="wrap band" aria-labelledby="read-title">
         <h2 id="read-title" className="band__title">Four windows, one glance each.</h2>
-        <p className="band__lede">The same clock every day decides what's on screen. Nothing to open, nothing to set.</p>
+        <p className="band__lede">The same clock every day decides what's on screen. Nothing to open; the only thing to set is an accent colour, and Auto needs nothing.</p>
         <ol className="course">
           {windows.map(([title, time, text]) => (
             <li key={title} className="course__stop">
@@ -49,7 +49,7 @@ export function Landing() {
         <h2 id="yours-title" className="band__title">Looking for more fields?</h2>
         <p className="band__lede">DayArc keeps one reading per window on purpose. DayArc Pro is a separate, paid listing with the same four windows and a denser grid of fields under each one — steps, heart rate, calendar, and more.</p>
         <dl className="facts">
-          <div><dt>No settings</dt><dd>Every choice here is decided at build time, not a phone setting — this platform's most common complaint is settings that don't save, so DayArc has none to fail to save.</dd></div>
+          <div><dt>One setting</dt><dd>An accent colour, chosen in the Garmin Connect app — Auto by default, where each time of day has its own colour. Everything else is decided at build time; this platform's most common complaint is settings that don't save, so DayArc keeps its one setting small, and if it's ever missing the face just shows its normal colours.</dd></div>
           <div><dt>Nothing leaves the watch</dt><dd>No location, no network, no account. DayArc reads data your watch already has and keeps it there.</dd></div>
         </dl>
         <p><a href={appUrl(dayArc.slug, 'privacy')}>Read the privacy policy</a></p>

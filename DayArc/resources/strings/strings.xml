@@ -39,4 +39,15 @@
     <string id="label_sunrise">Sunrise</string>
     <string id="label_sunset">Sunset</string>
 
+    <!-- Accent colour (docs/decisions.md ADR-014). Auto = each window's own hue. -->
+    <string id="setting_accent">Accent colour</string>
+    <string id="accent_auto">Auto</string>
+    <string id="accent_auto_hint">Changes with the time of day</string>
+    <string id="accent_cyan">Cyan</string>
+    <string id="accent_amber">Amber</string>
+    <string id="accent_rose">Rose</string>
+    <string id="accent_green">Green</string>
+    <string id="accent_blue">Blue</string>
+    <string id="accent_purple">Purple</string>
+
 </strings>

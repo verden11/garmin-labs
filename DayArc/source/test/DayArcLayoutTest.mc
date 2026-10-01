@@ -7,8 +7,10 @@ import Toybox.Test;
 // device's documented resolution, not something `everyWindowRendersWithoutError` can catch (a
 // negative maxWidth fed to DayArcText.truncated doesn't throw, it just renders one truncated
 // character with no ellipsis) — watch-design-reviewer, 2026-09-28. Constructs synthetic Dcs at
-// known real product resolutions (not whichever device happens to run this test) so the check
-// holds across the device range regardless of simulator target.
+// known real product resolutions, so the GEOMETRY holds across the device range whichever simulator
+// target runs this. It does NOT vary the fonts: a synthetic buffered Dc changes only the size, the
+// fonts always come from the device actually running the test (fr965's, in most runs here) — so
+// anything that depends on font metrics is tested in DayArcStackTest, run per real device instead.
 (:test)
 function clockRowNeverGoesNegativeAcrossDeviceShapes(logger as Test.Logger) as Boolean {
     var resolutions = [

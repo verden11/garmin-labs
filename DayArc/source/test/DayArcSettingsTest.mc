@@ -1,0 +1,44 @@
+import Toybox.Lang;
+import Toybox.Test;
+
+// The accent setting's validation and palette mapping (ADR-014). Pure functions only: real
+// Application.Properties would persist in the simulator's app storage and recolour later render
+// tests, so nothing here writes a property.
+(:test)
+function garbageAccentValuesFallBackToAuto(logger as Test.Logger) as Boolean {
+    Test.assertEqual(DayArcSettings.clampAccent(null), DayArcConfig.ACCENT_AUTO);
+    Test.assertEqual(DayArcSettings.clampAccent("3"), DayArcConfig.ACCENT_AUTO);
+    Test.assertEqual(DayArcSettings.clampAccent(2.0), DayArcConfig.ACCENT_AUTO);
+    Test.assertEqual(DayArcSettings.clampAccent(true), DayArcConfig.ACCENT_AUTO);
+    Test.assertEqual(DayArcSettings.clampAccent(-1), DayArcConfig.ACCENT_AUTO);
+    Test.assertEqual(DayArcSettings.clampAccent(DayArcConfig.ACCENT_CHOICES), DayArcConfig.ACCENT_AUTO);
+    Test.assertEqual(DayArcSettings.clampAccent(99), DayArcConfig.ACCENT_AUTO);
+    for (var i = 0; i < DayArcConfig.ACCENT_CHOICES; i++) {
+        Test.assertEqual(DayArcSettings.clampAccent(i), i);
+    }
+    return true;
+}
+
+// Every choice maps to a 64-colour-safe hue (each channel 0x00/0x55/0xAA/0xFF); Auto is exactly
+// ADR-013's per-window hues; a fixed choice is the same hue in every active window.
+(:test)
+function accentChoicesMapToSafeHues(logger as Test.Logger) as Boolean {
+    var windows = [DayArcConfig.WINDOW_MORNING, DayArcConfig.WINDOW_MIDDAY, DayArcConfig.WINDOW_EVENING] as Array<Number>;
+    Test.assertEqual(DayArcPalette.accentFor(DayArcConfig.WINDOW_MORNING, DayArcConfig.ACCENT_AUTO), 0xFFAA00);
+    Test.assertEqual(DayArcPalette.accentFor(DayArcConfig.WINDOW_MIDDAY, DayArcConfig.ACCENT_AUTO), 0x55FFFF);
+    Test.assertEqual(DayArcPalette.accentFor(DayArcConfig.WINDOW_EVENING, DayArcConfig.ACCENT_AUTO), 0xFF55AA);
+    for (var choice = 0; choice < DayArcConfig.ACCENT_CHOICES; choice++) {
+        for (var w = 0; w < windows.size(); w++) {
+            var hue = DayArcPalette.accentFor(windows[w], choice);
+            var channels = [(hue >> 16) & 0xFF, (hue >> 8) & 0xFF, hue & 0xFF] as Array<Number>;
+            for (var c = 0; c < channels.size(); c++) {
+                var safe = channels[c] == 0x00 or channels[c] == 0x55 or channels[c] == 0xAA or channels[c] == 0xFF;
+                Test.assertMessage(safe, "choice " + choice + " window " + windows[w] + " has unsafe channel " + channels[c]);
+            }
+            if (choice >= 1) {
+                Test.assertEqual(hue, DayArcPalette.accentFor(DayArcConfig.WINDOW_MIDDAY, choice));
+            }
+        }
+    }
+    return true;
+}

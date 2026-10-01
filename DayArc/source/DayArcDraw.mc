@@ -5,128 +5,94 @@ import Toybox.WatchUi;
 // Renders one active-window frame or one idle/low-power frame. Which fields a Dictionary carries
 // (:cells present or not) is the only branch here — Simple vs Pro is a compile-time source
 // difference (DayArcFields), never a runtime one, so this class doesn't need to know which build
-// it's in.
+// it's in. WHERE every row sits, and in which font, is DayArcStack's plan (a measured dry run of the
+// whole stack); this class only draws what was planned.
 class DayArcDraw {
-    // Thin orchestrator (watch-design-reviewer, 2026-09-28: this used to run ~55 lines against the
-    // project's own ≲30-line function rule) — each named piece below does one row or one block.
-    static function renderActive(dc as Graphics.Dc, layout as DayArcLayout, window as Number, hero as Dictionary, clockText as String, windowProgress as Float) as Void {
+    static function renderActive(dc as Graphics.Dc, layout as DayArcLayout, window as Number, hero as Dictionary,
+                                  clockText as String, windowProgress as Float, plan as DayArcStack) as Void {
         dc.setColor(DayArcPalette.TEXT, DayArcPalette.BACKGROUND);
         dc.clear();
-
-        if (window != DayArcConfig.WINDOW_NIGHT) {
-            drawArc(dc, layout, window, windowProgress);
+        var night = window == DayArcConfig.WINDOW_NIGHT;
+        var accent = night ? DayArcPalette.MUTED : DayArcPalette.accentFor(window, DayArcSettings.accentChoice());
+        if (!night) {
+            DayArcArc.draw(dc, layout, accent, windowProgress);
         }
-
-        var y = drawHeader(dc, layout, hero, clockText);
-        if (window == DayArcConfig.WINDOW_NIGHT) {
+        drawHeader(dc, layout, plan, hero, clockText);
+        if (night) {
             return;
         }
-
-        y = drawHeroBlock(dc, layout, y, window, hero);
-
-        if (hero.hasKey(:cells)) {
-            y += layout.rowGap();
-            y = drawDivider(dc, layout, y);
-            DayArcGrid.draw(dc, layout, layout.gridTop(dc, y), hero.get(:cells) as Array<Dictionary>);
+        drawHeroBlock(dc, layout, plan, hero, accent);
+        var cells = hero.get(:cells);
+        if (cells instanceof Array && plan.ys[DayArcStack.ROW_GRID] >= 0) {
+            drawDivider(dc, layout, plan.ys[DayArcStack.ROW_GRID]);
+            DayArcGrid.draw(dc, layout, plan.gridTop(), cells as Array<Dictionary>);
         }
     }
 
     // Clock, then the date line — every window, both densities (ADR-013: date used to be night-only).
-    private static function drawHeader(dc as Graphics.Dc, layout as DayArcLayout, hero as Dictionary, clockText as String) as Number {
-        var y = layout.topMargin();
-        var clockHeight = dc.getFontHeight(DayArcLayout.CLOCK_FONTS[0]);
-        // Muted, not full white (DESIGN.md): the clock stays present but never competes with the
-        // hero read for the first glance — watch-design-reviewer, 2026-09-28.
-        y = DayArcText.centered(dc, layout.centerX(), y, DayArcLayout.CLOCK_FONTS, clockText, layout.rowMaxWidth(y, clockHeight), DayArcPalette.MUTED);
-        y += layout.rowGap();
-
-        var date = hero.hasKey(:dateText) ? (hero.get(:dateText) as String or Null) : null;
-        if (date != null) {
-            var dateHeight = dc.getFontHeight(DayArcLayout.LABEL_FONTS[0]);
-            y = DayArcText.centered(dc, layout.centerX(), y, DayArcLayout.LABEL_FONTS, date, layout.rowMaxWidth(y, dateHeight), DayArcPalette.MUTED);
+    // The clock is muted, not full white (DESIGN.md): present, but never competing with the hero
+    // read for the first glance — watch-design-reviewer, 2026-09-28.
+    private static function drawHeader(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, hero as Dictionary, clockText as String) as Void {
+        var y = plan.ys[DayArcStack.ROW_CLOCK];
+        DayArcText.drawCentered(dc, layout.centerX(), y, plan.clockFont, clockText, plan.rowWidth(y, plan.hs[DayArcStack.ROW_CLOCK]), DayArcPalette.MUTED);
+        // Every live string is null-guarded: a cached plan may still have a row for a string that has
+        // gone null (the date complication for one update, say), and that must never throw.
+        var dateY = plan.ys[DayArcStack.ROW_DATE];
+        var date = hero.get(:dateText);
+        if (dateY >= 0 && date instanceof String) {
+            var width = plan.rowWidth(dateY, plan.hs[DayArcStack.ROW_DATE]);
+            DayArcText.drawCentered(dc, layout.centerX(), dateY, plan.textFont, date, width, DayArcPalette.MUTED);
         }
-        return y;
     }
 
-    // Hero label (if any), hero icon+value, gauge (if any), sub line (if any) — every window but
+    // Hero label (if any), hero icon+value, gauge (if any), sub line(s) (if any) — every window but
     // night, both densities.
-    private static function drawHeroBlock(dc as Graphics.Dc, layout as DayArcLayout, yIn as Number, window as Number, hero as Dictionary) as Number {
-        var y = yIn + layout.rowGap();
-
-        var label = hero.get(:label) as String or Null;
-        if (label != null) {
-            var labelHeight = dc.getFontHeight(DayArcLayout.LABEL_FONTS[0]);
-            y = DayArcText.centered(dc, layout.centerX(), y, DayArcLayout.LABEL_FONTS, label, layout.rowMaxWidth(y, labelHeight), DayArcPalette.MUTED);
-            y += layout.rowGap();
+    private static function drawHeroBlock(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, hero as Dictionary, accent as Number) as Void {
+        var labelY = plan.ys[DayArcStack.ROW_LABEL];
+        var label = hero.get(:label);
+        if (labelY >= 0 && label instanceof String) {
+            var width = plan.rowWidth(labelY, plan.hs[DayArcStack.ROW_LABEL]);
+            DayArcText.drawCentered(dc, layout.centerX(), labelY, plan.textFont, label, width, DayArcPalette.MUTED);
         }
-
-        var accent = DayArcPalette.accentFor(window);
-        y = drawHeroGroup(dc, layout, y, hero, accent);
-        y += layout.rowGap();
-
-        var gauge = hero.hasKey(:gauge) ? hero.get(:gauge) as Number or Null : null;
-        if (gauge != null) {
-            y = drawGauge(dc, layout, y, gauge, hero.get(:gaugeMax) as Number, accent);
-            y += layout.rowGap();
+        if (plan.ys[DayArcStack.ROW_HERO] >= 0) {
+            drawHeroGroup(dc, layout, plan, hero, accent);
         }
-
-        var sub = hero.hasKey(:sub) ? hero.get(:sub) as String or Null : null;
-        if (sub != null) {
-            var subHeight = dc.getFontHeight(DayArcLayout.SUB_FONTS[0]);
-            y = DayArcText.centered(dc, layout.centerX(), y, DayArcLayout.SUB_FONTS, sub, layout.rowMaxWidth(y, subHeight), DayArcPalette.MUTED);
+        var gaugeY = plan.ys[DayArcStack.ROW_GAUGE];
+        var gauge = hero.get(:gauge);
+        var gaugeMax = hero.get(:gaugeMax);
+        if (gaugeY >= 0 && gauge instanceof Number && gaugeMax instanceof Number) {
+            drawGauge(dc, layout, gaugeY, gauge, gaugeMax, accent);
         }
-        return y;
-    }
-
-    // Window-progress arc (ADR-013): a thin arc across the top of the circle in the window's own
-    // accent, showing progress through the CURRENT window only — a deliberately different shape
-    // from TwoSuns's full 24h ring. A dim track is always drawn first so the accent segment reads
-    // as "progress," not an ambiguous growing sliver.
-    private static function drawArc(dc as Graphics.Dc, layout as DayArcLayout, window as Number, fraction as Float) as Void {
-        var cx = layout.centerX();
-        var cy = layout.centerY();
-        var r = layout.arcRadius();
-        var start = layout.arcTrackStartDegrees();
-        var end = layout.arcTrackEndDegrees();
-        dc.setPenWidth(layout.arcPenWidth());
-        dc.setColor(DayArcPalette.ARC_TRACK, Graphics.COLOR_TRANSPARENT);
-        dc.drawArc(cx, cy, r, Graphics.ARC_CLOCKWISE, start, end);
-
-        var progressEnd = layout.arcProgressEndDegrees(fraction);
-        // Dc.drawArc treats equal start/end degrees as a full circle (SDK docs) — skip at fraction
-        // 0 rather than draw a full accent ring instead of "no progress yet."
-        if (progressEnd != start) {
-            dc.setColor(DayArcPalette.accentFor(window), Graphics.COLOR_TRANSPARENT);
-            dc.drawArc(cx, cy, r, Graphics.ARC_CLOCKWISE, start, progressEnd);
+        var subY = plan.ys[DayArcStack.ROW_SUB];
+        var sub = hero.get(:sub);
+        if (subY >= 0 && sub instanceof String) {
+            var lineHeight = dc.getFontHeight(plan.textFont);
+            var lines = plan.subLines(dc, sub);
+            for (var i = 0; i < lines.size(); i++) {
+                var y = subY + i * lineHeight;
+                DayArcText.drawCentered(dc, layout.centerX(), y, plan.textFont, lines[i], plan.rowWidth(y, lineHeight), DayArcPalette.MUTED);
+            }
         }
-        dc.setPenWidth(1);
     }
 
     // Icon beside the hero value, both the window's accent, centred together as one group
     // (ADR-013) — the icon is a companion glyph, it never gets its own competing line.
-    private static function drawHeroGroup(dc as Graphics.Dc, layout as DayArcLayout, y as Number, hero as Dictionary, accent as Number) as Number {
-        var valueStr = hero.get(:value) as String;
+    private static function drawHeroGroup(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, hero as Dictionary, accent as Number) as Void {
+        var y = plan.ys[DayArcStack.ROW_HERO];
+        var rowHeight = plan.hs[DayArcStack.ROW_HERO];
         var iconId = hero.hasKey(:icon) ? hero.get(:icon) as ResourceId or Null : null;
-        var heroHeight = dc.getFontHeight(DayArcLayout.HERO_FONTS[0]);
-        if (iconId == null) {
-            return DayArcText.centered(dc, layout.centerX(), y, DayArcLayout.HERO_FONTS, valueStr, layout.rowMaxWidth(y, heroHeight), accent);
+        var icon = iconId != null ? WatchUi.loadResource(iconId) as WatchUi.BitmapResource : null;
+        var iconWidth = icon != null ? icon.getWidth() + layout.heroIconGap() : 0;
+        var available = plan.rowWidth(y, rowHeight) - iconWidth;
+        var value = hero.get(:value);
+        var fitted = DayArcText.truncated(dc, value instanceof String ? value : "", plan.heroFont, available);
+        var left = layout.centerX() - (iconWidth + dc.getTextWidthInPixels(fitted, plan.heroFont)) / 2;
+        if (icon != null) {
+            dc.drawBitmap(left, y + (rowHeight - icon.getHeight()) / 2, icon);
         }
-
-        var icon = WatchUi.loadResource(iconId) as WatchUi.BitmapResource;
-        var gap = layout.heroIconGap();
-        var available = layout.rowMaxWidth(y, heroHeight) - icon.getWidth() - gap;
-        var font = DayArcText.fittingFont(dc, DayArcLayout.HERO_FONTS, valueStr, available);
-        var fitted = DayArcText.truncated(dc, valueStr, font, available);
-        var textWidth = dc.getTextWidthInPixels(fitted, font);
-        var fontHeight = dc.getFontHeight(font);
-        var totalWidth = icon.getWidth() + gap + textWidth;
-        var left = layout.centerX() - totalWidth / 2;
-
-        var rowHeight = fontHeight > icon.getHeight() ? fontHeight : icon.getHeight();
-        dc.drawBitmap(left, y + (rowHeight - icon.getHeight()) / 2, icon);
+        var inkHeight = DayArcText.inkHeight(dc, plan.heroFont);
         dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
-        dc.drawText(left + icon.getWidth() + gap, y + (rowHeight - fontHeight) / 2, font, fitted, Graphics.TEXT_JUSTIFY_LEFT);
-        return y + rowHeight;
+        dc.drawText(left + iconWidth, y + (rowHeight - inkHeight) / 2, plan.heroFont, fitted, Graphics.TEXT_JUSTIFY_LEFT);
     }
 
     // A single-hue fill, never a colour or brightness verdict (docs/decisions.md ADR-006): no
@@ -135,11 +101,11 @@ class DayArcDraw {
     // band as a brightness verdict, caught by watch-design-reviewer, 2026-09-28. `value` is clamped
     // to `[0, max]`: the SDK documents 0-100 but nothing enforces it at runtime, and this project's
     // own docs already flag several complication fields as unconfirmed on real devices.
-    private static function drawGauge(dc as Graphics.Dc, layout as DayArcLayout, top as Number, value as Number, max as Number, accent as Number) as Number {
-        var height = layout.permille(30);
-        // The deliberate visual side padding (wider than plain round-safety), capped by the real
-        // chord width so it never clips a bezel on a small round product — code review, 2026-09-28.
-        var padded = layout.width() - layout.permille(160);
+    private static function drawGauge(dc as Graphics.Dc, layout as DayArcLayout, top as Number, value as Number, max as Number, accent as Number) as Void {
+        var height = layout.gaugeHeight();
+        // The deliberate visual side padding, capped by the real chord width so it never clips a
+        // bezel on a small round product — code review, 2026-09-28.
+        var padded = layout.gaugeMaxWidth();
         var chord = layout.rowMaxWidth(top, height);
         var width = padded < chord ? padded : chord;
         var left = layout.centerX() - width / 2;
@@ -158,18 +124,16 @@ class DayArcDraw {
             dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
             dc.fillRoundedRectangle(left, top, fillWidth, height, radius);
         }
-        return top + height;
     }
 
     // Pro only: a faint hairline marking where "glance here first" (clock, date, hero) ends and
     // "look after" (the grid) begins (ADR-013).
-    private static function drawDivider(dc as Graphics.Dc, layout as DayArcLayout, y as Number) as Number {
+    private static function drawDivider(dc as Graphics.Dc, layout as DayArcLayout, y as Number) as Void {
         var width = layout.dividerWidth(y);
         var left = layout.centerX() - width / 2;
         dc.setPenWidth(1);
         dc.setColor(DayArcPalette.ARC_TRACK, Graphics.COLOR_TRANSPARENT);
         dc.drawLine(left, y, left + width, y);
-        return y + layout.rowGap();
     }
 
     // AMOLED always-on sleep: time only, dim, stepping across a 3x3 grid every minute so no pixel

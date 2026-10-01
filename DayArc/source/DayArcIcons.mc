@@ -3,19 +3,26 @@ import Toybox.Lang;
 // Maps a hero/grid field to its bitmap resource (ADR-013). Every icon is pre-coloured at build
 // time (see resources/drawables/icons/, resources-pro/drawables/icons/) and drawn with plain
 // dc.drawBitmap — no runtime tint, since a fixed hue never needs one (DESIGN.md "Iconography").
-// Morning's Pro grid (sunrise/sunset/date/battery%/HR/steps/floors/notifications) is unchanged by
+// Morning's Pro grid (sunrise/sunset/battery%/HR/steps/floors/notifications — no date cell: the header shows it) is unchanged by
 // ADR-013 and has no icons — the owner's own request that triggered this redesign named midday and
 // evening specifically; DESIGN.md's icon table covers only those two windows' 17 grid fields.
 class DayArcIcons {
-    static function heroFor(window as Number) as ResourceId or Null {
+    // Hero icons are pre-coloured bitmaps, one per hue (tools/gen_hero_icons.py) — a runtime tint
+    // would hit drawBitmap2's FR165/FR165m :tintColor bug. Indexed like DayArcPalette.ACCENTS.
+    // `choice` is the wearer's Accent colour (0 = Auto: this window's own hue).
+    static function heroFor(window as Number, choice as Number) as ResourceId or Null {
+        var hue = DayArcPalette.hueIndex(window, choice);
         if (window == DayArcConfig.WINDOW_MORNING) {
-            return Rez.Drawables.IconHeroWeather;
+            return [Rez.Drawables.IconHeroWeatherCyan, Rez.Drawables.IconHeroWeatherAmber, Rez.Drawables.IconHeroWeatherRose,
+                    Rez.Drawables.IconHeroWeatherGreen, Rez.Drawables.IconHeroWeatherBlue, Rez.Drawables.IconHeroWeatherPurple][hue];
         }
         if (window == DayArcConfig.WINDOW_MIDDAY) {
-            return Rez.Drawables.IconHeroStress;
+            return [Rez.Drawables.IconHeroStressCyan, Rez.Drawables.IconHeroStressAmber, Rez.Drawables.IconHeroStressRose,
+                    Rez.Drawables.IconHeroStressGreen, Rez.Drawables.IconHeroStressBlue, Rez.Drawables.IconHeroStressPurple][hue];
         }
         if (window == DayArcConfig.WINDOW_EVENING) {
-            return Rez.Drawables.IconHeroBattery;
+            return [Rez.Drawables.IconHeroBatteryCyan, Rez.Drawables.IconHeroBatteryAmber, Rez.Drawables.IconHeroBatteryRose,
+                    Rez.Drawables.IconHeroBatteryGreen, Rez.Drawables.IconHeroBatteryBlue, Rez.Drawables.IconHeroBatteryPurple][hue];
         }
         return null; // night: no hero, no icon
     }

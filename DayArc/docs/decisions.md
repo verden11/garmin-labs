@@ -16,8 +16,10 @@ and Pro says so in its own body.
 | 008 | Simple excludes calendar deliberately | Active |
 | 009 | Pro accepts kitchen-sink density on purpose | Active |
 | 010 | Night window (23:00-5:00) | Open — owner-reversible |
-| 011 | No settings surface, either density | Active |
+| 011 | No settings surface, either density | Active — reversed for ONE setting (Accent colour) by ADR-014 |
 | 012 | Names, app ids and slugs | Open — store-collision checked, no trademark search |
+| 013 | Icon system, per-window/per-icon colour, always-visible date, window-progress arc | Active — built; amended after the first wrist photo (vertical stack planner) |
+| 014 | One wearer setting: Accent colour | Active — built, simulator-only, never yet tried in the phone app or on a wrist |
 
 ## ADR-001: Device set / API floor
 
@@ -27,9 +29,13 @@ and Pro says so in its own body.
 ships and was submitted on this exact floor with the same 69-product set.
 
 **Decision:** `minApiLevel="4.2.0"`, TwoSuns ADR-009's 69-product set (66 round, 3 rectangular
-AMOLED: Venu Sq 2, Venu Sq 2 Music, Venu X1), for both the Simple and Pro manifest. The rectangular
-products get the same round-centred content, shorter side sets the scale — TwoSuns's own layout
-convention, reused (`DayArcLayout`).
+AMOLED: Venu Sq 2, Venu Sq 2 Music, Venu X1), for both the Simple and Pro manifest. Round products
+are chord-fitted against the inscribed circle (TwoSuns's own layout convention, reused,
+`DayArcLayout`). **Amended 2026-09-28 (ADR-013's vertical-fit review):** the three rectangular
+products no longer get the same round-centred content — they have no bezel to clip against, so their
+rows use the full screen width and the screen's own bottom edge; only the window-progress arc stays
+on the inscribed circle. The all-circle shortcut left Venu Sq 2 (320x360) a 160px radius and no font
+tier that fit (`DayArcStackTest`).
 
 **Evidence:** Reused verbatim from TwoSuns `manifest.xml`'s product list (its own fit sweep passed
 69/69, 2026-09-27, predating some later fixes there — see that project's own compatibility.md for
@@ -80,8 +86,9 @@ own 4.1.0, or adding a permission to `Toybox.Weather`.
 mode (8.4% of low-star reviews, this studio's own market research). A runtime density toggle would
 put the mode switch on the platform's weakest spot.
 
-**Decision:** Two separate store listings (DayArc, DayArc Pro), no in-app toggle, no settings
-surface at all (ADR-011). One shared `source/`, split at build time via Monkey C's `excludeAnnotations`
+**Decision:** Two separate store listings (DayArc, DayArc Pro), no in-app toggle, no density setting
+(ADR-011 removed the settings surface entirely; ADR-014 later added back exactly one — Accent colour
+— and density stays compile-time). One shared `source/`, split at build time via Monkey C's `excludeAnnotations`
 jungle mechanism: `monkey.simple.jungle` (`base.excludeAnnotations = pro`) and `monkey.pro.jungle`
 (`base.excludeAnnotations = simple`), each with its own `manifest.simple.xml`/`manifest.pro.xml`
 (separate app ids, never changing once published) and its own `resources`/`resources-pro` override
@@ -247,7 +254,8 @@ override.
 
 ## ADR-011: No settings surface, either density
 
-**Status:** Active.
+**Status:** Active — **reversed for ONE setting (Accent colour) by ADR-014, 2026-09-28.** Everything
+below still holds for every other choice: window boundaries, field lists, density.
 
 **Decision:** No `settings.xml`/`properties.xml`, no on-watch `getSettingsView()`/Customize menu,
 for either listing, v1. Every remaining choice (window boundaries, field lists, colours) is a
@@ -263,7 +271,9 @@ complaint in that corpus is a settings-persistence failure).
 
 **Reversed by:** The owner, if a future version needs a real per-user choice (e.g. metric/statute
 override — though `DayArcFormat` already reads the device's own system units automatically, so
-this specific case shouldn't need one).
+this specific case shouldn't need one). **Partly reversed, 2026-09-28, by ADR-014** (the owner asked
+for an accent colour after first wearing it): exactly one list setting, with the persistence
+mitigations that decision records.
 
 ## ADR-012: Names, app ids and slugs
 
@@ -343,3 +353,100 @@ empty-state icon, a wrong icon highlight colour, a doc claim ahead of its test, 
 a house-rule function-length violation) — all fixed, see `docs/plan.md`. `watch-design-reviewer`
 itself (the craft-focused agent, distinct from this fix-finding review) has still not run against
 the built version.
+
+**Amended 2026-09-28, after the owner's first on-wrist photo (FR965, evening window, 22:35, the
+first real-device evidence this project has):** the simulator tests could not see three defects.
+(1) The bottom sub line, which should read "44 of 100", drew as "4...": rows stacked top-down with
+fonts picked per row by WIDTH only and nothing budgeted total HEIGHT against the display, so the sub
+row landed at y=429 on fr965 (the simulator's own number; the owner's photo showed roughly y=423) with
+a chord of -18px, and `DayArcText.truncated` collapsed it to one character and an ellipsis. (2) The
+arc crowded the clock digits' top corners: the arc curves DOWN toward the sides, so the corners, not
+the apex the first clearance derivation used, are where it collides. (3) The whole stack was
+top-heavy. Fix, all in the layout, none of it a visual redesign: `DayArcStack` plans the WHOLE stack
+by measured dry run — vertically centred, tighter gaps first, then the clock, the small text and the
+hero last — and `DayArcDraw` draws exactly that plan; rows are fitted against fixed worst-case
+strings so tiers never flicker between readings; the arc sits at a fixed radius near the bezel and
+every row up in its band is fitted against the arc's inner edge (`DayArcArc.rowMaxWidth`), so
+"fits its row" also means "clears the arc"; a sub line too long for its row wraps to two lines
+(never cut to a stub) rather than shrinking the hero; rectangular products get full-width rows
+(ADR-001 amendment). **Hardened after the third review, 2026-09-29:** the plan cache also keys on
+the date and replans when a live string is wider than its plan; the draw path null-guards every live
+string; a plan that fits nowhere falls to TRIM rungs and then drops any row that would cross the
+bottom, so it is always safe to draw. Details and per-device numbers: `DESIGN.md` "Layout", `docs/plan.md`.
+
+## ADR-014: One wearer setting — Accent colour (partly reverses ADR-011)
+
+**Status:** Active. Built 2026-09-28; simulator-tested only — it has never been changed in the
+Garmin Connect phone page or on a watch.
+
+**Decision:** Add exactly one setting, "Accent colour", to BOTH listings (`resources/settings/` is
+shared by both jungles). A list only — never a free hex or colour picker — of seven values, every
+one 64-colour-safe:
+
+| Value | Choice | Colour |
+|---|---|---|
+| 0 | Auto (default) | each window's own hue, exactly ADR-013's behaviour: morning amber `#FFAA00`, midday cyan `#55FFFF`, evening rose `#FF55AA` |
+| 1 | Cyan | `#55FFFF` |
+| 2 | Amber | `#FFAA00` |
+| 3 | Rose | `#FF55AA` |
+| 4 | Green | `#55FF55` |
+| 5 | Blue | `#55AAFF` |
+| 6 | Purple | `#AA55FF` |
+
+A fixed choice colours the window-progress arc, the hero value, the gauge fill and the hero icon in
+every non-night window. Night stays hueless. The 14 Pro grid icons keep their fixed per-type hues
+(ADR-013) — categorical, unaffected. Two surfaces write the same `Application.Properties` key
+(`Accent`), last change wins: the Garmin Connect phone page (`settings.xml`) and the watch's own
+Customize screen (`getSettingsView`: one plain `Menu2` list plus a delegate). **Corrected 2026-09-29
+(third review):** a sideloaded, dev-signed app gets NO phone-app settings — the phone page works only
+for a store-installed app (`watch-design-kit/knowledge/platform-facts.md` "Settings") — so the
+watch's Customize list is the only route a sideloaded build has, and the phone-page route can be
+verified only after a store install; the listing's "chosen in the Garmin Connect app" claim ships
+unverified until then. The Customize delegate copies TwoSuns's list-menu delegate but with one
+difference that matters: DayArc's menu IS the root settings view, so `popView` on select leaves
+Customize altogether (TwoSuns pops a sub-list pushed over its root menu); Days To Go ADR-005's FR965
+verification of the Customize route therefore does NOT cover select-then-exit, which is untested. Density is still compile-time (ADR-003, ADR-011's
+core stands): this is the ONLY runtime setting, and nothing else is to be added under it.
+
+**Why:** The owner asked for it, explicitly, after first wearing the face (2026-09-28) — the
+per-window hues are the design's own choice, and a wearer may simply prefer one colour all day. The
+risk is on the record: settings that don't save are this category's single most-upvoted complaint
+(ADR-011's evidence, 8.4% of low-star reviews), which is why ADR-011 removed the whole surface. The
+mitigations ARE part of the decision, not extras:
+- **One setting, one list, seven values.** Nothing to mis-type, nothing that interacts with another.
+- **The default is today's behaviour.** A setting that is lost, reset or never touched looks exactly
+  like the face the owner already approved — the failure mode is "Auto," never "broken."
+- **Read at draw time, never cached.** `DayArcSettings.accentChoice()` reads `Application.Properties`
+  inside a `try/catch` on every gather, clamps to the valid range and falls back to Auto for a
+  missing key, a wrong type from an old phone app, or a value nobody offers. `onSettingsChanged`
+  requests a redraw, so a change applies without a restart.
+- **No runtime tint.** Hero icons are pre-coloured bitmaps, one per hue (18 files, generated by
+  `tools/gen_hero_icons.py` from the ADR-013 Tabler-derived icons), chosen at draw time — never
+  `drawBitmap2`'s `:tintColor`, which is broken on FR165/FR165m.
+- **Tested pure.** The clamp and the choice-to-hue mapping are pure functions with unit tests
+  (garbage values, every index, 64-colour safety); the tests never write a real property.
+- **Gate 5 now has something to test on a device** (`docs/publish-checklist.md`): on a sideloaded
+  build, the Customize picker only (choose, select-then-exit, restart the watch); the phone page only
+  after a store install.
+
+ADR-006 (no colour verdict) still holds: a chosen hue is constant whatever the reading, so stress
+and Body Battery never change colour with their value — and a colour the wearer picked is not the
+watch judging their number. It does mean a wearer can now pick green or amber for stress; that is
+their choice, not a threshold. Note for the owner: Green, Blue and Purple are the same hues as the
+Pro grid's steps, calendar and stairs icons (and Cyan, Amber, Rose already echoed the breath,
+thermometer and droplet icons) — categorical, so no reading is ever implied, but a chosen accent can
+match a grid icon.
+
+**Evidence:** The owner's request (2026-09-28, chat). TwoSuns already ships an Accent list setting
+plus on-watch list menu (`../TwoSuns/source/settings/`), and Days To Go ADR-005 records the
+Customize route working on an FR965 — the pattern, not proof for DayArc (see the select-then-exit
+difference above). `DayArcSettingsTest`
+(clamp, mapping, 64-colour safety) and `DayArcRenderTest.everyHeroIconLoadsAtExpectedSize` (all 18
+hero icons, every window x every choice) pass on fr965/approachs50/venusq2/venux1, both jungles.
+No new manifest permission. Nothing about the phone page or the watch menu has been exercised on a
+device.
+
+**Reversed by:** The owner; or a device test (gate 5) showing the choice doesn't persist or apply —
+in which case remove the setting and return to ADR-011 rather than ship a flaky one. Any request for
+a SECOND setting is a new ADR, and this one's persistence evidence should be in hand first.
+

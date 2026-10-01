@@ -9,35 +9,61 @@ import Toybox.WatchUi;
 // review, 2026-09-28: the old capacity floor ignored the icon + label + value shape); rows drop
 // from the end, never the middle.
 class DayArcGrid {
+    (:pro)
     private static const MIN_VALUE_SAMPLE = "100";
 
     // Simple never puts :cells in a hero dict (DayArcFields' (:simple) forWindow builds none), so
     // this is unreachable there — a same-signature stub so DayArcDraw stays one shared function
     // (ADR-003). The real body is (:pro) because it reaches DayArcIcons.gridFor.
+    // Both draw() variants return how many rows were drawn, so DayArcStackTest can log it per device.
     (:simple)
-    static function draw(dc as Graphics.Dc, layout as DayArcLayout, top as Number, cells as Array<Dictionary>) as Void {
+    static function draw(dc as Graphics.Dc, layout as DayArcLayout, top as Number, cells as Array<Dictionary>) as Number {
+        return 0;
+    }
+
+    // DayArcStack's question, asked before anything is drawn: would the first `rows` rows fit from
+    // `top` (each by its own chord, above the grid bottom)? Simple has no grid, so always true.
+    (:simple)
+    static function rowsFit(dc as Graphics.Dc, layout as DayArcLayout, cells as Array<Dictionary>, top as Number, rows as Number) as Boolean {
+        return true;
     }
 
     (:pro)
-    static function draw(dc as Graphics.Dc, layout as DayArcLayout, top as Number, cells as Array<Dictionary>) as Void {
+    static function draw(dc as Graphics.Dc, layout as DayArcLayout, top as Number, cells as Array<Dictionary>) as Number {
         var bottom = layout.gridBottom();
         var rowHeight = layout.gridRowHeight(dc);
         var rows = (cells.size() + DayArcLayout.GRID_COLUMNS - 1) / DayArcLayout.GRID_COLUMNS;
         for (var row = 0; row < rows; row++) {
             var y = top + row * rowHeight;
             if (y + rowHeight > bottom) {
-                return;
+                return row;
             }
             var columnWidth = layout.gridRowColumnWidth(y, rowHeight);
             var first = row * DayArcLayout.GRID_COLUMNS;
             if (!rowFits(dc, layout, cells, first, columnWidth)) {
-                return;
+                return row;
             }
             var leftColumnX = layout.centerX() - columnWidth;
             for (var column = 0; column < DayArcLayout.GRID_COLUMNS && first + column < cells.size(); column++) {
                 drawCell(dc, layout, cells[first + column], leftColumnX + column * columnWidth, y, columnWidth, rowHeight);
             }
         }
+        return rows;
+    }
+
+    (:pro)
+    static function rowsFit(dc as Graphics.Dc, layout as DayArcLayout, cells as Array<Dictionary>, top as Number, rows as Number) as Boolean {
+        var rowHeight = layout.gridRowHeight(dc);
+        for (var row = 0; row < rows; row++) {
+            var y = top + row * rowHeight;
+            if (y + rowHeight > layout.gridBottom()) {
+                return false;
+            }
+            if (!rowFits(dc, layout, cells, row * DayArcLayout.GRID_COLUMNS, layout.gridRowColumnWidth(y, rowHeight))) {
+                return false;
+            }
+        }
+        return true;
     }
 
     (:pro)

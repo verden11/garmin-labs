@@ -6,11 +6,12 @@ search). One codebase, two store listings: **DayArc** (free) shows one focal rea
 (morning weather, midday stress, evening Body Battery, night time+date); **DayArc Pro** ($1.99, no
 flip-to-free) shows the same windows with a denser field grid under each hero read. Split is
 compile-time (`monkey.simple.jungle`/`monkey.pro.jungle`, `excludeAnnotations`), never a runtime
-toggle — deliberate, this platform's #1 complaint is settings not saving (ADR-003, ADR-011).
+toggle — deliberate, this platform's #1 complaint is settings not saving (ADR-003, ADR-011). The one
+exception is a single Accent colour list (ADR-014, owner-requested after first wear).
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (what it does, data sources, device reach),
 [`docs/plan.md`](docs/plan.md) (implementation status, what's simulator-only),
-[`docs/decisions.md`](docs/decisions.md) (12 ADRs, each with evidence and what reverses it),
+[`docs/decisions.md`](docs/decisions.md) (14 ADRs, each with evidence and what reverses it),
 [`docs/publish-checklist.md`](docs/publish-checklist.md) (gates before either store upload),
 [`docs/release-contract.md`](docs/release-contract.md) (what may be claimed),
 [`docs/compatibility.md`](docs/compatibility.md), [`docs/development.md`](docs/development.md).
@@ -29,7 +30,10 @@ The evidence is in [`../reports/DayArc v1 scope and plan.md`](../reports/DayArc%
   permission). Manifest permission: `ComplicationSubscriber` only — confirmed required (not "zero
   permissions," a correction caught before it reached spec/listing copy, ADR-002). No `Positioning`
   (DayArc reads no location, unlike TwoSuns), no `SensorHistory`, no network.
-- No settings surface, either listing (ADR-011) — every choice here is build-time.
+- ONE wearer setting, both listings: Accent colour, a 7-value list, default Auto = the per-window hues
+  (ADR-014, partly reversing ADR-011). Read at draw time inside a guard, clamped, bad values fall
+  back to Auto. Density and every other choice stay build-time (ADR-003). Never add a second
+  setting without a new ADR.
 - No verdicts, ever: stress and Body Battery are a number and a single-brightness gauge, no
   threshold tier at all, never a colour/mood judgement (ADR-006, extends TwoSuns ADR-008 — an
   earlier dim-above-threshold version was removed, not just documented as removed, see ADR-006).
@@ -37,9 +41,12 @@ The evidence is in [`../reports/DayArc v1 scope and plan.md`](../reports/DayArc%
   (swap `monkey.pro.jungle` for the Pro build).
 - Tests: `tools/run_tests.sh <device> [jungle] [testName]`. Compile-only sweep across all 69
   products, both jungles: `tools/compile_sweep.sh` (no simulator needed).
-- **No real device evidence at all.** Everything is simulator-only: compile sweep (69/69 both
+- **One real-device photo, nothing else** (owner's FR965, evening window, 2026-09-28: it showed the
+  sub line as "4...", the arc crowding the clock corners and a top-heavy stack — all fixed in
+  `DayArcStack`/`DayArcArc`, ADR-013's amendment, and not yet re-checked on the wrist). Otherwise
+  everything is simulator-only: compile sweep (69/69 both
   densities) plus render/test exercise on 4 spot-check devices (fr965, approachs50, venusq2,
-  venux1). Nothing has run on a wrist, no screenshot of either face exists.
+  venux1). No screenshot of either build exists (no display in the dev sandbox).
 
 ## Open owner decisions
 
@@ -65,13 +72,16 @@ project mirrors:
   null guard.
 - No magic numbers: tunables in `DayArcConfig`, geometry in `DayArcLayout`, colours in
   `DayArcPalette`, words in `strings.xml`.
-- Text fit is measured, never guessed: draw through `DayArcText`/`DayArcDraw`.
+- Text fit is measured, never guessed: `DayArcStack` plans every row's font and y by a dry run of the
+  whole stack, `DayArcText`/`DayArcDraw` draw exactly that plan. Fit tests run per real device
+  (`tools/run_tests.sh <device>`): a synthetic buffered Dc changes the size, never the fonts.
 - Render only in `onUpdate`; gather in `DayArcSources`/`DayArcFields`.
 - One class per file, `DayArc` prefix. Functions ≲30 lines, files ≲250.
 - A value the watch does not have is hidden or said in words, never faked or blank ("--", a plain
   sentence for the hero read's own empty state).
-- Forbidden here: any mood/emoji/colour verdict on stress or Body Battery; a runtime density
-  setting; the network; `Background`, `Communications`, `UserProfile`, `Positioning`; claiming a
+- Forbidden here: any mood/emoji/colour verdict on stress or Body Battery (a colour the WEARER
+  chose is constant whatever the reading — ADR-014 — that's not a verdict); a runtime density
+  setting; any wearer setting other than Accent colour; the network; `Background`, `Communications`, `UserProfile`, `Positioning`; claiming a
   cause for a null the SDK can't actually attribute (calendar's null, VO2max/pulse ox/weekly-
   distance nulls — see `docs/spec.md` "Data sources"); a raw Garmin-authored string surfaced
   unfiltered when its vocabulary isn't fully known (training status was cut for exactly this).

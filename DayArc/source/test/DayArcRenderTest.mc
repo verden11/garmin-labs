@@ -18,7 +18,9 @@ function dayArcTestDc() as Graphics.Dc {
 // exception, since drawing bad data is still worth catching even though the simulator's own
 // values are not device proof. Covers ADR-013's arc/icons/divider/date at three progress
 // fractions per window, including 0.0 — the boundary Dc.drawArc treats as "draw a full circle"
-// unless DayArcDraw's own guard against it holds (see DayArcLayout.arcProgressEndDegrees).
+// unless DayArcArc.draw's own guard against it holds. Logs memory after the renders (ADR-014 added
+// 18 hero icon bitmaps): a simulator number, not a device one, and a test build is larger than a
+// release build.
 (:test)
 function everyWindowRendersWithoutError(logger as Test.Logger) as Boolean {
     var dc = dayArcTestDc();
@@ -29,31 +31,35 @@ function everyWindowRendersWithoutError(logger as Test.Logger) as Boolean {
     var progressFractions = [0.0, 0.5, 1.0] as Array<Float>;
     for (var i = 0; i < windows.size(); i++) {
         var hero = DayArcFields.forWindow(windows[i], sources, epoch);
+        var plan = DayArcStack.plan(dc, layout, windows[i], hero);
         for (var p = 0; p < progressFractions.size(); p++) {
-            DayArcDraw.renderActive(dc, layout, windows[i], hero, "12:34", progressFractions[p]);
+            DayArcDraw.renderActive(dc, layout, windows[i], hero, "12:34", progressFractions[p], plan);
         }
     }
     DayArcDraw.renderIdle(dc, layout, "12:34", 0, 0);
+    var stats = System.getSystemStats();
+    logger.debug("MEMORY " + dc.getWidth() + "x" + dc.getHeight() + " used=" + stats.usedMemory + " free=" + stats.freeMemory + " total=" + stats.totalMemory);
     return true;
 }
 
-// Every icon resource loads and reports the exact pixel size it was generated at (proves the SVG
-// resource compiler's viewBox scaling did what DayArcLayout's icon-sized geometry assumes) —
-// DayArcLayout.GRID_ICON_SIZE must match every grid_*.svg's own width/height.
+// Every hero icon resource — 3 icons x 6 hues, reached through every window x every accent choice,
+// Auto included — loads, and reports the exact pixel size it was generated at (proves the SVG
+// resource compiler's viewBox scaling did what the layout assumes).
 (:test)
-function iconResourcesLoadAtExpectedSize(logger as Test.Logger) as Boolean {
-    var weather = WatchUi.loadResource(Rez.Drawables.IconHeroWeather) as WatchUi.BitmapResource;
-    if (weather.getWidth() != 56 or weather.getHeight() != 45) {
-        return false;
+function everyHeroIconLoadsAtExpectedSize(logger as Test.Logger) as Boolean {
+    var windows = [DayArcConfig.WINDOW_MORNING, DayArcConfig.WINDOW_MIDDAY, DayArcConfig.WINDOW_EVENING] as Array<Number>;
+    var widths = [56, 52, 68] as Array<Number>;
+    var heights = [45, 52, 48] as Array<Number>;
+    for (var w = 0; w < windows.size(); w++) {
+        for (var choice = 0; choice < DayArcConfig.ACCENT_CHOICES; choice++) {
+            var id = DayArcIcons.heroFor(windows[w], choice);
+            Test.assertMessage(id != null, "no hero icon for window " + windows[w] + " choice " + choice);
+            var icon = WatchUi.loadResource(id as ResourceId) as WatchUi.BitmapResource;
+            Test.assertMessage(icon.getWidth() == widths[w] and icon.getHeight() == heights[w],
+                "window " + windows[w] + " choice " + choice + " is " + icon.getWidth() + "x" + icon.getHeight());
+        }
     }
-    var stress = WatchUi.loadResource(Rez.Drawables.IconHeroStress) as WatchUi.BitmapResource;
-    if (stress.getWidth() != 52 or stress.getHeight() != 52) {
-        return false;
-    }
-    var battery = WatchUi.loadResource(Rez.Drawables.IconHeroBattery) as WatchUi.BitmapResource;
-    if (battery.getWidth() != 68 or battery.getHeight() != 48) {
-        return false;
-    }
+    Test.assertMessage(DayArcIcons.heroFor(DayArcConfig.WINDOW_NIGHT, 0) == null, "night must have no hero icon");
     return true;
 }
 
@@ -83,8 +89,8 @@ function gridIconResourcesLoadAtExpectedSize(logger as Test.Logger) as Boolean {
 function lowGaugeFillDoesNotThrow(logger as Test.Logger) as Boolean {
     var dc = dayArcTestDc();
     var layout = new DayArcLayout(dc);
-    var hero = {:label => "Test", :value => "1", :sub => null, :gauge => 1, :gaugeMax => 100, :icon => DayArcIcons.heroFor(DayArcConfig.WINDOW_MIDDAY)} as Dictionary;
-    DayArcDraw.renderActive(dc, layout, DayArcConfig.WINDOW_MIDDAY, hero, "12:34", 0.5);
+    var hero = {:label => "Test", :value => "1", :sub => null, :gauge => 1, :gaugeMax => 100, :icon => DayArcIcons.heroFor(DayArcConfig.WINDOW_MIDDAY, 0)} as Dictionary;
+    DayArcDraw.renderActive(dc, layout, DayArcConfig.WINDOW_MIDDAY, hero, "12:34", 0.5, DayArcStack.plan(dc, layout, DayArcConfig.WINDOW_MIDDAY, hero));
     return true;
 }
 
