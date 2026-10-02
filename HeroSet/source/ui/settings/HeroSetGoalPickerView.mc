@@ -54,7 +54,7 @@ class HeroSetGoalPickerView extends WatchUi.View {
         var fonts = [Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD, Graphics.FONT_LARGE] as Lang.Array<Graphics.FontDefinition>;
         dc.setColor(HeroSetPalette.EFFORT, HeroSetPalette.BACKGROUND);
         var font = HeroSetDraw.largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, fonts);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, y, font, text);
 
         var hintTop = y + dc.getFontHeight(font);
         var saveY = HeroSetDraw.hint(dc, layout, layout.footerRowBottom(), hintTop, _saveHint);

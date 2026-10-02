@@ -12,14 +12,20 @@ class HeroSetRankHeader {
         drawRing(dc, layout, state);
         // First row starts where every other screen's first band does, pushed
         // down by the ring's width so the ring and rank never crowd each other.
-        var top = layout.shortInset() + layout.ringWidth();
+        // The window's ring is out of the text's way, so no push there.
+        var top = layout.shortInset() + (layout.subscreen() == null ? layout.ringWidth() : 0);
         var text = HeroSetText.format(Rez.Strings.dashboard_rank, [state.rank]);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
         var font = HeroSetDraw.largestFont(dc, layout, layout.contentRadius(), 0, top, text, fonts);
         dc.setColor(HeroSetPalette.GOLD, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), top, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, top, font, text);
 
         var xpY = top + dc.getFontHeight(font);
+        if (layout.subscreen() != null) {
+            // The window's gauge already says how far the next rank is, and
+            // the band beside it is too narrow for the words (ADR-056).
+            return xpY;
+        }
         drawXpToNext(dc, layout, xpY, state);
         return xpY + dc.getFontHeight(Graphics.FONT_XTINY);
     }
@@ -28,10 +34,30 @@ class HeroSetRankHeader {
     // the fill restarts empty at every rank-up.
     private static function drawRing(dc as Graphics.Dc, layout as HeroSetLayout, state as HeroSetDashboardState) as Void {
         var sweep = HeroSetLayout.ringSweepFor(HeroSetRules.xpIntoRank(state.xp), HeroSetRules.rankCost(state.rank));
+        var window = layout.windowRing();
+        if (window != null) {
+            drawWindowRing(dc, window, sweep);
+            return;
+        }
         dc.setPenWidth(layout.ringWidth());
         drawRingArc(dc, layout, HeroSetPalette.TRACK, HeroSetLayout.RING_SWEEP_DEG);
         if (sweep > 0) {
             drawRingArc(dc, layout, HeroSetPalette.GOLD, sweep);
+        }
+    }
+
+    // The Instinct's window is a gauge of its own (ADR-056): the XP ring's
+    // track is a hairline circle (a 1-bit display has no dim shade) and the
+    // fill a thick arc along its inside, leaving the same gap at the bottom.
+    private static function drawWindowRing(dc as Graphics.Dc, window as [Lang.Number, Lang.Number, Lang.Number, Lang.Number], sweep as Lang.Number) as Void {
+        dc.setColor(HeroSetPalette.TRACK, HeroSetPalette.BACKGROUND);
+        dc.setPenWidth(1);
+        dc.drawCircle(window[0], window[1], window[2]);
+        if (sweep > 0) {
+            var start = HeroSetLayout.RING_START_DEG;
+            dc.setColor(HeroSetPalette.GOLD, HeroSetPalette.BACKGROUND);
+            dc.setPenWidth(window[3]);
+            dc.drawArc(window[0], window[1], window[2] - window[3] / 2, Graphics.ARC_CLOCKWISE, start, HeroSetLayout.arcEndDegree(start, sweep));
         }
     }
 
@@ -51,6 +77,6 @@ class HeroSetRankHeader {
         ] as Lang.Array<Lang.String>;
         var text = HeroSetDraw.firstFitting(dc, layout, layout.contentRadius(), 0, y, Graphics.FONT_XTINY, candidates);
         dc.setColor(HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, y, Graphics.FONT_XTINY, text);
     }
 }
