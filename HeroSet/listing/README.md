@@ -123,4 +123,10 @@ Leave blank.
 
 ## Companion App URL / Additional Hardware Requirements
 
-Leave blank.
+Use it as a link to the website: many Connect IQ apps do (owner, 2026-10-02), the field is optional free text, and
+the page has the support and privacy pages and the other apps. Garmin does not document this use, so keep the text true
+(it states that no extra hardware is needed). Paste:
+
+```text
+No additional hardware needed. Help, privacy and more apps: https://verden.watch/heroset/
+```

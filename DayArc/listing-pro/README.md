@@ -64,6 +64,16 @@ Blank — initial release.
 Paid — Garmin's second price step (set in the dashboard; no number in the text, ADR-007 amended 2026-10-01), one-time, no subscription, no flip-to-free.
 ```
 
+## iOS / Android Companion App URL / Additional Hardware Requirements (optional)
+
+Use it as a link to the website: many Connect IQ apps do (owner, 2026-10-02), the field is optional free text, and
+the page has the support and privacy pages and the other apps. Garmin does not document this use, so keep the text true
+(it states that no extra hardware is needed). Paste:
+
+```text
+No additional hardware needed. Help, privacy and more apps: https://verden.watch/day-arc-pro/
+```
+
 ## Email Address (shown publicly)
 
 ```text

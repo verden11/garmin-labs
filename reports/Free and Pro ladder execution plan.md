@@ -259,6 +259,8 @@ The site models one page per app (`site/src/apps/<slug>`); URLs are published an
 
 A template `research_notes/Free and Pro ladder/listing_template.md` with placeholders; every twin's listing follows it. Field order follows the store form (each project's `listing/README.md` shows it).
 
+The template also fills **Additional Hardware Requirements (Optional)** with the site link: `No additional hardware needed. Help, privacy and more apps: https://verden.watch/<slug>/` (owner, 2026-10-02: other apps use the field this way; not a documented Garmin rule, so keep it true; see `research_notes/Free and Pro ladder/garmin_rules.md`).
+
 Free description skeleton:
 
 1. Line 1: `Get <Name> Pro: <store URL>` (only if the Pro is offered on the reader's device: say so on line 2).
