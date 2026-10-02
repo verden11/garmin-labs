@@ -24,20 +24,12 @@
     <string id="evening_battery_unavailable">Body Battery unavailable</string>
 
     <!-- Pro secondary-field labels. Short (about 4 letters): because a grid cell on the FR965 is ~150 px wide and XTINY letters are ~16 px each, so a longer label beside a 3-digit value was cut ("Re..."). -->
-    <string id="label_battery_pct">Batt</string>
-    <string id="label_heart_rate">HR</string>
-    <string id="label_steps">Steps</string>
-    <string id="label_floors">Floors</string>
-    <string id="label_notifications">Notif</string>
     <string id="label_intensity_minutes">Int</string>
     <string id="label_weekly_run">Run</string>
     <string id="label_weekly_bike">Bike</string>
     <string id="label_recovery_time">Rec</string>
     <string id="label_respiration">Resp</string>
-    <string id="label_pulse_ox">SpO2</string>
     <string id="label_vo2max">VO2</string>
-    <string id="label_sunrise">Rise</string>
-    <string id="label_sunset">Set</string>
 
     <!-- Accent colour (docs/decisions.md ADR-014). Auto = each window's own hue. -->
     <string id="setting_accent">Accent colour</string>

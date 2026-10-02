@@ -27,6 +27,9 @@ const grid: Record<string, G> = {
   stairs: glyph(<path d="M22 5h-5v5h-5v5h-5v5h-5" {...stroke('#AA55FF', 2.5)} />),
   refresh: glyph(<><path d="M20 11a8.1 8.1 0 0 0 -15.5 -2m-.5 -4v4h4" {...stroke('#FFAA55', 2.5)} /><path d="M4 13a8.1 8.1 0 0 0 15.5 2m.5 4v-4h-4" {...stroke('#FFAA55', 2.5)} /></>),
   breath: glyph(<path d="M21 12h-2c-.894 0 -1.662 -.857 -1.761 -2c-.296 -3.45 -.749 -6 -2.749 -6s-2.5 3.582 -2.5 8s-.5 8 -2.5 8s-2.452 -2.547 -2.749 -6c-.1 -1.147 -.867 -2 -1.763 -2h-2" {...stroke('#55FFFF', 2.3)} />),
+  sunrise: glyph(<><path d="M3 17h1m16 0h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7m-9.7 5.7a4 4 0 0 1 8 0" {...stroke('#FFAA00', 2.3)} /><path d="M3 21l18 0M12 9v-6l3 3m-6 0l3 -3" {...stroke('#FFAA00', 2.3)} /></>),
+  sunset: glyph(<><path d="M3 17h1m16 0h1m-15.4 -6.4l.7 .7m12.1 -.7l-.7 .7m-9.7 5.7a4 4 0 0 1 8 0" {...stroke('#FF5500', 2.3)} /><path d="M3 21l18 0M12 3v6l3 -3m-6 0l3 3" {...stroke('#FF5500', 2.3)} /></>),
+  battery: glyph(<path d="M6 7h11a2 2 0 0 1 2 2v.5a.5 .5 0 0 0 .5 .5a.5 .5 0 0 1 .5 .5v3a.5 .5 0 0 1 -.5 .5a.5 .5 0 0 0 -.5 .5v.5a2 2 0 0 1 -2 2h-11a2 2 0 0 1 -2 -2v-6a2 2 0 0 1 2 -2" {...stroke('#AAFF55', 2.3)} />),
   droplet: glyph(<><path fill="#FF55AA" d="M10.708 2.372a2.382 2.382 0 0 0 -.71 .686l-4.892 7.26c-1.981 3.314 -1.22 7.466 1.767 9.882c2.969 2.402 7.286 2.402 10.254 0c2.987 -2.416 3.748 -6.569 1.795 -9.836l-4.919 -7.306c-.722 -1.075 -2.192 -1.376 -3.295 -.686z" /><ellipse cx="9.3" cy="9" rx="2.3" ry="3" fill="#FFAAFF" /></>),
 }
 
@@ -101,7 +104,7 @@ const describe = (win: Win, pro: boolean) => {
 // at most about four letters: a cell is ~150 px wide and each letter ~16 px (DayArc strings.xml).
 type Cell = [keyof typeof grid | null, string | null, string]
 const cells: Record<'morning' | 'midday' | 'evening', Cell[]> = {
-  morning: [[null, 'Rise', '6:48'], [null, 'Set', '19:12']],
+  morning: [['sunrise', null, '6:48'], ['sunset', null, '19:12'], ['battery', null, '72%'], ['heart', null, '64'], ['steps', null, '812'], ['stairs', null, '2'], ['bell', null, '3']],
   midday: [['heart', null, '68'], ['stairs', null, '4'], ['calendar', 'Next', '2:30'], ['bolt', 'Int', '24'], ['steps', null, '812'], ['flame', null, '640']],
   evening: [['heart', null, '58'], ['steps', null, '812'], ['refresh', 'Rec', '18'], ['breath', 'Resp', '14'], ['flame', null, '640'], ['droplet', null, '96%']],
 }
@@ -140,7 +143,7 @@ function GridCell({ cell, x, y }: { cell: Cell; x: number; y: number }) {
 export function DayArcFace({ win = 'midday', pro = false, size = 240, className = 'face' }: { win?: Win; pro?: boolean; size?: number; className?: string }) {
   const night = win === 'night'
   const color = night ? MUTED : HUE[win]
-  const date = 'Wed, Sep 30'
+  const date = 'Wed 30' // the watch's own short date string, as the simulator and the wrist show it ("Fri 02")
   const hero = night ? '' : { morning: '18°', midday: '22', evening: '64' }[win]
   const frac = night ? 0 : { morning: 0.5, midday: 0.55, evening: 0.45 }[win]
   const heroLabel = { midday: 'Stress', evening: 'Body Battery' }[win as 'midday' | 'evening']
@@ -170,7 +173,7 @@ export function DayArcFace({ win = 'midday', pro = false, size = 240, className 
   const ROW = PILL_H + 4
   const rows = showGrid ? Math.min(2, Math.max(0, 1 + Math.floor((427 - (lowY + PILL_H)) / ROW))) : 0
   const all = showGrid ? cells[win as 'morning' | 'midday' | 'evening'] : []
-  const corners = win === 'morning' ? [] : all.slice(0, 2)
+  const corners = all.slice(0, 2)
   const shown = all.slice(corners.length, corners.length + rows * 2)
 
   return (

@@ -17,4 +17,7 @@
     <bitmap id="IconGridBreath" filename="icons/grid_breath.svg" dithering="none" />
     <bitmap id="IconGridDroplet" filename="icons/grid_droplet.svg" dithering="none" />
     <bitmap id="IconGridBars" filename="icons/grid_bars.svg" dithering="none" />
+    <bitmap id="IconGridSunrise" filename="icons/grid_sunrise.svg" dithering="none" />
+    <bitmap id="IconGridSunset" filename="icons/grid_sunset.svg" dithering="none" />
+    <bitmap id="IconGridBattery" filename="icons/grid_battery.svg" dithering="none" />
 </drawables>

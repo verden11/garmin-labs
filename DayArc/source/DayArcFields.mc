@@ -131,19 +131,18 @@ class DayArcFields {
     (:pro)
     private static function morningCells() as Array<Dictionary> {
         return [
-            cell(Rez.Strings.label_sunrise, timeOfDayString(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_SUNRISE))),
-            cell(Rez.Strings.label_sunset, timeOfDayString(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_SUNSET))),
-            cell(Rez.Strings.label_battery_pct, DayArcFormat.percent(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_BATTERY))),
-            cell(Rez.Strings.label_heart_rate, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_HEART_RATE))),
-            cell(Rez.Strings.label_steps, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_STEPS))),
-            cell(Rez.Strings.label_floors, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_FLOORS_CLIMBED))),
-            cell(Rez.Strings.label_notifications, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_NOTIFICATION_COUNT))),
+            iconOnlyCell(DayArcIcons.GRID_SUNRISE, timeOfDayString(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_SUNRISE))),
+            iconOnlyCell(DayArcIcons.GRID_SUNSET, timeOfDayString(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_SUNSET))),
+            iconOnlyCell(DayArcIcons.GRID_BATTERY, DayArcFormat.percent(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_BATTERY))),
+            iconOnlyCell(DayArcIcons.GRID_HEART, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_HEART_RATE))),
+            iconOnlyCell(DayArcIcons.GRID_STEPS, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_STEPS))),
+            iconOnlyCell(DayArcIcons.GRID_STAIRS, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_FLOORS_CLIMBED))),
+            iconOnlyCell(DayArcIcons.GRID_BELL, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_NOTIFICATION_COUNT))),
         ] as Array<Dictionary>;
     }
 
-    // Icons and the icon-alone cells below are ADR-013, midday/evening only — the owner's own
-    // request named those two windows; morning's grid is unchanged (see DayArcIcons's own header
-    // comment) and still uses plain `cell()` with a text label, no icon.
+    // Every window's grid is icon-only cells now (morning joined 2026-10-02); the labelled cells below keep
+    // a short text label only where the icon cannot carry the meaning.
     (:pro)
     private static function middayCells() as Array<Dictionary> {
         var nextEvent = DayArcSources.complicationString(Complications.COMPLICATION_TYPE_CALENDAR_EVENTS);
@@ -175,15 +174,6 @@ class DayArcFields {
             iconOnlyCell(DayArcIcons.GRID_DROPLET, DayArcFormat.percent(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_PULSE_OX))),
             iconCell(Rez.Strings.label_vo2max, DayArcIcons.GRID_BARS, DayArcFormat.count(vo2)),
         ] as Array<Dictionary>;
-    }
-
-    (:pro)
-    private static function cell(labelResource as ResourceId, value as String or Null) as Dictionary {
-        return {
-            :label => WatchUi.loadResource(labelResource) as String,
-            :value => value != null ? value : (WatchUi.loadResource(Rez.Strings.value_none) as String),
-            :icon => null,
-        } as Dictionary;
     }
 
     // Keeps its text label (the icon alone doesn't read unambiguously — DESIGN.md "Layout").

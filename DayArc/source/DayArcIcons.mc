@@ -3,9 +3,9 @@ import Toybox.Lang;
 // Maps a hero/grid field to its bitmap resource (ADR-013). Every icon is pre-coloured at build
 // time (see resources/drawables/icons/, resources-pro/drawables/icons/) and drawn with plain
 // dc.drawBitmap — no runtime tint, since a fixed hue never needs one (DESIGN.md "Iconography").
-// Morning's Pro grid (sunrise/sunset/battery%/HR/steps/floors/notifications — no date cell: the header shows it) is unchanged by
-// ADR-013 and has no icons — the owner's own request that triggered this redesign named midday and
-// evening specifically; DESIGN.md's icon table covers only those two windows' 17 grid fields.
+// Morning's Pro grid (sunrise/sunset/battery%/HR/steps/floors/notifications — no date cell: the header shows it) had no icons
+// until 2026-10-02 (owner, after a wrist photo: icon-less pills lost their labels), when it got the same icon-only cells
+// as midday and evening: three new icons (sunrise, sunset, battery) plus the heart, steps, stairs and bell already here.
 class DayArcIcons {
     // Hero icons are pre-coloured bitmaps, one per hue (tools/gen_hero_icons.py) — a runtime tint
     // would hit drawBitmap2's FR165/FR165m :tintColor bug. Indexed like DayArcPalette.ACCENTS.
@@ -55,6 +55,12 @@ class DayArcIcons {
     static const GRID_DROPLET = 12;
     (:pro)
     static const GRID_BARS = 13;
+    (:pro)
+    static const GRID_SUNRISE = 14;
+    (:pro)
+    static const GRID_SUNSET = 15;
+    (:pro)
+    static const GRID_BATTERY = 16;
 
     (:pro)
     static function gridFor(iconId as Number) as ResourceId {
@@ -71,6 +77,9 @@ class DayArcIcons {
         if (iconId == GRID_REFRESH) { return Rez.Drawables.IconGridRefresh; }
         if (iconId == GRID_BREATH) { return Rez.Drawables.IconGridBreath; }
         if (iconId == GRID_DROPLET) { return Rez.Drawables.IconGridDroplet; }
+        if (iconId == GRID_SUNRISE) { return Rez.Drawables.IconGridSunrise; }
+        if (iconId == GRID_SUNSET) { return Rez.Drawables.IconGridSunset; }
+        if (iconId == GRID_BATTERY) { return Rez.Drawables.IconGridBattery; }
         return Rez.Drawables.IconGridBars;
     }
 }
