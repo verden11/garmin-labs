@@ -38,7 +38,7 @@ tools/check_free_package.sh                     # Free has only ComplicationSubs
 # dist/TwoSuns.iq is the pre-ladder 1.0.1 package, never overwritten (a copy: dist/TwoSuns-1.0.1-prepared.iq)
 ```
 
-The test runners run `pkill -f monkeydo` after every run and restart the simulator with `pkill` when it wedges: do not run them while another session uses it ([`docs/development.md`](docs/development.md)).
+The test runners run in a container by default (`docker/README.md`). With `CIQ_DOCKER=0` (host simulator) they run `pkill -f monkeydo` after every run and restart the simulator with `pkill` when it wedges: do not run them while another session uses it ([`docs/development.md`](docs/development.md)).
 
 ## What it shows
 

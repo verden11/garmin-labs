@@ -7,8 +7,10 @@
 #
 #   [TIER=free] tools/fit_languages.sh [-l "eng deu ukr"] <product>...      (TIER defaults to pro)
 #
-# Prints one line per run; exits 1 if any run failed. Needs the simulator running.
+# Prints one line per run; exits 1 if any run failed. Needs the simulator running (started for you in the container; with CIQ_DOCKER=0, start it yourself).
 set -u
+# Runs in a container by default (own simulator, no pkill, parallel-safe: ../../docker/README.md). CIQ_DOCKER=0 = host simulator.
+[[ -z ${CIQ_IN_DOCKER:-} && ${CIQ_DOCKER:-1} != 0 ]] && exec "${0:A:h:h:h}/docker/run.sh" "${0:A:h:h}" /ciq-docker/ciq-run.sh "tools/${0:t}" "$@"
 PROJECT=${0:A:h:h}
 SDK_BIN=${SDK_BIN:-$(dirname "$(command -v monkeyc)")}
 KEY=${KEY:-$HOME/.garmin-connectiq/keys/developer_key}
@@ -41,8 +43,8 @@ EOF
       perl -e 'alarm shift; exec @ARGV' $RUN_TIMEOUT "$SDK_BIN/monkeydo" $prg $product -t > $log 2>&1
       grep -qE 'PASSED|FAILED' $log && break
       # The simulator wedges every few runs: restart it once and retry.
-      pkill -f monkeydo; pkill -f "ConnectIQ.app/Contents/MacOS"; sleep 3
-      (nohup "$SDK_BIN/connectiq" >/dev/null 2>&1 &); sleep 10
+      if [[ -n ${CIQ_IN_DOCKER:-} ]]; then pkill -x simulator; sleep 2; (simulator >/dev/null 2>&1 &); sleep 8
+      else pkill -f monkeydo; pkill -f "ConnectIQ.app/Contents/MacOS"; sleep 3; (nohup "$SDK_BIN/connectiq" >/dev/null 2>&1 &); sleep 10; fi
     done
     result=$(grep -E 'PASSED|FAILED' $log | tail -1)
     # The word tests assert English wording, so in another language they are expected to error;
