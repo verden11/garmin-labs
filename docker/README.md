@@ -38,6 +38,10 @@ Notes:
   eng+ukr on fr965 both fit tests PASS (the translated word tests error by design, see the script header).
 - Scripts delegate unless `CIQ_IN_DOCKER` is set (the images set it) or `CIQ_DOCKER=0`. No Docker or no image: a clear error.
 - HeroSet has no `run_tests.sh`; use `MC_FLAGS="" docker/run.sh HeroSet /ciq-docker/ciq-test.sh ...` as above.
+- Also checked 2026-10-01/02 (Linux simulator): default hook on HeroFace Free 24/24, DaysToGo Free 51/51, TwoSuns Free
+  67/67; rectangular `venusq2` 23/23; forced simulator wedge restarts once then passes; TwoSuns `fit_all.sh` Free,
+  10/10 devices 67/67; native compile sweeps both jungles: HeroFace 117/117, DaysToGo 120/120, TwoSuns 69/69.
+  Not tried: a clean-machine `build.sh`, a full 69-product fit sweep, more than six containers at once.
 - Tests passed 2026-10-01, all six at once in the real folders (75-89 s each): DayArc simple 20, DayArc Pro 23,
   HeroFace 24, DaysToGo 50, TwoSuns 130, HeroSet 112.
 - Base is `ubuntu:jammy` on purpose: the simulator needs `libwebkit2gtk-4.0` + `libsoup-2.4`, gone in 24.04.
