@@ -52,6 +52,18 @@ All **measured** by reading the live page in a browser, 2026-09-28, unless marke
 - No documented trial or in-app purchase for watch faces. Trials exist for apps only, via the developer's own unlock server
   (`Trial Apps`, earlier notes). Unlock keys sold off-store are the top monetisation complaint (14.4% of low-star face reviews).
 
+## Listing field we use for a website link: "Additional Hardware Requirements (Optional)"
+
+- Owner observation, 2026-10-02: many Connect IQ apps put a link to their own website in this optional free-text field, so we do too. It is
+  the one listing field where a URL reads naturally; the description and What's New are better left to the store text.
+- **Not a documented Garmin rule** (the guidelines text does not mention it), so a reviewer could still object: keep the text true. Ours is
+  `No additional hardware needed. Help, privacy and more apps: https://verden.watch/<slug>/`, one URL, the app's hub page (it carries the
+  support and privacy pages and the other apps). Field length limit unknown; keep it to one short line.
+- Every listing draft (`*/listing*/README.md`) carries the text under "Additional Hardware Requirements". Free listings use the same hub page
+  until the site gets Free pages (WP8). New listing drafts and the WP10 template must include the field.
+- Live listings change only when the owner edits them in the dashboard (HeroSet, HeroFace, Days To Go, Two Suns); whether the field can be edited
+  without a new version upload is unverified.
+
 ## Not documented (do not assume)
 
 - What happens to reviews/downloads on paid→free.

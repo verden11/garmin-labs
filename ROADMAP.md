@@ -86,7 +86,8 @@ Initiative 3C: upload.
 
 - [ ] 6.1 `[agent]` Add `freeStoreUrl` and a "Free or Pro" section per app page, per-tier privacy and support wording (WP8). Deploy by push when a Free is live.
 - [ ] 6.2 `[agent]` Write `tools/store_poll.py` and the CSV (WP9).
-- [ ] 6.3 `[agent]` Write the listing template (WP10).
+- [ ] 6.3 `[agent]` Write the listing template (WP10). It must include the "Additional Hardware Requirements" website-link field (`research_notes/Free and Pro ladder/garmin_rules.md`; already drafted in every listing README).
+- [ ] 6.6 `[you]` Paste the hardware-field link (text in each `*/listing*/README.md`) into the four live listings: HeroSet, HeroFace, Days To Go, Two Suns. Check whether the dashboard lets you edit the field without a new version upload, and note the answer in `garmin_rules.md`.
 - [ ] 6.4 `[you]` After each Free is approved, run the 30-day (G1) and 60-day (G2) reads. Dates go in this file.
 - [ ] 6.5 `[you]` **2026-10-10** DMARC `p=none` to `p=quarantine` after checking the rua reports.
 
