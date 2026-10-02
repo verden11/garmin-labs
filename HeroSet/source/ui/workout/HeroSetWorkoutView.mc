@@ -18,6 +18,11 @@ class HeroSetWorkoutView extends WatchUi.View {
     // What was last checkpointed to the recoverable draft (ADR-052), so a
     // tick with no new reps since then writes nothing.
     private var _draftedCount = 0;
+    // True once this set ended for good (discardDraft): the onHide flush that
+    // follows must not write the count back as a draft, or the next set of the
+    // same exercise would start from it (found 2026-10-02: 4 push-ups saved,
+    // the next push-ups set started at 4).
+    private var _draftEnded = false;
     private var _refreshTicks = 0;
     private var _storedCount = 0;
     private var _goal = HeroSetConfig.DEFAULT_MISSION_GOAL;
@@ -120,7 +125,7 @@ class HeroSetWorkoutView extends WatchUi.View {
     // and once more when this view is hidden, skipped when nothing detected
     // has changed since the last one.
     private function checkpointDraft() as Void {
-        if (_detected == _draftedCount) {
+        if (_draftEnded || _detected == _draftedCount) {
             return;
         }
         getApp().getStore().saveWorkoutDraft(_exercise, _detected);
@@ -131,6 +136,7 @@ class HeroSetWorkoutView extends WatchUi.View {
     // Finish, quick-Save, Discard and the no-count Back all end this set for
     // good, so nothing is left to resume.
     function discardDraft() as Void {
+        _draftEnded = true;
         getApp().getStore().clearWorkoutDraft();
     }
 

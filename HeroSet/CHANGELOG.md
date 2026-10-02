@@ -4,6 +4,11 @@ One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/README.md`](listing/README.md); the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
+## Unreleased (fix for a bug in 1.2.0; not uploaded, version number not chosen)
+
+- **Fix:** after saving a short set (for example 4 push-ups), starting the same exercise again began from that count instead of 0. Cause: Finish, quick-Save and Discard cleared the recoverable draft ([ADR-052](docs/decisions.md#adr-052)), then the workout view hid and its hide-time checkpoint wrote the just-saved count back as a new draft; sets longer than 15 s were unaffected because a periodic checkpoint had already recorded the count. The view now remembers that its set ended and never checkpoints after that. Found by the owner on a watch, 2026-10-02. Two regression tests (dev build). 114/114 dev, 101/101 store (unchanged, the new tests are dev-only), fr965 simulator only.
+- Needs: an App Version, the What's New text, and an upload; 1.2.0 on the store still has the bug.
+
 ## 1.2.0 — uploaded 2026-09-27, approved (owner reported 2026-10-01; the approval date itself is not recorded)
 
 Submitted as `1.2.0`, not `1.1.2` as this build was called during development — App Version is free text on the upload form, not read from the manifest, so nothing in the package changed ([ADR-053](docs/decisions.md#adr-053)). No Connect sync in this release; sync (which would have been 1.3.0) is shelved the same day — Garmin Connect doesn't render the developer fields it needed ([ADR-054](docs/decisions.md#adr-054)).

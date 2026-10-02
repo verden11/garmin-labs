@@ -385,6 +385,8 @@ Decided 2026-09-27, the day the owner ran gate E1 on FR965 (dev build, sideloade
 
 **Consequences.** Three new flat keys, spellings fixed by [ADR-003](#adr-003) like every other `hero_*` key. No manifest, permission or complication change. Test count: +N (`HeroSetWorkoutDraftTest`, store-level only — no UI test, since nothing is drawn differently).
 
+**Amendment, 2026-10-02 (bug found on a watch):** the hide-time flush wrote the count back after a terminal clear, so a set under 15 s (no periodic checkpoint yet) left a stale draft and the next set of that exercise started from it. `HeroSetWorkoutView` now sets `_draftEnded` in `discardDraft()` and `checkpointDraft()` returns at once when it is set; a view merely hidden (Resume/Save/Discard menu) still flushes. Regression tests in `HeroSetWorkoutDraftTest`.
+
 ### <a id="adr-053"></a>ADR-053: Glance upload submitted to the store as 1.2.0, not 1.1.2; Connect sync renumbered to 1.3.0
 Decided 2026-09-27 (owner call). The glance + idle-kill fix build (ADR-051/052, `dist/HeroSet-store.iq`, permissions unchanged: `Sensor` + `ComplicationPublisher`) was uploaded to the Connect IQ Store with **App Version `1.2.0`**, not the `1.1.2` this doc set had been calling it. No Connect sync code, `Fit`/`FitContributor` permission, or manifest change is in this build — App Version is free text typed into the upload form ([`listing/NOTES.md`](../listing/NOTES.md)), not derived from the manifest, so nothing on the watch or in the package changed as a result.
 

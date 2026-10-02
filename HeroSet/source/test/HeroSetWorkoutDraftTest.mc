@@ -58,3 +58,38 @@ function noDraftEverWrittenReadsAsNone(logger as Test.Logger) as Lang.Boolean {
     Test.assert(store.getWorkoutDraft(:pushups) == null);
     return true;
 }
+
+// Regression, found on a watch 2026-10-02: Finish / quick-Save / Discard clear the draft and then the view
+// hides, and the hide-time flush wrote the just-saved count back, so the next set of that exercise
+// started from it. A set that ended must stay cleared; a set merely hidden (Resume/Save/Discard menu)
+// must still be flushed.
+(:test :debug)
+function aSetThatEndedLeavesNoDraftWhenItsViewHides(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260927);
+    var appStore = getApp().swapStoreForTest(store);
+    try {
+        var workout = new HeroSetWorkoutView(:pushups);
+        workout.setCountsForTest(4, 0);
+        workout.discardDraft();
+        workout.onHide();
+        Test.assert(store.getWorkoutDraft(:pushups) == null);
+    } finally {
+        getApp().swapStoreForTest(appStore);
+    }
+    return true;
+}
+
+(:test :debug)
+function aSetMerelyHiddenStillFlushesItsDraft(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260927);
+    var appStore = getApp().swapStoreForTest(store);
+    try {
+        var workout = new HeroSetWorkoutView(:pushups);
+        workout.setCountsForTest(4, 0);
+        workout.onHide();
+        Test.assertEqual(store.getWorkoutDraft(:pushups), 4);
+    } finally {
+        getApp().swapStoreForTest(appStore);
+    }
+    return true;
+}
