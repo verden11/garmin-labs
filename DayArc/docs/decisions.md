@@ -404,6 +404,8 @@ Per-device plan levels before/after: fr965, approachs50 and venusq2 keep or impr
 approachs50 midday-data (one rung smaller). Not done: curved text (`drawRadialText` needs vector fonts, which only some of the
 69 products have; a later enhancement behind a capability check).
 
+**Amendment 3, 2026-10-02 (owner, wrist photo and emulator screenshot of Pro morning):** morning's Pro grid gets **icon-only cells like midday and evening**. Why: it was the one window with text-label cells, the owner reported "no icons" in Pro, and in the pills the labels were cut or dropped in real conditions ("Ri… 03:14", then bare "50%" and "182"), because live plans have bigger fonts and a lower, narrower grid than the worst-case plan the tests measure. Three new Tabler icons (outline, 22 px, 64-colour hues): sunrise `#FFAA00`, sunset `#FF5500`, a battery shell `#AAFF55`; heart, steps, stairs and bell are reused. The first two icon-only cells (sunrise and sunset) now take the corners beside the date, like the other windows. The seven morning label strings are removed. Two hues repeat across windows, never within one (sunset `#FF5500` = flame, `#AAFF55` = VO2 bars): morning shows neither flame nor VO2. Also: a label now gives way before a short value is cut (the label gets what the value does not need, at least half the old share), and "Batt" is no more (icon). Tests: Pro fr965/approachs50/venusq2 and Simple fr965 pass in the simulator (one transient fr965 icon-size error on a run while another session used the same simulator, gone on rerun); plan levels same or better than before.
+
 ## ADR-014: One wearer setting — Accent colour (partly reverses ADR-011)
 
 **Status:** Active. Built 2026-09-28; simulator-tested only — it has never been changed in the

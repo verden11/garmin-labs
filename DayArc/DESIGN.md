@@ -157,7 +157,7 @@ icon-only cell's value far from its icon. Fixed in `DayArcGrid`/`DayArcLayout`: 
 (`GRID_COLUMN_GAP_PERMILLE`), the label gets whatever the value does not need (at least the 55% cap), an icon-only cell
 draws its value right beside its icon, and grid labels are about four letters (Rec, Resp, Int, Next, Run, Bike, SpO2,
 VO2, Rise, Set, Batt) because a cell on the FR965 is ~150 px wide and an XTINY letter ~16 px. Tests pass on fr965,
-approachs50, venusq2 (Pro) and fr965 (Simple). Then (owner-approved mock) and later "E1" (ADR-013 amendment 2): the gauge is a shallow smile in both tiers, grid fields sit in pills riding the same curve, the divider and Pro's "N of 100" line are gone, pulse ox is icon-only, and Body Battery's hero icon is Tabler's battery shell with a heartbeat line. Grid rows are centred pairs of compact cells, and the first two icon-only
+approachs50, venusq2 (Pro) and fr965 (Simple). 2026-10-02, first wrist photo of the new look (FR965, Pro morning): a short value was cut ("Batt 8...", 3 px short); the label now gives way before the value does and "Batt" became "Bat". Morning's Pro grid had no icons then (icons were midday and evening only, ADR-013); the owner could not find them, the emulator showed pills with dropped labels ("Ri… 03:14", "50%", "182"), and morning was given icon-only cells like the other windows (ADR-013 amendment 3). Then (owner-approved mock) and later "E1" (ADR-013 amendment 2): the gauge is a shallow smile in both tiers, grid fields sit in pills riding the same curve, the divider and Pro's "N of 100" line are gone, pulse ox is icon-only, and Body Battery's hero icon is Tabler's battery shell with a heartbeat line. Grid rows are centred pairs of compact cells, and the first two icon-only
 fields sit in the upper corners beside the date (`DayArcCorners`; ADR-013 amendment), so an FR965 shows six fields. **Open:** "96 of 100"
 repeats the hero number and the gauge; dropping it would buy a third grid row (not done, owner's call).
 
@@ -249,6 +249,9 @@ highlight in the mockup either and keep none built.
   | Wave (breath) | Respiration | `#55FFFF` (echoes midday/stress) |
   | Droplet | Pulse Ox | `#FF55AA` (echoes evening/Body Battery) |
   | Bar chart | VO2max | `#AAFF55` |
+  | Sunrise | Sunrise time (morning) | `#FFAA00` |
+  | Sunset | Sunset time (morning) | `#FF5500` |
+  | Battery shell | Watch battery % (morning) | `#AAFF55` |
 
 **Implementation note, built 2026-09-28 — corrected from the direction-stage plan above:** the
 original plan called for an icon font for the 3 hero icons (tintable, one hue via `setColor`) and

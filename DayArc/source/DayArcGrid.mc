@@ -123,14 +123,15 @@ class DayArcGrid {
         return valueBudget >= (natural < floor ? natural : floor);
     }
 
-    // The label's share of what is left after the icon: at least the DESIGN.md cap, but a short value
-    // (a "300") does not need its half, so the label gets everything the value does not — "Recovery"
-    // used to be cut to "Re..." beside a three-digit number. Same call in cellFits and drawCell.
+    // The label's share of what is left after the icon: whatever the value does not need, so a short
+    // value ("50%") is shown WHOLE and the label gives way — "Batt 8..." on an FR965 (2026-10-02 wrist
+    // photo) was the value cut 3 px short — but never below half the DESIGN.md share, so a long value
+    // (a calendar title) cannot erase its label. Same call in cellFits and fitted.
     (:pro)
     private static function labelMaxWidth(dc as Graphics.Dc, layout as DayArcLayout, value as String, available as Number) as Number {
-        var share = layout.gridLabelMaxWidth(available);
+        var floor = layout.gridLabelMaxWidth(available) / 2;
         var rest = available - dc.getTextWidthInPixels(value, DayArcLayout.CELL_FONT) - layout.gridValueGap();
-        return rest > share ? rest : share;
+        return rest > floor ? rest : floor;
     }
 
     (:pro)
