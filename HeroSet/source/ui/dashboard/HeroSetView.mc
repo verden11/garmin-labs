@@ -40,9 +40,17 @@ class HeroSetView extends WatchUi.View {
 
         var headerBottom = HeroSetRankHeader.draw(dc, layout, state);
         var footerY = footerTop(dc, layout);
-        var streakY = footerY - dc.getFontHeight(Graphics.FONT_XTINY);
+        var line = dc.getFontHeight(Graphics.FONT_XTINY);
+        // Beside a subscreen window the streak moves up under the rank, into
+        // the band left of the window, and the mission bars start below the
+        // window; the screen is too short for the usual stack (ADR-056).
+        // Elsewhere the streak stacks above the footer.
+        var beside = layout.subscreen() != null;
+        var streakY = beside ? headerBottom : footerY - line;
+        var barsTop = (beside ? layout.belowWindow(headerBottom + line) : headerBottom) + layout.stackGap();
+        var barsBottom = (beside ? footerY : streakY) - layout.stackGap();
         var counts = [state.pushups, state.situps, state.squats] as Lang.Array<Lang.Number>;
-        _missionBars.draw(dc, layout, headerBottom + layout.stackGap(), streakY - layout.stackGap(), counts, state.goal);
+        _missionBars.draw(dc, layout, barsTop, barsBottom, counts, state.goal);
         drawStreak(dc, layout, streakY, state);
         drawFooter(dc, layout, footerY, state);
     }
@@ -72,17 +80,20 @@ class HeroSetView extends WatchUi.View {
     // moment MISSION COMPLETE appears under it; until then it is a muted
     // reminder of what is at stake. No streak says so in words, not a bare 0.
     private function drawStreak(dc as Dc, layout as HeroSetLayout, y as Lang.Number, state as HeroSetDashboardState) as Void {
-        var text = HeroSetText.load(Rez.Strings.dashboard_streak_none);
-        if (state.streak > 0) {
-            var candidates = [
-                HeroSetText.format(Rez.Strings.dashboard_streak, [state.streak]),
-                HeroSetText.format(Rez.Strings.dashboard_streak_short, [state.streak])
-            ] as Lang.Array<Lang.String>;
-            text = HeroSetDraw.firstFitting(dc, layout, layout.contentRadius(), 0, y, Graphics.FONT_XTINY, candidates);
+        var none = HeroSetText.load(Rez.Strings.dashboard_streak_none);
+        var shortText = HeroSetText.format(Rez.Strings.dashboard_streak_short, [state.streak]);
+        // "NO STREAK YET" stays unmeasured wherever it always fit; only the
+        // narrow band beside a subscreen window gets "STREAK 0" as a fallback,
+        // and a streak too long even for "STREAK 9999" there shows the bare
+        // number.
+        var candidates = state.streak > 0 ? [HeroSetText.format(Rez.Strings.dashboard_streak, [state.streak]), shortText] : (layout.subscreen() == null ? [none] : [none, shortText]);
+        if (layout.subscreen() != null && state.streak > 0) {
+            candidates.add(state.streak.toString());
         }
+        var text = HeroSetDraw.firstFitting(dc, layout, layout.contentRadius(), 0, y, Graphics.FONT_XTINY, candidates as Lang.Array<Lang.String>);
         var extendedToday = state.streak > 0 && HeroSetRules.missionComplete(state.pushups, state.situps, state.squats, state.goal);
         dc.setColor(extendedToday ? HeroSetPalette.GOLD : HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, y, Graphics.FONT_XTINY, text);
     }
 
     // A storage failure outranks everything (the numbers on screen may not
@@ -99,6 +110,6 @@ class HeroSetView extends WatchUi.View {
             color = HeroSetPalette.DONE;
         }
         dc.setColor(color, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, y, Graphics.FONT_XTINY, text);
     }
 }

@@ -32,6 +32,13 @@ class HeroSetDraw {
         }
     }
 
+    // Centered text, the common case. The x is the center of the row's usable
+    // band, which is the screen's center everywhere but beside a subscreen
+    // window (HeroSetLayout.rowCenterX).
+    static function centered(dc as Graphics.Dc, layout as HeroSetLayout, y as Lang.Number, font as Graphics.FontDefinition, str as Lang.String) as Void {
+        text(dc, layout, layout.rowCenterX(y, dc.getFontHeight(font)), y, font, str, Graphics.TEXT_JUSTIFY_CENTER);
+    }
+
     private static function leftEdge(x as Lang.Number, width as Lang.Number, justify as Graphics.TextJustification) as Lang.Number {
         if (justify == Graphics.TEXT_JUSTIFY_CENTER) {
             return x - width / 2;
@@ -54,7 +61,7 @@ class HeroSetDraw {
         var height = dc.getFontHeight(Graphics.FONT_XTINY);
         var y = layout.fitCenteredY(maxY, minY, width, height);
         dc.setColor(HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, y, Graphics.FONT_XTINY, text);
         return y;
     }
 
@@ -70,7 +77,7 @@ class HeroSetDraw {
             y += 2;
         }
         dc.setColor(HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, y, font, text);
         return y + dc.getFontHeight(font);
     }
 

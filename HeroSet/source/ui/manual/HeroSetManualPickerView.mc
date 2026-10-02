@@ -103,20 +103,38 @@ class HeroSetManualPickerView extends WatchUi.View {
         dc.setColor(HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
         dc.clear();
         var y = HeroSetDraw.title(dc, layout, _label);
-        var detected = _detectedText;
-        if (detected != null) {
-            dc.setColor(HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
-            HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, detected, Graphics.TEXT_JUSTIFY_CENTER);
-            y += dc.getFontHeight(Graphics.FONT_XTINY);
+        // Beside a subscreen window (ADR-056) the short delta takes the band
+        // next to it and the wide DETECTED and TODAY rows start below it.
+        var beside = layout.subscreen() != null;
+        if (beside) {
+            y = layout.belowWindow(drawDelta(dc, layout, y));
         }
-        dc.setColor(deltaColor(), HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_LARGE, HeroSetText.signed(_delta), Graphics.TEXT_JUSTIFY_CENTER);
-        y += dc.getFontHeight(Graphics.FONT_LARGE);
+        y = drawDetected(dc, layout, y);
+        if (!beside) {
+            y = drawDelta(dc, layout, y);
+        }
         drawToday(dc, layout, y);
 
         var hintTop = y + dc.getFontHeight(Graphics.FONT_SMALL);
         var saveY = HeroSetDraw.hint(dc, layout, layout.footerRowBottom(), hintTop, _saveHint);
         HeroSetDraw.hint(dc, layout, saveY - dc.getFontHeight(Graphics.FONT_XTINY), hintTop, _adjustHint);
+    }
+
+    // Returns the y below the row.
+    private function drawDetected(dc as Dc, layout as HeroSetLayout, y as Lang.Number) as Lang.Number {
+        var detected = _detectedText;
+        if (detected == null) {
+            return y;
+        }
+        dc.setColor(HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
+        HeroSetDraw.centered(dc, layout, y, Graphics.FONT_XTINY, detected);
+        return y + dc.getFontHeight(Graphics.FONT_XTINY);
+    }
+
+    private function drawDelta(dc as Dc, layout as HeroSetLayout, y as Lang.Number) as Lang.Number {
+        dc.setColor(deltaColor(), HeroSetPalette.BACKGROUND);
+        HeroSetDraw.centered(dc, layout, y, Graphics.FONT_LARGE, HeroSetText.signed(_delta));
+        return y + dc.getFontHeight(Graphics.FONT_LARGE);
     }
 
     // What today's total becomes if this delta is saved.
@@ -129,7 +147,7 @@ class HeroSetManualPickerView extends WatchUi.View {
         var text = HeroSetText.format(Rez.Strings.today_progress, [resulting, goal]);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
         dc.setColor(resulting >= goal ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, HeroSetDraw.largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, fonts), text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, y, HeroSetDraw.largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, fonts), text);
     }
 
     // Zero is neutral: nothing will change if this is saved. Adding reps is

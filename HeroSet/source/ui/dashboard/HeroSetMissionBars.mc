@@ -116,7 +116,13 @@ class HeroSetMissionBars {
         var goal = _goal;
         var done = count >= goal;
         dc.setColor(HeroSetPalette.TRACK, HeroSetPalette.BACKGROUND);
-        dc.fillRoundedRectangle(column[0], y, width, height, height / 2);
+        if (HeroSetPalette.MONO) {
+            // No dim shade on a 1-bit display: an outline under a solid fill.
+            dc.setPenWidth(1);
+            dc.drawRoundedRectangle(column[0], y, width, height, height / 2);
+        } else {
+            dc.fillRoundedRectangle(column[0], y, width, height, height / 2);
+        }
         var fill = done ? width : (count <= 0 ? 0 : width * count / goal);
         if (fill > 0) {
             dc.setColor(done ? HeroSetPalette.DONE : HeroSetPalette.EFFORT, HeroSetPalette.BACKGROUND);

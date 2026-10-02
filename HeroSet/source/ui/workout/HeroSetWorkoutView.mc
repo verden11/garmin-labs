@@ -268,7 +268,7 @@ class HeroSetWorkoutView extends WatchUi.View {
         var font = HeroSetDraw.largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), metricsY - dc.getFontHeight(Graphics.FONT_TINY), today, fonts);
         var todayY = metricsY - dc.getFontHeight(font);
         dc.setColor(total >= _goal ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), todayY, font, today, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, todayY, font, today);
 
         drawCount(dc, layout, labelBottom, todayY);
     }
@@ -276,12 +276,12 @@ class HeroSetWorkoutView extends WatchUi.View {
     private function drawMetrics(dc as Dc, layout as HeroSetLayout, y as Lang.Number) as Void {
         if (!_sensing) {
             dc.setColor(HeroSetPalette.ALERT, HeroSetPalette.BACKGROUND);
-            HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, HeroSetText.load(Rez.Strings.workout_no_sensor), Graphics.TEXT_JUSTIFY_CENTER);
+            HeroSetDraw.centered(dc, layout, y, Graphics.FONT_XTINY, HeroSetText.load(Rez.Strings.workout_no_sensor));
             return;
         }
         dc.setColor(HeroSetPalette.MUTED, HeroSetPalette.BACKGROUND);
         var metrics = HeroSetDraw.firstFitting(dc, layout, layout.displayRadius(), layout.textMargin(), y, Graphics.FONT_XTINY, _metrics.candidates());
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, metrics, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, y, Graphics.FONT_XTINY, metrics);
     }
 
     private function drawCount(dc as Dc, layout as HeroSetLayout, top as Lang.Number, bottom as Lang.Number) as Void {
@@ -292,6 +292,6 @@ class HeroSetWorkoutView extends WatchUi.View {
         // Effort, not gold: the reps only become something the user keeps
         // once the set is saved.
         dc.setColor(HeroSetPalette.EFFORT, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, layout.centerX(), y, font, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroSetDraw.centered(dc, layout, y, font, text);
     }
 }
