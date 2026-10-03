@@ -102,12 +102,20 @@ class HeroSetView extends WatchUi.View {
     private function drawFooter(dc as Dc, layout as HeroSetLayout, y as Lang.Number, state as HeroSetDashboardState) as Void {
         var text = _hint;
         var color = HeroSetPalette.MUTED;
+        // The Instinct's bezel leaves the bottom row about 100 px (ADR-055): the long wordings fall back to a short one
+        // instead of being cut mid-word ("DONE" is already translated for the mission rows; the warning keeps its "!").
+        var shorter = null;
         if (state.storageWarning) {
             text = _warning;
             color = HeroSetPalette.ALERT;
+            shorter = "!";
         } else if (HeroSetRules.missionComplete(state.pushups, state.situps, state.squats, state.goal)) {
             text = _complete;
             color = HeroSetPalette.DONE;
+            shorter = HeroSetText.load(Rez.Strings.menu_sublabel_done);
+        }
+        if (shorter != null && layout.subscreen() != null) {
+            text = HeroSetDraw.firstFitting(dc, layout, layout.displayRadius(), 0, y, Graphics.FONT_XTINY, [text, shorter] as Lang.Array<Lang.String>);
         }
         dc.setColor(color, HeroSetPalette.BACKGROUND);
         HeroSetDraw.centered(dc, layout, y, Graphics.FONT_XTINY, text);
