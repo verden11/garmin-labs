@@ -346,3 +346,7 @@ clipped, side text truncated by the round mask) before it ever reached Monkey C.
 stays open until one exists — a mockup is not device proof, same rule as everywhere else here.
 `watch-design-reviewer` has not yet re-run against the built version of this direction; do that
 before calling it `disposition: ship`.
+
+## Instinct E and Instinct 3 Solar (1-bit, a round window top right; ADR-015, proposed, simulator only)
+
+Black and white only: every colour role is white, the hero is told apart by its icon and label (never a hue), the Accent setting does not exist there. **The window-progress arc becomes a gauge in the round window** (a hairline circle, a thick fill from 12 o'clock clockwise, the same share of the current window; night has none). The clock and date share the band left of the window; the hero (icon and value), the gauge and the sub line sit below it; Pro's grid appears only when the stack has room and has no corner pills. What shows is the square cut by a circle about 98 px in radius, so rows are clipped to a 96 px circle. The mockup (`docs/instinct-mockup.html`) is the approved look.
