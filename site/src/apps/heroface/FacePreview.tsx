@@ -6,7 +6,7 @@ type Props = { size?: number; heroset?: boolean }
 // Arc on the bezel circle (centre 227,227, r 218) from angle a0 to a1, degrees clockwise from 12 o'clock.
 // Endpoints are computed, never typed in: hand-typed ones sat off the circle and the ring drew lopsided.
 const ring = (a0: number, a1: number) => {
-  const pt = (a: number) => `${(227 + 218 * Math.sin((a * Math.PI) / 180)).toFixed(1)} ${(227 - 218 * Math.cos((a * Math.PI) / 180)).toFixed(1)}`
+  const pt = (a: number) => `${(227 + 218 * Math.sin((a * Math.PI) / 180)).toFixed(3)} ${(227 - 218 * Math.cos((a * Math.PI) / 180)).toFixed(3)}`
   return `M${pt(a0)}A218 218 0 ${a1 - a0 > 180 ? 1 : 0} 1 ${pt(a1)}`
 }
 

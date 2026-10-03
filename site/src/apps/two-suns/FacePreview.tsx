@@ -14,7 +14,7 @@ const font = 'system-ui, sans-serif'
 const angle = (minute: number) => ((minute - 720) / 1440) * 2 * Math.PI
 const xy = (minute: number, r: number): [string, string] => {
   const a = angle(minute)
-  return [(C + r * Math.sin(a)).toFixed(1), (C - r * Math.cos(a)).toFixed(1)]
+  return [(C + r * Math.sin(a)).toFixed(3), (C - r * Math.cos(a)).toFixed(3)]
 }
 const pt = (minute: number, r: number) => xy(minute, r).join(' ')
 const arc = (from: number, to: number) =>

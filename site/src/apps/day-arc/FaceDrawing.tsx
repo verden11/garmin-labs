@@ -72,7 +72,7 @@ function Hero({ win, x, y, h }: { win: Exclude<Win, 'night'>; x: number; y: numb
 function Arc({ color, frac }: { color: string; frac: number }) {
   const r = 214
   const span = 70 // degrees either side of straight up
-  const pt = (deg: number) => `${(227 + r * Math.sin((deg * Math.PI) / 180)).toFixed(1)} ${(227 - r * Math.cos((deg * Math.PI) / 180)).toFixed(1)}`
+  const pt = (deg: number) => `${(227 + r * Math.sin((deg * Math.PI) / 180)).toFixed(3)} ${(227 - r * Math.cos((deg * Math.PI) / 180)).toFixed(3)}`
   const end = -span + 2 * span * frac
   return (
     <g fill="none" strokeLinecap="round" strokeWidth="8">
@@ -166,7 +166,7 @@ export function DayArcFace({ win = 'midday', pro = false, size = 240, className 
   const gaugeLow = gaugeY + SAG + GAUGE_PEN / 2
   const gaugeCy = gaugeLow - GAUGE_R
   const half = GAUGE_W / 2 - GAUGE_PEN / 2
-  const onSmile = (x: number) => `${x.toFixed(1)} ${(gaugeCy + Math.sqrt(GAUGE_R ** 2 - (x - 227) ** 2)).toFixed(1)}`
+  const onSmile = (x: number) => `${x.toFixed(3)} ${(gaugeCy + Math.sqrt(GAUGE_R ** 2 - (x - 227) ** 2)).toFixed(3)}`
   const subY = (heroLabel ? gaugeY + SAG + GAUGE_PEN : heroY) + 36
   const bottom = subLines.length ? subY + (subLines.length - 1) * 34 + 10 : heroLabel ? gaugeY + SAG + GAUGE_PEN : heroY
   const lowY = bottom + 4 + LIFT_BUDGET // top of the centre-most pill, first row
