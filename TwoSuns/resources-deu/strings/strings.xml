@@ -34,6 +34,8 @@
     <string id="setting_golden">Goldene Stunde</string>
     <string id="setting_curve">Energiekurve</string>
     <string id="setting_date">Datum</string>
+    <string id="setting_weather">Wetter</string>
+    <string id="setting_battery">Uhr-Akku</string>
     <string id="on">An</string>
     <string id="off">Aus</string>
 

@@ -153,9 +153,9 @@ Decision records: ADR-020 (Free + Pro ladder) and ADR-021 (Body Battery in Free)
 | Step | State, 2026-10-01 |
 |---|---|
 | Free manifest (new app id), jungle, tier-only resources and settings (`manifest.free.xml`, `monkey.free.jungle`, `resources-free/`, `resources-pro/`), generator with a tier argument, `AppName` only in the tier folders | Done |
-| Pro-only code marked `(:pro)` with `(:free)` twins; Pro behaviour unchanged | Done (compiled; `resources-pro/settings` is byte-identical to the old shared one) |
+| Pro-only code marked `(:pro)` with `(:free)` twins; Pro behaviour unchanged | Done (compiled; `resources-pro/settings` was byte-identical to the old shared one; the weather row, ADR-022, came after and changed Pro on purpose) |
 | Free manifest permission `ComplicationSubscriber` only; the compiler rejects any `SensorHistory` or `Positioning` call site in the Free jungle | Done (that is how the sites were found) |
-| Tests: 60 shared, 70 Pro-only, 7 Free-only (Free defaults for Pro keys, no "No place yet", Body Battery without history, the missing-key probe, Free frame) plus 6 accent-table tests in Pro's and Free's counts | **Written and compiled for both jungles on the ten `fit_all` devices and `venux1`; not run** |
+| Tests (as of ADR-020; ADR-022 later added 19 Pro-only weather tests and 4 battery-row tests, so 60 shared, 94 Pro-only, 7 Free-only now): 60 shared, 70 Pro-only, 7 Free-only (Free defaults for Pro keys, no "No place yet", Body Battery without history, the missing-key probe, Free frame) plus 6 accent-table tests in Pro's and Free's counts | **Written and compiled for both jungles on the ten `fit_all` devices and `venux1`; not run** |
 | Compile sweep, both jungles, every manifest product | **Run 2026-10-01, compile only: 69 of 69 pass on each jungle** (`tools/compile_sweep.sh`; 57 per jungle carry only the launcher-icon notice, 12 are warning-free); 44 of 44 normal and `-t` builds on 11 screen classes |
 | Packages `dist/TwoSunsFree.iq`, `dist/TwoSunsPro.iq` and the contents check (`tools/check_free_package.sh`) | Done 2026-10-01, both OK (compile only); see `development.md` |
 | `listing-free/` (README, NOTES, screenshots), CHANGELOG entries, publish-checklist block, release-contract section | Drafted; no screenshots exist (none invented) |

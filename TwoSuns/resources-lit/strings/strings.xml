@@ -34,6 +34,8 @@
     <string id="setting_golden">Auksinė valanda</string>
     <string id="setting_curve">Energijos kreivė</string>
     <string id="setting_date">Data</string>
+    <string id="setting_weather">Orai</string>
+    <string id="setting_battery">Laikrodžio baterija</string>
     <string id="on">Įjungta</string>
     <string id="off">Išjungta</string>
 

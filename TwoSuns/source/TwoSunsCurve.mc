@@ -54,51 +54,37 @@ class TwoSunsCurve {
         }
     }
 
-    // A level pill, not a battery: a plain rounded bar, no nub (the nub is what reads as "device battery"
-    // on a Garmin face, so it is deliberately left off). Filled left to right to the level in the accent.
-    // Hollow (outline only) when there is no number or it is stale.
+    // The Body Battery glyph: a bolt gauge (docs/decisions.md ADR-023, replacing the level pill of ADR-017, which beside
+    // the watch battery row read as a second battery). A dim bolt, filled from the bottom to the level in the accent
+    // (a clip over the lower part of the box, so the fill follows the bolt's own edges). Hollow (a muted outline, no fill)
+    // when there is no number or it is stale. Its points are thousandths of the glyph height; the box is 0.6 as wide as tall.
+    private static const BOLT = [[470, 0], [10, 580], [270, 580], [90, 1000], [590, 380], [330, 380]] as Array<Array<Number>>;
+
     static function drawGlyph(dc as Graphics.Dc, layout as TwoSunsLayout, band as TwoSunsBand, level as Number or Null,
                               stale as Boolean, accent as Number) as Void {
-        var pen = layout.pen();
-        var radius = band.glyphHeight / 2;
-        dc.setPenWidth(pen);
-        dc.setColor(stale ? TwoSunsPalette.MUTED : TwoSunsPalette.TEXT, Graphics.COLOR_TRANSPARENT);
-        dc.drawRoundedRectangle(band.glyphLeft, band.glyphTop, band.glyphWidth, band.glyphHeight, radius);
-        if (level != null && !stale) {
-            dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
-            var fillTop = band.glyphTop + pen + 1;
-            var fillHeight = band.glyphHeight - 2 * (pen + 1);
-            var inner = band.glyphWidth - 2 * (pen + 1);
-            var filled = inner * level / TwoSunsConfig.BATTERY_MAX;
-            // A square LEADING edge inside the rounded outline reads as a level, the standard battery/
-            // progress idiom. Rounding the fill's leading edge (the old behaviour, matching the
-            // outline's corners once the fill was wide enough) made a mid-level reading look like a
-            // toggle-switch thumb floating in a track — caught from a real screenshot, owner, 2026-09-27.
-            // The TRAILING (left, anchored) edge is a different case: it sits at the same x for every
-            // reading, coincident with the track's own left cap, so rounding it can't reproduce the
-            // floating-thumb look — only the moving edge did that. Left unrounded, its flat corners can
-            // sit fractionally outside the true curved boundary there (code review, 2026-09-28: a
-            // geometry check found this plausible in principle, though the current constants keep the
-            // real risk marginal across the product set). Rounded defensively, capped so it can never
-            // exceed what the fill itself has room for, and the leading edge stays exactly as before.
-            if (filled > 0) {
-                var capRadius = radius - (pen + 1);
-                if (capRadius > filled / 2) {
-                    capRadius = filled / 2;
-                }
-                if (capRadius > fillHeight / 2) {
-                    capRadius = fillHeight / 2;
-                }
-                if (capRadius > 0) {
-                    dc.fillRoundedRectangle(band.glyphLeft + pen + 1, fillTop, filled, fillHeight, capRadius);
-                    if (filled > capRadius) {
-                        dc.fillRectangle(band.glyphLeft + pen + 1 + capRadius, fillTop, filled - capRadius, fillHeight);
-                    }
-                } else {
-                    dc.fillRectangle(band.glyphLeft + pen + 1, fillTop, filled, fillHeight);
-                }
-            }
+        var points = [] as Array<[Numeric, Numeric]>;
+        for (var i = 0; i < BOLT.size(); i++) {
+            points.add([band.glyphLeft + band.glyphHeight * BOLT[i][0] / TwoSunsConfig.PERMILLE,
+                        band.glyphTop + band.glyphHeight * BOLT[i][1] / TwoSunsConfig.PERMILLE] as [Numeric, Numeric]);
         }
-        dc.setPenWidth(1);
+        if (level == null || stale) {
+            dc.setPenWidth(layout.pen());
+            dc.setColor(TwoSunsPalette.MUTED, Graphics.COLOR_TRANSPARENT);
+            for (var i = 0; i < points.size(); i++) {
+                var next = points[(i + 1) % points.size()];
+                dc.drawLine(points[i][0], points[i][1], next[0], next[1]);
+            }
+            dc.setPenWidth(1);
+            return;
+        }
+        dc.setColor(TwoSunsPalette.TRACK, Graphics.COLOR_TRANSPARENT);
+        dc.fillPolygon(points);
+        var filled = band.glyphHeight * level / TwoSunsConfig.BATTERY_MAX;
+        if (filled > 0) {
+            dc.setClip(band.glyphLeft, band.glyphTop + band.glyphHeight - filled, band.glyphWidth, filled);
+            dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
+            dc.fillPolygon(points);
+            dc.clearClip();
+        }
     }
 }

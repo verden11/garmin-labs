@@ -4,6 +4,7 @@ import Toybox.Lang;
 class TwoSunsRows {
     var dateTop as Number = 0;
     var timeTop as Number = 0;
+    var weatherTop as Number = 0; // the weather row, Pro
     var bandTop as Number = 0;    // the Body Battery value, and the curve beside it
     var lineTop as Number = 0;    // the sun sentence
 }

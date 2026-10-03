@@ -46,6 +46,14 @@ class TwoSunsPalette {
         return channel == 0xFF ? 0xAA : channel;
     }
 
+    // The weather row (docs/decisions.md ADR-022, Weather row in Pro). Icon hues are fixed per icon type, never per value:
+    // sun and bolt yellow, cloud and snow white, rain blue; ahead icons are MUTED. The lead number is ONE hue whatever the
+    // condition (the sun's yellow), so no colour follows the reading. No accent may equal a weather hue
+    // (noAccentIsAWeatherHue). Contrast on black, computed: yellow 19.7, blue 8.2.
+    static const WEATHER_SUN = 0xFFFF55;
+    static const WEATHER_RAIN = 0x00AAFF;
+    static const WEATHER_NUMBER = WEATHER_SUN;
+
     // The energy curve. Fresh: a white line over a fill that is 3:1 against black. Stale: both muted.
     static const CURVE_FILL = 0x5555AA;
     static const CURVE_FILL_STALE = 0x555555;

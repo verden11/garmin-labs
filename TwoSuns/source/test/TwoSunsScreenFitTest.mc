@@ -32,7 +32,7 @@ function everyStateFitsThisDisplay(logger as Test.Logger) as Boolean {
             var frame = new TwoSunsFrame(dc, layout, states[i], false);
             TwoSunsTestStates.collect(i.toString(), states[i], frame, TwoSunsTestStates.rowCount(frame, false), problems);
             if (layout.stackHeight(frame.showDate ? dc.getFontHeight(frame.dateFont) : 0, dc.getFontHeight(frame.timeFont),
-                                   frame.bandHeight, frame.showLine ? dc.getFontHeight(frame.lineFont) : 0) > layout.spanHeight()) {
+                                   frame.weatherHeight, frame.bandHeight, frame.showLine ? dc.getFontHeight(frame.lineFont) : 0) > layout.spanHeight()) {
                 problems.add("state " + i + " stack is taller than the span even with rows dropped");
             }
         }
@@ -88,6 +88,7 @@ function twoSunsLayoutReport(logger as Test.Logger) as Boolean {
     logger.debug(dc.getWidth() + "x" + dc.getHeight() + " ring r=" + layout.ringRadius() + " w=" + layout.ringWidth()
         + " content r=" + layout.contentRadius() + " span=" + layout.spanHeight() + " live time=" + live.time + " line=" + live.skyLine);
     var states = [live, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curveOrNull(100, 3), true)] as Array<TwoSunsState>;
+    TwoSunsTestStates.addWeatherStates(states, TwoSunsTestStates.skies());   // Pro: [2] day and [3] [4] [5] next-day forms of the weather row
     for (var s = 0; s < states.size(); s++) {
         TwoSunsDraw.boxes = [] as Array<Array>;
         view.drawState(dc, layout, states[s]);
@@ -98,6 +99,8 @@ function twoSunsLayoutReport(logger as Test.Logger) as Boolean {
         }
     }
     TwoSunsDraw.boxes = null;
+    var stats = System.getSystemStats();   // the test harness's own memory is in it, so compare Pro with Free on one device, not with a limit
+    logger.debug("memory used=" + stats.usedMemory + " free=" + stats.freeMemory + " total=" + stats.totalMemory);
     return true;
 }
 
@@ -186,5 +189,69 @@ function freeBigScreensKeepEveryRow(logger as Test.Logger) as Boolean {
     }
     var asleep = new TwoSunsFrame(dc, layout, state, true);
     Test.assert(!asleep.showDate && !asleep.showCurve);
+    return true;
+}
+
+// The weather row steps down to its one-line form before the date drops, and goes before the sun line does;
+// the time and the value never drop. A tiny drawing surface with the real fonts forces every step. Pro only
+// (docs/decisions.md ADR-022, Weather row in Pro).
+(:test, :pro)
+function weatherRowStepsDownBeforeTheDateDrops(logger as Test.Logger) as Boolean {
+    var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true), TwoSunsTestStates.widestDay());
+    for (var size = 100; size <= 260; size += 20) {
+        var bitmap = Graphics.createBufferedBitmap({:width => size, :height => size}).get() as Graphics.BufferedBitmap;
+        var dc = bitmap.getDc();
+        var frame = new TwoSunsFrame(dc, new TwoSunsLayout(dc), state, false);
+        var mode = frame.weatherMode;
+        Test.assertMessage(frame.showDate || mode != TwoSunsConfig.WEATHER_ROW_FULL, "date dropped while the weather row was still full at " + size);
+        Test.assertMessage(frame.showLine || mode == TwoSunsConfig.WEATHER_ROW_NONE, "sun line dropped while the weather row stayed at " + size);
+        Test.assertMessage(frame.weatherBoxCount == 0 || mode != TwoSunsConfig.WEATHER_ROW_NONE, "boxes counted for a dropped weather row at " + size);
+    }
+    return true;
+}
+
+// On the real products (the layout table in ADR-022): the 218 px screen cannot hold the two-line row beside the date,
+// so it keeps the date and takes the one-line row; 240 px and larger keep the two-line row with every other row.
+(:test, :pro)
+function weatherRowFormFollowsTheScreen(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true), TwoSunsTestStates.widestDay());
+    var frame = new TwoSunsFrame(dc, new TwoSunsLayout(dc), state, false);
+    if (dc.getWidth() <= 218) {
+        Test.assertEqual(frame.weatherMode, TwoSunsConfig.WEATHER_ROW_COMPACT);
+        Test.assert(frame.showDate);
+    } else if (dc.getWidth() >= 240 && dc.getWidth() == dc.getHeight()) {
+        Test.assertEqual(frame.weatherMode, TwoSunsConfig.WEATHER_ROW_FULL);
+        Test.assert(frame.showDate);
+    }
+    return true;
+}
+
+// Always-on draws no weather, and Free never has any.
+(:test, :pro)
+function alwaysOnFrameHasNoWeatherRow(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true), TwoSunsTestStates.widestDay());
+    var asleep = new TwoSunsFrame(dc, new TwoSunsLayout(dc), state, true);
+    Test.assertEqual(asleep.weatherMode, TwoSunsConfig.WEATHER_ROW_NONE);
+    Test.assertEqual(asleep.weatherHeight, 0);
+    Test.assertEqual(asleep.weatherBoxCount, 0);
+    return true;
+}
+
+// The next day's low goes first when the row is wide: on the 454 px screen the widest next-day row (weekday, icon,
+// high, low and three hours) is over 75% of the chord, so the low is dropped and the ahead cells stay. Pro only.
+(:test, :pro)
+function weatherNextDayDropsTheLowWhenTheRowIsWide(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    if (dc.getWidth() != 454) {
+        return true;
+    }
+    var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[2], null, false), TwoSunsTestStates.widestNextDay());
+    var layout = new TwoSunsLayout(dc);
+    var frame = new TwoSunsFrame(dc, layout, state, false);
+    var weather = state.weather as TwoSunsWeather;
+    Test.assertEqual(frame.weatherAhead, weather.aheadKinds.size());
+    Test.assert(!TwoSunsWeatherRow.lowKept(dc, layout, weather, frame.weatherMode, frame.rows.weatherTop, frame.weatherAhead));
     return true;
 }

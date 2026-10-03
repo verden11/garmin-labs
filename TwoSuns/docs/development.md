@@ -47,7 +47,7 @@ Scripts run in a container by default (own simulator, no `pkill`, parallel-safe:
 
 ## The test kinds
 
-**Pro 130 tests, Free 67** (written and compiled for both jungles 2026-10-01; **not run**: the simulator was not used). Counted from the `(:test ...)` annotations: 60 shared, 70 `(:test, :pro)`, 7 `(:test, :free)`. Pro's 130 are the 124 that passed on 2026-09-27 (unchanged apart from annotations and one helper twin) plus 6 new accent-table tests (`TwoSunsAccentTest`); Free's 67 are the 60 shared plus 7 Free-only (`freeBatteryIsTheComplicationOnly`, `freeStateHasNoProState`, `freeReturnsDefaultsForProKeys`, `freeLoadReadsAccentOnly`, `freeMissingPropertyKeyThrows`, `skyFreeNeverSaysNoPlace`, `freeBigScreensKeepEveryRow`). Same count on every device within a jungle.
+**Pro 154 tests, Free 67** (Pro 154 and Free 67 run 2026-10-03 in the container, devices in `compatibility.md`; simulator only). Counted from the `(:test ...)` annotations: 60 shared, 94 `(:test, :pro)`, 7 `(:test, :free)`. Pro's 154 are the 130 of ADR-020 plus 19 weather tests (`TwoSunsWeatherTest`, four in `TwoSunsScreenFitTest`; the daily-stamp test is in `TwoSunsWeatherTest`). Pro's 130 are the 124 that passed on 2026-09-27 (unchanged apart from annotations and one helper twin) plus 6 new accent-table tests (`TwoSunsAccentTest`); Free's 67 are the 60 shared plus 7 Free-only (`freeBatteryIsTheComplicationOnly`, `freeStateHasNoProState`, `freeReturnsDefaultsForProKeys`, `freeLoadReadsAccentOnly`, `freeMissingPropertyKeyThrows`, `skyFreeNeverSaysNoPlace`, `freeBigScreensKeepEveryRow`). Same count on every device within a jungle.
 
 - **Logic**: the sun calculation and 27 generated USNO reference tests (`TwoSunsSunReferenceTest`), calendar, exact local offset, Body Battery buckets, place rounding and hysteresis, sky states, readings (words), settings validation, date text, ring plan (angles, arcs, ticks, colours and their contrast), curve plan and band. None checks pixels.
 - **Screen fit** (`everyStateFitsThisDisplay`): renders 31 states in Pro (10 sun states times 3 Body Battery states, plus one with the date off) and 8 in Free (the 7 sun states Free can reach, with Garmin's number only, plus the duplicate date-off one) at the device's real resolution and fonts. `alwaysOnFrameFitsAtEveryDrift` does the same for the always-on frame at the nine drift positions. Run per screen size after any layout or string change:
@@ -63,14 +63,14 @@ One simulator, one device at a time (both jungles write `bin/t-<device>.*`, so n
 
 ```sh
 for d in fr965 fenix7 venu3 fr255s venusq2 venux1; do
-  tools/run_tests.sh $d monkey.jungle        # Pro:  expect PASSED (passed=130, failed=0, errors=0)
+  tools/run_tests.sh $d monkey.jungle        # Pro:  expect PASSED (passed=154, failed=0, errors=0)
   tools/run_tests.sh $d monkey.free.jungle   # Free: expect PASSED (passed=67,  failed=0, errors=0)
 done
 tools/fit_all.sh monkey.jungle               # ten devices, Pro
 tools/fit_all.sh monkey.free.jungle          # ten devices, Free
 ```
 
-Pro's 130 are the 124 that passed on 2026-09-27 plus 6 new accent tests: any Pro failure other than those six is a regression from the ladder work (the Pro binary changed even though its behaviour should not have: imports removed, `sunDays` refactored). `freeMissingPropertyKeyThrows` is a probe of simulator behaviour: if it alone fails, record what `getValue` did, it is not a Free bug (no Free path reads a Pro key).
+Pro's 154 are the 124 that passed on 2026-09-27, 6 accent tests (ADR-020) 19 weather tests (ADR-022) and 4 battery-row tests (ADR-023): any Pro failure outside those is a regression from the ladder or weather work (imports removed, `sunDays` refactored, `Frame` and `Layout` taking a weather row). `freeMissingPropertyKeyThrows` is a probe of the simulator, not of a shipped path.
 
 ### How the fit test reads
 

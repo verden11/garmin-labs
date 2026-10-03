@@ -34,6 +34,8 @@
     <string id="setting_golden">Gouden uur</string>
     <string id="setting_curve">Energiecurve</string>
     <string id="setting_date">Datum</string>
+    <string id="setting_weather">Weer</string>
+    <string id="setting_battery">Horlogebatterij</string>
     <string id="on">Aan</string>
     <string id="off">Uit</string>
 

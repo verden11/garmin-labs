@@ -1,0 +1,89 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two Suns Pro — temperature mockup</title>
+<style>
+  :root { color-scheme: dark; }
+  body { background:#111; color:#ccc; font:14px/1.4 -apple-system,Helvetica,Arial,sans-serif; margin:0; padding:24px 16px 64px; }
+  h1 { font-size:18px; margin:0 0 4px; color:#fff }
+  p.note { max-width:900px; margin:0 0 20px; color:#c8c8c8 }
+  .row { display:flex; flex-wrap:wrap; gap:28px; align-items:flex-start; margin-bottom:36px }
+  figure { margin:0; text-align:center }
+  figcaption { margin-top:8px; font-size:13px; max-width:300px; color:#ccc }
+  figcaption b { color:#fff }
+  svg { display:block; background:#000; border-radius:50%; }
+  h2 { font-size:15px; color:#fff; margin:28px 0 10px; }
+</style>
+<h1>Two Suns Pro — temperature through the day (mockup)</h1>
+<p class="note">Not approved. Sample data only (14:20 local, sunrise 06:41, sunset 19:12, 12 hourly forecast values from 14:00). Drawn with the face's own geometry: ring radius, ring width and gap are the same share of D as <code>TwoSunsLayout</code>. The temperature mark is one fixed colour (#AAAAAA); only its position or length carries the value.</p>
+
+<div id="out"></div>
+
+<script>
+const ACC = '#55AAFF', ACC_DIM = '#55AAAA', NIGHT = '#5555AA', TWI = '#AAAAFF', GOLD = '#FF5500', MUTED = '#AAAAAA';
+const NOW = 14*60+20, RISE = 6*60+41, SET = 19*60+12;
+const TEMPS = [19,20,21,21,20,18,16,15,14,13,12,12];   // from 14:00, 12 hourly values, deg C
+const FIRST_HOUR = 14;
+
+const pol = (r, min, cx, cy) => { const a = (min-720)/4*Math.PI/180; return [cx + r*Math.sin(a), cy - r*Math.cos(a)]; };
+const arc = (r, m0, m1, cx, cy) => { if (m1<=m0) return ''; const [x0,y0]=pol(r,m0,cx,cy), [x1,y1]=pol(r,m1,cx,cy); return `M${x0},${y0} A${r},${r} 0 ${(m1-m0)>720?1:0} 1 ${x1},${y1}`; };
+
+const room_ok = D => { const fl=Math.floor, c=D/2, rw=fl(D*25/1000), rr=c-fl(rw/2)-fl(D*10/1000); return (rr-fl(rw/2)-2) - (rr-fl(rw/2)-fl(D*20/1000)) >= 4; };   // rule: usable room >= 4 px
+function face(D, opt) {
+  // integer maths, as TwoSunsLayout does (Monkey C Number division truncates)
+  const fl = Math.floor, c = D/2, rw = fl(D*25/1000), rr = c - fl(rw/2) - fl(D*10/1000), cr = rr - fl(rw/2) - fl(D*20/1000);
+  const inner = rr - fl(rw/2);                   // ring's inner edge
+  let s = `<svg width="${D}" height="${D}" viewBox="0 0 ${D} ${D}" xmlns="http://www.w3.org/2000/svg">`;
+  const stroke = (m0,m1,col) => `<path d="${arc(rr,m0,m1,c,c)}" fill="none" stroke="${col}" stroke-width="${rw}"/>`;
+  s += `<circle cx="${c}" cy="${c}" r="${rr}" fill="none" stroke="${NIGHT}" stroke-width="${rw}"/>`;
+  s += stroke(RISE-35,RISE,TWI) + stroke(SET,SET+35,TWI);
+  s += stroke(RISE,NOW,ACC_DIM) + stroke(NOW,SET,ACC) + stroke(SET-60,SET,GOLD);
+  for (const m of [RISE,SET]) { const [x0,y0]=pol(inner-rw*.2,m,c,c),[x1,y1]=pol(rr+rw/2,m,c,c); s+=`<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="#fff" stroke-width="2"/>`; }
+  const [mx,my]=pol(rr,NOW,c,c); s += `<circle cx="${mx}" cy="${my}" r="${rw*.62}" fill="#fff" stroke="#000" stroke-width="2"/>`;
+
+  // ---- temperature mark, lives in the gap between ring's inner edge and the content circle ----
+  if (opt.temps && room_ok(D)) {
+    const lo = Math.min(...TEMPS), hi = Math.max(...TEMPS);
+    const span = Math.max(hi-lo, 6);                       // a flat day stays flat: minimum 6 deg span
+    const base = inner - 2, room = base - cr;             // 2 px pad; room = usable radial band
+    const minLen = Math.max(room*.25, 1.5);
+    const len = t => minLen + (room-minLen)*((t-lo)/span);
+    const pen = Math.max(1, Math.round(D/227));
+    if (opt.kind === 'ticks') {
+      TEMPS.forEach((t,i) => { const m = (FIRST_HOUR+i)*60 + (i===0 ? (NOW-FIRST_HOUR*60) : 0); const mm=(FIRST_HOUR+i)*60;
+        const [x0,y0]=pol(base,mm,c,c), [x1,y1]=pol(base-len(t),mm,c,c);
+        s += `<line x1="${x0}" y1="${y0}" x2="${x1}" y2="${y1}" stroke="${MUTED}" stroke-width="${pen}" stroke-linecap="round"/>`; });
+    } else if (opt.kind === 'line') {
+      const pts = TEMPS.map((t,i)=>pol(base-(len(t)),(FIRST_HOUR+i)*60,c,c).join(',')).join(' ');
+      s += `<polyline points="${pts}" fill="none" stroke="${MUTED}" stroke-width="${pen*1.5}" stroke-linejoin="round" stroke-linecap="round"/>`;
+      const [px,py]=pol(base-len(TEMPS[0]),FIRST_HOUR*60,c,c); s+=`<circle cx="${px}" cy="${py}" r="${pen*2}" fill="#fff"/>`;
+    }
+  }
+
+  // ---- text rows ----
+  const f = D/454, fs = n => n*f;
+  const dateTxt = opt.temps ? 'Fri 3 Oct · 19°' : 'Fri 3 Oct';
+  s += `<text x="${c}" y="${c-100*f}" fill="${MUTED}" font-size="${fs(24)}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif">${opt.noData?'Fri 3 Oct':dateTxt}</text>`;
+  s += `<text x="${c}" y="${c+8*f}" fill="#fff" font-size="${fs(118)}" font-weight="700" text-anchor="middle" font-family="Helvetica,Arial,sans-serif" letter-spacing="${fs(-2)}">14:20</text>`;
+  // band: pill + value + curve
+  const by = c+58*f;
+  s += `<rect x="${c-104*f}" y="${by}" width="${36*f}" height="${20*f}" rx="${4*f}" fill="none" stroke="${MUTED}" stroke-width="${1.5*f}"/><rect x="${c-104*f}" y="${by}" width="${36*f*.62}" height="${20*f}" fill="${ACC}"/>`;
+  s += `<text x="${c-60*f}" y="${by+20*f}" fill="${ACC}" font-size="${fs(28)}" font-family="Helvetica,Arial,sans-serif">62</text>`;
+  let d = ''; for (let i=0;i<=60;i++){ const y = 52 - (22*Math.sin(i/60*Math.PI*1.1+.6)+12*Math.sin(i/9)); d += (i?'L':'M')+(c-8*f+i*1.9*f)+','+(by+ y*f*.7)+' '; }
+  s += `<path d="${d}" fill="none" stroke="#fff" stroke-width="${1.6*f}"/>`;
+  s += `<text x="${c}" y="${c+132*f}" fill="${MUTED}" font-size="${fs(24)}" text-anchor="middle" font-family="Helvetica,Arial,sans-serif">4 h 52 m of light left</text>`;
+  // content circle guide
+  if (opt.guide) s += `<circle cx="${c}" cy="${c}" r="${cr}" fill="none" stroke="#f0f" stroke-width="0.5" stroke-dasharray="3 3"/>`;
+  return s + '</svg>';
+}
+
+const sets = [
+  ['A. Thermal ticks (recommended)', 'Twelve hourly ticks hang inward from the ring, clockwise from the sun marker. Tick length = temperature. Reads like a dial\'s hour track, never competes with the time.', {temps:true, kind:'ticks'}, 454],
+  ['B. Etched trace', 'The same twelve values as a hairline. Smoother, but amplitude is only 7 px at 454 and 2 px at 218; the line wanders into the ring at night. Rejected.', {temps:true, kind:'line'}, 454],
+  ['Baseline today (no temperature)', 'Current Pro face for comparison.', {}, 454],
+  ['A at 218 px (fr255s, the tightest)', 'Usable room is 2 px at 218 (about 2% of D, less a 2 px pad, integer maths as in TwoSunsLayout). Rule: under 4 px usable, no ticks, number only. The number lives in the date row; whether that row survives at 218 is not yet checked.', {temps:true, kind:'ticks'}, 218],
+  ['A, no forecast (phone away)', 'Forecast is null: no ticks and no number. Never a stale or invented value.', {noData:true}, 454],
+  ['A, guide on (magenta = content circle)', 'Proof ticks stay outside the circle the text rows are fitted to.', {temps:true, kind:'ticks', guide:true}, 454],
+];
+document.getElementById('out').innerHTML = '<div class="row">' + sets.map(([t,cap,o,D]) => `<figure>${face(D,o)}<figcaption><b>${t}</b><br>${cap}</figcaption></figure>`).join('') + '</div>';
+</script>

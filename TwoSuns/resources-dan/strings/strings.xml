@@ -34,6 +34,8 @@
     <string id="setting_golden">Gylden time</string>
     <string id="setting_curve">Energikurve</string>
     <string id="setting_date">Dato</string>
+    <string id="setting_weather">Vejr</string>
+    <string id="setting_battery">Ur-batteri</string>
     <string id="on">Til</string>
     <string id="off">Fra</string>
 

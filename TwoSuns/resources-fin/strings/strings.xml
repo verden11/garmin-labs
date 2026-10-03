@@ -34,6 +34,8 @@
     <string id="setting_golden">Kultainen hetki</string>
     <string id="setting_curve">Energiakäyrä</string>
     <string id="setting_date">Päivämäärä</string>
+    <string id="setting_weather">Sää</string>
+    <string id="setting_battery">Kellon akku</string>
     <string id="on">Päällä</string>
     <string id="off">Pois</string>
 

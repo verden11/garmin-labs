@@ -34,6 +34,8 @@
     <string id="setting_golden">Золота година</string>
     <string id="setting_curve">Крива енергії</string>
     <string id="setting_date">Дата</string>
+    <string id="setting_weather">Погода</string>
+    <string id="setting_battery">Батарея годинника</string>
     <string id="on">Увімк.</string>
     <string id="off">Вимк.</string>
 

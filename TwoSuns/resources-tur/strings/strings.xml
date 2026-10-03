@@ -34,6 +34,8 @@
     <string id="setting_golden">Altın saat</string>
     <string id="setting_curve">Enerji eğrisi</string>
     <string id="setting_date">Tarih</string>
+    <string id="setting_weather">Hava durumu</string>
+    <string id="setting_battery">Saat pili</string>
     <string id="on">Açık</string>
     <string id="off">Kapalı</string>
 
