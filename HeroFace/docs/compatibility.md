@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-09-26. 117 products, every round watch-face product at Connect IQ
+Status: 2026-10-03. 124 products (117 round + 7 Instinct, below), every round watch-face product at Connect IQ
 3.0 or newer in SDK 9.2.0. A watch face needs no buttons, so touch-only watches
 (Venu, vívoactive, Instinct AMOLED) are supported here. HeroSet added Venu 2/3/4,
 vívoactive 5/6, Approach S50/S70 and D2 Air X10 in its [ADR-048](../../HeroSet/docs/decisions.md#adr-048) (live in HeroSet 1.1.1); older Venu/vívoactive and Instinct are still HeroSet-less.
@@ -69,8 +69,18 @@ it.
 | Group | Examples | What's missing |
 |---|---|---|
 | Rectangle | `venusq2`, `venux1` | The row stack assumes a round chord; a rectangle wants its own proportions ([`docs/plan.md`](plan.md) phase 4) |
-| Semi-octagon | Instinct 2/3 MIP, Instinct E, Descent G1 | Their sub-window covers part of the screen and the layout doesn't model it yet (phase 4) |
+| Semi-octagon | `instinctcrossover` | Analog hands over the display, no window in the simulator; left out as in HeroSet ADR-055. The other 7 semi-octagon products are supported (below) |
 | Below Connect IQ 3.0 | fēnix 3, FR230/235/630, vívoactive Gen 1, FR45 | No `Application.Properties`, 48–64 KB, 4-bit colour: a second render path for 15 old watches |
+
+## Instinct family (added 2026-10-03, ADR-002, proposed, simulator only)
+
+Seven semi-octagon products join both manifests (124 products): `instinct2`, `instinct2s` (163 x 156), `instinct2x`, `descentg1`, `instincte45mm`, `instinct3solar45mm` (176 x 176) and `instincte40mm` (166 x 166). Black and white (palette `000000`/`FFFFFF` only), **watch-face memory 65,536 B**, a round window top right (62 px; 52 px on the E 40 mm, 54 px on the 2S). CIQ 3.4 (the Instinct 2 family, no Complications: Everyday mode only) or CIQ 6.0 (E, 3 Solar: the HeroSet link can connect).
+
+- **What shows.** The bezel hides the corners: the visible area is the square cut by a circle about 98 px in radius (96 to 100 px on all seven, from the alpha mask of the SDK's device images). `HeroFaceLayout` clips rows to a 96 px circle; the screen-fit test fails any text box whose corner leaves it (`collectCorners`) or that touches the window.
+- **As built.** Time and date left of the window, the streak below it, the mission columns above the bottom corners; the ring is a gauge in the window. **No footer, no temperature, no seconds, no Accent setting.** See ADR-002.
+- **Memory (normal run, `-r` like the store export, simulator):** 31.0 kB (Pro) and 29.8 kB (Free) used of the 59.8 kB the simulator reports, on `instinct2`; 26.8 kB and 25.8 kB on `instincte40mm` (the simulator window's status bar after the face drew, 2026-10-03). The limit is 65,536 B: about half is free. Seconds do not draw on an Instinct, so the partial-update path was not exercised there.
+- **Tests, 2026-10-03, container simulator:** Pro 21/21 on `instinct2`, `instinct2s`, `instinct2x`, `descentg1`, `instincte40mm`, `instincte45mm`, `instinct3solar45mm`; Free 21/21 on `instinct2`, `instincte40mm`; round controls Pro 25/25 on `fr965`, `fr55` and Free 25/25 on `fr965`. Per-language screen fit (15 languages) on `instinct2`, `instinct2s`, `instincte40mm`: all 15 pass on all three (`tools/fit_languages.sh <product>`; mission labels and values are cut with a "." when a translation is longer than the 40 px column). Compile sweep, both jungles, every product: 124/124 pass on both jungles (`tools/compile_sweep.sh`, `-w --typecheck 3`). `tools/check_free_package.sh --build`: OK (207 part numbers; no Accent key on the 7 Instinct parts).
+- **Not proven:** anything on a watch (real bezel margins, contrast, the HeroSet link on an Instinct E or 3 Solar, whether the on-watch Customize menu is offered).
 
 ## Adding a product
 

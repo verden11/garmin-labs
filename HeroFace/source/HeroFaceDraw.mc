@@ -55,6 +55,23 @@ class HeroFaceDraw {
         return candidates[candidates.size() - 1];
     }
 
+    // `str` if it is at most `width` px wide, else its longest prefix that fits with a "." after it (a streak of
+    // thousands of days in the Instinct's narrow band still reads as its word).
+    static function truncated(dc as Graphics.Dc, str as String, font as Graphics.FontDefinition, width as Number) as String {
+        if (dc.getTextWidthInPixels(str, font) <= width) {
+            return str;
+        }
+        var length = str.length();
+        while (length > 1) {
+            length--;
+            var cut = str.substring(0, length) + ".";
+            if (dc.getTextWidthInPixels(cut, font) <= width) {
+                return cut;
+            }
+        }
+        return str.substring(0, 1) as String;
+    }
+
     // First candidate no wider than `width`, else the last one.
     static function firstWithin(dc as Graphics.Dc, width as Number, font as Graphics.FontDefinition, candidates as Array<String>) as String {
         for (var i = 0; i < candidates.size() - 1; i++) {

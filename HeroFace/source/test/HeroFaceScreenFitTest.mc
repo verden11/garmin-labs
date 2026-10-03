@@ -199,3 +199,30 @@ function disabledSecondsDrawNoSecondsBox(logger as Test.Logger) as Boolean {
     }
     return true;
 }
+
+// Beside the Instinct's window a row ends left of it (and is centred in what is left); below it, or on any other
+// product, rows keep the whole display and the screen's centre (ADR-002).
+(:test)
+function rowsBesideAWindowStayClearOfIt(logger as Test.Logger) as Boolean {
+    var settings = System.getDeviceSettings();
+    var size = {:width => settings.screenWidth, :height => settings.screenHeight};
+    var bitmap = (Graphics has :createBufferedBitmap)
+        ? Graphics.createBufferedBitmap(size).get() as Graphics.BufferedBitmap
+        : new Graphics.BufferedBitmap(size);
+    var layout = new HeroFaceLayout(bitmap.getDc());
+    var window = layout.subscreen();
+    var rowHeight = 18;
+    for (var y = 0; y + rowHeight < layout.height(); y += 4) {
+        var center = layout.rowCenterX(y, rowHeight);
+        if (window == null) {
+            Test.assertEqual(center, layout.centerX());
+        } else {
+            Test.assert(center >= layout.leftInset(y, rowHeight) && center <= layout.rightInset(y, rowHeight));
+            if (y < (window.y as Number) + (window.height as Number)) {
+                Test.assert(layout.rightInset(y, rowHeight) <= (window.x as Number));
+            }
+        }
+    }
+    Test.assert(layout.belowWindow(0) >= (window == null ? 0 : (window.y as Number) + (window.height as Number)));
+    return true;
+}
