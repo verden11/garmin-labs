@@ -150,14 +150,4 @@
             <listEntry value="2">@Strings.footer_steps</listEntry>
         </settingConfig>
     </setting>
-    <setting propertyKey="@Properties.Accent" title="@Strings.setting_accent">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.accent_mint</listEntry>
-            <listEntry value="1">@Strings.accent_amber</listEntry>
-            <listEntry value="2">@Strings.accent_sky</listEntry>
-            <listEntry value="3">@Strings.accent_pink</listEntry>
-            <listEntry value="4">@Strings.accent_violet</listEntry>
-            <listEntry value="5">@Strings.accent_white</listEntry>
-        </settingConfig>
-    </setting>
 </settings>

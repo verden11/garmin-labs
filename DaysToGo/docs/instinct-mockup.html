@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Days To Go on Instinct mockup</title>
+<style>
+  :root { --bg:#16181b; --fg:#e8eaed; --muted:#9aa0a6; }
+  body { margin:0; padding:24px; background:var(--bg); color:var(--fg); font:14px/1.45 system-ui, sans-serif; }
+  h1 { font-size:18px; margin:0 0 4px; } p.note { color:var(--muted); max-width:980px; margin:4px 0 16px; }
+  .row { display:flex; flex-wrap:wrap; gap:28px; }
+  figure { margin:0; } figcaption { margin-top:8px; max-width:540px; color:var(--muted); font-size:13px; }
+  figcaption b { color:var(--fg); }
+  svg { display:block; background:#0d0e10; border-radius:6px; }
+  .px { font-family: Roboto, "Helvetica Neue", Arial, sans-serif; font-weight:500; fill:#fff; text-rendering:geometricPrecision; }
+  .xt { font-size:15px; } .sm { font-size:18px; } .num { font-weight:700; }
+  .guide { fill:none; stroke:#ff4d4d; stroke-width:.5; stroke-dasharray:2 2; opacity:.9; }
+  .bez { fill:none; stroke:#2a2d31; stroke-width:1; }
+</style>
+</head>
+<body>
+<h1>Days To Go on Instinct 2 (176 x 176, 1-bit): look approved 2026-10-03, built layout differs (see the note)</h1>
+<p class="note"><b>As built: the hero is 44 px (the real fonts are bigger than drawn here; the smallest is 23 px tall), there is no footer and no accent, and the visible area is clipped to a circle about 98 px in radius (the bezel hides the corners; the outline below is the real mask). See ADR-015.</b> Mockup at 3x. White on black only, no grey and no accent colour (a 1-bit display has only black and white). The round window (top right, 62 px) is the physical subscreen: the ring that drains around the bezel on every other watch becomes a gauge in the window (hairline track, thick fill). The time and event name sit in the band left of it; the hero number gets the full width below. The footer row is dropped (battery or steps, Pro only), as HeroSet drops its XP line. Dashed red = keep-out zone for text. Glyph shapes are a stand-in for the Garmin fonts; nothing here is measured on a watch. Row wording is illustrative: the app measures and picks fonts.</p>
+<div class="row" id="row"></div>
+<script>
+const NS = "http://www.w3.org/2000/svg";
+const OUT = "M44.9,0 H131.1 A98,98 0 0 1 176,44.9 V131.1 A98,98 0 0 1 131.1,176 H44.9 A98,98 0 0 1 0,131.1 V44.9 A98,98 0 0 1 44.9,0 Z";
+function arc(cx, cy, r, sweep) { // clockwise from 12 o'clock
+  if (sweep >= 359.9) return `M${cx},${cy-r} A${r},${r} 0 1 1 ${cx-0.01},${cy-r}`;
+  const a = sweep * Math.PI / 180, x = cx + r*Math.sin(a), y = cy - r*Math.cos(a);
+  return `M${cx},${cy-r} A${r},${r} 0 ${sweep>180?1:0} 1 ${x.toFixed(2)},${y.toFixed(2)}`;
+}
+function face(o) {
+  return `<svg width="528" height="528" viewBox="0 0 176 176" shape-rendering="crispEdges">
+  <defs><clipPath id="vis"><path d="${OUT}"/></clipPath></defs><g clip-path="url(#vis)"><rect width="176" height="176" fill="#000"/>
+  <circle cx="144" cy="31" r="30" fill="none" stroke="#fff" stroke-width="1"/>
+  <path fill="none" stroke="#fff" stroke-width="7" d="${arc(144,31,26.5,o.sweep)}"/>
+  <rect class="guide" x="102" y="0" width="74" height="73"/>
+  <text class="px num" x="52" y="36" text-anchor="middle" font-size="34" textLength="80" lengthAdjust="spacingAndGlyphs">${o.time}</text>
+  ${o.name ? `<text class="px xt" x="52" y="58" text-anchor="middle">${o.name}</text>` : ""}
+  ${o.word ? `<text class="px sm" x="88" y="110" text-anchor="middle" font-size="40" font-weight="700">${o.hero}</text>`
+           : `<text class="px num" x="88" y="126" text-anchor="middle" font-size="64" textLength="${o.hero.length*34}" lengthAdjust="spacingAndGlyphs">${o.hero}</text>`}
+  ${o.caption ? `<text class="px xt" x="88" y="146" text-anchor="middle">${o.caption}</text>` : ""}
+  ${o.date ? `<text class="px xt" x="88" y="164" text-anchor="middle">${o.date}</text>` : ""}
+  </g><path d="${OUT}" fill="none" stroke="#3a3d41" stroke-width="1"/></svg>`;
+}
+const figs = [
+  [{time:"10:09", name:"WEDDING", hero:"128", caption:"DAYS TO GO", date:"SAT 14 NOV", sweep:222},
+   "<b>Days to go.</b> The ring becomes the window gauge: the thick fill drains clockwise from the top as the date approaches (same square-root share as the round faces). Time and name share the band left of the window; the hero is the biggest number the width allows; caption and date centre below."],
+  [{time:"08:30", name:"WEDDING", hero:"TODAY", word:true, caption:"", date:"SAT 14 NOV", sweep:360},
+   "<b>The day.</b> The gauge is a closed ring (full) and the hero is the word TODAY. On colour watches this state turns the ring and word accent-coloured; here the full ring and the word carry it, as the design rule already requires (state is never colour alone)."],
+  [{time:"10:09", name:"", hero:"SET A DATE", word:true, caption:"", date:"", sweep:0},
+   "<b>No event set.</b> Hairline track only in the window, the existing SET A DATE prompt (shrunk to fit) as the hero. Long names and translations are cut with a '.' to fit the band, as HeroSet does."]
+];
+document.getElementById("row").innerHTML = figs.map(f => `<figure>${face(f[0])}<figcaption>${f[1]}</figcaption></figure>`).join("");
+</script>
+</body>
+</html>

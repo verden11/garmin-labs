@@ -65,7 +65,7 @@ function everyAccentReadsOnBlack(logger as Test.Logger) as Boolean {
 
 // Append-only: a shipped id never changes its colour (the phone and the watch store the id). Ids 6 and up
 // are deferred; when they land they are appended and this list grows.
-(:test)
+(:test :color)
 function shippedAccentIdsKeepTheirColours(logger as Test.Logger) as Boolean {
     var shipped = DaysToGoAccentCheck.SHIPPED;
     Test.assert(DaysToGoPalette.ACCENTS.size() >= shipped.size());
@@ -76,7 +76,7 @@ function shippedAccentIdsKeepTheirColours(logger as Test.Logger) as Boolean {
     return true;
 }
 
-(:test)
+(:test :color)
 function outOfRangeAccentIsTheDefault(logger as Test.Logger) as Boolean {
     var fallback = DaysToGoPalette.ACCENTS[0];
     Test.assertEqual(DaysToGoPalette.accent(-1), fallback);
@@ -88,11 +88,23 @@ function outOfRangeAccentIsTheDefault(logger as Test.Logger) as Boolean {
 }
 
 // Both tiers offer ids 0 to 5 (the Free list), and the settings reader accepts each.
-(:test)
+(:test :color)
 function freeAccentIdsAreAccepted(logger as Test.Logger) as Boolean {
     for (var id = DaysToGoAccentCheck.FIRST_FREE_ACCENT; id <= DaysToGoAccentCheck.LAST_FREE_ACCENT; id++) {
         Test.assertEqual(new DaysToGoSettings({"Accent" => id} as Dictionary).accent, id);
         Test.assertEqual(DaysToGoPalette.accent(id), DaysToGoAccentCheck.SHIPPED[id]);
     }
+    return true;
+}
+
+// The Instinct palette (ADR-015): whatever the setting says, the accent is white and every role is white on black.
+(:test :mono)
+function accentIsWhiteOnTheMonoPalette(logger as Test.Logger) as Boolean {
+    Test.assert(DaysToGoPalette.MONO);
+    for (var i = -1; i <= DaysToGoPalette.ACCENTS.size(); i++) {
+        Test.assertEqual(DaysToGoPalette.accent(i), DaysToGoPalette.TEXT);
+    }
+    Test.assertEqual(DaysToGoPalette.MUTED, DaysToGoPalette.TEXT);
+    Test.assertEqual(DaysToGoPalette.TRACK, DaysToGoPalette.TEXT);
     return true;
 }
