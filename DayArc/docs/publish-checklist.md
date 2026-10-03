@@ -54,7 +54,14 @@ Nothing below has been seen on a wrist; the simulator has no display in this env
    delegate closes the whole Customize screen on select — check that lands somewhere sensible and
    nothing hangs. Restart the watch: the choice must survive. The Garmin Connect phone page cannot
    be tested from a sideloaded build; it waits for a store install (gate 5).
-8. Report anything that looks smaller than it needs to be — the planner is deliberately
+8. **Icons after the pixel-grid change (2026-10-03, ADR-013 Amendment 4)** — grid icons are now 24×24 with
+   2 px strokes (were 22 px, strokes 2.2–2.5), hero icons 60×48 / 48×48 / 60×42 (were 56×45 / 52×52 /
+   68×48). On the wrist: (a) are the 2 px strokes too thin or too light against the 64-colour AMOLED
+   (stairs, steps, run, refresh, sunrise/sunset, thermometer, bars, breath); (b) are the icon edges
+   crisp, not soft; (c) do the 24 px grid rows still fit on the smallest round product you own, in
+   Pro, and does the hero row still look balanced with the smaller Body Battery icon; (d) is Body
+   Battery's redrawn blocky battery still recognisable. Any "no" → revert the one commit (ADR text).
+9. Report anything that looks smaller than it needs to be — the planner is deliberately
    conservative (font boxes carry padding above the digits) and the wrist is what tunes it.
 
 ## Open owner decisions from the 2026-09-28 third review (not resolved here)

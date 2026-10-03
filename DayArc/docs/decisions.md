@@ -406,6 +406,17 @@ approachs50 midday-data (one rung smaller). Not done: curved text (`drawRadialTe
 
 **Amendment 3, 2026-10-02 (owner, wrist photo and emulator screenshot of Pro morning):** morning's Pro grid gets **icon-only cells like midday and evening**. Why: it was the one window with text-label cells, the owner reported "no icons" in Pro, and in the pills the labels were cut or dropped in real conditions ("Ri… 03:14", then bare "50%" and "182"), because live plans have bigger fonts and a lower, narrower grid than the worst-case plan the tests measure. Three new Tabler icons (outline, 22 px, 64-colour hues): sunrise `#FFAA00`, sunset `#FF5500`, a battery shell `#AAFF55`; heart, steps, stairs and bell are reused. The first two icon-only cells (sunrise and sunset) now take the corners beside the date, like the other windows. The seven morning label strings are removed. Two hues repeat across windows, never within one (sunset `#FF5500` = flame, `#AAFF55` = VO2 bars): morning shows neither flame nor VO2. Also: a label now gives way before a short value is cut (the label gets what the value does not need, at least half the old share), and "Batt" is no more (icon). Tests: Pro fr965/approachs50/venusq2 and Simple fr965 pass in the simulator (one transient fr965 icon-size error on a run while another session used the same simulator, gone on rerun); plan levels same or better than before.
 
+**Amendment 4, 2026-10-03 (owner: "SVGs MUST BE PIXEL PERFECT"):** every icon bitmap is now drawn at a whole-number scale with
+whole-pixel strokes, so the SDK's SVG rasteriser has nothing to resample. **Grid icons:** 22×22 → **24×24** (the Tabler 24 grid
+at 1:1; `GRID_ICON_SIZE` 22 → 24), every stroke 2.2–2.5 → **2** (an even width centred on an integer coordinate puts both edges
+on whole pixels). **Hero icons:** weather 56×45 → **60×48** (2× its 30×24 box), stress 52×52 → **48×48** (2× the 24 grid; stroke 2,
+dot r 2.5 at cy 20), Body Battery 68×48 → **60×42**, redrawn directly in pixel space (6 px outline, 4 px heartbeat line, 6×12 nub; the
+old nub and the scaled-in line sat on fractional pixels). Cost: strokes are lighter than the 2.3 the owner approved, and the
+Body Battery shape is blockier; icon heights are 48/48/42 instead of 45/52/48. `DayArcRenderTest` sizes updated; the full test
+set passes on fr965, approachs50, venusq2, venux1, fr255s and fenix7s (Pro; Simple on fr965 and approachs50). Simulator only.
+**Reversed by:** an on-wrist look (checklist "Icons after the pixel-grid change") judging the 2 px strokes too thin on the AMOLED —
+revert `resources*/drawables/icons`, `tools/hero_icon_templates`, `GRID_ICON_SIZE` and the test sizes (one commit).
+
 ## ADR-014: One wearer setting — Accent colour (partly reverses ADR-011)
 
 **Status:** Active. Built 2026-09-28; simulator-tested only — it has never been changed in the

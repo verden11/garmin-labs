@@ -48,8 +48,8 @@ function everyWindowRendersWithoutError(logger as Test.Logger) as Boolean {
 (:test)
 function everyHeroIconLoadsAtExpectedSize(logger as Test.Logger) as Boolean {
     var windows = [DayArcConfig.WINDOW_MORNING, DayArcConfig.WINDOW_MIDDAY, DayArcConfig.WINDOW_EVENING] as Array<Number>;
-    var widths = [56, 52, 68] as Array<Number>;
-    var heights = [45, 52, 48] as Array<Number>;
+    var widths = [60, 48, 60] as Array<Number>;
+    var heights = [48, 48, 42] as Array<Number>;
     for (var w = 0; w < windows.size(); w++) {
         for (var choice = 0; choice < DayArcConfig.ACCENT_CHOICES; choice++) {
             var id = DayArcIcons.heroFor(windows[w], choice);
