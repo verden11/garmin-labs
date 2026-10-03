@@ -9,6 +9,6 @@ command -v docker >/dev/null || { echo "docker not found: install Docker Desktop
 docker image inspect "$IMG" >/dev/null 2>&1 || { echo "image $IMG missing: run docker/build.sh once" >&2; exit 127; }
 KEYS=${CIQ_KEYS:-$HOME/.garmin-connectiq/keys}
 exec docker run --rm --platform "$(docker image inspect -f '{{.Os}}/{{.Architecture}}' "$IMG")" \
-  ${MC_FLAGS+-e MC_FLAGS} ${EXPECT+-e EXPECT} \
+  ${MC_FLAGS+-e MC_FLAGS} ${EXPECT+-e EXPECT} ${CIQ_TZ:+-e TZ=$CIQ_TZ} \
   -v "$PROJ":/work -v "$(cd "$(dirname "$0")" && pwd)":/ciq-docker:ro -v "$KEYS":/keys:ro \
   -w /work "$IMG" "${@:-bash}"

@@ -6,6 +6,7 @@ Two images, built from one `Dockerfile` (SDK 9.2.0, JDK 17, your `Devices/` + `F
 |---|---|---|
 | `verden-ciq:9.2.0` (`sim`) | tests (`monkeydo` + simulator under Xvfb) | linux/amd64 (Rosetta/QEMU on Apple Silicon) |
 | `verden-ciq-build:9.2.0` (`build`) | compiles, `compile_sweep.sh` | native (arm64 on Apple Silicon), ~3-4x faster than emulated |
+| `verden-ciq-shots:9.2.0` (`shots`) | `shot.sh`: simulator screenshots (the sim image + `xwd` + ImageMagick) | linux/amd64 |
 
 Every `docker/run.sh` call is a fresh container with its **own simulator** and network, so any number run
 in parallel, in the same project folder or different worktrees. Nothing `pkill`s anything on the host.
@@ -21,6 +22,9 @@ DaysToGo/tools/fit_languages.sh -l "eng ukr" fr965
 # Host (macOS) simulator instead: CIQ_DOCKER=0 <script> ... (see "Host simulator" below)
 # HeroSet has no run_tests.sh and builds without strict typecheck:
 MC_FLAGS="" docker/run.sh HeroSet /ciq-docker/ciq-test.sh fr965 monkey.jungle
+
+# Screenshot the simulator (the face on its device skin, real fonts, real bezel mask): bin/shot-<device>-face.png
+docker/shot.sh DaysToGo monkey.jungle instinct2 instincte40mm
 
 # Compile sweeps / one-off builds: native image
 CIQ_IMAGE=verden-ciq-build:9.2.0 docker/run.sh DayArc tools/compile_sweep.sh

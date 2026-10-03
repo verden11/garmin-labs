@@ -40,3 +40,8 @@ ENV DISPLAY=:1
 RUN apt-get update && apt-get install -y --no-install-recommends \
       libwebkit2gtk-4.0-37 libusb-1.0-0 libsm6 xvfb \
     && rm -rf /var/lib/apt/lists/*
+
+# sim + a screenshot of the simulator window (xwd) cut and scaled with ImageMagick: docker/shot.sh. The simulator
+# draws the device skin, the real fonts and the bezel mask, which no unit test sees (there is no pixel read-back in the SDK).
+FROM sim AS shots
+RUN apt-get update && apt-get install -y --no-install-recommends x11-apps imagemagick && rm -rf /var/lib/apt/lists/*
