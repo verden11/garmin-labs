@@ -10,7 +10,7 @@ nothing leaves the watch.
 
 Two builds from one source (proposed, UNRELEASED, `docs/decisions.md` ADR-014 (Free + Pro ladder)): **Days To Go** (Free, `monkey.free.jungle`) and **Days To Go Pro** (the paid app, `monkey.jungle`, adds timed events and a battery or steps line).
 
-117 round watches (Connect IQ 3.0 and up) and 3 rectangular AMOLED ones (Venu Sq 2, Venu Sq 2 Music, Venu X1): [`docs/compatibility.md`](docs/compatibility.md).
+117 round watches (Connect IQ 3.0 and up), 3 rectangular AMOLED ones (Venu Sq 2, Venu Sq 2 Music, Venu X1) and 7 Instinct watches (black and white, with a round window; proposed, simulator only): [`docs/compatibility.md`](docs/compatibility.md).
 Status: built and simulator-tested, **not yet run on a wrist**.
 
 ## Build
@@ -22,8 +22,8 @@ monkeyc -d fr965 -f monkey.jungle -o bin/DaysToGo.prg -y $KEY -w --typecheck 3  
 monkeyc -d fr965 -f monkey.free.jungle -o bin/DaysToGoFree.prg -y $KEY -w --typecheck 3   # Free
 monkeydo bin/DaysToGo.prg fr965                 # with the simulator running
 
-tools/run_tests.sh fr965                        # Pro: 50 tests (PASSED in the simulator 2026-10-01); prints PASSED (…)
-tools/run_tests.sh fr965 monkey.free.jungle     # Free: 51 tests (PASSED in the simulator 2026-10-01)
+tools/run_tests.sh fr965                        # Pro: 51 tests, 49 on an Instinct (PASSED in the simulator 2026-10-03); prints PASSED (…)
+tools/run_tests.sh fr965 monkey.free.jungle     # Free: 52 tests, 50 on an Instinct (PASSED in the simulator 2026-10-03)
 tools/run_tests.sh fr55 monkey.jungle everyStateFitsThisDisplay
 tools/compile_sweep.sh                          # compile every product, both jungles
 
