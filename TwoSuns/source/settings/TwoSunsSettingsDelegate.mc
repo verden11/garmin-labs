@@ -17,7 +17,7 @@ class TwoSunsSettingsDelegate extends WatchUi.Menu2InputDelegate {
         }
     }
 
-    // The four Pro items. Free has none, and Free must never write a Pro key (setValue of a key the properties
+    // The Pro items. Free has none, and Free must never write a Pro key (setValue of a key the properties
     // file lacks throws), so this does nothing there.
     (:pro)
     private function selectPro(item as WatchUi.MenuItem) as Void {
@@ -40,14 +40,21 @@ class TwoSunsSettingsDelegate extends WatchUi.Menu2InputDelegate {
     // wearer's new choice. No confirmation: the state is on screen and one more press undoes it.
     (:pro)
     private function applyToggle(item as WatchUi.ToggleMenuItem) as Void {
-        var key = TwoSunsConfig.KEY_DATE;
-        if (item.getId() == TwoSunsSettingsMenu.ITEM_GOLDEN) {
-            key = TwoSunsConfig.KEY_GOLDEN;
-        } else if (item.getId() == TwoSunsSettingsMenu.ITEM_CURVE) {
-            key = TwoSunsConfig.KEY_CURVE;
-        }
-        Application.Properties.setValue(key, item.isEnabled() ? TwoSunsConfig.ON : TwoSunsConfig.OFF);
+        Application.Properties.setValue(toggleKey(item.getId()), item.isEnabled() ? TwoSunsConfig.ON : TwoSunsConfig.OFF);
         WatchUi.requestUpdate();
+    }
+
+    // The property a toggle item writes. Date is the fallback, as before.
+    (:pro)
+    private function toggleKey(id as Object or Null) as String {
+        if (id == TwoSunsSettingsMenu.ITEM_GOLDEN) {
+            return TwoSunsConfig.KEY_GOLDEN;
+        } else if (id == TwoSunsSettingsMenu.ITEM_CURVE) {
+            return TwoSunsConfig.KEY_CURVE;
+        } else if (id == TwoSunsSettingsMenu.ITEM_WEATHER) {
+            return TwoSunsConfig.KEY_WEATHER;
+        }
+        return id == TwoSunsSettingsMenu.ITEM_BATTERY ? TwoSunsConfig.KEY_BATTERY : TwoSunsConfig.KEY_DATE;
     }
 
     private function pushList(title as String, key as String, labels as Array<String>, current as Number) as Void {

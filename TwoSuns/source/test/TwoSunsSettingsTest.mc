@@ -113,3 +113,16 @@ function freeMissingPropertyKeyThrows(logger as Test.Logger) as Boolean {
     Test.assertMessage(threw, "getValue of a key missing from the Free properties file did not throw");
     return true;
 }
+
+// The on-watch Customize screen carries every Pro setting (a sideloaded build has no phone settings page, so a setting that
+// is missing here cannot be changed at all). Menu2.findItemById gives the index, or -1.
+(:test, :pro)
+function customizeMenuHasEveryProSetting(logger as Test.Logger) as Boolean {
+    var menu = new TwoSunsSettingsMenu();
+    var ids = [TwoSunsSettingsMenu.ITEM_ACCENT, TwoSunsSettingsMenu.ITEM_ORIENTATION, TwoSunsSettingsMenu.ITEM_GOLDEN, TwoSunsSettingsMenu.ITEM_CURVE,
+               TwoSunsSettingsMenu.ITEM_DATE, TwoSunsSettingsMenu.ITEM_WEATHER, TwoSunsSettingsMenu.ITEM_BATTERY] as Array<Symbol>;
+    for (var i = 0; i < ids.size(); i++) {
+        Test.assertMessage(menu.findItemById(ids[i]) >= 0, "Customize lacks item " + i);
+    }
+    return true;
+}
