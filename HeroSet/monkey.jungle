@@ -72,8 +72,15 @@ d2airx10.resourcePath = $(d2airx10.resourcePath);resources-complications
 approachs50.resourcePath = $(approachs50.resourcePath);resources-complications
 approachs7042mm.resourcePath = $(approachs7042mm.resourcePath);resources-complications
 approachs7047mm.resourcePath = $(approachs7047mm.resourcePath);resources-complications
+# Instinct E / Instinct 3 Solar are CIQ 6.0: complications resource too.
+instincte40mm.resourcePath = $(instincte40mm.resourcePath);resources-complications
+instincte45mm.resourcePath = $(instincte45mm.resourcePath);resources-complications
+instinct3solar45mm.resourcePath = $(instinct3solar45mm.resourcePath);resources-complications
 # Black-and-white semi-octagon watches (ADR-055).
 instinct2.excludeAnnotations = $(exclude);color
 instinct2s.excludeAnnotations = $(exclude);color
 instinct2x.excludeAnnotations = $(exclude);color
 descentg1.excludeAnnotations = $(exclude);color
+instincte40mm.excludeAnnotations = $(exclude);color
+instincte45mm.excludeAnnotations = $(exclude);color
+instinct3solar45mm.excludeAnnotations = $(exclude);color

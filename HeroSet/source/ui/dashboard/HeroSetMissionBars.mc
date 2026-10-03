@@ -108,8 +108,12 @@ class HeroSetMissionBars {
         var baseline = y + Graphics.getFontAscent(font);
         var done = count >= _goal;
         dc.setColor(done ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
-        HeroSetDraw.text(dc, layout, column[0], baseline - Graphics.getFontAscent(Graphics.FONT_XTINY), Graphics.FONT_XTINY, labelFor(index, count), Graphics.TEXT_JUSTIFY_LEFT);
-        HeroSetDraw.text(dc, layout, column[1], y, font, countFor(count), Graphics.TEXT_JUSTIFY_RIGHT);
+        var shown = countFor(count);
+        // A long translation can overflow even at the smallest fonts; the
+        // count is the number, so the label gives way.
+        var label = HeroSetDraw.truncated(dc, labelFor(index, count), Graphics.FONT_XTINY, column[1] - column[0] - layout.stackGap() - dc.getTextWidthInPixels(shown, font));
+        HeroSetDraw.text(dc, layout, column[0], baseline - Graphics.getFontAscent(Graphics.FONT_XTINY), Graphics.FONT_XTINY, label, Graphics.TEXT_JUSTIFY_LEFT);
+        HeroSetDraw.text(dc, layout, column[1], y, font, shown, Graphics.TEXT_JUSTIFY_RIGHT);
         drawBar(dc, layout, baseline + layout.stackGap(), count, column);
     }
 

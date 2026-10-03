@@ -46,7 +46,7 @@ EOF
     perl -e 'alarm shift; exec @ARGV' $RUN_TIMEOUT "$SDK_BIN/monkeydo" $prg $product -t > $log 2>&1
     result=$(grep -E 'PASSED|FAILED' $log | tail -1)
     [[ $result == PASSED* ]] || failed=1
-    echo "$lang $product: ${result:-NO RESULT (timed out?)} $(grep 'px:' $log | sed 's/.*px: //' | sort -u | head -3 | tr '\n' '|')"
+    echo "$lang $product: ${result:-NO RESULT (timed out?)} $(grep 'px:' $log | sed 's/.*px: //' | sort -u | head - | tr '\n' '|')"
   done
 done
 exit $failed

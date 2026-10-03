@@ -1,5 +1,10 @@
 import type { Screenshot } from '../types.ts'
 
+// HeroSet's Instinct support (ADR-055) is merged but not uploaded to the store yet.
+// Flip this to true in the commit that follows the approved Instinct upload
+// (HeroSet docs/go-to-market.md F), so the site never claims a watch the store does not list.
+export const instinctLive = false
+
 // Mirrors HeroSet docs/compatibility.md; update both together.
 export const watchFamilies: [string, string][] = [
   ['Forerunner', '70, 165, 170, 255, 265, 570, 945 LTE, 955, 965, 970'],
@@ -8,10 +13,11 @@ export const watchFamilies: [string, string][] = [
   ['Enduro', 'Enduro, Enduro 3'],
   ['MARQ', 'Gen 1, Gen 2'],
   ['D2', 'Mach, Air X10'],
-  ['Descent', 'MK2, MK2S, MK3, G2'],
+  ['Descent', instinctLive ? 'G1, G2, MK2, MK2S, MK3' : 'MK2, MK2S, MK3, G2'],
   ['Venu', '2, 2 Plus, 2S, 3, 3S, 4'],
   ['vívoactive', '5, 6'],
   ['Approach', 'S50, S70'],
+  ...(instinctLive ? [['Instinct', '2, 2S, 2X, E, 3 Solar'] as [string, string]] : []),
 ]
 
 // HeroSet 1.2.0 (the glance) was approved by Garmin (owner, 2026-10-01); the support FAQ now describes it.

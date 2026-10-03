@@ -97,6 +97,9 @@ Initiative 3C: upload.
 - [ ] 7.2 `[you]` Upload the 7 framed screenshots to the live listing (`TODO.md` A4).
 - [ ] 7.3 `[you]` Accuracy proof: 3x10 reps per exercise at slow, medium, fast, plus one 30+ set (gate 2). Without it there is no HeroSet Free.
 - [ ] 7.4 `[agent]` Then: ADR-044 (complication contract) review, then build HeroSet Free (WP7).
+- [x] 7.6 `[agent]` HeroSet Instinct family built, simulator-checked and merged to main 2026-10-03 (PR #3, ADR-055): 87 products, 15-language fit sweep, 1.3.0 What's New and release contract drafted; the site's Instinct copy waits behind `instinctLive`.
+- [ ] 7.7 `[you]` Upload HeroSet 1.3.0 (Instinct family + the stale-draft fix; number is yours to confirm): fresh `dist/HeroSet-store.iq` export, What's New and description bullet from `HeroSet/listing/README.md`. Needs the store build memory re-measured first (go-to-market F5), `[agent]`.
+- [ ] 7.8 `[agent]` After 7.7 is approved: set `instinctLive = true` in `site/src/apps/heroset/facts.ts`, push (the Action deploys), add the approval date to CHANGELOG and the release contract.
 - [ ] 7.5 `[agent]` Fold the remaining `TODO.md` items into this file and retire `TODO.md`.
 
 ## M8 Make it bolder (later, one face at a time)
