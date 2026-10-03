@@ -43,20 +43,4 @@
         </settingConfig>
     </setting>
 
-    <setting propertyKey="@Properties.Accent" title="@Strings.setting_accent">
-        <settingConfig type="list">
-            <listEntry value="0">@Strings.accent_blue</listEntry>
-            <listEntry value="1">@Strings.accent_cyan</listEntry>
-            <listEntry value="2">@Strings.accent_magenta</listEntry>
-        </settingConfig>
-    </setting>
-
-    <setting propertyKey="@Properties.Seconds" title="@Strings.setting_seconds">
-        <settingConfig type="boolean" />
-    </setting>
-
-    <setting propertyKey="@Properties.Weather" title="@Strings.setting_weather">
-        <settingConfig type="boolean" />
-    </setting>
-
 </settings>

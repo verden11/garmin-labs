@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-09-26. HeroFace's 117 products, plus 3 rectangular ones below: every round watch-face product at Connect IQ 3.0 or newer in SDK 9.2.0 (the list was made and checked for HeroFace, `../../HeroFace/docs/compatibility.md`). No permissions, so no product is excluded for a permission. **Everything below is simulator evidence; nothing has run on a wrist.**
+Status: 2026-10-03. HeroFace's 117 products, plus 3 rectangular ones below: every round watch-face product at Connect IQ 3.0 or newer in SDK 9.2.0 (the list was made and checked for HeroFace, `../../HeroFace/docs/compatibility.md`). No permissions, so no product is excluded for a permission. **Everything below is simulator evidence; nothing has run on a wrist.**
 
 ## Supported products
 
@@ -42,6 +42,16 @@ Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle
 - Tests: the 43 existing tests are shared (one, the steps wording, is now Pro-only); there are 6 new shared tests (the accent table, Unit unset), 2 Pro-only (the steps wording moved here, Pro settings pass-through) and 3 Free-only. Totals: Pro 50, Free 51. **Run in the simulator 2026-10-01 (main thread): Pro 50 and Free 51 PASSED on `fr965`, `fr55` and `venusq2`.** Not run on a wrist.
 - Screen fit: `tools/fit_all.sh` (the ten devices `fr55`, `fenix5s`, `fenix5`, `vivoactive4`, `fenix7x`, `fr265s`, `fr165`, `epix2`, `fr965`, `fenix9pro51mm`) passes on **both** jungles, simulator, 2026-10-01. Free memory use was **not measured separately**; the fit tests passing is the only Free layout evidence, and the three rectangles were run for tests on `venusq2` only.
 - The on-watch "Customize" menu is the same in both tiers: one item, "Set date" (no accent item, no Pro item).
+
+## Instinct family (added 2026-10-03, ADR-015, proposed, simulator only)
+
+Seven semi-octagon products join both manifests (127 products): `instinct2`, `instinct2s` (163 x 156), `instinct2x`, `descentg1` and `instincte45mm`, `instinct3solar45mm` (176 x 176), `instincte40mm` (166 x 166). `instinctcrossover` is left out (analog hands over the display, no window in the simulator). All are black and white (palette `000000`/`FFFFFF` only), **watch-face memory 65,536 B**, have a round window top right (62 px; 52 px on the E 40 mm, 54 px on the 2S), and are CIQ 3.4 (the Instinct 2 family) or 6.0 (E, 3 Solar). The face needs no Complications, so the CIQ 3.4 watches are reachable.
+
+- **What shows.** The bezel hides the corners: the visible area is the square cut by a circle about 98 px in radius (96 to 100 px on all seven, from the alpha mask of the SDK's device images). Rows are clipped to a 96 px circle in `DaysToGoLayout`; the screen-fit test fails any text box whose corner leaves it (`collectCorners`) or that touches the window.
+- **Layout (as built, measured on the Instinct 2 simulator).** Time (35 px) and event name share the band left of the window; the hero (44 px, `FONT_NUMBER_HOT`, the largest that fits the height left) is below it, then the caption and the date. The bezel ring is a gauge in the window. **No footer** (battery or steps, Pro) and **no Accent setting** (owner, 2026-10-03). The smallest font is 23 px tall on a 176 px screen (20 px on the 166), so the real face is less airy than the mockup (`docs/instinct-mockup.html`).
+- **Memory (normal run, `-r` like the store export, simulator):** 27.7 kB (Pro) and 27.3 kB (Free) used of the 59.8 kB the simulator reports, on `instinct2`; 24.5 kB and 24.2 kB on `instincte40mm` (the simulator window's status bar after the face drew, 2026-10-03; an earlier `System.getSystemStats` probe on the first build read 27.4 of 61.3 kB). The limit is 65,536 B: about half is free. The on-watch date picker (`getSettingsView`) was not exercised, so its peak is not measured.
+- **Tests, 2026-10-03, container simulator:** Pro 49/49 on `instinct2`, `instinct2s`, `instinct2x`, `descentg1`, `instincte40mm`, `instincte45mm`, `instinct3solar45mm` and Free 50/50 on `instinct2`, `instincte40mm`; round and rectangular controls Pro 51/51 on `fr965`, `fr55`, `venusq2`, Free 52/52 on `fr965`. Per-language screen fit (15 languages) passes on `instinct2`, `instinct2s` and `instincte40mm`. Compile sweep, both jungles, every product: 127/127 pass on both jungles (`tools/compile_sweep.sh`, `-w --typecheck 3`). `tools/check_free_package.sh --build`: OK (210 part numbers; no Accent key on the 7 Instinct parts, Accent ids 0 to 5 on the rest; Pro-only code present in every Pro part, so the per-product exclude kept `(:pro)`).
+- **Not proven:** anything on a watch (real bezel margins, contrast, whether the on-watch "Customize" menu is offered on an Instinct: not checked for these 7).
 
 ## Paid distribution
 

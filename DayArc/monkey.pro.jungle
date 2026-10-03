@@ -2,5 +2,15 @@
 # resources-pro overrides AppName (and, later, the launcher icon) on top of the shared resources/.
 project.manifest = manifest.pro.xml
 base.sourcePath = source
-base.resourcePath = resources;resources-pro
-base.excludeAnnotations = simple
+base.resourcePath = resources;resources-pro;resources-accent
+base.excludeAnnotations = simple;mono
+
+# The Instinct E and 3 Solar (docs/decisions.md ADR-015): the black-and-white palette (`color` excluded) and no Accent
+# settings file (resources-accent is left out of their resourcePath: it has no effect on a 1-bit display). A
+# per-product excludeAnnotations REPLACES the base list, so the density's own exclude is restated.
+instincte40mm.excludeAnnotations = simple;color
+instincte40mm.resourcePath = resources;resources-pro
+instincte45mm.excludeAnnotations = simple;color
+instincte45mm.resourcePath = resources;resources-pro
+instinct3solar45mm.excludeAnnotations = simple;color
+instinct3solar45mm.resourcePath = resources;resources-pro

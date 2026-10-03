@@ -53,3 +53,7 @@ monkeyc -e -r -f monkey.pro.jungle -o dist/DayArcPro.iq -y ~/.garmin-connectiq/k
 
 Check the reported device count against each manifest's product list before trusting it
 (`knowledge/platform-facts.md` "Build/export").
+
+## Screenshots (Instinct and any layout change)
+
+The unit suite measures numbers; it cannot see the bezel. For every layout change, photograph what the simulator draws (the face on its device skin, with the real fonts and the real bezel mask): `../docker/shot.sh DayArc monkey.pro.jungle instinct2 instincte40mm` writes `bin/shot-<device>-face.png` (the display, 3x). The Instinct's visible area is a circle about 98 px in radius, which a 176 x 176 square test misses: a finished-day footer was clipped in HeroSet that way (HeroSet ADR-055, amended 2026-10-03). `PREP='sed -i ... resources/properties.xml' ../docker/shot.sh ...` shows a particular state without touching the repo.

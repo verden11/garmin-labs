@@ -2,7 +2,7 @@
 
 Garmin watch face (Connect IQ, Monkey C) from studio Verden. Time-first, in
 HeroSet's visual language: bezel ring, three mission bars, gold streak.
-117 round products, `minApiLevel` 3.0.0. Paid, USD 2.00, 15 languages.
+124 products (117 round + 7 Instinct, ADR-002 (Instinct family), proposed, simulator only), `minApiLevel` 3.0.0. Paid, USD 2.00, 15 languages.
 
 **Free + Pro (proposed, UNRELEASED, [`docs/decisions.md`](docs/decisions.md) ADR-001 "Free + Pro ladder"; the owner has not signed off, so plan.md decision 8, the price, still governs):**
 the live paid app (`manifest.xml`, `monkey.jungle`, app id `8cd8f7f5-…`) becomes **HeroFace Pro** 1.1.0, behaviour unchanged; a new **Free** twin (`manifest.free.xml`,
@@ -76,6 +76,7 @@ Same as HeroSet ([`../HeroSet/CLAUDE.md`](../HeroSet/CLAUDE.md) house rules), wh
 - Contract change → both projects and HeroSet's [ADR-044](../HeroSet/docs/decisions.md#adr-044) (the complication contract), same session. The Free + Pro split touches none of it.
 - New product or layout change → run the screen-fit test for that screen size
   and update [`docs/compatibility.md`](docs/compatibility.md).
-- Test count appears in `README.md` and here (**Pro 24, Free 24**); update both.
+- Test count appears in `README.md` and here (**Pro 25, Free 25** on round products; **21 each** on an Instinct: the five colour-only accent tests drop, a mono test and the window layout test join); update both.
+- **Instinct family (ADR-002, proposed; 7 products, 1-bit, a round window top right):** `HeroFacePalette` is two classes, `(:color)` and `(:mono)`, chosen by the jungles (`base.excludeAnnotations = <tier>;mono`, and per Instinct product `<product>.excludeAnnotations = <tier>;color`; a per-product line **replaces** the base list, so restate the tier's own). The Accent setting is its own file (`resources-accent-<tier>`; Pro's Seconds and Weather are in `resources-pro-tail`) and the Instinct `resourcePath` leaves the accent folder out. The visible area is a circle about 98 px in radius (`HeroFaceLayout.VISIBLE_RADIUS_PX`), not the whole square: **screenshot the simulator for every layout change** (`docs/development.md`). `tools/fit_languages.sh <product>` runs the per-language fit.
 - A new language: its line in **both** manifests and **both** jungles; its folder must not define `AppName` (`python3 tools/check_strings.py`).
 - A change to a tier's settings: both `resources-*/settings` folders, and `tools/check_free_package.sh` (it pins each tier's keys and lists).

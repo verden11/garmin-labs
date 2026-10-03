@@ -13,6 +13,8 @@ class DayArcArc {
     private static const WIDTH_PERMILLE = 18;
     private static const BEZEL_MARGIN_PERMILLE = 20;
     private static const CLEARANCE_PERMILLE = 15;
+    private static const WINDOW_START_DEGREES = 90;   // 12 o'clock
+    private static const WINDOW_FULL_DEGREES = 359;    // a full 360 would be a start equal to the end, which Dc.drawArc draws as nothing/everything
 
     static function penWidth(layout as DayArcLayout) as Number {
         var width = layout.permille(WIDTH_PERMILLE);
@@ -56,13 +58,18 @@ class DayArcArc {
     // rowMaxWidth for an ACTIVE-window row (night and the idle frame have no arc and use the plain
     // layout.rowMaxWidth): a row whose top is above the arc's tips is fitted against clearRadius().
     static function rowMaxWidth(layout as DayArcLayout, y as Number, boxHeight as Number) as Number {
-        if (y >= lowestY(layout)) {
+        if (layout.subscreen() != null || y >= lowestY(layout)) {
             return layout.rowMaxWidth(y, boxHeight);
         }
         return layout.rowMaxWidthIn(clearRadius(layout), y, boxHeight);
     }
 
     static function draw(dc as Graphics.Dc, layout as DayArcLayout, accent as Number, fraction as Float) as Void {
+        var window = layout.windowRing();
+        if (window != null) {
+            drawWindow(dc, window, accent, fraction);
+            return;
+        }
         var start = startDegrees();
         dc.setPenWidth(penWidth(layout));
         dc.setColor(DayArcPalette.ARC_TRACK, Graphics.COLOR_TRANSPARENT);
@@ -72,6 +79,22 @@ class DayArcArc {
             dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
             dc.drawArc(layout.centerX(), layout.centerY(), radius(layout), Graphics.ARC_CLOCKWISE, start, progressEnd);
         }
+        dc.setPenWidth(1);
+    }
+
+    // The Instinct's form of the arc (ADR-015): a hairline circle in the window with a thick fill inside it, from 12
+    // o'clock clockwise, the same share of the current window. White both: the outline under a solid fill tells them apart.
+    private static function drawWindow(dc as Graphics.Dc, window as [Number, Number, Number, Number], accent as Number, fraction as Float) as Void {
+        dc.setColor(DayArcPalette.ARC_TRACK, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(1);
+        dc.drawCircle(window[0], window[1], window[2]);
+        var sweep = (WINDOW_FULL_DEGREES * (fraction < 0.0 ? 0.0 : (fraction > 1.0 ? 1.0 : fraction))).toNumber();
+        if (sweep <= 0) {
+            return;
+        }
+        dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(window[3]);
+        dc.drawArc(window[0], window[1], window[2] - window[3] / 2, Graphics.ARC_CLOCKWISE, WINDOW_START_DEGREES, WINDOW_START_DEGREES - sweep);
         dc.setPenWidth(1);
     }
 }

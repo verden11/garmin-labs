@@ -11,6 +11,9 @@ class HeroFaceFooter {
     private static const NOTIFICATION = 2;
 
     static function draw(dc as Graphics.Dc, layout as HeroFaceLayout, state as HeroFaceState) as Void {
+        if (layout.subscreen() != null) {
+            return;   // no room on the Instinct (ADR-002)
+        }
         var kinds = [BATTERY] as Array<Number>;
         // The icon says "battery", so the number needs no percent sign: that keeps
         // all three items inside the ring's gap on small screens.

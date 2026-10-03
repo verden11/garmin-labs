@@ -1,4 +1,6 @@
 import Toybox.Lang;
+import Toybox.System;
+import Toybox.WatchUi;
 
 // The widest states the face can show, shared by the screen-fit test and the
 // layout report. A class, because the runner treats every (:test) function as
@@ -83,16 +85,36 @@ class HeroFaceTestStates {
         return state;
     }
 
+    // The Instinct's window as [x, y, width, height]; null on every other product.
+    static function windowBox() as Array<Number>? {
+        var window = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_SEMI_OCTAGON && (WatchUi has :getSubscreen) ? WatchUi.getSubscreen() : null;
+        return window == null ? null : [window.x as Number, window.y as Number, window.width as Number, window.height as Number];
+    }
+
     // Text rows every state must draw: date, time, seconds, temperature, three
     // values, three labels, battery, heart rate, plus the streak when there is
     // one. Notifications are the one item the footer may drop when the ring's
     // gap is too narrow for three.
     static function collect(name as String, state as HeroFaceState, problems as Array<String>) as Void {
         var boxes = HeroFaceDraw.boxes as Array<Array>;
-        var expected = 10 + (state.temperature != null ? 1 : 0) + (state.streakLines.size() > 0 ? 1 : 0) + (state.heartRate != null ? 1 : 0);
+        var window = windowBox();
+        // The Instinct has no footer, no temperature and no seconds (ADR-002; the band beside the window is too narrow
+        // for the seconds): date, time, three values, three labels.
+        var expected = window != null
+            ? 8 + (state.streakLines.size() > 0 ? 1 : 0)
+            : 10 + (state.temperature != null ? 1 : 0) + (state.streakLines.size() > 0 ? 1 : 0) + (state.heartRate != null ? 1 : 0);
         if (boxes.size() < expected) {
             problems.add("state " + name + " drew " + boxes.size() + " text rows, expected " + expected);
         }
+        for (var i = 0; i < boxes.size() && window != null; i++) {
+            // Text must not sit under the Instinct's window (the round chord check cannot see it).
+            var t = boxes[i];
+            var clear = t[0] + t[2] <= window[0] || window[0] + window[2] <= t[0] || t[1] + t[3] <= window[1] || window[1] + window[3] <= t[1];
+            if (!clear) {
+                problems.add("state " + name + " window overlap: '" + (t[4] as String) + "'");
+            }
+        }
+        collectCorners(name, boxes, problems);
         for (var i = 0; i < boxes.size(); i++) {
             for (var j = i + 1; j < boxes.size(); j++) {
                 var a = boxes[i];
@@ -100,6 +122,27 @@ class HeroFaceTestStates {
                 var apart = a[0] + a[2] <= b[0] || b[0] + b[2] <= a[0] || a[1] + a[3] <= b[1] || b[1] + b[3] <= a[1];
                 if (!apart) {
                     problems.add("state " + name + " overlap: '" + (a[4] as String) + "' and '" + (b[4] as String) + "'");
+                }
+            }
+        }
+    }
+
+    // The bezel hides a semi-octagon display's corners: no text box may reach outside the circle that shows (ADR-002).
+    // Boxes include font padding, so this is stricter than the ink; a simulator screenshot decides a disputed case.
+    static function collectCorners(name as String, boxes as Array<Array>, problems as Array<String>) as Void {
+        var settings = System.getDeviceSettings();
+        if (settings.screenShape != System.SCREEN_SHAPE_SEMI_OCTAGON) {
+            return;
+        }
+        var radius = HeroFaceLayout.VISIBLE_RADIUS_PX;
+        for (var i = 0; i < boxes.size(); i++) {
+            var box = boxes[i] as Array;
+            for (var k = 0; k < 4; k++) {
+                var dx = (box[0] as Number) + (k % 2 == 0 ? 0 : box[2] as Number) - settings.screenWidth / 2;
+                var dy = (box[1] as Number) + (k < 2 ? 0 : box[3] as Number) - settings.screenHeight / 2;
+                if (dx * dx + dy * dy > radius * radius) {
+                    problems.add("state " + name + " corner: '" + (box[4] as String) + "'");
+                    break;
                 }
             }
         }

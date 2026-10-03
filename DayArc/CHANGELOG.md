@@ -15,6 +15,8 @@ densities, all 69 products, `docs/compatibility.md`); render/test exercised per 
 representative devices (fr965, approachs50, venusq2, venux1), both densities. The only real-device
 evidence is that one photo; the fixes and the setting have not been re-checked on a wrist.
 
+Added 2026-10-03: **Instinct E 40/45 mm and Instinct 3 Solar 45 mm** (72 products instead of 69; ADR-015, proposed, simulator only): black and white, the window-progress arc becomes a gauge in the round window, no Accent setting (so no "Customize" on these watches), no corner pills. The visible area on an Instinct is a circle about 98 px in radius, which the layout and the tests now model. The Instinct 2 family is not included (no Complications at CIQ 3.4). Evidence: `docs/compatibility.md` "Instinct E and Instinct 3 Solar".
+
 Built:
 
 - Four time windows (morning/midday/evening/night), fixed clock, shared by both listings.

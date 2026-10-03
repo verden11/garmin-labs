@@ -17,8 +17,8 @@ class DayArcCorners {
     (:pro)
     static function draw(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, date as String or Null, cells as Array<Dictionary>) as Array<Dictionary> {
         var y = plan.ys[DayArcStack.ROW_DATE];
-        if (y < 0 || date == null) {
-            return cells;
+        if (y < 0 || date == null || layout.subscreen() != null) {
+            return cells;   // no corner pills beside the Instinct's window: the date row is a narrow band (ADR-015)
         }
         var height = plan.hs[DayArcStack.ROW_DATE];
         if (layout.pillHeight(dc) > height) {

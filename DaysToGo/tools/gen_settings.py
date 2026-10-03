@@ -4,6 +4,7 @@
 Writes, relative to the project root, for each tier asked for (free, pro; default both):
   resources-<tier>/settings/settings.xml     what Garmin Connect / Express render
   resources-<tier>/settings/properties.xml   defaults (keys never change once shipped)
+  resources-accent-<tier>/settings/accent.xml   the Accent list, alone, so the Instinct products can leave it out (ADR-015)
 and, tier-independent, every run:
   resources/strings/generated.xml     the numbers-only strings (not translated), and a copy in every
                                       resources-<lang>/strings/ (languages do not inherit the default's ids)
@@ -68,10 +69,16 @@ def settings_xml(tier):
     out.append(lst("DateStyle", "setting_datestyle", [entry(0, "datestyle_auto"), entry(1, "datestyle_day"), entry(2, "datestyle_month")]))
     if pro:
         out.append(lst("Footer", "setting_footer", [entry(0, "footer_none"), entry(1, "footer_battery"), entry(2, "footer_steps")]))
-    accents = ACCENTS if pro else ACCENTS[:FREE_ACCENT_COUNT]
-    out.append(lst("Accent", "setting_accent", [entry(i, f"accent_{a}") for i, a in enumerate(accents)]))
     out.append("</settings>\n")
     return "".join(out)
+
+
+def accent_xml(tier):
+    """The Accent list alone, in its own file: the Instinct products' resourcePath leaves this folder out (ADR-015)."""
+    accents = ACCENTS if tier == "pro" else ACCENTS[:FREE_ACCENT_COUNT]
+    return (f"<settings {XSI}>\n\n"
+            + lst("Accent", "setting_accent", [entry(i, f"accent_{a}") for i, a in enumerate(accents)])
+            + "</settings>\n")
 
 
 def properties_xml(tier):
@@ -121,7 +128,8 @@ if __name__ == "__main__":
     targets = []
     for tier in tiers:
         targets += [(f"resources-{tier}/settings/settings.xml", settings_xml(tier)),
-                    (f"resources-{tier}/settings/properties.xml", properties_xml(tier))]
+                    (f"resources-{tier}/settings/properties.xml", properties_xml(tier)),
+                    (f"resources-accent-{tier}/settings/accent.xml", accent_xml(tier))]
     targets += [("resources/strings/generated.xml", generated_strings())]
     targets += [(f"{lang}/strings/generated.xml", generated_strings()) for lang in langs]
     for rel, text in targets:

@@ -66,7 +66,9 @@ function dayArcCheckVariant(logger as Test.Logger, dc as Graphics.Dc, layout as 
     var problems = plan.fits ? "" : name + ": plan does not fit even at the last rung (level " + plan.level + "). ";
     problems += dayArcBottomProblem(dc, plan, layout, name);
     problems += dayArcRowProblems(dc, layout, plan, hero, name);
-    if (window != DayArcConfig.WINDOW_NIGHT) {
+    if (layout.subscreen() != null) {
+        problems += dayArcInstinctProblems(dc, layout, plan, hero, name);
+    } else if (window != DayArcConfig.WINDOW_NIGHT) {
         problems += dayArcArcProblem(logger, dc, layout, plan, name);
     }
     return problems;
@@ -175,4 +177,42 @@ function dayArcPlanBottom(plan as DayArcStack) as Number {
         }
     }
     return last;
+}
+
+// The Instinct (ADR-015): a drawn row must not sit under the window, and no text box may reach outside the circle the
+// bezel leaves visible. Boxes include font padding, so the circle check is stricter than the ink; a simulator screenshot
+// decides a disputed case. Each planned row is checked at the x range it will be drawn in.
+(:debug)
+function dayArcInstinctProblems(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, hero as Dictionary, name as String) as String {
+    var window = layout.subscreen();
+    if (window == null) {
+        return "";
+    }
+    var problems = "";
+    var checks = dayArcRowChecks(dc, layout, plan, hero);
+    for (var i = 0; i < checks.size(); i++) {
+        var row = checks[i][0];
+        var y = plan.ys[row];
+        if (y < 0) {
+            continue;
+        }
+        var width = checks[i][1];
+        var height = plan.hs[row];
+        var left = layout.rowCenterX(y, height) - width / 2;
+        var right = left + width;
+        var clearOfWindow = right <= (window.x as Number) || y >= (window.y as Number) + (window.height as Number) || y + height <= (window.y as Number);
+        if (!clearOfWindow) {
+            problems += name + ": row " + row + " sits under the window. ";
+        }
+        var corners = [[left, y], [right, y], [left, y + height], [right, y + height]] as Array<Array<Number>>;
+        for (var k = 0; k < corners.size(); k++) {
+            var dx = corners[k][0] - dc.getWidth() / 2;
+            var dy = corners[k][1] - dc.getHeight() / 2;
+            if (dx * dx + dy * dy > DayArcLayout.VISIBLE_RADIUS_PX * DayArcLayout.VISIBLE_RADIUS_PX) {
+                problems += name + ": row " + row + " reaches outside the visible circle. ";
+                break;
+            }
+        }
+    }
+    return problems;
 }
