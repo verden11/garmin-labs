@@ -43,7 +43,7 @@ class HeroSetView extends WatchUi.View {
         var line = dc.getFontHeight(Graphics.FONT_XTINY);
         // Beside a subscreen window the streak moves up under the rank, into
         // the band left of the window, and the mission bars start below the
-        // window; the screen is too short for the usual stack (ADR-056).
+        // window; the screen is too short for the usual stack (ADR-055).
         // Elsewhere the streak stacks above the footer.
         var beside = layout.subscreen() != null;
         var streakY = beside ? headerBottom : footerY - line;

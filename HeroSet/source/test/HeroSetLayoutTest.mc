@@ -84,7 +84,7 @@ function arcEndDegreeRunsClockwiseAndNormalizes(logger as Test.Logger) as Lang.B
     return true;
 }
 
-// Subscreen window (Instinct, ADR-056): a row that shares its line with the
+// Subscreen window (Instinct, ADR-055): a row that shares its line with the
 // window must end left of it, and its text must be centered inside what is
 // left. Everywhere else (round products, no window) the center never moves.
 

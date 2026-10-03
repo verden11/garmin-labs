@@ -1,4 +1,4 @@
-// The Instinct palette (ADR-056): the display shows black and white only, and
+// The Instinct palette (ADR-055): the display shows black and white only, and
 // how it would round any other color is unspecified, so no role leans on it.
 // Every role is white on black; what colour said on the other products,
 // the screens say with shape and words instead: an outlined track under a

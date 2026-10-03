@@ -28,7 +28,7 @@ function everyScreenFitsThisDisplay(logger as Test.Logger) as Lang.Boolean {
     try {
         var dashboard = new HeroSetView();
         // RANK, XP to next, 3 labels, 3 counts, streak, footer; beside a
-        // subscreen window the XP line is dropped (ADR-056).
+        // subscreen window the XP line is dropped (ADR-055).
         var dashboardRows = new HeroSetLayout(dc).subscreen() == null ? 10 : 9;
         var states = [
             new HeroSetDashboardState(0, 0, 0, 0, 1, 0, false, HeroSetConfig.DEFAULT_MISSION_GOAL),
