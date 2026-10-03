@@ -1,6 +1,9 @@
 project.manifest = manifest.xml
 # Dev build: Connect sync compiled in (ADR-033).
-base.excludeAnnotations = nosync
+# `mono` is the Instinct palette (ADR-055): excluded everywhere except the
+# products below, which exclude `color` instead.
+exclude = nosync
+base.excludeAnnotations = $(exclude);mono
 
 # The complications resource only compiles for products that have the API
 # (CIQ 4.2+); older products (ADR-038) build without it and simply never
@@ -69,3 +72,8 @@ d2airx10.resourcePath = $(d2airx10.resourcePath);resources-complications
 approachs50.resourcePath = $(approachs50.resourcePath);resources-complications
 approachs7042mm.resourcePath = $(approachs7042mm.resourcePath);resources-complications
 approachs7047mm.resourcePath = $(approachs7047mm.resourcePath);resources-complications
+# Black-and-white semi-octagon watches (ADR-055).
+instinct2.excludeAnnotations = $(exclude);color
+instinct2s.excludeAnnotations = $(exclude);color
+instinct2x.excludeAnnotations = $(exclude);color
+descentg1.excludeAnnotations = $(exclude);color

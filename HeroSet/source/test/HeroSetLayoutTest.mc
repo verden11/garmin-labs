@@ -1,4 +1,6 @@
+import Toybox.Graphics;
 import Toybox.Lang;
+import Toybox.System;
 import Toybox.Test;
 
 // Layout smoke tests: the geometry the views ask for must stay inside the
@@ -79,5 +81,31 @@ function arcEndDegreeRunsClockwiseAndNormalizes(logger as Test.Logger) as Lang.B
     Test.assertEqual(HeroSetLayout.arcEndDegree(220, 130), 90);
     Test.assertEqual(HeroSetLayout.arcEndDegree(220, 260), 320);
     Test.assertEqual(HeroSetLayout.arcEndDegree(10, 20), 350);
+    return true;
+}
+
+// Subscreen window (Instinct, ADR-055): a row that shares its line with the
+// window must end left of it, and its text must be centered inside what is
+// left. Everywhere else (round products, no window) the center never moves.
+
+(:test)
+function rowsBesideASubscreenWindowStayClearOfIt(logger as Test.Logger) as Lang.Boolean {
+    var settings = System.getDeviceSettings();
+    var size = {:width => settings.screenWidth, :height => settings.screenHeight};
+    var bitmap = (Graphics has :createBufferedBitmap)
+        ? Graphics.createBufferedBitmap(size).get() as Graphics.BufferedBitmap
+        : new Graphics.BufferedBitmap(size);
+    var layout = new HeroSetLayout(bitmap.getDc());
+    var window = layout.subscreen();
+    var rowHeight = 18;
+    for (var y = 0; y + rowHeight < layout.height(); y += 4) {
+        var center = layout.rowCenterX(y, rowHeight);
+        Test.assert(center >= layout.leftInset(y, rowHeight) && center <= layout.rightInset(y, rowHeight));
+        if (window == null) {
+            Test.assertEqual(center, layout.centerX());
+        } else if (y < window.y + window.height) {
+            Test.assert(layout.rightInset(y, rowHeight) <= window.x);
+        }
+    }
     return true;
 }

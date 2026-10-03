@@ -2,11 +2,14 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Math;
 import Toybox.System;
+import Toybox.WatchUi;
 
 // Single place that answers every view's geometry questions: band positions,
 // footer rows, and per-row side insets. On round displays the usable width at
 // a row is the inscribed-circle chord at that y, so top/bottom rows get more
 // inset than the center row; square displays degrade to a constant inset.
+// Semi-octagon displays (Instinct, ADR-055) take the square path plus a window
+// they must stay clear of: a round subscreen cut into the top-right corner.
 class HeroSetLayout {
 
     // Dashboard XP ring (ADR-031), in Dc.drawArc degrees (0 = 3 o'clock,
@@ -21,13 +24,79 @@ class HeroSetLayout {
     private var _centerX;
     private var _radius;
     private var _round;
+    private var _semiOctagon;
+    private var _subscreen as Graphics.BoundingBox?;
 
     function initialize(dc as Graphics.Dc) {
         _width = dc.getWidth();
         _height = dc.getHeight();
         _centerX = _width / 2;
         _radius = (_width < _height ? _width : _height) / 2;
-        _round = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_ROUND;
+        var shape = System.getDeviceSettings().screenShape;
+        _round = shape == System.SCREEN_SHAPE_ROUND;
+        _semiOctagon = shape == System.SCREEN_SHAPE_SEMI_OCTAGON;
+        // Asked of semi-octagon screens only, so no round product's geometry
+        // can depend on it.
+        _subscreen = _semiOctagon && (WatchUi has :getSubscreen) ? WatchUi.getSubscreen() : null;
+    }
+
+    // The Instinct's physical window, in display coordinates; null elsewhere.
+    function subscreen() as Graphics.BoundingBox? {
+        return _subscreen;
+    }
+
+    // Square screens keep a full safe inset on both sides. A semi-octagon's
+    // chamfers only reach the corners, which no row occupies (bands start one
+    // inset down and the footer ends above the bottom chamfer), so it gets
+    // half an inset on each side, and no further text margin (textMargin is 0
+    // there, so that room is not taken twice).
+    private function sideInset() as Lang.Number {
+        return _semiOctagon ? shortInset() / 2 : shortInset();
+    }
+
+    // First y at or below `y` that clears the window and its ring, for rows
+    // too wide for the band beside it.
+    function belowWindow(y as Lang.Number) as Lang.Number {
+        var window = _subscreen;
+        if (window == null) {
+            return y;
+        }
+        var clear = window.y + window.height + windowClearance();
+        return y > clear ? y : clear;
+    }
+
+    // The XP gauge that fills the window (ADR-055): [center x, center y,
+    // outer radius, fill width], one pixel inside the window's edge.
+    function windowRing() as [Lang.Number, Lang.Number, Lang.Number, Lang.Number]? {
+        var window = _subscreen;
+        if (window == null) {
+            return null;
+        }
+        var radius = (window.width < window.height ? window.width : window.height) / 2 - 1;
+        return [window.x + window.width / 2, window.y + window.height / 2, radius, radius / 4];
+    }
+
+    // The window sits in a bezel ring wider than the window itself (measured
+    // off the Instinct 2 simulator image: about 10 px at 176 px), and the
+    // display cannot show anything under it.
+    private function windowClearance() as Lang.Number {
+        return shortInset() * 2 / 3;
+    }
+
+    // Rows that start above the window's lower edge (plus its ring) share
+    // their line with it; rows below run the full width.
+    private function besideWindow(y as Lang.Number) as Lang.Boolean {
+        var window = _subscreen;
+        return window != null && y < window.y + window.height + windowClearance();
+    }
+
+    // x that centers text in the usable band of this row: the screen's center
+    // everywhere, except beside the window, where the band is what is left of it.
+    function rowCenterX(y as Lang.Number, height as Lang.Number) as Lang.Number {
+        if (!besideWindow(y)) {
+            return _centerX;
+        }
+        return (leftInset(y, height) + rightInset(y, height)) / 2;
     }
 
     function height() as Lang.Number {
@@ -62,7 +131,7 @@ class HeroSetLayout {
     // chord edges: near mid-screen the chord is the full display width, so
     // text that merely "fits" would touch the bezel.
     function textMargin() as Lang.Number {
-        return shortInset() / 2;
+        return _semiOctagon ? 0 : shortInset() / 2;
     }
 
     // Spacing between stacked dashboard blocks, and between a mission label
@@ -134,14 +203,15 @@ class HeroSetLayout {
     // (e.g. contentRadius inside the dashboard ring).
     function leftInsetWithin(radius as Lang.Number, y as Lang.Number, height as Lang.Number) as Lang.Number {
         if (!_round) {
-            return shortInset();
+            return sideInset();
         }
         return _centerX - HeroSetLayout.chordHalfWidth(radius, farthestDy(y, height));
     }
 
     function rightInsetWithin(radius as Lang.Number, y as Lang.Number, height as Lang.Number) as Lang.Number {
         if (!_round) {
-            return _width - shortInset();
+            var window = _subscreen;
+            return window != null && besideWindow(y) ? window.x - windowClearance() : _width - sideInset();
         }
         return _centerX + HeroSetLayout.chordHalfWidth(radius, farthestDy(y, height));
     }

@@ -1,6 +1,6 @@
 # HeroSet Go-To-Market
 
-Status: 2026-09-27. **Only home for open items and blockers.** History: [`../CHANGELOG.md`](../CHANGELOG.md), ADRs, `git log`.
+Status: 2026-10-01. **Only home for open items and blockers.** History: [`../CHANGELOG.md`](../CHANGELOG.md), ADRs, `git log`.
 
 **Goal:** a paid Connect IQ Store app (USD 2.00 → $1.99 US, no trial, [ADR-039](decisions.md#adr-039)), live since 2026-09-21. Feature work waits unless it unblocks a fix; the glance ([ADR-051](decisions.md#adr-051)) is the one exception, requested by the owner 2026-09-26.
 
@@ -54,6 +54,14 @@ Cross-app order; HeroFace's half is in [`../../HeroFace/docs/go-to-market.md`](.
 - [ ] Beta testers for watches other than the FR965 (don't gate anything, [ADR-039](decisions.md#adr-039)): per family confirm buttons, screens, counting; MIP also daylight contrast. Failing family → drop from both manifests.
 - [x] **1.3.0: Connect sync — shelved, [ADR-054](decisions.md#adr-054).** FR965 step 0 spike (2026-09-27): Garmin Connect (mobile + web) doesn't render our developer lap/session fields at all — Sets table stays a native empty placeholder, zero mentions of the exercise totals in the web export. Plus two device bugs found (stray recording blocks reopen after exit; Discard still laps). Not pursuing further without a different product design. Dev-build code untouched.
 
+**F. Instinct 2 family (proposed wave 6, branch `worktree-agent-af3357b81b1eb31cf`, nothing uploaded; [ADR-055](decisions.md#adr-055))** — simulator only, look unapproved
+- [ ] F1. Owner: approve or change the look (`instinct-mockup.html`): XP gauge in the window, no "XP TO GO" line, streak beside the rank, outlined bar tracks.
+- [ ] F2. Owner: which products ship (`instinct2`, `instinct2s`, `instinct2x`, `descentg1` are in the branch's manifests). Descent G1 and Instinct 2X share the Instinct 2's layout but have not been run in their own simulator (see ADR-055 Evidence).
+- [ ] F3. Hint wording: the Instinct 2's select key is printed `GPS`, hints say `START` ([ADR-029](decisions.md#adr-029)).
+- [ ] F4. A real Instinct 2: accelerometer at 25 Hz (otherwise NO SENSOR and manual entry), text against the real bezel and window ring (the 11 px ring clearance is read off the simulator image), 1-bit contrast.
+- [ ] F5. Before any release: store listing device list, `release-contract.md` and the site's device claims (nothing changed on this branch); store build memory re-measured on the final code.
+- Tests on the branch: 115 defined (102 in the store build; +1 `rowsBesideASubscreenWindowStayClearOfIt`, +2 dev-only draft tests from the 2026-10-02 stale-draft fix on main; the counts quoted from the agent's run below were taken at 113 before the rebase). Run 2026-10-02: dev 113/113 on `instinct2`, `instinct2s`, `instinct2x`, `fr255s`, `fenix6`; store 102/102 on `instinct2`, `fr255s`; all 84 manifest products build in both jungles. **Not run:** the `fr965` suite (hangs in this simulator on the baseline commit too, so the FR965 check is still owed) and the `descentg1` suite (see ADR-055 Evidence).
+
 ## Launch gates
 
 Passed: **4** storage upgrade keeps counts, XP, streak, `hero_learning` (2026-09-18) · **5** release menu is exercises + manual log + daily goal, permissions exactly `Sensor` + `ComplicationPublisher` (2026-09-21 on FR965; permissions read off `manifest-store.xml`, a sideload shows no permission screen) · **6** privacy + support public, listing matches behavior (2026-09-22).
@@ -73,7 +81,7 @@ Medical-grade calories · universal device support · perfect or measured counti
 
 - Battery/performance sweep ([`battery.md`](battery.md)).
 - Rollback build ready for the first week of a release.
-- More device waves (Instinct, pre-3.4): [`compatibility.md`](compatibility.md).
+- More device waves (Instinct E / 3 / Crossover; pre-3.4): [`compatibility.md`](compatibility.md).
 - More languages if demand; Russian not supported.
 
 ## Resolved: glance idle-timeout kill (2026-09-27, same day: found, fixed, confirmed)

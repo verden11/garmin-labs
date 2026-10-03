@@ -31,10 +31,13 @@ for product in "$@"; do
 project.manifest = $PROJECT/manifest.xml
 base.sourcePath = $PROJECT/source
 base.resourcePath = $PROJECT/resources;$WORK/$lang
-base.excludeAnnotations = nosync
+exclude = nosync
+base.excludeAnnotations = \$(exclude);mono
 EOF
-    # Same complication rule as monkey.jungle: CIQ 4.2+ products only (ADR-044).
+    # Same complication rule as monkey.jungle: CIQ 4.2+ products only (ADR-044),
+    # and the same palette rule: black-and-white products exclude `color` (ADR-055).
     grep "^$product.resourcePath" $PROJECT/monkey.jungle >> $WORK/$lang.jungle
+    grep "^$product.excludeAnnotations" $PROJECT/monkey.jungle >> $WORK/$lang.jungle
     prg=$WORK/$lang-$product.prg
     if ! "$SDK_BIN/monkeyc" -t -d $product -f $WORK/$lang.jungle -o $prg -y $KEY > $WORK/build.log 2>&1; then
       echo "$lang $product: BUILD FAILED"; failed=1; continue

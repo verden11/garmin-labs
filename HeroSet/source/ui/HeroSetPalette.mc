@@ -4,8 +4,10 @@
 // goal. Blue vs gold is the pairing that stays distinct under red/green
 // color blindness, and no state relies on color alone (full bars, DONE,
 // "!" carry the same meaning).
-(:glance)
+// The Instinct's black-and-white twin is HeroSetPaletteMono (ADR-055).
+(:glance :color)
 class HeroSetPalette {
+    static const MONO = false;
     static const BACKGROUND = 0x000000;
     static const TEXT = 0xFFFFFF;
     // Hints and secondary lines; DK_GRAY was too low-contrast on AMOLED (ADR-028).

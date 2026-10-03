@@ -58,6 +58,7 @@ If only read five: **[ADR-002](#adr-002)** (XP can't be farmed), **[ADR-018](#ad
 | 052 | Recoverable workout draft: checkpoint the in-progress rep count so the glance-launch idle-kill (E1) doesn't lose it | Active; FR965 device test still owed |
 | 053 | Glance upload submitted as 1.2.0, not 1.1.2; Connect sync moves to 1.3.0 | Active |
 | 054 | Connect sync shelved: Connect's UI never renders developer lap/session fields; two device bugs found (stray recording on exit, discard still lapping) | Active, amends 043 |
+| 056 | Instinct family (semi-octagon, 1-bit, subscreen window): keep-out layout, black-and-white palette, XP gauge in the window; Instinct 2 / 2S / 2X and Descent G1 | **Proposed**, simulator evidence only, look unapproved |
 
 ---
 
@@ -408,3 +409,46 @@ Neither bug was investigated further (not worth root-causing a design whose main
 **Decision.** Connect sync does not ship. Not this session, not as designed. 1.3.0 is not uploaded today; no store publication happens. `dist/` and the store listing are untouched — 1.2.0 (glance, [ADR-053](#adr-053)) stays the only thing awaiting Garmin review.
 
 **Consequences.** [ADR-043](#adr-043) is shelved, not superseded — the dev-build code stays as-is (still `(:sync)`-scoped, still excluded from `store.jungle`), nothing to revert. Resuming this feature later means solving the actual product question first (own exercise log inside HeroSet, since Connect can't show it: a "Health & Fitness" positioning built around it, not "Health & Fitness *and syncs to Connect*"), not re-running the same acceptance checklist expecting a different render result. `docs/connect-sync-plan.md` and `docs/go-to-market.md`'s 1.3.0 backlog item both note this.
+
+### <a id="adr-055"></a>ADR-055: Instinct family: semi-octagon, 1-bit, subscreen window. **Proposed**
+Written 2026-10-01 on branch `worktree-agent-af3357b81b1eb31cf`. **Not accepted: the look is unapproved, nothing has run on a watch, and the products are in the branch's manifests only so the build and tests can run.** Number 055 is left free for any ADR in flight elsewhere.
+
+**Context.** Wave 2-5 products are all round or touch-first. The Instinct family is the next obvious ask ([`compatibility.md`](compatibility.md)): a 1-bit memory-in-pixel display (palette `000000`/`FFFFFF` only), a semi-octagon outline, five buttons, and a round **subscreen window** cut into the top-right corner of the display. `HeroSetLayout` treats every non-round screen as a plain square with a full inset on each side, and the dashboard stacks one more row than 156-176 px of height has.
+
+**Inventory** (SDK 9.2.0 `Devices/` JSONs; every semi-octagon or 1-bit-MIP *watch* product):
+
+| Product | Screen | Window (x, y, w, h) | Watch-app memory | API | Glance |
+|---|---|---|---|---|---|
+| `instinct2` | 176x176 | 113, 0, 62x62 | 98,304 | 3.4 | no (needs 4.0) |
+| `instinct2x` | 176x176 | 113, 0, 62x62 | 98,304 | 3.4 | no |
+| `instinct2s` | 163x156 | 108, 0, 54x54 | 98,304 | 3.4 | no |
+| `descentg1` | 176x176 | 113, 0, 62x62 | 98,304 | 3.4 | no |
+| `instinctcrossover` | 176x176 | none in the simulator (the real watch has analog hands over the display) | 98,304 | 3.4 | no |
+| `instincte45mm`, `instinct3solar45mm` | 176x176 | 113, 0, 62x62 | 131,072 | 6.0 | yes, 32 KB glance limit |
+| `instincte40mm` | 166x166 | 113, 0, 52x52 | 131,072 | 6.0 | yes, 32 KB glance limit |
+
+All are at or above `minApiLevel` 3.4.0 (`instinct2`/`2s`/`crossover` list CIQ 3.2.7 part numbers as well: units on that firmware will not get the app). Layout is shared by everything with the same width: one code path for all of them. Round AMOLED relatives (`instinct3amoled45mm`/`50mm`, `instinctcrossoveramoled`) are wave-1-shaped products with a 98 px subscreen on the first two; not touched.
+
+**Memory is not the blocker.** Measured in the simulator with a scratch store build carrying a `System.getSystemStats()` probe (timer-driven: dashboard, main menu, workout, manual picker, goal picker, back to dashboard), `-r` as the store upload is built: **peak 53,216 B used of 94,024 B total** on the final code (the simulator's total; the manifest limit is 98,304), about 41 KB free; dashboard 49,848 B. The first measurement, before the Instinct layout code, was 52,960 B peak; same figures on `instinct2` and `instinct2s`. A build without `-r` (debug info) peaks at 66,624 B and also fits. fēnix 6 measured 52 KB the same way ([ADR-038](#adr-038)). The sensor path allocates fixed arrays (`HeroSetSwingTrace` is bounded). The unit-test run's ~127 KB figure is the test harness and says nothing about the app.
+
+**Decision (proposed).**
+- **Subscreen-aware layout.** `HeroSetLayout` asks `WatchUi.getSubscreen()` on `SCREEN_SHAPE_SEMI_OCTAGON` products only, so no round product's geometry can depend on it. Rows that start above the window's lower edge plus a ring clearance (two thirds of the short inset, about 11 px, measured off the simulator's device image) end left of it; `HeroSetDraw.centered` centers text in the band that is left (`rowCenterX`), which is the screen's center everywhere else. A semi-octagon takes the narrower side margin (`textMargin`, not the full inset): its chamfers only reach corners no row occupies. Every text draw already goes through `HeroSetDraw.text`, so the screen-fit test now also fails on any text that pokes into the window.
+- **Black-and-white palette by annotation.** `HeroSetPaletteMono` (`:mono`) and `HeroSetPalette` (`:color`) are the same class; the jungles exclude `mono` for everything and `color` for the Instinct products (`exclude = ...` property, so `sync;debug` stay in the release build). All roles are white on black: how the display would round `0x55AAFF`, `0x00FF00` or `0xFF0000` is unspecified, and no state may depend on it. Tracks are outlines under solid fills (`HeroSetPalette.MONO`). Colour was never the only cue ([`ADR-031`](#adr-031): full bars, DONE, signs), which is what makes this cheap. **DONE placement:** a finished row first tries `NAME DONE` + count; if none of the count fonts fits that (Instinct 2's 142 px column), the count slot reads DONE instead; only if that fails too does the full bar carry it alone.
+- **The window is the XP gauge.** Dashboard: the XP ring becomes a hairline circle with a thick 260-degree fill in the window; rank and streak sit in the band left of it; the "XP TO GO" line is dropped (the gauge says it, and the band is too narrow for the words); mission bars use the full width below the window. Workout and picker screens keep their order; their first rows share the band beside the window, and wide rows (the validation log's lines) start below it.
+- **Unchanged:** every round product's drawing (`rowCenterX` returns `centerX()` unless a window exists; the streak's zero-streak fallback only exists beside a window).
+
+**Verification status.**
+- Compile: store and dev builds for `instinct2`, `instinct2s`, `descentg1` and the round control products `fr965`, `fenix6`.
+- `--typecheck 3` is not Instinct-specific: `HeroSetWorkoutView.mc` raises the same 46 errors on `fr965`, `fenix6` and `instinct2`, among hundreds of pre-existing ones, so no code was changed for it.
+- Simulator: see "Evidence" below. Simulator is not device proof.
+
+**Open, owner's.** (1) The look (mockup `instinct-mockup.html`, unapproved). (2) Button hints say `START`; the Instinct 2's select key is printed `GPS` ([ADR-029](#adr-029) names printed labels), so every hint would need a per-product string set in 15 languages. (3) Accelerometer: the API symbols exist at 3.4 and a refusal is already handled (`_sensing` false shows NO SENSOR and manual entry works), but whether Instinct 2 firmware serves 25 Hz is unknown until a watch runs it. (4) Which products ship; the CIQ 6 products (`instincte40mm`, `instincte45mm`, `instinct3solar45mm`) need the glance's 32 KB limit checked first (`--build-stats 0`) and their glance areas (164x61, 154x61) in `HeroSetGlanceFitTest`; the Crossover's hands are unmodelled. (5) Store listing, release contract and site claims: none changed here.
+
+**Evidence (2026-10-02, simulator only; the Instinct 2 family has never run on a watch).**
+- Dev suite, 113/113 passing: `instinct2`, `instinct2s`, `instinct2x`; round controls `fr255s` and `fenix6`. Store suite, 102/102: `instinct2`, `fr255s`. These include `everyScreenFitsThisDisplay` with its new window check, and the new `rowsBesideASubscreenWindowStayClearOfIt`.
+- `descentg1`: its unit suite would not run (the simulator hung on every attempt for that product). The same screen-fit logic, run as a plain app on the Descent G1's own simulator (176 x 176), reports 0 problems, as it does on `instinct2` (176 x 176), `instinct2x` and `instinct2s` (163 x 156); that is weaker evidence than the suite. `fr965` could not be run at all in this simulator: its suite hangs on the untouched baseline commit too, so the FR965 check is still owed.
+- Palette: a run on `instinct2` prints `HeroSetPalette.MONO = true`, colour products keep `false` (suites on `fr255s`/`fenix6` pass).
+- Memory (the figures above) was re-measured on the final code: peak 53,216 B of 94,024 B total on `instinct2` (dashboard 49,848 B), store build with `-r`.
+- Not measured: whether a real Instinct 2 serves the accelerometer at 25 Hz (a scratch probe that registered the listener hung the shared simulator twice, so no callback count exists), real bezel margins, real contrast. Round-product drawing was not box-diffed old versus new (the simulator would not run the comparison); the round paths are unchanged by construction (`rowCenterX` returns `centerX()` without a window, `textMargin` and the side inset are unchanged off semi-octagon products) and the round control suites pass.
+- Text widths at 176 px are larger than at 163 px (the 176 px products ship bigger fonts: XTINY is 23 px high against 19), which is why "STREAK 9999" needed a bare-number fallback and why the XP-to-go line is dropped rather than shortened.
+

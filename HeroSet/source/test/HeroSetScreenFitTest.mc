@@ -27,6 +27,9 @@ function everyScreenFitsThisDisplay(logger as Test.Logger) as Lang.Boolean {
     HeroSetDraw.misfits = [] as Lang.Array<Lang.String>;
     try {
         var dashboard = new HeroSetView();
+        // RANK, XP to next, 3 labels, 3 counts, streak, footer; beside a
+        // subscreen window the XP line is dropped (ADR-055).
+        var dashboardRows = new HeroSetLayout(dc).subscreen() == null ? 10 : 9;
         var states = [
             new HeroSetDashboardState(0, 0, 0, 0, 1, 0, false, HeroSetConfig.DEFAULT_MISSION_GOAL),
             new HeroSetDashboardState(42, 100, 7, 4200, 61, 12, false, HeroSetConfig.DEFAULT_MISSION_GOAL),
@@ -38,8 +41,7 @@ function everyScreenFitsThisDisplay(logger as Test.Logger) as Lang.Boolean {
         for (var i = 0; i < states.size(); i++) {
             HeroSetScreenFitHarness.startScreen();
             dashboard.drawState(dc, states[i]);
-            // RANK, XP to next, 3 labels, 3 counts, streak, footer.
-            HeroSetScreenFitHarness.collectOverlaps("dashboard", 10, problems);
+            HeroSetScreenFitHarness.collectOverlaps("dashboard", dashboardRows, problems);
         }
         var exercises = HeroSetRules.EXERCISES;
         for (var e = 0; e < exercises.size(); e++) {

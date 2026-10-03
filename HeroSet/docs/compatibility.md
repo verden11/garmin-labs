@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-09-26. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
+Status: 2026-10-01. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
 
 ## Supported products
 
@@ -74,6 +74,18 @@ No UP/DOWN keys: swipe up/down adjusts, `SWIPE:` hints, START (physical) finishe
 | D2 Air X10 | `d2airx10` | 416 px |
 | Approach S50 / S70 | `approachs50`, `approachs7042mm`, `approachs7047mm` | 390 / 390 / 454 px |
 
+### Wave 6 (proposed, branch only) — Instinct 2 family, 1-bit semi-octagon ([ADR-055](decisions.md#adr-055))
+
+**Not released and not in any store build yet; the look is unapproved.** In both manifests on branch `worktree-agent-af3357b81b1eb31cf` so the build and tests can run. Black-and-white display, round subscreen window top right (the layout keeps out of it and uses it as the XP gauge), five buttons, Connect IQ 3.4 (no glance), 98,304 B of watch-app memory: measured peak 53,216 B in the simulator (store build, `-r`).
+
+| Family | Products (`manifest` id) | Screen | Window |
+|---|---|---|---|
+| Instinct 2 / Solar / Dual Power / dēzl, Instinct 2X Solar | `instinct2`, `instinct2x` | 176 x 176 | 62 px |
+| Instinct 2S | `instinct2s` | 163 x 156 | 54 px |
+| Descent G1 / G1 Solar | `descentg1` | 176 x 176 | 62 px |
+
+Evidence is in ADR-055 (simulator only). `instinct2`, `instinct2s` and `instinct2x` list part numbers at CIQ 3.2.7 as well: units still on that firmware will not get the app.
+
 `fenix6`, `fenix6s`, `enduro` cap watch apps at 128 KB — smallest supported memory. Measured in simulator (store build): dashboard ~52 KB, workout ~54 KB used, ~73 KB free.
 
 **Evidence per product:** store build compiles, and `everyScreenFitsThisDisplay` passes in that device simulator: renders every screen in widest state with device real fonts, fails on text outside round display, overlapping text, or screen that drew fewer rows than it promises. Full suite run on FR965 plus size and screen-type representatives (`fr265s`, `fenix7`, `fenix7x`, `fr255s`, `fenix9prosolar51mm`, `fenix9pro51mm`) and on every wave 4 and wave 5 product.
@@ -89,7 +101,7 @@ A watch-app glance needs Connect IQ 4.0, so the glance list entry exists on **63
 | Group | Examples | What's missing |
 |---|---|---|
 | Touch-first below Connect IQ 3.4 | `venu`, `venud`, `d2air`, `vivoactive4`, `vivoactive4s` | Below `minApiLevel` ([ADR-038](decisions.md#adr-038)) |
-| Instinct (AMOLED and MIP) | `instinct3amoled45mm`, `instinct3solar45mm`, `instinctcrossoveramoled`, `instincte45mm` | Screen has sub-window cut-out that round-chord layout doesn't model. Instinct E also caps apps at 128 KB |
+| Instinct, not in the proposed wave 6 | `instinct3solar45mm`, `instincte40mm`, `instincte45mm` (1-bit, CIQ 6.0: same layout, but a 32 KB glance limit and new glance areas to check), `instinctcrossover` (analog hands over the display, unmodelled), `instinct3amoled45mm`/`50mm` (round AMOLED with a 98 px subscreen), `instinctcrossoveramoled` (round, no subscreen in the simulator) | See [ADR-055](decisions.md#adr-055). Instinct E also gives watch apps 128 KB (more room than the 98,304 B of the Instinct 2 family) |
 | Square / rectangle | `venusq2`, `venux1` | Layout square path untested, these touch-first too |
 | Below Connect IQ 3.4 | fēnix 5 / 5 Plus, Forerunner 245/645/745/935/945, D2 Charlie/Delta, Descent MK1, vívoactive 3/4 | Below `minApiLevel`. `WatchUi.showToast` (save confirmation) is 3.4+, and fēnix 5 Plus fails screen fit (older, larger system fonts). FR945/745/245M pass the suite in simulator with a `has :showToast` guard — candidate wave, needs another save confirmation ([ADR-038](decisions.md#adr-038)) |
 | Forerunner 55 | `fr55` | 208 px screen: dashboard rows overlap (fails `everyScreenFitsThisDisplay`) |
