@@ -16,7 +16,7 @@ SDK_BIN=${SDK_BIN:-$(dirname "$(command -v monkeyc)")}
 KEY=${KEY:-$HOME/.garmin-connectiq/keys/developer_key}
 RUN_TIMEOUT=${RUN_TIMEOUT:-150}
 TIER=${TIER:-pro}
-if [[ $TIER == free ]]; then MANIFEST=manifest.free.xml EXCLUDE=pro; else MANIFEST=manifest.xml EXCLUDE=free; fi
+if [[ $TIER == free ]]; then MANIFEST=manifest.free.xml JUNGLE=monkey.free.jungle EXCLUDE=pro; else MANIFEST=manifest.xml JUNGLE=monkey.jungle EXCLUDE=free; fi
 LANGS=(eng dan deu dut fin fre ita lit nob pol por spa swe tur ukr)
 if [[ ${1:-} == -l ]]; then LANGS=(${=2}); shift 2; fi
 WORK=$(mktemp -d)
@@ -32,8 +32,15 @@ for product in "$@"; do
 project.manifest = $PROJECT/$MANIFEST
 base.sourcePath = $PROJECT/source
 base.resourcePath = $PROJECT/resources;$PROJECT/resources-$TIER;$WORK/$lang
-base.excludeAnnotations = $EXCLUDE
+base.excludeAnnotations = $EXCLUDE;mono
 EOF
+    # The Instinct products: the black-and-white palette and no Accent file, as the real jungle has (ADR-015).
+    if grep -q "^$product.excludeAnnotations" $PROJECT/$JUNGLE; then
+      echo "$product.excludeAnnotations = $EXCLUDE;color" >> $WORK/$lang.jungle
+      echo "$product.resourcePath = $PROJECT/resources;$PROJECT/resources-$TIER;$WORK/$lang" >> $WORK/$lang.jungle
+    else
+      sed -i.bak "s|resources-$TIER;$WORK/$lang|resources-$TIER;$PROJECT/resources-accent-$TIER;$WORK/$lang|" $WORK/$lang.jungle
+    fi
     prg=$WORK/$lang-$product.prg
     if ! "$SDK_BIN/monkeyc" -t -d $product -f $WORK/$lang.jungle -o $prg -y $KEY > $WORK/build.log 2>&1; then
       echo "$lang $product: BUILD FAILED"; head -3 $WORK/build.log; failed=1; continue

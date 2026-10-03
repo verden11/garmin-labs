@@ -40,6 +40,16 @@ class DaysToGoDraw {
         return fonts[fonts.size() - 1];
     }
 
+    // Like fontUpTo, and the text must also fit `maxWidth` (the largest such font, else the smallest).
+    static function fontUpToWidth(dc as Graphics.Dc, fonts as Array<Graphics.FontDefinition>, maxHeight as Number, maxWidth as Number, text as String) as Graphics.FontDefinition {
+        for (var i = 0; i < fonts.size() - 1; i++) {
+            if (dc.getFontHeight(fonts[i]) <= maxHeight && dc.getTextWidthInPixels(text, fonts[i]) <= maxWidth) {
+                return fonts[i];
+            }
+        }
+        return fonts[fonts.size() - 1];
+    }
+
     // Draws one line centred in its band, in the largest font (fonts are
     // listed largest first) and longest wording (candidates, longest first)
     // that fits: height within the band, width within the chord of `radius`
@@ -63,7 +73,8 @@ class DaysToGoDraw {
 
     private static function centered(dc as Graphics.Dc, layout as DaysToGoLayout, dx as Number, top as Number, bandHeight as Number,
                                      font as Graphics.FontDefinition, str as String) as Void {
-        text(dc, layout, layout.centerX() + dx, top + (bandHeight - dc.getFontHeight(font)) / 2, font, str, Graphics.TEXT_JUSTIFY_CENTER);
+        var y = top + (bandHeight - dc.getFontHeight(font)) / 2;
+        text(dc, layout, layout.rowCenterX(y, dc.getFontHeight(font)) + dx, y, font, str, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     static function fits(dc as Graphics.Dc, layout as DaysToGoLayout, radius as Number, top as Number, bandHeight as Number,

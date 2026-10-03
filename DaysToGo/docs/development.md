@@ -20,7 +20,7 @@ monkeyc -e -r -f monkey.free.jungle -o dist/DaysToGoFree.iq -y $KEY             
 monkeyc -e -r -f monkey.jungle      -o dist/DaysToGoPro.iq -y $KEY              # Pro store package
 tools/check_free_package.sh [--build]                                           # prove the packages' contents (below)
 python3 tools/make_beta.py && monkeyc -e -r -f beta.jungle -o dist/DaysToGo-beta.iq -y $KEY   # beta package (Pro build, own app id)
-python3 tools/gen_settings.py [free|pro] [--ids]                                # settings resources
+python3 tools/gen_settings.py [free|pro] [--ids]                                # settings resources (incl. resources-accent-<tier>/, the Accent list the Instinct products leave out, ADR-015)
 pkill -f monkeydo; pkill -f "ConnectIQ.app/Contents/MacOS"                      # reset a wedged simulator
 ```
 
@@ -109,3 +109,7 @@ native speaker** (`listing/NOTES.md`).
 The simulator proves geometry, fonts and logic. It cannot prove always-on
 behaviour, battery cost, MIP daylight contrast or the phone's settings delivery.
 The owner's checklist lives in the git-ignored `../device-test/DaysToGo-CHECKLIST.md`.
+
+## Screenshots (Instinct and any layout change)
+
+The unit suite measures numbers; it cannot see the bezel. For every layout change, photograph what the simulator draws (the face on its device skin, with the real fonts and the real bezel mask): `../docker/shot.sh DaysToGo monkey.jungle instinct2 instincte40mm` writes `bin/shot-<device>-face.png` (the display, 3x). The Instinct's visible area is a circle about 98 px in radius, which a 176 x 176 square test misses: a finished-day footer was clipped in HeroSet that way (HeroSet ADR-055, amended 2026-10-03). `PREP='sed -i ... resources/properties.xml' ../docker/shot.sh ...` shows a particular state without touching the repo.

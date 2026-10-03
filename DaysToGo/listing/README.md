@@ -31,7 +31,7 @@ Whole calendar days
 The count is whole days on your calendar: tomorrow is 1 day, the day itself says TODAY, and afterwards it counts the days since. A date that does not exist, like 30 February, is never shown as a wrong number.
 
 One design, every screen
-Round and rectangular watches alike, full detail down to the smallest, dimming to a quiet number and clock when the screen sleeps.
+Round and rectangular watches alike, full detail down to the smallest, dimming to a quiet number and clock when the screen sleeps. On Instinct, in black and white, the ring becomes a gauge in the round window.
 
 Nothing leaves your watch
 No permissions, no account, no internet, no analytics, no ads.

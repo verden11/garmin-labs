@@ -15,7 +15,7 @@
 #         string "Days To Go Pro" (positive controls: they prove the Free checks can see what they look for);
 #         AppName is "Days To Go Pro" in every language.
 #   Both: the app ids are the expected, different ones; no permissions; the part numbers equal the SDK's part
-#         numbers for the manifest's 120 product ids (one SDK part number may be absent, reported, not failed).
+#         numbers for the manifest's 127 product ids (one SDK part number may be absent, reported, not failed).
 # NOT proven: that the Hour/Footer display strings (setting_hour, footer_*, h0-h23) are absent. They live in the
 # shared strings and still ship, unreferenced, in Free. Nor does it prove behaviour on a watch.
 set -u
@@ -54,10 +54,22 @@ free_dir, pro_dir, free_id, pro_id, devices = sys.argv[1:6]
 FREE_KEYS = ["Event", "Name", "Month", "Day", "Year", "Unit", "DateStyle", "Accent"]
 PRO_ONLY = ["Hour", "Footer"]
 PRO_KEYS = ["Event", "Name", "Month", "Day", "Year", "Hour", "Unit", "DateStyle", "Footer", "Accent"]
+# The Instinct family (ADR-015) has no Accent setting: a 1-bit display cannot show one. Its part numbers are read from
+# the SDK so the check can tell an Instinct part's settings file from a round one's.
+INSTINCT = ["instinct2", "instinct2s", "instinct2x", "descentg1", "instincte40mm", "instincte45mm", "instinct3solar45mm"]
 problems = []
 
 def fail(msg):
     problems.append(msg)
+
+def instinct_parts(devices):
+    """Part numbers of the Instinct products, from the SDK's device files; empty when the SDK files are missing."""
+    parts = set()
+    for pid in INSTINCT:
+        path = os.path.join(devices, pid, "compiler.json")
+        if os.path.exists(path):
+            parts |= {p["number"] for p in json.load(open(path))["partNumbers"]}
+    return parts
 
 def settings_files(root):
     files = sorted(glob.glob(root + "/*/*-settings.json"))
@@ -68,7 +80,7 @@ def settings_files(root):
 def word(pattern, data):
     return re.search(pattern, data) is not None
 
-def check(root, tier, app_name, keys, app_id):
+def check(root, tier, app_name, keys, app_id, instinct):
     manifest = open(root + "/manifest.xml").read()
     ids = re.findall(r'<iq:application[^>]* id="([^"]+)"', manifest)
     if ids != [app_id]:
@@ -82,11 +94,14 @@ def check(root, tier, app_name, keys, app_id):
     for path in files:
         data = json.load(open(path))
         got = [s["key"] for s in data["settings"]]
-        if got != keys:
-            fail(f"{tier}: {path}: keys {got}, expected {keys}")
-        accent = [s for s in data["settings"] if s["key"] == "Accent"][0]
-        if [o["value"] for o in accent["configOptions"]] != list(range(6)):
-            fail(f"{tier}: {path}: Accent ids are not 0-5")
+        part = os.path.basename(path).split("-settings.json")[0]
+        wanted = [k for k in keys if k != "Accent"] if part in instinct else keys
+        if got != wanted:
+            fail(f"{tier}: {path}: keys {got}, expected {wanted}")
+        if part not in instinct:
+            accent = [s for s in data["settings"] if s["key"] == "Accent"][0]
+            if [o["value"] for o in accent["configOptions"]] != list(range(6)):
+                fail(f"{tier}: {path}: Accent ids are not 0-5")
         for lang, strings in data["languages"].items():
             if strings.get("AppName") != app_name:
                 fail(f"{tier}: {path}: language {lang} AppName is {strings.get('AppName')!r}, expected {app_name!r}")
@@ -95,8 +110,8 @@ def check(root, tier, app_name, keys, app_id):
 def check_part_numbers(root, tier):
     """Part numbers in the package must be the SDK's part numbers for the manifest's product ids."""
     ids = re.findall(r'<iq:product id="([^"]+)"', open("manifest.xml").read())
-    if len(ids) != 120:
-        fail(f"manifest.xml lists {len(ids)} product ids, expected 120")
+    if len(ids) != 127:
+        fail(f"manifest.xml lists {len(ids)} product ids, expected 127")
     expected = set()
     for pid in ids:
         path = os.path.join(devices, pid, "compiler.json")
@@ -108,10 +123,16 @@ def check_part_numbers(root, tier):
     if not got <= expected:
         fail(f"{tier}: part numbers not in the manifest's products: {sorted(got - expected)[:5]}")
     if expected - got:
-        print(f"note: {tier} lacks {len(expected - got)} of the SDK's {len(expected)} part numbers for the 120 products: {sorted(expected - got)}")
+        print(f"note: {tier} lacks {len(expected - got)} of the SDK's {len(expected)} part numbers for the 127 products: {sorted(expected - got)}")
 
-free_products, free_files = check(free_dir, "FREE", "Days To Go", FREE_KEYS, free_id)
-pro_products, pro_files = check(pro_dir, "PRO", "Days To Go Pro", PRO_KEYS, pro_id)
+instinct = instinct_parts(devices)
+if not instinct:
+    print("note: SDK device files not found; the Instinct parts cannot be told apart, so the Accent checks will fail")
+free_products, free_files = check(free_dir, "FREE", "Days To Go", FREE_KEYS, free_id, instinct)
+pro_products, pro_files = check(pro_dir, "PRO", "Days To Go Pro", PRO_KEYS, pro_id, instinct)
+seen = {os.path.basename(f).split("-settings.json")[0] for f in settings_files(free_dir)}
+if not (instinct & seen):
+    fail("FREE: no Instinct part in the package (the Accent exemption was never exercised)")
 check_part_numbers(free_dir, "FREE")
 check_part_numbers(pro_dir, "PRO")
 if free_id == pro_id:
@@ -150,7 +171,7 @@ if problems:
     if len(problems) > 40:
         print(f"  ... and {len(problems) - 40} more")
     sys.exit(1)
-print(f"OK: Free package ({free_products} products, {free_files} settings files): keys {FREE_KEYS}, "
+print(f"OK: Free package ({free_products} products, {free_files} settings files): keys {FREE_KEYS} (no Accent on the 7 Instinct products), "
       f"no Hour/Footer in settings or compiled .prg, no 'Pro' anywhere, AppName 'Days To Go' in every language.")
-print(f"OK: Pro package ({pro_products} products, {pro_files} settings files): keys {PRO_KEYS}, AppName 'Days To Go Pro' in every language; Hour, Footer and the name found in every .prg (positive controls).")
+print(f"OK: Pro package ({pro_products} products, {pro_files} settings files): keys {PRO_KEYS} (no Accent on the 7 Instinct products), AppName 'Days To Go Pro' in every language; Hour, Footer and the name found in every .prg (positive controls).")
 PY

@@ -2,6 +2,7 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Math;
 import Toybox.System;
+import Toybox.WatchUi;
 
 // Geometry, measured once per display. Everything is a share of D, the shorter
 // screen side, so one layout serves every round product. Rows are bands: text
@@ -11,6 +12,8 @@ class DaysToGoLayout {
     // its cap (or the smallest font, on a screen too small for the cap), and
     // the hero gets whatever height the other rows leave.
     static const TIME_MAX_PERMILLE = 130;
+    // Beside the Instinct window the time may be taller: it has the band left of the window to itself (ADR-015).
+    static const TIME_BESIDE_WINDOW_MAX_PERMILLE = 200;
     static const NAME_MAX_PERMILLE = 90;
     static const CAPTION_MAX_PERMILLE = 90;
     static const SMALL_MAX_PERMILLE = 80;
@@ -19,6 +22,14 @@ class DaysToGoLayout {
     private static const SPAN_PERMILLE = 800;
     private static const GAP_PERMILLE = 12;
 
+    // The Instinct window sits in a bezel ring wider than itself (about 10 px at 176); the gauge's fill is a quarter of its radius.
+    private static const WINDOW_CLEARANCE_PERMILLE = 60;
+    private static const WINDOW_FILL_DIVISOR = 4;
+    private static const SIDE_MARGIN_PERMILLE = 40;
+    // The bezel hides the corners of a semi-octagon display: what shows is the square cut by a circle about 98 px in
+    // radius (measured off the alpha mask of the SDK's device images: 96 to 100 px on all seven Instinct products).
+    static const VISIBLE_RADIUS_PX = 96;
+    private static const BOTTOM_MARGIN_PERMILLE = 60;
     private static const RING_WIDTH_PERMILLE = 25;
     private static const RING_GAP_PERMILLE = 10;
     private static const TEXT_MARGIN_PERMILLE = 20;
@@ -48,12 +59,68 @@ class DaysToGoLayout {
     private var _height as Number;
     private var _d as Number;
     private var _radius as Number;
+    private var _subscreen as Graphics.BoundingBox?;
+    // The window's box as plain numbers (BoundingBox fields are nullable); all 0 and unused off the Instinct.
+    private var _windowX as Number = 0;
+    private var _windowY as Number = 0;
+    private var _windowW as Number = 0;
+    private var _windowH as Number = 0;
 
     function initialize(dc as Graphics.Dc) {
         _width = dc.getWidth();
         _height = dc.getHeight();
         _d = _width < _height ? _width : _height;
         _radius = _d / 2;
+        // Asked of semi-octagon screens only (the Instinct's round window, ADR-015), so no round
+        // product's geometry can depend on it.
+        _subscreen = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_SEMI_OCTAGON && (WatchUi has :getSubscreen)
+            ? WatchUi.getSubscreen() : null;
+        var window = _subscreen;
+        if (window != null) {
+            _windowX = window.x as Number;
+            _windowY = window.y as Number;
+            _windowW = window.width as Number;
+            _windowH = window.height as Number;
+        }
+    }
+
+    // The Instinct's physical window in display coordinates; null on every other product.
+    function subscreen() as Graphics.BoundingBox? {
+        return _subscreen;
+    }
+
+    // First y at or below `y` that clears the window and the bezel ring around it.
+    function belowWindow(y as Number) as Number {
+        if (_subscreen == null) {
+            return y;
+        }
+        var clear = _windowY + _windowH + _d * WINDOW_CLEARANCE_PERMILLE / DaysToGoConfig.PERMILLE;
+        return y > clear ? y : clear;
+    }
+
+    // [center x, center y, outer radius, fill width] of the gauge that fills the window (the bezel ring's
+    // Instinct form), one pixel inside the window's edge; null on every other product.
+    function windowRing() as [Number, Number, Number, Number]? {
+        if (_subscreen == null) {
+            return null;
+        }
+        var radius = (_windowW < _windowH ? _windowW : _windowH) / 2 - 1;
+        return [_windowX + _windowW / 2, _windowY + _windowH / 2, radius, radius / WINDOW_FILL_DIVISOR];
+    }
+
+    // Width of the band the first row (the time) has: the whole usable width, or what the window leaves.
+    function topBandWidth(height as Number) as Number {
+        return rightInsetWithin(_radius, sideMargin(), height) - leftInsetWithin(_radius, sideMargin(), height);
+    }
+
+    // Rows that start above the window's lower edge (plus its ring) share their line with it.
+    private function besideWindow(y as Number) as Boolean {
+        return _subscreen != null && y < belowWindow(0);
+    }
+
+    // x that centres text in the usable band of this row: the screen's centre, except beside the window.
+    function rowCenterX(y as Number, height as Number) as Number {
+        return besideWindow(y) ? (leftInsetWithin(_radius, y, height) + rightInsetWithin(_radius, y, height)) / 2 : centerX();
     }
 
     function height() as Number {
@@ -80,14 +147,17 @@ class DaysToGoLayout {
         var span = contentRadius() * SPAN_PERMILLE / DaysToGoConfig.PERMILLE;
         var gap = _d * GAP_PERMILLE / DaysToGoConfig.PERMILLE;
         var rows = new DaysToGoRows();
-        var top = centerY() - span;
-        var bottom = centerY() + span;
+        // Beside the Instinct window the stack runs the screen's height, top to a bottom margin, and the hero starts
+        // below the window; everywhere else it is the span inside the ring.
+        var top = _subscreen == null ? centerY() - span : sideMargin();
+        var bottom = _subscreen == null ? centerY() + span : _height - _d * BOTTOM_MARGIN_PERMILLE / DaysToGoConfig.PERMILLE;
         rows.timeTop = top;
         top += timeH + gap;
         if (nameH > 0) {
             rows.nameTop = top;
             top += nameH + gap;
         }
+        top = belowWindow(top);
         if (footerH > 0) {
             bottom -= footerH;
             rows.footerTop = bottom;
@@ -144,12 +214,28 @@ class DaysToGoLayout {
         return end < 0 ? end + FULL_CIRCLE_DEG : end;
     }
 
+    // On the Instinct a row is a box, not a chord: a side margin each side, and beside the window the right edge is the
+    // window's left edge less its ring.
     function leftInsetWithin(radius as Number, y as Number, height as Number) as Number {
+        if (_subscreen != null) {
+            var visible = centerX() - chordHalfWidth(VISIBLE_RADIUS_PX, farthestDy(y, height));
+            var box = sideMargin();
+            return visible > box ? visible : box;
+        }
         return centerX() - chordHalfWidth(radius, farthestDy(y, height));
     }
 
     function rightInsetWithin(radius as Number, y as Number, height as Number) as Number {
+        if (_subscreen != null) {
+            var visible = centerX() + chordHalfWidth(VISIBLE_RADIUS_PX, farthestDy(y, height));
+            var box = (besideWindow(y) ? _windowX - _d * WINDOW_CLEARANCE_PERMILLE / DaysToGoConfig.PERMILLE : _width - sideMargin());
+            return visible < box ? visible : box;
+        }
         return centerX() + chordHalfWidth(radius, farthestDy(y, height));
+    }
+
+    private function sideMargin() as Number {
+        return _d * SIDE_MARGIN_PERMILLE / DaysToGoConfig.PERMILLE;
     }
 
     // The whole display, for the screen-fit test.
