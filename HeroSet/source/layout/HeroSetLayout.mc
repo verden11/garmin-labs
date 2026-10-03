@@ -18,6 +18,10 @@ class HeroSetLayout {
     static const RING_START_DEG = 220;
     static const RING_SWEEP_DEG = 260;
     private static const FULL_CIRCLE_DEG = 360;
+    // The bezel hides the corners of a semi-octagon display: what shows is the square cut by a circle about 98 px
+    // in radius (measured off the alpha mask of the SDK's device images, 96 to 100 px on all seven Instinct
+    // products), so a row near a corner is narrower than the display (ADR-055).
+    static const SEMI_OCTAGON_VISIBLE_RADIUS = 96;
 
     private var _width;
     private var _height;
@@ -203,7 +207,8 @@ class HeroSetLayout {
     // (e.g. contentRadius inside the dashboard ring).
     function leftInsetWithin(radius as Lang.Number, y as Lang.Number, height as Lang.Number) as Lang.Number {
         if (!_round) {
-            return sideInset();
+            var visible = _semiOctagon ? _centerX - HeroSetLayout.chordHalfWidth(SEMI_OCTAGON_VISIBLE_RADIUS, farthestDy(y, height)) : 0;
+            return visible > sideInset() ? visible : sideInset();
         }
         return _centerX - HeroSetLayout.chordHalfWidth(radius, farthestDy(y, height));
     }
@@ -211,7 +216,9 @@ class HeroSetLayout {
     function rightInsetWithin(radius as Lang.Number, y as Lang.Number, height as Lang.Number) as Lang.Number {
         if (!_round) {
             var window = _subscreen;
-            return window != null && besideWindow(y) ? window.x - windowClearance() : _width - sideInset();
+            var edge = window != null && besideWindow(y) ? window.x - windowClearance() : _width - sideInset();
+            var visible = _semiOctagon ? _centerX + HeroSetLayout.chordHalfWidth(SEMI_OCTAGON_VISIBLE_RADIUS, farthestDy(y, height)) : _width;
+            return visible < edge ? visible : edge;
         }
         return _centerX + HeroSetLayout.chordHalfWidth(radius, farthestDy(y, height));
     }
