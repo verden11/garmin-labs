@@ -38,14 +38,14 @@ class DayArcDraw {
     // read for the first glance — watch-design-reviewer, 2026-09-28.
     private static function drawHeader(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, hero as Dictionary, clockText as String) as Void {
         var y = plan.ys[DayArcStack.ROW_CLOCK];
-        DayArcText.drawCentered(dc, layout.centerX(), y, plan.clockFont, clockText, plan.rowWidth(y, plan.hs[DayArcStack.ROW_CLOCK]), DayArcPalette.MUTED);
+        DayArcText.drawCentered(dc, layout.rowCenterX(y, plan.hs[DayArcStack.ROW_CLOCK]), y, plan.clockFont, clockText, plan.rowWidth(y, plan.hs[DayArcStack.ROW_CLOCK]), DayArcPalette.MUTED);
         // Every live string is null-guarded: a cached plan may still have a row for a string that has
         // gone null (the date complication for one update, say), and that must never throw.
         var dateY = plan.ys[DayArcStack.ROW_DATE];
         var date = hero.get(:dateText);
         if (dateY >= 0 && date instanceof String) {
             var width = plan.rowWidth(dateY, plan.hs[DayArcStack.ROW_DATE]);
-            DayArcText.drawCentered(dc, layout.centerX(), dateY, plan.textFont, date, width, DayArcPalette.MUTED);
+            DayArcText.drawCentered(dc, layout.rowCenterX(dateY, plan.hs[DayArcStack.ROW_DATE]), dateY, plan.textFont, date, width, DayArcPalette.MUTED);
         }
     }
 
@@ -56,7 +56,7 @@ class DayArcDraw {
         var label = hero.get(:label);
         if (labelY >= 0 && label instanceof String) {
             var width = plan.rowWidth(labelY, plan.hs[DayArcStack.ROW_LABEL]);
-            DayArcText.drawCentered(dc, layout.centerX(), labelY, plan.textFont, label, width, DayArcPalette.MUTED);
+            DayArcText.drawCentered(dc, layout.rowCenterX(labelY, plan.hs[DayArcStack.ROW_LABEL]), labelY, plan.textFont, label, width, DayArcPalette.MUTED);
         }
         if (plan.ys[DayArcStack.ROW_HERO] >= 0) {
             drawHeroGroup(dc, layout, plan, hero, accent);
@@ -74,7 +74,7 @@ class DayArcDraw {
             var lines = plan.subLines(dc, sub);
             for (var i = 0; i < lines.size(); i++) {
                 var y = subY + i * lineHeight;
-                DayArcText.drawCentered(dc, layout.centerX(), y, plan.textFont, lines[i], plan.rowWidth(y, lineHeight), DayArcPalette.MUTED);
+                DayArcText.drawCentered(dc, layout.rowCenterX(y, lineHeight), y, plan.textFont, lines[i], plan.rowWidth(y, lineHeight), DayArcPalette.MUTED);
             }
         }
     }
@@ -90,7 +90,7 @@ class DayArcDraw {
         var available = plan.rowWidth(y, rowHeight) - iconWidth;
         var value = hero.get(:value);
         var fitted = DayArcText.truncated(dc, value instanceof String ? value : "", plan.heroFont, available);
-        var left = layout.centerX() - (iconWidth + dc.getTextWidthInPixels(fitted, plan.heroFont)) / 2;
+        var left = layout.rowCenterX(y, rowHeight) - (iconWidth + dc.getTextWidthInPixels(fitted, plan.heroFont)) / 2;
         if (icon != null) {
             dc.drawBitmap(left, y + (rowHeight - icon.getHeight()) / 2, icon);
         }
@@ -118,7 +118,7 @@ class DayArcDraw {
         if (half < 1 || half >= radius) {
             return;
         }
-        var centreX = layout.centerX();
+        var centreX = layout.rowCenterX(top, layout.gaugeBoxHeight());
         var low = top + layout.gaugeSag() + pen / 2;
         var centreY = low - radius;
         var span = Math.toDegrees(Math.asin(half.toFloat() / radius)).toNumber();

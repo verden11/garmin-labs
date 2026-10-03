@@ -21,6 +21,9 @@ class DayArcApp extends Application.AppBase {
     // phone/watch overwrite question). A failure here must never take the face down, so it opens
     // nothing rather than throw.
     function getSettingsView() as [WatchUi.Views] or [WatchUi.Views, WatchUi.InputDelegates] or Null {
+        if (DayArcPalette.MONO) {
+            return null;   // the one setting is Accent, which a 1-bit display cannot show (ADR-015)
+        }
         try {
             var menu = new WatchUi.Menu2({:title => WatchUi.loadResource(Rez.Strings.setting_accent) as String});
             var labels = [Rez.Strings.accent_auto, Rez.Strings.accent_cyan, Rez.Strings.accent_amber, Rez.Strings.accent_rose,

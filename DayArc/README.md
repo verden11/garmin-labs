@@ -5,7 +5,7 @@ morning, a stress read at midday, Body Battery in the evening, time and date at 
 listings, one codebase — **DayArc** is one focal read per window, **DayArc Pro** is the same three
 windows with a denser field grid under each hero read.
 
-Status: unbuilt on any real device; simulator-tested (compile sweep both densities, all 69
+Status: unbuilt on any real device; simulator-tested (compile sweep both densities, all 72
 products; render/test exercised on 4 representative devices). See
 [`docs/plan.md`](docs/plan.md) "Implementation status" for exactly what that does and doesn't
 cover.

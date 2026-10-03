@@ -6,7 +6,10 @@ import Toybox.Lang;
 // window or to the wearer's own choice, NEVER to the value shown: stress and Body Battery stay one
 // constant hue whatever they read, so ADR-006's no-verdict rule holds even if the wearer picks
 // green or amber for them (a colour the wearer chose is not the watch judging their reading).
+(:color)
 class DayArcPalette {
+    // True where nothing may lean on grey or hue (the 1-bit Instinct, ADR-015).
+    static const MONO = false;
     static const BACKGROUND = 0x000000;
     static const TEXT = 0xFFFFFF;
     static const MUTED = 0xAAAAAA;      // secondary labels, "--" empty values
@@ -35,5 +38,31 @@ class DayArcPalette {
 
     static function accentFor(window as Number, choice as Number) as Number {
         return ACCENTS[hueIndex(window, choice)];
+    }
+}
+
+// The Instinct's twin (ADR-015): a 1-bit display shows black and white only, and how it would round any other value is
+// unspecified, so every role is white on black. The hero is told apart by its icon and label, never by hue; the arc's
+// track is an outline under a solid fill. Same class name and roles; the jungles pick one by the `color`/`mono`
+// annotations. The Accent setting has no effect and is not offered (accentFor is always white); hueIndex always returns
+// the cyan bitmaps, the brightest of the six, so an icon cannot round to black.
+(:mono)
+class DayArcPalette {
+    static const MONO = true;
+    static const BACKGROUND = 0x000000;
+    static const TEXT = 0xFFFFFF;
+    static const MUTED = 0xFFFFFF;
+    static const ARC_TRACK = 0xFFFFFF;
+    static const HUE_CYAN = 0;
+    static const HUE_AMBER = 1;
+    static const HUE_ROSE = 2;
+    static const ACCENTS = [0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF] as Array<Number>;
+
+    static function hueIndex(window as Number, choice as Number) as Number {
+        return HUE_CYAN;
+    }
+
+    static function accentFor(window as Number, choice as Number) as Number {
+        return TEXT;
     }
 }

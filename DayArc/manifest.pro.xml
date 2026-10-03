@@ -73,6 +73,9 @@
       <iq:product id="venux1"/>
       <iq:product id="vivoactive5"/>
       <iq:product id="vivoactive6"/>
+      <iq:product id="instincte40mm"/>
+      <iq:product id="instincte45mm"/>
+      <iq:product id="instinct3solar45mm"/>
     </iq:products>
     <iq:permissions>
       <iq:uses-permission id="ComplicationSubscriber"/>

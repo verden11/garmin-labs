@@ -6,7 +6,10 @@ import Toybox.Lang;
 // size); reads only the plan's public fields.
 class DayArcStackFit {
     static function topRowsFit(plan as DayArcStack, dc as Graphics.Dc) as Boolean {
-        return rowFits(plan, dc, DayArcStack.ROW_CLOCK) && rowFits(plan, dc, DayArcStack.ROW_DATE) && rowFits(plan, dc, DayArcStack.ROW_LABEL);
+        // Beside the Instinct's window the band is narrow: the hero row (icon and value) has to clear it too, so the
+        // stack slides down until it does (ADR-015).
+        var hero = plan.layout.subscreen() == null || rowFits(plan, dc, DayArcStack.ROW_HERO);
+        return hero && rowFits(plan, dc, DayArcStack.ROW_CLOCK) && rowFits(plan, dc, DayArcStack.ROW_DATE) && rowFits(plan, dc, DayArcStack.ROW_LABEL);
     }
 
     static function allRowsFit(plan as DayArcStack, dc as Graphics.Dc) as Boolean {

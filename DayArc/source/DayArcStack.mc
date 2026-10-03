@@ -145,6 +145,11 @@ class DayArcStack {
         if (!pro && total < limit - start) {
             start += (limit - start - total) / 2;
         }
+        if (_window == DayArcConfig.WINDOW_NIGHT) {
+            // Night is just the clock and the date: both below the Instinct's window, so they share one centre
+            // (beside it the clock would centre in the narrow band and the date on the screen). No-op elsewhere.
+            start = layout.belowWindow(start);
+        }
         var step = DayArcText.max(1, layout.permille(SEARCH_STEP_PERMILLE));
         place(start);
         while (start + total <= limit && !DayArcStackFit.topRowsFit(self, dc())) {
