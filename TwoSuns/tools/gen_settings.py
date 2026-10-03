@@ -93,6 +93,10 @@ def check(root):
     for prop, _title, _default, _entries in SETTINGS:
         if f'= "{prop}";' not in config:
             print("TwoSunsConfig.mc has no key constant for", prop); bad += 1
+    menu = (root / "source" / "settings" / "TwoSunsSettingsMenu.mc").read_text()
+    for prop, _title, _default, _entries in SETTINGS:
+        if f"ITEM_{prop.upper()} = :" not in menu:
+            print("TwoSunsSettingsMenu.mc has no ITEM_ for", prop, "(the on-watch Customize screen would lack it)"); bad += 1
     strings = (root / "resources" / "strings" / "strings.xml").read_text()
     for sid in hand_ids("pro"):
         if f'<string id="{sid}">' not in strings:
