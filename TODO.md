@@ -12,6 +12,30 @@ Last consolidated 2026-09-26.
 - [x] HeroFace 1. FR965 store install of 1.0.1 (2026-09-26): live; face and HeroSet both installed, link works. °F rounding checked on the FR965, shows correct. Not checked: stored mode 2 → Auto.
 - [ ] A4. Upload all 7 `HeroSet/listing/screens-framed/*.png` as the Screen Images on the HeroSet store listing (edit details need no re-review) — supersedes the old single-file plan below it.
 
+## Icons: pixel-perfect pass follow-ups (PR #4 merged 2026-10-03)
+
+What changed: arc endpoints now on exact circles (HeroFace, DaysToGo, site marks), HeroSet shield and complication icon on
+integer vertices, DayArc icon bitmaps on a pixel grid ([ADR-013 Amendment 4](DayArc/docs/decisions.md)). The site deployed on
+merge; **nothing reaches a store until the next package/listing upload of each app.**
+
+- [ ] I1. **HeroFace listing images.** Re-render `HeroFace/listing/{cover-500,hero-1440x720,icon-24-128,icon-64-128}.png` from the changed
+  `src/{cover,hero,icon}.html` (commands + `quantize64.py` in `HeroFace/listing/screenshots.md`), look at them, then replace them on the live listing.
+  Check whether swapping images triggers re-review (A4 says screen images do not; icon/cover/hero not confirmed).
+- [ ] I2. **Days To Go listing hero.** Re-render `DaysToGo/listing/hero-1440x720.png` from `src/hero.html` (the blue ring arc was 4.4 units off the ring;
+  command in `DaysToGo/listing/screenshots.md`), replace on the listing. `cover-500.png` is a centred screenshot, untouched.
+- [ ] I3. **Launcher icons ride the next package upload** — no store field to edit: HeroFace and Days To Go (arcs exact), HeroSet 1.3.0 (shield on
+  integer vertices, complication icon on whole numbers). Add one line to each app's `CHANGELOG.md` entry when it ships ("launcher icon redrawn on the
+  pixel grid"); What's New needs nothing. Two Suns: nothing (launcher and listing arcs were already exact).
+- [ ] I4. **DayArc / DayArc Pro have no store assets yet** (placeholders). When the covers, heroes and screenshots are made, take them from a build that
+  includes this change (24 px grid icons, 60×48 / 48×48 / 60×42 hero icons), not an older `.prg`.
+- [ ] I5. **Wrist check, DayArc Pro dev build on the FR965** (`DayArc/docs/publish-checklist.md` item 8). First look 2026-10-03: Body Battery, grid icons and
+  hero row read fine. Still open: (a) edges crisp on a close look; (b) the recovery cell shows `R… 2501` — was it "Recovery" before? If the 24 px icon
+  (2 px wider per cell) caused the truncation, fix the cell fit in `DayArcGrid`; (c) 2 px strokes on stairs/steps/run/refresh/sunrise/thermometer after a
+  full day. Any "no" → `git revert f63fd8b` (icon commit only).
+- [ ] I6. Confirm the "Deploy to Firebase Hosting on merge" run for `4e39c32` finished green and the marks look right on https://verden.watch/.
+- [ ] I7. Optional: HeroSet store icon (`HeroSet/listing/src/icon.html`) and cover/hero still draw the older unscaled shield (≤0.5 unit from the new
+  launcher shield). No action needed unless you want them identical.
+
 ## Device checks (FR965, dev build, all-day wear)
 
 - [ ] B1. START finishes a set; START saves pickers; picker hint `UP/DOWN`; Back after a lone dropped rep leaves the set.
