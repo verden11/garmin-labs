@@ -13,6 +13,9 @@ import Toybox.Test;
 // anything that depends on font metrics is tested in DayArcStackTest, run per real device instead.
 (:test)
 function clockRowNeverGoesNegativeAcrossDeviceShapes(logger as Test.Logger) as Boolean {
+    if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_SEMI_OCTAGON) {
+        return true;   // synthetic sizes under an Instinct's own shape mean nothing; its plans are checked by stackFitsWorstCaseOnThisDevice
+    }
     var resolutions = [
         [454, 454], // fr965: round, width == height
         [390, 390], // approachs50: smallest round in the set, width == height

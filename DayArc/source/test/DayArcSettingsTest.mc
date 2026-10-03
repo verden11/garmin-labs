@@ -21,7 +21,7 @@ function garbageAccentValuesFallBackToAuto(logger as Test.Logger) as Boolean {
 
 // Every choice maps to a 64-colour-safe hue (each channel 0x00/0x55/0xAA/0xFF); Auto is exactly
 // ADR-013's per-window hues; a fixed choice is the same hue in every active window.
-(:test)
+(:test :color)
 function accentChoicesMapToSafeHues(logger as Test.Logger) as Boolean {
     var windows = [DayArcConfig.WINDOW_MORNING, DayArcConfig.WINDOW_MIDDAY, DayArcConfig.WINDOW_EVENING] as Array<Number>;
     Test.assertEqual(DayArcPalette.accentFor(DayArcConfig.WINDOW_MORNING, DayArcConfig.ACCENT_AUTO), 0xFFAA00);
@@ -40,5 +40,18 @@ function accentChoicesMapToSafeHues(logger as Test.Logger) as Boolean {
             }
         }
     }
+    return true;
+}
+
+// The Instinct palette (ADR-015): whatever the Accent choice, every accent is white and every role is white on black.
+(:test :mono)
+function accentIsWhiteOnTheMonoPalette(logger as Test.Logger) as Boolean {
+    Test.assert(DayArcPalette.MONO);
+    for (var choice = 0; choice < DayArcConfig.ACCENT_CHOICES; choice++) {
+        Test.assertEqual(DayArcPalette.accentFor(DayArcConfig.WINDOW_MIDDAY, choice), DayArcPalette.TEXT);
+        Test.assertEqual(DayArcPalette.hueIndex(DayArcConfig.WINDOW_MORNING, choice), DayArcPalette.HUE_CYAN);
+    }
+    Test.assertEqual(DayArcPalette.MUTED, DayArcPalette.TEXT);
+    Test.assertEqual(DayArcPalette.ARC_TRACK, DayArcPalette.TEXT);
     return true;
 }
