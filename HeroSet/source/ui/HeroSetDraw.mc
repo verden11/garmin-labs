@@ -32,11 +32,12 @@ class HeroSetDraw {
         }
     }
 
-    // Centered text, the common case. The x is the center of the row's usable
+    // Centered text, the common case; cut with a "." if even the chord at y
+    // is too narrow for it (see truncated). The x is the center of the row's usable
     // band, which is the screen's center everywhere but beside a subscreen
     // window (HeroSetLayout.rowCenterX).
     static function centered(dc as Graphics.Dc, layout as HeroSetLayout, y as Lang.Number, font as Graphics.FontDefinition, str as Lang.String) as Void {
-        text(dc, layout, layout.rowCenterX(y, dc.getFontHeight(font)), y, font, str, Graphics.TEXT_JUSTIFY_CENTER);
+        text(dc, layout, layout.rowCenterX(y, dc.getFontHeight(font)), y, font, fitted(dc, layout, y, font, str), Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     private static function leftEdge(x as Lang.Number, width as Lang.Number, justify as Graphics.TextJustification) as Lang.Number {
@@ -73,12 +74,41 @@ class HeroSetDraw {
         var y = layout.bandTop(0);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
         var font = largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, fonts);
+        if (layout.subscreen() != null) {
+            // Beside a subscreen window there is no wider chord to move down
+            // to (the rows below are spoken for), so cut the word instead.
+            text = fitted(dc, layout, y, font, text);
+        }
         while (y < layout.centerY() && !fits(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, font)) {
             y += 2;
         }
         dc.setColor(HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
         HeroSetDraw.centered(dc, layout, y, font, text);
         return y + dc.getFontHeight(font);
+    }
+
+    // `text` if it is at most `maxWidth` px wide in `font`, else its longest
+    // prefix that fits with a "." after it (a long translation, e.g. Swedish
+    // ARMHÄVNINGAR in a 95 px band, still reads as its word).
+    static function truncated(dc as Graphics.Dc, text as Lang.String, font as Graphics.FontDefinition, maxWidth as Lang.Number) as Lang.String {
+        var length = text.length();
+        if (dc.getTextWidthInPixels(text, font) <= maxWidth) {
+            return text;
+        }
+        while (length > 1) {
+            length--;
+            var cut = text.substring(0, length) + ".";
+            if (dc.getTextWidthInPixels(cut, font) <= maxWidth) {
+                return cut;
+            }
+        }
+        return text.substring(0, 1);
+    }
+
+    // `text` cut to the chord the row at y offers (see truncated).
+    static function fitted(dc as Graphics.Dc, layout as HeroSetLayout, y as Lang.Number, font as Graphics.FontDefinition, text as Lang.String) as Lang.String {
+        var height = dc.getFontHeight(font);
+        return truncated(dc, text, font, layout.rightInsetWithin(layout.displayRadius(), y, height) - layout.leftInsetWithin(layout.displayRadius(), y, height));
     }
 
     // Does centered text fit the chord at row y, inside `radius` and with
