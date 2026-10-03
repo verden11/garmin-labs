@@ -260,8 +260,8 @@ permanently fixed as a grid icon's — each window has exactly one hero (morning
 midday=stress, evening=battery; confirmed by reading `DayArcFields.heroFor`, no window ever shows a
 different hero), so it never needs runtime tinting either. All 17 icons (3 hero + 14 grid) are
 built the same way: pre-coloured, flattened SVG → `<bitmap>` resource (`dithering="none"`), drawn
-with plain `dc.drawBitmap`, sized at fixed pixels per icon (hero: 56×45 / 52×52 / 68×48, 18 files across 6 hues per ADR-014; grid:
-22×22 uniform) — no BMFont tooling, no runtime tint, no `drawBitmap2` at all, sidestepping the
+with plain `dc.drawBitmap`, sized at fixed pixels per icon (hero: 60×48 / 48×48 / 60×42, 18 files across 6 hues per ADR-014; grid:
+24×24 uniform) — no BMFont tooling, no runtime tint, no `drawBitmap2` at all, sidestepping the
 FR165/165m tint bug by construction rather than by careful use. Hero icons live in
 `resources/drawables/icons/` (shared, both builds); grid icons in
 `resources-pro/drawables/icons/` (Pro only). Licence notice:
@@ -269,7 +269,7 @@ FR165/165m tint bug by construction rather than by careful use. Hero icons live 
 
 **A real, accepted trade-off from this choice:** plain `dc.drawBitmap` doesn't scale — every icon
 renders at the same fixed pixel size on every device regardless of screen diameter (unlike every
-text row here, which is measured per-device). A 22px grid icon is proportionally larger on a small
+text row here, which is measured per-device). A 24px grid icon is proportionally larger on a small
 round product than on fr965. This matches how the existing launcher icon already behaves (also a
 fixed-size SVG bitmap) and wasn't considered a design defect during implementation, but it's a
 first for a *repeated, layout-critical* element (the grid icons interact with `DayArcGrid`'s real

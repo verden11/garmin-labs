@@ -13,7 +13,7 @@ export function AppPage({ app, section }: { app: App; section: Section }) {
       <Shell>
         <nav className="app-bar" aria-label={app.name}>
           <div className="wrap app-bar__inner">
-            <a className="app-bar__name" href={appUrl(app.slug)}><app.Mark size={28} />{app.name}</a>
+            <a className="app-bar__name" href={appUrl(app.slug)}><app.Mark size={32} />{app.name}</a>
             <ul>
               {tabs.map(([id, label]) => (
                 <li key={id}>

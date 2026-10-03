@@ -31,7 +31,7 @@ class DayArcLayout {
     // "Implementation note" — plain dc.drawBitmap, no :tintColor/drawBitmap2, sidesteps the
     // FR165/165m tint bug by not tinting at all). GRID_ICON_SIZE must match the pixel size baked
     // into resources-pro/drawables/icons/grid_*.svg at generation time.
-    static const GRID_ICON_SIZE = 22;
+    static const GRID_ICON_SIZE = 24;
     private static const HERO_ICON_GAP_PERMILLE = 20;
     private static const GRID_ICON_GAP_PERMILLE = 10;
 
