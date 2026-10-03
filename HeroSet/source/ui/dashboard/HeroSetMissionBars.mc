@@ -6,15 +6,20 @@ import Toybox.Lang;
 // are the detail.
 class HeroSetMissionBars {
 
+    private const DONE_IN_LABEL = 0;
+    private const DONE_IN_COUNT = 1;
+    private const DONE_NONE = 2;
+
     private var _labels as Lang.Array<Lang.String>;
     private var _doneLabels as Lang.Array<Lang.String>;
     // Set by draw() for the row helpers below: the goal is per-draw state,
     // not per-instance, and threading it through five signatures buys
     // nothing while draw() is the only way into them.
     private var _goal as Lang.Number = HeroSetConfig.DEFAULT_MISSION_GOAL;
-    // Same per-draw state: false when a DONE label can't share its row with
-    // the count even at the smallest font.
-    private var _doneWords as Lang.Boolean = true;
+    // Same per-draw state: how a finished row says DONE. LABEL puts the word
+    // after the name; COUNT swaps the count for it (a long name plus DONE
+    // plus the count overflows the row); NONE leaves the full bar to say it.
+    private var _doneMode as Lang.Number = DONE_IN_LABEL;
 
     function initialize() {
         var exercises = HeroSetRules.EXERCISES;
@@ -32,14 +37,13 @@ class HeroSetMissionBars {
         _goal = goal;
         var pitch = (bottom - top) / counts.size();
         var column = column(layout, top, bottom - top);
-        _doneWords = true;
-        var font = countFont(dc, layout, pitch, counts, column);
-        if (font == null) {
-            // Long translations (Ukrainian, Danish, Dutch, ...) on 360 px:
-            // the full bar and a count at goal still say done without green.
-            _doneWords = false;
+        var font = null as Graphics.FontDefinition?;
+        for (_doneMode = DONE_IN_LABEL; font == null && _doneMode <= DONE_NONE; _doneMode++) {
             font = countFont(dc, layout, pitch, counts, column);
         }
+        _doneMode--;
+        // Long translations (Ukrainian, Danish, Dutch, ...) on 360 px can
+        // still end in DONE_NONE: the full bar says done without green.
         if (font == null) {
             font = Graphics.FONT_XTINY;
         }
@@ -81,7 +85,7 @@ class HeroSetMissionBars {
         }
         var available = column[1] - column[0];
         for (var i = 0; i < counts.size(); i++) {
-            var needed = dc.getTextWidthInPixels(labelFor(i, counts[i]), Graphics.FONT_XTINY) + layout.stackGap() + dc.getTextWidthInPixels(counts[i].toString(), font);
+            var needed = dc.getTextWidthInPixels(labelFor(i, counts[i]), Graphics.FONT_XTINY) + layout.stackGap() + dc.getTextWidthInPixels(countFor(counts[i]), font);
             if (needed > available) {
                 return false;
             }
@@ -91,7 +95,11 @@ class HeroSetMissionBars {
 
     // DONE in the label means a finished goal never depends on the green alone.
     private function labelFor(index as Lang.Number, count as Lang.Number) as Lang.String {
-        return count >= _goal && _doneWords ? _doneLabels[index] : _labels[index];
+        return count >= _goal && _doneMode == DONE_IN_LABEL ? _doneLabels[index] : _labels[index];
+    }
+
+    private function countFor(count as Lang.Number) as Lang.String {
+        return count >= _goal && _doneMode == DONE_IN_COUNT ? HeroSetText.format(Rez.Strings.menu_sublabel_done, []) : count.toString();
     }
 
     // The XTINY label shares the count's baseline so mixed sizes read as one
@@ -101,7 +109,7 @@ class HeroSetMissionBars {
         var done = count >= _goal;
         dc.setColor(done ? HeroSetPalette.DONE : HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
         HeroSetDraw.text(dc, layout, column[0], baseline - Graphics.getFontAscent(Graphics.FONT_XTINY), Graphics.FONT_XTINY, labelFor(index, count), Graphics.TEXT_JUSTIFY_LEFT);
-        HeroSetDraw.text(dc, layout, column[1], y, font, count.toString(), Graphics.TEXT_JUSTIFY_RIGHT);
+        HeroSetDraw.text(dc, layout, column[1], y, font, countFor(count), Graphics.TEXT_JUSTIFY_RIGHT);
         drawBar(dc, layout, baseline + layout.stackGap(), count, column);
     }
 

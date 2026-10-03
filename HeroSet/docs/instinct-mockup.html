@@ -38,7 +38,7 @@
   <g id="rows"></g>
   <text class="px xt" x="88" y="164" text-anchor="middle">START: MENU</text>
 </svg>
-<figcaption><b>Dashboard.</b> The XP ring moves into the window as a gauge (hairline track, thick fill). Rank and streak sit in the band left of it; the XP-to-go line is dropped (the gauge shows it). Mission rows get the full width below. Tracks are outlines, fills solid; a finished row says DONE and its bar is solid. Nothing depends on colour.</figcaption>
+<figcaption><b>Dashboard.</b> The XP ring moves into the window as a gauge (hairline track, thick fill). Rank and streak sit in the band left of it; the XP-to-go line is dropped (the gauge shows it). Mission rows get the full width below. Tracks are outlines, fills solid; a finished row says DONE where its count was (the name plus DONE plus the count does not fit the row) and its bar is solid. Nothing depends on colour.</figcaption>
 </figure>
 
 <figure>
@@ -66,7 +66,7 @@
   <g id="rows2"></g>
   <text class="px xt" x="88" y="164" text-anchor="middle">MISSION COMPLETE</text>
 </svg>
-<figcaption><b>Everything done.</b> Same layout; footer swaps to MISSION COMPLETE. Done is carried by the DONE word and a solid bar. Streak reads STREAK 12 beside the window because the longer form measured wider than the band.</figcaption>
+<figcaption><b>Everything done.</b> Same layout; footer swaps to MISSION COMPLETE. Done is carried by the DONE word in place of the count, and a solid bar. Streak reads STREAK 12 beside the window because the longer form measured wider than the band.</figcaption>
 </figure>
 
 </div>
@@ -86,8 +86,8 @@ function rows(id, data) {
   data.forEach((d, i) => {
     const y = 73 + 25*i;
     const t = (x, yy, cls, txt, anchor) => { const e = document.createElementNS(NS,"text"); e.setAttribute("class", "px "+cls); e.setAttribute("x", x); e.setAttribute("y", yy); e.setAttribute("text-anchor", anchor); e.textContent = txt; g.appendChild(e); };
-    t(left, y+13, "xt", d.lt ? d.label.replace(" DONE","") : d.label, "start");
-    t(right, y+13, d.cc || "sm", String(d.n), "end");
+    t(left, y+13, "xt", d.label.replace(" DONE",""), "start");
+    t(right, y+13, d.cc || "sm", d.n >= 100 ? "DONE" : String(d.n), "end");
     const by = y+16;
     const w = right-left;
     const track = document.createElementNS(NS,"rect");
