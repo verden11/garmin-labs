@@ -1,0 +1,132 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two Suns Pro — battery and icons mockup</title>
+<style>
+  :root { color-scheme: dark; }
+  body { background:#111; color:#ccc; font:14px/1.4 -apple-system,Helvetica,Arial,sans-serif; margin:0; padding:20px 12px 60px; }
+  h1 { font-size:18px; margin:0 0 4px; color:#fff }
+  p.note { max-width:760px; margin:0 0 18px; color:#c8c8c8 }
+  .row { display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start }
+  figure { margin:0; text-align:center }
+  figcaption { margin:8px auto 0; font-size:13px; color:#ccc; max-width:420px }
+  figcaption b { color:#fff }
+  svg { display:block; background:#000; border-radius:50%; max-width:100%; height:auto }
+</style>
+<h1>Two Suns — watch battery row, Body Battery glyph, next-day arrow (mockup, rev 5; the owner chose the bolt gauge, 2026-10-03, and built it)</h1>
+<p class="note">Sample data only. New: a watch battery row above the date (muted; hidden when the chord has no room, as on small screens), a Body Battery glyph that cannot be mistaken for the watch battery (a ring gauge, or a bolt filled to the level), and an arrow glyph instead of the &gt; character. All are primitives (circles, arcs, polygons), one stroke weight, like the weather icons. Row heights as in the built weather row.</p>
+<div class="row" id="out"></div>
+<script>
+const ACC='#55AAFF', ACC_DIM='#55AAAA', NIGHT='#5555AA', TWI='#AAAAFF', GOLD='#FF5500', MUTED='#AAAAAA';
+const pol=(r,min,c)=>{const a=(min-720)/4*Math.PI/180;return [c+r*Math.sin(a),c-r*Math.cos(a)];};
+const arc=(r,m0,m1,c)=>{if(m1<=m0)return'';const[a,b]=pol(r,m0,c),[x,y]=pol(r,m1,c);return`M${a},${b} A${r},${r} 0 ${(m1-m0)>720?1:0} 1 ${x},${y}`;};
+
+function cloud(x,y,s,col){return `<g fill="${col}"><circle cx="${x-.26*s}" cy="${y+.08*s}" r="${.2*s}"/><circle cx="${x-.02*s}" cy="${y-.06*s}" r="${.29*s}"/><circle cx="${x+.28*s}" cy="${y+.06*s}" r="${.2*s}"/><rect x="${x-.46*s}" y="${y+.08*s}" width="${.94*s}" height="${.2*s}" rx="${.1*s}"/></g>`;}
+function sun(x,y,s,col){let o=`<circle cx="${x}" cy="${y}" r="${.2*s}" fill="${col}"/>`;for(let i=0;i<8;i++){const a=i*Math.PI/4;o+=`<line x1="${x+.3*s*Math.cos(a)}" y1="${y+.3*s*Math.sin(a)}" x2="${x+.43*s*Math.cos(a)}" y2="${y+.43*s*Math.sin(a)}" stroke="${col}" stroke-width="${Math.max(1.2,.07*s)}" stroke-linecap="round"/>`;}return o;}
+const ICON={
+  clear:(x,y,s,k)=>sun(x,y,s,k.sun),
+  partly:(x,y,s,k)=>sun(x-.18*s,y-.16*s,s*.8,k.sun)+cloud(x+.1*s,y+.1*s,s*.85,k.cloud),
+  cloudy:(x,y,s,k)=>cloud(x,y,s,k.cloud),
+  rain:(x,y,s,k)=>cloud(x,y-.14*s,s,k.cloud)+[-.22,0,.22].map(d=>`<line x1="${x+d*s}" y1="${y+.3*s}" x2="${x+(d-.06)*s}" y2="${y+.46*s}" stroke="${k.rain}" stroke-width="${Math.max(1.4,.09*s)}" stroke-linecap="round"/>`).join('')
+};
+const MONO={sun:MUTED,cloud:MUTED,rain:MUTED,bolt:MUTED,snow:MUTED};
+const HUE={sun:'#FFFF55',cloud:'#FFFFFF',rain:'#00AAFF',bolt:'#FFFF55',snow:'#FFFFFF'};   // fixed per icon type, never per value
+const NUMBER_HUE='#FFFF55';   // the lead number is one hue whatever the condition
+
+
+// ---- new glyphs ----
+const TRACK='#555555';
+function watchBattery(x,y,w,h,pct,col){            // classic battery: outline, nub on the right, inner fill
+  const sw=Math.max(1.5,h*.08),nub=h*.3,pad=h*.14,fw=(w-2*pad)*pct/100;
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h*.2}" fill="none" stroke="${col}" stroke-width="${sw}"/>`+
+    `<rect x="${x+w+sw*.3}" y="${y+h*.5-nub/2}" width="${h*.1+1}" height="${nub}" rx="1" fill="${col}"/>`+
+    `<rect x="${x+pad}" y="${y+pad}" width="${fw}" height="${h-2*pad}" rx="${h*.08}" fill="${col}"/>`;
+}
+function bbRing(cx,cy,r,pct,col){                  // ring gauge: track, arc from the top clockwise
+  const sw=Math.max(2.5,r*.34),a=pct/100*2*Math.PI,x=cx+r*Math.sin(a),y=cy-r*Math.cos(a);
+  return `<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${TRACK}" stroke-width="${sw}"/>`+
+    (pct>=99.5?`<circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${col}" stroke-width="${sw}"/>`:`<path d="M${cx},${cy-r} A${r},${r} 0 ${pct>50?1:0} 1 ${x},${y}" fill="none" stroke="${col}" stroke-width="${sw}" stroke-linecap="butt"/>`);
+}
+let clipN=0;
+function bbBolt(cx,cy,h,pct,col){                  // bolt, filled from the bottom to the level, the rest a dim bolt
+  const P=[[.18,-.5],[-.28,.08],[-.02,.08],[-.2,.5],[.3,-.12],[.04,-.12]].map(([a,b])=>`${cx+a*h},${cy+b*h}`).join(' ');
+  const id='c'+(clipN++),top=cy+h/2-h*pct/100;
+  return `<defs><clipPath id="${id}"><rect x="${cx-h}" y="${top}" width="${2*h}" height="${h}"/></clipPath></defs>`+
+    `<polygon points="${P}" fill="${TRACK}"/><polygon points="${P}" fill="${col}" clip-path="url(#${id})"/>`;
+}
+function bbPill(x,y,w,h,pct,col){
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h*.2}" fill="none" stroke="${MUTED}" stroke-width="1.5"/><rect x="${x}" y="${y}" width="${w*pct/100}" height="${h}" fill="${col}"/>`;
+}
+function nextArrow(kind,x,cy,f,col){               // x = left edge; returns svg; f = label height
+  const w=f*.5,h=f*.34,sw=Math.max(1.5,f*.07);
+  if(kind==='arrow') return `<line x1="${x}" y1="${cy}" x2="${x+w*.75}" y2="${cy}" stroke="${col}" stroke-width="${sw*1.3}" stroke-linecap="round"/><polygon points="${x+w*.55},${cy-h*.62} ${x+w*1.05},${cy} ${x+w*.55},${cy+h*.62}" fill="${col}"/>`;
+  if(kind==='tri') return `<polygon points="${x},${cy-h*.7} ${x+w*.85},${cy} ${x},${cy+h*.7}" fill="${col}"/>`;
+  return `<polyline points="${x},${cy-h*.5} ${x+w*.5},${cy} ${x},${cy+h*.5}" fill="none" stroke="${col}" stroke-width="${sw}" stroke-linecap="round" stroke-linejoin="round"/>`;
+}
+
+// h = real row heights from twoSunsLayoutReport; text sizes derived from them
+function face(D,h,opt){
+  const c=D/2,fl=Math.floor,rw=fl(D*25/1000),rr=c-fl(rw/2)-fl(D*10/1000);
+  const now=opt.now??14*60+20,RISE=6*60+41,SET=19*60+12,day=now>RISE&&now<SET;
+  let s=`<svg viewBox="0 0 ${D} ${D}" width="${D}" height="${D}" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">`;
+  const st=(a,b,col)=>`<path d="${arc(rr,a,b,c)}" fill="none" stroke="${col}" stroke-width="${rw}"/>`;
+  s+=`<circle cx="${c}" cy="${c}" r="${rr}" fill="none" stroke="${NIGHT}" stroke-width="${rw}"/>`+st(RISE-35,RISE,TWI)+st(SET,SET+35,TWI);
+  s+=day?st(RISE,now,ACC_DIM)+st(now,SET,ACC)+st(SET-60,SET,GOLD):st(RISE,SET,ACC_DIM);
+  const [mx,my]=pol(rr,now,c);s+=`<circle cx="${mx}" cy="${my}" r="${rw*.62}" fill="${day?'#fff':'#000'}" stroke="#fff" stroke-width="${Math.max(1,D/227)}"/>`;
+  const T=(x,y,size,col,txt,anchor='middle',w='400')=>`<text x="${x}" y="${y}" fill="${col}" font-size="${size}" font-weight="${w}" text-anchor="${anchor}">${txt}</text>`;
+  const rowH=opt.compact?h.date:h.row;
+  const H=h.date+h.gap+h.time+h.gap+rowH+h.gap+h.band+h.gap+h.line, top=c-H/2;let y=top;
+  const cap=.72;
+  if(opt.battery){ const by=top-h.gap-h.date*.9, bh=h.date*.6, bw=bh*2, tw=h.date*cap*2.1, gw=bw+bh*.4, tot=gw+8+tw; const bx=c-tot/2;
+    s+=watchBattery(bx,by+h.date*.3-bh/2,bw,bh,opt.battery,MUTED)+T(bx+gw+8,by+h.date*.3+h.date*cap*.35,h.date*cap,MUTED,opt.battery+'%','start'); }
+  s+=T(c,y+h.date*.8,h.date*cap,MUTED,opt.date||'Fri 3 Oct');y+=h.date+h.gap;
+  s+=T(c,y+h.time*.91,h.time*1.146,'#fff',opt.timeTxt||'14:20','middle','700').replace('<text','<text letter-spacing="'+(-D/227)+'"');y+=h.time+h.gap;
+  const ry=y,cy=ry+rowH/2;
+  if(opt.compact){                       // one line, no hour labels
+    const is=h.date*.9,k=HUE,n=ICON[opt.nowIcon||'partly'],fs=h.date*.8;
+    s+=n(c-D*.20,cy,is,k)+T(c-D*.20+is*.62,cy+fs*.35,fs,NUMBER_HUE,'15°','start','600');
+    [['partly',0],['rain',1],['rain',2]].forEach(([ic,i])=>{s+=ICON[ic](c+D*.06+i*D*.115,cy,is*.8,MONO);});
+  } else if(opt.mode==='tomorrow'){
+    const is=rowH*.62,fs=rowH*.62;
+    {const f=rowH*.37,gx=c-D*.30-1.15*f,gy=cy-rowH*.08;   // chevron + weekday: "next day"
+      s+=nextArrow(opt.arrow||'chev',gx,gy,f,MUTED)+T(gx+.8*f,gy+.34*f,f,MUTED,'Sun','start');}
+    s+=ICON.clear(c-D*.30,cy+rowH*.26,is*.7,HUE);
+    s+=T(c-D*.16,cy+fs*.32,fs,'#FFFF55','21°','start','600')+T(c-D*.16+fs*1.75,cy+fs*.3,fs*.6,MUTED,'12°','start');
+    [['partly',10,.15],['cloudy',13,.275],['rain',16,.40]].forEach(([ic,hr,dx])=>{s+=ICON[ic](c+D*dx-D*.02,ry+rowH*.34,rowH*.52,MONO)+T(c+D*dx-D*.02,ry+rowH*.95,rowH*.36,MUTED,hr);});
+  } else if(rowH>0){
+    const nowI=opt.nowIcon||'partly',is=rowH*.63,fs=rowH*.62;
+    s+=ICON[nowI](c-D*.285,cy,is,HUE)+T(c-D*.285+is*.58,cy+fs*.35,fs,NUMBER_HUE,'15°','start','600');
+    [['partly',16,.10],['rain',18,.225],['rain',19,.35]].forEach(([ic,hr,dx])=>{s+=ICON[ic](c+D*dx-D*.0,ry+rowH*.23,rowH*.46,MONO)+T(c+D*dx,ry+rowH*.95,rowH*.36,MUTED,hr);});
+  }
+  y+=rowH+h.gap;
+  const pw=h.band*.44, gx0=c-D*.23, gy=y+h.band*.5, lv=opt.level??62, bbc=lv<30?'#55AAAA':ACC;
+  if(opt.bb==='ring') s+=bbRing(gx0+pw*.9,gy,pw*.62,lv,bbc);
+  else if(opt.bb==='bolt') s+=bbBolt(gx0+pw*.9,gy,pw*1.7,lv,bbc);
+  else s+=bbPill(gx0,y+h.band*.2,pw*1.8,pw,lv,bbc);
+  s+=T(gx0+pw*1.8+h.band*.15,y+h.band*.2+pw*.98,h.band*.58,bbc,String(lv),'start');
+  let d='';for(let i=0;i<=60;i++){const yy=.5-(.28*Math.sin(i/60*Math.PI*1.1+.6)+.14*Math.sin(i/9));d+=(i?'L':'M')+(c-D*.02+i*D*.0042)+','+(y+h.band*(.05+yy*.9))+' ';}
+  s+=`<path d="${d}" fill="none" stroke="#fff" stroke-width="${Math.max(1,D/280)}"/>`;y+=h.band+h.gap;
+  s+=T(c,y+h.line*.76,h.line*.68,MUTED,opt.line||'4 h 52 m of light left');
+  return s+'</svg>';
+}
+const R454={date:37,time:103,row:68,band:49,line:37,gap:6};
+const R218={date:19,time:53,row:35,band:23,line:19,gap:3};
+const sets=[
+ ['A. Ring gauge, battery row, arrow (recommended)','Watch battery at the top in muted grey (classic battery with a nub: a rectangle). Body Battery is a ring gauge, accent, filled clockwise from the top: a circle cannot be mistaken for a rectangle.',454,R454,{battery:87,bb:'ring'}],
+ ['B. Bolt gauge, battery row','Body Battery as a bolt filled from the bottom to the level, the rest dim. Reads as energy, but a bolt also means charging on many watches.',454,R454,{battery:87,bb:'bolt'}],
+ ['Today: the pill (for comparison)','Rounded bar, no nub. Beside a watch battery in the same row of the face it reads as a second battery.',454,R454,{battery:87,bb:'pill'}],
+ ['After sunset with the arrow','The next-day cell: an arrow glyph (shaft and head) instead of the > character.',454,R454,{now:21*60+40,mode:'tomorrow',timeTxt:'21:40',nowIcon:'clear',line:'Sunrise 06:43',battery:87,bb:'ring',arrow:'arrow'}],
+ ['fr255s, 218 px: no room for the battery row','The chord above the stack is too narrow here, so the row is simply not drawn (measured at runtime). Ring gauge in the band.',218,R218,{compact:true,bb:'ring'}],
+];
+// close-ups, 3x: the glyph options side by side
+const SAMPLE=(label,body,w=150,h=70)=>`<figure><svg viewBox="0 0 ${w} ${h}" width="${w*3}" height="${h*3}" style="border-radius:8px;background:#000">${body}</svg><figcaption><b>${label}</b></figcaption></figure>`;
+const X=document.createElement('div');X.className='row';X.id='ups';
+X.innerHTML=
+ SAMPLE('Watch battery 87% and 12%',watchBattery(14,12,44,22,87,MUTED)+`<text x="70" y="30" fill="${MUTED}" font-size="20" font-family="Helvetica">87%</text>`+watchBattery(14,44,44,22,12,MUTED)+`<text x="70" y="62" fill="${MUTED}" font-size="20" font-family="Helvetica">12%</text>`)+
+ SAMPLE('Body Battery ring 62% and 18% (dim)',bbRing(30,20,12,62,ACC)+`<text x="56" y="28" fill="${ACC}" font-size="22" font-family="Helvetica">62</text>`+bbRing(30,52,12,18,'#55AAAA')+`<text x="56" y="60" fill="#55AAAA" font-size="22" font-family="Helvetica">18</text>`)+
+ SAMPLE('Body Battery bolt 62% and 18%',bbBolt(30,20,34,62,ACC)+`<text x="56" y="28" fill="${ACC}" font-size="22" font-family="Helvetica">62</text>`+bbBolt(30,54,34,18,'#55AAAA')+`<text x="56" y="62" fill="#55AAAA" font-size="22" font-family="Helvetica">18</text>`)+
+ SAMPLE('Today\'s pill 62% and 18%',bbPill(14,10,36,20,62,ACC)+`<text x="58" y="28" fill="${ACC}" font-size="22" font-family="Helvetica">62</text>`+bbPill(14,44,36,20,18,'#55AAAA')+`<text x="58" y="62" fill="#55AAAA" font-size="22" font-family="Helvetica">18</text>`)+
+ SAMPLE('Next-day marker: > (today), arrow, triangle',[['chev',12],['arrow',36],['tri',60]].map(([k,y])=>nextArrow(k,14,y,40,MUTED)+`<text x="44" y="${y+8}" fill="${MUTED}" font-size="22" font-family="Helvetica">Sun</text>`).join(''));
+document.body.appendChild(X);
+document.getElementById('out').innerHTML=sets.map(([t,cap,D,h,o])=>{if(o._none){h={...h,row:0};}return `<figure>${face(D,h,o)}<figcaption><b>${t}</b><br>${cap}</figcaption></figure>`;}).join('');
+</script>

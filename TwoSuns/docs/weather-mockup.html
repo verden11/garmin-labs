@@ -1,0 +1,85 @@
+<!doctype html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Two Suns Pro — weather row mockup</title>
+<style>
+  :root { color-scheme: dark; }
+  body { background:#111; color:#ccc; font:14px/1.4 -apple-system,Helvetica,Arial,sans-serif; margin:0; padding:20px 12px 60px; }
+  h1 { font-size:18px; margin:0 0 4px; color:#fff }
+  p.note { max-width:760px; margin:0 0 18px; color:#c8c8c8 }
+  .row { display:flex; flex-wrap:wrap; gap:24px; align-items:flex-start }
+  figure { margin:0; text-align:center }
+  figcaption { margin:8px auto 0; font-size:13px; color:#ccc; max-width:420px }
+  figcaption b { color:#fff }
+  svg { display:block; background:#000; border-radius:50%; max-width:100%; height:auto }
+</style>
+<h1>Two Suns Pro — weather row (mockup, rev 4)</h1>
+<p class="note">Approved by the owner 2026-10-03; rev 4 follows the design review (lead icon larger, the number one hue, row height as built, thinner chevron). Sample data only: 14:20, sunrise 06:41, sunset 19:12. Row heights, gaps and spans are the real <code>twoSunsLayoutReport</code> numbers (simulator, 2026-10-03) for fr965 and fr255s. Icons are circles, lines and polygons, as the face would draw them. The now icon and its temperature are coloured; the ahead icons are mono.</p>
+<div class="row" id="out"></div>
+<script>
+const ACC='#55AAFF', ACC_DIM='#55AAAA', NIGHT='#5555AA', TWI='#AAAAFF', GOLD='#FF5500', MUTED='#AAAAAA';
+const pol=(r,min,c)=>{const a=(min-720)/4*Math.PI/180;return [c+r*Math.sin(a),c-r*Math.cos(a)];};
+const arc=(r,m0,m1,c)=>{if(m1<=m0)return'';const[a,b]=pol(r,m0,c),[x,y]=pol(r,m1,c);return`M${a},${b} A${r},${r} 0 ${(m1-m0)>720?1:0} 1 ${x},${y}`;};
+
+function cloud(x,y,s,col){return `<g fill="${col}"><circle cx="${x-.26*s}" cy="${y+.08*s}" r="${.2*s}"/><circle cx="${x-.02*s}" cy="${y-.06*s}" r="${.29*s}"/><circle cx="${x+.28*s}" cy="${y+.06*s}" r="${.2*s}"/><rect x="${x-.46*s}" y="${y+.08*s}" width="${.94*s}" height="${.2*s}" rx="${.1*s}"/></g>`;}
+function sun(x,y,s,col){let o=`<circle cx="${x}" cy="${y}" r="${.2*s}" fill="${col}"/>`;for(let i=0;i<8;i++){const a=i*Math.PI/4;o+=`<line x1="${x+.3*s*Math.cos(a)}" y1="${y+.3*s*Math.sin(a)}" x2="${x+.43*s*Math.cos(a)}" y2="${y+.43*s*Math.sin(a)}" stroke="${col}" stroke-width="${Math.max(1.2,.07*s)}" stroke-linecap="round"/>`;}return o;}
+const ICON={
+  clear:(x,y,s,k)=>sun(x,y,s,k.sun),
+  partly:(x,y,s,k)=>sun(x-.18*s,y-.16*s,s*.8,k.sun)+cloud(x+.1*s,y+.1*s,s*.85,k.cloud),
+  cloudy:(x,y,s,k)=>cloud(x,y,s,k.cloud),
+  rain:(x,y,s,k)=>cloud(x,y-.14*s,s,k.cloud)+[-.22,0,.22].map(d=>`<line x1="${x+d*s}" y1="${y+.3*s}" x2="${x+(d-.06)*s}" y2="${y+.46*s}" stroke="${k.rain}" stroke-width="${Math.max(1.4,.09*s)}" stroke-linecap="round"/>`).join('')
+};
+const MONO={sun:MUTED,cloud:MUTED,rain:MUTED,bolt:MUTED,snow:MUTED};
+const HUE={sun:'#FFFF55',cloud:'#FFFFFF',rain:'#00AAFF',bolt:'#FFFF55',snow:'#FFFFFF'};   // fixed per icon type, never per value
+const NUMBER_HUE='#FFFF55';   // the lead number is one hue whatever the condition
+
+// h = real row heights from twoSunsLayoutReport; text sizes derived from them
+function face(D,h,opt){
+  const c=D/2,fl=Math.floor,rw=fl(D*25/1000),rr=c-fl(rw/2)-fl(D*10/1000);
+  const now=opt.now??14*60+20,RISE=6*60+41,SET=19*60+12,day=now>RISE&&now<SET;
+  let s=`<svg viewBox="0 0 ${D} ${D}" width="${D}" height="${D}" xmlns="http://www.w3.org/2000/svg" font-family="Helvetica,Arial,sans-serif">`;
+  const st=(a,b,col)=>`<path d="${arc(rr,a,b,c)}" fill="none" stroke="${col}" stroke-width="${rw}"/>`;
+  s+=`<circle cx="${c}" cy="${c}" r="${rr}" fill="none" stroke="${NIGHT}" stroke-width="${rw}"/>`+st(RISE-35,RISE,TWI)+st(SET,SET+35,TWI);
+  s+=day?st(RISE,now,ACC_DIM)+st(now,SET,ACC)+st(SET-60,SET,GOLD):st(RISE,SET,ACC_DIM);
+  const [mx,my]=pol(rr,now,c);s+=`<circle cx="${mx}" cy="${my}" r="${rw*.62}" fill="${day?'#fff':'#000'}" stroke="#fff" stroke-width="${Math.max(1,D/227)}"/>`;
+  const T=(x,y,size,col,txt,anchor='middle',w='400')=>`<text x="${x}" y="${y}" fill="${col}" font-size="${size}" font-weight="${w}" text-anchor="${anchor}">${txt}</text>`;
+  const rowH=opt.compact?h.date:h.row;
+  const H=h.date+h.gap+h.time+h.gap+rowH+h.gap+h.band+h.gap+h.line, top=c-H/2;let y=top;
+  const cap=.72;
+  s+=T(c,y+h.date*.8,h.date*cap,MUTED,opt.date||'Fri 3 Oct');y+=h.date+h.gap;
+  s+=T(c,y+h.time*.91,h.time*1.146,'#fff',opt.timeTxt||'14:20','middle','700').replace('<text','<text letter-spacing="'+(-D/227)+'"');y+=h.time+h.gap;
+  const ry=y,cy=ry+rowH/2;
+  if(opt.compact){                       // one line, no hour labels
+    const is=h.date*.9,k=HUE,n=ICON[opt.nowIcon||'partly'],fs=h.date*.8;
+    s+=n(c-D*.20,cy,is,k)+T(c-D*.20+is*.62,cy+fs*.35,fs,NUMBER_HUE,'15°','start','600');
+    [['partly',0],['rain',1],['rain',2]].forEach(([ic,i])=>{s+=ICON[ic](c+D*.06+i*D*.115,cy,is*.8,MONO);});
+  } else if(opt.mode==='tomorrow'){
+    const is=rowH*.62,fs=rowH*.62;
+    {const f=rowH*.37,gx=c-D*.30-1.15*f,gy=cy-rowH*.08;   // chevron + weekday: "next day"
+      s+=`<polyline points="${gx},${gy-.34*f} ${gx+.34*f},${gy} ${gx},${gy+.34*f}" fill="none" stroke="${MUTED}" stroke-width="${Math.max(1.2,.07*f)}" stroke-linecap="round" stroke-linejoin="round"/>`+T(gx+.62*f,gy+.34*f,f,MUTED,'Sat','start');}
+    s+=ICON.clear(c-D*.30,cy+rowH*.26,is*.7,HUE);
+    s+=T(c-D*.16,cy+fs*.32,fs,'#FFFF55','21°','start','600')+T(c-D*.16+fs*1.75,cy+fs*.3,fs*.6,MUTED,'12°','start');
+    [['partly',10,.15],['cloudy',13,.275],['rain',16,.40]].forEach(([ic,hr,dx])=>{s+=ICON[ic](c+D*dx-D*.02,ry+rowH*.34,rowH*.52,MONO)+T(c+D*dx-D*.02,ry+rowH*.95,rowH*.36,MUTED,hr);});
+  } else if(rowH>0){
+    const nowI=opt.nowIcon||'partly',is=rowH*.63,fs=rowH*.62;
+    s+=ICON[nowI](c-D*.285,cy,is,HUE)+T(c-D*.285+is*.58,cy+fs*.35,fs,NUMBER_HUE,'15°','start','600');
+    [['partly',16,.10],['rain',18,.225],['rain',19,.35]].forEach(([ic,hr,dx])=>{s+=ICON[ic](c+D*dx-D*.0,ry+rowH*.23,rowH*.46,MONO)+T(c+D*dx,ry+rowH*.95,rowH*.36,MUTED,hr);});
+  }
+  y+=rowH+h.gap;
+  const pw=h.band*.44;
+  s+=`<rect x="${c-D*.23}" y="${y+h.band*.2}" width="${pw*1.8}" height="${pw}" rx="${pw*.2}" fill="none" stroke="${MUTED}" stroke-width="${Math.max(1,D/300)}"/><rect x="${c-D*.23}" y="${y+h.band*.2}" width="${pw*1.8*.62}" height="${pw}" fill="${ACC}"/>`+T(c-D*.23+pw*1.8+h.band*.15,y+h.band*.2+pw*.98,h.band*.58,ACC,'62','start');
+  let d='';for(let i=0;i<=60;i++){const yy=.5-(.28*Math.sin(i/60*Math.PI*1.1+.6)+.14*Math.sin(i/9));d+=(i?'L':'M')+(c-D*.02+i*D*.0042)+','+(y+h.band*(.05+yy*.9))+' ';}
+  s+=`<path d="${d}" fill="none" stroke="#fff" stroke-width="${Math.max(1,D/280)}"/>`;y+=h.band+h.gap;
+  s+=T(c,y+h.line*.76,h.line*.68,MUTED,opt.line||'4 h 52 m of light left');
+  return s+'</svg>';
+}
+const R454={date:37,time:103,row:68,band:49,line:37,gap:6};
+const R218={date:19,time:53,row:35,band:23,line:19,gap:3};
+const sets=[
+ ['fr965, 454 px: day','Row 68 px as built; the stack is 318 of a 326 px span. The lead icon is 43 px against 31 px for the ahead icons. Now: coloured icon and feels-like temperature, bigger than the rest. Ahead: mono icons, hour under each, even steps to sunset.',454,R454,{}],
+ ['fr965: after sunset','The row shows tomorrow: a chevron and the weekday (so it reads as the next day, not a mistake beside the date above), daily condition, high and low, then three hourly icons from the hourly list.',454,R454,{now:21*60+40,mode:'tomorrow',timeTxt:'21:40',nowIcon:'clear',line:'Sunrise 06:43'}],
+ ['fr255s, 218 px: one-line row','The two-line row is 3 px too tall here (35 px spare, 38 needed). One line the height of the date row, no hour labels: stack 145 of 158 px.',218,R218,{compact:true}],
+ ['No weather data','The row is gone and the face re-stacks to today\'s layout. Never a stale or invented icon.',454,{...R454,row:0},{mode:'none',compact:false,_none:true}],
+];
+document.getElementById('out').innerHTML=sets.map(([t,cap,D,h,o])=>{if(o._none){h={...h,row:0};}return `<figure>${face(D,h,o)}<figcaption><b>${t}</b><br>${cap}</figcaption></figure>`;}).join('');
+</script>
