@@ -4,7 +4,10 @@ import Toybox.Lang;
 // product: gold is what the user keeps (streak, rank), the accent is today's
 // effort still under way, green is a finished goal. Every value is in
 // Garmin's 64-colour palette (channels 00/55/AA/FF), so MIP renders it exactly.
+(:color)
 class HeroFacePalette {
+    // True where tracks must be outlines and nothing may lean on grey or hue (the 1-bit Instinct, ADR-002).
+    static const MONO = false;
     static const BACKGROUND = 0x000000;
     static const TEXT = 0xFFFFFF;
     static const MUTED = 0xAAAAAA;
@@ -29,5 +32,28 @@ class HeroFacePalette {
 
     static function accent(index as Number) as Number {
         return index >= 0 && index < ACCENTS.size() ? ACCENTS[index] : ACCENTS[0];
+    }
+}
+
+// The Instinct's twin (ADR-002): a 1-bit display shows black and white only and how it would round any other value is
+// unspecified, so every role is white on black. What colour says on the other products, shape and words say here:
+// an outlined track under a solid fill, a drawn check and a full bar for done, the number beside every icon.
+// Same class name and roles; the jungles pick one by the `color`/`mono` annotations. The Accent setting has no effect
+// (accent() is always white) and is not offered on these products.
+(:mono)
+class HeroFacePalette {
+    static const MONO = true;
+    static const BACKGROUND = 0x000000;
+    static const TEXT = 0xFFFFFF;
+    static const MUTED = 0xFFFFFF;
+    static const TRACK = 0xFFFFFF;
+    static const GOLD = 0xFFFFFF;
+    static const DONE = 0xFFFFFF;
+    static const ALERT = 0xFFFFFF;
+    static const SLEEP_TEXT = 0xFFFFFF;
+    static const ACCENTS = [0xFFFFFF, 0xFFFFFF, 0xFFFFFF] as Array<Number>;
+
+    static function accent(index as Number) as Number {
+        return TEXT;
     }
 }

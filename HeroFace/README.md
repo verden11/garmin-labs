@@ -13,7 +13,7 @@ Two builds from one source (proposed, UNRELEASED, [`docs/decisions.md`](docs/dec
 `monkey.free.jungle`: everyday and HeroSet mode, accent colour) and **HeroFace Pro** (the paid app, `monkey.jungle`: adds the metric per
 bar, seconds and the temperature). The on-watch names are placeholders.
 
-117 round watches, Connect IQ 3.0 and up, in 15 languages:
+117 round watches and 7 Instinct watches (black and white, with a round window; proposed, simulator only), Connect IQ 3.0 and up, in 15 languages:
 [`docs/compatibility.md`](docs/compatibility.md).
 
 ## Build
@@ -26,7 +26,7 @@ monkeyc -d fr965 -f monkey.jungle      -o bin/HeroFace.prg     -y $KEY -w --type
 monkeyc -d fr965 -f monkey.free.jungle -o bin/HeroFaceFree.prg -y $KEY -w --typecheck 3   # Free
 monkeydo bin/HeroFace.prg fr965            # with the simulator running
 
-# Tests: Pro 24, Free 24 (PASSED in the simulator on fr965, fenix5s, fr55, 2026-10-01; no wrist); prints PASSED (…)
+# Tests: Pro 25, Free 25 on round products and 21 each on an Instinct (PASSED in the simulator 2026-10-03; no wrist); prints PASSED (…)
 tools/run_tests.sh fr965                       # Pro (monkey.jungle)
 tools/run_tests.sh fr965 monkey.free.jungle    # Free
 tools/compile_sweep.sh                         # compile every product, both jungles, no simulator

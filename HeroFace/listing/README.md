@@ -22,7 +22,7 @@ Languages are added one at a time: pick a language, press **Add**, fill Title + 
 The time first, today's goals right under it. Three bars you choose, a ring for the whole day, a streak worth keeping — or your HeroSet reps and rank, if you have it.
 
 The time owns the screen
-The time is the largest thing on the face, at the largest size your watch can draw. Under it, today's three goals as bars: steps, intensity minutes and floors, or whichever three you pick. The ring around the bezel is the whole day at once, and it fills green when all three are met.
+The time is the largest thing on the face, at the largest size your watch can draw. Under it, today's three goals as bars: steps, intensity minutes and floors, or whichever three you pick. The ring around the bezel is the whole day at once, and it fills green when all three are met. On Instinct, in black and white, the ring is a gauge in the round window (no battery line, temperature or seconds there).
 
 Three bars, your choice
 Each bar can show steps, calories, intensity minutes, distance, floors or the move bar. Pick your accent colour, show or hide seconds, show or hide the temperature — all from Garmin Connect.
