@@ -1,6 +1,6 @@
 # DayArc / DayArc Pro — compatibility
 
-Status 2026-09-28: 69 products targeted (TwoSuns ADR-009's set), both densities. All 69 compile
+Status 2026-10-03: 72 products targeted: TwoSuns ADR-009's 69 plus the 3 Connect IQ 6 Instinct products (ADR-015, below), both densities. The 69 compile
 clean for both jungles. 4 of the 69 also rendered and passed the test suite in the simulator, both
 densities; the other 65 are compile-only.
 
@@ -9,8 +9,18 @@ densities; the other 65 are compile-only.
 `minApiLevel="4.2.0"` — `Toybox.Complications`'s own floor. 66 round products, 3 rectangular AMOLED
 (Venu Sq 2, Venu Sq 2 Music, Venu X1). Round products are chord-fitted against the inscribed circle
 (TwoSuns's convention); the three rectangular ones use full-width rows and the screen's own bottom
-edge, with only the progress arc on the inscribed circle (ADR-001, amended 2026-09-28). Excluded, same as TwoSuns ADR-009: Instinct 3 Solar 45mm and
-Instinct E (semi-octagon, 64KB, monochrome), and every product below API 4.2.
+edge, with only the progress arc on the inscribed circle (ADR-001, amended 2026-09-28). Excluded, same as TwoSuns ADR-009: every product below API 4.2 (this includes the Instinct 2 family, CIQ 3.4: a no-Complications build would be a separate project). Instinct 3 Solar 45mm and Instinct E were excluded by ADR-001 and are now included (ADR-015).
+
+## Instinct E and Instinct 3 Solar (added 2026-10-03, ADR-015, proposed, simulator only)
+
+`instincte40mm` (166 x 166, window 52 px), `instincte45mm` and `instinct3solar45mm` (176 x 176, window 62 px) join both manifests (72 products). They are CIQ 6.0 (so `minApiLevel` 4.2.0 holds), black and white (palette `000000`/`FFFFFF` only), **watch-face memory 65,536 B** (the other 69 have 131,072 B). The Instinct 2 family and Descent G1 (CIQ 3.4, no Complications) are **not** included: that needs a build without Complications, a separate project. `instinctcrossover` is left out (analog hands, no window).
+
+- **What shows.** The bezel hides the corners: the visible area is the square cut by a circle about 98 px in radius (96 to 100 px, from the alpha mask of the SDK's device images). `DayArcLayout` clips rows to a 96 px circle; `stackFitsWorstCaseOnThisDevice` fails any planned row that sits under the window or reaches outside it.
+- **As built.** The window-progress arc is a gauge in the window; the clock and date share the band left of it, the hero (icon and value) is below it, then the gauge, the sub line and (Pro, when the stack has room) the grid. **No Accent setting** (so no settings at all: no "Customize"), no corner pills.
+- **Memory (normal run, `-r` like the store export, simulator):** 31.2 kB (Pro) and 25.6 kB (Simple) used of the 59.8 kB the simulator reports, on `instincte40mm` and `instincte45mm` alike (the simulator window's status bar after the face drew, 2026-10-03; the evening window with Body Battery, which loads the largest hero icon). The limit is 65,536 B: about half is free. The other windows load other icon bitmaps and were not read separately.
+- **Tests, 2026-10-03, container simulator:** Pro 23/23 on `instincte40mm`, `instincte45mm`, `instinct3solar45mm`, and (round and rectangular controls) `fr965`, `fr255s`, `approachs50`, `venusq2`; Simple 20/20 on the same three Instinct products and `fr965`. These include `stackFitsWorstCaseOnThisDevice` with its new window and visible-circle check. Compile sweep, both jungles, every product: 72/72 pass on both jungles (`tools/compile_sweep.sh`, `-w --typecheck 3`). `tools/check_package.sh --build`: OK (93 part numbers; exactly the 4 Instinct parts carry no settings file, the other 89 carry Accent).
+- **Known rough edge:** in a narrow Pro pill a long value may truncate (the simulator's calendar cell shows "12:..." where a round watch shows "N... 12:00"); this is the existing "never fewer than three digits" rule meeting a bottom row about 100 px wide.
+- **Not proven:** anything on a watch (real bezel margins, contrast, whether the pre-coloured icon bitmaps stay solid white on the real 1-bit panel). The simulator's clock is the container's, so the morning, midday and night windows were screenshot with a scratch patch of `DayArcWindow.windowFor` (data fields the simulator lacks show their empty states).
 
 ## Compile sweep
 

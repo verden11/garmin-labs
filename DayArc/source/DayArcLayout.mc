@@ -2,6 +2,7 @@ import Toybox.Graphics;
 import Toybox.Lang;
 import Toybox.Math;
 import Toybox.System;
+import Toybox.WatchUi;
 
 // Geometry, measured once per display, off the shorter screen side (TwoSuns's own proven pattern,
 // reused: `contentRadius`/chord-inset math validated across all 69 products in that project's fit
@@ -17,6 +18,12 @@ class DayArcLayout {
     private static const BOTTOM_MARGIN_PERMILLE = 60;
     private static const ROW_GAP_PERMILLE = 18;
     private static const SIDE_MARGIN_PERMILLE = 20;
+    // The Instinct's window sits in a bezel ring wider than itself; its gauge fill is a quarter of the window radius.
+    private static const WINDOW_CLEARANCE_PERMILLE = 60;
+    private static const WINDOW_FILL_DIVISOR = 4;
+    // The bezel hides the corners of a semi-octagon display: what shows is the square cut by a circle about 98 px in
+    // radius (measured off the alpha mask of the SDK's device images, 96 to 100 px on all seven Instinct products).
+    static const VISIBLE_RADIUS_PX = 96;
     static const GRID_COLUMNS = 2;
 
     private static const GAUGE_HEIGHT_PERMILLE = 30;
@@ -52,13 +59,81 @@ class DayArcLayout {
     private var _d as Number;
     private var _radius as Number;
     private var _round as Boolean;
+    private var _subscreen as Graphics.BoundingBox?;
+    // The Instinct window's box as plain numbers (BoundingBox fields are nullable); unused elsewhere.
+    private var _windowX as Number = 0;
+    private var _windowY as Number = 0;
+    private var _windowW as Number = 0;
+    private var _windowH as Number = 0;
 
     function initialize(dc as Graphics.Dc) {
         _width = dc.getWidth();
         _height = dc.getHeight();
         _d = _width < _height ? _width : _height;
         _radius = _d / 2;
-        _round = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_ROUND;
+        var shape = System.getDeviceSettings().screenShape;
+        _round = shape == System.SCREEN_SHAPE_ROUND;
+        // Asked of semi-octagon screens only (the Instinct's round window, ADR-015), so no round or rectangular
+        // product's geometry can depend on it.
+        _subscreen = shape == System.SCREEN_SHAPE_SEMI_OCTAGON && (WatchUi has :getSubscreen) ? WatchUi.getSubscreen() : null;
+        var window = _subscreen;
+        if (window != null) {
+            _windowX = window.x as Number;
+            _windowY = window.y as Number;
+            _windowW = window.width as Number;
+            _windowH = window.height as Number;
+        }
+    }
+
+    // The Instinct's physical window in display coordinates; null on every other product.
+    function subscreen() as Graphics.BoundingBox? {
+        return _subscreen;
+    }
+
+    // [center x, center y, outer radius, fill width] of the gauge that fills the window (the arc's Instinct form), one
+    // pixel inside the window's edge; null on every other product.
+    function windowRing() as [Number, Number, Number, Number]? {
+        if (_subscreen == null) {
+            return null;
+        }
+        var radius = (_windowW < _windowH ? _windowW : _windowH) / 2 - 1;
+        return [_windowX + _windowW / 2, _windowY + _windowH / 2, radius, radius / WINDOW_FILL_DIVISOR];
+    }
+
+    // First y at or below `y` that clears the window and the bezel ring around it.
+    function belowWindow(y as Number) as Number {
+        if (_subscreen == null) {
+            return y;
+        }
+        var clear = _windowY + _windowH + permille(WINDOW_CLEARANCE_PERMILLE);
+        return y > clear ? y : clear;
+    }
+
+    // Rows that start above the window's lower edge (plus its ring) share their line with it.
+    private function besideWindow(y as Number) as Boolean {
+        return _subscreen != null && y < belowWindow(0);
+    }
+
+    // The usable span [left, right] of a row on the Instinct: a side margin each side, clipped to the circle the
+    // bezel leaves visible, and (beside the window) ending left of it.
+    private function instinctSpan(y as Number, boxHeight as Number) as [Number, Number] {
+        var dy = farthestDy(y, boxHeight);
+        var left = centerX() - chordHalfWidth(VISIBLE_RADIUS_PX, dy);
+        var right = centerX() + chordHalfWidth(VISIBLE_RADIUS_PX, dy);
+        var side = permille(SIDE_MARGIN_PERMILLE);
+        left = left > side ? left : side;
+        var edge = besideWindow(y) ? _windowX - permille(WINDOW_CLEARANCE_PERMILLE) : _width - side;
+        right = right < edge ? right : edge;
+        return [left, right];
+    }
+
+    // x that centres a row in its usable band: the screen's centre, except beside the window.
+    function rowCenterX(y as Number, boxHeight as Number) as Number {
+        if (!besideWindow(y)) {
+            return centerX();
+        }
+        var span = instinctSpan(y, boxHeight);
+        return (span[0] + span[1]) / 2;
     }
 
     function centerX() as Number {
@@ -119,6 +194,10 @@ class DayArcLayout {
     // "width-fit against the round chord" claim and understating the true clip risk near the top of
     // a round display).
     function rowMaxWidth(y as Number, boxHeight as Number) as Number {
+        if (_subscreen != null) {
+            var span = instinctSpan(y, boxHeight);
+            return span[1] - span[0];
+        }
         if (!_round) {
             return _width - 2 * permille(SIDE_MARGIN_PERMILLE);
         }

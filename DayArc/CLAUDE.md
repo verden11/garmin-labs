@@ -39,7 +39,9 @@ The evidence is in [`../reports/DayArc v1 scope and plan.md`](../reports/DayArc%
   earlier dim-above-threshold version was removed, not just documented as removed, see ADR-006).
 - Build: `monkeyc -d fr965 -f monkey.simple.jungle -o bin/DayArc.prg -y ~/.garmin-connectiq/keys/developer_key -w --typecheck 3`
   (swap `monkey.pro.jungle` for the Pro build).
-- Tests: `tools/run_tests.sh <device> [jungle] [testName]`. Compile-only sweep across all 69
+- **Instinct E 40/45 mm and Instinct 3 Solar 45 mm (ADR-015, proposed, simulator only; 72 products now):** 1-bit, a round window top right, 65,536 B face memory. `DayArcPalette` is two classes, `(:color)` and `(:mono)`, chosen by the jungles (`base.excludeAnnotations = <density's>;mono`, and per Instinct product `<product>.excludeAnnotations = <density's>;color`; a per-product line **replaces** the base list, so restate the density's own). The arc is a gauge in the window; the Accent setting (its own `resources-accent/` folder, left out of those products' `resourcePath`) and `getSettingsView` are off there. The visible area is a circle about 98 px in radius (`DayArcLayout.VISIBLE_RADIUS_PX`), not the whole square: **screenshot the simulator for every layout change** (`docs/development.md`). The Instinct 2 family is not included (CIQ 3.4 has no Complications).
+- Package check: `tools/check_package.sh [--build]` (the 4 Instinct parts carry no settings file; every other part has Accent).
+- Tests: `tools/run_tests.sh <device> [jungle] [testName]`. Compile-only sweep across all 72
   products, both jungles: `tools/compile_sweep.sh` (no simulator needed).
 - **One real-device photo, nothing else** (owner's FR965, evening window, 2026-09-28: it showed the
   sub line as "4...", the arc crowding the clock corners and a top-heavy stack — all fixed in
