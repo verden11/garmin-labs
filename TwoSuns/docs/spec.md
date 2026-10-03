@@ -94,6 +94,14 @@ Body Battery under the time:
 
 The face never shows the words good, low, rest, tired or any face/emoji for Body Battery.
 
+### Watch battery row and Body Battery glyph (ADR-023, proposed, built, UNRELEASED)
+
+Pro: a muted row above the stack with the watch's charge (classic battery glyph and a whole percent), setting `Battery` (On by default), drawn only where the round chord has room (not on small screens), never moving another row. Both tiers: the Body Battery glyph is a bolt gauge (dim bolt filled from the bottom to the level; hollow when stale or missing), replacing the level pill. The weather row's next-day marker is an arrow.
+
+### Weather row (Pro, ADR-022, proposed, built, UNRELEASED)
+
+A row between the time and the Body Battery band: while the sun is up, the observed condition icon (fixed hue per icon type, larger than the others) and the **feels-like** number (Celsius from Garmin, shown in the watch's unit, one hue whatever the condition), then up to three mono condition icons from the hourly forecast at even steps to sunset with the hour under each; before sunrise and after sunset, the next daylight day (a chevron and weekday after sunset only, condition, high and low, and the hours the hourly list reaches; the low goes first on a wide row). Pro only, setting `Weather`. Data from `Toybox.Weather` (no permission), cached 5 minutes; a reading older than 3 hours, an hourly entry whose hour has ended, a condition with no icon, and a missing daily entry are left out, never guessed. Full detail, the fit table and the order of giving way: ADR-022. Simulator only (canned weather); the 12-entry hourly list starting at the current hour was seen once on the FR965 (probe log line, 2026-10-03) and matches the forum.
+
 ## Data rules (all unit-tested)
 
 **Day arithmetic.** Local date from the clock; local minutes since midnight as integers. `TwoSunsCalendar` is a copy of Days To Go's `DaysToGoCalendar` (integer calendar-day arithmetic, years 1970 to 2200). The 24-hour ring is **wall-clock** minutes 0 to 1440: on a DST change day the ring has a one-hour jump; documented, not fixed.
@@ -123,8 +131,10 @@ All lists (Properties only for settings; `Application.Storage` only for the reme
 | Golden hour | On / Off | Off |
 | Energy curve | On / Off | On |
 | Date | On / Off | On |
+| Weather | On / Off | On (Pro only) |
+| Watch battery | On / Off | On (Pro only) |
 
-**Free has the Accent row only** (the same six colours, default sky); the other four are Pro only (see "Free and Pro"). Property keys: `Accent`, `Orientation`, `Golden`, `Curve`, `Date`; they never change once shipped (the Free properties file defines `Accent` alone). The curve setting is labelled "Energy curve", not "Body Battery" (trademark, D9). Values are validated; anything unexpected falls back to the default. Settings are re-read on every update.
+**Free has the Accent row only** (the same six colours, default sky); the other six are Pro only (see "Free and Pro"). Property keys: `Accent`, `Orientation`, `Golden`, `Curve`, `Date`, `Weather`, `Battery`; they never change once shipped (the Free properties file defines `Accent` alone). The curve setting is labelled "Energy curve", not "Body Battery" (trademark, D9). Values are validated; anything unexpected falls back to the default. Settings are re-read on every update.
 
 Time format follows the system's 12/24 h. No numeric fields. Settings reach the watch from Garmin Connect, or on-watch via `getSettingsView` (Customize, next to Apply in the watch-face picker; ADR-019) — both write the same Properties, last write wins. **The face works with all defaults if neither round trip ever runs** (the Days To Go lesson).
 
@@ -142,7 +152,7 @@ Rows are stacked from measured font heights (Days To Go ADR-012), not from fract
 
 ## Devices and memory
 
-**v1: 69 products, API ≥ 4.2, `minApiLevel` 4.2.0, one build, no bitmaps.** From the SDK's `Devices/*/compiler.json` (`deviceGroup`), 2026-09-26. **Everything here is simulator-only until a watch runs it.** Watch-face memory is at least 128 KB on all 69. Memory used in a normal (non-test) run has not been recorded.
+**v1: 69 products, API ≥ 4.2, `minApiLevel` 4.2.0, one build, no bitmaps.** From the SDK's `Devices/*/compiler.json` (`deviceGroup`), 2026-09-26. **Everything here is simulator-only until a watch runs it.** Watch-face memory is at least 128 KB on all 69. Memory used in a normal (non-test) run has not been recorded. The weather row (ADR-022) grew Pro's `.prg` from 172,412 to 190,716 bytes on `fr965` and `fr255s` (+18.3 KB, 2026-10-03); the simulator does not emulate a watch's memory limit (it reports 8 MB), so runtime memory on the lowest-memory product is **not measured**.
 
 | Screen | Products | `manifest` ids |
 |---|---|---|
@@ -180,7 +190,9 @@ Allowed only after the matching test or device check: "sunrise and sunset match 
 
 ## Non-goals (v1)
 
-Moon phase, weather, heart rate, steps, seconds, notifications, multiple locations or "time zones", a city-search or coordinates setting, sunrise alarms, mood or emoji for Body Battery, predictions of Body Battery, sleep score or training readiness, complications publishing, `date`/`numeric` settings, Instinct and tier B/C/D watches, any network.
+Moon phase, heart rate, steps, seconds, notifications, multiple locations or "time zones", a city-search or coordinates setting, sunrise alarms, mood or emoji for Body Battery, predictions of Body Battery, sleep score or training readiness, complications publishing, `date`/`numeric` settings, Instinct and tier B/C/D watches, any network.
+
+(Weather was listed here until 2026-10-03: the owner overrode it for a Pro-only weather row, ADR-022 (Weather row in Pro, Proposed, not built); nothing else from this list changes.)
 
 (An on-watch settings screen was listed here when this was written; ADR-019 built one — `getSettingsView()`, "Customize" — after sideloaded apps turned out to need it for any on-watch settings access at all. Removed from this list rather than left contradicting a built ADR.)
 
