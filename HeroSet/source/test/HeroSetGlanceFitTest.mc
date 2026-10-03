@@ -3,7 +3,7 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.Test;
 
-// Glance content areas of the 63 products that can show one (simulator.json
+// Glance content areas of the 66 products that can show one (simulator.json
 // `glance.contentArea`, SDK 9.2.0), as [screen width, area width, area height].
 // The simulator can't be asked for a glance's size at run time, so each run
 // checks the rows for the screen width it runs on, with that product's own
@@ -14,6 +14,8 @@ import Toybox.Test;
 (:test)
 class HeroSetGlanceAreas {
     static const ROWS = [
+        [166, 154, 61],
+        [176, 164, 61],
         [218, 140, 79],
         [240, 151, 63],
         [260, 171, 63],

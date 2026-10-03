@@ -58,7 +58,7 @@ On Connect IQ 4.0+ watches the glance list (scroll from the watch face) shows a 
 - **Read-only, no input.** Selecting the entry starts HeroSet on the dashboard; Back should return to the glance list (unverified on a watch, [`go-to-market.md`](go-to-market.md) E3). There is no hint text and no time-of-day cue.
 - **Right at midnight:** the glance reads the day itself, so at 00:01 it shows zeros and the streak the dashboard would show, before the app has been opened.
 
-## Instinct 2 family, proposed ([ADR-055](decisions.md#adr-055); look unapproved)
+## Instinct 2 family, proposed ([ADR-055](decisions.md#adr-055); look approved 2026-10-03)
 
-Black-and-white display with a round subscreen window top right. Buttons are the five-button set (UP/DOWN, START as select, BACK; the Instinct 2's select key is printed `GPS`, hints still say `START`, open in the ADR). No colour anywhere: gold, blue, green and red are all white, so nothing relies on them (full bars, DONE, signs, words). Rows beside the window are centered in the band left of it; the dashboard's XP ring is the window's gauge, rank and streak sit beside it, mission bars use the full width below. Mockup: [`instinct-mockup.html`](instinct-mockup.html).
+Black-and-white display with a round subscreen window top right. Buttons are the five-button set (UP/DOWN, START as select, BACK; the Instinct 2's select key is printed `GPS`, hints stay `START`, owner call 2026-10-03). No colour anywhere: gold, blue, green and red are all white, so nothing relies on them (full bars, DONE, signs, words). Rows beside the window are centered in the band left of it; the dashboard's XP ring is the window's gauge, rank and streak sit beside it, mission bars use the full width below. Mockup: [`instinct-mockup.html`](instinct-mockup.html).
 

@@ -11,7 +11,7 @@ the ADRs named. Dates are upload dates; review status follows.
 
 ## Unreleased (Instinct 2 family, branch `worktree-agent-af3357b81b1eb31cf`, not uploaded)
 
-- **Instinct 2 family, proposed** (`instinct2`, `instinct2s`, `instinct2x`, Descent G1): subscreen-aware layout, black-and-white palette, the XP gauge in the window ([ADR-055](docs/decisions.md#adr-055)). Round products draw exactly as before. Look unapproved, simulator evidence only; no What's New text yet, no release-contract or site change.
+- **Instinct 2 family, proposed** (`instinct2`, `instinct2s`, `instinct2x`, Descent G1, Instinct E 40/45 mm, Instinct 3 Solar 45 mm): subscreen-aware layout, black-and-white palette, the XP gauge in the window ([ADR-055](docs/decisions.md#adr-055)). Round products draw exactly as before. Look approved by the owner 2026-10-03, simulator evidence only (no watch available); no What's New text yet, no release-contract or site change.
 - Tests: 115 defined (102 in the store build): +1 layout test here, +2 dev-only draft tests from the fix above. 112/112 dev and 101/101 store on fr965 remain the last full measured run (1.2.0 entry below).
 
 ## 1.2.0 — uploaded 2026-09-27, approved (owner reported 2026-10-01; the approval date itself is not recorded)

@@ -32,7 +32,7 @@ monkeyc -e -r -f store.jungle -o dist/HeroSet-store.iq -y /path/to/developer_key
 
 Launch language list identical in both manifests: `eng`, `deu`, `fre`, `spa`, `ita`, `por`, `dut`, `pol`, `swe`, `dan`, `nob`, `fin`, `tur`, `lit`, `ukr`. English in `resources/` is fallback; translations in language-qualified folders like `resources-deu/strings/strings.xml`. Russian intentionally unsupported.
 
-After string change: compare every qualified file's IDs and placeholders with `resources/strings/strings.xml`, then run the screen-fit suite in every language on the narrowest screens: `tools/fit-sweep.sh venu2s fr265s` (overlays each language's strings in a throwaway jungle, since the simulator has no CLI language switch; [ADR-049](decisions.md#adr-049)). `tools/fit-sweep.sh -l eng <product>…` checks products in English. Simulator evidence no replace real-device font and layout checks.
+After string change: compare every qualified file's IDs and placeholders with `resources/strings/strings.xml`, then run the screen-fit suite in every language on the narrowest screens: `tools/fit-sweep.sh venu2s fr265s` (overlays each language's strings in a throwaway jungle, since the simulator has no CLI language switch; [ADR-049](decisions.md#adr-049)). `tools/fit-sweep.sh -l eng <product>…` checks products in English. `FIT_LINES=40` prints every problem line per run (default 3). Simulator evidence no replace real-device font and layout checks.
 
 ## Unit tests (115 tests; 102 in store build)
 
