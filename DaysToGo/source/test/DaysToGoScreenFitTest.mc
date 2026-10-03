@@ -47,6 +47,9 @@ function everyStateFitsThisDisplay(logger as Test.Logger) as Boolean {
 function alwaysOnFrameFitsAtEveryDrift(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new DaysToGoLayout(dc);
+    if (layout.subscreen() != null) {
+        return true;   // the always-on frame is drawn on burn-in (AMOLED) screens only; an Instinct is MIP (ADR-015)
+    }
     var problems = [] as Array<String>;
     DaysToGoDraw.misfits = [] as Array<String>;
     try {
@@ -108,3 +111,26 @@ function truncatedKeepsTheMarker(logger as Test.Logger) as Boolean {
     Test.assertEqual(DaysToGoDraw.truncated(dc, "Race", font, width), "Race");
     return true;
 }
+
+// Beside the Instinct's window a row ends left of it (and is centred in what is left); below it, or on any other
+// product, rows keep the whole display and the screen's centre (ADR-015).
+(:test)
+function rowsBesideAWindowStayClearOfIt(logger as Test.Logger) as Boolean {
+    var layout = new DaysToGoLayout(testDc());
+    var window = layout.subscreen();
+    var rowHeight = 18;
+    for (var y = 0; y + rowHeight < layout.height(); y += 4) {
+        var center = layout.rowCenterX(y, rowHeight);
+        if (window == null) {
+            Test.assertEqual(center, layout.centerX());
+        } else {
+            Test.assert(center >= layout.leftInset(y, rowHeight) && center <= layout.rightInset(y, rowHeight));
+            if (y < (window.y as Number) + (window.height as Number)) {
+                Test.assert(layout.rightInset(y, rowHeight) <= (window.x as Number));
+            }
+        }
+    }
+    Test.assert(layout.belowWindow(0) >= (window == null ? 0 : (window.y as Number) + (window.height as Number)));
+    return true;
+}
+

@@ -19,13 +19,19 @@ class DaysToGoFrame {
 
     // `sleeping` keeps only the time and the hero (always-on).
     function initialize(dc as Graphics.Dc, layout as DaysToGoLayout, state as DaysToGoState, sleeping as Boolean) {
-        timeFont = DaysToGoDraw.fontUpTo(dc, DaysToGoLayout.TIME_FONTS, layout.capFor(DaysToGoLayout.TIME_MAX_PERMILLE));
+        if (layout.subscreen() == null) {
+            timeFont = DaysToGoDraw.fontUpTo(dc, DaysToGoLayout.TIME_FONTS, layout.capFor(DaysToGoLayout.TIME_MAX_PERMILLE));
+        } else {
+            var cap = layout.capFor(DaysToGoLayout.TIME_BESIDE_WINDOW_MAX_PERMILLE);
+            timeFont = DaysToGoDraw.fontUpToWidth(dc, DaysToGoLayout.TIME_FONTS, cap, layout.topBandWidth(cap), state.time);
+        }
         nameFont = DaysToGoDraw.fontUpTo(dc, DaysToGoLayout.NAME_FONTS, layout.capFor(DaysToGoLayout.NAME_MAX_PERMILLE));
         captionFont = DaysToGoDraw.fontUpTo(dc, DaysToGoLayout.CAPTION_FONTS, layout.capFor(DaysToGoLayout.CAPTION_MAX_PERMILLE));
         smallFont = DaysToGoDraw.fontUpTo(dc, DaysToGoLayout.SMALL_FONTS, layout.capFor(DaysToGoLayout.SMALL_MAX_PERMILLE));
         showName = !sleeping && state.name.length() > 0;
         showDate = !sleeping && state.dateLines.size() > 0;
-        showFooter = !sleeping && state.footer != null;
+        // No room for the footer on the Instinct (the window takes the top, the hero the rest, ADR-015).
+        showFooter = !sleeping && state.footer != null && layout.subscreen() == null;
         var hasCaption = !sleeping && state.captionLines.size() > 0;
         var heroFonts = DaysToGoLayout.heroFonts(state.heroIsWord, sleeping);
         var minHero = dc.getFontHeight(heroFonts[heroFonts.size() - 1]);
