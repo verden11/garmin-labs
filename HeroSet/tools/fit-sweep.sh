@@ -35,7 +35,7 @@ exclude = nosync
 base.excludeAnnotations = \$(exclude);mono
 EOF
     # Same complication rule as monkey.jungle: CIQ 4.2+ products only (ADR-044),
-    # and the same palette rule: black-and-white products exclude `color` (ADR-056).
+    # and the same palette rule: black-and-white products exclude `color` (ADR-055).
     grep "^$product.resourcePath" $PROJECT/monkey.jungle >> $WORK/$lang.jungle
     grep "^$product.excludeAnnotations" $PROJECT/monkey.jungle >> $WORK/$lang.jungle
     prg=$WORK/$lang-$product.prg

@@ -4,7 +4,7 @@
 // goal. Blue vs gold is the pairing that stays distinct under red/green
 // color blindness, and no state relies on color alone (full bars, DONE,
 // "!" carry the same meaning).
-// The Instinct's black-and-white twin is HeroSetPaletteMono (ADR-056).
+// The Instinct's black-and-white twin is HeroSetPaletteMono (ADR-055).
 (:glance :color)
 class HeroSetPalette {
     static const MONO = false;

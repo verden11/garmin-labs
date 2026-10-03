@@ -13,7 +13,7 @@ Resuming? Read [`go-to-market.md`](go-to-market.md) first (open items), then [`a
 | [`release-contract.md`](release-contract.md) | Allowed/forbidden claims; check before user-facing copy |
 | [`compatibility.md`](compatibility.md) | Supported watches, why others aren't, adding one |
 | [`connect-sync-plan.md`](connect-sync-plan.md) | Connect sync: limits, behavior, device acceptance — shelved, ADR-054 |
-| [`instinct-mockup.html`](instinct-mockup.html) | Instinct 2 dashboard/workout mockup (unapproved look, ADR-056) |
+| [`instinct-mockup.html`](instinct-mockup.html) | Instinct 2 dashboard/workout mockup (unapproved look, ADR-055) |
 | [`validation-log.md`](validation-log.md) | On-watch accuracy trial data |
 | [`battery.md`](battery.md) | Battery analysis + measurement plan (post-launch) |
 | [`ideas.md`](ideas.md) | Candidate features, ranked. Not open items |

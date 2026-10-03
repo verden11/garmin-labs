@@ -23,7 +23,7 @@ class HeroSetRankHeader {
         var xpY = top + dc.getFontHeight(font);
         if (layout.subscreen() != null) {
             // The window's gauge already says how far the next rank is, and
-            // the band beside it is too narrow for the words (ADR-056).
+            // the band beside it is too narrow for the words (ADR-055).
             return xpY;
         }
         drawXpToNext(dc, layout, xpY, state);
@@ -46,7 +46,7 @@ class HeroSetRankHeader {
         }
     }
 
-    // The Instinct's window is a gauge of its own (ADR-056): the XP ring's
+    // The Instinct's window is a gauge of its own (ADR-055): the XP ring's
     // track is a hairline circle (a 1-bit display has no dim shade) and the
     // fill a thick arc along its inside, leaving the same gap at the bottom.
     private static function drawWindowRing(dc as Graphics.Dc, window as [Lang.Number, Lang.Number, Lang.Number, Lang.Number], sweep as Lang.Number) as Void {

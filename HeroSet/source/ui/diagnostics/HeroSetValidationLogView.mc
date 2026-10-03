@@ -46,7 +46,7 @@ class HeroSetValidationLogView extends WatchUi.View {
         // Rows stack by measured height: at fixed bands the header clipped
         // or overlapped the first line (ADR-034).
         // Log lines are too wide for the band beside a subscreen window, so
-        // they start below it (ADR-056).
+        // they start below it (ADR-055).
         var y = layout.belowWindow(HeroSetDraw.title(dc, layout, header()));
         var lines = pageLines();
         for (var i = 0; i < lines.size(); i++) {

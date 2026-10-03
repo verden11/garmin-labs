@@ -103,7 +103,7 @@ class HeroSetManualPickerView extends WatchUi.View {
         dc.setColor(HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);
         dc.clear();
         var y = HeroSetDraw.title(dc, layout, _label);
-        // Beside a subscreen window (ADR-056) the short delta takes the band
+        // Beside a subscreen window (ADR-055) the short delta takes the band
         // next to it and the wide DETECTED and TODAY rows start below it.
         var beside = layout.subscreen() != null;
         if (beside) {

@@ -8,7 +8,7 @@ import Toybox.WatchUi;
 // footer rows, and per-row side insets. On round displays the usable width at
 // a row is the inscribed-circle chord at that y, so top/bottom rows get more
 // inset than the center row; square displays degrade to a constant inset.
-// Semi-octagon displays (Instinct, ADR-056) take the square path plus a window
+// Semi-octagon displays (Instinct, ADR-055) take the square path plus a window
 // they must stay clear of: a round subscreen cut into the top-right corner.
 class HeroSetLayout {
 
@@ -65,7 +65,7 @@ class HeroSetLayout {
         return y > clear ? y : clear;
     }
 
-    // The XP gauge that fills the window (ADR-056): [center x, center y,
+    // The XP gauge that fills the window (ADR-055): [center x, center y,
     // outer radius, fill width], one pixel inside the window's edge.
     function windowRing() as [Lang.Number, Lang.Number, Lang.Number, Lang.Number]? {
         var window = _subscreen;
