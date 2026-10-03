@@ -54,15 +54,23 @@ Cross-app order; HeroFace's half is in [`../../HeroFace/docs/go-to-market.md`](.
 - [ ] Beta testers for watches other than the FR965 (don't gate anything, [ADR-039](decisions.md#adr-039)): per family confirm buttons, screens, counting; MIP also daylight contrast. Failing family → drop from both manifests.
 - [x] **1.3.0: Connect sync — shelved, [ADR-054](decisions.md#adr-054).** FR965 step 0 spike (2026-09-27): Garmin Connect (mobile + web) doesn't render our developer lap/session fields at all — Sets table stays a native empty placeholder, zero mentions of the exercise totals in the web export. Plus two device bugs found (stray recording blocks reopen after exit; Discard still laps). Not pursuing further without a different product design. Dev-build code untouched.
 
-**F. Instinct family (wave 6, merged to main 2026-10-03, nothing uploaded; [ADR-055](decisions.md#adr-055))** — simulator only, look unapproved
+**F. Instinct family (wave 6, merged to main 2026-10-03, nothing uploaded; [ADR-055](decisions.md#adr-055))** — simulator only, look approved 2026-10-03
 - [x] F1. Look approved by the owner 2026-10-03 (`instinct-mockup.html`): XP gauge in the window, no "XP TO GO" line, streak beside the rank, outlined bar tracks; a finished row says DONE where its count was.
 - [x] F2. Products: `instinct2`, `instinct2s`, `instinct2x`, `descentg1` plus the CIQ 6 `instincte40mm`, `instincte45mm`, `instinct3solar45mm` are in the branch's manifests (owner 2026-10-03: simulator evidence is enough, no watch available). The Crossover is left out (analog hands over the display). Descent G1 and Instinct 2X share the Instinct 2's layout but have not been run in their own simulator (see ADR-055 Evidence).
 - [x] F3. Hint wording: hints stay `START` (owner 2026-10-03: no GPS is needed, so `GPS` would mislead).
 - [ ] F4. A real Instinct 2: accelerometer at 25 Hz (otherwise NO SENSOR and manual entry), text against the real bezel and window ring (the 11 px ring clearance is read off the simulator image), 1-bit contrast.
 - [x] F5a. Drafted 2026-10-03: What's New + App Version `1.3.0` + description bullet in `listing/README.md` (the number is the owner's call), release contract, `CHANGELOG.md`; the site's Instinct copy sits behind `instinctLive` (`site/src/apps/heroset/facts.ts`, false until the upload is approved).
 - [ ] F5b. Owner: upload the 1.3.0 store build (`dist/HeroSet-store.iq`, fresh export), then flip `instinctLive` to true and push; the 1.2.0 listing's device list grows by the seven Instinct products (App Migration: choose per the listing page).
-- [ ] F5. Before the upload: store build memory re-measured on the final code (last measured 53,216 B peak of 94,024 B on `instinct2`, before the truncation code).
+- [x] F5. Store build memory: not re-probed on a running simulator; bounded instead (2026-10-03): the `instinct2` store PRG grew 71,356 -> 71,884 B (+528 B) between the measured commit and main, so the peak is about 53.7 KB of the 98,304 B limit (the probe figure was 53,216 B). A real probe re-run is still possible on request.
 - Tests on the branch: 115 defined (102 in the store build; +1 `rowsBesideASubscreenWindowStayClearOfIt`, +2 dev-only draft tests from the 2026-10-02 stale-draft fix on main; the counts quoted from the agent's run below were taken at 113 before the rebase). Run 2026-10-02: dev 113/113 on `instinct2`, `instinct2s`, `instinct2x`, `fr255s`, `fenix6`; store 102/102 on `instinct2`, `fr255s`; all 84 manifest products build in both jungles. **Not run:** the `fr965` suite (hangs in this simulator on the baseline commit too, so the FR965 check is still owed) and the `descentg1` suite (see ADR-055 Evidence).
+
+**G. Upload 1.3.0 (prepared 2026-10-03, everything below is ready; the clicks are the owner's)**
+1. Developer page for the existing listing (link under "Where things stand") -> upload a new version -> file `HeroSet/dist/HeroSet-store.iq` (87 products, 134 device variants, same app id and permissions as 1.2.0).
+2. App Version `1.3.0`; What's New and the Description (one new bullet) are in `listing/README.md`; paste the blocks as they are. Keep every other field as submitted for 1.2.0 (price, category, privacy URL, review notification Yes, App Migration No).
+3. Hardware field: paste the website-link text at the end of `listing/README.md` if it is still empty on the live listing (ROADMAP 6.6).
+4. After submitting, tell Claude. Then: set `instinctLive = true` in `site/src/apps/heroset/facts.ts` once Garmin approves, push, and record the upload date in `CHANGELOG.md` (7.8).
+5. If the store drops any Instinct product from the device list (as it did 14 of 80 on 1.1.1, A1), note which in "Where things stand" and trim the site list to what the store shows.
+Evidence behind the claims: simulator only for every Instinct product ([ADR-055](decisions.md#adr-055)); the first real Instinct wrist report will be the first device evidence.
 
 ## Launch gates
 

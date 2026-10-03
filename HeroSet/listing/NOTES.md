@@ -12,7 +12,7 @@ Live listing: https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377.
 
 ## Upload file
 
-Upload a freshly exported `dist/HeroSet-store.iq` ([`../docs/development.md`](../docs/development.md); `dist/` holds only the current export; `bin/` is scratch). 1.1.1 was uploaded from `bin/HeroSet-store-next.iq` (exported 2026-09-24, 126 device variants, includes the 13 touch-first products). Never upload `bin/HeroSet-store-1.0.0-shipped.iq`.
+Upload `dist/HeroSet-store.iq` (exported 2026-10-03 from main at acfbb5b + icon commits: 87 products, 134 device variants, same app id `568d5c9b-eb10-4678-bf28-0080c3efbbc1`, permissions exactly `Sensor` + `ComplicationPublisher`; the 1.2.0 export is in `dist/old/HeroSet-store-1.2.0-shipped.iq`). Re-export if any source changes first ([`../docs/development.md`](../docs/development.md); `dist/` holds only the current export; `bin/` is scratch). 1.1.1 was uploaded from `bin/HeroSet-store-next.iq` (exported 2026-09-24, 126 device variants, includes the 13 touch-first products). Never upload `bin/HeroSet-store-1.0.0-shipped.iq`.
 
 ## Form limits and options
 
@@ -31,7 +31,7 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 | Cover Image | Shield + name only: it shows at about 100 px in browse, so no screen text. |
 | Screen Images | Simulator captures of the store build ([ADR-039](../docs/decisions.md#adr-039)), no mockups; the app's own pixels are never altered. Chassis+strap style, 2026-09-27: real full-window captures cropped to 720² and white-padded, background then keyed to transparent (connected-component flood fill from the corners) — the only post-capture edit, cosmetic only. If a shot shows a changed UI, re-take it and update the site copy in `../../site/public/heroset/screens/`. |
 | Email | The dedicated support address, also on the site's support and privacy pages. |
-| App Migration | No: support is an explicit list of 80 products ([`../docs/compatibility.md`](../docs/compatibility.md), [ADR-034](../docs/decisions.md#adr-034)/[035](../docs/decisions.md#adr-035)/[037](../docs/decisions.md#adr-037)/[038](../docs/decisions.md#adr-038)/[048](../docs/decisions.md#adr-048)); don't let the store add untested devices. |
+| App Migration | No: support is an explicit list of products (80 live, 87 from 1.3.0; [`../docs/compatibility.md`](../docs/compatibility.md), [ADR-034](../docs/decisions.md#adr-034)/[035](../docs/decisions.md#adr-035)/[037](../docs/decisions.md#adr-037)/[038](../docs/decisions.md#adr-038)/[048](../docs/decisions.md#adr-048)); don't let the store add untested devices. |
 | Monetization | Paid through the store. |
 
 ## Image sources
