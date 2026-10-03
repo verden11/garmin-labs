@@ -48,7 +48,13 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 
 ## What's New: history and copy rules
 
-Copy rules: the glance is "on watches with Connect IQ 4.0 or later" (63 of 80 products; never "all watches", never "reminder"/"alert", [ADR-051](../docs/decisions.md#adr-051)); any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
+Copy rules: the glance is "on watches with Connect IQ 4.0 or later" (66 of 87 products, 63 of 80 before the Instinct E and Instinct 3 Solar; the Instinct 2 family has none; never "all watches", never "reminder"/"alert", [ADR-051](../docs/decisions.md#adr-051)); any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
+
+**1.2.0**
+
+```text
+- New glance: add HeroSet to your watch's glance list to see today's push-ups, sit-ups, squats and your streak without opening the app. On watches with Connect IQ 4.0 or later.
+```
 
 **1.1.1**
 

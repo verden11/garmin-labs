@@ -1,12 +1,12 @@
 # HeroSet — store listing (paste-ready)
 
-Status: 2026-09-27. **1.2.0 uploaded and approved (owner reported 2026-10-01)** (the glance + idle-kill fix, [ADR-051](../docs/decisions.md#adr-051)/[052](../docs/decisions.md#adr-052); submitted as `1.2.0` rather than `1.1.2`, [ADR-053](../docs/decisions.md#adr-053)); fields below are what was submitted. Connect sync (1.3.0) is shelved, [ADR-054](../docs/decisions.md#adr-054); no next version decided yet.
+Status: 2026-10-03. **Next upload drafted as 1.3.0 (Instinct family + the stale-draft fix; the number is the owner's call, App Version is free text; not uploaded).** Last live: **1.2.0 uploaded and approved (owner reported 2026-10-01)** (the glance + idle-kill fix, [ADR-051](../docs/decisions.md#adr-051)/[052](../docs/decisions.md#adr-052); submitted as `1.2.0` rather than `1.1.2`, [ADR-053](../docs/decisions.md#adr-053)); fields below are what was submitted. Connect sync (1.3.0) is shelved, [ADR-054](../docs/decisions.md#adr-054); no next version decided yet.
 
 Fields are in the order of the upload form (https://apps.garmin.com/en-US/developer/upload, step 2). One block = one field: copy the block, paste it. Nothing else is in this file; limits, why each answer is what it is, image sources and history are in [`NOTES.md`](NOTES.md).
 
 ## App file
 
-[`../dist/HeroSet-store.iq`](../dist/HeroSet-store.iq): a fresh export before every upload (how and which file: [`NOTES.md`](NOTES.md)).
+[`../dist/HeroSet-store.iq`](../dist/HeroSet-store.iq): a fresh export before every upload (87 products in the store manifest) (how and which file: [`NOTES.md`](NOTES.md)).
 
 ## Title (max 50)
 
@@ -27,6 +27,7 @@ HeroSet - Bodyweight Rep Counter
 - Set your own daily goal on the watch: 10 to 500 reps, no phone needed.
 - Live heart rate and a calorie estimate during each set.
 - A glance on watches with Connect IQ 4.0 or later: see today's progress and your streak from your glance list without opening the app.
+- Also on the black-and-white Instinct 2, 2S, 2X, Instinct E and Instinct 3 Solar, and Descent G1.
 - In 15 languages, including German, French, Spanish, Italian, Polish and Ukrainian.
 
 Everything stays on your watch. HeroSet has no network access, records no activity and sends nothing to Garmin Connect. The store lists "Communication & Data Transmission" because HeroSet hands today's progress to our HeroFace watch face on the same watch; nothing is sent anywhere.
@@ -37,13 +38,16 @@ Good to know: counting depends on how you wear the watch and how you move, so th
 ## App Version (max 20)
 
 ```text
-1.2.0
+1.3.0
 ```
 
 ## What's New (max 4000)
 
 ```text
-- New glance: add HeroSet to your watch's glance list to see today's push-ups, sit-ups, squats and your streak without opening the app. On watches with Connect IQ 4.0 or later.
+- Now on the Instinct family: Instinct 2, 2S, 2X, Instinct E and Instinct 3 Solar, and Descent G1. The black-and-white screen shows your XP ring in the small round window at the top right.
+- Instinct E and Instinct 3 Solar also get the glance.
+- Fixed: after saving a short set, starting the same exercise again began from that count instead of 0.
+- Long translations are shortened instead of overlapping on small screens.
 ```
 
 ## Hero Image (1440×720)

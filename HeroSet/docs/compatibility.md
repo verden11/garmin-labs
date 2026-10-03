@@ -74,9 +74,9 @@ No UP/DOWN keys: swipe up/down adjusts, `SWIPE:` hints, START (physical) finishe
 | D2 Air X10 | `d2airx10` | 416 px |
 | Approach S50 / S70 | `approachs50`, `approachs7042mm`, `approachs7047mm` | 390 / 390 / 454 px |
 
-### Wave 6 (proposed, branch only) — Instinct 2 family, 1-bit semi-octagon ([ADR-055](decisions.md#adr-055))
+### Wave 6 (merged to main 2026-10-03, not uploaded) — Instinct 2 family, 1-bit semi-octagon ([ADR-055](decisions.md#adr-055))
 
-**Not released and not in any store build yet; look approved by the owner 2026-10-03, simulator evidence only (no watch available).** In both manifests on branch `heroset-instinct2` so the build and tests can run. Black-and-white display, round subscreen window top right (the layout keeps out of it and uses it as the XP gauge), five buttons, Connect IQ 3.4 (no glance; the CIQ 6 products Instinct E and Instinct 3 Solar do get one: glance closure 2,112 B data + 3,241 B code, against their 32 KB limit, and their glance areas 164x61 / 154x61 are in `HeroSetGlanceFitTest`), 98,304 B of watch-app memory: measured peak 53,216 B in the simulator (store build, `-r`).
+**Not uploaded yet: next store upload (drafted as 1.3.0) carries it; look approved by the owner 2026-10-03, simulator evidence only (no watch available).** In both manifests on `main` (merged 2026-10-03). Black-and-white display, round subscreen window top right (the layout keeps out of it and uses it as the XP gauge), five buttons, Connect IQ 3.4 (no glance; the CIQ 6 products Instinct E and Instinct 3 Solar do get one: glance closure 2,112 B data + 3,241 B code, against their 32 KB limit, and their glance areas 164x61 / 154x61 are in `HeroSetGlanceFitTest`), 98,304 B of watch-app memory: measured peak 53,216 B in the simulator (store build, `-r`).
 
 | Family | Products (`manifest` id) | Screen | Window |
 |---|---|---|---|

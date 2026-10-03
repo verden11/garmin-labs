@@ -1,7 +1,7 @@
 import { RepCounter } from './Pictograms.tsx'
 import { RankScale } from './RankScale.tsx'
 import { heroset } from './app.ts'
-import { screens, watchFamilies, languages } from './facts.ts'
+import { screens, watchFamilies, languages, instinctLive } from './facts.ts'
 import { CallToAction, HeroActions, Screens, Watches } from '../../components/AppSections.tsx'
 import { studio } from '../../site.ts'
 import { appUrl } from '../../urls.ts'
@@ -85,7 +85,7 @@ export function Landing() {
 
       <Watches
         title="Works on most Garmin watches."
-        lede={`Round-screen watches, AMOLED and memory-in-pixel, with five buttons or a touchscreen. Tested on a Forerunner 965; every other model passes each screen check in Garmin’s simulator. The ${heroset.storeName} shows whether your exact model is listed. Don’t see yours? Email ${studio.email} with your model.`}
+        lede={`${instinctLive ? 'Round-screen watches, AMOLED and memory-in-pixel, plus the black-and-white Instinct 2, E and 3 Solar, ' : 'Round-screen watches, AMOLED and memory-in-pixel, '}with five buttons or a touchscreen. Tested on a Forerunner 965; every other model passes each screen check in Garmin’s simulator. The ${heroset.storeName} shows whether your exact model is listed. Don’t see yours? Email ${studio.email} with your model.`}
         families={watchFamilies}
         languages={languages}
       />
