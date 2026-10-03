@@ -257,3 +257,7 @@ The entire sleep composition on burn-in screens: a dim `{colors.sleep-text}` tim
 - **Don't** ship bitmaps or icon-font glyphs.
 - **Don't** put anything but the dim time on a burn-in-protected screen in sleep.
 - **Don't** let anything on the face compete with the time for size.
+
+## Instinct (1-bit, a round window top right; ADR-002, proposed, simulator only)
+
+Black and white only: every colour role is white (gold, green, red and the accent collapse; the Never-Colour-Alone rule already had a shape or a word for each state: an outlined track under a solid fill, a drawn check and a full bar for done, the number beside every icon). **The bezel ring becomes a gauge in the round window** (a hairline circle, a thick fill from 12 o'clock clockwise, closed when every goal is done). The time and the date share the band left of the window, the streak sits just below it, and the three mission columns end above the bottom corners. **No footer, temperature or seconds** (the smallest font is 23 px tall on a 176 px screen). What shows is the square cut by a circle about 98 px in radius, so rows are clipped to a 96 px circle. The mockup (`docs/instinct-mockup.html`) is the approved look, not the built layout.

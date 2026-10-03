@@ -1,0 +1,74 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HeroFace on Instinct mockup</title>
+<style>
+  :root { --bg:#16181b; --fg:#e8eaed; --muted:#9aa0a6; }
+  body { margin:0; padding:24px; background:var(--bg); color:var(--fg); font:14px/1.45 system-ui, sans-serif; }
+  h1 { font-size:18px; margin:0 0 4px; } p.note { color:var(--muted); max-width:980px; margin:4px 0 16px; }
+  .row { display:flex; flex-wrap:wrap; gap:28px; }
+  figure { margin:0; } figcaption { margin-top:8px; max-width:540px; color:var(--muted); font-size:13px; }
+  figcaption b { color:var(--fg); }
+  svg { display:block; background:#0d0e10; border-radius:6px; }
+  .px { font-family: Roboto, "Helvetica Neue", Arial, sans-serif; font-weight:500; fill:#fff; text-rendering:geometricPrecision; }
+  .xt { font-size:15px; } .sm { font-size:18px; } .num { font-weight:700; }
+  .guide { fill:none; stroke:#ff4d4d; stroke-width:.5; stroke-dasharray:2 2; opacity:.9; }
+  .bez { fill:none; stroke:#2a2d31; stroke-width:1; }
+  .ic { fill:none; stroke:#fff; stroke-width:1.2; }
+  .fl { fill:#fff; }
+</style>
+</head>
+<body>
+<h1>HeroFace on Instinct 2 (176 x 176, 1-bit): look approved 2026-10-03, built layout differs (see the note)</h1>
+<p class="note"><b>As built (ADR-002): the real fonts are bigger than drawn here (the smallest is 23 px tall), so the face has no footer, no temperature and no seconds; the time and date share the band left of the window, the streak sits below the window and the three columns end above the bottom corners. The outline is the real visible mask (a circle about 98 px in radius). This mockup shows the look that was approved, not the built layout.</b> Mockup at 3x. White on black only: no grey, no accent, no gold, no green (a 1-bit display has only black and white), so every state is already carried by shape or word, as the design's Never-Colour-Alone rule requires. The round window (top right, 62 px) is the physical subscreen: the bezel ring that shows the day's progress becomes a gauge in it. Streak and date sit in the band left of it; the time is the largest thing, full width below; three mission columns and a battery/heart footer under that. Mission bars are outlined tracks with solid fills; a finished column shows a drawn check. On the Instinct 2 family (CIQ 3.4, no Complications) the HeroSet link is unavailable, so only everyday mode (steps, intensity minutes, floors) shows. Dashed red = keep-out zone. Glyph shapes are a stand-in for the Garmin fonts; nothing here is measured on a watch.</p>
+<div class="row" id="row"></div>
+<script>
+const OUT = "M44.9,0 H131.1 A98,98 0 0 1 176,44.9 V131.1 A98,98 0 0 1 131.1,176 H44.9 A98,98 0 0 1 0,131.1 V44.9 A98,98 0 0 1 44.9,0 Z";
+function arc(cx, cy, r, sweep) {
+  if (sweep >= 359.9) return `M${cx},${cy-r} A${r},${r} 0 1 1 ${cx-0.01},${cy-r}`;
+  const a = sweep * Math.PI / 180, x = cx + r*Math.sin(a), y = cy - r*Math.cos(a);
+  return `M${cx},${cy-r} A${r},${r} 0 ${sweep>180?1:0} 1 ${x.toFixed(2)},${y.toFixed(2)}`;
+}
+function col(x, w, c) { // value, outlined pill bar, label
+  const bw = w - 6, bx = x + 3, fill = Math.round(bw * c.p / 100);
+  return `<text class="px xt" x="${x+w/2}" y="132" text-anchor="middle">${c.v}</text>
+  <rect x="${bx}" y="136" width="${bw}" height="6" rx="3" fill="none" stroke="#fff" stroke-width="1"/>
+  ${fill > 0 ? `<rect x="${bx}" y="136" width="${fill}" height="6" rx="3" fill="#fff"/>` : ""}
+  ${c.done ? (() => { const tw = c.l.length*6.8, sx = x + w/2 - (tw+10)/2; return `<path class="ic" d="M${sx},150 l2.5,2.5 l5,-5.5"/><text class="px" font-size="11" x="${sx+10}" y="153">${c.l}</text>`; })()
+           : `<text class="px" font-size="11" x="${x+w/2}" y="153" text-anchor="middle">${c.l}</text>`}`;
+}
+function face(o) {
+  const w = 50, x0 = 13;
+  return `<svg width="528" height="528" viewBox="0 0 176 176" shape-rendering="crispEdges">
+  <defs><clipPath id="vis"><path d="${OUT}"/></clipPath></defs><g clip-path="url(#vis)"><rect width="176" height="176" fill="#000"/>
+  <circle cx="144" cy="31" r="30" fill="none" stroke="#fff" stroke-width="1"/>
+  <path fill="none" stroke="#fff" stroke-width="7" d="${arc(144,31,26.5,o.sweep)}"/>
+  <rect class="guide" x="102" y="0" width="74" height="73"/>
+  <text class="px xt" x="52" y="26" text-anchor="middle">${o.streak}</text>
+  <text class="px xt" x="53" y="48" text-anchor="middle">${o.date}</text>
+  <text class="px num" x="88" y="112" text-anchor="middle" font-size="58" textLength="148" lengthAdjust="spacingAndGlyphs">${o.time}</text>
+  ${o.cols.map((c,i) => col(x0 + i*w, w, c)).join("")}
+  <!-- footer: battery + heart -->
+  <rect class="ic" x="62" y="161" width="13" height="7"/><rect class="fl" x="75" y="163" width="1.5" height="3"/><rect class="fl" x="63.5" y="162.5" width="${o.bat/100*10}" height="4"/>
+  <text class="px" font-size="12" x="80" y="169">${o.bat}</text>
+  ${o.hr === "" ? "" : `<path class="fl" d="M105,162 a2.2,2.2 0 0 1 4,-1 a2.2,2.2 0 0 1 4,1 q0,2.5 -4,5.5 q-4,-3 -4,-5.5z"/>
+  <text class="px" font-size="12" x="116" y="169">${o.hr}</text>`}
+  </g><path d="${OUT}" fill="none" stroke="#3a3d41" stroke-width="1"/></svg>`;
+}
+const figs = [
+  [{streak:"STREAK 12", date:"SAT 3 OCT", time:"10:09", sweep:200, bat:82, hr:64,
+    cols:[{v:"8.2K",p:82,l:"STEPS"},{v:"24",p:48,l:"MIN"},{v:"9",p:60,l:"FLOORS"}]},
+   "<b>Everyday.</b> The window gauge is today's progress across the three goals (thick fill from the top). The time owns the middle at the widest size the width allows. Bars are outlines with solid fills."],
+  [{streak:"STREAK 12", date:"SAT 3 OCT", time:"21:40", sweep:360, bat:35, hr:58,
+    cols:[{v:"10K",p:100,l:"STEPS",done:true},{v:"31",p:100,l:"MIN",done:true},{v:"12",p:100,l:"FLOORS",done:true}]},
+   "<b>All done.</b> Closed gauge, solid bars and a drawn check in each column: the states the colour faces show in green are carried by shape alone."],
+  [{streak:"STREAK 0", date:"SAT 3 OCT", time:"06:15", sweep:0, bat:100, hr:"",
+    cols:[{v:"0",p:0,l:"STEPS"},{v:"0",p:0,l:"MIN"},{v:"0",p:0,l:"FLOORS"}]},
+   "<b>Fresh morning.</b> Empty gauge (hairline only), empty tracks, zero streak. A missing heart-rate reading is simply not drawn, never faked."]
+];
+document.getElementById("row").innerHTML = figs.map(f => `<figure>${face(f[0])}<figcaption>${f[1]}</figcaption></figure>`).join("");
+</script>
+</body>
+</html>

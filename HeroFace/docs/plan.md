@@ -147,6 +147,6 @@ The layout rules and measurements are in [`../DESIGN.md`](../DESIGN.md). What th
 
 ## Phase 4: other shapes — not started
 
-Rectangle (Venu Sq ×4, Venu X1): stacked layout. Instinct semi-octagon (8): put streak or battery in the sub-window. Each needs its own row stack, not a scaled round one. Taken up only if the reviews ask for it.
+Rectangle (Venu Sq ×4, Venu X1): stacked layout. Instinct semi-octagon: built 2026-10-03 (ADR-002), with the gauge in the window and no footer; Venu Sq / X1 rectangles are still a later pass.
 
 Deliberately not planned: a second complication for HeroSet (one packed value is enough), per-device resources, and any on-face configuration UI (settings live in Garmin Connect).

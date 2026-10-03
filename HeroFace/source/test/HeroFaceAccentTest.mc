@@ -74,7 +74,7 @@ function everyAccentReadsOnBlack(logger as Test.Logger) as Boolean {
 
 // The face's own rule (HeroFacePalette): an accent clears 3:1 against TRACK so a part-filled bar reads. Blue and Cyan do.
 // Magenta does not: see magentaMissesTheTrackRuleKnownIssue.
-(:test)
+(:test :color)
 function blueAndCyanClearTheTrackRule(logger as Test.Logger) as Boolean {
     for (var i = 0; i < HeroFaceAccentCheck.MAGENTA; i++) {
         var ratio = HeroFaceAccentCheck.contrast(HeroFacePalette.ACCENTS[i], HeroFacePalette.TRACK);
@@ -87,7 +87,7 @@ function blueAndCyanClearTheTrackRule(logger as Test.Logger) as Boolean {
 // 2.84:1 against TRACK, under the face's own 3:1 rule. This passes while that stays true and FAILS the day the colour or the
 // track changes, so the decision gets written down (recolour, re-cut the track, or relax the rule) instead of the rule
 // being silently met or silently broken. Ids are append-only, so a recolour is a new id, not an edit.
-(:test)
+(:test :color)
 function magentaMissesTheTrackRuleKnownIssue(logger as Test.Logger) as Boolean {
     var ratio = HeroFaceAccentCheck.contrast(HeroFacePalette.ACCENTS[HeroFaceAccentCheck.MAGENTA], HeroFacePalette.TRACK);
     logger.debug("Magenta on TRACK: " + ratio.format("%.3f") + ":1 (the rule is 3:1)");
@@ -97,7 +97,7 @@ function magentaMissesTheTrackRuleKnownIssue(logger as Test.Logger) as Boolean {
 }
 
 // Gold, green and alert red carry meaning; white is the time's own colour; MUTED and TRACK are the greys.
-(:test)
+(:test :color)
 function noAccentIsAReservedRoleColour(logger as Test.Logger) as Boolean {
     var reserved = [HeroFacePalette.GOLD, HeroFacePalette.DONE, HeroFacePalette.ALERT, HeroFacePalette.TEXT, HeroFacePalette.MUTED, HeroFacePalette.TRACK] as Array<Number>;
     for (var i = 0; i < HeroFacePalette.ACCENTS.size(); i++) {
@@ -108,7 +108,7 @@ function noAccentIsAReservedRoleColour(logger as Test.Logger) as Boolean {
 
 // Append-only: a shipped id never changes its colour (the phone and the watch store the id). HeroFace stays at its
 // shipped three in both tiers, so the Free list (Mode, Accent 0-2) and the Pro list are the same three entries.
-(:test)
+(:test :color)
 function shippedAccentIdsKeepTheirColours(logger as Test.Logger) as Boolean {
     var shipped = HeroFaceAccentCheck.SHIPPED;
     Test.assert(HeroFacePalette.ACCENTS.size() >= shipped.size());
@@ -119,11 +119,23 @@ function shippedAccentIdsKeepTheirColours(logger as Test.Logger) as Boolean {
     return true;
 }
 
-(:test)
+(:test :color)
 function outOfRangeAccentIsTheDefault(logger as Test.Logger) as Boolean {
     var fallback = HeroFacePalette.ACCENTS[0];
     Test.assertEqual(HeroFacePalette.accent(-1), fallback);
     Test.assertEqual(HeroFacePalette.accent(HeroFacePalette.ACCENTS.size()), fallback);
     Test.assertEqual(HeroFacePalette.accent(99), fallback);
+    return true;
+}
+
+// The Instinct palette (ADR-002): whatever the setting says, the accent is white and every role is white on black.
+(:test :mono)
+function accentIsWhiteOnTheMonoPalette(logger as Test.Logger) as Boolean {
+    Test.assert(HeroFacePalette.MONO);
+    for (var i = -1; i <= HeroFacePalette.ACCENTS.size(); i++) {
+        Test.assertEqual(HeroFacePalette.accent(i), HeroFacePalette.TEXT);
+    }
+    Test.assertEqual(HeroFacePalette.MUTED, HeroFacePalette.TEXT);
+    Test.assertEqual(HeroFacePalette.TRACK, HeroFacePalette.TEXT);
     return true;
 }
