@@ -42,4 +42,6 @@ Durable decisions, newest last. The earlier choices (minApiLevel, Everyday-first
 
 **Consequences.** Pro on an Instinct has no seconds, no temperature and no footer; Free and Pro look the same there. No round product's drawing changed: `rowCenterX` returns the centre and the insets are unchanged without a window (round control suites pass).
 
+**Site.** `../site/src/apps/heroface/facts.ts` still says `watchCount = 117` and "Every round watch", which stays true for the live app. Nothing about Instinct goes on the site until an upload is approved and the store lists the watches; then gate the copy behind a flag as HeroSet does (`instinctLive`) and update the count.
+
 **Verification.** See `docs/compatibility.md` "Instinct family". Simulator only.
