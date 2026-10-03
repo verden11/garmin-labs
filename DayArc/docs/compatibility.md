@@ -63,15 +63,15 @@ Only 4 of the 69 products have ever been rendered. fr255s and fenix7s compile cl
 Arithmetic from the code and each device's own `simulator.json` (font em sizes: fr255s xtiny 13,
 tiny 15, large 20, number-mild 25, -medium 32, -hot 41; fenix7s 13/17/24, 28/35/46 — much smaller than
 fr965's, box heights estimated at ~1.17x the em, so ~15-18px text rows and a 29/37/48px number box):
-- **Fixed-size bitmaps are the binding constraint, not the fonts.** The hero icons are 56x45, 52x52
-  and 68x48 px and the grid icons 22px, whatever the screen. On 218px the hero row is at least 48px
+- **Fixed-size bitmaps are the binding constraint, not the fonts.** The hero icons are 60x48, 48x48
+  and 60x42 px and the grid icons 24px, whatever the screen. On 218px the hero row is at least 48px
   (icon-dominated: a hot number box is ~48 too) = ~22% of the height, against ~12% on fr965.
 - **Simple, evening (worst case):** clock ~29 + date ~18 + label ~18 + hero 48 + gauge 6 + sub ~18 =
   ~137px plus 5 gaps of ~3px = ~152px, against ~192px usable (13px top and bottom) — fits on the first
-  rungs; hero width 68 + 4 + a 3-digit hot number (~75px) = ~147px against a ~190px chord. The clock
+  rungs; hero width 60 + 4 + a 3-digit hot number (~75px) = ~147px against a ~190px chord. The clock
   (~95px wide) clears the arc's clear radius (~100px) from y~22. So Simple should fit at or near the
   top of the ladder.
-- **Pro:** grid rows are max(text 15, icon 22) + gap = ~25px, reserve ~54px for two rows; hero block
+- **Pro:** grid rows are max(text 15, icon 24) + gap = ~25px, reserve ~54px for two rows; hero block
   with label ~145px + 54 = ~199px against 192px — needs the small-text rung (or dropping the hero
   label), then fits with roughly 2 rows of icon+value cells (~78px columns near the bottom chord).
   Hero tiers do not help there because the 48px icon, not the number, sets the row height.
