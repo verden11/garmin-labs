@@ -34,6 +34,8 @@
     <string id="setting_golden">Heure dorée</string>
     <string id="setting_curve">Courbe d'énergie</string>
     <string id="setting_date">Date</string>
+    <string id="setting_weather">Météo</string>
+    <string id="setting_battery">Batterie montre</string>
     <string id="on">Activé</string>
     <string id="off">Désactivé</string>
 

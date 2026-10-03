@@ -1,6 +1,7 @@
 import Toybox.Application;
 import Toybox.Complications;
 import Toybox.Lang;
+import Toybox.Math;
 import Toybox.System;
 import Toybox.Time;
 import Toybox.Time.Gregorian;
@@ -30,6 +31,8 @@ class TwoSunsSources {
     private var _sunOffset as Number = 0;
     (:pro)
     private var _sun as Array<TwoSunsSunDay> = [] as Array<TwoSunsSunDay>;
+    (:pro)
+    private var _weatherSource as TwoSunsWeatherSource = new TwoSunsWeatherSource();
 
     (:pro)
     function initialize() {
@@ -46,6 +49,8 @@ class TwoSunsSources {
                                      days.size() == 2 ? days[0] : null, days.size() == 2 ? days[1] : null);
         var state = TwoSunsReadings.build(settings, time, System.getDeviceSettings().is24Hour, sky, batteryCurve(time.epoch),
                                           complicationNumber(Complications.COMPLICATION_TYPE_BODY_BATTERY), dateLines(time.epoch));
+        state.weather = weatherRow(settings, time, sky);
+        state.watchBattery = watchBattery(settings);
         return state;
     }
 
@@ -200,5 +205,33 @@ class TwoSunsSources {
     private static function dateLines(epoch as Number) as Array<String> {
         var info = Gregorian.info(new Time.Moment(epoch), Time.FORMAT_MEDIUM);
         return TwoSunsDateText.lines(info.day_of_week as String, info.day, info.month as String, TwoSunsDateText.monthFirstNow());
+    }
+
+    // Free has no weather.
+    (:free)
+    private function weatherRow(settings as TwoSunsSettings, time as TwoSunsLocalTime, sky as TwoSunsSky) as TwoSunsWeather or Null {
+        return null;
+    }
+
+    // The weather row (docs/decisions.md ADR-022, Weather row in Pro): null when the setting is off or Garmin gave nothing.
+    (:pro)
+    private function weatherRow(settings as TwoSunsSettings, time as TwoSunsLocalTime, sky as TwoSunsSky) as TwoSunsWeather or Null {
+        return settings.weather ? _weatherSource.row(time, sky) : null;
+    }
+
+    // Free has no watch battery row.
+    (:free)
+    private function watchBattery(settings as TwoSunsSettings) as Number or Null {
+        return null;
+    }
+
+    // The watch's own charge, whole percent, when the Battery setting is on.
+    (:pro)
+    private function watchBattery(settings as TwoSunsSettings) as Number or Null {
+        if (!settings.battery) {
+            return null;
+        }
+        var percent = Math.round(System.getSystemStats().battery).toNumber();
+        return percent < 0 ? 0 : (percent > TwoSunsConfig.BATTERY_MAX ? TwoSunsConfig.BATTERY_MAX : percent);
     }
 }

@@ -38,6 +38,8 @@
     <string id="setting_golden">Golden hour</string>
     <string id="setting_curve">Energy curve</string>
     <string id="setting_date">Date</string>
+    <string id="setting_weather">Weather</string>
+    <string id="setting_battery">Watch battery</string>
     <string id="on">On</string>
     <string id="off">Off</string>
 

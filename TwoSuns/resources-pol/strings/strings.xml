@@ -34,6 +34,8 @@
     <string id="setting_golden">Złota godzina</string>
     <string id="setting_curve">Krzywa energii</string>
     <string id="setting_date">Data</string>
+    <string id="setting_weather">Pogoda</string>
+    <string id="setting_battery">Bateria zegarka</string>
     <string id="on">Wł.</string>
     <string id="off">Wył.</string>
 

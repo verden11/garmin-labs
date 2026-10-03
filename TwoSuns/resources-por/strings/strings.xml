@@ -34,6 +34,8 @@
     <string id="setting_golden">Hora dourada</string>
     <string id="setting_curve">Curva de energia</string>
     <string id="setting_date">Data</string>
+    <string id="setting_weather">Tempo</string>
+    <string id="setting_battery">Bateria do relógio</string>
     <string id="on">Ligado</string>
     <string id="off">Desligado</string>
 

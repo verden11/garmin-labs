@@ -5,8 +5,8 @@ Writes, relative to the project root, for each tier asked for (free, pro; defaul
   resources-<tier>/settings/settings.xml     what Garmin Connect / Express render
   resources-<tier>/settings/properties.xml   defaults (keys never change once shipped)
 
-Tiers (docs/decisions.md ADR-020 (Free + Pro ladder)): Pro has all five settings. Free has Accent only (ids 0-5): Orientation,
-Golden, Curve and Date are Pro-only. There is NO settings file in the shared resources/: two files would overlap.
+Tiers (docs/decisions.md ADR-020 (Free + Pro ladder)): Pro has all seven settings. Free has Accent only (ids 0-5): Orientation,
+Golden, Curve, Date, Weather and Battery are Pro-only. There is NO settings file in the shared resources/: two files would overlap.
 
 Everything users read as words (titles, list entries) lives in the hand-maintained
 resources*/strings/strings.xml; `--ids` prints the ids it must define. Lists, not
@@ -27,7 +27,7 @@ XSI = ('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
        'xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd"')
 
 TIERS = ("free", "pro")
-PRO_ONLY_KEYS = ("Orientation", "Golden", "Curve", "Date")
+PRO_ONLY_KEYS = ("Orientation", "Golden", "Curve", "Date", "Weather", "Battery")
 
 # (property id, title id, default, [(value, string id)]). Keep in step with TwoSunsConfig (KEY_*, ACCENT_COUNT, ON/OFF).
 # Accent ids are append-only. 0-5 are shipped and are the Free list too; ids 6-11 (cyan, lime, yellow, magenta; orange and coral
@@ -38,6 +38,8 @@ SETTINGS = [
     ("Golden", "setting_golden", 0, [(0, "off"), (1, "on")]),
     ("Curve", "setting_curve", 1, [(0, "off"), (1, "on")]),
     ("Date", "setting_date", 1, [(0, "off"), (1, "on")]),
+    ("Weather", "setting_weather", 1, [(0, "off"), (1, "on")]),
+    ("Battery", "setting_battery", 1, [(0, "off"), (1, "on")]),
 ]
 
 

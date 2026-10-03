@@ -19,7 +19,47 @@ class TwoSunsTestStates {
             }
         }
         states.add(make(skies[0], curves[0], false));   // date off: the rows re-stack
+        addWeatherStates(states, skies);
         return states;
+    }
+
+    // Pro only: the weather row in its widest forms, on a day (a lead cell and three ahead cells) and the next day
+    // (weekday, icon, high, low and ahead cells), each with and without the date and curve rows.
+    (:pro)
+    static function addWeatherStates(states as Array<TwoSunsState>, skies as Array<TwoSunsSky>) as Void {
+        var curve = curve(100, 3);
+        states.add(withWeather(make(skies[0], curve, true), widestDay()));
+        states.add(withWeather(make(skies[0], null, false), widestDay()));
+        states.add(withWeather(make(skies[2], curve, true), widestNextDay()));
+        states.add(withWeather(make(skies[2], null, false), widestNextDay()));
+    }
+
+    (:free)
+    static function addWeatherStates(states as Array<TwoSunsState>, skies as Array<TwoSunsSky>) as Void {
+    }
+
+    static function withWeather(state as TwoSunsState, weather as TwoSunsWeather) as TwoSunsState {
+        state.weather = weather;
+        return state;
+    }
+
+    // The widest day row: a three-digit Fahrenheit number and three ahead cells with two-digit hours.
+    static function widestDay() as TwoSunsWeather {
+        var weather = new TwoSunsWeather();
+        weather.leadKind = TwoSunsConfig.WEATHER_PARTLY;
+        weather.leadText = "104" + TwoSunsConfig.DEGREE_CODE.toChar().toString();
+        weather.aheadKinds = [TwoSunsConfig.WEATHER_RAIN, TwoSunsConfig.WEATHER_STORM, TwoSunsConfig.WEATHER_SNOW] as Array<Number>;
+        weather.aheadLabels = ["12", "12", "12"] as Array<String>;
+        return weather;
+    }
+
+    // The widest next-day row: a long weekday, a three-digit high, a negative low and three ahead cells.
+    static function widestNextDay() as TwoSunsWeather {
+        var weather = widestDay();
+        weather.nextDay = true;
+        weather.dayLabel = "Wed";
+        weather.lowText = "-40" + TwoSunsConfig.DEGREE_CODE.toChar().toString();
+        return weather;
     }
 
     static function skies() as Array<TwoSunsSky> {
@@ -99,7 +139,20 @@ class TwoSunsTestStates {
         var settings = new TwoSunsSettings({"Date" => showDate ? 1 : 0} as Dictionary);
         var time = new TwoSunsLocalTime(2026, 9, 30, 12 * 60 + 59, 60, NOW);
         var dateLines = ["Wed 30 Sep", "30 Sep"] as Array<String>;
-        return TwoSunsReadings.build(settings, time, true, sky, curve, null, dateLines);
+        var state = TwoSunsReadings.build(settings, time, true, sky, curve, null, dateLines);
+        state.watchBattery = widestWatchBattery();
+        return state;
+    }
+
+    // The widest watch battery text, "100%" (Pro only: Free has no battery row).
+    (:pro)
+    static function widestWatchBattery() as Number or Null {
+        return TwoSunsConfig.BATTERY_MAX;
+    }
+
+    (:free)
+    static function widestWatchBattery() as Number or Null {
+        return null;
     }
 
     // Every row the frame keeps must have been drawn (a row silently dropped inside the drawing code would
@@ -127,6 +180,6 @@ class TwoSunsTestStates {
         if (sleeping) {
             return 2 + (frame.showLine ? 1 : 0);
         }
-        return 3 + (frame.showDate ? 1 : 0) + (frame.showLine ? 1 : 0) + (frame.showCurve ? 1 : 0);
+        return 3 + (frame.showDate ? 1 : 0) + (frame.showLine ? 1 : 0) + (frame.showCurve ? 1 : 0) + frame.weatherBoxCount + (frame.showBattery ? 1 : 0);
     }
 }

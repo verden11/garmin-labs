@@ -1,0 +1,232 @@
+import Toybox.Graphics;
+import Toybox.Lang;
+
+// The weather row's sizes and drawing (docs/decisions.md ADR-022, Weather row in Pro). Two forms: the full row
+// is a lead cell (the condition icon and the feels-like temperature; or the next day's weekday, icon, high and
+// low) and up to three ahead cells (an icon over its hour); the compact row is one line the height of the
+// smallest label font, with no hour labels, for a screen too short for the full one. The lead icon is coloured
+// and bigger than the ahead icons, its number is one fixed hue, everything else is mono. Cells are measured
+// against the round chord: the next day's low goes first when the row is wide, then ahead cells, and a lead that
+// does not fit makes the frame drop the row.
+(:pro)
+class TwoSunsWeatherRow {
+    private static const LEAD_ICON_PERCENT = 140;     // the lead icon against an ahead icon (the approved mockup: 43 against 31 px)
+    private static const ARROW_BLOCK_PERCENT = 80;    // the next-day arrow and its space before the weekday, of the label height
+    private static const ARROW_LENGTH_PERCENT = 52;   // the arrow's length
+    private static const ARROW_HEAD_PERCENT = 21;     // the head's half height
+    private static const ARROW_HEAD_LENGTH_PERCENT = 25;   // the head's length
+    private static const ARROW_PEN_DIVISOR = 11;      // the shaft's pen, a share of the label height
+    private static const LOW_GAP_PERCENT = 40;        // the next day's low sits this far (of the label height) after its high
+    private static const LOW_ROOM_PERCENT = 75;       // the low is kept only while the row stays within this share of the chord
+
+    static function labelFont() as Graphics.FontDefinition {
+        return TwoSunsLayout.DATE_FONTS[TwoSunsLayout.DATE_FONTS.size() - 1];
+    }
+
+    static function iconSize(layout as TwoSunsLayout) as Number {
+        var size = layout.capFor(TwoSunsConfig.WEATHER_ICON_PERMILLE);
+        return size < TwoSunsConfig.WEATHER_ICON_MIN_PX ? TwoSunsConfig.WEATHER_ICON_MIN_PX : size;
+    }
+
+    // The row's height: the icon over the label, or one label line; 0 when the row is not drawn.
+    static function height(dc as Graphics.Dc, layout as TwoSunsLayout, mode as Number) as Number {
+        var label = dc.getFontHeight(labelFont());
+        if (mode == TwoSunsConfig.WEATHER_ROW_FULL) {
+            return iconSize(layout) + label;
+        }
+        return mode == TwoSunsConfig.WEATHER_ROW_COMPACT ? label : 0;
+    }
+
+    // How many ahead cells fit the chord at this row, or -1 when the lead cell alone does not. The low goes before any cell.
+    static function aheadThatFit(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, top as Number) as Number {
+        var room = roomAt(dc, layout, mode, top);
+        var count = weather.aheadKinds.size();
+        while (count >= 0) {
+            if (totalWidth(dc, layout, weather, mode, count, lowKept(dc, layout, weather, mode, top, count)) <= room) {
+                return count;
+            }
+            count--;
+        }
+        return -1;
+    }
+
+    // The next day's low is drawn only in the full row and only while the whole row stays within 75% of the chord.
+    static function lowKept(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, top as Number, ahead as Number) as Boolean {
+        if (!weather.nextDay || weather.lowText.length() == 0 || mode != TwoSunsConfig.WEATHER_ROW_FULL) {
+            return false;
+        }
+        return totalWidth(dc, layout, weather, mode, ahead, true) <= roomAt(dc, layout, mode, top) * LOW_ROOM_PERCENT / TwoSunsConfig.PERCENT;
+    }
+
+    // Draws the lead cell and `ahead` ahead cells, centred as one group.
+    static function draw(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, top as Number, ahead as Number) as Void {
+        var rowHeight = height(dc, layout, mode);
+        var gap = cellGap(layout);
+        var withLow = lowKept(dc, layout, weather, mode, top, ahead);
+        var leadW = leadWidth(dc, layout, weather, mode, withLow);
+        var x = layout.centerX() - totalWidth(dc, layout, weather, mode, ahead, withLow) / 2;
+        if (leadW > 0) {
+            drawLead(dc, layout, weather, mode, x, top, rowHeight, withLow);
+            TwoSunsDraw.box(layout, x, top, leadW, rowHeight, "weather");
+            x += leadW + 2 * gap;
+        }
+        for (var i = 0; i < ahead; i++) {
+            var width = aheadWidth(dc, layout, weather, mode, i);
+            drawAhead(dc, layout, weather, mode, i, x, top, rowHeight, width);
+            TwoSunsDraw.box(layout, x, top, width, rowHeight, "weather");
+            x += width + gap;
+        }
+    }
+
+    private static function roomAt(dc as Graphics.Dc, layout as TwoSunsLayout, mode as Number, top as Number) as Number {
+        var rowHeight = height(dc, layout, mode);
+        var radius = layout.contentRadius();
+        return layout.rightInsetWithin(radius, top, rowHeight) - layout.leftInsetWithin(radius, top, rowHeight);
+    }
+
+    private static function cellGap(layout as TwoSunsLayout) as Number {
+        var gap = iconSize(layout) / 2;
+        return gap < 2 ? 2 : gap;
+    }
+
+    private static function numberFont(dc as Graphics.Dc, rowHeight as Number) as Graphics.FontDefinition {
+        return TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.VALUE_FONTS, rowHeight);
+    }
+
+    // The next day's lead stacks its weekday over the icon, so its icon is an ahead icon's size; every other lead icon is bigger.
+    private static function stacked(weather as TwoSunsWeather, mode as Number) as Boolean {
+        return weather.nextDay && weather.dayLabel.length() > 0 && mode != TwoSunsConfig.WEATHER_ROW_COMPACT;
+    }
+
+    private static function leadIcon(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number) as Number {
+        var row = height(dc, layout, mode);
+        if (mode == TwoSunsConfig.WEATHER_ROW_COMPACT) {
+            return row;
+        }
+        var big = iconSize(layout) * LEAD_ICON_PERCENT / TwoSunsConfig.PERCENT;
+        return stacked(weather, mode) ? iconSize(layout) : (big < row ? big : row);
+    }
+
+    // The chevron, its space and the weekday; 0 when there is no weekday (before sunrise the date row already says it).
+    private static function labelBlock(dc as Graphics.Dc, weather as TwoSunsWeather) as Number {
+        if (weather.dayLabel.length() == 0) {
+            return 0;
+        }
+        return dc.getFontHeight(labelFont()) * ARROW_BLOCK_PERCENT / TwoSunsConfig.PERCENT + dc.getTextWidthInPixels(weather.dayLabel, labelFont());
+    }
+
+    private static function totalWidth(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, ahead as Number, withLow as Boolean) as Number {
+        var leadW = leadWidth(dc, layout, weather, mode, withLow);
+        var gap = cellGap(layout);
+        var total = leadW;
+        if (ahead > 0) {
+            total += (leadW > 0 ? 2 * gap : 0) + (ahead - 1) * gap;   // two gaps after the lead, one between ahead cells
+            for (var i = 0; i < ahead; i++) {
+                total += aheadWidth(dc, layout, weather, mode, i);
+            }
+        }
+        return total;
+    }
+
+    private static function lowWidth(dc as Graphics.Dc, weather as TwoSunsWeather, withLow as Boolean) as Number {
+        if (!withLow) {
+            return 0;
+        }
+        return dc.getFontHeight(labelFont()) * LOW_GAP_PERCENT / TwoSunsConfig.PERCENT + dc.getTextWidthInPixels(weather.lowText, labelFont());
+    }
+
+    private static function leadWidth(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, withLow as Boolean) as Number {
+        if (!weather.hasLead()) {
+            return 0;
+        }
+        var gap = cellGap(layout);
+        var iconW = weather.leadKind == TwoSunsConfig.WEATHER_NONE ? 0 : leadIcon(dc, layout, weather, mode);
+        var textW = dc.getTextWidthInPixels(weather.leadText, numberFont(dc, height(dc, layout, mode)));
+        var body = iconW + (iconW > 0 && textW > 0 ? gap : 0) + textW;
+        var label = labelBlock(dc, weather);
+        if (stacked(weather, mode)) {
+            return (label > iconW ? label : iconW) + (textW > 0 ? gap + textW + lowWidth(dc, weather, withLow) : 0);
+        }
+        return (label > 0 ? label + gap : 0) + body + lowWidth(dc, weather, withLow);
+    }
+
+    private static function aheadWidth(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, index as Number) as Number {
+        if (mode == TwoSunsConfig.WEATHER_ROW_COMPACT) {
+            return height(dc, layout, mode);
+        }
+        var label = dc.getTextWidthInPixels(weather.aheadLabels[index], labelFont());
+        return label > iconSize(layout) ? label : iconSize(layout);
+    }
+
+    private static function drawLead(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, left as Number,
+                                     top as Number, rowHeight as Number, withLow as Boolean) as Void {
+        var gap = cellGap(layout);
+        var icon = leadIcon(dc, layout, weather, mode);
+        var labelH = dc.getFontHeight(labelFont());
+        var hasIcon = weather.leadKind != TwoSunsConfig.WEATHER_NONE;
+        var centerY = top + rowHeight / 2;
+        var block = labelBlock(dc, weather);
+        var x = left;
+        if (stacked(weather, mode)) {
+            var column = block > icon ? block : icon;
+            drawDayLabel(dc, weather, left + (column - block) / 2, top, labelH);
+            if (hasIcon) {
+                TwoSunsWeatherIcons.draw(dc, weather.leadKind, left + column / 2, top + labelH + icon / 2, icon, false);
+            }
+            x = left + column + gap;
+        } else {
+            if (block > 0) {
+                drawDayLabel(dc, weather, left, centerY - labelH / 2, labelH);
+                x += block + gap;
+            }
+            if (hasIcon) {
+                TwoSunsWeatherIcons.draw(dc, weather.leadKind, x + icon / 2, centerY, icon, false);
+                x += icon + gap;
+            }
+        }
+        if (weather.leadText.length() > 0) {
+            drawLeadText(dc, weather, x, centerY, numberFont(dc, rowHeight), withLow);
+        }
+    }
+
+    // The lead number in its one fixed hue (the same whatever the condition); the next day's low, muted and smaller, after its high.
+    private static function drawLeadText(dc as Graphics.Dc, weather as TwoSunsWeather, x as Number, centerY as Number,
+                                         font as Graphics.FontDefinition, withLow as Boolean) as Void {
+        var labelH = dc.getFontHeight(labelFont());
+        dc.setColor(TwoSunsPalette.WEATHER_NUMBER, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(x, centerY - dc.getFontHeight(font) / 2, font, weather.leadText, Graphics.TEXT_JUSTIFY_LEFT);
+        if (withLow) {
+            dc.setColor(TwoSunsPalette.MUTED, Graphics.COLOR_TRANSPARENT);
+            dc.drawText(x + dc.getTextWidthInPixels(weather.leadText, font) + labelH * LOW_GAP_PERCENT / TwoSunsConfig.PERCENT,
+                        centerY - labelH / 2, labelFont(), weather.lowText, Graphics.TEXT_JUSTIFY_LEFT);
+        }
+    }
+
+    // An arrow and the weekday: the cell is the next day, not a mistake beside today's date. The arrow is a shaft and a
+    // filled head, vector shapes like the weather icons (docs/decisions.md ADR-023).
+    private static function drawDayLabel(dc as Graphics.Dc, weather as TwoSunsWeather, left as Number, top as Number, labelH as Number) as Void {
+        var length = labelH * ARROW_LENGTH_PERCENT / TwoSunsConfig.PERCENT;
+        var headLength = labelH * ARROW_HEAD_LENGTH_PERCENT / TwoSunsConfig.PERCENT;
+        var half = labelH * ARROW_HEAD_PERCENT / TwoSunsConfig.PERCENT;
+        var middle = top + labelH / 2;
+        dc.setColor(TwoSunsPalette.MUTED, Graphics.COLOR_TRANSPARENT);
+        dc.setPenWidth(labelH / ARROW_PEN_DIVISOR < 1 ? 1 : labelH / ARROW_PEN_DIVISOR);
+        dc.drawLine(left, middle, left + length - headLength, middle);
+        dc.setPenWidth(1);
+        dc.fillPolygon([[left + length - headLength, middle - half], [left + length, middle], [left + length - headLength, middle + half]] as Array<[Numeric, Numeric]>);
+        dc.drawText(left + labelH * ARROW_BLOCK_PERCENT / TwoSunsConfig.PERCENT, top, labelFont(), weather.dayLabel, Graphics.TEXT_JUSTIFY_LEFT);
+    }
+
+    private static function drawAhead(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, index as Number,
+                                      left as Number, top as Number, rowHeight as Number, width as Number) as Void {
+        var centerX = left + width / 2;
+        if (mode == TwoSunsConfig.WEATHER_ROW_COMPACT) {
+            TwoSunsWeatherIcons.draw(dc, weather.aheadKinds[index], centerX, top + rowHeight / 2, width, true);
+            return;
+        }
+        var icon = iconSize(layout);
+        TwoSunsWeatherIcons.draw(dc, weather.aheadKinds[index], centerX, top + icon / 2, icon, true);
+        dc.setColor(TwoSunsPalette.MUTED, Graphics.COLOR_TRANSPARENT);
+        dc.drawText(centerX, top + icon, labelFont(), weather.aheadLabels[index], Graphics.TEXT_JUSTIFY_CENTER);
+    }
+}

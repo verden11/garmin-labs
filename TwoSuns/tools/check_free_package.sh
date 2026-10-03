@@ -16,7 +16,7 @@
 #         modules Position, SensorHistory, Weather, Activity or Storage, and no TwoSunsSources.initialize (the Storage read);
 #         AppName is "Two Suns" in every language.
 #   Pro:  permissions are ComplicationSubscriber, Positioning and SensorHistory; the settings keys are Accent, Orientation,
-#         Golden, Curve, Date; every .prg contains Orientation, Golden, Curve and "Two Suns Pro", and every debug.xml the Pro-only
+#         Golden, Curve, Date, Weather, Battery; every .prg contains Orientation, Golden, Curve and "Two Suns Pro", and every debug.xml the Pro-only
 #         functions and files (positive controls: they prove the Free checks can see what they look for);
 #         AppName is "Two Suns Pro" in every language.
 #   Both: the app ids are the expected, different ones; the part numbers equal the SDK's part numbers for the manifest's
@@ -63,7 +63,7 @@ python3 - "$WORK/free" "$WORK/pro" "$FREE_ID" "$PRO_ID" "$DEVICES" <<'PY'
 import glob, json, os, re, sys
 free_dir, pro_dir, free_id, pro_id, devices = sys.argv[1:6]
 FREE_KEYS = ["Accent"]
-PRO_ONLY = ["Orientation", "Golden", "Curve", "Date"]
+PRO_ONLY = ["Orientation", "Golden", "Curve", "Date", "Weather", "Battery"]
 PRO_KEYS = FREE_KEYS + PRO_ONLY
 FREE_PERMISSIONS = {"ComplicationSubscriber"}
 PRO_PERMISSIONS = {"ComplicationSubscriber", "Positioning", "SensorHistory"}
@@ -76,8 +76,9 @@ PRG_KEYS = ["Orientation", "Golden", "Curve", "place"]   # "place" is the Applic
 def key_pattern(key):
     return rb"[\x00-\x1f]" + key.encode() + rb"\x00"
 # Pro-only code, by the names the compiler keeps in debug.xml: functions that exist only in Pro, and whole source files.
-PRO_SYMBOLS = ["positionLocation", "readCurve", "updatePlace", "activityLocation", "weatherLocation", "fromStorage", "drawDot"]
-PRO_FILES = ["TwoSunsSun.mc", "TwoSunsPlace.mc", "TwoSunsCurvePlan.mc", "TwoSunsDateText.mc"]
+PRO_SYMBOLS = ["positionLocation", "readCurve", "updatePlace", "activityLocation", "weatherLocation", "fromStorage", "drawDot", "readWeather"]
+PRO_FILES = ["TwoSunsSun.mc", "TwoSunsPlace.mc", "TwoSunsCurvePlan.mc", "TwoSunsDateText.mc",
+             "TwoSunsWeatherData.mc", "TwoSunsWeatherSource.mc", "TwoSunsWeatherKind.mc", "TwoSunsWeatherPlan.mc", "TwoSunsWeatherIcons.mc", "TwoSunsWeatherRow.mc", "TwoSunsBatteryRow.mc"]
 # Modules the Free build must not so much as import. Only the first two show up in Pro's debug.xml (Pro names Position, Activity and
 # Storage in full, which leaves no module entry), so only those two are positive controls; the Storage read itself is in
 # TwoSunsSources.initialize, which Free does not have (checked below with updatePlace and fromStorage, the write and the parse).

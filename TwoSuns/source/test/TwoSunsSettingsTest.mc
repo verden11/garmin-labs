@@ -7,12 +7,14 @@ import Toybox.Test;
 // Free + Pro ladder); Free has the tests at the end of this file and the accent tests in TwoSunsAccentTest.
 (:test, :pro)
 function badSettingsFallBackToDefaults(logger as Test.Logger) as Boolean {
-    var s = new TwoSunsSettings({"Accent" => 6, "Orientation" => 2, "Golden" => -1, "Curve" => "x", "Date" => 2.5} as Dictionary);
+    var s = new TwoSunsSettings({"Accent" => 6, "Orientation" => 2, "Golden" => -1, "Curve" => "x", "Date" => 2.5, "Weather" => 7, "Battery" => -3} as Dictionary);
     Test.assertEqual(s.accent, 0);
     Test.assertEqual(s.orientation, TwoSunsConfig.ORIENTATION_NOON_TOP);
     Test.assert(!s.golden);
     Test.assert(s.curve);
     Test.assert(s.date);
+    Test.assert(s.weather);
+    Test.assert(s.battery);
     return true;
 }
 
@@ -24,17 +26,21 @@ function missingSettingsFallBackToDefaults(logger as Test.Logger) as Boolean {
     Test.assert(!s.golden);
     Test.assert(s.curve);
     Test.assert(s.date);
+    Test.assert(s.weather);
+    Test.assert(s.battery);
     return true;
 }
 
 (:test, :pro)
 function goodSettingsPassThrough(logger as Test.Logger) as Boolean {
-    var s = new TwoSunsSettings({"Accent" => 5, "Orientation" => 1, "Golden" => 1, "Curve" => 0, "Date" => 0} as Dictionary);
+    var s = new TwoSunsSettings({"Accent" => 5, "Orientation" => 1, "Golden" => 1, "Curve" => 0, "Date" => 0, "Weather" => 0, "Battery" => 0} as Dictionary);
     Test.assertEqual(s.accent, 5);
     Test.assertEqual(s.orientation, TwoSunsConfig.ORIENTATION_MIDNIGHT_TOP);
     Test.assert(s.golden);
     Test.assert(!s.curve);
     Test.assert(!s.date);
+    Test.assert(!s.weather);
+    Test.assert(!s.battery);
     return true;
 }
 
@@ -67,16 +73,17 @@ function loadReadsRealPropertiesAndStaysInRange(logger as Test.Logger) as Boolea
 // Free values: noon at the top, no golden arc, no curve, no date row. Free never asks for those keys.
 (:test, :free)
 function freeReturnsDefaultsForProKeys(logger as Test.Logger) as Boolean {
-    var s = new TwoSunsSettings({"Accent" => 3, "Orientation" => 1, "Golden" => 1, "Curve" => 1, "Date" => 1} as Dictionary);
+    var s = new TwoSunsSettings({"Accent" => 3, "Orientation" => 1, "Golden" => 1, "Curve" => 1, "Date" => 1, "Weather" => 1, "Battery" => 1} as Dictionary);
     Test.assertEqual(s.accent, 3);
     Test.assertEqual(s.orientation, TwoSunsConfig.ORIENTATION_NOON_TOP);
     Test.assert(!s.golden);
     Test.assert(!s.curve);
     Test.assert(!s.date);
+    Test.assert(!s.weather && !s.battery);
     var empty = new TwoSunsSettings({} as Dictionary);
     Test.assertEqual(empty.accent, 0);
     Test.assertEqual(empty.orientation, TwoSunsConfig.ORIENTATION_NOON_TOP);
-    Test.assert(!empty.golden && !empty.curve && !empty.date);
+    Test.assert(!empty.golden && !empty.curve && !empty.date && !empty.weather && !empty.battery);
     return true;
 }
 
@@ -88,7 +95,7 @@ function freeLoadReadsAccentOnly(logger as Test.Logger) as Boolean {
     var s = TwoSunsSettings.load();
     Test.assert(s.accent >= 0 && s.accent < TwoSunsConfig.ACCENT_COUNT);
     Test.assertEqual(s.orientation, TwoSunsConfig.ORIENTATION_NOON_TOP);
-    Test.assert(!s.golden && !s.curve && !s.date);
+    Test.assert(!s.golden && !s.curve && !s.date && !s.weather && !s.battery);
     return true;
 }
 

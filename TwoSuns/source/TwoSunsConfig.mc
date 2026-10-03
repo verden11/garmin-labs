@@ -83,6 +83,10 @@ class TwoSunsConfig {
     static const KEY_CURVE = "Curve";
     (:pro)
     static const KEY_DATE = "Date";
+    (:pro)
+    static const KEY_WEATHER = "Weather";
+    (:pro)
+    static const KEY_BATTERY = "Battery";
 
     static const HOURS_PER_HALF_DAY = 12;
 
@@ -111,10 +115,33 @@ class TwoSunsConfig {
     static const CURVE_MAX_WIDTH_PERMILLE = 520;   // of D
     static const CURVE_MIN_WIDTH_PERMILLE = 180;   // narrower than this and the curve is dropped, the value stays
     static const BAND_GAP_PERMILLE = 25;
-    static const GLYPH_HEIGHT_PERCENT = 55;        // of the value font's height
-    static const GLYPH_ASPECT_PERMILLE = 1800;     // glyph width as a share of its height
+    static const GLYPH_HEIGHT_PERCENT = 100;       // the Body Battery bolt is as tall as the value font (docs/decisions.md ADR-023)
+    static const GLYPH_ASPECT_PERMILLE = 600;      // glyph width as a share of its height
     static const DOT_PERMILLE = 16;                // the curve's current-point radius, of D
     static const MIN_DOT_RADIUS = 3;
     static const PEN_PERMILLE = 5;                 // line width of the curve and the glyph outline, of D
     static const PERCENT = 100;
+
+    // The weather row (docs/decisions.md ADR-022, Weather row in Pro). Kinds are the seven icons; NONE draws nothing.
+    static const WEATHER_NONE = -1;
+    static const WEATHER_CLEAR = 0;
+    static const WEATHER_PARTLY = 1;
+    static const WEATHER_CLOUDY = 2;
+    static const WEATHER_RAIN = 3;
+    static const WEATHER_STORM = 4;
+    static const WEATHER_SNOW = 5;
+    static const WEATHER_FOG = 6;
+    // How the frame draws the row: not at all, the two-line row (icon over hour), or one line (icons only).
+    static const WEATHER_ROW_NONE = 0;
+    static const WEATHER_ROW_FULL = 1;
+    static const WEATHER_ROW_COMPACT = 2;
+    static const WEATHER_AHEAD_CELLS = 3;                   // conditions ahead, at even steps from now to sunset
+    static const WEATHER_DEFAULT_SPAN_MINUTES = 360;        // the steps' span when the light left is unknown ("Sun is up")
+    static const WEATHER_MATCH_MINUTES = 90;                // an hourly entry further than this from its step is not used
+    static const WEATHER_OBSERVATION_MAX_SECONDS = 10800;   // a reading older than this is not shown (3 hours)
+    static const WEATHER_REFRESH_SECONDS = 300;             // Weather is re-read at most every 5 minutes
+    static const WEATHER_NEXT_DAY_HOURS = [10, 13, 16] as Array<Number>;   // local hours of the next day's three icons
+    static const WEATHER_ICON_MIN_PX = 16;
+    static const WEATHER_ICON_PERMILLE = 70;                // icon size, of D
+    static const DEGREE_CODE = 176;                         // the degree sign
 }

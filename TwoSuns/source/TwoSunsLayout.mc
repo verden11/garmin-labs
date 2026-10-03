@@ -77,17 +77,21 @@ class TwoSunsLayout {
         return _d * GAP_PERMILLE / TwoSunsConfig.PERMILLE;
     }
 
-    // Stacks the rows top to bottom and centres the block on the display: date, time, Body Battery
+    // Stacks the rows top to bottom and centres the block on the display: date, time, weather, Body Battery
     // band, sun line. Each argument is that row's height, 0 when the row is absent.
-    function rows(dateH as Number, timeH as Number, bandH as Number, lineH as Number) as TwoSunsRows {
+    function rows(dateH as Number, timeH as Number, weatherH as Number, bandH as Number, lineH as Number) as TwoSunsRows {
         var rows = new TwoSunsRows();
-        var top = centerY() - stackHeight(dateH, timeH, bandH, lineH) / 2;
+        var top = centerY() - stackHeight(dateH, timeH, weatherH, bandH, lineH) / 2;
         if (dateH > 0) {
             rows.dateTop = top;
             top += dateH + gap();
         }
         rows.timeTop = top;
         top += timeH + gap();
+        if (weatherH > 0) {
+            rows.weatherTop = top;
+            top += weatherH + gap();
+        }
         rows.bandTop = top;
         top += bandH;
         if (lineH > 0) {
@@ -97,8 +101,11 @@ class TwoSunsLayout {
     }
 
     // The total height of the rows that are present, with a gap between each.
-    function stackHeight(dateH as Number, timeH as Number, bandH as Number, lineH as Number) as Number {
+    function stackHeight(dateH as Number, timeH as Number, weatherH as Number, bandH as Number, lineH as Number) as Number {
         var total = timeH + bandH + gap();
+        if (weatherH > 0) {
+            total += weatherH + gap();
+        }
         if (dateH > 0) {
             total += dateH + gap();
         }

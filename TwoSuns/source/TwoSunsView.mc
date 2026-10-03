@@ -56,10 +56,38 @@ class TwoSunsView extends WatchUi.WatchFace {
             drawRow(dc, layout, radius, rows.dateTop, dc.getFontHeight(frame.dateFont), frame.dateFonts, state.dateLines, TwoSunsPalette.MUTED);
         }
         drawRow(dc, layout, radius, rows.timeTop, dc.getFontHeight(frame.timeFont), frame.timeFonts, [state.time] as Array<String>, TwoSunsPalette.TEXT);
+        drawBattery(dc, layout, frame, state);
+        drawWeather(dc, layout, frame, state);
         drawBand(dc, layout, frame, state);
         if (frame.showLine) {
             drawRow(dc, layout, radius, rows.lineTop, dc.getFontHeight(frame.lineFont), frame.lineFonts, state.skyLines, TwoSunsPalette.TEXT);
         }
+    }
+
+    // The watch battery row is Pro only: Free has no such row.
+    (:pro)
+    private function drawBattery(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
+        var percent = state.watchBattery;
+        if (frame.showBattery && percent != null) {
+            TwoSunsBatteryRow.draw(dc, layout, frame.batteryTop, percent);
+        }
+    }
+
+    (:free)
+    private function drawBattery(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
+    }
+
+    // The weather row is Pro only: Free has no weather, so no state ever carries one.
+    (:pro)
+    private function drawWeather(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
+        var weather = state.weather;
+        if (frame.weatherMode != TwoSunsConfig.WEATHER_ROW_NONE && weather != null) {
+            TwoSunsWeatherRow.draw(dc, layout, weather, frame.weatherMode, frame.rows.weatherTop, frame.weatherAhead);
+        }
+    }
+
+    (:free)
+    private function drawWeather(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
     }
 
     // The Body Battery band: a level pill, the value and, when there is room, the energy curve.

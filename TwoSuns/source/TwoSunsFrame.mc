@@ -3,8 +3,9 @@ import Toybox.Lang;
 
 // The fonts and row positions for one state on this display. Fonts come first (each row takes the
 // largest that stays under its height cap), then the rows are stacked from those heights. When the
-// stack is too tall for the display, optional rows drop in this order: date, curve, sun line.
-// The time and the Body Battery value never drop.
+// stack is too tall for the display, optional rows give way in this order: the weather row steps down to its
+// one-line form, then the date, the curve, the weather row and the sun line drop (docs/decisions.md ADR-016,
+// amended by ADR-022, Weather row in Pro). The time and the Body Battery value never drop.
 class TwoSunsFrame {
     var dateFont as Graphics.FontDefinition;
     var timeFont as Graphics.FontDefinition;
@@ -21,6 +22,12 @@ class TwoSunsFrame {
     var showDate as Boolean;
     var showCurve as Boolean;
     var showLine as Boolean;
+    var weatherMode as Number = TwoSunsConfig.WEATHER_ROW_NONE;   // Pro: none, the full row or the one-line row
+    var weatherHeight as Number = 0;
+    var weatherAhead as Number = 0;                                // ahead cells that fit the chord
+    var weatherBoxCount as Number = 0;                             // boxes the weather row draws: the lead cell and each ahead cell
+    var showBattery as Boolean = false;                            // Pro: the watch battery row above the stack, when the chord has room
+    var batteryTop as Number = 0;
 
     // `sleeping` keeps only the time, the value and the sun line (always-on).
     function initialize(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState, sleeping as Boolean) {
@@ -44,6 +51,7 @@ class TwoSunsFrame {
         showDate = !sleeping && state.showDate && state.dateLines.size() > 0;
         showCurve = !sleeping && state.curve != null;
         showLine = state.skyLines.size() > 0;
+        weatherMode = startingWeatherMode(state, sleeping);
         rows = dropRowsUntilItFits(dc, layout);
         band = planBand(dc, layout, state);
         if (showCurve && !band.hasCurve) {
@@ -51,17 +59,29 @@ class TwoSunsFrame {
             rows = plan(dc, layout);
             band = planBand(dc, layout, state);
         }
+        if (weatherMode != TwoSunsConfig.WEATHER_ROW_NONE && !weatherFits(dc, layout, state)) {
+            weatherMode = TwoSunsConfig.WEATHER_ROW_NONE;   // not even the lead cell fits the chord at its row
+            rows = plan(dc, layout);
+            band = planBand(dc, layout, state);
+        }
+        weatherBoxCount = countWeatherBoxes(state);
+        planBattery(dc, layout, state, sleeping);
     }
 
-    // Drops optional rows (date, then curve, then line) until the stack fits the span, then returns the rows.
+    // Steps the weather row down, then drops optional rows (date, curve, weather row, line) until the stack fits
+    // the span, then returns the rows.
     private function dropRowsUntilItFits(dc as Graphics.Dc, layout as TwoSunsLayout) as TwoSunsRows {
         var stacked = plan(dc, layout);
-        while (layout.stackHeight(dateHeight(dc), dc.getFontHeight(timeFont), bandHeight, lineHeight(dc)) > layout.spanHeight()
-               && (showDate || showCurve || showLine)) {
-            if (showDate) {
+        while (layout.stackHeight(dateHeight(dc), dc.getFontHeight(timeFont), weatherHeight, bandHeight, lineHeight(dc)) > layout.spanHeight()
+               && (showDate || showCurve || showLine || weatherMode != TwoSunsConfig.WEATHER_ROW_NONE)) {
+            if (weatherMode == TwoSunsConfig.WEATHER_ROW_FULL) {
+                weatherMode = TwoSunsConfig.WEATHER_ROW_COMPACT;
+            } else if (showDate) {
                 showDate = false;
             } else if (showCurve) {
                 showCurve = false;
+            } else if (weatherMode != TwoSunsConfig.WEATHER_ROW_NONE) {
+                weatherMode = TwoSunsConfig.WEATHER_ROW_NONE;
             } else {
                 showLine = false;
             }
@@ -81,7 +101,70 @@ class TwoSunsFrame {
         var valueHeight = dc.getFontHeight(valueFont);
         var curveHeight = layout.capFor(TwoSunsLayout.CURVE_BAND_PERMILLE);
         bandHeight = showCurve && curveHeight > valueHeight ? curveHeight : valueHeight;
-        return layout.rows(dateHeight(dc), dc.getFontHeight(timeFont), bandHeight, lineHeight(dc));
+        weatherHeight = weatherRowHeight(dc, layout);
+        return layout.rows(dateHeight(dc), dc.getFontHeight(timeFont), weatherHeight, bandHeight, lineHeight(dc));
+    }
+
+    // The watch battery row sits one gap above the first row of the stack, in the strip the stack leaves free; it is drawn
+    // only where its ink fits the round chord. Pro only, awake only.
+    (:pro)
+    private function planBattery(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState, sleeping as Boolean) as Void {
+        var percent = state.watchBattery;
+        if (sleeping || percent == null) {
+            return;
+        }
+        batteryTop = TwoSunsBatteryRow.top(dc, layout, showDate ? rows.dateTop : rows.timeTop);
+        showBattery = TwoSunsBatteryRow.fits(dc, layout, batteryTop, percent);
+    }
+
+    (:free)
+    private function planBattery(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState, sleeping as Boolean) as Void {
+    }
+
+    // The weather row only exists in Pro, awake, when there is something to show; Free has no weather at all.
+    (:pro)
+    private function startingWeatherMode(state as TwoSunsState, sleeping as Boolean) as Number {
+        return !sleeping && state.weather != null ? TwoSunsConfig.WEATHER_ROW_FULL : TwoSunsConfig.WEATHER_ROW_NONE;
+    }
+
+    (:free)
+    private function startingWeatherMode(state as TwoSunsState, sleeping as Boolean) as Number {
+        return TwoSunsConfig.WEATHER_ROW_NONE;
+    }
+
+    (:pro)
+    private function weatherRowHeight(dc as Graphics.Dc, layout as TwoSunsLayout) as Number {
+        return TwoSunsWeatherRow.height(dc, layout, weatherMode);
+    }
+
+    (:free)
+    private function weatherRowHeight(dc as Graphics.Dc, layout as TwoSunsLayout) as Number {
+        return 0;
+    }
+
+    // Measures the ahead cells that fit the chord; false when the lead cell alone does not.
+    (:pro)
+    private function weatherFits(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState) as Boolean {
+        var weather = state.weather;
+        if (weather == null) {
+            return false;
+        }
+        weatherAhead = TwoSunsWeatherRow.aheadThatFit(dc, layout, weather, weatherMode, rows.weatherTop);
+        return weatherAhead >= 0;
+    }
+
+    (:free)
+    private function weatherFits(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState) as Boolean {
+        return false;
+    }
+
+    // The boxes the weather row draws (the lead cell and each ahead cell), for the screen-fit test.
+    private function countWeatherBoxes(state as TwoSunsState) as Number {
+        var weather = state.weather;
+        if (weatherMode == TwoSunsConfig.WEATHER_ROW_NONE || weather == null) {
+            return 0;
+        }
+        return weatherAhead + (weather.hasLead() ? 1 : 0);
     }
 
     private function dateHeight(dc as Graphics.Dc) as Number {

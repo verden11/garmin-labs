@@ -5,4 +5,6 @@
     <property id="Golden" type="number">0</property>
     <property id="Curve" type="number">1</property>
     <property id="Date" type="number">1</property>
+    <property id="Weather" type="number">1</property>
+    <property id="Battery" type="number">1</property>
 </properties>
