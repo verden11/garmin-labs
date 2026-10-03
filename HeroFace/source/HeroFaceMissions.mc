@@ -21,6 +21,9 @@ class HeroFaceMissions {
         var gap = layout.stackGap();
         var top = layout.missionTop;
         var value = HeroFaceDraw.firstWithin(dc, width, Graphics.FONT_XTINY, HeroFaceText.values(metric));
+        if (layout.subscreen() != null) {
+            value = HeroFaceDraw.truncated(dc, value, Graphics.FONT_XTINY, width);
+        }
         dc.setColor(metric.isAlert() ? HeroFacePalette.ALERT : HeroFacePalette.TEXT, Graphics.COLOR_TRANSPARENT);
         HeroFaceDraw.text(dc, layout, center, top, Graphics.FONT_XTINY, value, Graphics.TEXT_JUSTIFY_CENTER);
         var barTop = top + line + gap;
@@ -34,7 +37,12 @@ class HeroFaceMissions {
     // corner radius so its rounded ends never cross (HeroSetMissionBars).
     private static function drawBar(dc as Graphics.Dc, left as Number, top as Number, width as Number, height as Number, metric as HeroFaceMetric, accent as Number) as Void {
         dc.setColor(HeroFacePalette.TRACK, Graphics.COLOR_TRANSPARENT);
-        dc.fillRoundedRectangle(left, top, width, height, height / 2);
+        if (HeroFacePalette.MONO) {
+            // A 1-bit display has no dim: the track is an outline, the fill solid over it.
+            dc.drawRoundedRectangle(left, top, width, height, height / 2);
+        } else {
+            dc.fillRoundedRectangle(left, top, width, height, height / 2);
+        }
         var fill = width * metric.permille() / 1000;
         if (fill <= 0) {
             return;
@@ -47,6 +55,10 @@ class HeroFaceMissions {
         var done = metric.isDone();
         var check = done ? checkWidth(dc) : 0;
         var label = HeroFaceDraw.firstWithin(dc, width - check, Graphics.FONT_XTINY, HeroFaceText.labels(metric.kind));
+        if (layout.subscreen() != null) {
+            // The Instinct's columns are about 40 px: a long translation is cut with a "." rather than reaching the next one.
+            label = HeroFaceDraw.truncated(dc, label, Graphics.FONT_XTINY, width - check);
+        }
         var textWidth = dc.getTextWidthInPixels(label, Graphics.FONT_XTINY);
         var left = center - (textWidth + check) / 2;
         dc.setColor(done ? HeroFacePalette.DONE : HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);

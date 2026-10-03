@@ -134,7 +134,7 @@ class HeroFaceView extends WatchUi.WatchFace {
         var y = layout.topRowTop;
         var text = HeroFaceDraw.firstFitting(dc, layout, layout.contentRadius(), 0, y, Graphics.FONT_XTINY, state.dateLines);
         dc.setColor(HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);
-        HeroFaceDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
+        HeroFaceDraw.text(dc, layout, layout.rowCenterX(y, dc.getFontHeight(Graphics.FONT_XTINY)), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     // The wide row under the time carries the streak and the temperature: two
@@ -144,7 +144,8 @@ class HeroFaceView extends WatchUi.WatchFace {
         var line = dc.getFontHeight(Graphics.FONT_XTINY);
         var left = layout.leftInsetWithin(layout.contentRadius(), y, line);
         var right = layout.rightInsetWithin(layout.contentRadius(), y, line);
-        var temperature = state.temperature;
+        // Beside the Instinct's window there is one narrow band: the streak, no temperature (ADR-002).
+        var temperature = layout.subscreen() == null ? state.temperature : null;
         var streak = state.streakLines.size() > 0
             ? HeroFaceDraw.firstFitting(dc, layout, layout.contentRadius(), 0, y, Graphics.FONT_XTINY, state.streakLines)
             : null;
@@ -159,7 +160,10 @@ class HeroFaceView extends WatchUi.WatchFace {
             dc.setColor(HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);
             HeroFaceDraw.text(dc, layout, right, y, Graphics.FONT_XTINY, temperature, Graphics.TEXT_JUSTIFY_RIGHT);
         } else if (streak != null) {
-            drawStreakText(dc, layout, layout.centerX(), y, streak, state, Graphics.TEXT_JUSTIFY_CENTER);
+            if (layout.subscreen() != null) {
+                streak = HeroFaceDraw.truncated(dc, streak, Graphics.FONT_XTINY, layout.rightInset(y, line) - layout.leftInset(y, line));
+            }
+            drawStreakText(dc, layout, layout.rowCenterX(y, line), y, streak, state, Graphics.TEXT_JUSTIFY_CENTER);
         } else if (temperature != null) {
             dc.setColor(HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);
             HeroFaceDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, temperature, Graphics.TEXT_JUSTIFY_CENTER);

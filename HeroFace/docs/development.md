@@ -119,3 +119,7 @@ The simulator proves geometry, fonts and logic. It cannot prove always-on
 behaviour, battery cost, MIP daylight contrast, or the HeroSet link, which
 needs two apps on real firmware. Builds and a tick list for that live in
 `../../device-test/` (git-ignored, so one folder holds both apps).
+
+## Screenshots (Instinct and any layout change)
+
+The unit suite measures numbers; it cannot see the bezel. For every layout change, photograph what the simulator draws (the face on its device skin, with the real fonts and the real bezel mask): `../docker/shot.sh HeroFace monkey.jungle instinct2 instincte40mm` writes `bin/shot-<device>-face.png` (the display, 3x). The Instinct's visible area is a circle about 98 px in radius, which a 176 x 176 square test misses: a finished-day footer was clipped in HeroSet that way (HeroSet ADR-055, amended 2026-10-03). `PREP='sed -i ... resources/properties.xml' ../docker/shot.sh ...` shows a particular state without touching the repo.

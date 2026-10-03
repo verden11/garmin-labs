@@ -10,12 +10,13 @@ class HeroFaceClock {
     static function draw(dc as Graphics.Dc, layout as HeroFaceLayout, state as HeroFaceState) as Array<Number>? {
         var font = layout.timeFont;
         dc.setColor(HeroFacePalette.TEXT, Graphics.COLOR_TRANSPARENT);
-        HeroFaceDraw.text(dc, layout, layout.centerX(), layout.timeTop, font, state.time, Graphics.TEXT_JUSTIFY_CENTER);
+        var center = layout.rowCenterX(layout.timeTop, dc.getFontHeight(font));
+        HeroFaceDraw.text(dc, layout, center, layout.timeTop, font, state.time, Graphics.TEXT_JUSTIFY_CENTER);
         var seconds = state.seconds;
         if (seconds == null) {
             return null;
         }
-        var x = layout.centerX() + dc.getTextWidthInPixels(state.time, font) / 2 + layout.stackGap() * 2;
+        var x = center + dc.getTextWidthInPixels(state.time, font) / 2 + layout.stackGap() * 2;
         // Widest two digits, so the partial-update clip box never cuts one off.
         var width = dc.getTextWidthInPixels("88", Graphics.FONT_XTINY);
         var zeros = dc.getTextWidthInPixels("00", Graphics.FONT_XTINY);

@@ -3,8 +3,9 @@
 # and properties (Slot1-3, Seconds, Weather). The shared resources/ has NO settings files, so two never overlap.
 project.manifest = manifest.xml
 base.sourcePath = source
-base.resourcePath = resources;resources-pro
-base.excludeAnnotations = free
+# Phone-settings order is Mode, Slots, Accent, Seconds, Weather: the Accent file sits between two halves of the Pro list.
+base.resourcePath = resources;resources-pro;resources-accent-pro;resources-pro-tail
+base.excludeAnnotations = free;mono
 # AppName is the one string that differs by tier, and a language does NOT inherit the default's strings
 # (the compiler warns "String id 'AppName' undefined for language ..."). So each language also searches the tier
 # folder; AppName is defined only there, never in resources/ or resources-<lang>/, so no language can override it.
@@ -22,3 +23,21 @@ base.lang.spa = $(base.lang.spa);resources-pro
 base.lang.swe = $(base.lang.swe);resources-pro
 base.lang.tur = $(base.lang.tur);resources-pro
 base.lang.ukr = $(base.lang.ukr);resources-pro
+
+# The Instinct family (docs/decisions.md ADR-002): the black-and-white palette (`color` excluded) and no Accent settings
+# file (resources-accent-<tier> is left out of their resourcePath: it has no effect on a 1-bit display). A per-product
+# excludeAnnotations REPLACES the base list, so the tier's own exclude is restated.
+instinct2.excludeAnnotations = free;color
+instinct2.resourcePath = resources;resources-pro;resources-pro-tail
+instinct2s.excludeAnnotations = free;color
+instinct2s.resourcePath = resources;resources-pro;resources-pro-tail
+instinct2x.excludeAnnotations = free;color
+instinct2x.resourcePath = resources;resources-pro;resources-pro-tail
+descentg1.excludeAnnotations = free;color
+descentg1.resourcePath = resources;resources-pro;resources-pro-tail
+instincte40mm.excludeAnnotations = free;color
+instincte40mm.resourcePath = resources;resources-pro;resources-pro-tail
+instincte45mm.excludeAnnotations = free;color
+instincte45mm.resourcePath = resources;resources-pro;resources-pro-tail
+instinct3solar45mm.excludeAnnotations = free;color
+instinct3solar45mm.resourcePath = resources;resources-pro;resources-pro-tail
