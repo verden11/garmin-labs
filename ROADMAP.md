@@ -17,8 +17,8 @@ Do not keep open checkboxes anywhere else. Status 2026-10-04 (evening).
 
 ## 1. Decide (needs your answer; blocks agent work)
 
-- [ ] 2.5 `[you]` **OD3/OD4:** names and Pro price tier for each face (placeholders now: "X" / "X Pro"). Two Suns shows $2.25 in the store against $1.99 documented. Blocks every Free listing text and 3.5's placeholders.
-- [ ] 1.4 `[you]` DayArc: confirm the names "DayArc" / "DayArc Pro" after a store search and a trademark search.
+- [x] 2.5 `[you]` **OD3/OD4:** names and Pro price tier for each face (placeholders now: "X" / "X Pro"). Two Suns shows $2.25 in the store against $1.99 documented. Blocks every Free listing text and 3.5's placeholders. **Decided 2026-10-04:** names confirmed as drafted (Free = clean name, Pro = "<Name> Pro"; HeroSet keeps its live title). Price: **every paid app moves to the $2.50 tier** (3rd step on Garmin's price-points page: US shows $2.49, eurozone 2,99 €) so later discounts or a rise stay possible; no price number on the website or in listing text (prices vary per region). The price change ships with each app's next version upload (see 2.7).
+- [x] 1.4 `[you]` DayArc: confirm the names "DayArc" / "DayArc Pro" after a store search and a trademark search. **Decided 2026-10-04:** "DayArc" and "DayArc Pro" confirmed.
 - [ ] 8.2 `[you]` (later) Approve a direction for a bolder Days To Go; then implement (8.1).
 
 ## 2. Your hands (a watch, the store dashboard, a person)
@@ -31,6 +31,7 @@ Uploads. You said you will re-upload every app and face when ready; the packages
 - [ ] 4.4 `[you]` Upload Two Suns Free + Pro 1.1.0 (the prepared 1.0.1 is folded in, 4.1; icons and price tier first).
 - [ ] 5.6 `[you]` Upload HeroFace Free + Pro (rename the paid listing "HeroFace Pro" inside the pending listing-repair submission).
 - [ ] 6.6 `[you]` Paste the hardware-field link (text in each `*/listing*/paste.md`) into the four live listings: HeroSet, HeroFace, Days To Go, Two Suns. Check whether the dashboard lets you edit the field without a new version, and note the answer in `research_notes/Free and Pro ladder/garmin_rules.md`.
+- [ ] 2.7 `[you]` When you upload each paid app's next version, set its price to the $2.50 tier in the form (HeroSet 1.3.1, Two Suns Pro, Days To Go Pro, HeroFace Pro, DayArc Pro). Garmin may re-review a repriced approved app; a version upload is already re-reviewed, so do both together. Two Suns' store tier ($2.25 shown) is corrected by this.
 - [ ] 2.1 `[you]` Send the Garmin email (`research_notes/Free and Pro ladder/garmin_questions.md`: does repricing remove an approved app; do twins count as duplicates). Add: why 14 of HeroSet's 80 products and 48 of HeroFace's 117 are not listed.
 
 Assets (agent renders, you approve and upload).
@@ -53,7 +54,7 @@ People.
 - [ ] 5.1 `[you]` Read the 30-day exposure result on the HeroFace listing; decide go (about 2026-10-25).
 - [ ] 10.3 `[you]` Delete the pre-rewrite git backup tag `backup/main-2026-10-04` (and `archive/upbeat-davinci-pre-rebase` if you do not want it) once you are happy with the new history.
 - [ ] 10.4 `[you]` Commit the `watch-design-kit` knowledge files (`~/dev/watch-design-kit`: another session also has staged edits there).
-- [ ] 10.14 `[you]` **OrbStack or Docker Desktop for the simulator containers?** OrbStack ran everything as before (`docker/README.md` "OrbStack"; 6 suites in 103 s, VM memory on demand) but needs a paid Pro licence (USD 8 per user per month) for commercial use after its 30-day trial, installed 2026-10-04. Decide before ~2026-11-03; either way quit the engine you do not use.
+- [ ] 10.14 `[you]` **OrbStack or Docker Desktop for the simulator containers?** OrbStack ran everything as before (`docker/README.md` "OrbStack"; 6 suites in 103 s, VM memory on demand) but needs a paid Pro licence (USD 8 per user per month) for commercial use after its 30-day trial, installed 2026-10-04. Decide before ~2026-11-03; either way quit the engine you do not use. **Decided for now 2026-10-04: keep OrbStack through the 30-day trial; decide by 2026-11-03.**
 
 ## 3. Agent can do now (no input needed)
 
