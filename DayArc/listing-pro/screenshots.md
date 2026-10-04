@@ -1,37 +1,58 @@
-# DayArc Pro — screenshots
+# DayArc Pro — store images
 
-Owner supplies. Status 2026-09-28: none captured yet. Same capture route and rules as
-`../listing/screenshots.md` (simulator File → Save Screenshot on FR965, 454×454; no mockups or SVG
-drawings as store images).
+Status 2026-10-04: the five screens, the cover, the hero and both device icons are rendered from the current build (after ADR-016 and ADR-017: whole-or-nothing grid cells, hero label kept with the grid, icons sized per screen). **Looks not yet approved by the owner** (ROADMAP 1.5, 9.7); nothing is uploaded. Same route and rules as [`../listing/screenshots.md`](../listing/screenshots.md); no mockup or SVG drawing is a store image. Simulator values (weather, sun times, heart rate, stress, Body Battery, the calendar cell, steps) are canned or random: no image claims a real reading. This listing's images never say "free" and carry no price.
 
+## Upload set (in order)
 
-## Simulator captures, 2026-10-04 (native pixels, scripted)
+At most five, the best five for this tier. Pro's pitch is the whole grid under an unchanged hero, so the first three are three windows with their grids; the night window (time and date only, identical to DayArc's) is left out on purpose.
 
-`tools/listing_shots.sh` drives the simulator in the container (`../docker/capture.sh DayArc tools/listing_shots.sh pro`): the simulator's own clock is set (`faketime`), settings are the face's real defaults edited in a private copy, and each file is what the simulator's File > Save Screen Capture writes, so the pixel size is the device's own. Re-run after any layout change. Simulator values (weather, stress, heart rate, battery) are fake: do not crop them into a claim about real readings.
+| # | File | What it shows | Device | Size |
+|---|---|---|---|---|
+| 1 | `screens/1-morning.png` | Morning 07:17: weather hero, sunrise and sunset in the corners, battery, heart rate, steps, floors | FR965 | 454 px |
+| 2 | `screens/2-midday.png` | Midday 13:17: stress hero, heart rate and floors in the corners, calendar cell, intensity minutes, steps, calories | FR965 | 454 px |
+| 3 | `screens/3-evening.png` | Evening 20:02: Body Battery hero, heart rate and calories, recovery time, respiration, steps, pulse ox | FR965 | 454 px |
+| 4 | `screens/4-accent-blue.png` | The one setting, the accent colour (blue in the evening); the grid keeps its fixed icon hues | FR965 | 454 px |
+| 5 | `screens/5-instinct-evening.png` | **The Instinct one.** Evening 20:00, black and white; the arc is a gauge in the round window, one row of readings under the hero | Instinct E 40 mm | 166 px |
 
-**Made:** `listing-pro/screens/1-midday.png` (13:15, calendar event and the full grid), `2-evening.png` (20:00), `3-morning.png` (07:15, 842 steps so far: a four-digit count is cut to "8..." in the narrow bottom pill), `4-night.png`, plus `5-instinct-midday.png` and `6-instinct-evening.png` (Instinct E 45 mm). The brief below is what they were made from.
+DayArc Pro's manifest has the same three black-and-white Instincts as DayArc (`instincte40mm`, `instincte45mm`, `instinct3solar45mm`). Pro's grid on them is one row, and where it does not fit (ADR-017 names the 3 Solar morning and midday; the E 45 morning also drew none in the 2026-10-04 run) the picture equals DayArc's by design (ADR-017), so the evening is the frame that shows the difference; the E 40 mm draws the labelled pills ("Rec 5h").
 
-## Store set — FR965 simulator, in this order
+**Simulator caveats that were fixed or are left in the pictures:**
 
-Pro's pitch is density under an unchanged hero, so lead with the full grids. Set the time about
-halfway through each window.
+- The simulator's default position is Olathe, Kansas, whose sun times appear in the simulator's UTC clock as 12:17 and 23:59 beside a 07:17 face clock. The scenario sets Settings > Set Position to London (`51.5074, -0.1278`) for shot 1, so the corners read 06:05 and 17:33, which a watch could show at that hour. The position is not a claim about anywhere.
+- The midday calendar cell reads "00:00" with no title: that is the simulator's canned calendar event (a start time of midnight and no text). It is left in because the cell is a Pro feature of that window; a reader could take it for an event at midnight. If the owner prefers, the midday frame can be dropped from the five and replaced by another evening or morning variant.
 
-| # | State | Set time | What it must show |
-|---|---|---|---|
-| 1 | Midday, calendar event present, full grid | ~13:15 | The Pro-exclusive next-event cell, most grid icons, arc, date, divider under the hero |
-| 2 | Evening, full grid | ~20:00 | Body Battery hero, recovery/respiration/pulse ox/VO2max labelled cells, icon-only HR/steps/calories |
-| 3 | Morning, full grid | ~7:15 | Weather hero plus sunrise/sunset, battery, HR, steps, floors, notifications |
-| 4 | Night | ~23:40 | Identical to DayArc's — shows it is not a missing feature |
+Composed images, all in this folder: `cover-500.png` (500x500), `hero-1440x720.png`, `icon-24-128.png`, `icon-64-128.png` (the two device icons, 128x128). The mark is the same arc as DayArc's (`src/mark.svg`); **proposal for the owner:** a white PRO tag marks this listing (in the arc on the cover and the icons, beside the name on the hero) and tells it from [`../listing/`](../listing/) in the store at 100 px.
 
-Confirm before capturing that the grid shows 3+ rows on FR965 (rows now size per row and drop from
-the bottom; the last narrow row may not draw — `DayArcGrid`).
+## How they were made
+
+Screens (the container's own simulator, nothing on a wrist):
+
+```sh
+docker/capture.sh DayArc tools/listing_shots.sh pro     # writes DayArc/listing-pro/screens/*.png
+```
+
+`tools/listing_shots.sh` sets the simulator's own clock (`faketime`, about halfway through each window so the arc is part filled), switches Settings > Time Display to 24-hour, fills Simulation > Activity Monitoring (steps 842 in the morning because a four-digit count is cut in the narrow bottom pill that early; 5310 at midday; 8420 in the evening; 18 intensity minutes, 7 floors, 1650 calories; about 70 s wait after each so the face's cache refreshes), edits the default `Accent` property in a private copy for shot 4 only (the repo is never touched), and saves with File > Save Screen Capture, so each file is the display at its native pixels. Heart rate, stress and Body Battery are random per run: a re-run gives other numbers. Screens are under 150 KB (checked with `ls -l`).
+
+Cover, hero and icons (host Chrome, headless; sources in `src/`):
+
+```sh
+tools/render_listing_images.sh listing-pro
+```
+
+It runs `Google Chrome --headless=new ... --screenshot` on `src/cover.html` (500x500), `src/hero.html` (1440x720, built from the first three screens) and `src/icon.html` (128x128), then `src/quantize64.py` snaps the 24-bit icon to the 64-colour palette (00/55/AA/FF). Re-run after any change to a screen or an HTML file; the render needs network for the Archivo font.
+
+Limits checked with `ls -l` after each render: cover under 300 KB; hero under 2048 KB; screens under 150 KB each; `sips -g pixelWidth -g pixelHeight` for the dimensions.
+
+## Notes
+
+- Shot 4 is an accent choice made by editing the default in the private build; the picture shows the result, not how it is changed (the route is unverified until a store install, `../docs/status.md` gate 5).
+- The Instinct frame is the whole 166 px display as the simulator saves it; the real bezel hides the square's corners (ADR-015).
+- Device wording (Instinct) stays out of the description until the store lists those watches (`meta.yaml` `held_back_text`).
 
 ## Not for the store, for the owner's look check (status.md gate 4)
 
-Midday on **approachs50** (smallest round; expect fewer rows — proves the grid degrades by row
-count, not overlap) and on **venusq2** (rectangular). Keep them out of the listing.
+`tools/window_shots.sh pro-activity ...` writes one capture per window per device to the untracked `bin/shots/`: midday on approachs50 (smallest round; fewer rows) and on venusq2 (rectangular). Keep them out of the listing.
 
 ## Rules
 
-Screenshots <150 KB each; cover 500×500 (<300 KB); hero 1440×720 (<2048 KB, optional). Simulator
-values are fake. Don't put a personal calendar title in shot 1 — use the simulator's own event text.
+Screenshots under 150 KB each; cover 500x500 (under 300 KB); hero 1440x720 (under 2048 KB, optional); device icons 128x128. Do not crop a screen into a claim about real readings. No price number in any image; the word "free" appears in no Pro image.

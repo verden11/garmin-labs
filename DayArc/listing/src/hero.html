@@ -1,0 +1,34 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<!-- Store hero image (1440x720), DayArc. Render: tools/render_listing_images.sh listing. The three faces are the simulator captures in ../screens/ (simulator data, not readings). -->
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<style>
+  html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#000;}
+  body{display:flex;align-items:center;font-family:'Archivo',sans-serif;color:#fff;
+       background:radial-gradient(900px 600px at 70% 48%,#0d1a2a 0%,#000 70%);}
+  .copy{box-sizing:border-box;width:500px;padding-left:72px;padding-right:12px;flex:none;}
+  .markbox{width:150px;height:112px;overflow:hidden;margin:0 0 20px -6px}
+  .mark{width:150px;height:150px;display:block;margin-top:-11px}
+  h1{margin:0;font-size:84px;font-weight:800;font-stretch:112%;letter-spacing:-2px;line-height:1;white-space:nowrap}
+  h1 span:nth-child(1){color:#FFAA00}h1 span:nth-child(2){color:#55FFFF}h1 span:nth-child(3){color:#FF55AA}
+  p{margin:26px 0 0;font-size:31px;line-height:1.3;color:#cfd6df;font-weight:450;}
+  .row{display:flex;align-items:flex-start;gap:26px;}
+  .col{display:flex;flex-direction:column;align-items:center;width:276px}
+  .w{border-radius:50%;overflow:hidden;background:#000;width:276px;height:276px;
+     box-shadow:0 0 0 7px #1b1f25,0 0 0 9px #2f353d,0 26px 70px rgba(0,0,0,.8);}
+  .w img{width:100%;height:100%;display:block;}
+  .cap{margin-top:30px;text-align:center;line-height:1.15}
+  .cap b{display:block;font-size:30px;font-weight:700;letter-spacing:.5px}
+  .cap i{display:block;font-style:normal;font-size:25px;font-weight:500;margin-top:5px}
+</style></head><body>
+  <div class="copy">
+    <div class="markbox"><img class="mark" src="mark.svg"></div>
+    <h1>Day<span>A</span><span>r</span><span>c</span></h1>
+    <p>A watch face that changes with your day.</p>
+  </div>
+  <div class="row">
+    <div class="col"><div class="w"><img src="../screens/1-morning.png"></div><div class="cap"><b>Morning</b><i style="color:#FFAA00">Weather</i></div></div>
+    <div class="col"><div class="w"><img src="../screens/2-midday.png"></div><div class="cap"><b>Midday</b><i style="color:#55FFFF">Stress</i></div></div>
+    <div class="col"><div class="w"><img src="../screens/3-evening.png"></div><div class="cap"><b>Evening</b><i style="color:#FF55AA">Body Battery</i></div></div>
+  </div>
+</body></html>

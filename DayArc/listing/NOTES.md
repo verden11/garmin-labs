@@ -29,9 +29,7 @@ only after gate 5's device test.
 
 ## Open owner decisions
 
-- Both launcher icon, cover (500×500), hero (1440×720, optional) images — placeholders only
-  (`resources/drawables/launcher_icon.svg`).
-- All screenshots (`listing/screenshots.md`).
+- The launcher icons inside the app are still placeholders (`resources/drawables/launcher_icon.svg`, ROADMAP 1.5, the owner's task). The listing images (cover, hero, the two device icons, five screens) were rendered 2026-10-04 and wait for the owner's look approval, see "Store images" below.
 - Support/privacy URL: TwoSuns's pattern is `https://verden.watch/<slug>/...`; DayArc's slug isn't
   picked yet (`../CLAUDE.md` "Open owner decisions").
 - Real trademark search, if the owner wants clearance beyond the store-collision check already done.
@@ -50,3 +48,15 @@ Written against `../docs/release-contract.md` and the WP10 Free skeleton (`../..
 - **Device sentence:** kept out of the description (`meta.yaml` `held_back_text`): it is a reach claim until both real device lists are visible. No watch names, no count.
 - **Instinct:** the 72-product package includes the Instinct E and 3 Solar; the listing text says nothing about it until the upload is approved and the store lists it (`meta.yaml` carries the sentence to add then).
 - **Support line** added as the last line (the form has no support field).
+
+## Store images (2026-10-04; the owner approves the looks before any upload)
+
+How they are made: [`screenshots.md`](screenshots.md). Why they are what they are:
+
+- **Five screens, not six.** The owner asked for at most five, the best five for the tier. The face changes through the day, so three are three windows (weather in the morning, stress at midday, Body Battery in the evening), one is the one setting (the accent colour, shown purple), one is an Instinct. The night window (time and date only) is left out; it adds nothing a buyer needs to see. The first four are the FR965 at its native 454 px, the fifth the Instinct E 40 mm at its native 166 px, black and white.
+- **One reading per window is the honest Free picture.** Nothing in the five shows a grid, a calendar or a sun time: those are DayArc Pro's (`../listing-pro/`). The hero's captions name only what each window shows (Weather, Stress, Body Battery).
+- **The mark** is the day as an arc: amber, cyan and rose are the face's own Auto hues for morning, midday and evening, a white dot is "now". It is a proposal for the owner, as is the Free/Pro rule: Free is the plain mark, Pro has a white PRO tag. The mark is not the launcher icon (ROADMAP 1.5, the owner's), though it could become it.
+- **Claims check** against `../docs/release-contract.md`: nothing in the images says what a reading means, no price, no battery or accuracy figure, no device count, no mention of Pro in any image, no data leaves the watch. The accent shot shows a colour, not how it is set (the Garmin Connect route is unverified until a store install).
+- **Simulator data** (66 degrees, 77/63, stress and Body Battery random per run) is not a reading; nothing is cropped into a claim.
+- **Instinct:** the picture is allowed in the listing before the store lists those watches, but the description says nothing about Instinct until then (`meta.yaml` `held_back_text`).
+- The old six pictures (morning, midday, evening, night, two on the Instinct E 45 mm) were replaced by this set; they predated the 2026-10-04 icon-size and label changes (ADR-017).

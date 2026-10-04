@@ -57,6 +57,12 @@ Support and answers: https://verden.watch/day-arc-pro/support/
 
 Blank — initial release.
 
+## Hero Image (optional, 1440×720, under 2048 KB)
+
+**OWNER, look approval first** (proposal: the arc mark with a white PRO tag, three windows with their grids, no price, no claim beyond what each window shows).
+
+[`hero-1440x720.png`](hero-1440x720.png)
+
 ## Category
 
 **Utility** (alternative: Health & Fitness).
@@ -64,6 +70,31 @@ Blank — initial release.
 ## Does your app collect user data?
 
 **No.** Nothing leaves the watch: no network code, no `Communications` permission, no location.
+
+## Cover Image (500×500, under 300 KB)
+
+**OWNER, look approval first** (the arc mark and the name with a white PRO tag in the arc: the proposal that tells this listing from the lighter DayArc).
+
+[`cover-500.png`](cover-500.png)
+
+## Screen Images (under 150 KB each, upload in this order)
+
+At most 5; the night window is left out on purpose. All five are the simulator's own captures at native pixels with a 24-hour clock; the values (weather, sun times, heart rate, Body Battery, stress and the rest) are the simulator's canned or random ones, not readings. Captions are notes for the owner, not form fields (how each was made: [`screenshots.md`](screenshots.md)).
+
+1. [`screens/1-morning.png`](screens/1-morning.png): Morning, weather with sunrise/sunset, battery, heart rate, steps and floors around it. FR965, 454 px.
+2. [`screens/2-midday.png`](screens/2-midday.png): Midday, a stress reading with the calendar, intensity minutes, steps, calories, heart rate and floors around it. FR965, 454 px.
+3. [`screens/3-evening.png`](screens/3-evening.png): Evening, Body Battery with recovery time, respiration, steps, pulse ox, heart rate and calories around it. FR965, 454 px.
+4. [`screens/4-accent-blue.png`](screens/4-accent-blue.png): The one setting, the accent colour (here blue in the evening). FR965, 454 px.
+5. [`screens/5-instinct-evening.png`](screens/5-instinct-evening.png): **The Instinct one**: black and white, the arc a gauge in the round window, with one row of readings under it. Instinct E 40 mm, 166 px.
+
+Do not add the word Instinct to the description for this: the device wording waits for the store's real device list ([`meta.yaml`](meta.yaml) `held_back_text`).
+
+## Device icons (optional, 128×128)
+
+**OWNER, look approval first.**
+
+- 64 Color: [`icon-64-128.png`](icon-64-128.png)
+- 24 bit: [`icon-24-128.png`](icon-24-128.png)
 
 ## Monetization
 

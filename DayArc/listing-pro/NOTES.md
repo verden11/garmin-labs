@@ -28,8 +28,7 @@ only after gate 5's device test.
 
 ## Open owner decisions
 
-Same open items as `../listing/NOTES.md`: both icons/cover/hero images, all screenshots
-(`screenshots.md`), the support/privacy URL slug, an optional real trademark search.
+Same open items as `../listing/NOTES.md`: the launcher icons inside the app (ROADMAP 1.5), the look approval of this folder's cover, hero, device icons and five screens (see "Store images" below), the support/privacy URL slug, an optional real trademark search.
 
 ## Sibling line, review request, More from Verden (ROADMAP 1.8, 2026-10-04)
 
@@ -41,3 +40,14 @@ The device sentence and the Instinct wording are in `meta.yaml` `held_back_text`
 - **Device claims (ROADMAP 10.15), verified 2026-10-04:** the manifests carry no Instinct watch except the Instinct E 40/45 mm and Instinct 3 Solar (plus the AMOLED Instinct 3 and Crossover AMOLED products, which are not part of the Instinct 2 family); Instinct 2, 2S, 2X and Descent G1 are not in DayArc, so nothing needs removing from the paid text. The Free twin has no Free-only Instinct reach either, so the held-back device sentence is optional (see `../docs/release-contract.md` "Paid vs free reach").
 - Everything else as in `../listing/NOTES.md`: review request (owner may cut), "More from Verden" with free siblings only (all placeholders today), the device sentence in `meta.yaml` `held_back_text`, no Instinct wording until the store lists it.
 - `meta.yaml` site URLs corrected to the Pro slug (`/day-arc-pro/`), matching the paste block.
+
+## Store images (2026-10-04; the owner approves the looks before any upload)
+
+How they are made: [`screenshots.md`](screenshots.md). Why they are what they are:
+
+- **Five screens, the best five for Pro.** Pro's pitch is the whole grid under an unchanged hero, so three are the three windows with their grids (morning with sun times, midday with the calendar cell, evening with recovery, respiration and pulse ox), one is the accent colour (blue, evening), one is an Instinct (E 40 mm evening, where Pro draws one row of readings under the hero, the window that tells it from DayArc there). The night window is left out (identical to DayArc's).
+- **Honest Pro picture:** each frame shows what that window really draws on an FR965; a smaller screen draws fewer cells, which the listing says in words ("as many as fit your watch's screen"), and no image counts fields. The word "free" and any price are in no image.
+- **Two simulator artifacts handled** (details in `screenshots.md`): the default position makes the sun times read 12:17 and 23:59 beside a 07:17 clock, so the scenario sets the simulator's position to London for the morning frame (06:05 and 17:33); the canned calendar cell reads "00:00" with no title and is left in, flagged for the owner (the midday frame can be swapped).
+- **The mark and the PRO tag** are proposals for the owner, as in `../listing/NOTES.md`: the same arc as DayArc, a white PRO tag inside the arc on the cover and icons and beside the name on the hero.
+- **Claims check** against `../docs/release-contract.md`: no count of fields, no "insights" or coaching wording, nothing on what a reading means, no price, no "free", no data leaving the watch.
+- The old six pictures were replaced by this set; they predated the 2026-10-04 grid and icon changes (ADR-016, ADR-017).

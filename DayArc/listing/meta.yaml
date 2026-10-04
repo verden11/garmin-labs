@@ -25,9 +25,15 @@ package:
 price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  cover: null
-  hero: null
-  screens: screens/ (2026-10-04 simulator captures; no store assets yet)
+  cover: cover-500.png        # 500x500, under 300 KB; rendered 2026-10-04 from src/cover.html; look not yet approved by the owner
+  hero: hero-1440x720.png     # 1440x720, under 2048 KB; src/hero.html; look not yet approved
+  icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; src/icon.html + src/quantize64.py; look not yet approved
+  screens:                    # upload order; 2026-10-04 simulator captures at native pixels, 24-hour clock, canned values; each under 150 KB
+    - screens/1-morning.png          # FR965 454 px
+    - screens/2-midday.png           # FR965 454 px
+    - screens/3-evening.png          # FR965 454 px
+    - screens/4-accent-purple.png    # FR965 454 px, Accent set to purple
+    - screens/5-instinct-evening.png # INSTINCT: Instinct E 40 mm, 166 px, black and white
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/day-arc/
