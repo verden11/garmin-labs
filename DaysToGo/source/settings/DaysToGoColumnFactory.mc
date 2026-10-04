@@ -6,11 +6,13 @@ import Toybox.WatchUi;
 class DaysToGoColumnFactory extends WatchUi.PickerFactory {
     private var _values as Array<Number>;
     private var _labels as Array<String>;
+    private var _font as Graphics.FontDefinition;
 
-    function initialize(values as Array<Number>, labels as Array<String>) {
+    function initialize(values as Array<Number>, labels as Array<String>, font as Graphics.FontDefinition) {
         PickerFactory.initialize();
         _values = values;
         _labels = labels;
+        _font = font;
     }
 
     function getSize() as Number {
@@ -25,7 +27,7 @@ class DaysToGoColumnFactory extends WatchUi.PickerFactory {
         return new WatchUi.Text({
             :text => _labels[index],
             :color => Graphics.COLOR_WHITE,
-            :font => Graphics.FONT_MEDIUM,
+            :font => _font,
             :locX => WatchUi.LAYOUT_HALIGN_CENTER,
             :locY => WatchUi.LAYOUT_VALIGN_CENTER
         });

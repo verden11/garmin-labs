@@ -47,7 +47,12 @@ class DaysToGoDateText {
     static function forDate(year as Number, month as Number, day as Number, currentYear as Number, monthFirst as Boolean) as Array<String> {
         var weekday = DaysToGoCalendar.weekday(year, month, day);
         var dayWord = Gregorian.utcInfo(Gregorian.moment({:year => DaysToGoConfig.WORD_YEAR, :month => 1, :day => DaysToGoConfig.WORD_SUNDAY_DAY + weekday}), Time.FORMAT_MEDIUM);
-        var monthWord = Gregorian.utcInfo(Gregorian.moment({:year => DaysToGoConfig.WORD_YEAR, :month => month, :day => DaysToGoConfig.WORD_MONTH_DAY}), Time.FORMAT_MEDIUM);
-        return lines(dayWord.day_of_week as String, day, monthWord.month as String, year, monthFirst, year != currentYear);
+        return lines(dayWord.day_of_week as String, day, monthWord(month), year, monthFirst, year != currentYear);
+    }
+
+    // The short month name ("Oct") in the watch's language; the date picker's month column uses it too.
+    static function monthWord(month as Number) as String {
+        var info = Gregorian.utcInfo(Gregorian.moment({:year => DaysToGoConfig.WORD_YEAR, :month => month, :day => DaysToGoConfig.WORD_MONTH_DAY}), Time.FORMAT_MEDIUM);
+        return info.month as String;
     }
 }
