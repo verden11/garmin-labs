@@ -5,8 +5,9 @@
 # Buttons are pressed by clicking their place on the skin (key boxes from the device's simulator.json; the window has a 25 px
 # menu bar above the skin). On a device with a glance the simulator opens on the glance list, and the first START does
 # nothing until the list has been moved once (Down; a device with no Down key, or a touch one, gets a tap on the glance):
-# the scenario does that first. A non-zero seed (store.add at start) made the app crash on launch from the glance: use 0,0,0 and
-# let the scenario's own saves fill the dashboard; the rep count on the set screen is patched to `detected` (no sensor data).
+# the scenario does that first. A seed is patched into getInitialView (foreground only) and works from the glance; seeding in
+# initialize/onStart crashes ("Class not available to 'Glance'"), because the glance process runs those (docs/development.md,
+# ROADMAP 10.11). The rep count on the set screen is patched to `detected` (no sensor data).
 # A touch device is also driven with the mouse on the display: a click is a tap, a quick drag a swipe (swipe right must start
 # within 81 px of the left edge and finish in under 250 ms, per the device's simulator.json).
 DEV=$1; MODE=${2:-btn}; JUNGLE=${3:-store.jungle}; SEED=${4:-0,0,0}; DETECTED=${5:-23}; GLANCE=${6:-glance}; ONLY=${7:-all}
