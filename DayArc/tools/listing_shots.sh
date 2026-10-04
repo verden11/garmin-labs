@@ -21,7 +21,7 @@ scene() {   # scene <file> <device> <HH:MM> [steps so far today] [accent 0-6] [p
   set_accent "${5:-0}"
   sim_boot "$DAY $3:00"; sim_load $JUNGLE "$2"; sim_24h; sleep 5
   [ -n "${6:-}" ] && sim_position "$6"
-  [ "$DENSITY" = pro ] && { sim_activity goal=10000 steps=${4:-8420} moderate=18 floors=7 calories=1650; sleep 70; }
+  [ "$DENSITY" = pro ] && { sim_activity goal=10000 steps=${4:-8420} moderate=18 floors=7; sleep 70; }   # the Calories cell of the dialog is read-only (a watch would show some; the flame cell reads 0)
   sim_save "$OUT/$1"
 }
 LONDON="51.5074, -0.1278"

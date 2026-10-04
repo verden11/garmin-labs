@@ -87,6 +87,8 @@ At most 5; the night window is left out on purpose. All five are the simulator's
 4. [`screens/4-accent-blue.png`](screens/4-accent-blue.png): The one setting, the accent colour (here blue in the evening). FR965, 454 px.
 5. [`screens/5-instinct-evening.png`](screens/5-instinct-evening.png): **The Instinct one**: black and white, the arc a gauge in the round window, with one row of readings under it. Instinct E 40 mm, 166 px.
 
+**OWNER, before uploading 2 to 4:** the flame cell shows 0 and the midday calendar cell shows "00:00" (simulator limits, see [`screenshots.md`](screenshots.md)); accept or hold those frames.
+
 Do not add the word Instinct to the description for this: the device wording waits for the store's real device list ([`meta.yaml`](meta.yaml) `held_back_text`).
 
 ## Device icons (optional, 128×128)
