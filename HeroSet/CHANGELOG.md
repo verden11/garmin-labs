@@ -4,17 +4,26 @@ One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/paste.md`](listing/paste.md); the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
-## Unreleased, drafted as 1.3.0 (fix for a bug in 1.2.0; not uploaded, the version number is the owner's call)
+## Unreleased, drafted as 1.3.1 (fixes and the Instinct glance layout; not uploaded, the version number is the owner's call)
+
+1.3.0 is live (uploaded by the owner 2026-10-03, exported before the fixes below). 1.3.1 changes no product and no permission (87 products, `Sensor` + `ComplicationPublisher`).
+
+- **Instinct bezel corners:** the bezel hides the display's corners (the visible area is a circle about 98 px in radius), which clipped the finished-day footer ("MISSION COMPLETE"), the storage warning and long translations of the bottom hints. Rows near a corner are now cut to that circle; the footer falls back to DONE and the warning to "!"; round products unchanged ([ADR-055](docs/decisions.md#adr-055) amended 2026-10-03).
+- **`START: MENU` hint:** the corner clip shortened it to "START: MEN." although its ink shows whole; the clip now follows the ink of capitals ([ADR-055](docs/decisions.md#adr-055) amended 2026-10-04).
+- **Glance bars on a 1-bit display** (Instinct E, 3 Solar): every bar filled white and read as full; the track is now an outline under the fill.
+- **Glance beside the round window** (Instinct E 40/45 mm, 3 Solar): the simulator draws the glance under the window, cutting "NO STREAK YET" and the third bar. Both rows now end left of the window, found with `WatchUi.getSubscreen()`; the status row reads `STREAK N` / `STREAK 0` (new last-resort wording on every glance, only visible where "NO STREAK YET" did not fit) and, with the day done, is the check alone. Blind layout, simulator only: whether a watch draws the glance there is unknown ([ADR-055](docs/decisions.md#adr-055) amended 2026-10-04). The glance-launch crash seen when seeding reps in the simulator was the test harness, not the app (`docs/development.md`).
+- Tests: 116 defined (103 in the store build): +1 glance layout test (`glanceRowsStopLeftOfASubscreenWindow`) and the glance fit tests now check the window. Container simulator, 2026-10-04: dev 116/116 on `instincte40mm`, `instincte45mm`, `instinct3solar45mm`, `fr965`, `fr255s`; store 103/103 on `instincte40mm`; `tools/glance-scope-check.sh` clean.
+- What's New and App Version `1.3.1` are in `listing/paste.md`; package `dist/HeroSet-store-1.3.1.iq` (87 products, 134 device variants). Needs only the owner's upload ([`docs/status.md`](docs/status.md) G).
+
+## 1.3.0 — uploaded 2026-10-03 by the owner (fix for a bug in 1.2.0)
 
 - **Fix:** after saving a short set (for example 4 push-ups), starting the same exercise again began from that count instead of 0. Cause: Finish, quick-Save and Discard cleared the recoverable draft ([ADR-052](docs/decisions.md#adr-052)), then the workout view hid and its hide-time checkpoint wrote the just-saved count back as a new draft; sets longer than 15 s were unaffected because a periodic checkpoint had already recorded the count. The view now remembers that its set ended and never checkpoints after that. Found by the owner on a watch, 2026-10-02. Two regression tests (dev build). 114/114 dev, 101/101 store (unchanged, the new tests are dev-only), fr965 simulator only.
 - Launcher icon (shield) and complication icon redrawn on whole-number vertices (pixel-grid pass, TODO I3); no What's New line needed.
-- Ready 2026-10-04: What's New and App Version `1.3.0` drafted in `listing/paste.md`; `dist/HeroSet-store.iq` re-exported after the Instinct bezel-corner fix (87 products, 134 device variants). Needs only the owner's upload ([`docs/status.md`](docs/status.md) G); 1.2.0 on the store still has the bug.
 
-## Unreleased, drafted as 1.3.0 (Instinct family, merged to main 2026-10-03, not uploaded)
+## 1.3.0 — the Instinct family (merged to main 2026-10-03, uploaded 2026-10-03)
 
 - **Instinct 2 family, proposed** (`instinct2`, `instinct2s`, `instinct2x`, Descent G1, Instinct E 40/45 mm, Instinct 3 Solar 45 mm): subscreen-aware layout, black-and-white palette, the XP gauge in the window ([ADR-055](docs/decisions.md#adr-055)). Round products draw exactly as before. Look approved by the owner 2026-10-03, simulator evidence only (no watch available); no What's New text yet, no release-contract or site change.
-- **Instinct bezel corners (found 2026-10-03 by simulator screenshot, fixed before upload):** the Instinct's bezel hides the display's corners (the visible area is a circle about 98 px in radius), which clipped the finished-day footer ("MISSION COMPLETE") and the storage warning, and would have clipped long translations of the bottom hints. Rows are now clipped to a 96 px circle on these products; the footer falls back to DONE / "!"; round products unchanged. [ADR-055](docs/decisions.md#adr-055) amended.
-- **Instinct hint and glance (found 2026-10-04):** "START: MENU" was shortened by the corner clip although it shows whole (the clip now follows the ink of capitals, radius 98 px); the glance bars on a 1-bit display were all solid white (now outline tracks). Open: the glance of Instinct E / 3 Solar draws under the round window in the simulator ([ADR-055](docs/decisions.md#adr-055)).
+- The bezel-corner, hint, glance-bar and glance-placement problems found after the 1.3.0 export (2026-10-03/04) are fixed in 1.3.1 above.
 - Long translations are cut with a `.` (titles, hints, mission labels, centered rows) instead of overlapping; a finished mission row shows DONE where its count was when name + DONE + count overflows. Instinct E and Instinct 3 Solar also get the glance (66 of 87 products).
 - Tests: 115 defined (102 in the store build): +1 layout test here, +2 dev-only draft tests from the fix above. 112/112 dev and 101/101 store on fr965 remain the last full measured run (1.2.0 entry below).
 

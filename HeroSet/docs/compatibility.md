@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-10-01. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
+Status: 2026-10-04. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
 
 ## Supported products
 
@@ -76,7 +76,7 @@ No UP/DOWN keys: swipe up/down adjusts, `SWIPE:` hints, START (physical) finishe
 
 ### Wave 6 (merged to main 2026-10-03, not uploaded) — Instinct 2 family, 1-bit semi-octagon ([ADR-055](decisions.md#adr-055))
 
-**Not uploaded yet: next store upload (drafted as 1.3.0) carries it; look approved by the owner 2026-10-03, simulator evidence only (no watch available).** In both manifests on `main` (merged 2026-10-03). Black-and-white display, round subscreen window top right (the layout keeps out of it and uses it as the XP gauge), five buttons, Connect IQ 3.4 (no glance; the CIQ 6 products Instinct E and Instinct 3 Solar do get one: glance closure 2,112 B data + 3,241 B code, against their 32 KB limit, and their glance areas 164x61 / 154x61 are in `HeroSetGlanceFitTest`), 98,304 B of watch-app memory: measured peak 53,216 B in the simulator (store build, `-r`).
+**Uploaded as 1.3.0 by the owner 2026-10-03 (1.3.1, prepared, carries the bezel-corner and glance fixes); look approved by the owner 2026-10-03, simulator evidence only (no watch available).** In both manifests on `main` (merged 2026-10-03). Black-and-white display, round subscreen window top right (the layout keeps out of it and uses it as the XP gauge), five buttons, Connect IQ 3.4 (no glance; the CIQ 6 products Instinct E and Instinct 3 Solar do get one: glance closure 2,112 B data + 3,241 B code, against their 32 KB limit, and their glance areas 164x61 / 154x61 are in `HeroSetGlanceFitTest`; the simulator draws that glance under the round window, so 1.3.1 lays it out left of the window with `getSubscreen()`, blind: ADR-055 amended 2026-10-04), 98,304 B of watch-app memory: measured peak 53,216 B in the simulator (store build, `-r`).
 
 | Family | Products (`manifest` id) | Screen | Window |
 |---|---|---|---|

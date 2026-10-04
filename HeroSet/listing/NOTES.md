@@ -12,7 +12,7 @@ Live listing: https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377.
 
 ## Upload file
 
-Upload `dist/HeroSet-store.iq` (re-exported 2026-10-04 from main at c0d0a54, after the bezel-corner and START: MENU fixes ([ADR-055](../docs/decisions.md#adr-055) amendment); the 2026-10-03 export had the clipped footer (kept as `dist/old/HeroSet-store-1.3.0-prefix-bezel-bug-DO-NOT-UPLOAD.iq`) and the first 2026-10-04 one shortened START: MENU (`dist/old/HeroSet-store-1.3.0-before-hint-fix.iq`): 87 products, 134 device variants, same app id `568d5c9b-eb10-4678-bf28-0080c3efbbc1`, permissions exactly `Sensor` + `ComplicationPublisher`; the 1.2.0 export is in `dist/old/HeroSet-store-1.2.0-shipped.iq`). Re-export if any source changes first ([`../docs/development.md`](../docs/development.md); `dist/` holds only the current export; `bin/` is scratch). 1.1.1 was uploaded from `bin/HeroSet-store-next.iq` (exported 2026-09-24, 126 device variants, includes the 13 touch-first products). Never upload `bin/HeroSet-store-1.0.0-shipped.iq`.
+Upload `dist/HeroSet-store-1.3.1.iq` (exported 2026-10-04 from main after the glance layout beside the Instinct's window, on top of the bezel-corner and START: MENU fixes ([ADR-055](../docs/decisions.md#adr-055) amendments). 1.3.0, which is live, was uploaded from the 2026-10-03 export; `dist/HeroSet-store-2026-10-04.iq` is the 1.3.0 re-export with the bezel fixes but not the glance layout; the 2026-10-03 export had the clipped footer (`dist/old/HeroSet-store-1.3.0-prefix-bezel-bug-DO-NOT-UPLOAD.iq`) and the first 2026-10-04 one shortened START: MENU (`dist/old/HeroSet-store-1.3.0-before-hint-fix.iq`): 87 products, 134 device variants, same app id `568d5c9b-eb10-4678-bf28-0080c3efbbc1`, permissions exactly `Sensor` + `ComplicationPublisher`; the 1.2.0 export is in `dist/old/HeroSet-store-1.2.0-shipped.iq`). Re-export if any source changes first ([`../docs/development.md`](../docs/development.md); `dist/` holds only the current export; `bin/` is scratch). 1.1.1 was uploaded from `bin/HeroSet-store-next.iq` (exported 2026-09-24, 126 device variants, includes the 13 touch-first products). Never upload `bin/HeroSet-store-1.0.0-shipped.iq`.
 
 ## Form limits and options
 
@@ -49,6 +49,15 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 ## What's New: history and copy rules
 
 Copy rules: the glance is "on watches with Connect IQ 4.0 or later" (66 of 87 products, 63 of 80 before the Instinct E and Instinct 3 Solar; the Instinct 2 family has none; never "all watches", never "reminder"/"alert", [ADR-051](../docs/decisions.md#adr-051)); any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
+
+**1.3.0** (live since 2026-10-03)
+
+```text
+- Now on the Instinct family: Instinct 2, 2S, 2X, Instinct E and Instinct 3 Solar, and Descent G1. The black-and-white screen shows your XP ring in the small round window at the top right.
+- Instinct E and Instinct 3 Solar also get the glance.
+- Fixed: after saving a short set, starting the same exercise again began from that count instead of 0.
+- Long translations are shortened instead of overlapping on small screens.
+```
 
 **1.2.0**
 

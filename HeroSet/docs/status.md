@@ -2,21 +2,21 @@
 
 > **Open items live only in the root [`ROADMAP.md`](../../ROADMAP.md).** This file keeps where things stand, the evidence, the release gates and the upload steps. Listing text and metadata: [`../listing/paste.md`](../listing/paste.md) and [`../listing/meta.yaml`](../listing/meta.yaml). Claims: [`release-contract.md`](release-contract.md). Shelved plan: [`archive/connect-sync-plan.md`](archive/connect-sync-plan.md).
 
-**Where things stand, 2026-10-04.** Live: **1.2.0** (approved, reported by the owner 2026-10-01; glance and idle-kill fix). Prepared: **1.3.0** (Instinct family, 87 products; stale-draft, bezel-corner and hint fixes; `dist/HeroSet-store.iq` re-exported 2026-10-04): not uploaded. Tests 115 dev / 102 store (2026-10-04, simulator). Device evidence is the FR965 only; every Instinct result is simulator only. Open work: ROADMAP M7, 9.3.
+**Where things stand, 2026-10-04.** Live: **1.3.0** (uploaded by the owner 2026-10-03: the Instinct family, 87 products; exported before the bezel-corner, `START: MENU` and glance-bar fixes). Prepared: **1.3.1** (those three fixes and the glance laid out left of the Instinct E / 3 Solar round window, blind; `dist/HeroSet-store-1.3.1.iq` exported 2026-10-04): not uploaded. Tests 116 dev / 103 store (2026-10-04, simulator). Device evidence is the FR965 only; every Instinct result is simulator only. Open work: ROADMAP M7, 9.6.
 
 Status: 2026-10-01. (open items moved to the root ROADMAP.md, 2026-10-04) History: [`../CHANGELOG.md`](../CHANGELOG.md), ADRs, `git log`.
 
 **Goal:** a paid Connect IQ Store app (USD 2.00 → $1.99 US, no trial, [ADR-039](decisions.md#adr-039)), live since 2026-09-21. Feature work waits unless it unblocks a fix; the glance ([ADR-051](decisions.md#adr-051)) is the one exception, requested by the owner 2026-09-26.
 
-## Ready to upload (prepared 2026-10-04, NOT uploaded)
+## Ready to upload: 1.3.1 (prepared 2026-10-04, NOT uploaded)
 
-**Check before uploading anything: the public store already reports `latestExternalVersion` 1.3.0 for this listing (releaseDate 2026-10-03 12:32 UTC, the Instinct What's New, 97 device types; read from the store API 2026-10-04), while this repo says 1.3.0 is not uploaded.** If 1.3.0 is live, it was exported before the 2026-10-04 bezel-corner, hint and glance-bar fixes, so this export needs a new App Version (free text; the owner's call). The `live:` fields in `../listing/meta.yaml` and ROADMAP 7.7 are left unchanged until the owner confirms. Text: `../listing/paste.md`.
+Version 1.3.1 changes no product and no permission; it carries the fixes found after the 1.3.0 export ([`../CHANGELOG.md`](../CHANGELOG.md)). Text: `../listing/paste.md`. The `live:` and `next:` fields in `../listing/meta.yaml` say 1.3.0 live (owner's upload 2026-10-03), 1.3.1 prepared.
 
 | File (absolute path) | Products | Check |
 |---|---|---|
-| `/Users/mbp/dev/garmin/HeroSet/dist/HeroSet-store-2026-10-04.iq` | 87 | no check script: unpacked with `bsdtar`: app id 568d5c9b-eb10-4678-bf28-0080c3efbbc1 (same as `manifest-store.xml`), permissions Sensor and ComplicationPublisher only, 134 part numbers and 134 .prg |
+| `/Users/mbp/dev/garmin/HeroSet/dist/HeroSet-store-1.3.1.iq` | 87 | no check script: unpacked with `bsdtar` 2026-10-04: app id 568d5c9b-eb10-4678-bf28-0080c3efbbc1 (same as `manifest-store.xml`), permissions Sensor and ComplicationPublisher only, 134 part numbers and 134 .prg, 87 `<iq:product>` lines in the manifest |
 
-built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The owner's decisions (names, prices, icons, uploads, translations) are still open: see ROADMAP.
+Built in the `verden-ciq-build` container (`docker/run.sh`, `monkeyc -e -r -f store.jungle -o dist/HeroSet-store.iq`, then renamed: an export written straight to a differently named `-o` held a second, stale `HeroSet-store.prg` per product). Simulator and compile only, **nothing on a wrist**. The file is in the ignored `dist/` folder (the 1.3.0 files and `dist/old/` are untouched). Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The owner's decisions (names, prices, icons, uploads, translations) are still open: see ROADMAP.
 
 ## Where things stand
 
@@ -76,15 +76,15 @@ Cross-app order; HeroFace's half is in [`../../HeroFace/docs/status.md`](../../H
 - [x] F5a. Drafted 2026-10-03: What's New + App Version `1.3.0` + description bullet in `listing/paste.md` (the number is the owner's call), release contract, `CHANGELOG.md`; the site's Instinct copy sits behind `instinctLive` (`site/src/apps/heroset/facts.ts`, false until the upload is approved).
 - F5b. Owner: upload the 1.3.0 store build (`dist/HeroSet-store.iq`, fresh export), then flip `instinctLive` to true and push; the 1.2.0 listing's device list grows by the seven Instinct products (App Migration: choose per the listing page).
 - [x] F5. Store build memory: not re-probed on a running simulator; bounded instead (2026-10-03): the `instinct2` store PRG grew 71,356 -> 71,884 B (+528 B) between the measured commit and main, so the peak is about 53.7 KB of the 98,304 B limit (the probe figure was 53,216 B). A real probe re-run is still possible on request.
-- Tests on the branch: 115 defined (102 in the store build; +1 `rowsBesideASubscreenWindowStayClearOfIt`, +2 dev-only draft tests from the 2026-10-02 stale-draft fix on main; the counts quoted from the agent's run below were taken at 113 before the rebase). Run 2026-10-02: dev 113/113 on `instinct2`, `instinct2s`, `instinct2x`, `fr255s`, `fenix6`; store 102/102 on `instinct2`, `fr255s`; all 84 manifest products build in both jungles. **Not run:** the `fr965` suite (hangs in this simulator on the baseline commit too, so the FR965 check is still owed) and the `descentg1` suite (see ADR-055 Evidence).
+- Tests: 116 defined, 103 in the store build (2026-10-04: dev 116/116 on `instincte40mm`, `instincte45mm`, `instinct3solar45mm`, `fr965`, `fr255s`; store 103/103 on `instincte40mm`). Earlier, on the branch: 115 defined (102 in the store build; +1 `rowsBesideASubscreenWindowStayClearOfIt`, +2 dev-only draft tests from the 2026-10-02 stale-draft fix on main; the counts quoted from the agent's run below were taken at 113 before the rebase). Run 2026-10-02: dev 113/113 on `instinct2`, `instinct2s`, `instinct2x`, `fr255s`, `fenix6`; store 102/102 on `instinct2`, `fr255s`; all 84 manifest products build in both jungles. **Not run:** the `fr965` suite (hangs in this simulator on the baseline commit too, so the FR965 check is still owed) and the `descentg1` suite (see ADR-055 Evidence).
 
-**G. Upload 1.3.0 (prepared 2026-10-03, everything below is ready; the clicks are the owner's)**
-1. Developer page for the existing listing (link under "Where things stand") -> upload a new version -> file `HeroSet/dist/HeroSet-store.iq` (87 products, 134 device variants, same app id and permissions as 1.2.0).
-2. App Version `1.3.0`; What's New and the Description (one new bullet) are in `listing/paste.md`; paste the blocks as they are. Keep every other field as submitted for 1.2.0 (price, category, privacy URL, review notification Yes, App Migration No).
+**G. Upload 1.3.1 (prepared 2026-10-04, everything below is ready; the clicks are the owner's)**
+1. Developer page for the existing listing (link under "Where things stand") -> upload a new version -> file `HeroSet/dist/HeroSet-store-1.3.1.iq` (87 products, 134 device variants, same app id and permissions as 1.3.0).
+2. App Version `1.3.1`; What's New is in `listing/paste.md` (the Description is unchanged from 1.3.0); paste the blocks as they are. Keep every other field as submitted for 1.3.0 (price, category, privacy URL, review notification Yes, App Migration No).
 3. Hardware field: paste the website-link text at the end of `listing/paste.md` if it is still empty on the live listing (ROADMAP 6.6).
-4. After submitting, tell Claude. Then: set `instinctLive = true` in `site/src/apps/heroset/facts.ts` once Garmin approves, push, and record the upload date in `CHANGELOG.md` (7.8).
+4. After submitting, tell Claude: the upload date goes in `CHANGELOG.md` and `meta.yaml`. `instinctLive` in `site/src/apps/heroset/facts.ts` flips once Garmin shows the Instinct products in the device list (7.8).
 5. If the store drops any Instinct product from the device list (as it did 14 of 80 on 1.1.1, A1), note which in "Where things stand" and trim the site list to what the store shows.
-Evidence behind the claims: simulator only for every Instinct product ([ADR-055](decisions.md#adr-055)); the first real Instinct wrist report will be the first device evidence.
+Evidence behind the claims: simulator only for every Instinct product ([ADR-055](decisions.md#adr-055)), and the Instinct E / 3 Solar glance layout is blind (the simulator draws the glance under the window; the first real wrist shows whether the layout is needed or right, ROADMAP 9.6); the first real Instinct wrist report will be the first device evidence.
 
 ## Launch gates
 

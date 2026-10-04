@@ -32,16 +32,14 @@ Good to know: counting depends on how you wear the watch and how you move, so th
 ## App Version (max 20)
 
 ```text
-1.3.0
+1.3.1
 ```
 
 ## What's New (max 4000)
 
 ```text
-- Now on the Instinct family: Instinct 2, 2S, 2X, Instinct E and Instinct 3 Solar, and Descent G1. The black-and-white screen shows your XP ring in the small round window at the top right.
-- Instinct E and Instinct 3 Solar also get the glance.
-- Fixed: after saving a short set, starting the same exercise again began from that count instead of 0.
-- Long translations are shortened instead of overlapping on small screens.
+- Instinct watches: text near the corners of the screen is no longer cut off by the bezel, so START: MENU and the finished-day message show whole.
+- Instinct E and Instinct 3 Solar: the glance now sits beside the round window instead of under it, and its bars show empty and full in black and white.
 ```
 
 ## Hero Image (1440×720)
