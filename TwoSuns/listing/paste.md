@@ -63,7 +63,7 @@ The app is now called Two Suns Pro on the watch. Nothing changes in how it works
 
 ## Hero Image (optional, 1440×720, under 2048 KB)
 
-[`hero-1440x720.png`](hero-1440x720.png) — 258 KB. Still a draft: the ring-arc/sun mark and wordmark haven't had an owner sign-off pass (same status as the launcher icon placeholder).
+**OWNER approves the look first** (rendered 2026-10-04 from the current Pro build in the simulator; canned data, see [`screenshots.md`](screenshots.md)). [`hero-1440x720.png`](hero-1440x720.png), 249 KB. The earlier hero is in `old/`, superseded.
 
 ## Category
 
@@ -87,20 +87,26 @@ Whatever the Category choice offers.
 
 ## Cover Image (500×500, under 300 KB)
 
-[`cover-500.png`](cover-500.png) — 81 KB. Same draft-mark status as the hero above.
+**OWNER approves the look first** (the "PRO" pill and the golden arcs are a proposal for telling this listing from its lighter sibling). [`cover-500.png`](cover-500.png), 79 KB. The earlier cover is in `old/`, superseded.
 
 ## Screen Images (under 150 KB each, upload in this order)
 
-Two real device screens from the owner's FR965 simulator run (2026-09-27, native 454×454, no simulator chrome):
+**OWNER approves the looks first.** Five images, all simulator only with canned data (sun times, curve and number are set for the picture, never a reading; the weather row and the watch battery row are switched off in them). Details and commands in [`screenshots.md`](screenshots.md).
 
-1. [`screens/1-face.png`](screens/1-face.png) — 18 KB, awake state
-2. [`screens/2-sleep.png`](screens/2-sleep.png) — 6 KB, always-on/AOD state
+1. [`screens/1-day.png`](screens/1-day.png), 19 KB, FR965: the day, with the date, the energy curve and the sun ring
+2. [`screens/2-golden-hour.png`](screens/2-golden-hour.png), 19 KB, FR965: the golden-hour arcs (violet accent)
+3. [`screens/3-evening.png`](screens/3-evening.png), 19 KB, FR965: after sunset, the next sunrise (mint accent)
+4. [`screens/4-instinct-e45.png`](screens/4-instinct-e45.png), 1.5 KB, **Instinct E 45 mm (the Instinct-family shot, black and white, the ring as a dial in the round window)**
+5. [`screens/5-small-fr255s.png`](screens/5-small-fr255s.png), 4.4 KB, FR255S: a small round screen (pink accent)
 
-More states (a different accent, a different sky state) would help but these two are real and store-legal as-is.
+Caption each only if the form asks; do not describe the Instinct shot as a supported-device claim until the store lists those watches (`meta.yaml` `held_back_text`).
 
 ## Device icons (optional, 128×128)
 
-Not made; leave blank.
+**OWNER approves the look first.**
+
+- 64 Color: [`icon-64-128.png`](icon-64-128.png)
+- 24 bit: [`icon-24-128.png`](icon-24-128.png)
 
 ## Preview Video (optional)
 

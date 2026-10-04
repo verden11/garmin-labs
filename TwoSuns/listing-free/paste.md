@@ -61,7 +61,7 @@ Blank, per this app's rule for an initial release ([`../listing/NOTES.md`](../li
 
 ## Hero Image (optional, 1440×720, under 2048 KB)
 
-Not made; leave blank. (`../listing/hero-1440x720.png` is the Pro draft: it shows the energy curve and must not be reused for Free.)
+**OWNER approves the look first** (rendered 2026-10-04 from the Free build in the simulator; canned data, see [`screenshots.md`](screenshots.md)). [`hero-1440x720.png`](hero-1440x720.png), 242 KB. It shows no curve, no date and nothing from Pro.
 
 ## Category
 
@@ -85,15 +85,26 @@ Whatever the Category choice offers.
 
 ## Cover Image (500×500, under 300 KB)
 
-Not made for Free. **Owner's call** (visual identity). Do not reuse the Pro cover if it shows a curve.
+**OWNER approves the look first.** [`cover-500.png`](cover-500.png), 78 KB: the plain ring, no golden arcs, no pill (Pro's cover has both).
 
 ## Screen Images (under 150 KB each, upload in this order)
 
-None exist for Free (none invented). See [`screenshots.md`](screenshots.md) for what to capture, from the Free build in the simulator (`monkeydo bin/TwoSunsFree.prg fr965`, built with `monkey.free.jungle`). The two Pro screens in `../listing/screens/` show the curve and the date and are not Free's.
+**OWNER approves the looks first.** Five images from the Free build, simulator only with canned data (sun times and the Body Battery number are set for the picture, never a reading). Details and commands in [`screenshots.md`](screenshots.md).
+
+1. [`screens/1-day.png`](screens/1-day.png), 16 KB, FR965: the day, the ring and Garmin's number
+2. [`screens/2-evening.png`](screens/2-evening.png), 17 KB, FR965: after sunset (mint accent)
+3. [`screens/3-accent-pink.png`](screens/3-accent-pink.png), 16 KB, FR965: another accent (the one setting)
+4. [`screens/4-instinct-e45.png`](screens/4-instinct-e45.png), 1.2 KB, **Instinct E 45 mm (the Instinct-family shot, black and white, the ring as a dial in the round window)**
+5. [`screens/5-small-fr255s.png`](screens/5-small-fr255s.png), 4 KB, FR255S: a small round screen (violet accent)
+
+Do not describe the Instinct shot as a supported-device claim until the store lists those watches (`meta.yaml` `held_back_text`).
 
 ## Device icons (optional, 128×128)
 
-Not made; leave blank.
+**OWNER approves the look first.**
+
+- 64 Color: [`icon-64-128.png`](icon-64-128.png)
+- 24 bit: [`icon-24-128.png`](icon-24-128.png)
 
 ## Preview Video (optional)
 

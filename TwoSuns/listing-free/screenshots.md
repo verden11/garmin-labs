@@ -1,21 +1,64 @@
-# Free listing: screenshots and store images
+# Two Suns (Free): screenshots and store images
 
-Status: 2026-10-01. **Nothing exists yet for the Free listing, and none is invented here.** Everything below is to be captured; all would be **simulator only** (no wrist photo of any Free build exists).
+Status 2026-10-04. Everything here is **simulator only** (the container's simulator, native pixels), rendered from the **Free build** (`monkey.free.jungle`), so no shot can show a Pro-only thing (no curve, no date row, no twilight, no golden hour, no weather or battery row). Nothing is a wrist photo. **The owner has not approved the looks yet** (screens, cover, hero, icons); upload waits for that (ROADMAP 1.5, 9.7, 10.5). The Pro screens, cover and hero must not be reused here.
 
-## Rules
+## What the pictures are, honestly
 
-- Capture from the **Free build** (`monkeyc -d fr965 -f monkey.free.jungle -o bin/TwoSunsFree.prg -y ~/.garmin-connectiq/keys/developer_key`, then `monkeydo bin/TwoSunsFree.prg fr965`), so a shot cannot show a Pro-only thing: no energy curve, no date row, no twilight arc, no golden-hour arc.
-- `../listing/screens/1-face.png` and `2-sleep.png` (owner's FR965 simulator, 2026-09-27) come from the single pre-split build and show the curve and the date: they are Pro's, not Free's. Do not reuse them; the always-on frame is the same in both tiers by construction but must be re-captured from the Free build.
-- Under 150 KB each, one device is enough (454 px fr965 first). Cover 500×500 under 300 KB. Hero 1440×720 optional. The look is not approved by the owner and the Free layout (rows re-stacked without the curve and the date) has never been looked at by eye; the launcher icon is still the placeholder. The environment cannot capture the simulator: the owner supplies the images (the simulator's own "Save Screenshot", native size, no chrome).
-- Honest per tier: the Free screenshots must not hint at Pro features, and the Pro listing's must not hide that they are Pro.
+The simulator's canned sun times read wrong in the container's UTC clock (sunrise 12:17, sunset after midnight) and its Body Battery number is random. So `tools/listing_shots.sh` edits a **private copy** of the project (the real `source/` is never changed): sunrise 06:05 and sunset 17:32 stand in for the Complication values (the NOAA times for 51.5 N, 0 E on 4 October; the clock is UTC) and the Body Battery number is fixed at 59. **Canned: the pictures show the design, never a reading**; nothing may be cropped into a claim about real data. The evening shot's "Sunrise ~06:05" is Free's wording when it knows only today's Garmin numbers (the tilde marks an estimate).
 
-## To capture (in this order)
+## Screen images (upload order)
 
-1. fr965: awake, daytime: the ring (daylight to come and gone, ticks, solid sun marker), the time, the level pill with a number, "N:NN of daylight".
-2. fr965: after sunset ("Sunrise ~06:41", outline marker, night ring).
-3. fr965: no Body Battery number (`--` and a hollow pill), the honest empty state of ADR-021 (Body Battery in Free).
-4. fr965: another accent (Customize, Accent colour).
-5. fr965: always-on.
-6. A small round screen (fr255s, 218 px MIP) once, to show the face fits.
+24-hour clock, the Free build's only setting is the accent. Each file is far under 150 KB.
 
-How, in the simulator: Simulation → Set Time for day and after sunset (sun times are the simulator's canned Complication values); the Body Battery Complication value can be set or cleared in the simulator's data fields.
+| # | File | Device | Clock (UTC) | Accent | What it shows |
+|---|---|---|---|---|---|
+| 1 | `screens/1-day.png` | FR965, 454 px | 10:09 | Sky (0, the default) | Time, bolt gauge and 59, "7:22 of daylight", the ring (daylight gone and to come, ticks, sun marker) |
+| 2 | `screens/2-evening.png` | FR965, 454 px | 20:41 | Mint (1) | After sunset: outline marker on the night half, "Sunrise ~06:05" |
+| 3 | `screens/3-accent-pink.png` | FR965, 454 px | 13:21 | Pink (4) | The one setting: another accent |
+| 4 | `screens/4-instinct-e45.png` | **Instinct E 45 mm, 176 px (the Instinct-family shot)** | 10:09 | none (black and white) | The ring as a small 24-hour dial in the round window |
+| 5 | `screens/5-small-fr255s.png` | FR255S, 218 px | 10:09 | Violet (3) | The same face on a small round screen |
+
+The Instinct family has no accent setting (ADR-024). Two Suns ships on three Instincts (E 40 mm, E 45 mm, 3 Solar 45 mm); E 45 mm is the one pictured.
+
+Not made on purpose: the `--` (no Body Battery number) state. The simulator gives a number whenever the Complication is on; the empty state is covered by the unit tests (ADR-021).
+
+## Cover, hero, device icons
+
+Sources in `src/` (HTML, studio look, the face's own ring as the mark: the plain ring, **no** golden arcs and **no PRO pill**, which is how it is told apart from Pro; the pill is a proposal for the owner):
+
+| File | Size | Source |
+|---|---|---|
+| `cover-500.png` | 500 x 500 | `src/cover.html` |
+| `hero-1440x720.png` | 1440 x 720 | `src/hero.html` (uses `screens/1-day.png`, `2-evening.png`, `4-instinct-e45.png`) |
+| `icon-24-128.png` | 128 x 128 (24 bit) | `src/icon.html` |
+| `icon-64-128.png` | 128 x 128 (64 color) | `icon-24-128.png` snapped to 00/55/AA/FF channels by `src/quantize64.py` |
+
+No price number and no claim are written in any image, and nothing in them names Pro.
+
+## Commands
+
+Screens (the container, one run at a time, about 10 minutes; each shot restarts the simulator on its own clock and clears the simulator's stored settings, because it keeps the last run's in `APP.SET`):
+
+```sh
+docker/capture.sh TwoSuns tools/listing_shots.sh free                 # the whole set
+docker/capture.sh TwoSuns tools/listing_shots.sh free 5-small-fr255s  # one shot
+```
+
+Cover, hero and icons (headless Chrome; fonts from Google Fonts, so it needs the network):
+
+```sh
+CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
+cd TwoSuns/listing-free
+"$CH" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=5000 --window-size=500,500   --screenshot="$PWD/cover-500.png"       "file://$PWD/src/cover.html"
+"$CH" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=5000 --window-size=1440,720 --screenshot="$PWD/hero-1440x720.png"  "file://$PWD/src/hero.html"
+"$CH" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=5000 --window-size=128,128  --screenshot="$PWD/icon-24-128.png"     "file://$PWD/src/icon.html"
+python3 src/quantize64.py icon-24-128.png icon-64-128.png
+```
+
+## Limits, and how they were checked
+
+Garmin: screen images under 150 KB each, cover 500 x 500 under 300 KB, hero 1440 x 720 under 2048 KB, icons 128 x 128. Checked on 2026-10-04 by reading each PNG's byte size (`os.path.getsize`) and its pixel size from the IHDR header (python3): sizes are in `paste.md` and `meta.yaml`.
+
+## Not made
+
+An always-on frame (the simulator does not enter Always-On), a rectangular-screen shot, the `--` state, and anything from a real watch.

@@ -24,10 +24,17 @@ package:
   note: "export: monkeyc -e -r -f monkey.jungle; dist/TwoSuns-1.0.1-prepared.iq is the separate 1.0.1 package (ROADMAP 4.1); built in the verden-ciq-build container; same bytes as dist/TwoSunsPro.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; the store shows $2.25 until then), no number in listing text; ADR-026 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-020 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
-assets:
-  cover: cover-500.png
-  hero: hero-1440x720.png
-  screens: screens/ (1-face.png, 2-sleep.png, owner FR965 simulator captures)
+assets:   # all rendered 2026-10-04 from the current Pro build in the simulator (canned data); the owner has NOT approved the looks (ROADMAP 1.5, 9.7); superseded files are in old/
+  cover: cover-500.png            # 500x500, 79 KB
+  hero: hero-1440x720.png         # 1440x720, 249 KB
+  icon_64: icon-64-128.png        # 128x128, 1 KB
+  icon_24: icon-24-128.png        # 128x128, 3 KB
+  screens:                        # upload order; native simulator pixels, each under 150 KB
+    - screens/1-day.png           # FR965 454 px, 19 KB
+    - screens/2-golden-hour.png   # FR965 454 px, 19 KB
+    - screens/3-evening.png       # FR965 454 px, 19 KB
+    - screens/4-instinct-e45.png  # INSTINCT E 45 mm 176 px, 1.5 KB (black and white)
+    - screens/5-small-fr255s.png  # FR255S 218 px, 4 KB
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/two-suns/

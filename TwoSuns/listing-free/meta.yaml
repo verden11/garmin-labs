@@ -24,10 +24,17 @@ package:
   note: "export: monkeyc -e -r -f monkey.free.jungle; built in the verden-ciq-build container; same bytes as dist/TwoSunsFree.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
 price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
-assets:
-  cover: null
-  hero: null
-  screens: none yet
+assets:   # all rendered 2026-10-04 from the Free build in the simulator (canned data); the owner has NOT approved the looks (ROADMAP 1.5, 9.7)
+  cover: cover-500.png            # 500x500, 78 KB
+  hero: hero-1440x720.png         # 1440x720, 242 KB
+  icon_64: icon-64-128.png        # 128x128, 1 KB
+  icon_24: icon-24-128.png        # 128x128, 2 KB
+  screens:                        # upload order; native simulator pixels, each under 150 KB
+    - screens/1-day.png           # FR965 454 px, 16 KB
+    - screens/2-evening.png       # FR965 454 px, 17 KB
+    - screens/3-accent-pink.png   # FR965 454 px, 16 KB
+    - screens/4-instinct-e45.png  # INSTINCT E 45 mm 176 px, 1.2 KB (black and white)
+    - screens/5-small-fr255s.png  # FR255S 218 px, 4 KB
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/two-suns/
