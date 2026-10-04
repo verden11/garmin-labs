@@ -334,5 +334,5 @@ The studio specifics (the roster, Verden's directives, the pilots) stay in this 
 | WP6 | HeroFace Free | built 2026-10-01, unreleased (see START HERE tracker) |
 | WP7 | HeroSet Free | gated (accuracy proof + ADR-044 review) |
 | WP8 | Site | open |
-| WP9 | `tools/store_poll.py` + CSV | open |
-| WP10 | Listing template | open |
+| WP9 | `tools/store_poll.py` + CSV | script written 2026-10-04 (tested offline against a fixture); no weekly polling has started |
+| WP10 | Listing template | written 2026-10-04: [`listing-template.md`](listing-template.md) (this folder), not in `research_notes/` |
