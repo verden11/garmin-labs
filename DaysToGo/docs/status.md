@@ -67,18 +67,18 @@ Gates still required (the owner may waive any of them too, but they are cheap): 
 ## After approval (the day it arrives)
 
 1. Open the live listing page. Check the title, description, images and price. Check the support and privacy links open.
-2. **Price review date:** approval date + 45 days. Write "Price review due <date>" in `../CLAUDE.md` (project file) and add it to the memory index. Then follow [`spec.md`](spec.md) "Price review": email Connect IQ developer support before any flip, never cancel the merchant account, proposed rule to confirm: fewer than 5 sales in 45 days and a download bucket of 10 or lower.
+2. ~~Price review date: approval + 45 days.~~ **Retired 2026-10-04** (the owner approved the Free + Pro ladder, ADR-014; the paid app is never flipped to free). Still true if the price is ever touched: email Connect IQ developer support first and never cancel the merchant account.
 3. In `site/src/apps/days-to-go/app.ts` set `storeUrl`; add the live store's device list to `facts.ts` only once it is shown there. Rebuild and redeploy the site.
 4. Update the root `README.md` status and `CLAUDE.md` price line.
-5. Day 60: run the success test in `spec.md` (the day-45 price review comes first).
+5. Day 60: run the success test in `spec.md`.
 
-## Free + Pro pair (proposed, UNRELEASED: ADR-014 (Free + Pro ladder))
+## Free + Pro pair (approved by the owner 2026-10-04, UNRELEASED: ADR-014 (Free + Pro ladder))
 
-Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP4); the owner has not signed off OD1 to OD4, so the gates above and ADR-002 (price, day-45 review) still govern the live paid app. No store-package quirk is recorded anywhere in this project's docs; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
+Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP4); the owner approved the ladder on 2026-10-04 (OD1, OD2: the day-45 flip rule is retired, ADR-002 Superseded); names, the Pro price and every upload are still open, and the live paid app is unchanged until then. No store-package quirk is recorded anywhere in this project's docs; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
 
 | # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
 |---|---|---|
-| F1 | Owner signs off OD1 (the ladder), OD2 (retire the day-45 flip rule), OD3 (names), OD4 (Pro price). ADR-014 (Free + Pro ladder) then becomes Active and ADR-002's flip rule Superseded, same commit | **Open** (owner) |
+| F1 | Owner signs off OD1 (the ladder), OD2 (retire the day-45 flip rule), OD3 (names), OD4 (Pro price). ADR-014 (Free + Pro ladder) is Active and ADR-002's flip rule Superseded | **Ladder and OD2 done 2026-10-04**; names and the price are F2 and the owner's |
 | F2 | Store names and titles chosen and searched in the store by eye (plan placeholders: app name "Days To Go" / "Days To Go Pro"; proposed titles "Days To Go: Countdown to a Date" / "Days To Go Pro: Countdown, Hours, Footer"). Name is also the on-watch AppName: change `resources-free/strings` and `resources-pro/strings` only | **Open** (owner) |
 | F3 | Pro headline decided: what a buyer pays for beyond timed events and the battery or steps line. No research was run; if none, say Pro is thin | **Open** (owner / watch-pm) |
 | F4 | Launcher icon for each tier (the file is still the placeholder; Free and Pro may differ) | **Open** (owner) |

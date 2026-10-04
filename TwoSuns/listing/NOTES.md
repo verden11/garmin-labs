@@ -95,7 +95,7 @@ None exist. See [`screenshots.md`](screenshots.md).
 - **1.0.1 (prepared, not submitted; ROADMAP 4.1 is the owner's call):** `Small refinement to the Body Battery level indicator.` Use it with the 1.0.1 package if the owner uploads 1.0.1 before 1.1.0.
 - **1.0.0:** blank (initial release).
 
-## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, proposed under ADR-020 (Free + Pro ladder), nothing uploaded; moved from a draft here, 2026-10-04)
+## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, accepted 2026-10-04 under ADR-020 (Free + Pro ladder), nothing uploaded; moved from a draft here, 2026-10-04)
 
 `paste.md` is the 1.1.0 text. Names, the price and the sibling URL are the owner's decisions; the strings are the plan's placeholders.
 

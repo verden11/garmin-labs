@@ -50,11 +50,12 @@ Three directives from the owner. They apply to every watch project and to every 
 
 **Agents: start at [`reports/Free and Pro ladder - START HERE.md`](reports/Free%20and%20Pro%20ladder%20-%20START%20HERE.md)** (status, rules, paste-ready prompt per work package).
 
-**Proposed, pending owner sign-off (OD1/OD2 in the plan):** the ladder mechanics in
+**Approved by the owner on 2026-10-04 (OD1/OD2):** the ladder mechanics in
 [`reports/Free and Pro ladder.md`](reports/Free%20and%20Pro%20ladder.md) and
 [`reports/Free and Pro ladder execution plan.md`](reports/Free%20and%20Pro%20ladder%20execution%20plan.md) (live paid id becomes the
-Pro, the Free is a new app id, no flip-to-free, prices, names, pilots). **Until the owner signs off, each project's existing ADRs
-govern** (for example DaysToGo and TwoSuns ADR-002, the price and day-45 review). **2026-10-01: the owner asked for the missing Free builds, so the Free variants of DaysToGo, TwoSuns and HeroFace exist in the working tree (UNRELEASED, new ADRs marked Proposed). Building is done; uploads, names, prices, icons, translations and the site stay owner decisions. HeroSet Free is not built (accuracy-proof gate).**
+Pro, the Free is a new app id, no flip-to-free). The ladder ADRs are Active (HeroFace ADR-001, DaysToGo ADR-014, TwoSuns ADR-020) and
+DaysToGo and TwoSuns ADR-002 (the price and the day-45 review) are Superseded: **the day-45 flip rule is retired.** Names, the Pro prices, icons,
+translations and every upload stay owner decisions, and HeroSet and DayArc follow their own ADRs. **2026-10-01: the owner asked for the missing Free builds, so the Free variants of DaysToGo, TwoSuns and HeroFace exist in the working tree (UNRELEASED). Building is done; uploads, names, prices, icons, translations and the site stay owner decisions. HeroSet Free is not built (accuracy-proof gate). Owner decisions 2026-10-04: HeroFace Free has no temperature; Two Suns Free keeps `--` for a missing Body Battery number; HeroFace Magenta was recoloured to pass the 3:1 track rule (HeroFace ADR-003).**
 
 ## House rules everywhere
 

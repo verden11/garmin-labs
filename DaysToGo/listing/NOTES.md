@@ -48,7 +48,7 @@ One 454 × 454 FR965 simulator screenshot and a 500 × 500 cover exist; see [`sc
 - **1.0.1:** `Long event names on small screens now end in "..." instead of being cut off without a marker.`
 - **1.0.0:** `First release.`
 
-## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, proposed under ADR-014 (Free + Pro ladder), nothing uploaded; moved from a draft here, 2026-10-04)
+## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, accepted 2026-10-04 under ADR-014 (Free + Pro ladder), nothing uploaded; moved from a draft here, 2026-10-04)
 
 `paste.md` is the 1.1.0 text. Names, the price and the sibling URL are the owner's decisions; the strings are the plan's placeholders.
 

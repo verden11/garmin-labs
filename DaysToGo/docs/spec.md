@@ -19,7 +19,7 @@ No permissions, nothing leaves the watch.
 | # | Decision | Status | Why |
 |---|---|---|---|
 | D1 | **Any event**, not race-only | Owner, 2026-09-26 | Biggest audience; runners are still the visible core (rival reviews) and are served by the timed-event and weeks options |
-| D2 | **Price: paid $1.99 first; one review at day 45 after approval on whether to flip to free (once, never back)** | **Owner, 2026-09-26** | Owner's choice of option 1 after the weekly free/paid idea was advised against (see "Price"). A free flip may also send traffic to the owner's other paid apps: a hypothesis to measure, not a promise. The build is identical either way |
+| D2 | **Price: paid $1.99 first; ~~one review at day 45 after approval on whether to flip to free (once, never back)~~ superseded 2026-10-04: the flip rule is retired by the Free + Pro ladder (D12, ADR-014)** | **Owner, 2026-09-26; flip rule retired 2026-10-04** | Owner's choice of option 1 after the weekly free/paid idea was advised against (see "Price"). A free flip may also send traffic to the owner's other paid apps: a hypothesis to measure, not a promise. The build is identical either way |
 | D3 | **Name: Days To Go** | **Owner confirmed, 2026-09-26** (store search by eye and trademark search still to do) | Zero exact or containing collisions in the store search; matches how people say it. See `research_notes/.../naming_and_listing.md` |
 | D4 | **Settings: lists, never `date` or `numeric`** | Decided (evidence) | Both failed in rivals; see "Setting the date" |
 | D5 | **A second way in: set the date on the watch** (`getSettingsView` + Picker) | Decided, gated by the phase 3 device test | Removes the phone from the critical path; keep only if it does not destroy phone-set values. Documented for 94 of the 117 products; the older CIQ 3.x products and the newest have the phone only |
@@ -29,11 +29,11 @@ No permissions, nothing leaves the watch.
 | D9 | **Languages: English + HeroFace's 14 translations** | Recommended | Few strings; Russian, Greek and Chinese are owner-level additions |
 | D10 | **No code sharing with HeroFace** (copy the few files, no Barrel) | Decided | A Barrel pays off at the third shared face, not the second |
 | D11 | **Date style setting** (Automatic, Day first, Month first) | **Owner confirmed, 2026-09-26** | The system gives no date-order preference; words avoid ambiguity, the setting fixes the order |
-| D12 | **Free + Pro pair**: the paid app becomes Days To Go Pro (1.1.0), a Free twin is added (1.0.0), one codebase, split at compile time (ADR-014 (Free + Pro ladder)) | **Proposed, builds against the plan; owner decides names, prices, sign-off** (UNRELEASED) | See "Free and Pro" below. D2 (price and the day-45 flip review) stays in force until the owner signs off; ADR-014 (Free + Pro ladder) supersedes the flip rule only then |
+| D12 | **Free + Pro pair**: the paid app becomes Days To Go Pro (1.1.0), a Free twin is added (1.0.0), one codebase, split at compile time (ADR-014 (Free + Pro ladder)) | **Approved by the owner 2026-10-04; names, prices and uploads are still the owner's** (UNRELEASED) | See "Free and Pro" below. ADR-014 (Free + Pro ladder) superseded D2's day-45 flip rule on 2026-10-04 |
 
 ### Free and Pro
 
-Status: **Proposed, UNRELEASED, simulator only; nothing built here is uploaded.** Strategy and evidence: `../../reports/Free and Pro ladder.md`; the build plan is WP4 in `../../reports/Free and Pro ladder execution plan.md`. The decision record is ADR-014 (Free + Pro ladder) in [`decisions.md`](decisions.md). Names ("Days To Go" and "Days To Go Pro") are the plan's **placeholders**; the owner decides them, the prices and the store titles.
+Status: **Approved by the owner 2026-10-04, UNRELEASED, simulator only; nothing built here is uploaded.** Strategy and evidence: `../../reports/Free and Pro ladder.md`; the build plan is WP4 in `../../reports/Free and Pro ladder execution plan.md`. The decision record is ADR-014 (Free + Pro ladder) in [`decisions.md`](decisions.md). Names ("Days To Go" and "Days To Go Pro") are the plan's **placeholders**; the owner decides them, the prices and the store titles.
 
 | | **Free** (new app id, $0) | **Pro** (the existing paid app id) |
 |---|---|---|
@@ -64,7 +64,9 @@ The owner chose paid ($1.99) on 2026-09-26. That stands. The research adds a ris
 - **Alternating free and paid weeks, kept secret (owner idea, 2026-09-26): not recommended.** Garmin documents only free→paid: the app "is temporarily removed from the store so it can be reviewed again" and users "must purchase the app before they can use it again" (SDK `Monetization/App_Sales`); nothing is documented for paid→free, and no scheduled sale or promotion feature is documented. So every switch to paid costs a removal and a re-review (about 72 h) and locks out everyone who installed while free. The price is also public on the store page, so it cannot be secret, and Garmin's review guidelines (section 4d) require disclosing "from the outset if your app is only free for a limited time" and forbid bait-and-switch, so an undisclosed free period risks rejection or removal. Repeated switches also risk the ranking velocity and the merchant account the owner's other apps depend on. **Chosen by the owner (2026-09-26): paid first, at most one deliberate flip to free, never back.** The review is scheduled in "Price review" below.
 - **If the owner flips to free:** no code, listing structure or site change beyond the price answer and the description's price-free wording; the success test below changes.
 
-### Price review (reminder)
+### Price review (reminder) — retired 2026-10-04
+
+**Retired.** The owner approved the Free + Pro ladder on 2026-10-04 (ADR-014), so there is no day-45 flip review and the paid app is never flipped to free. The text below is kept as history.
 
 - **When:** **45 days after the store approves the app** (the midpoint of a 30 to 60 day window). The approval date is not known yet, so the date is fixed the day approval arrives: write "Price review due <approval + 45 days>" into `DaysToGo/CLAUDE.md` (the pattern `site/CLAUDE.md` uses for its DMARC line) and into the memory index. Until then the reminder lives in the memory file `days-to-go-countdown-face` and in plan phase 10.
 - **Record at submission** (baseline for the funnel question): the download buckets, review counts and ratings of HeroSet and HeroFace, and the store link for each.

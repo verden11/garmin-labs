@@ -28,7 +28,7 @@ The fēnix 9 family, FR70 and FR170 (API 6.0) are in by API level; the SDK's dev
 
 `venusq2` and `venusq2m` (320 × 360) and `venux1` (448 × 486). The face keeps its round design: the ring is a circle the size of the shorter side, centred, with black bars above and below. Text is checked against the round chord, which is stricter than a rectangle needs. **Not looked at by eye; the look on a rectangle is not approved.** `venusq2` has been through the fit test; `venux1` has not been run at all.
 
-## Instinct E and Instinct 3 Solar (added 2026-10-04, ADR-024, proposed, simulator only)
+## Instinct E and Instinct 3 Solar (added 2026-10-04, ADR-024, accepted 2026-10-04, simulator only)
 
 `instincte40mm` (166 x 166, window 52 px), `instincte45mm` and `instinct3solar45mm` (176 x 176, window 62 px) join both manifests: **72 products**. CIQ 6.0 (Complications, `SensorHistory`, `Weather` all there), 1-bit (palette `000000`/`FFFFFF` only), **watch-face memory 65,536 B** (the other 69 have at least 128 KB).
 
@@ -55,7 +55,7 @@ The fēnix 9 family, FR70 and FR170 (API 6.0) are in by API level; the SDK's dev
 
 Counts are from `research_notes/Body Battery and sun face research/platform.md` §7 (API levels from the SDK, 2026-09-26). The SDK's supported-device lists for the three APIs, matched by name, show the fēnix 9 family, FR70 and FR170 as supporting none; that is documentation lag.
 
-## Free and Pro builds (ADR-020 (Free + Pro ladder), proposed, UNRELEASED)
+## Free and Pro builds (ADR-020 (Free + Pro ladder), accepted 2026-10-04, UNRELEASED)
 
 Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle`) and **Free** (`manifest.free.xml`, new app id, `monkey.free.jungle`). Both list the **same 69 products**, `minApiLevel` 4.2.0 and the same 15 languages; `tools/compile_sweep.sh` refuses to run if the two manifests' product lists differ. **Permissions differ, and Free's are a subset of Pro's**: Free declares `ComplicationSubscriber` only; Pro declares `ComplicationSubscriber`, `SensorHistory` and `Positioning` (the sentence at the top of this file describes Pro).
 

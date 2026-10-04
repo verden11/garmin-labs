@@ -1,11 +1,11 @@
 # Days To Go — CLAUDE.md
 
 Garmin watch face (Connect IQ, Monkey C) from studio Verden. One job: how many
-days until a date, and the date is always right. 127 products (117 round, 3 rectangular AMOLED, 7 semi-octagon Instinct, ADR-015 (Instinct family), proposed, simulator only),
-`minApiLevel` 3.0.0, no permissions. Paid, USD 1.99 first, with one price
-review 45 days after store approval (spec "Price review"; ADR-002, the price and day-45 review). Approved 2026-09-28 (late afternoon, owner), so the review is due 2026-11-12 unless the Free + Pro ladder (OD2) retires it.
+days until a date, and the date is always right. 127 products (117 round, 3 rectangular AMOLED, 7 semi-octagon Instinct, ADR-015 (Instinct family), accepted 2026-10-04, simulator only),
+`minApiLevel` 3.0.0, no permissions. Paid, USD 1.99 first. Approved 2026-09-28 (late afternoon, owner). The day-45 price-flip review of ADR-002 is retired:
+the owner approved the Free + Pro ladder on 2026-10-04 (ADR-014), and the paid app is never flipped to free.
 
-**Free + Pro (proposed, UNRELEASED, ADR-014 "Free + Pro ladder"; the owner has not signed off, so ADR-002, the price and day-45 review, still governs):** the live paid app
+**Free + Pro (approved by the owner 2026-10-04, UNRELEASED, ADR-014 "Free + Pro ladder", which supersedes ADR-002's price and day-45 review):** the live paid app
 (`manifest.xml`, `monkey.jungle`) becomes **Days To Go Pro** 1.1.0; a new **Free** twin (`manifest.free.xml`, `monkey.free.jungle`, own app id, 1.0.0) is built beside it from the
 same source, split at compile time with `(:pro)` / `(:free)`. Free: Event, Name, Month, Day, Year, Unit, Date style, Accent (ids 0 to 5). Pro adds Hour (timed events) and Footer (battery or steps). Names, prices, icon, uploads are the owner's.
 
@@ -55,5 +55,5 @@ Same as HeroFace ([`../HeroFace/CLAUDE.md`](../HeroFace/CLAUDE.md)), which this 
 - User-facing claims live in the listing and `../site/src/apps/days-to-go/`; change both together, never change a published URL.
 - Every store publication gets a `CHANGELOG.md` entry and a What's New block in `listing/paste.md`.
 - Test count appears in `README.md` and here: **Pro 52, Free 53** on round and rectangular products (49 shared + 2 Pro-only / + 3 Free-only, + the Instinct layout test), **Pro 50, Free 51** on an Instinct (the colour-only accent tests drop, a mono one joins), simulator tests PASSED 2026-10-04 (fr965, fr255s, epix2, venusq2, instinct2, instincte40mm, instinct3solar45mm; the other products 2026-10-03; no wrist); update both.
-- **Instinct family (ADR-015, proposed; 7 products, 1-bit, a round window top right):** `DaysToGoPalette` is two classes, `(:color)` and `(:mono)`, chosen by the jungles (`base.excludeAnnotations = <tier>;mono`, and per Instinct product `<product>.excludeAnnotations = <tier>;color` — a per-product line **replaces** the base list, so restate the tier's own). The Accent setting is its own file (`resources-accent-<tier>/settings/accent.xml`, from `tools/gen_settings.py`) and the Instinct `resourcePath` leaves that folder out. The visible area is a circle about 98 px in radius (`DaysToGoLayout.VISIBLE_RADIUS_PX`), not the whole square: **screenshot the simulator for every layout change** (`docs/development.md` "Screenshots").
+- **Instinct family (ADR-015, accepted 2026-10-04; 7 products, 1-bit, a round window top right):** `DaysToGoPalette` is two classes, `(:color)` and `(:mono)`, chosen by the jungles (`base.excludeAnnotations = <tier>;mono`, and per Instinct product `<product>.excludeAnnotations = <tier>;color` — a per-product line **replaces** the base list, so restate the tier's own). The Accent setting is its own file (`resources-accent-<tier>/settings/accent.xml`, from `tools/gen_settings.py`) and the Instinct `resourcePath` leaves that folder out. The visible area is a circle about 98 px in radius (`DaysToGoLayout.VISIBLE_RADIUS_PX`), not the whole square: **screenshot the simulator for every layout change** (`docs/development.md` "Screenshots").
 - A new language: its line in **both** manifests and **both** jungles; its folder must not define `AppName` (`python3 tools/check_strings.py`).

@@ -77,21 +77,21 @@ Each field's text is in [`../listing/paste.md`](../listing/paste.md), in form or
 ## After approval (the day it arrives)
 
 1. Open the live listing page. Check the title, description, images and price. Check the support and privacy links open.
-2. **Price review date: approval date + 45 days.** Replace "Price review due: not set until approval" in `CLAUDE.md` with the date and add it to the memory index. Then follow the Days To Go price-review rules ([`../../DaysToGo/docs/decisions.md`](../../DaysToGo/docs/decisions.md) ADR-002): email Connect IQ developer support before any flip, never cancel the merchant account; the proposed flip rule (fewer than 5 sales in 45 days and a download bucket of 10 or lower) is still for the owner to confirm.
+2. ~~Price review date: approval + 45 days.~~ **Retired 2026-10-04** (the owner approved the Free + Pro ladder, ADR-020; the paid app is never flipped to free). Still true if the price is ever touched: email Connect IQ developer support first and never cancel the merchant account ([`../../DaysToGo/docs/decisions.md`](../../DaysToGo/docs/decisions.md) ADR-002).
 3. In `site/src/apps/two-suns/app.ts` set `storeUrl`; add the live store's device list to `facts.ts` only once it is shown there. Rebuild and redeploy the site.
 4. Update the root `README.md` status and `CLAUDE.md` row.
-5. Day 60: run the success test in [`spec.md`](spec.md) "Success and stop test" (the day-45 price review comes first). Record any review that mentions wrong or blank sun times.
+5. Day 60: run the success test in [`spec.md`](spec.md) "Success and stop test". Record any review that mentions wrong or blank sun times.
 6. Tier B (1.1) only if gate 2 showed a location source that works.
 
-## Free + Pro pair (proposed, UNRELEASED: ADR-020 (Free + Pro ladder))
+## Free + Pro pair (approved by the owner 2026-10-04, UNRELEASED: ADR-020 (Free + Pro ladder))
 
-Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP5); the owner has not signed off OD1 to OD4, so the gates above and ADR-002 (price, day-45 review) still govern the live paid app. The prepared 1.0.1 is **not** held back by this work and is not part of it (plan WP5 step 7); the owner submits it or not. No store-package quirk beyond the known "89 devices" oddity is recorded; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
+Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP5); the owner approved the ladder on 2026-10-04 (OD1, OD2: the day-45 review is retired, ADR-002 Superseded); names, the Pro price tier and every upload are still open, and the live paid app is unchanged until then. The prepared 1.0.1 is **not** held back by this work and is not part of it (plan WP5 step 7); the owner submits it or not. No store-package quirk beyond the known "89 devices" oddity is recorded; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
 
 | # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
 |---|---|---|
-| F1 | Owner signs off OD1 (the ladder), OD2 (retire the day-45 flip rule), OD3 (names), OD4 (Pro price tier; the store shows $2.25 against the documented $1.99, plan WP5 step 1). ADR-020 (Free + Pro ladder) then becomes Active and the flip rule of ADR-002 (price) Superseded, same commit | **Open** (owner) |
+| F1 | Owner signs off OD1 (the ladder), OD2 (retire the day-45 flip rule), OD3 (names), OD4 (Pro price tier; the store shows $2.25 against the documented $1.99, plan WP5 step 1). ADR-020 (Free + Pro ladder) is Active and the flip rule of ADR-002 (price) Superseded | **Ladder and OD2 done 2026-10-04**; names and the price tier are F2 and the owner's |
 | F2 | Store names and titles chosen and searched in the store by eye (plan placeholders: app name "Two Suns" / "Two Suns Pro"). The name is also the on-watch AppName: change `resources-free/strings` and `resources-pro/strings` only | **Open** (owner) |
-| F3 | Owner decides the tier of the date row and the ring orientation (plan WP5 puts both in Pro; Free is thinner without them), whether Free keeps civil twilight (needs a place, so no), and the wording of a missing Body Battery number (ADR-021, Body Battery in Free: `--` and a hollow pill, or a word) | **Open** (owner) |
+| F3 | Owner decides the tier of the date row and the ring orientation (plan WP5 puts both in Pro; Free is thinner without them), whether Free keeps civil twilight (needs a place, so no), and the wording of a missing Body Battery number (ADR-021, Body Battery in Free: `--` and a hollow pill, or a word) | **Decided 2026-10-04: Free keeps `--`; date row and ring orientation stay in Free** (owner) |
 | F4 | Launcher icon for each tier (the file is still the placeholder; Free and Pro may differ) | **Open** (owner) |
 | F5 | Tests run on both jungles: `tools/run_tests.sh <device> monkey.jungle` (expect 154) and `... monkey.free.jungle` (expect 67) on fr965, fr255s, venusq2, venux1; `tools/fit_all.sh monkey.free.jungle` and `tools/fit_all.sh` | **Open**: written and compiled, never run |
 | F6 | Packages exported and checked: `tools/check_free_package.sh --build` | **Done 2026-10-01** (compile only; `development.md` "Checking a store package"); re-run after any source change |

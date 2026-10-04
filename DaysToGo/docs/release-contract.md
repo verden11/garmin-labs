@@ -22,7 +22,7 @@ What the listing, the store page and the site may claim. Copy of the rules in [`
 - "Free" wording while the price is paid; disclose any limited-time free period (store review guideline 4d).
 - Translated store copy that no native speaker has read.
 
-## Free and Pro listings (ADR-014 (Free + Pro ladder), proposed)
+## Free and Pro listings (ADR-014 (Free + Pro ladder), accepted 2026-10-04)
 
 - The same allowed and forbidden lists apply to both listings. Nothing is claimed that only the other tier ships: the Free listing never says it has timed events or a battery or steps line; the Pro listing's "adds" list is exactly those two (plus any later Pro-only item once built).
 - "Free" wording is allowed **only** in the Free listing (which is $0). The Pro listing keeps the existing rule: no "free" wording while the price is paid.

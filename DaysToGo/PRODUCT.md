@@ -30,7 +30,7 @@ Countdown-first, not a dashboard with a countdown slot. No permissions, nothing 
 
 - Connect IQ watch face, `minApiLevel` 3.0.0, one build, 120 products (117 round plus 3 rectangular AMOLED), no bitmaps. Smallest memory budget 96 KB.
 - No network, no permissions, no `Storage`.
-- Price: paid, lowest tier $1.99, with one review 45 days after approval ([`docs/decisions.md`](docs/decisions.md) ADR-002).
+- Price: paid, lowest tier .99 (the day-45 flip review of [`docs/decisions.md`](docs/decisions.md) ADR-002 was retired 2026-10-04 by the Free + Pro ladder, ADR-014).
 - Languages: English plus 14 machine-drafted translations, not yet read by native speakers.
 
 ## Brand Commitments

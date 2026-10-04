@@ -5,7 +5,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | ADR | Decision | Status |
 |---|---|---|
 | 001 | Any event, countdown-first | Active |
-| 002 | Price: paid $1.99 first, one review at approval + 45 days | Active |
+| 002 | Price: paid $1.99 first, one review at approval + 45 days | **Superseded** 2026-10-04 by 014 (the Free + Pro ladder; the owner retired the day-45 flip rule) |
 | 003 | List settings, never `date` or `numeric` | Active |
 | 004 | Calendar-day arithmetic, no `Time.Moment` maths | Active |
 | 005 | On-watch date picker | **Open**: gated by the owner's device test (plan phase 3) |
@@ -17,7 +17,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 011 | Date style setting, and dates written in words | Active |
 | 012 | Rows are stacked from font heights, optional rows drop on small screens | Active |
 | 013 | Ring beyond a year is the grey track only | Active |
-| 014 | Free + Pro ladder: a Free twin beside the paid app, which becomes Days To Go Pro | **Proposed**: builds against the plan; the owner decides names, prices and sign-off |
+| 014 | Free + Pro ladder: a Free twin beside the paid app, which becomes Days To Go Pro | Active (accepted 2026-10-04: the owner approved the ladder) |
+| 015 | Instinct family: window gauge, black and white, no accent | Active (accepted 2026-10-04; simulator only) |
 
 ## ADR-001: Any event, countdown-first
 
@@ -26,6 +27,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Evidence.** `reports/Countdown face research.md` §1 to §2; owner decision 2026-09-26.
 
 ## ADR-002: Price
+
+**Status: Superseded 2026-10-04 by ADR-014 (the Free + Pro ladder).** The owner approved the ladder on 2026-10-04 and retired the day-45 flip rule below: the paid app is never flipped to free, the Free twin replaces that idea. The first-submission price (paid, the lowest tier) stands until the owner sets the Pro price. The text below is the history.
 
 **Decision.** Paid, the lowest tier (USD 2.00, shown as $1.99 in the US, the same tier as HeroFace and HeroSet), at first submission. One review 45 days after store approval on whether to flip to free, once, never back. Proposed rule (owner to confirm): fewer than 5 sales in 45 days and a download bucket of 10 or lower.
 **Why.** Owner's choice (2026-09-26) after the weekly free/paid idea was advised against: Garmin documents only free→paid (removal and re-review, buyers locked out), and the store's rules require disclosing a limited-time free period. Risk on record: 15 paid countdown faces, all at 10 downloads or fewer; free leaders 10,000 to 100,000. A free flip may also send traffic to the owner's other paid apps: a hypothesis to measure, not a promise.
@@ -89,7 +92,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 ## ADR-014: Free + Pro ladder
 
-**Status: Proposed. Builds against the plan; owner decides names, prices and sign-off (OD1 and OD2 in `../../reports/Free and Pro ladder.md`, "Owner decisions").** Nothing here is uploaded or priced. Until the owner signs off, ADR-002 (price: paid $1.99 first, one day-45 flip review) stays **Active** and governs; this ADR does **not** change its status. **If, and only if, the owner signs off**, this supersedes ADR-002's day-45 flip rule (the paid app is never flipped to free; the Free twin replaces that idea), and ADR-002's status becomes Superseded in the same commit.
+**Status: Accepted (Active) 2026-10-04: the owner approved the ladder 2026-10-04 (OD1 and OD2 in `../../reports/Free and Pro ladder.md`).** Written 2026-10-01 as Proposed. This supersedes ADR-002's day-45 flip rule (the paid app is never flipped to free; the Free twin replaces that idea), and ADR-002 is Superseded in the same commit. Still the owner's, not decided here: names, the Pro price, icons, translations and every upload. Nothing here is uploaded or priced.
 
 **Decision.** Days To Go ships as a pair built from one codebase at compile time, DayArc's method (`../../DayArc/docs/decisions.md`, ADR-003 there: no runtime toggle, no unlock key, no locked items):
 
@@ -108,7 +111,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Consequences.** The live paid app's on-watch name becomes "Days To Go Pro" at 1.1.0: a visible change for existing buyers, owner's call. Pro behaviour is otherwise identical to 1.0.1 (same settings, same ids, same defaults; `resources-pro/settings` is byte-identical to the old `resources/settings`). The Pro headline (what a buyer pays for beyond the timed event and bottom line) is **not** established: no research was run; if none is found, ship Pro as the shipped extras only and say Pro is thin (plan WP4 step 1). **Owner decisions, not made here:** store names and titles, the Pro price, Free's icon, translations of any new string, the uploads (Free 1.0.0 as a new app, Pro 1.1.0 on the existing id, together), the site deploy, and OD1 to OD4.
 
 ## ADR-015: Instinct family: window gauge, black and white, no accent
-**Status: Proposed. Written 2026-10-03; the owner approved the look (mockup `docs/archive/instinct-mockup.html`) the same day, and chose to hide the Accent setting on these watches. Nothing has run on a watch (the owner has none): simulator evidence only. Not uploaded.**
+**Status: Accepted (Active) 2026-10-04 (owner approved the ladder 2026-10-04). Written 2026-10-03 as Proposed; the owner approved the look (mockup `docs/archive/instinct-mockup.html`) the same day, and chose to hide the Accent setting on these watches. Nothing has run on a watch (the owner has none): simulator evidence only. Not uploaded. Accepted does not mean device-proven.**
 
 **Context.** 7 semi-octagon products are watch-face capable and were left out of ADR-001's product set: `instinct2`, `instinct2s`, `instinct2x`, `descentg1` (CIQ 3.4) and `instincte40mm`, `instincte45mm`, `instinct3solar45mm` (CIQ 6.0). `instinctcrossover` is left out as in HeroSet (its analog hands cover the display; the simulator shows no window). They are 1-bit (palette `000000`/`FFFFFF` only, no anti-aliasing), 176 x 176 (`instincte40mm` 166 x 166, `instinct2s` 163 x 156), and have a round **window** (62 px, 52 px on the E 40 mm, 54 px on the 2S) cut into the top-right corner. Their **watch-face memory is 65,536 B** (the 96 KB floor in ADR-001 does not hold). All seven are at or above `minApiLevel` 3.0.0, and the face needs no Complications, so the Instinct 2 family is reachable.
 

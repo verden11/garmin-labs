@@ -108,7 +108,7 @@ Accents (default first) and their "gone" form: sky `#55AAFF` 8.6 : 1 → `#55AAA
 
 Always-on text is `#5555AA`, 3.3:1 (fixed 2026-09-27, ADR-007 amendment, `docs/decisions.md`). Stale curve fill stays `#555555`, 2.8:1 (awake-only, carried by shape too); still worth a look-approval check in daylight on a MIP watch. `TwoSunsPalette.TRACK` (`#555555`) is defined but no code draws it.
 
-## Accent ids, and the Free build (ADR-020, proposed, UNRELEASED)
+## Accent ids, and the Free build (ADR-020, accepted 2026-10-04, UNRELEASED)
 
 Accent ids are **append-only**: a shipped id never changes its colour (`shippedAccentIdsKeepTheirColours`), an unknown or out-of-range id draws the default (id 0). Both tiers offer ids 0 to 5, the shipped list: 0 sky `#55AAFF` (default), 1 mint `#55FFAA`, 2 autumn `#FFAA00`, 3 violet `#AA55FF`, 4 pink `#FF55AA`, 5 winter `#FFFFFF`. The plan's ids 6 to 11 are **deferred, not built**; when they land they are Pro only and appended: 6 cyan `#00FFFF`, 7 lime `#55FF55`, 8 yellow `#FFFF55`, 9 magenta `#FF55FF`; orange and coral are **not admitted** for this face (golden hour is `#FF5500`, and no accent or dimmed accent may equal it: `noAccentIsTheGoldenHourColour`). Amber, orange, coral and red are never the default on a Body Battery face (ADR-017, ring, curve and glyph encodings, the amber-read-as-"low" lesson). The accent tests check every channel is 00/55/AA/FF and the accent and its dimmed form are at least 3:1 on black.
 
@@ -134,6 +134,6 @@ If reading the sources throws, the face draws a single "?" so it is never blank.
 
 Primitives and system fonts only, no bitmaps (the launcher icon aside). Every colour in the 64-colour palette. The launcher icon (`resources/drawables/launcher_icon.svg`, 65 by 65: a grey ring, an amber arc and a white dot on black — drawn before the default accent changed; the icon does not follow the accent setting) is a generic **placeholder, not approved**; the real icon is the owner's and must not contain "Body Battery".
 
-## Instinct E and Instinct 3 Solar (1-bit, a round window top right; ADR-024, proposed, simulator only, look approved 2026-10-04)
+## Instinct E and Instinct 3 Solar (1-bit, a round window top right; ADR-024, accepted 2026-10-04, simulator only, look approved 2026-10-04)
 
 Black and white only: every colour role is white. **The sky ring becomes a 24-hour dial in the round window**, the same shapes in miniature: a hairline circle is the night, the daylight still to come is the thick arc, daylight gone and twilight are hairlines over it, ticks mark sunrise and sunset, the sun is a solid dot while it is up and an outline when it is not. The time and the date share the band left of the window; the weather row (Pro), the Body Battery bolt and value (with the curve in Pro) and the sun line sit below it. No watch battery row, no golden hour, no accent. What shows is the square cut by a circle about 98 px in radius (the bezel hides the corners), so rows are clipped to a 97 px circle against their ink.

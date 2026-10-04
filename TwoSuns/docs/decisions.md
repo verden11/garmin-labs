@@ -7,7 +7,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | ADR | Decision | Status |
 |---|---|---|
 | 001 | Concept: the sky's day and your energy on one dial; the time is the hero | Active (look **not approved**) |
-| 002 | Price: paid, USD 1.99, the same tier as Days To Go | Active |
+| 002 | Price: paid, USD 1.99, the same tier as Days To Go | **Superseded** 2026-10-04 by 020 (the Free + Pro ladder; the owner retired the day-45 review) |
 | 003 | Sunrise and sunset from Complications; `Weather.getSunrise` is a cross-check and tier B fallback only | Active |
 | 004 | Own NOAA calculation for everything Garmin does not give; tomorrow's sunrise keeps Garmin's offset | Active |
 | 005 | Location order and the Positioning permission (confirmed, 2026-09-27); `Position.getInfo` isolated | Active |
@@ -25,8 +25,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 017 | Ring, curve and glyph encodings; state is never colour alone | Active (look **not approved**) |
 | 018 | List settings only | Active |
 | 019 | On-watch Customize (`getSettingsView`) | Active (confirmed on FR965, 2026-09-27) |
-| 020 | Free + Pro ladder: a Free twin beside the paid app, which becomes Two Suns Pro | **Proposed**: builds against the plan; the owner decides names, prices and sign-off |
-| 021 | Body Battery in Free: Garmin's own number only; no history, no stale state, `--` when there is none | **Proposed**: owner decides (with 020) |
+| 020 | Free + Pro ladder: a Free twin beside the paid app, which becomes Two Suns Pro | Active (accepted 2026-10-04: the owner approved the ladder) |
+| 021 | Body Battery in Free: Garmin's own number only; no history, no stale state, `--` when there is none | Active (accepted 2026-10-04 with 020; the owner decided Free keeps `--`) |
 | 023 | Watch battery row (Pro, setting `Battery`), Body Battery bolt gauge (replaces the pill), next-day arrow (replaces the chevron) | **Proposed**, built, UNRELEASED: owner chose bolt gauge and the rest 2026-10-03; simulator only |
 | 022 | Weather row in Pro: now icon and feels-like number coloured, three mono ahead icons, tomorrow after sunset; overrides the weather non-goal | **Proposed**, built, UNRELEASED: owner chose the direction and approved the mockup 2026-10-03; simulator only |
 
@@ -95,6 +95,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 ## ADR-002: Price
 
+**Status: Superseded 2026-10-04 by ADR-020 (the Free + Pro ladder).** The owner approved the ladder on 2026-10-04 and retired the day-45 review below: the paid app is never flipped to free, the Free twin replaces that idea. The price (USD 1.99 documented) stands until the owner sets the Pro price. The text below is the history.
+
 **Decision.** Paid, USD 1.99 at first submission (owner, confirmed 2026-09-27) — Garmin's first paid price step; a lower figure the owner initially named (USD 1.90) turned out not to be an offered price, since Garmin does not allow custom prices, only fixed steps. This lands on the same tier as Days To Go, which the owner had originally wanted to avoid, but is the nearest real option. The review cadence follows Days To Go's rules ([`../../DaysToGo/docs/decisions.md`](../../DaysToGo/docs/decisions.md) ADR-002): one review 45 days after store approval, and the success test at day 60 ([`spec.md`](spec.md) "Success and stop test"). Days To Go's proposed flip rule (fewer than 5 sales in 45 days and a download bucket of 10 or lower) is the working proposal here too; the owner has not confirmed it for this app.
 **Why.** Owner choice, 2026-09-26 ("Paid like Days To Go"). Risk on record: about 75 paid Body Battery or sun faces, 2 of them at 1,000+ downloads. **Night & Day** (50,000 downloads) lists free and unlocks on the developer's own site; its 1-star reviews are about that. Do not copy it. Garmin's app trials do not work for watch faces, so there is no native trial.
 **Evidence.** Owner choice; desk research (`market_and_pricing.md`).
@@ -120,7 +122,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Why.** On the owner's FR965 (2026-09-27, real watch, not the simulator): `Activity.currentLocation` stayed null even right after a GPS run was started and discarded (Q1 = no); the Weather observation location stayed null throughout, with or without a GPS activity (Q2 = no); `Position.getInfo()` returned a location immediately at first look, with no GPS activity run first — a cached fix (Q3 = yes). Per the decision table (`plan.md` phase 1): Q1 and Q2 no, Q3 yes → keep Positioning. Simulator behaviour for Q3 was the opposite (always null without an activity); the real watch differs.
 **Evidence.** Simulator probes (`platform.md` §1 and §2) plus the on-watch probes, run 2026-09-27 (`../../device-test/LocationProbe-P.prg` with the permission, `LocationProbe-N.prg` without; results in `../../device-test/LocationProbe-RESULTS.md`). M1 (first look) and M2 (after a GPS activity, discarded) were run on N; M3 (outdoors, over time) and M4 (overnight log) were not, and neither was the native-glance comparison (Q4) — none of them can change this call (Q3 already answers it), so they are left for later, before store submission.
 **Reversed by.** Nothing found so far reverses it. If a later run of M3 or M4 ever shows Activity or Weather giving a location without Positioning, drop the permission, delete `positionLocation()` and its entry in `updatePlace()`, and say "no location permission" on the listing.
-**Amended 2026-10-01** (proposed, ADR-020, the Free + Pro ladder): the Positioning permission, `positionLocation` and the whole location order are Pro only; the Free manifest has `ComplicationSubscriber` alone and Free reads no location. Pro is unchanged.
+**Amended 2026-10-01** (ADR-020, the Free + Pro ladder, accepted 2026-10-04): the Positioning permission, `positionLocation` and the whole location order are Pro only; the Free manifest has `ComplicationSubscriber` alone and Free reads no location. Pro is unchanged.
 
 
 ## ADR-006: The remembered place
@@ -129,7 +131,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Why.** Sun times need minutes per quarter degree, so 0.1 degree is enough and is not a precise location. Storing little, writing rarely and validating on read protects the face from a bad or foreign value.
 **Evidence.** Simulator test: `TwoSunsPlaceTest` (rounding, source order, replace only when moved, empty, (0, 0), storage types). Nothing about a real fix.
 **Reversed by.** ADR-005 removing every location source that could fill it (then the key is unused), or a listing/privacy decision that the face must not store a place.
-**Amended 2026-10-01** (proposed, ADR-020, the Free + Pro ladder): Pro only. The Free build has no remembered place and uses no `Application.Storage` at all.
+**Amended 2026-10-01** (ADR-020, the Free + Pro ladder, accepted 2026-10-04): Pro only. The Free build has no remembered place and uses no `Application.Storage` at all.
 
 
 ## ADR-007: Always-on
@@ -186,7 +188,7 @@ Also corrected the code comments' claim that a pixel stays lit for "3 minutes"/"
 **Why.** Every failure has a sentence, never a blank (the category's signature complaint is blank sun times). The edge is accepted because fixing it needs yesterday's pair.
 **Evidence.** Simulator test: `TwoSunsSkyTest` (13 tests: boundaries, tomorrow's offset, estimate, after-midnight sunset, polar states, transition day, no place and no data, fallback to the calculation), `TwoSunsReadingsTest`. The polar and transition rows use the simulator's canned Complication values and the calculation only.
 **Reversed by.** The device compare; a real Reykjavik-like day showing the edge is worse than expected.
-**Amended 2026-10-01** (proposed, ADR-020, the Free + Pro ladder): the Free build never has a place, so it never says "No place yet": Garmin's null pair is "No sun data" (`TwoSunsSky.noCalculationState`, `(:free)` twin). Polar day and night, twilight and tomorrow's own sunrise need the calculation and so are Pro only; Free after sunset shows today's Garmin sunrise flagged as an estimate ("Sunrise ~06:41"), the no-place wording of this ADR.
+**Amended 2026-10-01** (ADR-020, the Free + Pro ladder, accepted 2026-10-04): the Free build never has a place, so it never says "No place yet": Garmin's null pair is "No sun data" (`TwoSunsSky.noCalculationState`, `(:free)` twin). Polar day and night, twilight and tomorrow's own sunrise need the calculation and so are Pro only; Free after sunset shows today's Garmin sunrise flagged as an estimate ("Sunrise ~06:41"), the no-place wording of this ADR.
 
 
 ## ADR-014: Three wordings for the sun sentence
@@ -202,7 +204,7 @@ Also corrected the code comments' claim that a pixel stays lit for "3 minutes"/"
 **Why.** Forum reports say the oldest and newest sample times do not match the samples. A wrong number is worse than "--". Staleness is a shape as well as a colour (ADR-017).
 **Evidence.** Simulator test: `TwoSunsBatteryTest` (11 tests: 127, negative, 101, null, empty, one sample, hours-long gaps, out-of-order, stale, skew), `TwoSunsReadingsTest`, `TwoSunsCurveTest`. The simulator's history is synthetic (480 samples a minute apart, oldest-first, mostly dated in the future), so real cadence, order and sample count are unknown until the probe log.
 **Reversed by.** Probe Q6 and Q7: fewer than 20 samples in 24 hours means 1-hour buckets ([`plan.md`](archive/plan.md) phase 1).
-**Amended 2026-10-01** (proposed, ADR-020, the Free + Pro ladder): in Free only the Complication path exists (no `SensorHistory` permission, no curve, no stale state): see ADR-021 (Body Battery in Free). Pro is unchanged.
+**Amended 2026-10-01** (ADR-020, the Free + Pro ladder, accepted 2026-10-04): in Free only the Complication path exists (no `SensorHistory` permission, no curve, no stale state): see ADR-021 (Body Battery in Free). Pro is unchanged.
 
 
 ## ADR-016: Rows follow font heights; drop order
@@ -232,7 +234,7 @@ Also corrected the code comments' claim that a pixel stays lit for "3 minutes"/"
 **Why.** Days To Go ADR-003: Garmin Connect's date picker and numeric limits failed in rival faces; a list has nothing to validate.
 **Evidence.** Simulator test: `TwoSunsSettingsTest`; `tools/gen_settings.py --check` verifies the generated files and the `KEY_*` constants (a Monkey C test cannot see a changed default in `properties.xml`, because the simulator keeps the last saved settings). Not tested on a phone or in Garmin Connect.
 **Reversed by.** A phone test showing a list setting failing to save.
-**Amended 2026-10-01** (proposed, ADR-020, the Free + Pro ladder): Pro has all five settings; Free has Accent only (ids 0 to 5, the same six colours). Orientation, Golden hour, Energy curve and Date are Pro only; the Free properties file defines `Accent` alone.
+**Amended 2026-10-01** (ADR-020, the Free + Pro ladder, accepted 2026-10-04): Pro has all five settings; Free has Accent only (ids 0 to 5, the same six colours). Orientation, Golden hour, Energy curve and Date are Pro only; the Free properties file defines `Accent` alone.
 
 
 ## ADR-019: On-watch Customize (`getSettingsView`)
@@ -241,11 +243,11 @@ Also corrected the code comments' claim that a pixel stays lit for "3 minutes"/"
 **Why.** Found 2026-09-27, on the owner's FR965: a sideloaded (non-Store) app gets no settings route at all from the phone's Garmin Connect app, which only renders a settings page for Store-installed apps. Without `getSettingsView`, none of the five settings were reachable during development. Days To Go already carries this exact pattern (ADR-005); Two Suns had only `settings.xml`, reversing spec.md's original "not part of v1" call.
 **Evidence.** Compiles clean (`-w --typecheck 3`), zero warnings; simulator tests unaffected (no test yet exercises the menu itself — Menu2 interaction is not covered by `TwoSunsSettingsTest`, which only checks the Properties/defaults layer). Confirmed on the owner's FR965, 2026-09-27: Customize appears next to Apply, and all five settings round-trip.
 **Reversed by.** A device check showing Customize missing, wrong values after a round trip, or a crash opening the menu.
-**Amended 2026-10-01** (proposed, ADR-020, the Free + Pro ladder): the Free menu has the Accent item only; Pro's has the five, unchanged. Free never writes a Pro key (`setValue` of a key the properties file lacks throws).
+**Amended 2026-10-01** (ADR-020, the Free + Pro ladder, accepted 2026-10-04): the Free menu has the Accent item only; Pro's has the five, unchanged. Free never writes a Pro key (`setValue` of a key the properties file lacks throws).
 
 ## ADR-020: Free + Pro ladder
 
-**Status: Proposed. Builds against the plan; the owner decides names, prices and sign-off (OD1 and OD2 in `../../reports/Free and Pro ladder.md`, "Owner decisions").** Nothing here is uploaded or priced. Until the owner signs off, ADR-002 (price: paid USD 1.99, one day-45 review) stays **Active** and governs; this ADR does **not** change its status. **If, and only if, the owner signs off**, this supersedes ADR-002's day-45 flip rule (the paid app is never flipped to free; the Free twin replaces that idea) and ADR-002 becomes Superseded in the same commit.
+**Status: Accepted (Active) 2026-10-04: the owner approved the ladder 2026-10-04 (OD1 and OD2 in `../../reports/Free and Pro ladder.md`).** Written 2026-10-01 as Proposed. This supersedes ADR-002's day-45 flip rule (the paid app is never flipped to free; the Free twin replaces that idea) and ADR-002 is Superseded in the same commit. Still the owner's, not decided here: names, the Pro price tier (the store shows $2.25 against the documented $1.99), icons, translations and every upload. Nothing here is uploaded or priced.
 
 **Decision.** Two Suns ships as a pair built from one codebase at compile time, DayArc's method (`../../DayArc/docs/decisions.md`, ADR-003 there: no runtime toggle, no unlock key, no locked items), as Days To Go did (`../../DaysToGo/docs/decisions.md`, ADR-014 there):
 
@@ -283,7 +285,7 @@ Also corrected the code comments' claim that a pixel stays lit for "3 minutes"/"
 
 ## ADR-021: Body Battery in Free
 
-**Status: Proposed, with ADR-020 (the Free + Pro ladder); the owner decides.** Plan WP5 step 4 asked what Free shows when the Body Battery complication is null, because Free has no history and so the "stale reading" state of ADR-015 (Body Battery data rules; newest sample older than 60 minutes) cannot exist.
+**Status: Accepted (Active) 2026-10-04: the owner approved the ladder 2026-10-04, with ADR-020 (the Free + Pro ladder); the owner also decided that Free keeps `--` for a missing Body Battery number (2026-10-04).** Written 2026-10-01 as Proposed. Plan WP5 step 4 asked what Free shows when the Body Battery complication is null, because Free has no history and so the "stale reading" state of ADR-015 (Body Battery data rules; newest sample older than 60 minutes) cannot exist.
 
 **Decision.** Free's Body Battery is Garmin's own number from `Complications` BODY_BATTERY, and nothing else; Pro's path is unchanged.
 - **A valid number** (0 to 100) is the value, in the accent and dimmed below 30 as in Pro (ADR-008, no verdicts on Body Battery), and fills the level pill.
@@ -300,7 +302,7 @@ Also corrected the code comments' claim that a pixel stays lit for "3 minutes"/"
 **Reversed by.** The owner choosing a worded empty state; Garmin adding a timestamp to `Complication`; a device run showing the complication is null for hours on a worn watch (then "--" would be the wrong thing to show for long).
 
 ## ADR-024: Instinct E and Instinct 3 Solar: the window dial, black and white, no accent
-**Status: Proposed (look approved 2026-10-04; the ADR flips to Accepted at the first store upload that includes the Instinct products). Written 2026-10-04 at the owner's request ("make Two Suns compatible with the Instinct families"). The look was approved by the owner on 2026-10-04 (seen as simulator screenshots; no mockup came first). Nothing has run on a watch (the owner has none): simulator evidence only. Not uploaded.**
+**Status: Accepted (Active) 2026-10-04 (owner approved the ladder 2026-10-04; look approved 2026-10-04; flipped now at the lead's instruction, not at the first store upload as first written). Written 2026-10-04 at the owner's request ("make Two Suns compatible with the Instinct families"). The look was approved by the owner on 2026-10-04 (seen as simulator screenshots; no mockup came first). Nothing has run on a watch (the owner has none): simulator evidence only. Not uploaded.**
 
 **Context.** ADR-009 left out `instincte40mm`, `instincte45mm` and `instinct3solar45mm` ("semi-octagon, 64 KB, monochrome"). The other face projects now ship them (HeroSet ADR-055, Days To Go ADR-015, HeroFace ADR-002, DayArc ADR-015). They are Connect IQ 6, so they have Complications (Garmin's sunrise, sunset and Body Battery), `SensorHistory` and `Weather`; 1-bit (palette `000000`/`FFFFFF` only); **watch-face memory 65,536 B**; a round **window** top right (62 px; 52 px on the E 40 mm). **The Instinct 2 family and Descent G1 (CIQ 3.4) are not included**: they have no Complications, so the sun times would come only from our own calculation and a remembered place, which is Tier B in `compatibility.md` and waits for the on-wrist location probe; Free would have no sun and no Body Battery there at all. `instinctcrossover` is left out (analog hands over the display).
 
@@ -320,7 +322,7 @@ Also corrected the code comments' claim that a pixel stays lit for "3 minutes"/"
 **Verification.** `docs/compatibility.md` "Instinct E and Instinct 3 Solar". Simulator only.
 
 ## ADR-025: Free's Body Battery number is a size larger
-**Status: Proposed. Written 2026-10-04 (owner authorised UI fixes without asking first); simulator only.**
+**Status: Accepted (Active) 2026-10-04 (owner approved the ladder 2026-10-04). Written 2026-10-04 (owner authorised UI fixes without asking first); simulator only.**
 
 **Context.** The Free face is the time, the Body Battery bolt and number, and the sun sentence. A simulator screenshot on the FR965, FR255S and Instinct 3 Solar showed the number at the small size of the busy Pro stack, in a mostly empty circle: the face's second question (how much energy is left) read as an afterthought.
 

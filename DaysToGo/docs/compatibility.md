@@ -33,7 +33,7 @@ The face keeps its round design: the ring is a circle the size of the shorter si
 
 `AppBase.getSettingsView` (on-watch "Set date") is listed in the SDK for 94 of the 117 products by name match. The 23 not listed are the D2 Charlie/Delta family, Descent Mk1, the vívoactive 3 family, FR645/935, fēnix Chronos, Approach S62 (older CIQ 3.x), and the newest (fēnix 9 family, FR70, FR170). On those the phone is the only way to set the date. The listing and support page must not promise the watch route on every watch, and the FR965 test (plan phase 3, T4) says nothing about the others.
 
-## Free and Pro builds (ADR-014 (Free + Pro ladder), proposed, UNRELEASED)
+## Free and Pro builds (ADR-014 (Free + Pro ladder), accepted 2026-10-04, UNRELEASED)
 
 Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle`) and **Free** (`manifest.free.xml`, new app id, `monkey.free.jungle`). Both list the **same 120 products**, `minApiLevel` 3.0.0, the same 15 languages and an empty permission list; `tools/compile_sweep.sh` refuses to run if the two manifests' product lists differ. Free's permissions are a subset of Pro's, never more.
 
@@ -43,7 +43,7 @@ Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle
 - Screen fit: `tools/fit_all.sh` (the ten devices `fr55`, `fenix5s`, `fenix5`, `vivoactive4`, `fenix7x`, `fr265s`, `fr165`, `epix2`, `fr965`, `fenix9pro51mm`) passes on **both** jungles, simulator, 2026-10-01. Free memory use was **not measured separately**; the fit tests passing is the only Free layout evidence, and the three rectangles were run for tests on `venusq2` only.
 - The on-watch "Customize" menu is the same in both tiers: one item, "Set date" (no accent item, no Pro item).
 
-## Instinct family (added 2026-10-03, ADR-015, proposed, simulator only)
+## Instinct family (added 2026-10-03, ADR-015, accepted 2026-10-04, simulator only)
 
 Seven semi-octagon products join both manifests (127 products): `instinct2`, `instinct2s` (163 x 156), `instinct2x`, `descentg1` and `instincte45mm`, `instinct3solar45mm` (176 x 176), `instincte40mm` (166 x 166). `instinctcrossover` is left out (analog hands over the display, no window in the simulator). All are black and white (palette `000000`/`FFFFFF` only), **watch-face memory 65,536 B**, have a round window top right (62 px; 52 px on the E 40 mm, 54 px on the 2S), and are CIQ 3.4 (the Instinct 2 family) or 6.0 (E, 3 Solar). The face needs no Complications, so the CIQ 3.4 watches are reachable.
 

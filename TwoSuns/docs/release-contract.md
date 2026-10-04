@@ -29,7 +29,7 @@ What the listing, the store page and the site may claim. The checkable form of t
 - Translated store copy that no native speaker has read.
 - A claim about the look, a screenshot, or "designed for" a watch before the owner has approved the look and supplied the images.
 
-## Free and Pro listings (ADR-020 (Free + Pro ladder), proposed)
+## Free and Pro listings (ADR-020 (Free + Pro ladder), accepted 2026-10-04)
 
 - The same allowed and forbidden lists apply to both listings. Nothing is claimed that only the other tier ships: the Free listing never mentions the energy curve, golden hour, tomorrow's sunrise, twilight, the date row, ring orientation or a remembered place, and names Pro only in its sibling line (no "Pro adds" list); the Pro listing describes only what Pro has.
 - **Free's privacy wording differs from Pro's.** Free: "no location, no place kept, no history" is allowed as a statement of what the Free code does (the manifest has `ComplicationSubscriber` alone; no location source is read; no `Application.Storage` call is compiled in; checked by `tools/check_free_package.sh` and the compiler). "Nothing stored" is **not** allowed: the accent colour is saved as a Properties setting. The allowed phrase is "it stores no place and no history; the only thing it saves is your accent colour setting", and "no location permission" is allowed **for Free only**. Pro keeps every existing rule (the place rounded to 0.1 degree stays on the watch; never "no location permission" while `Positioning` is declared). The Free page must not describe Pro's place or history to Free users.

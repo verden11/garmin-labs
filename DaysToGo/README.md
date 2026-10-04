@@ -8,9 +8,9 @@ Set the date on the phone (plain lists, no date picker) **or on the watch**.
 Nothing is set up yet? It counts to the next New Year's Day. No permissions,
 nothing leaves the watch.
 
-Two builds from one source (proposed, UNRELEASED, `docs/decisions.md` ADR-014 (Free + Pro ladder)): **Days To Go** (Free, `monkey.free.jungle`) and **Days To Go Pro** (the paid app, `monkey.jungle`, adds timed events and a battery or steps line).
+Two builds from one source (UNRELEASED, ladder approved by the owner 2026-10-04, `docs/decisions.md` ADR-014 (Free + Pro ladder)): **Days To Go** (Free, `monkey.free.jungle`) and **Days To Go Pro** (the paid app, `monkey.jungle`, adds timed events and a battery or steps line).
 
-117 round watches (Connect IQ 3.0 and up), 3 rectangular AMOLED ones (Venu Sq 2, Venu Sq 2 Music, Venu X1) and 7 Instinct watches (black and white, with a round window; proposed, simulator only): [`docs/compatibility.md`](docs/compatibility.md).
+117 round watches (Connect IQ 3.0 and up), 3 rectangular AMOLED ones (Venu Sq 2, Venu Sq 2 Music, Venu X1) and 7 Instinct watches (black and white, with a round window; accepted 2026-10-04, simulator only): [`docs/compatibility.md`](docs/compatibility.md).
 Status: built and simulator-tested, **not yet run on a wrist**.
 
 ## Build
