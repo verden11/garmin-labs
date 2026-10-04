@@ -39,6 +39,10 @@ Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any wat
 - **Device sentence** (plan WP4 step 6): "Pro is sold only on devices Garmin lists for paid apps; this free version also runs on older watches such as FR245 and vívoactive 4." Add a version of it only after the Free listing's real compatible-device list shows those watches, and without a watch count. The contract forbids "works on X" for a watch only the simulator has seen.
 - **Pro-available line**: the plan puts "say so on line 2" if Pro is offered on the reader's device. Nothing is claimed about Pro's availability until the Pro listing's device list is visible.
 
+## Device sentence and Instinct (ROADMAP 10.15, 2026-10-04)
+
+Garmin's paid-app list excludes the Instinct 2, 2S, 2X and Descent G1 and 37 older products (Forerunner 245/945 and others), plus 11 listed products no paid app is sold on; the paid Days To Go Pro cannot reach any of them, the Free twin can (counts in [`../docs/compatibility.md`](../docs/compatibility.md) "Paid vs free reach"). That is a genuine plus, so a one-sentence version is kept in `meta.yaml` `held_back_text`: "Days To Go Pro is sold only on watches Garmin lists for paid apps; this version also installs on some watches Pro cannot be bought for, including the Instinct 2, 2S, 2X and Descent G1." It is not in `paste.md` because it is only true once the Free listing's own Compatible Devices list shows those watches and the Instinct upload is approved ([`../../reports/listing-template.md`](../../reports/listing-template.md) section 4); paste it after "Days To Go Pro adds" then.
+
 ## Instinct
 
 The Instinct wording is out of the paste text until the upload is approved and the store lists those watches; the sentence is kept in `meta.yaml` (`held_back_text`).
@@ -56,6 +60,8 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 | Monetization | No: Free asks no payment and unlocks nothing in-app (Pro is a separate app). The form's wording decides at submission |
 | App Migration | No: a new app id, not a newly compatible device on an existing app |
 | Price | $0 (free). The Free listing is the only listing where "free" wording is allowed (release contract) |
+| Additional Hardware Requirements | Paste the bare URL `https://verden.watch/days-to-go/` only (API field `hardwareProductUrl`; the old sentence is retired, ROADMAP 10.16) |
+| Refund line | None: a free app has nothing to refund |
 
 ## After approval (plan WP4 step 6, WP9)
 

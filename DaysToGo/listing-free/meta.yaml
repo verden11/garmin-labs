@@ -36,4 +36,5 @@ site:
 held_back_text:   # Instinct wording kept OUT of paste.md until the upload is approved and the store lists those watches; add it then
   - "On Instinct, in black and white, the ring becomes a gauge in the round window.  (description, after \"One design, every screen\")"
   - "Works on the Instinct family too, in black and white (the accent colour does not apply there).  (What's New)"
+  - "Days To Go Pro is sold only on watches Garmin lists for paid apps; this version also installs on some watches Pro cannot be bought for, including the Instinct 2, 2S, 2X and Descent G1.  (description, after \"Days To Go Pro adds\"; add it only once the Free listing's own Compatible Devices list shows those watches and the Instinct upload is approved; ROADMAP 10.15)"
 open_items: "2.3 2.5 3.3 3.5 3.6"   # ids in ROADMAP.md

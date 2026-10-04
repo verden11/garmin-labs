@@ -24,7 +24,7 @@ The full runbook, with the order, the timing and what to do after approval, is [
 - About what the app **is**, not how to use it: describe the feature, not the tap-by-tap steps to reach it (2026-09-27 tidy-up, applied across all four apps' listings).
 - The first sentence carries the weight (the store truncates in list views); the last line is the support URL (the form has no support field).
 - No watch count, no brand names, no battery or ghosting claims, no download or rating numbers, no "the only countdown with no permissions". Claims allowed: [`../docs/release-contract.md`](../docs/release-contract.md).
-- Paid: disclose the price position honestly; the refund position is Garmin's return window, do not restate it in copy.
+- Paid: disclose the price position honestly. The refund position is one line at the end of the description ("Days To Go Pro is a paid app. Refunds follow the Connect IQ Store return window.", guideline 4d, ROADMAP 10.16): it points at Garmin's window and does not restate the hours (the full return-policy text is unpublished; the 48-hour figure is about when funds are captured). No price number.
 
 ## Why each answer
 
@@ -33,6 +33,7 @@ The full runbook, with the order, the timing and what to do after approval, is [
 | Category | Utility: it is a utility face; Simple is the alternative |
 | Collects user data | Nothing leaves the watch; no permissions |
 | Monetization | No. The form's own wording: Yes only if the app asks for payment to enable features, or for tips or donations; Days To Go does neither. HeroFace was submitted the same way and is paid through the store. (HeroSet's `listing/paste.md` records `Paid: Yes, price tier USD 2.50` for what may be a different step of the form: read the form's wording at submission.) |
+| Additional Hardware Requirements | Paste the bare URL `https://verden.watch/days-to-go/` only (API field `hardwareProductUrl`, a URL; the old "No additional hardware needed..." sentence is retired, ROADMAP 10.16). Live value today: empty |
 | Price | Paid, the $2.50 tier (US $2.49, eurozone 2,99 EUR), the same tier as every paid app of the studio (owner decision 2026-10-04, ADR-017 (price: the $2.50 tier for every paid app); first submitted at the lowest tier, USD 2.00 / $1.99 US, ADR-002 price superseded). Set with the 1.1.0 upload. The form has no price field of its own in HeroFace's notes; if a merchant step appears choose "Yes, through Garmin CIQ merchant account". The offered watch list and countries shrink to Garmin's lists. Re-pricing an approved app can remove it for re-review (SDK `Monetization/App_Sales`; unconfirmed for a higher tier; policy research in ROADMAP 2.1), so it ships with the 1.1.0 version upload. No price number in the listing text. No day-45 review (retired, ADR-014) |
 
 ## Languages
@@ -54,7 +55,7 @@ One 454 × 454 FR965 simulator screenshot and a 500 × 500 cover exist; see [`sc
 
 - **Title** (plan proposal, OWNER decides): `Days To Go Pro: Countdown, Hours, Footer`.
 - **Line 1:** `Also available: Days To Go (<URL>)`. The paid listing must not use the word "free" (release contract; store review guideline 4d), so the plan's "Try free first" wording is deliberately not used. The rest of the description is the 1.0.1 text: it already describes only what Pro has (timed events, the battery or steps line, six accents).
-- **Instinct:** the sentence about the Instinct ring gauge is out of the paste text until the upload is approved and the store lists those watches; it is kept in `meta.yaml` (`held_back_text`).
+- **Instinct:** the sentence about the Instinct ring gauge is out of the paste text until the upload is approved and the store lists those watches; it is kept in `meta.yaml` (`held_back_text`). When it goes in it names only the Instinct E (40 and 45 mm) and Instinct 3 Solar: Instinct 2, 2S, 2X and Descent G1 are not on Garmin's paid-app list, so the paid listing is not sold on them ([`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"; ROADMAP 10.15).
 - **Version** `1.1.0`; the What's New is the rename line, naming the sibling without "free".
 - Device note (plan WP4 step 6): not in the text. Add one only after the other listing's real device list is visible, with no "free" wording and no watch names or count.
 - The price is **not** in this file (ADR-017: the $2.50 tier, set in the form with the 1.1.0 upload). Re-pricing an approved app can remove it for re-review (SDK `Monetization/App_Sales`); shipping it with the version upload covers that.
