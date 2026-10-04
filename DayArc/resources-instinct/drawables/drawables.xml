@@ -1,8 +1,7 @@
 <drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <!-- The Instinct E and 3 Solar only (ADR-016): the hero icons at about half the size. The shared 60x48 / 48x48 / 60x42
-         icons were twice the height of the digits beside them on a 166 to 176 px screen and took the width the digits
-         needed. The display is 1-bit, so one white icon per window; every shared id is REPLACED (the Accent setting is
-         off there, so only the Auto hue is ever drawn, but all 18 ids must exist for DayArcIcons.heroFor). -->
+    <!-- The Instinct E and 3 Solar only (ADR-016): the hero icons at about half the size, one white file per window for
+         both slots. The display is 1-bit (the Accent setting is off there, so only the Auto hue is ever drawn), but
+         every shared id must exist for DayArcIcons.heroFor. Written by tools/gen_hero_icons.py. -->
     <bitmap id="IconHeroWeatherCyan" filename="icons/hero_weather_compact.svg" dithering="none" />
     <bitmap id="IconHeroWeatherAmber" filename="icons/hero_weather_compact.svg" dithering="none" />
     <bitmap id="IconHeroWeatherRose" filename="icons/hero_weather_compact.svg" dithering="none" />
@@ -21,4 +20,22 @@
     <bitmap id="IconHeroBatteryGreen" filename="icons/hero_battery_compact.svg" dithering="none" />
     <bitmap id="IconHeroBatteryBlue" filename="icons/hero_battery_compact.svg" dithering="none" />
     <bitmap id="IconHeroBatteryPurple" filename="icons/hero_battery_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherCyan" filename="icons/hero_weather_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherAmber" filename="icons/hero_weather_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherRose" filename="icons/hero_weather_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherGreen" filename="icons/hero_weather_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherBlue" filename="icons/hero_weather_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherPurple" filename="icons/hero_weather_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressCyan" filename="icons/hero_stress_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressAmber" filename="icons/hero_stress_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressRose" filename="icons/hero_stress_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressGreen" filename="icons/hero_stress_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressBlue" filename="icons/hero_stress_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressPurple" filename="icons/hero_stress_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryCyan" filename="icons/hero_battery_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryAmber" filename="icons/hero_battery_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryRose" filename="icons/hero_battery_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryGreen" filename="icons/hero_battery_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryBlue" filename="icons/hero_battery_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryPurple" filename="icons/hero_battery_compact.svg" dithering="none" />
 </drawables>

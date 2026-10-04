@@ -42,27 +42,56 @@ function everyWindowRendersWithoutError(logger as Test.Logger) as Boolean {
     return true;
 }
 
-// Every hero icon resource — 3 icons x 6 hues, reached through every window x every accent choice,
-// Auto included — loads, and reports the exact pixel size it was generated at (proves the SVG
-// resource compiler's viewBox scaling did what the layout assumes).
+// Every hero icon resource, both sizes (ADR-017), 3 icons x 6 hues, reached through every window x every accent choice, Auto
+// included, loads. Round and rectangular screens: the sets follow the screen, so the test asserts the RELATION, not a size
+// table (ROADMAP 1.12: a fixed 48 px was too big on a 218 px screen and thin and small on a 454 px one). The LARGE icon sits
+// beside the HOT number tier and is about as tall as its digits; the SMALL one sits beside MEDIUM and MILD, so it may not be
+// taller than the MEDIUM digits (by more than a share) nor shorter than the MILD ones. A digit's height is the font box's
+// estimate (DayArcConfig.DIGIT_HEIGHT_PERMILLE). The Instinct has its own half-size set (resources-instinct, ADR-016).
 (:test)
 function everyHeroIconLoadsAtExpectedSize(logger as Test.Logger) as Boolean {
     var windows = [DayArcConfig.WINDOW_MORNING, DayArcConfig.WINDOW_MIDDAY, DayArcConfig.WINDOW_EVENING] as Array<Number>;
-    // The Instinct's own half-size set (resources-instinct, ADR-016).
     var instinct = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_SEMI_OCTAGON;
-    var widths = (instinct ? [30, 24, 36] : [60, 48, 60]) as Array<Number>;
-    var heights = (instinct ? [24, 24, 24] : [48, 48, 42]) as Array<Number>;
+    var dc = dayArcTestDc();
+    var digits = [] as Array<Number>;
+    for (var f = 0; f < DayArcLayout.HERO_FONTS.size(); f++) {
+        digits.add(DayArcText.inkHeight(dc, DayArcLayout.HERO_FONTS[f]) * DayArcConfig.DIGIT_HEIGHT_PERMILLE / 1000);
+    }
     for (var w = 0; w < windows.size(); w++) {
         for (var choice = 0; choice < DayArcConfig.ACCENT_CHOICES; choice++) {
-            var id = DayArcIcons.heroFor(windows[w], choice);
-            Test.assertMessage(id != null, "no hero icon for window " + windows[w] + " choice " + choice);
-            var icon = WatchUi.loadResource(id as ResourceId) as WatchUi.BitmapResource;
-            Test.assertMessage(icon.getWidth() == widths[w] and icon.getHeight() == heights[w],
-                "window " + windows[w] + " choice " + choice + " is " + icon.getWidth() + "x" + icon.getHeight());
+            for (var slot = 0; slot < 2; slot++) {
+                var id = slot == 0 ? DayArcIcons.heroFor(windows[w], choice) : DayArcIcons.heroSmallFor(windows[w], choice);
+                Test.assertMessage(id != null, "no hero icon for window " + windows[w] + " choice " + choice);
+                var icon = WatchUi.loadResource(id as ResourceId) as WatchUi.BitmapResource;
+                var size = icon.getWidth() + "x" + icon.getHeight();
+                if (instinct) {
+                    var widths = [30, 24, 36] as Array<Number>;
+                    Test.assertMessage(icon.getWidth() == widths[w] and icon.getHeight() == 24, "window " + windows[w] + " is " + size);
+                } else if (choice == 0) {
+                    dayArcCheckHeroIconSize(logger, windows[w], slot, size, icon.getHeight(), digits);
+                }
+            }
         }
     }
     Test.assertMessage(DayArcIcons.heroFor(DayArcConfig.WINDOW_NIGHT, 0) == null, "night must have no hero icon");
+    Test.assertMessage(DayArcIcons.heroSmallFor(DayArcConfig.WINDOW_NIGHT, 0) == null, "night must have no small hero icon");
     return true;
+}
+
+(:debug)
+function dayArcCheckHeroIconSize(logger as Test.Logger, window as Number, slot as Number, size as String, height as Number, digits as Array<Number>) as Void {
+    var hot = height * 1000 / digits[0];
+    var medium = height * 1000 / digits[1];
+    var mild = height * 1000 / digits[2];
+    logger.debug("HEROICON window " + window + (slot == 0 ? " large " : " small ") + size + " digits(hot/medium/mild)=" + digits[0] + "/" + digits[1] + "/" + digits[2]
+        + " share=" + hot + "/" + medium + "/" + mild);
+    if (slot == 0) {
+        Test.assertMessage(hot >= DayArcConfig.HERO_ICON_MIN_PERMILLE and hot <= DayArcConfig.HERO_ICON_MAX_PERMILLE,
+            "window " + window + " large icon " + size + " is " + hot + " per mille of the HOT digits' " + digits[0] + " px");
+    } else {
+        Test.assertMessage(medium <= DayArcConfig.HERO_ICON_MAX_PERMILLE and mild >= DayArcConfig.HERO_ICON_MIN_PERMILLE,
+            "window " + window + " small icon " + size + " is " + medium + " per mille of the MEDIUM and " + mild + " of the MILD digits");
+    }
 }
 
 (:test, :pro)

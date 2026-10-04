@@ -43,12 +43,15 @@ class DayArcStack {
     var pro as Boolean;
     var cells as Array<Dictionary> = [] as Array<Dictionary>;
     var iconWidth as Number = 0;
+    var smallIcon as Boolean = false;   // the hero icon beside MEDIUM and MILD (ADR-017), not the one beside HOT
     var plannedSub as Array<String> = [] as Array<String>;
 
     private var _dc as Graphics.Dc or Null;
     private var _window as Number;
     private var _hasGauge as Boolean;
     private var _iconHeight as Number = 0;
+    // The two hero icon sizes of this screen (ADR-017): [large width, large height, small width, small height], 0 when the window has none.
+    private var _iconSizes as Array<Number> = [0, 0, 0, 0] as Array<Number>;
 
     static function plan(dc as Graphics.Dc, layout as DayArcLayout, window as Number, hero as Dictionary) as DayArcStack {
         var stack = new DayArcStack(dc, layout, window, hero);
@@ -68,11 +71,18 @@ class DayArcStack {
             cells = hero.get(:cells) as Array<Dictionary>;
         }
         strings = DayArcSizing.strings(dc, window, hero);
-        var iconId = DayArcIcons.heroFor(window, DayArcConfig.ACCENT_AUTO);
-        if (iconId != null) {
-            var icon = WatchUi.loadResource(iconId) as WatchUi.BitmapResource;
-            iconWidth = icon.getWidth();
-            _iconHeight = icon.getHeight();
+        loadIconSizes(window);
+    }
+
+    private function loadIconSizes(window as Number) as Void {
+        var ids = [DayArcIcons.heroFor(window, DayArcConfig.ACCENT_AUTO), DayArcIcons.heroSmallFor(window, DayArcConfig.ACCENT_AUTO)] as Array<ResourceId or Null>;
+        for (var i = 0; i < ids.size(); i++) {
+            var id = ids[i];
+            if (id != null) {
+                var icon = WatchUi.loadResource(id) as WatchUi.BitmapResource;
+                _iconSizes[2 * i] = icon.getWidth();
+                _iconSizes[2 * i + 1] = icon.getHeight();
+            }
         }
     }
 
@@ -146,6 +156,9 @@ class DayArcStack {
         heroFont = DayArcLayout.HERO_FONTS[t[DayArcConfig.LEVEL_HERO]];
         textFont = DayArcLayout.LABEL_FONTS[t[DayArcConfig.LEVEL_TEXT]];
         gap = layout.rowGap() / t[DayArcConfig.LEVEL_GAP_DIVISOR];
+        smallIcon = t[DayArcConfig.LEVEL_HERO] != 0;
+        iconWidth = _iconSizes[smallIcon ? 2 : 0];
+        _iconHeight = _iconSizes[smallIcon ? 3 : 1];
         gridRows = noGrid ? 0 : t[DayArcConfig.LEVEL_GRID_ROWS];
         var trim = t[DayArcConfig.LEVEL_TRIM];
         subLineCount = trim == DayArcConfig.TRIM_NONE ? lines : 1;

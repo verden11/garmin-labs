@@ -1,0 +1,21 @@
+<drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- Hero icons, small slot, 36 px high (tools/gen_hero_icons.py, ADR-017). -->
+    <bitmap id="IconHeroSmallWeatherCyan" filename="icons/hero_weather_cyan_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherAmber" filename="icons/hero_weather_amber_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherRose" filename="icons/hero_weather_rose_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherGreen" filename="icons/hero_weather_green_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherBlue" filename="icons/hero_weather_blue_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallWeatherPurple" filename="icons/hero_weather_purple_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressCyan" filename="icons/hero_stress_cyan_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressAmber" filename="icons/hero_stress_amber_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressRose" filename="icons/hero_stress_rose_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressGreen" filename="icons/hero_stress_green_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressBlue" filename="icons/hero_stress_blue_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallStressPurple" filename="icons/hero_stress_purple_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryCyan" filename="icons/hero_battery_cyan_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryAmber" filename="icons/hero_battery_amber_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryRose" filename="icons/hero_battery_rose_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryGreen" filename="icons/hero_battery_green_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryBlue" filename="icons/hero_battery_blue_s.svg" dithering="none" />
+    <bitmap id="IconHeroSmallBatteryPurple" filename="icons/hero_battery_purple_s.svg" dithering="none" />
+</drawables>

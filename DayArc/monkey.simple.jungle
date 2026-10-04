@@ -13,3 +13,19 @@ instincte45mm.excludeAnnotations = pro;color
 instincte45mm.resourcePath = resources;resources-instinct
 instinct3solar45mm.excludeAnnotations = pro;color
 instinct3solar45mm.resourcePath = resources;resources-instinct
+
+# BEGIN hero icon families (tools/gen_hero_icons.py writes this block)
+# Hero icon sizes per screen (docs/decisions.md ADR-017): the set of icons whose height is about the digits beside them,
+# a LARGE one (the HOT number tier) and a SMALL one (MEDIUM and MILD). resources/ holds the default (72 px and 54 px);
+# the same ids sit in every set, so no code changes. A family line REPLACES the base list, hence $(base.resourcePath).
+round-218x218.resourcePath = $(base.resourcePath);resources-hero-L42;resources-hero-S24
+round-240x240.resourcePath = $(base.resourcePath);resources-hero-L48;resources-hero-S30
+round-260x260.resourcePath = $(base.resourcePath);resources-hero-L54;resources-hero-S36
+round-280x280.resourcePath = $(base.resourcePath);resources-hero-L54;resources-hero-S36
+rectangle-320x360.resourcePath = $(base.resourcePath);resources-hero-L78;resources-hero-S48
+# round-390x390: the default sizes
+round-416x416.resourcePath = $(base.resourcePath);resources-hero-L78
+rectangle-448x486.resourcePath = $(base.resourcePath);resources-hero-L90;resources-hero-S66
+round-454x454.resourcePath = $(base.resourcePath);resources-hero-L90;resources-hero-S66
+round-466x466.resourcePath = $(base.resourcePath);resources-hero-L90;resources-hero-S66
+# END hero icon families

@@ -57,6 +57,11 @@ class DayArcConfig {
     // simulator screenshots, 0.77 on an FR965 and 0.67 on an epix 2 (2026-10-04). The hero icon is centred on that
     // estimate, not on the font box, so it sits level with the digits (the Dc has no glyph metrics to ask).
     static const DIGIT_HEIGHT_PERMILLE = 720;
+    // A hero icon is chosen per screen size and number tier (resources-hero-*, ADR-017) so its height is about the digits'
+    // beside it; the render test fails a screen whose sets fall outside this band of the digits' height (too big on a 218 px
+    // screen, thin and small on a 454 px one). The battery shell is 7/8 of the others' height, hence the low floor.
+    static const HERO_ICON_MIN_PERMILLE = 700;
+    static const HERO_ICON_MAX_PERMILLE = 1150;
 
     // The vertical fit ladder (DESIGN.md "Layout"), one row per rung, first that fits wins. Columns are
     // named by the LEVEL_* indices below. Order = the owner's standing rule "do not shrink unless
@@ -88,7 +93,8 @@ class DayArcConfig {
         [0, 0, 0, 1, 0, GRID_ROWS, TRIM_NONE], [0, 0, 0, 2, 0, GRID_ROWS, TRIM_NONE],
         [1, 0, 0, 2, 0, GRID_ROWS, TRIM_NONE], [1, 0, 1, 2, 0, GRID_ROWS, TRIM_NONE],
         [1, 1, 1, 2, 0, GRID_ROWS, TRIM_NONE], [1, 2, 1, 2, 0, GRID_ROWS, TRIM_NONE],
-        [2, 2, 1, 2, 0, GRID_ROWS, TRIM_NONE], [2, 2, 1, 2, 1, GRID_ROWS, TRIM_NONE],
+        [2, 2, 1, 2, 0, GRID_ROWS, TRIM_NONE], [2, 2, 1, 4, 0, GRID_ROWS_FALLBACK, TRIM_NONE],
+        [2, 2, 1, 2, 1, GRID_ROWS, TRIM_NONE],
         [2, 2, 1, 4, 1, GRID_ROWS_FALLBACK, TRIM_NONE],
         [2, 2, 1, 4, 1, GRID_ROWS_FALLBACK, TRIM_OPTIONAL], [2, 2, 1, 4, 1, GRID_ROWS_FALLBACK, TRIM_CORE],
     ] as Array<Array<Number>>;

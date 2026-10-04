@@ -1,10 +1,13 @@
 # Third-party icon sources
 
-All 17 icon bitmap resources under `resources/drawables/icons/` (hero) and
-`resources-pro/drawables/icons/` (Pro grid) are recoloured, adapted paths from
-**Tabler Icons** (`filled` and `outline` styles), MIT licensed. Real paths
-adapted per `docs/decisions.md` ADR-013 and `DESIGN.md` "Iconography" —
-nothing hand-drawn from scratch. Not required on-device (icons are compiled
+The 14 Pro grid icons (`resources-pro/drawables/icons/`) and the stress hero icon
+(`resources/drawables/icons/hero_stress_*.svg` and the sized copies in `resources-hero-*/`) are
+recoloured, adapted paths from **Tabler Icons** (`filled` and `outline` styles), MIT
+licensed. Real paths adapted per `docs/decisions.md` ADR-013 and `DESIGN.md`
+"Iconography". The weather and Body Battery hero icons are drawn by
+`tools/gen_hero_icons.py` (ADR-017; the battery shell was Tabler's `battery` with its
+`activity-heartbeat` line, redrawn in pixel space by ADR-013 amendment 4), so they carry
+no Tabler path any more. Not required on-device (icons are compiled
 bitmap resources, not redistributed source files), kept here per the MIT
 licence's own requirement that the notice ship with copies of the software.
 
