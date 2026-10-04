@@ -46,7 +46,7 @@ Support and answers: https://verden.watch/two-suns/support/
 ## What's New
 
 ```text
-The app is now called Two Suns Pro on the watch. Nothing changes in how it works. A lighter Two Suns, with the sun ring and your Body Battery number, is also available.
+The app is now called Two Suns Pro on the watch. New: optional Weather and Watch battery rows, switched on in the settings. A lighter Two Suns, with the sun ring and your Body Battery number, is also available.
 ```
 
 ## Hero Image
