@@ -25,7 +25,7 @@ Do not keep open checkboxes anywhere else. Status 2026-10-04.
 - [ ] 5.3 `[you]` HeroFace: Magenta accent fails the 3:1 contrast rule against the track (2.84). Keep, fix the colour, or drop it.
 - [ ] 1.4 `[you]` DayArc: confirm the names "DayArc" / "DayArc Pro" after a store search and a trademark search.
 - [ ] 1.7 `[you]` DayArc: night-window default (ADR-010 placeholder) and languages (English only v1?).
-- [ ] 9.1 `[you]` **Look approval for the Instinct faces** (PR #14 Two Suns; the other four were approved as mocked, but the built layouts differ: smaller hero, no footer; see each ADR "As built"). Two Suns first: it has had no mockup.
+- [x] 9.1 `[you]` Look approval for the Instinct faces: Two Suns approved 2026-10-04 (merged to main, 72 products); the other four were approved as mocked.
 - [ ] 9.2 `[you]` **Instinct 2 family and Descent G1 (CIQ 3.4) for Two Suns and DayArc?** They have no Complications, so it needs a separate build (Two Suns' Tier B: our own sun calculation and a remembered place; DayArc: another source for every field) and an on-wrist location probe. Yes (which first), or leave them out for good. This is the only gap between the faces' device lists.
 - [ ] 9.3 `[you]` HeroSet glance on Instinct E / 3 Solar: the simulator draws it under the round window (text and third bar cut). Fix it blind (use `getSubscreen()`), or wait for a real watch?
 - [ ] 8.2 `[you]` (later) Approve a direction for a bolder Days To Go; then implement.
@@ -118,5 +118,5 @@ Later features (need an earlier item first).
 - 1.6 DayArc price: Garmin's second price step (ADR-007 amended); no price on the site or in listing text.
 - 2.2 Days To Go and Two Suns approved 2026-09-28; 7.1 HeroSet 1.2.0 (glance, ADR-053) approved, `glanceLive` is true; HeroFace 1.0.1 live 2026-09-24.
 - 7.6 HeroSet Instinct family built, simulator-checked and merged 2026-10-03 (PR #3, ADR-055); fixed 2026-10-04 (bezel corners, hint, glance bars).
-- DaysToGo, HeroFace, DayArc, Two Suns Instinct builds (2026-10-03/04): see `docs/compatibility.md` of each. Two Suns is PR #14, awaiting 9.1.
+- DaysToGo, HeroFace, DayArc, Two Suns Instinct builds (2026-10-03/04): see `docs/compatibility.md` of each. Two Suns merged to main 2026-10-04 (look approved, 9.1).
 - Scripted simulator screenshots and what is tested automatically: `docker/SIMULATOR.md`.

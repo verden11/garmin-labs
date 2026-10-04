@@ -15,7 +15,7 @@ next:
   version: "1.1.0"
   status: drafted   # drafted | prepared | uploaded | in-review | live
   uploaded: null
-  summary: Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023); the 1.0.1 fix is prepared (commit 807977d), not submitted; Instinct E and 3 Solar (ADR-024) are included, look not yet approved
+  summary: Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023); the 1.0.1 fix is prepared (commit 807977d), not submitted; Instinct E and 3 Solar (ADR-024) are included, look approved 2026-10-04, simulator only
 package:
   file: dist/TwoSunsPro.iq
   products: 72
@@ -32,4 +32,4 @@ site:
   landing: https://verden.watch/two-suns/
   support: https://verden.watch/two-suns/support/
   privacy: https://verden.watch/two-suns/privacy/
-open_items: "2.3 2.5 4.1 4.2 4.3 4.4 9.1"   # ids in ROADMAP.md
+open_items: "2.3 2.5 4.1 4.2 4.3 4.4 9.2"   # ids in ROADMAP.md
