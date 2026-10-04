@@ -22,7 +22,7 @@ Live as a paid app on the Connect IQ Store.
   15 languages. 116 unit tests (103 in the store build).
 - **Not proven on a wrist:** counting accuracy beyond a few FR965 sets; the
   other 79 watches and the touch UI (simulator only).
-- **1.2.0 (glance + idle-kill fix, ADR-053) uploaded 2026-09-27, awaiting Garmin review:** a read-only glance-list entry on 63 of the 80 watches, plus a fix for a set-losing bug found the same day ([ADR-051](docs/decisions.md#adr-051)/[052](docs/decisions.md#adr-052)). Uploaded on an owner call without the full FR965 check list — see [`docs/status.md`](docs/status.md).
+- **1.3.0 live (uploaded 2026-10-03; 1.3.1 prepared, not uploaded):** the Instinct family (87 products), simulator only. **1.2.0 (glance + idle-kill fix, ADR-053; uploaded 2026-09-27, approved):** a read-only glance-list entry on 63 of the 80 watches, plus a fix for a set-losing bug found the same day ([ADR-051](docs/decisions.md#adr-051)/[052](docs/decisions.md#adr-052)). Uploaded on an owner call without the full FR965 check list — see [`docs/status.md`](docs/status.md).
 - **Connect sync:** shelved, [ADR-054](docs/decisions.md#adr-054) — Garmin Connect never renders the developer fields the design needed.
 - Open items: [`docs/status.md`](docs/status.md). Allowed claims:
   [`docs/release-contract.md`](docs/release-contract.md).

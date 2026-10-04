@@ -4,7 +4,7 @@
 
 **Where things stand, 2026-10-04.** Live: **1.3.0** (uploaded by the owner 2026-10-03: the Instinct family, 87 products; exported before the bezel-corner, `START: MENU` and glance-bar fixes). Prepared: **1.3.1** (those three fixes and the glance laid out left of the Instinct E / 3 Solar round window, blind; `dist/HeroSet-store-1.3.1.iq` exported 2026-10-04): not uploaded. Tests 116 dev / 103 store (2026-10-04, simulator). Device evidence is the FR965 only; every Instinct result is simulator only. Open work: ROADMAP M7, 9.6.
 
-Status: 2026-10-01. (open items moved to the root ROADMAP.md, 2026-10-04) History: [`../CHANGELOG.md`](../CHANGELOG.md), ADRs, `git log`.
+Status: 2026-10-04. (open items moved to the root ROADMAP.md, 2026-10-04) History: [`../CHANGELOG.md`](../CHANGELOG.md), ADRs, `git log`.
 
 **Goal:** a paid Connect IQ Store app (USD 2.00 → $1.99 US, no trial, [ADR-039](decisions.md#adr-039)), live since 2026-09-21. Feature work waits unless it unblocks a fix; the glance ([ADR-051](decisions.md#adr-051)) is the one exception, requested by the owner 2026-09-26.
 
