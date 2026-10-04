@@ -39,7 +39,7 @@ Names, prices, icons, uploads are the owner's (the on-watch names "HeroFace" and
   (`python3 tools/check_strings.py`). There is **no settings file in the shared `resources/`**.
 - Tests, latest run 2026-10-04 (after the Magenta recolour, ADR-003; container simulator, no wrist): Pro 25 and Free 25 PASSED on fr965, fr255s and epix2, Pro 21 and Free 21 on instincte40mm and instinct2, the screen-fit test included.
 - Tests, first run: Pro **24**, Free **24** (22 shared; Pro-only `disabledSecondsDrawNoSecondsBox`, `proSettingsReadTheirDefaults`; Free-only `freeReturnsDefaultsForProKeys`, `freeMissingPropertyKeyThrows`),
-  **PASSED in the simulator** on fr965, fenix5s and fr55 on both jungles (2026-10-01; the ten-size fit loop and the memory view on fenix5s/vivoactive3 not yet run; nothing on a wrist): `tools/run_tests.sh <device> [jungle] [testName] [expectedCount]` (jungle defaults to `monkey.jungle`, Pro; run both; `EXPECT=24` fails a full run on a count mismatch).
+  **PASSED in the simulator** on fr965, fenix5s and fr55 on both jungles (2026-10-01; the ten-size fit loop (both tiers) and the memory view were run 2026-10-04, see compatibility.md; nothing on a wrist): `tools/run_tests.sh <device> [jungle] [testName] [expectedCount]` (jungle defaults to `monkey.jungle`, Pro; run both; `EXPECT=24` fails a full run on a count mismatch).
   Trust the printed `PASSED (…)` line, not the exit code. A hung run means the
   simulator needs restarting.
 - Compile every product, both jungles, no simulator: `tools/compile_sweep.sh`. Prove the packages: `tools/check_free_package.sh [--build]` (Free has no Slot/Seconds/Weather key and no "Pro" word; Pro has them).
