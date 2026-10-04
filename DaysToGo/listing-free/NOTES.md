@@ -29,27 +29,27 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 | "Round and rectangular watches alike, full detail down to the smallest" | Screen-fit tests on ten sizes and three rectangles (simulator, 2026-09-26, Pro build); the Free build's fit run is still to do |
 | No permissions, no account, no internet | Empty permission list in `manifest.free.xml`; no network code (the contract's "no permissions; nothing leaves your watch" row; "no analytics, no ads" are the same words the live Pro listing already uses) |
 | Pro's two additions | Exactly what `(:pro)` compiles in: the `Hour` setting (timed events, H:MM in the last 24 h) and the `Footer` setting (battery or steps). Nothing else is claimed; accent ids 6 to 11 and a new layout are deferred, not built |
-| The device sentence | **Not in the paste-ready text.** It is a to-verify note (below): no device claim goes in until the store shows the Free listing's real device list |
+| Device claims | **Not in the paste-ready text, now or later:** listing text never names watch models; the store's device tab is the claim (owner, 2026-10-04) |
 | The review request | **In the Free description** (owner, 2026-10-04): "If this face works for you, a rating in the store helps other people find it." (DayArc's wording; it asks and claims nothing, `../docs/release-contract.md`). Free listing only. |
 
 Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any watch count, download, rating or review number, "the only countdown with no permissions", "works on every watch", rivals by name, "set it on your watch" (the beta round trip T4 is still open, `../docs/status.md`).
 
 ## To verify after approval (not paste-ready)
 
-- **Device sentence** (plan WP4 step 6): "Pro is sold only on devices Garmin lists for paid apps; this free version also runs on older watches such as FR245 and vívoactive 4." Add a version of it only after the Free listing's real compatible-device list shows those watches, and without a watch count. The contract forbids "works on X" for a watch only the simulator has seen.
+- **Device sentence** (plan WP4 step 6, which proposed "Pro is sold only on devices Garmin lists for paid apps; this free version also runs on older watches such as FR245 and vívoactive 4"): dropped, no device sentence goes into listing text (owner, 2026-10-04). The contract forbids "works on X" for a watch only the simulator has seen.
 - **Pro-available line**: the plan puts "say so on line 2" if Pro is offered on the reader's device. Nothing is claimed about Pro's availability until the Pro listing's device list is visible.
 
 ## Device sentence and Instinct (ROADMAP 10.15, 2026-10-04)
 
-Garmin's paid-app list excludes the Instinct 2, 2S, 2X and Descent G1 and 37 older products (Forerunner 245/945 and others), plus 11 listed products no paid app is sold on; the paid Days To Go Pro cannot reach any of them, the Free twin can (counts in [`../docs/compatibility.md`](../docs/compatibility.md) "Paid vs free reach"). That is a genuine plus, so a one-sentence version is kept in `meta.yaml` `held_back_text`: "Days To Go Pro is sold only on watches Garmin lists for paid apps; this version also installs on some watches Pro cannot be bought for, including the Instinct 2, 2S, 2X and Descent G1." It is not in `paste.md` because it is only true once the Free listing's own Compatible Devices list shows those watches and the Instinct upload is approved ([`../../reports/listing-template.md`](../../reports/listing-template.md) section 4); paste it after "Days To Go Pro adds" then.
+Garmin's paid-app list excludes the Instinct 2, 2S, 2X and Descent G1 and 37 older products (Forerunner 245/945 and others), plus 11 listed products no paid app is sold on; the paid Days To Go Pro cannot reach any of them, the Free twin can (counts in [`../docs/compatibility.md`](../docs/compatibility.md) "Paid vs free reach"). That is a genuine plus, but listing text never names watch models and carries no device sentence (owner, 2026-10-04): the store's device tab, taken from each build, is the claim, so the former `meta.yaml` `held_back_text` sentences are deleted (their old wording: "Days To Go Pro is sold only on watches Garmin lists for paid apps; this version also installs on some watches Pro cannot be bought for, including the Instinct 2, 2S, 2X and Descent G1", an Instinct ring-gauge sentence, and a What's New line "Works on the Instinct family too, in black and white (the accent colour does not apply there)").
 
 ## Instinct
 
-The Instinct wording is out of the paste text until the upload is approved and the store lists those watches; the sentence is kept in `meta.yaml` (`held_back_text`).
+The description and What's New say nothing about Instinct or any other model; ADR-015 and the compatibility doc keep the facts.
 
 ## Description rules
 
-Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000 characters, plain text (the store keeps line breaks and shows `**` literally), describe what the app is, the last line is the support URL (the form has no support field). The Free description follows the WP10 skeleton: sibling line, promise, what Free has, "Pro adds", permissions in plain words (the review request and the device sentence are left out, see above). **"More from Verden" is left out**: it lists only live free siblings, and none is known to be live today; add up to four store URLs after a free sibling is approved.
+Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000 characters, plain text (the store keeps line breaks and shows `**` literally), describe what the app is, the last line is the support URL (the form has no support field). The Free description follows the WP10 skeleton: sibling line, promise, what Free has, "Pro adds", the review request, permissions in plain words (no device sentence, see above). **"More from Verden" is left out**: it lists only live free siblings, and none is known to be live today; add up to four store URLs after a free sibling is approved.
 
 ## Why each answer
 
@@ -61,11 +61,11 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 | App Migration | No: a new app id, not a newly compatible device on an existing app |
 | Price | $0 (free). The Free listing is the only listing where "free" wording is allowed (release contract) |
 | Additional Hardware Requirements | Paste the bare URL `https://verden.watch/days-to-go/` only (API field `hardwareProductUrl`; the old sentence is retired, ROADMAP 10.16) |
-| Refund line | None: a free app has nothing to refund |
+| Refund wording | No refund or return wording appears in listing text (owner decision, 2026-10-04). |
 
 ## After approval (plan WP4 step 6, WP9)
 
-1. Read the Free listing's real compatible-device list and add the plan's device sentence (above) only if the list shows those watches.
+1. Read the Free listing's real compatible-device list and record it in `../docs/compatibility.md` (no device sentence goes into listing text).
 2. Put the live Free URL on the first line of the Pro listing ("Also available: Days To Go (<URL>)", no "free" wording on the paid listing) and the live Pro URL here.
 3. Record both app ids and the approval dates for the gates G1 to G4 in the ladder plan; do not turn download buckets into revenue.
 4. Send nothing to Garmin about twins until the owner decides (the email is the owner's).
@@ -76,5 +76,16 @@ A complete set from the current Free build: five screens (days with a name, week
 
 - Free shows only Free's fields (Event, Name, Month/Day/Year, Unit, Date style, Accent); the accent colour varies across the set. No bottom line, no hours, no price number, no PRO badge.
 - **Free vs Pro:** the same mark (the launcher icon's ring and "1"); Pro adds a small amber PRO badge. Owner approves or replaces it; the real launcher icon is ROADMAP 3.3.
-- The Instinct picture is the Instinct 2 (Free may show any Instinct; the Pro listing must use the Instinct E or Instinct 3 Solar, which are on Garmin's paid-app list). Device-reach rule: it goes up with the upload that adds the Instinct products; no watch name or count in the form text (held-back sentences in `meta.yaml`).
+- The Instinct picture is the Instinct 2 (Free may show any Instinct; the Pro listing must use the Instinct E or Instinct 3 Solar, which are on Garmin's paid-app list). Device-reach rule: it goes up with the upload that adds the Instinct products; listing text never names a watch model or gives a count (owner, 2026-10-04; the former `held_back_text` sentences are deleted).
 - Not pictured: the date picker (needs a device check before any "set it on your watch" claim), the always-on state.
+
+## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
+
+- **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`.
+- **Title:** "Days To Go: Countdown to a Date" is the plan's proposal; the owner decides, and searches the store by eye for a collision first.
+- **Description:** line 1 needs the real Days To Go Pro URL once Pro is live (placeholder `<PRO STORE URL>`). English only until the owner decides on translations. Check each block for a `<` before pasting.
+- **Version:** the form reads it from the package; if a field asks, type it.
+- **Images:** the owner approves the looks first (`meta.yaml` `owner_approvals`); simulator captures of the Free build, 2026-10-04 (canned clock; not real readings), so no Pro-only thing can appear. The Instinct picture is the Instinct 2 (Free may show any Instinct); the simulator image is 176 px and `screens/5-instinct.png` is it enlarged x3 without smoothing (native in `screens/native/`); upload it only with the package that adds the Instinct products (1.0.0). Captions and devices are in `meta.yaml` `assets.screens`.
+- **Category:** Utility (alternative: Simple). **Subcategory:** whatever the Category choice offers. **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Preview Video:** none (YouTube or Vimeo only). **App Migration:** No; a new app, not an update.
+- **Monetization:** No: the Free app asks for no payment and unlocks nothing. Read the form's own wording at submission (`../listing/NOTES.md` records that the wording is easy to misread).
+- **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04).

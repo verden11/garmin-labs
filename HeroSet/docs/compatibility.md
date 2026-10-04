@@ -86,7 +86,7 @@ No UP/DOWN keys: swipe up/down adjusts, `SWIPE:` hints, START (physical) finishe
 | Instinct 3 Solar 45 mm, Instinct E 45 mm | `instinct3solar45mm`, `instincte45mm` | 176 x 176 | 62 px |
 | Instinct E 40 mm | `instincte40mm` | 166 x 166 | 52 px |
 
-**Paid vs free reach (2026-10-04):** Garmin's paid-app product list does not include Instinct 2, 2S, 2X or Descent G1, so the paid HeroSet is not sold on those four although the package contains them; the store's device list for the live 1.3.0 lacks them (69 of 87 manifest products listed: 7 off the list, 11 on the list but unsold, see [`release-contract.md`](release-contract.md)). Instinct E 40/45 mm and Instinct 3 Solar 45 mm are on the list. Listing text names only those three (Instinct E 40 and 45 mm, Instinct 3 Solar). A Free twin would be the only way to reach the other four.
+**Paid vs free reach (2026-10-04):** Garmin's paid-app product list does not include Instinct 2, 2S, 2X or Descent G1, so the paid HeroSet is not sold on those four although the package contains them; the store's device list for the live 1.3.0 lacks them (69 of 87 manifest products listed: 7 off the list, 11 on the list but unsold, see [`release-contract.md`](release-contract.md)). Instinct E 40/45 mm and Instinct 3 Solar 45 mm are on the list. Listing text never names watch models; the store's device tab, taken from the build, is the claim. A Free twin would be the only way to reach the other four.
 
 Evidence is in ADR-055 (simulator only). `instinct2`, `instinct2s` and `instinct2x` list part numbers at CIQ 3.2.7 as well: units still on that firmware will not get the app.
 

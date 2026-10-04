@@ -4,7 +4,7 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 
 ## Economics and rules
 
-Paid, the $2.50 tier (owner's form selection, set with the 1.3.1 upload; live at the $2.00 tier until then; [ADR-056](../docs/decisions.md#adr-056), the $2.50 tier for every paid app; no price number in any listing text), no trial ([ADR-039](../docs/decisions.md#adr-039), the no-trial part; Garmin's 48-hour return window is the only try-before-keep). Garmin takes 15% of the tax-exclusive price; $100/yr merchant fee; $10 minimum payout (re-verify, values change). Merchant approved 2026-09-18.
+Paid, the $2.50 tier (owner's form selection, set with the 1.3.1 upload; live at the $2.00 tier until then; [ADR-056](../docs/decisions.md#adr-056), the $2.50 tier for every paid app; no price number in any listing text), no trial ([ADR-039](../docs/decisions.md#adr-039), the no-trial part). Garmin takes 15% of the tax-exclusive price; $100/yr merchant fee; $10 minimum payout (re-verify, values change). Merchant approved 2026-09-18.
 
 Garmin expects every listed product tested, screenshots matching the app, permissions justified. Accepted gap: 79 of 80 simulator-verified only ([ADR-039](../docs/decisions.md#adr-039), [ADR-048](../docs/decisions.md#adr-048)). Refs: [monetization](https://developer.garmin.com/connect-iq/monetization/), [publishing](https://developer.garmin.com/connect-iq/core-topics/publishing-to-the-store/), [app review](https://developer.garmin.com/connect-iq/app-review-guidelines/).
 
@@ -33,9 +33,9 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 | Email | The dedicated support address, also on the site's support and privacy pages. |
 | App Migration | No: support is an explicit list of products (80 live, 87 from 1.3.0; [`../docs/compatibility.md`](../docs/compatibility.md), [ADR-034](../docs/decisions.md#adr-034)/[035](../docs/decisions.md#adr-035)/[037](../docs/decisions.md#adr-037)/[038](../docs/decisions.md#adr-038)/[048](../docs/decisions.md#adr-048)); don't let the store add untested devices. |
 | Monetization | Paid through the store. |
-| Refund line | One sentence at the end of the description: "HeroSet is a paid app. Refunds follow the Connect IQ Store return window." Review guideline 4d asks developers to say what the refund position is. The earlier rule "do not restate Garmin's window" still holds for the number of hours (Garmin's full return-policy text is unpublished; its 48-hour figure is about when funds are captured), so the line points at the store's window and says nothing more (research 2026-10-04, ROADMAP 10.16). No price number. |
+| Refund wording | No refund or return wording appears in listing text (owner decision, 2026-10-04). |
 | Additional Hardware Requirements | Paste the bare URL `https://verden.watch/heroset/` only. The API field is `hardwareProductUrl`; the live value is already the bare URL. The old sentence ("No additional hardware needed. Help, privacy and more apps: ...") is retired (ROADMAP 10.16). |
-| Device claims | The package has 87 products, but Garmin's paid-app list excludes Instinct 2, 2S, 2X and Descent G1, so the paid listing is not sold on them and the text never names them (guideline 4b; ROADMAP 10.15). Named: Instinct E (40 and 45 mm), Instinct 3 Solar (on Garmin's paid-app list). The live 1.3.0 description and What's New still name the four: the description is edited in the dashboard with the 1.3.1 upload ([`../docs/status.md`](../docs/status.md) G). |
+| Device claims | The package has 87 products, but Garmin's paid-app list excludes Instinct 2, 2S, 2X and Descent G1, so the paid listing is not sold on them (guideline 4b; ROADMAP 10.15). Listing text never names watch models; the store's device tab is the claim (owner, 2026-10-04). The live 1.3.0 description and What's New still name the four: the description is edited in the dashboard with the 1.3.1 upload ([`../docs/status.md`](../docs/status.md) G). |
 
 ## Image sources
 
@@ -47,7 +47,7 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 
 ## What's New: history and copy rules
 
-Copy rules: name only Instinct E (40 and 45 mm) and Instinct 3 Solar, never Instinct 2, 2S, 2X or Descent G1 (not sold on a paid app, [`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"); the glance is "on watches with Connect IQ 4.0 or later" (66 of 87 products, 63 of 80 before the Instinct E and Instinct 3 Solar; the Instinct 2 family has none; never "all watches", never "reminder"/"alert", [ADR-051](../docs/decisions.md#adr-051)); any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
+Copy rules: name no watch model, Instinct or otherwise, and no language or language count (owner rule, 2026-10-04; the store's device tab is the device claim, and the Instinct 2 family and Descent G1 are not sold on a paid app, [`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"); the glance is "on watches with Connect IQ 4.0 or later" (66 of 87 products, 63 of 80 before the Instinct E and Instinct 3 Solar; the Instinct 2 family has none; never "all watches", never "reminder"/"alert", [ADR-051](../docs/decisions.md#adr-051)); any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
 
 **1.3.0** (live since 2026-10-03; its first bullet names Instinct 2, 2S, 2X and Descent G1, which the store does not sell this paid app on: see Device claims above, history kept as submitted)
 
@@ -83,3 +83,14 @@ Copy rules: name only Instinct E (40 and 45 mm) and Instinct 3 Solar, never Inst
 ```
 
 **1.0.0:** `First release.`
+
+## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
+
+- **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml).
+- **Subcategory:** Other is not marked required: leave it blank if the form allows.
+- **Monetization:** the price tier USD 2.50 is the form's own selection; this is the one place a number appears, never in the description text.
+- **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl` and this listing's live value is already the bare URL (owner, 2026-10-02: used as the link to the website; Garmin research 2026-10-04, `../../reports/Garmin policies and design guidelines.md`).
+- **Images:** Garmin caps Screen Images at 5, each under 150 KB; upload in the numbered order. The store has no caption field; the captions and devices are in `meta.yaml` `assets.screens`. The approvals the owner owes (hero, cover, icons, the five screens) are in `meta.yaml` `owner_approvals`. The earlier screen set (`1-dashboard` ... `5-complete`, the spares) is in `old/`.
+- **Description, removed or reworded:** the refund sentence ("HeroSet is a paid app. Refunds follow the Connect IQ Store return window.", ROADMAP 10.16, reversed); the line "In 15 languages, including German, French, Spanish, Italian, Polish and Ukrainian" (now "Multi-language support: it follows your watch's language."; the language list stays in the release contract and `../docs/compatibility.md`); the line "Also on the black-and-white Instinct E (40 and 45 mm) and Instinct 3 Solar" (now "Also on black-and-white screens, with your XP ring in the small round window").
+- **What's New 1.3.1, previous wording (named models):** `- Instinct E and Instinct 3 Solar: text near the corners of the screen is no longer cut off by the bezel, so START: MENU and the finished-day message show whole.` / `- Instinct E and Instinct 3 Solar: the glance now sits beside the round window instead of under it, and its bars show empty and full in black and white.` Now written by screen type ("Black-and-white screens: ...").
+- **`meta.yaml` `held_back_text`:** none existed for HeroSet; the key is retired in every listing (listing text never names watch models).

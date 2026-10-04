@@ -32,7 +32,7 @@ The rule "no Pro word in Free" (`../docs/decisions.md`, enforced by `tools/check
 | HeroSet mode needs HeroSet installed; bars show reps, rank, streak; holding the face opens HeroSet; **Connect IQ 4.2+** | Plan "Two modes", the link on the FR965 from 2026-09-20 (**the paid app's id; the Free app id has never been tried against HeroSet's private complication**, `../docs/status.md` F7) |
 | "Without HeroSet, nothing is missing" | The same sentence the live Pro listing uses; Free shows everyday goals when no complication exists |
 | Dims to a quiet clock that shifts every minute on always-on watches | The always-on frame; **no ghosting or battery claim**, forbidden until measured |
-| "Up to a 466-pixel fēnix", "round watches" | Screen-fit on ten sizes (Pro build, simulator); the Free build's fit run is still to do |
+| "Up to the largest 466-pixel round screens", "round watches" (was "up to a 466-pixel fēnix"; no model name in listing text) | Screen-fit on ten sizes (Pro build, simulator); the Free build's fit run is still to do |
 | No account, no internet, no analytics, no ads; the permission sentence | `manifest.free.xml` asks for `ComplicationSubscriber` only, same as Pro; no network code. The wording is the live Pro listing's |
 | Pro's additions | Exactly what `(:pro)` compiles in: the metric per bar (Slot 1 to 3), Seconds, Weather (the temperature). Nothing else is claimed |
 
@@ -40,15 +40,15 @@ Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any wat
 
 ## Device sentence and Instinct (ROADMAP 10.15, 2026-10-04)
 
-Garmin's paid-app list excludes the Instinct 2, 2S, 2X and Descent G1 and 37 older products (Forerunner 245/945 and others), plus 11 listed products no paid app is sold on; the paid HeroFace Pro cannot reach any of them, the Free twin can (counts in [`../docs/compatibility.md`](../docs/compatibility.md) "Paid vs free reach"). That is a genuine plus, so a one-sentence version is kept in `meta.yaml` `held_back_text`: "HeroFace Pro is sold only on watches Garmin lists for paid apps; this version also installs on some watches Pro cannot be bought for, including the Instinct 2, 2S, 2X and Descent G1." It is not in `paste.md` because the claim is only true once the Free listing's own Compatible Devices list shows those watches and the Instinct upload is approved (the template's rule, [`../../reports/listing-template.md`](../../reports/listing-template.md) section 4); paste it after "HeroFace Pro adds" then.
+Garmin's paid-app list excludes the Instinct 2, 2S, 2X and Descent G1 and 37 older products (Forerunner 245/945 and others), plus 11 listed products no paid app is sold on; the paid HeroFace Pro cannot reach any of them, the Free twin can (counts in [`../docs/compatibility.md`](../docs/compatibility.md) "Paid vs free reach"). That is a genuine plus, but listing text never names watch models and carries no device sentence (owner, 2026-10-04): the store's device tab, taken from each build, is the claim, so the former `meta.yaml` `held_back_text` sentences are deleted (their old wording: "HeroFace Pro is sold only on watches Garmin lists for paid apps; this version also installs on some watches Pro cannot be bought for, including the Instinct 2, 2S, 2X and Descent G1", and an Instinct ring-gauge sentence).
 
 ## Instinct
 
-The Instinct ring-gauge sentence is out of the paste text until the upload is approved and the store lists those watches; the sentence is kept in `meta.yaml` (`held_back_text`; ADR-002, Instinct family, proposed).
+The description says nothing about Instinct or any other model; ADR-002 (Instinct family, proposed) and the compatibility doc keep the facts.
 
 ## Description rules
 
-Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000 characters, plain text (the store keeps line breaks and shows `**` literally), describe what the app is, the last line is the support URL (the form has no support field). The Free description follows the WP10 skeleton: sibling line, promise, what Free has, one line that HeroSet mode needs HeroSet, "Pro adds", permissions in plain words. The one-line review request ("If this face works for you, a rating in the store helps other people find it.", owner, 2026-10-04, DayArc's wording) is in; the device sentence is left out until the Free listing's real device list is visible. **"More from Verden" is left out**: it lists only live free siblings, and none is known to be live today.
+Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000 characters, plain text (the store keeps line breaks and shows `**` literally), describe what the app is, the last line is the support URL (the form has no support field). The Free description follows the WP10 skeleton: sibling line, promise, what Free has, one line that HeroSet mode needs HeroSet, "Pro adds", permissions in plain words. The one-line review request ("If this face works for you, a rating in the store helps other people find it.", owner, 2026-10-04, DayArc's wording) is in. **"More from Verden" is left out**: it lists only live free siblings, and none is known to be live today.
 
 ## Why each answer
 
@@ -60,11 +60,21 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 | App Migration | No: a new app id, not a newly compatible device on an existing app |
 | Price | $0 (free) |
 | Additional Hardware Requirements | Paste the bare URL `https://verden.watch/heroface/` only (API field `hardwareProductUrl`; the old sentence is retired, ROADMAP 10.16) |
-| Refund line | None: a free app has nothing to refund |
+| Refund wording | No refund or return wording appears in listing text (owner decision, 2026-10-04). |
 
 ## After approval (plan WP6, WP9)
 
-1. Read the Free listing's real compatible-device list and decide on a device sentence only if it shows watches the paid listing cannot reach.
+1. Read the Free listing's real compatible-device list and record it in `../docs/compatibility.md` (no device sentence goes into listing text).
 2. Put the live Free URL on the first line of the Pro listing and the live Pro URL here.
 3. Record both app ids, the approval dates and the exposure-test day-0 and day-30 dates (plan WP6 "Done when") so the ratio stays readable.
 4. Send nothing to Garmin about twins until the owner decides.
+
+## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
+
+- **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`.
+- **Description:** line 1 needs the real HeroFace Pro URL once Pro is live (placeholder `<PRO STORE URL>`); the HeroSet sentence carries HeroSet's live store URL (from the site's `storeUrl`). English only until the owner decides on translations. Check each block for a `<` before pasting.
+- **Hero, cover, icons:** the Pro listing's images carry a PRO pill, these do not; do not swap them, and do not use the Pro cover here. (The image sections of `paste.md` now list files only; captions and devices are in `meta.yaml` `assets.screens`.)
+- **Category:** Digital, as the Pro listing. **Subcategory:** whatever the Category choice offers. **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Preview Video:** none (YouTube or Vimeo only).
+- **App Migration:** No; this is a new app, not an update.
+- **Monetization:** No: the Free app asks for no payment and unlocks nothing. Read the form's own wording at submission (`../listing/NOTES.md` records that the wording is easy to misread).
+- **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04).

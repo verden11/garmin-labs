@@ -46,7 +46,7 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 | Monetization | No. The form's own wording: Yes only if the app requests payment to enable features, or asks for tips or donations. HeroFace does neither; it is paid through the store, which is not what this field asks. |
 | Price | Paid, the $2.50 tier of Garmin's price points, chosen in the upload/merchant step of the form with the 1.1.0 upload (live at the $2.00 tier until then; ADR-004, price: the $2.50 tier for every paid app). No price number is in the text (ADR-004, price: the $2.50 tier for every paid app). Garmin may re-review a repriced approved app; the version upload is re-reviewed anyway |
 | Additional Hardware Requirements | Paste the bare URL `https://verden.watch/heroface/` only (the API field is `hardwareProductUrl`, a URL; the old "No additional hardware needed..." sentence is retired, ROADMAP 10.16). Live value today: empty. |
-| Refund line | The description ends with "HeroFace Pro is a paid app. Refunds follow the Connect IQ Store return window." (review guideline 4d). The old rule "do not restate Garmin's window" still holds for the hours: the line points at the store's window and says no more. No price number. ROADMAP 10.16 |
+| Refund wording | No refund or return wording appears in listing text (owner decision, 2026-10-04). |
 | Companion App | Blank: HeroSet is not a companion app, it is a separate paid watch app the face can read. |
 | Answers otherwise | Follow HeroSet's ([`../../HeroSet/listing/paste.md`](../../HeroSet/listing/paste.md)) except where the watch-face form differs. |
 
@@ -61,7 +61,17 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 
 - **Title** `HeroFace Pro` (OWNER decides; plan WP6 step 5 renames it inside the pending listing-repair submission, so it costs no extra review).
 - **Line 1:** `Also available: HeroFace, a lighter version: <URL>`. The paid listing never says "free". The rest is the 1.0.1 text, which already describes only what Pro has (the metric per bar, seconds, the temperature, three accents).
-- **Instinct:** the sentence about the Instinct ring gauge is out of the paste text until the upload is approved and the store lists those watches (`meta.yaml` `held_back_text`; ADR-002 (Instinct family)). When it goes in, it names only the Instinct E (40 and 45 mm) and Instinct 3 Solar: Instinct 2, 2S, 2X and Descent G1 are not on Garmin's paid-app list, so the paid listing is not sold on them ([`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"; ROADMAP 10.15).
+- **Instinct:** listing text names no watch model (owner, 2026-10-04; the store's device tab is the claim, so the former `meta.yaml` `held_back_text` sentence is deleted; ADR-002 (Instinct family)). Instinct 2, 2S, 2X and Descent G1 are not on Garmin's paid-app list, so the paid listing is not sold on them ([`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"; ROADMAP 10.15).
 - **Version** `1.1.0`; the What's New is the rename line, naming the sibling without "free".
 - No device sentence, no watch count (release contract). No price number is in the text (ADR-004, price: the $2.50 tier for every paid app).
 - "More from Verden" is left out: it lists only live free siblings, none live today.
+
+## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
+
+- **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml).
+- **Title:** "HeroFace Pro" is the owner's decision (plan WP6 step 5: rename inside the pending listing-repair submission, keeping the device tokens the title carries; the live title is just "HeroFace"): `meta.yaml` `owner_approvals`.
+- **Description:** line 1 needs the real HeroFace (Free) store URL once that listing is live (the placeholder in the block is `<HEROFACE STORE URL>`). Languages are added one at a time (pick a language, press Add, fill Title + Description); only English is drafted, see "Description rules" above. The description never uses the word "free" (it is paid; store review guideline 4d). The refund sentence ("HeroFace Pro is a paid app. Refunds follow the Connect IQ Store return window.") and the "up to a 466-pixel fēnix" wording (now "the largest 466-pixel round screens") are removed.
+- **Version:** the form reads it from the package; type it only if a field asks. paste.md is the 1.1.0 text (the Pro rename); the submitted 1.0.1 What's New is in "What's new: history" above.
+- **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Subcategory:** whatever the Category choice offers. **Preview Video:** none (YouTube or Vimeo only).
+- **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04, `../../reports/Garmin policies and design guidelines.md`).
+- **Images:** the owner approves the looks of all images before upload (`meta.yaml` `owner_approvals`); rendered 2026-10-04 from the current Pro build in the simulator, how and from what in [`screenshots.md`](screenshots.md). Captions and devices are in `meta.yaml` `assets.screens` (no caption field in the form).
