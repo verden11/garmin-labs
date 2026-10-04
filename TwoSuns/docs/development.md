@@ -146,3 +146,5 @@ The simulator proves geometry, fonts and logic. It cannot prove always-on behavi
 ## Screenshots (Instinct and any layout change)
 
 The unit suite measures numbers; it cannot see the bezel. For every layout change, photograph what the simulator draws (the face on its device skin, with the real fonts and the real bezel mask): `../docker/shot.sh TwoSuns monkey.jungle instincte45mm` writes `bin/shot-<device>-face.png` (the display, 3x). The Instinct's visible area is a circle about 98 px in radius, which a 176 x 176 square test misses (HeroSet ADR-055, amended 2026-10-03). `FAKETIME="2026-10-04 10:09:00"` sets the simulator's clock.
+
+**Weather Editor and Always-On in the simulator (2026-10-04).** `tools/weather_conditions.sh` (run through `../docker/capture.sh`) drives Settings > Set Weather and Settings > Display Mode by clicks. Result: the editor keeps the Condition, but the face's weather row did not follow it (canned partly cloudy, 77 degrees every time), and Always-On left the full face drawn. So icon shapes per condition (ROADMAP 9.5, B5 rain) stay unit-tested only, and the always-on frame is not seen in a picture; both need the wrist.

@@ -148,6 +148,8 @@ Direction, **"two suns"**: black ground; one accent; a 24-hour ring around the b
 
 Rows are stacked from measured font heights (Days To Go ADR-012), not from fractions. **Drop order** when the screen is small: date, then curve, then the sun line; the time and the Body Battery value never drop; a curve with no room on its chord is dropped too (ADR-016). The ring and the time are kept on the smallest supported screen (218 px MIP).
 
+**Free (ADR-025):** awake, the Body Battery number is a size larger than in Pro (the stack has room); the always-on frame keeps the small size.
+
 **Always-on (AMOLED):** time, the Body Battery number and the sun sentence in `#5555AA` (ADR-007, amended 2026-09-27), the whole block stepping across a 3 by 3 grid every minute (ADR-007). No ring, no curve, no glyph, no date. MIP watches show the full face at all times.
 
 ## Devices and memory

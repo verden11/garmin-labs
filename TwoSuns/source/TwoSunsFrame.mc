@@ -43,10 +43,11 @@ class TwoSunsFrame {
             timeFont = awakeTimeFont;
             timeFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.TIME_FONTS, timeFont);
         }
-        valueFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.VALUE_FONTS, layout.capFor(TwoSunsLayout.VALUE_MAX_PERMILLE));
+        var valueList = valueFontList(sleeping);
+        valueFont = TwoSunsDraw.fontUpTo(dc, valueList, layout.capFor(valueCap(sleeping)));
         lineFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.LINE_FONTS, layout.capFor(TwoSunsLayout.LINE_MAX_PERMILLE));
         dateFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.DATE_FONTS, dateFont);
-        valueFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.VALUE_FONTS, valueFont);
+        valueFonts = TwoSunsDraw.fontsFrom(valueList, valueFont);
         lineFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.LINE_FONTS, lineFont);
         showDate = !sleeping && state.showDate && state.dateLines.size() > 0;
         showCurve = !sleeping && state.curve != null;
@@ -66,6 +67,28 @@ class TwoSunsFrame {
         }
         weatherBoxCount = countWeatherBoxes(state);
         planBattery(dc, layout, state, sleeping);
+    }
+
+    // The Body Battery number's fonts and height cap: Pro shares the stack with the weather, battery and date rows and
+    // the curve, so it keeps the small size; Free has room for a size up while awake (TwoSunsLayout.VALUE_FREE_FONTS).
+    (:pro)
+    private function valueFontList(sleeping as Boolean) as Array<Graphics.FontDefinition> {
+        return TwoSunsLayout.VALUE_FONTS;
+    }
+
+    (:free)
+    private function valueFontList(sleeping as Boolean) as Array<Graphics.FontDefinition> {
+        return sleeping ? TwoSunsLayout.VALUE_FONTS : TwoSunsLayout.VALUE_FREE_FONTS;
+    }
+
+    (:pro)
+    private function valueCap(sleeping as Boolean) as Number {
+        return TwoSunsLayout.VALUE_MAX_PERMILLE;
+    }
+
+    (:free)
+    private function valueCap(sleeping as Boolean) as Number {
+        return sleeping ? TwoSunsLayout.VALUE_MAX_PERMILLE : TwoSunsLayout.VALUE_FREE_MAX_PERMILLE;
     }
 
     // Steps the weather row down, then drops optional rows (date, curve, weather row, line) until the stack fits

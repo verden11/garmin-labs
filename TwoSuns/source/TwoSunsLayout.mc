@@ -44,6 +44,10 @@ class TwoSunsLayout {
     static const DATE_FONTS = [Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     static const TIME_FONTS = [Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
     static const VALUE_FONTS = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
+    // Free has no date, weather, battery or curve row to share the stack with, so the Body Battery number, the face's
+    // second question after the time, may be a size up (awake only; the always-on frame keeps VALUE_FONTS).
+    static const VALUE_FREE_MAX_PERMILLE = 130;
+    static const VALUE_FREE_FONTS = [Graphics.FONT_MEDIUM, Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     static const LINE_FONTS = [Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     // Always-on time is derived from TIME_FONTS at draw time (TwoSunsFrame, TwoSunsDraw.fontsBelow), two
     // steps below whatever font awake actually picked — not a second, independent list. The old

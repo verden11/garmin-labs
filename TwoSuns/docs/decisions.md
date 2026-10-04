@@ -318,3 +318,14 @@ Also corrected the code comments' claim that a pixel stays lit for "3 minutes"/"
 **Consequences.** The Instinct face has no watch battery row, no golden hour and no accent. No round product's drawing changed: `rowCenterX` returns the centre, the insets and the ring geometry are unchanged without a window (round control suites pass).
 
 **Verification.** `docs/compatibility.md` "Instinct E and Instinct 3 Solar". Simulator only.
+
+## ADR-025: Free's Body Battery number is a size larger
+**Status: Proposed. Written 2026-10-04 (owner authorised UI fixes without asking first); simulator only.**
+
+**Context.** The Free face is the time, the Body Battery bolt and number, and the sun sentence. A simulator screenshot on the FR965, FR255S and Instinct 3 Solar showed the number at the small size of the busy Pro stack, in a mostly empty circle: the face's second question (how much energy is left) read as an afterthought.
+
+**Decision.** In Free, awake, the value takes `TwoSunsLayout.VALUE_FREE_FONTS` (MEDIUM first) up to 130 permille of D; the bolt glyph scales with it. Pro keeps the small size (its date, weather, battery and curve rows share the stack), and the always-on frame keeps it in both tiers. `(:pro)` / `(:free)` twins `valueFontList` and `valueCap` in `TwoSunsFrame`.
+
+**Why.** There is room, and the number is the one thing Free has besides the time and the ring. No new field.
+
+**Consequences.** Unit suite Pro 154 / Free 67 (146 / 60 on an Instinct) pass on fr965, fr255s, epix2, venusq2, instincte40mm, instinct3solar45mm after the change; screenshots of Free on the FR965, FR255S, Instinct E 40 mm and Instinct 3 Solar looked at. Not seen on a wrist.
