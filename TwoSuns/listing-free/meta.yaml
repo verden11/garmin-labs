@@ -5,16 +5,16 @@ folder: TwoSuns/listing-free
 tier: free
 app_id: 9d5735b5-ac4b-4fa8-86d3-eee0f4f83c04
 store:
-  listing_url: null
-  developer_url: null
+  listing_url: "https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca"   # public store URL, valid once Garmin approves; not live before that
+  developer_url: "https://apps-developer.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca"
 live:
   version: null
   since: null
-  note: a new app, not yet uploaded
+  note: a new app, uploaded by the owner 2026-10-04, pending Garmin review; nothing is live yet
 next:
   version: "1.0.0"
-  status: drafted   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
+  status: uploaded   # drafted | prepared | uploaded | in-review | live; uploaded by the owner 2026-10-04, pending Garmin review
+  uploaded: 2026-10-04
   summary: the Free twin (Accent only, Garmin sun and Body Battery numbers only); names confirmed 2026-10-04; titles and the Pro store URL are the owner's decisions
 package:
   file: dist/TwoSunsFree-1.0.0.iq
@@ -22,7 +22,7 @@ package:
   exported: 2026-10-04   # re-exported after the always-on text colour change (ADR-027, ROADMAP 10.26); older builds are in dist-old/
   check: "tools/check_free_package.sh: OK (permission ComplicationSubscriber only, key Accent only, no 'Pro' anywhere)"
   note: "export: monkeyc -e -r -f monkey.free.jungle; built in the verden-ciq-build container; same bytes as dist/TwoSunsFree.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
-price: free
+price: free (uploaded as a free app 2026-10-04)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:   # all rendered 2026-10-04 from the Free build in the simulator (canned data); the owner has NOT approved the looks (ROADMAP 1.5, 9.7)
   cover: cover-500.png            # 500x500, 12 KB; sky-blue ground (light/coloured, ROADMAP 10.25, 2026-10-04; the black one is old/cover-500-dark-2026-10-04.png)
@@ -45,4 +45,4 @@ owner_approvals:   # what only the owner may settle before paste.md is used
   - "Line 1 of the description needs the Two Suns Pro store URL, once Pro is live."
   - "The looks of the hero (rendered 2026-10-04 from the Free build in the simulator, canned data; it shows no curve, no date and nothing from Pro), the cover (the plain ring, no golden arcs, no pill), the device icons and the five screens (simulator only with canned data: sun times and the Body Battery number are set for the picture, never a reading; details in screenshots.md)."
   - "What's New is blank, per this app's rule for an initial release. If a line is preferred, a draft: 'First release of the free Two Suns: the time, a 24-hour sun ring, your Body Battery number and an accent colour.'"
-open_items: "2.3 2.5 4.3 4.4"   # ids in ROADMAP.md
+open_items: "2.3 4.3"   # ids in ROADMAP.md

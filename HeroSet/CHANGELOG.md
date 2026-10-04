@@ -4,9 +4,9 @@ One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/paste.md`](listing/paste.md); the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
-## Unreleased, drafted as 1.3.1 (fixes and the Instinct glance layout; not uploaded, the version number is the owner's call)
+## 1.3.1 — uploaded 2026-10-04 by the owner, in review (fixes and the Instinct glance layout)
 
-1.3.0 is live (uploaded by the owner 2026-10-03, exported before the fixes below). 1.3.1 changes no product and no permission (87 products, `Sensor` + `ComplicationPublisher`).
+Update of the live app, set on the USD 2.50 price tier in the form ([ADR-056](docs/decisions.md#adr-056), the $2.50 tier for every paid app). 1.3.0 is live until Garmin approves this (uploaded by the owner 2026-10-03, exported before the fixes below). 1.3.1 changes no product and no permission (87 products, `Sensor` + `ComplicationPublisher`).
 
 - **Instinct bezel corners:** the bezel hides the display's corners (the visible area is a circle about 98 px in radius), which clipped the finished-day footer ("MISSION COMPLETE"), the storage warning and long translations of the bottom hints. Rows near a corner are now cut to that circle; the footer falls back to DONE and the warning to "!"; round products unchanged ([ADR-055](docs/decisions.md#adr-055) amended 2026-10-03).
 - **`START: MENU` hint:** the corner clip shortened it to "START: MEN." although its ink shows whole; the clip now follows the ink of capitals ([ADR-055](docs/decisions.md#adr-055) amended 2026-10-04).
@@ -14,7 +14,7 @@ the ADRs named. Dates are upload dates; review status follows.
 - **Glance beside the round window** (Instinct E 40/45 mm, 3 Solar): the simulator draws the glance under the window, cutting "NO STREAK YET" and the third bar. Both rows now end left of the window, found with `WatchUi.getSubscreen()`; the status row reads `STREAK N` / `STREAK 0`, or the bare number where even that does not fit a language, and with the day done is the check and the number (new last-resort wording on every glance, only visible where the longer text did not fit before). Blind layout, simulator only: whether a watch draws the glance there is unknown ([ADR-055](docs/decisions.md#adr-055) amended 2026-10-04). The glance-launch crash seen when seeding reps in the simulator was the test harness, not the app (`docs/development.md`).
 - Tests: 116 defined (103 in the store build): +1 glance layout test (`glanceRowsStopLeftOfASubscreenWindow`) and the glance fit tests now check the window. Container simulator, 2026-10-04: dev 116/116 on `instincte40mm`, `instincte45mm`, `instinct3solar45mm`, `fr965`, `fr255s`; store 103/103 on `instincte40mm`; `tools/glance-scope-check.sh` clean. 15-language fit sweep on all seven Instinct products: 105/105.
 - **Listing text corrected:** the 1.3.0 listing (live) says "Instinct 2, 2S, 2X ... and Descent G1", which Garmin's paid-app list does not include, so the store does not sell HeroSet on them. The 1.3.1 description and What's New name no watch model at all (owner rule, 2026-10-04: the store's device tab is the claim) and name no language: "Multi-language support: it follows your watch's language." The package and the 87 products are unchanged.
-- What's New and App Version `1.3.1` are in `listing/paste.md`; package `dist/HeroSet-1.3.1.iq` (87 products, 134 device variants). Needs only the owner's upload ([`docs/status.md`](docs/status.md) G).
+- What's New and App Version `1.3.1` are in `listing/paste.md`; package `dist/HeroSet-1.3.1.iq` (87 products, 134 device variants). Uploaded as exported ([`docs/status.md`](docs/status.md) "Uploaded 2026-10-04"); approval date not yet recorded.
 
 ## 1.3.0 — uploaded 2026-10-03 by the owner (fix for a bug in 1.2.0)
 

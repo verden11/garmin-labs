@@ -1,6 +1,6 @@
 # Listing metadata. The copy-and-paste text is paste.md; why each answer is what it is, and history, are in NOTES.md.
 # Dates are ISO; null = not yet, or not recorded. Update this file (not paste.md) when a version is uploaded or approved.
-app: Two Suns (paid; becomes Two Suns Pro)
+app: Two Suns (paid; renamed Two Suns Pro in 1.1.0, uploaded 2026-10-04)
 folder: TwoSuns/listing
 tier: paid
 app_id: 6c3c5a3d-b312-4c0f-bf37-2a3fc3a79580
@@ -13,16 +13,16 @@ live:
   note: approved 2026-09-28 (late afternoon); the store shows $2.25 against $1.99 documented; the 1.1.0 upload sets the $2.50 tier (ADR-026)
 next:
   version: "1.1.0"
-  status: drafted   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
-  summary: Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023); the 1.0.1 fix is prepared (commit 807977d), not submitted; Instinct E and 3 Solar (ADR-024) are included, look approved 2026-10-04, simulator only
+  status: uploaded   # drafted | prepared | uploaded | in-review | live; uploaded by the owner 2026-10-04, pending Garmin review; live: stays 1.0.0 until approval
+  uploaded: 2026-10-04
+  summary: Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023); the prepared 1.0.1 fix (commit 807977d) is folded in; Instinct E and 3 Solar (ADR-024) are included, look approved 2026-10-04, simulator only
 package:
   file: dist/TwoSunsPro-1.1.0.iq
   products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
   exported: 2026-10-04   # re-exported after the always-on text colour change (ADR-027, ROADMAP 10.26); older builds are in dist-old/
   check: "tools/check_free_package.sh: OK (Positioning and SensorHistory declared, keys Accent Orientation Golden Curve Date Weather Battery)"
   note: "export: monkeyc -e -r -f monkey.jungle; dist/TwoSuns-1.0.1-prepared.iq is the separate 1.0.1 package (ROADMAP 4.1); built in the verden-ciq-build container; same bytes as dist/TwoSunsPro.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
-price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; the store shows $2.25 until then), no number in listing text; ADR-026 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-020 (the Free + Pro ladder; the day-45 review is retired)
+price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload, submitted 2026-10-04; the store shows $2.25 until Garmin approves), no number in listing text; ADR-026 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-020 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:   # all rendered 2026-10-04 from the current Pro build in the simulator (canned data); the owner has NOT approved the looks (ROADMAP 1.5, 9.7); superseded files are in old/
   cover: cover-500.png            # 500x500, 13 KB; violet ground (light/coloured, ROADMAP 10.25, 2026-10-04; the black one is old/cover-500-dark-2026-10-04.png)
@@ -45,4 +45,4 @@ owner_approvals:   # what only the owner may settle before paste.md is used
   - "Line 1 of the description needs the Two Suns (Free) store URL, once that listing is live."
   - "The looks of the hero (rendered 2026-10-04 from the current Pro build in the simulator, canned data; the earlier hero is in old/), the cover (the PRO pill and the golden arcs are a proposal for telling this listing from its lighter sibling; the earlier cover is in old/), the device icons and the five screens (all simulator only with canned data: sun times, curve and number are set for the picture, never a reading; the weather row and the watch battery row are switched off in them; details in screenshots.md)."
   - "Price tier USD 2.50 (owner, 2026-10-04, ADR-026), set in the form with the 1.1.0 upload, replacing the $2.25 the store showed."
-open_items: "2.3 2.5 4.1 4.2 4.3 4.4 9.2"   # ids in ROADMAP.md
+open_items: "2.3 4.2 4.3 9.2"   # ids in ROADMAP.md

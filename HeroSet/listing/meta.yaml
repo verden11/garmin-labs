@@ -13,8 +13,8 @@ live:
   note: uploaded by the owner 2026-10-03 (the Instinct family; exported before the 2026-10-04 bezel-corner, START-to-MENU and glance-bar fixes); 1.2.0 was uploaded 2026-09-27 (developed as 1.1.2, ADR-053) and approved 2026-10-01; 1.1.1 went live 2026-09-24
 next:
   version: "1.3.1"
-  status: prepared   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
+  status: uploaded   # drafted | prepared | uploaded | in-review | live; uploaded by the owner 2026-10-04, pending Garmin review; live: stays 1.3.0 until approval
+  uploaded: 2026-10-04
   summary: "the description and What's New no longer name Instinct 2, 2S, 2X or Descent G1 (not on Garmin's paid-app list, ROADMAP 10.15; listing text now names no watch model at all, 10.23), the three fixes since 1.3.0 (Instinct bezel corners, START: MENU hint, glance bars outlined on a 1-bit display) and the glance laid out left of the round window on Instinct E and 3 Solar (blind, simulator only, ADR-055); the version number is the owner's call (App Version is free text)"
 package:
   file: dist/HeroSet-1.3.1.iq
@@ -22,7 +22,7 @@ package:
   exported: 2026-10-04
   check: "no check script exists; unpack check by hand (bsdtar): app id 568d5c9b-eb10-4678-bf28-0080c3efbbc1 (same as manifest-store.xml), permissions Sensor and ComplicationPublisher only, 134 part numbers, 134 .prg"
   note: "export: monkeyc -e -r -f store.jungle; built in the verden-ciq-build container; the older exports are in dist-old/ (the ones in dist-old/old/ are DO NOT UPLOAD; dist-old/HeroSet-store-2026-10-04.iq is the 1.3.0 re-export, which has the bezel fixes but not the glance layout)"
-price: paid, the USD 2.50 tier (set in the form with the 1.3.1 upload; live until then at the USD 2.00 tier), no number in listing text, no trial; ADR-056 (the $2.50 tier), ADR-039 (no trial)
+price: paid, the USD 2.50 tier (set in the form with the 1.3.1 upload, submitted 2026-10-04; live until Garmin approves at the USD 2.00 tier), no number in listing text, no trial; ADR-056 (the $2.50 tier), ADR-039 (no trial)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:   # all re-rendered 2026-10-04 from the 1.3.1 store build; looks not yet approved by the owner; superseded files are in old/
   rendered: 2026-10-04
@@ -46,4 +46,4 @@ owner_approvals:   # what only the owner may settle before paste.md is used
   - "Cover image look (the shield is now the launcher icon's current shape) and the two device icons."
   - "The look of the five screen images (re-rendered 2026-10-04 from the 1.3.1 store build; how in screenshots.md)."
   - "Description line 'Also on black-and-white screens' and both What's New bullets: written by screen type with no watch model name (owner rule 2026-10-04); confirm the wording before upload."
-open_items: "7.7 7.2 7.8 9.3"   # ids in ROADMAP.md
+open_items: "7.2 7.8 9.3"   # ids in ROADMAP.md

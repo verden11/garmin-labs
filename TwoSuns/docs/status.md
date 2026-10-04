@@ -2,7 +2,7 @@
 
 > **Open items live only in the root [`ROADMAP.md`](../../ROADMAP.md).** This file keeps where things stand, the evidence, the release gates and the upload steps. Listing text and metadata: [`../listing/paste.md`](../listing/paste.md) and [`../listing/meta.yaml`](../listing/meta.yaml). Claims: [`release-contract.md`](release-contract.md). Build history: [`archive/plan.md`](archive/plan.md).
 
-**Where things stand, 2026-10-04.** Approved 2026-09-28 (1.0.0). Prepared, not submitted: 1.0.1 (commit `807977d`). Built, unreleased: the Free + Pro pair (ADR-020/021), the Pro weather and watch battery rows (ADR-022/023; FR965 wear check in progress, `device-test/TwoSuns-weather-RESULTS.md`). 72 products with the Instinct E and 3 Solar (ADR-024, look approved 2026-10-04, simulator only). Open work: ROADMAP M4, 9.2.
+**Where things stand, 2026-10-04.** Live: 1.0.0 (approved 2026-09-28). **Uploaded by the owner 2026-10-04, in review: Two Suns Pro 1.1.0** (an update of the live paid app, renamed Two Suns Pro, on the USD 2.50 tier, ADR-026 (price: the $2.50 tier); the prepared 1.0.1, commit `807977d`, was folded into it and is not uploaded on its own) **and Two Suns Free 1.0.0** (a new app, app id `9d5735b5-ac4b-4fa8-86d3-eee0f4f83c04`; developer page https://apps-developer.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca ; public store URL, valid once approved: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca). Both include the Pro weather and watch battery rows (ADR-022/023; FR965 wear check in progress, `device-test/TwoSuns-weather-RESULTS.md`) and 72 products with the Instinct E and 3 Solar (ADR-024, look approved 2026-10-04, simulator only). Approval dates are not yet known. Open work: ROADMAP M4, 9.2.
 
 **Status 2026-09-27: 1.0.0 submitted, pending review.** Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b. Three spot-checks have run on the owner's FR965 (sunrise/sunset match, gate 3; Positioning, gate 2; on-watch Customize, ADR-019) — the rest of the build is still simulator-only, no full wear day yet. The gates below record what state the app was in when the owner chose to submit, not a claim that every one closed first — several were explicitly waived by the owner (see each gate's own note).
 
@@ -10,14 +10,22 @@
 
 Owner's runbook. Do the gates in order; each one names what "passed" looks like and where to record it. Status of the build itself: [`archive/plan.md`](archive/plan.md) "Implementation status". What may be claimed: [`release-contract.md`](release-contract.md).
 
-## Ready to upload (prepared 2026-10-04, NOT uploaded)
+## Uploaded 2026-10-04 (in review)
 
-Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id). Text: `../listing-free/paste.md` and `../listing/paste.md` (now the 1.1.0 text; if the owner submits 1.0.1 first, ROADMAP 4.1, use `TwoSuns-1.0.1-prepared.iq`, keep the title "Two Suns", drop the "Also available" line and use the 1.0.1 What's New kept in `../listing/NOTES.md`); metadata `../listing*/meta.yaml`.
+Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id) were uploaded by the owner on 2026-10-04 as exported below; Garmin's review is pending and the live 1.0.0 stays until Pro is approved. Text as uploaded: `../listing-free/paste.md` and `../listing/paste.md`; metadata `../listing*/meta.yaml`.
+
+**On approval (the checks still to do):**
+
+1. Record the approval dates here, in `../CHANGELOG.md` and in both `meta.yaml` files (`live:`); Pro's `live:` becomes 1.1.0.
+2. Open both live listings: title, description, images, the device tab, the price (Pro at the $2.50 tier, US $2.49; Free at no charge) and the support and privacy links.
+3. Site: add the Free store URL (`https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`) as `freeStoreUrl` and the Pro one in `site/src/apps/two-suns/app.ts` only after each is approved; add a store device list to `facts.ts` only once the live store shows it; per-tier privacy and support wording (F10) is still open. Never change or remove a published URL.
+4. Cross-links in the store texts: the uploaded `paste.md` files carry placeholders for the sibling URLs (Pro line 1, Free line 1; see ROADMAP). Edit the live descriptions to the real URLs only if `release-contract.md` "Free and Pro listings" allows it: the sibling line is the only mention of the other tier it allows, and the Free line must not say anything only Pro ships.
+5. Record both app ids for the measurement plan (WP9) and the review-day dates for gates G1 to G4 in the ladder plan.
 
 | File (absolute path) | Products | Check |
 |---|---|---|
-| `/Users/mbp/dev/garmin/TwoSuns/dist/TwoSunsFree-1.0.0.iq` | 72 | `tools/check_free_package.sh`: OK (permission ComplicationSubscriber only, key Accent only) |
-| `/Users/mbp/dev/garmin/TwoSuns/dist/TwoSunsPro-1.1.0.iq` | 72 | same script: OK (Positioning, SensorHistory, seven keys) |
+| `/Users/mbp/dev/garmin/TwoSuns/dist/TwoSunsFree-1.0.0.iq` (uploaded, new app) | 72 | `tools/check_free_package.sh`: OK (permission ComplicationSubscriber only, key Accent only) |
+| `/Users/mbp/dev/garmin/TwoSuns/dist/TwoSunsPro-1.1.0.iq` (uploaded, update) | 72 | same script: OK (Positioning, SensorHistory, seven keys) |
 
 **Re-exported 2026-10-04 after the always-on text colour change (ADR-027, always-on text is a dim grey, ROADMAP 10.26); older exports were moved to `dist-old/`, so `dist/` holds only the packages to upload.** Unit suite on fr965, fr255s, epix2 and instincte40mm for both tiers passed (Pro 154, 154, 154, 146; Free 67, 67, 67, 60), which includes `everyStateFitsThisDisplay` and `alwaysOnFrameFitsAtEveryDrift`; simulator only. Built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP.
 
@@ -83,9 +91,9 @@ Each field's text is in [`../listing/paste.md`](../listing/paste.md), in form or
 5. Day 60: run the success test in [`spec.md`](spec.md) "Success and stop test". Record any review that mentions wrong or blank sun times.
 6. Tier B (1.1) only if gate 2 showed a location source that works.
 
-## Free + Pro pair (approved by the owner 2026-10-04, UNRELEASED: ADR-020 (Free + Pro ladder))
+## Free + Pro pair (approved by the owner 2026-10-04, UPLOADED 2026-10-04, in review: ADR-020 (Free + Pro ladder))
 
-Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP5); the owner approved the ladder on 2026-10-04 (OD1, OD2: the day-45 review is retired, ADR-002 Superseded); names are confirmed (2026-10-04), the Pro price is the $2.50 tier (ADR-026) and every upload is still open, and the live paid app is unchanged until then. The prepared 1.0.1 is **not** held back by this work and is not part of it (plan WP5 step 7); the owner submits it or not. No store-package quirk beyond the known "89 devices" oddity is recorded; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
+Both packages were uploaded on 2026-10-04 (see "Uploaded 2026-10-04" above); the gate rows below are the state when they were uploaded, and the open ones (icons, device checks, translations, site) are not closed by the upload. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP5); the owner approved the ladder on 2026-10-04 (OD1, OD2: the day-45 review is retired, ADR-002 Superseded); names are confirmed (2026-10-04), the Pro price is the $2.50 tier (ADR-026) and every upload is still open, and the live paid app is unchanged until then. The prepared 1.0.1 is **not** held back by this work and is not part of it (plan WP5 step 7); the owner submits it or not. No store-package quirk beyond the known "89 devices" oddity is recorded; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
 
 | # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
 |---|---|---|
@@ -102,7 +110,7 @@ Nothing in this block is done unless it says so; nothing is uploaded. Builds aga
 | F11 | Translations of any new string, machine drafts need the owner's OK. **One was added: `setting_weather` ("Weather")**, drafted in 14 languages without review (dan Vejr, deu Wetter, dut Weer, fin Sää, fre Météo, ita Meteo, lit Orai, nob Vær, pol Pogoda, por Tempo, spa Clima, swe Väder, tur Hava durumu, ukr Погода) **and `setting_battery` ("Watch battery")**: dan Ur-batteri, deu Uhr-Akku, dut Horlogebatterij, fin Kellon akku, fre Batterie montre, ita Batteria orologio, lit Laikrodžio baterija, nob Klokkebatteri, pol Bateria zegarka, por Bateria do relógio, spa Batería del reloj, swe Klockans batteri, tur Saat pili, ukr Батарея годинника | **Open** (owner) |
 | F12 | Weather row (ADR-022): **wear-check started 2026-10-03: `../../device-test/TwoSuns-weather-CHECKLIST.md` and `TwoSuns-weather-RESULTS.md` (git-ignored). Probe (Q1 to Q4) done except Bluetooth off; wear day (updated 2026-10-04 from photos): B1, B2, B3, B6, B8, B13 to B16 pass, B12 no crash so far, B4 partly; still needed from the owner: tonight's Monday cell, B4 in sun, B9, B11, optional B5, B7, B10, and the look verdicts Q5 to Q8**. Wear-check on the FR965 (the row, the icons in sun, the hours, `Weather` off in the phone and Customize screens); a device probe of the hourly list's length and of the daily forecast's `forecastTime`; memory on the lowest-memory product (the weather row added 18.3 KB to the Pro `.prg`; **simulator reading 2026-10-04, not device proof:** Instinct E Pro 45.9 of 59.8 kB after the face drew, 77%, and about 49 kB at worst with the Customize menu on top, 82%; round 128 KB-class 46.0 of 123.8 kB; see `compatibility.md` "Measured 2026-10-04"; the device check stays open); the site's privacy and Pro wording (Garmin's cached forecast is read on the watch, nothing is sent) is **not yet written** because the site describes the live paid app only | **Open** |
 
-### Free listing block (when F1 to F8 are green)
+### Free listing block (the steps used for the 2026-10-04 upload)
 
 1. `cd TwoSuns && tools/check_free_package.sh --build` (or export `monkeyc -e -r -f monkey.free.jungle -o dist/TwoSunsFree.iq -y ~/.garmin-connectiq/keys/developer_key`), then open https://apps.garmin.com/developer/upload, attach `dist/TwoSunsFree.iq` (a **new** app: the form reads the new app id from the package).
 2. Paste each field from [`../listing-free/paste.md`](../listing-free/paste.md) in form order. Category Utility. Monetization: the free listing asks no payment (confirm the form's wording at submission). Replace the placeholder Pro store URL on line 1 with the real one once Pro 1.1.0 is live, or upload Pro first.
