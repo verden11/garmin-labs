@@ -495,7 +495,7 @@ a SECOND setting is a new ADR, and this one's persistence evidence should be in 
 
 ## ADR-015: Instinct E and Instinct 3 Solar: window gauge, black and white, no accent
 
-**Status: Proposed.** Written 2026-10-03; the owner approved the look (mockup `docs/archive/instinct-mockup.html`), chose to hide the Accent setting on these watches, and chose to ship only the three Connect IQ 6 Instinct products. Simulator only: nothing has run on a watch (the owner has none), and DayArc has never been submitted.
+**Status: Accepted 2026-10-04** (was Proposed; flipped by ROADMAP 2.4: the owner has since asked for the design work on these watches to continue, answered that the Instinct 2 family stays out for good, and DayArc ships all 15 languages). Written 2026-10-03; the owner approved the look (mockup `docs/archive/instinct-mockup.html`), chose to hide the Accent setting on these watches, and chose to ship only the three Connect IQ 6 Instinct products. Simulator only: nothing has run on a watch (the owner has none), and DayArc has never been submitted.
 
 **Context.** DayArc needs Connect IQ 4.2 (`Toybox.Complications`, `minApiLevel` 4.2.0), so of the Instinct family only `instincte40mm`, `instincte45mm` and `instinct3solar45mm` (CIQ 6.0) qualify; the Instinct 2 family (`instinct2`, `2s`, `2x`, `descentg1`, CIQ 3.4) would need a build without Complications, which is a separate project and is **not** done here. `instinctcrossover` is left out (analog hands over the display). The three are 1-bit (palette `000000`/`FFFFFF` only), **watch-face memory 65,536 B** (the other 69 products have 131,072 B), with a round window top right (62 px; 52 px on the E 40 mm). ADR-001 had excluded the E and the 3 Solar as "semi-octagon, 64KB, monochrome".
 

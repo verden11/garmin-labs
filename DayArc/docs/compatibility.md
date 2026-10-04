@@ -11,7 +11,7 @@ densities; the other 65 are compile-only.
 (TwoSuns's convention); the three rectangular ones use full-width rows and the screen's own bottom
 edge, with only the progress arc on the inscribed circle (ADR-001, amended 2026-09-28). Excluded, same as TwoSuns ADR-009: every product below API 4.2 (this includes the Instinct 2 family, CIQ 3.4: a no-Complications build would be a separate project). Instinct 3 Solar 45mm and Instinct E were excluded by ADR-001 and are now included (ADR-015).
 
-## Instinct E and Instinct 3 Solar (added 2026-10-03, ADR-015, proposed, simulator only)
+## Instinct E and Instinct 3 Solar (added 2026-10-03, ADR-015, accepted 2026-10-04, simulator only)
 
 `instincte40mm` (166 x 166, window 52 px), `instincte45mm` and `instinct3solar45mm` (176 x 176, window 62 px) join both manifests (72 products). They are CIQ 6.0 (so `minApiLevel` 4.2.0 holds), black and white (palette `000000`/`FFFFFF` only), **watch-face memory 65,536 B** (the other 69 have 131,072 B). The Instinct 2 family and Descent G1 (CIQ 3.4, no Complications) are **not** included: that needs a build without Complications, a separate project. `instinctcrossover` is left out (analog hands, no window).
 
