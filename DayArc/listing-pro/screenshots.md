@@ -4,6 +4,13 @@ Owner supplies. Status 2026-09-28: none captured yet. Same capture route and rul
 `../listing/screenshots.md` (simulator File → Save Screenshot on FR965, 454×454; no mockups or SVG
 drawings as store images).
 
+
+## Simulator captures, 2026-10-04 (native pixels, scripted)
+
+`tools/listing_shots.sh` drives the simulator in the container (`../docker/capture.sh DayArc tools/listing_shots.sh pro`): the simulator's own clock is set (`faketime`), settings are the face's real defaults edited in a private copy, and each file is what the simulator's File > Save Screen Capture writes, so the pixel size is the device's own. Re-run after any layout change. Simulator values (weather, stress, heart rate, battery) are fake: do not crop them into a claim about real readings.
+
+**Made:** `listing-pro/screens/1-midday.png` (13:15, calendar event and the full grid), `2-evening.png` (20:00), `3-morning.png` (07:15, 842 steps so far: a four-digit count is cut to "8..." in the narrow bottom pill), `4-night.png`, plus `5-instinct-midday.png` and `6-instinct-evening.png` (Instinct E 45 mm). The brief below is what they were made from.
+
 ## Store set — FR965 simulator, in this order
 
 Pro's pitch is density under an unchanged hero, so lead with the full grids. Set the time about

@@ -36,6 +36,13 @@ cd listing
 python3 src/quantize64.py icon-24-128.png icon-64-128.png
 ```
 
+
+## Simulator captures, 2026-10-04 (native pixels, scripted)
+
+`tools/listing_shots.sh` drives the simulator in the container (`../docker/capture.sh HeroFace tools/listing_shots.sh pro`): the simulator's own clock is set (`faketime`), settings are the face's real defaults edited in a private copy, and each file is what the simulator's File > Save Screen Capture writes, so the pixel size is the device's own. Re-run after any layout change. Simulator values (weather, stress, heart rate, battery) are fake: do not crop them into a claim about real readings.
+
+New files beside the five above (everyday mode only; HeroSet mode stays a watch capture): `listing/screens/new-1-everyday.png` (fr965, 8420 steps, 18 intensity minutes, 7 floors), `new-2-goals-met.png` (all three met), `new-3-instinct2.png` and `new-4-instinct-e40.png` (the Instinct family: black and white, the ring is a gauge in the round window, no footer), and the Pro-only `new-5-seconds.png`. `listing-free/screens/` has the same set without the seconds shot. The simulator's activity history did not produce a multi-day streak, so only "1-DAY STREAK" appears. A goals-met Instinct shot was dropped: the check mark plus STEP does not fit the 40 px column and reads "ST.".
+
 ## Still missing
 
 **Always on.** Capture it on the FR965, not the simulator: the sleep render is

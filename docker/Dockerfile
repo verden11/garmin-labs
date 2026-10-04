@@ -44,4 +44,4 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 # sim + a screenshot of the simulator window (xwd) cut and scaled with ImageMagick: docker/shot.sh. The simulator
 # draws the device skin, the real fonts and the bezel mask, which no unit test sees (there is no pixel read-back in the SDK).
 FROM sim AS shots
-RUN apt-get update && apt-get install -y --no-install-recommends x11-apps imagemagick && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y --no-install-recommends x11-apps imagemagick faketime xdotool && rm -rf /var/lib/apt/lists/*

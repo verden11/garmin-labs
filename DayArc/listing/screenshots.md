@@ -6,6 +6,13 @@ Screenshot (454×454 on FR965, no bezel), as TwoSuns did (`../../TwoSuns/listing
 Never use the site's SVG drawing (`site/src/apps/day-arc/FacePreview.tsx`) or the Design-canvas
 mockup as a store image: both are schematics, not the face (`release-contract.md`).
 
+
+## Simulator captures, 2026-10-04 (native pixels, scripted)
+
+`tools/listing_shots.sh` drives the simulator in the container (`../docker/capture.sh DayArc tools/listing_shots.sh simple`): the simulator's own clock is set (`faketime`), settings are the face's real defaults edited in a private copy, and each file is what the simulator's File > Save Screen Capture writes, so the pixel size is the device's own. Re-run after any layout change. Simulator values (weather, stress, heart rate, battery) are fake: do not crop them into a claim about real readings.
+
+**Made:** `listing/screens/1-morning.png` (07:15), `2-midday.png` (13:15), `3-evening.png` (20:00), `4-night.png` (23:40), all fr965 and 24-hour (the simulator starts on 12-hour, and the face shows no AM/PM), plus `5-instinct-midday.png` and `6-instinct-evening.png` (Instinct E 45 mm, black and white, the arc is a gauge in the round window). The table below is the brief they were made from.
+
 ## Store set — FR965 simulator, in this order
 
 Set the clock with Simulation → Set Time, and pick a time about halfway through each window so the
