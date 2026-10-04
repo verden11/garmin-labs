@@ -6,7 +6,7 @@ Two images, built from one `Dockerfile` (SDK 9.2.0, JDK 17, your `Devices/` + `F
 |---|---|---|
 | `verden-ciq:9.2.0` (`sim`) | tests (`monkeydo` + simulator under Xvfb) | linux/amd64 (Rosetta/QEMU on Apple Silicon) |
 | `verden-ciq-build:9.2.0` (`build`) | compiles, `compile_sweep.sh` | native (arm64 on Apple Silicon), ~3-4x faster than emulated |
-| `verden-ciq-shots:9.2.0` (`shots`) | `shot.sh`: simulator screenshots (the sim image + `xwd` + ImageMagick) | linux/amd64 |
+| `verden-ciq-shots:9.2.0` (`shots`) | `shot.sh`, `capture.sh`: simulator screenshots (the sim image + `xwd`, ImageMagick, `xdotool`, `faketime`) | linux/amd64 |
 
 Every `docker/run.sh` call is a fresh container with its **own simulator** and network, so any number run
 in parallel, in the same project folder or different worktrees. Nothing `pkill`s anything on the host.
@@ -25,6 +25,9 @@ MC_FLAGS="" docker/run.sh HeroSet /ciq-docker/ciq-test.sh fr965 monkey.jungle
 
 # Screenshot the simulator (the face on its device skin, real fonts, real bezel mask): bin/shot-<device>-face.png
 docker/shot.sh DaysToGo monkey.jungle instinct2 instincte40mm
+
+# Listing screenshots at native pixels, with the simulator's clock and activity data set (xdotool + faketime):
+docker/capture.sh DayArc tools/listing_shots.sh pro      # writes DayArc/listing-pro/screens/*.png; helpers in docker/sim-gui.sh
 
 # Compile sweeps / one-off builds: native image
 CIQ_IMAGE=verden-ciq-build:9.2.0 docker/run.sh DayArc tools/compile_sweep.sh
@@ -57,3 +60,4 @@ Notes:
 - New machine: install Docker Desktop, install the Connect IQ SDK Manager once and download devices (gives
   `Devices/` + `Fonts/`), run `docker/build.sh`. Bump `CIQ_SDK_VERSION` in the Dockerfile to upgrade.
 - Linux simulator, not a watch. Simulator passing is not device proof.
+- `capture.sh` / `sim-gui.sh` (2026-10-04): a scenario script (per project, `tools/listing_shots.sh`) boots the simulator on a fake clock (`sim_boot "2026-10-04 07:15:00"`), loads a build, sets activity data through the Simulation menu's dialog (`sim_activity`), switches the time to 24-hour (`sim_24h`) and saves with File > Save Screen Capture (`sim_save`), which writes the display at its native pixel size (no skin). GUI coordinates were read off the simulator on the 1280x1024 virtual screen; the activity dialog is placed by reading its window geometry. Menu popups paint black in a screenshot of the root window but can be read with `xwd -id <window>`. `sim_save` removes an existing file first: a replace prompt would otherwise swallow the save.

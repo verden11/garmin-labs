@@ -9,6 +9,7 @@ tar -C /work --exclude=./bin --exclude=./gen --exclude=./mir --exclude=./interna
 cd $W && mkdir -p bin
 Xvfb "$DISPLAY" -screen 0 1280x1024x24 >/dev/null 2>&1 &
 sleep 2
-simulator >/tmp/sim.log 2>&1 &
+# CIQ_FAKETIME="2026-10-04 07:15:00" starts the simulator on that clock (docker/shot.sh FAKETIME=; needs the shots image)
+${CIQ_FAKETIME:+faketime -f "@$CIQ_FAKETIME"} simulator >/tmp/sim.log 2>&1 &
 sleep 8
 exec "$@"
