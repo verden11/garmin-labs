@@ -44,6 +44,8 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 | App Migration | No: support is the explicit 117-product list in [`../docs/compatibility.md`](../docs/compatibility.md); letting the store add untested devices would ship a layout nobody has run. |
 | Monetization | No. The form's own wording: Yes only if the app requests payment to enable features, or asks for tips or donations. HeroFace does neither; it is paid through the store, which is not what this field asks. |
 | Price | Paid, the $2.50 tier of Garmin's price points, chosen in the upload/merchant step of the form with the 1.1.0 upload (live at the $2.00 tier until then; ADR-004, price: the $2.50 tier for every paid app). No price number is in the text (ADR-004, price: the $2.50 tier for every paid app). Garmin may re-review a repriced approved app; the version upload is re-reviewed anyway |
+| Additional Hardware Requirements | Paste the bare URL `https://verden.watch/heroface/` only (the API field is `hardwareProductUrl`, a URL; the old "No additional hardware needed..." sentence is retired, ROADMAP 10.16). Live value today: empty. |
+| Refund line | The description ends with "HeroFace Pro is a paid app. Refunds follow the Connect IQ Store return window." (review guideline 4d). The old rule "do not restate Garmin's window" still holds for the hours: the line points at the store's window and says no more. No price number. ROADMAP 10.16 |
 | Companion App | Blank: HeroSet is not a companion app, it is a separate paid watch app the face can read. |
 | Answers otherwise | Follow HeroSet's ([`../../HeroSet/listing/paste.md`](../../HeroSet/listing/paste.md)) except where the watch-face form differs. |
 
@@ -58,7 +60,7 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 
 - **Title** `HeroFace Pro` (OWNER decides; plan WP6 step 5 renames it inside the pending listing-repair submission, so it costs no extra review).
 - **Line 1:** `Also available: HeroFace, a lighter version: <URL>`. The paid listing never says "free". The rest is the 1.0.1 text, which already describes only what Pro has (the metric per bar, seconds, the temperature, three accents).
-- **Instinct:** the sentence about the Instinct ring gauge is out of the paste text until the upload is approved and the store lists those watches (`meta.yaml` `held_back_text`; ADR-002 (Instinct family)).
+- **Instinct:** the sentence about the Instinct ring gauge is out of the paste text until the upload is approved and the store lists those watches (`meta.yaml` `held_back_text`; ADR-002 (Instinct family)). When it goes in, it names only the Instinct E (40 and 45 mm) and Instinct 3 Solar: Instinct 2, 2S, 2X and Descent G1 are not on Garmin's paid-app list, so the paid listing is not sold on them ([`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"; ROADMAP 10.15).
 - **Version** `1.1.0`; the What's New is the rename line, naming the sibling without "free".
 - No device sentence, no watch count (release contract). No price number is in the text (ADR-004, price: the $2.50 tier for every paid app).
 - "More from Verden" is left out: it lists only live free siblings, none live today.

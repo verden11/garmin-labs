@@ -35,4 +35,5 @@ site:
   privacy: https://verden.watch/heroface/privacy/
 held_back_text:   # Instinct wording kept OUT of paste.md until the upload is approved and the store lists those watches; add it then
   - "On Instinct, in black and white, the ring is a gauge in the round window (no battery line there).  (description, end of \"The time owns the screen\")"
+  - "HeroFace Pro is sold only on watches Garmin lists for paid apps; this version also installs on some watches Pro cannot be bought for, including the Instinct 2, 2S, 2X and Descent G1.  (description, after \"HeroFace Pro adds\"; add it only once the Free listing's own Compatible Devices list shows those watches and the Instinct upload is approved; ROADMAP 10.15)"
 open_items: "2.3 2.5 5.2 5.3 5.6"   # ids in ROADMAP.md

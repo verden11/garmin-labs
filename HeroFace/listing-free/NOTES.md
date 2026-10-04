@@ -38,6 +38,10 @@ The rule "no Pro word in Free" (`../docs/decisions.md`, enforced by `tools/check
 
 Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any watch count, download, rating or review number, "works with every Garmin", accuracy of any kind, a "free" or "Pro" claim about the paid listing.
 
+## Device sentence and Instinct (ROADMAP 10.15, 2026-10-04)
+
+Garmin's paid-app list excludes the Instinct 2, 2S, 2X and Descent G1 and 37 older products (Forerunner 245/945 and others), plus 11 listed products no paid app is sold on; the paid HeroFace Pro cannot reach any of them, the Free twin can (counts in [`../docs/compatibility.md`](../docs/compatibility.md) "Paid vs free reach"). That is a genuine plus, so a one-sentence version is kept in `meta.yaml` `held_back_text`: "HeroFace Pro is sold only on watches Garmin lists for paid apps; this version also installs on some watches Pro cannot be bought for, including the Instinct 2, 2S, 2X and Descent G1." It is not in `paste.md` because the claim is only true once the Free listing's own Compatible Devices list shows those watches and the Instinct upload is approved (the template's rule, [`../../reports/listing-template.md`](../../reports/listing-template.md) section 4); paste it after "HeroFace Pro adds" then.
+
 ## Instinct
 
 The Instinct ring-gauge sentence is out of the paste text until the upload is approved and the store lists those watches; the sentence is kept in `meta.yaml` (`held_back_text`; ADR-002, Instinct family, proposed).
@@ -55,6 +59,8 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 | Monetization | No: Free asks no payment and unlocks nothing in-app (Pro is a separate app). The form's wording decides at submission |
 | App Migration | No: a new app id, not a newly compatible device on an existing app |
 | Price | $0 (free) |
+| Additional Hardware Requirements | Paste the bare URL `https://verden.watch/heroface/` only (API field `hardwareProductUrl`; the old sentence is retired, ROADMAP 10.16) |
+| Refund line | None: a free app has nothing to refund |
 
 ## After approval (plan WP6, WP9)
 
