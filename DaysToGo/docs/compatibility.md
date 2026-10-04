@@ -53,6 +53,19 @@ Seven semi-octagon products join both manifests (127 products): `instinct2`, `in
 - **Tests, 2026-10-03, container simulator:** Pro 49/49 on `instinct2`, `instinct2s`, `instinct2x`, `descentg1`, `instincte40mm`, `instincte45mm`, `instinct3solar45mm` and Free 50/50 on `instinct2`, `instincte40mm`; round and rectangular controls Pro 51/51 on `fr965`, `fr55`, `venusq2`, Free 52/52 on `fr965`. Per-language screen fit (15 languages) passes on `instinct2`, `instinct2s` and `instincte40mm`. Compile sweep, both jungles, every product: 127/127 pass on both jungles (`tools/compile_sweep.sh`, `-w --typecheck 3`). `tools/check_free_package.sh --build`: OK (210 part numbers; no Accent key on the 7 Instinct parts, Accent ids 0 to 5 on the rest; Pro-only code present in every Pro part, so the per-product exclude kept `(:pro)`).
 - **Not proven:** anything on a watch (real bezel margins, contrast, whether the on-watch "Customize" menu is offered on an Instinct: not checked for these 7).
 
+## Measured 2026-10-04 (simulator)
+
+Container simulator, SDK 9.2.0, English strings. **Simulator numbers, not device proof: nothing here ran on a wrist.** Memory is read off the simulator window's status bar ("used/limit kB", 1 kB = 1,024 B) of a `-r` build (the store export's flags) after the face drew (`FLAGS="-r -w" docker/shot.sh DaysToGo monkey.free.jungle <device>`). A test run's memory is the harness's own and is not used.
+
+| Device | Tier | Check | Result | Limit | Share |
+|---|---|---|---|---|---|
+| `fr55` (208 px MIP, 96 KB class) | Free | face drawn | 27.2 kB used | 91.8 kB | 30% |
+| `fenix5s` (218 px MIP, 96 KB class) | Free | face drawn | 27.1 kB used | 91.8 kB | 30% |
+| `fr55` | Free | full suite, `monkey.free.jungle` | 52/52 PASSED (includes `everyStateFitsThisDisplay`, `alwaysOnFrameFitsAtEveryDrift`) | n/a | n/a |
+| `fenix5s` | Free | full suite, `monkey.free.jungle` | 52/52 PASSED | n/a | n/a |
+
+Both screenshots were looked at: the Free face (time, count, "DAYS", date, ring) draws inside the bezel on both, with no footer row. This closes the "Free memory use was **not measured**" gap above for the two smallest watch-face budgets (91.8 kB); the headroom is about 64 kB, so there is no limit risk.
+
 ## Paid distribution
 
 A paid app (Pro) is sold only on the SDK's App_Sales product list (lowest tier CIQ 3.4) and in its country list, so the store's list will be shorter than this manifest. No watch count goes in the listing.
