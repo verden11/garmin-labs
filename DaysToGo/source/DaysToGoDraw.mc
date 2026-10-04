@@ -40,6 +40,16 @@ class DaysToGoDraw {
         return fonts[fonts.size() - 1];
     }
 
+    // The fonts from `first` on (largest first), so a line may step down from the font its row was sized for, never up.
+    static function fontsFrom(fonts as Array<Graphics.FontDefinition>, first as Graphics.FontDefinition) as Array<Graphics.FontDefinition> {
+        for (var i = 0; i < fonts.size(); i++) {
+            if (fonts[i] == first) {
+                return fonts.slice(i, fonts.size()) as Array<Graphics.FontDefinition>;
+            }
+        }
+        return [fonts[fonts.size() - 1]] as Array<Graphics.FontDefinition>;
+    }
+
     // Like fontUpTo, and the text must also fit `maxWidth` (the largest such font, else the smallest).
     static function fontUpToWidth(dc as Graphics.Dc, fonts as Array<Graphics.FontDefinition>, maxHeight as Number, maxWidth as Number, text as String) as Graphics.FontDefinition {
         for (var i = 0; i < fonts.size() - 1; i++) {

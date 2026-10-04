@@ -134,7 +134,7 @@ Row bands as fractions of the shorter screen side D, top to bottom (the implemen
 checks each row against the circle's chord): time 0.13–0.26, event name 0.28–0.35, hero 0.36–0.68, caption 0.69–0.76, date 0.78–0.85, optional bottom line 0.87–0.93.
 These are starting proportions, not a mock-up; the mock-up comes from the design tool.
 
-**As built (ADR-012):** fractional bands overlapped on the 208 px screen, because system fonts do not scale with the screen. So each row takes the largest font up to a height cap, the rows are stacked from those heights, and the hero takes the rest; on a small screen optional rows drop (bottom line, then name, then date) until the hero has room for its smallest font. The ring is a full circle from the top, clockwise. Screen-fit tests pass on the ten sizes listed in `compatibility.md`.
+**As built (ADR-012):** fractional bands overlapped on the 208 px screen, because system fonts do not scale with the screen. So each row takes the largest font up to a height cap, the rows are stacked from those heights, and the hero takes the rest; on a small screen optional rows give way: the bottom line first shares the date row (ADR-016), then drops, then the name, then the date, until the hero has room for its smallest font. The ring is a full circle from the top, clockwise. Screen-fit tests pass on the ten sizes listed in `compatibility.md`.
 
 **Always-on (AMOLED)**: only two lines, the hero number and the time, in dim grey (`#555555`), the whole block stepping across a 3×3 grid once a minute
 (HeroFace's `HeroFaceSleep`). No ring, no name, no date. MIP watches show the full face at all times.

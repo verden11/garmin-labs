@@ -127,6 +127,17 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 **Verification.** See `docs/compatibility.md` "Instinct family". Simulator only; real bezel margins, contrast and the on-watch Customize menu (is it offered on an Instinct?) are unmeasured.
 
+## ADR-016: The bottom line shares the date row before it is dropped; a name steps down a font
+**Status: Proposed. Written 2026-10-04 (owner authorised UI fixes without asking first); simulator only.**
+
+**Context.** A simulator screenshot on the FR965 (454 px) with a named event and Pro's bottom line on showed no bottom line: with the name, caption and date rows present the hero would have had less than its smallest font, and the layout dropped the footer first (ADR-012). The setting appeared to do nothing on the flagship watch, while a 218 px FR255S showed it. On an Instinct 3 Solar a 12-character name ended in "..." although a smaller font would have shown it whole.
+
+**Decision.** (1) When the hero would be too small, the bottom line first moves onto the date's row, joined by " · " ("Sat Dec 19 · 50%"; each date wording with the footer, then the date alone, so a chord too narrow for both keeps the date). Only if the hero is still too small does it drop, then the name, then the date, as before. A state that had room is unchanged. (2) The name tries each smaller name font before it is cut short with "...".
+
+**Why.** A feature the owner switched on must not vanish silently on the biggest screen; the date row is short enough to carry a few characters more.
+
+**Consequences.** `DaysToGoFrame.footerWithDate`, `nameFonts`; `DaysToGoView.dateCandidates`; test `bottomLineIsDrawnNotSilentlyDropped` (round, 218 px and up). Not changed: a 320 px rectangle (venusq2) still drops the name and the bottom line for a long stack, and the Instinct has no bottom line (ADR-015). Instinct 3 Solar still cuts a 12-character name (the font is already the smallest). The middle dot renders in the FR965 simulator font; not seen on a wrist.
+
 ## Reference code
 
 `docs/reference/` (the verified first draft of the logic, the on-watch picker and the tools) was superseded by `source/` and `tools/`, then deleted; its history is in the research notes.

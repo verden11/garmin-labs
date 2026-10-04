@@ -53,7 +53,7 @@ components:
 
 time · event name (accent, optional) · **hero** · caption · date (words) · bottom line (optional, off by default).
 
-Each row takes the largest font up to a height cap; the hero takes the rest. On a small screen optional rows drop, footer first, then name, then date, until the hero has room for its smallest font (ADR-012). Every text is measured against the round chord at its row; a long name shrinks and then ends in "...".
+Each row takes the largest font up to a height cap; the hero takes the rest. On a small screen optional rows first change shape and then drop: when the bottom line cannot have a row of its own it shares the date row ("Sat Dec 19 · 50%", ADR-016), then it drops, then the name, then the date, until the hero has room for its smallest font (ADR-012). A name steps down a font before it is cut short. Every text is measured against the round chord at its row; a long name shrinks and then ends in "...".
 
 ## Always-on (AMOLED)
 

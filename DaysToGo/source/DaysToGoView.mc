@@ -54,7 +54,8 @@ class DaysToGoView extends WatchUi.WatchFace {
         var radius = layout.contentRadius();
         drawRow(dc, layout, radius, rows.timeTop, frame.timeFont, [state.time] as Array<String>, DaysToGoPalette.TEXT);
         if (frame.showName) {
-            drawRow(dc, layout, radius, rows.nameTop, frame.nameFont, [state.name] as Array<String>, state.accent);
+            dc.setColor(state.accent, Graphics.COLOR_TRANSPARENT);
+            DaysToGoDraw.line(dc, layout, radius, rows.nameTop, dc.getFontHeight(frame.nameFont), frame.nameFonts, [state.name] as Array<String>, 0);
         }
         dc.setColor(state.phase == DaysToGoConfig.PHASE_TODAY ? state.accent : DaysToGoPalette.TEXT, Graphics.COLOR_TRANSPARENT);
         DaysToGoDraw.line(dc, layout, radius, rows.heroTop, rows.heroHeight,
@@ -63,12 +64,27 @@ class DaysToGoView extends WatchUi.WatchFace {
             drawRow(dc, layout, radius, rows.captionTop, frame.captionFont, state.captionLines, DaysToGoPalette.MUTED);
         }
         if (frame.showDate) {
-            drawRow(dc, layout, radius, rows.dateTop, frame.smallFont, state.dateLines, DaysToGoPalette.MUTED);
+            drawRow(dc, layout, radius, rows.dateTop, frame.smallFont, dateCandidates(state, frame), DaysToGoPalette.MUTED);
         }
         var footer = state.footer;
-        if (frame.showFooter && footer != null) {
+        if (frame.showFooter && !frame.footerWithDate && footer != null) {
             drawRow(dc, layout, radius, rows.footerTop, frame.smallFont, [footer] as Array<String>, DaysToGoPalette.MUTED);
         }
+    }
+
+    // The date's wordings. With the bottom line sharing the row, each one also with the footer first, then the date
+    // alone, so a chord too narrow for both still keeps the date.
+    private function dateCandidates(state as DaysToGoState, frame as DaysToGoFrame) as Array<String> {
+        var footer = state.footer;
+        if (!frame.footerWithDate || footer == null) {
+            return state.dateLines;
+        }
+        var result = [] as Array<String>;
+        for (var i = 0; i < state.dateLines.size(); i++) {
+            result.add(state.dateLines[i] + DaysToGoConfig.FOOTER_JOIN + footer);
+        }
+        result.addAll(state.dateLines);
+        return result;
     }
 
     // One row: the longest wording that fits the chord in the row's font.

@@ -77,6 +77,9 @@ class DaysToGoConfig {
     static const FOOTER_BATTERY = 1;
     static const FOOTER_STEPS = 2;
 
+    // Between the date and the bottom line when they share a row.
+    static const FOOTER_JOIN = " · ";
+
     static const NAME_MAX_LENGTH = 16;
     static const ACCENT_COUNT = 6;
     static const DAYS_PER_YEAR = 365;

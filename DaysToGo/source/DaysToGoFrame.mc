@@ -16,6 +16,10 @@ class DaysToGoFrame {
     var showName as Boolean;
     var showDate as Boolean;
     var showFooter as Boolean;
+    // The bottom line shares the date's line (a row of its own would squeeze the hero out), so it is not dropped.
+    var footerWithDate as Boolean = false;
+    // The name steps down a font before it is cut short with "...".
+    var nameFonts as Array<Graphics.FontDefinition>;
 
     // `sleeping` keeps only the time and the hero (always-on).
     function initialize(dc as Graphics.Dc, layout as DaysToGoLayout, state as DaysToGoState, sleeping as Boolean) {
@@ -26,6 +30,7 @@ class DaysToGoFrame {
             timeFont = DaysToGoDraw.fontUpToWidth(dc, DaysToGoLayout.TIME_FONTS, cap, layout.topBandWidth(cap), state.time);
         }
         nameFont = DaysToGoDraw.fontUpTo(dc, DaysToGoLayout.NAME_FONTS, layout.capFor(DaysToGoLayout.NAME_MAX_PERMILLE));
+        nameFonts = DaysToGoDraw.fontsFrom(DaysToGoLayout.NAME_FONTS, nameFont);
         captionFont = DaysToGoDraw.fontUpTo(dc, DaysToGoLayout.CAPTION_FONTS, layout.capFor(DaysToGoLayout.CAPTION_MAX_PERMILLE));
         smallFont = DaysToGoDraw.fontUpTo(dc, DaysToGoLayout.SMALL_FONTS, layout.capFor(DaysToGoLayout.SMALL_MAX_PERMILLE));
         showName = !sleeping && state.name.length() > 0;
@@ -37,8 +42,11 @@ class DaysToGoFrame {
         var minHero = dc.getFontHeight(heroFonts[heroFonts.size() - 1]);
         rows = plan(dc, layout, hasCaption);
         while (rows.heroHeight < minHero && (showFooter || showName || showDate)) {
-            if (showFooter) {
+            if (showFooter && showDate && !footerWithDate) {
+                footerWithDate = true;
+            } else if (showFooter) {
                 showFooter = false;
+                footerWithDate = false;
             } else if (showName) {
                 showName = false;
             } else {
@@ -54,6 +62,6 @@ class DaysToGoFrame {
             showName ? dc.getFontHeight(nameFont) : 0,
             hasCaption ? dc.getFontHeight(captionFont) : 0,
             showDate ? dc.getFontHeight(smallFont) : 0,
-            showFooter ? dc.getFontHeight(smallFont) : 0);
+            showFooter && !footerWithDate ? dc.getFontHeight(smallFont) : 0);
     }
 }

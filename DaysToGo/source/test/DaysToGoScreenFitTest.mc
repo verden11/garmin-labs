@@ -42,6 +42,34 @@ function everyStateFitsThisDisplay(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// A bottom line the owner switched on is drawn, on its own row or sharing the date's, with a named event too (the
+// busiest stack: it used to vanish on a 454 px display). Asked of round displays of 218 px and up only: the Instinct
+// has no bottom line (ADR-015), and a 320 px rectangle's circle leaves the hero too little room for the name and the
+// bottom line both (they give way, in that order, as they always did).
+(:test)
+function bottomLineIsDrawnNotSilentlyDropped(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new DaysToGoLayout(dc);
+    var view = new DaysToGoView();
+    if (System.getDeviceSettings().screenShape != System.SCREEN_SHAPE_ROUND || dc.getHeight() < 218) {
+        return true;
+    }
+    var states = [DaysToGoTestStates.withFooter(DaysToGoTestStates.upcoming(76, 0, "Anna and Tom"), "50%"),
+                  DaysToGoTestStates.withFooter(DaysToGoTestStates.upcoming(365, 0, "Race"), "100%")] as Array<DaysToGoState>;
+    for (var i = 0; i < states.size(); i++) {
+        DaysToGoDraw.boxes = [] as Array<Array>;
+        view.drawState(dc, layout, states[i]);
+        var found = false;
+        var boxes = DaysToGoDraw.boxes as Array<Array>;
+        for (var b = 0; b < boxes.size(); b++) {
+            found = found || (boxes[b][4] as String).find(states[i].footer as String) != null;
+        }
+        DaysToGoDraw.boxes = null;
+        Test.assert(found);
+    }
+    return true;
+}
+
 // The always-on frame at each of the nine drift positions, for the widest heroes.
 (:test)
 function alwaysOnFrameFitsAtEveryDrift(logger as Test.Logger) as Boolean {
