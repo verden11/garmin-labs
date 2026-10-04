@@ -39,7 +39,8 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 
 | Field | Reason |
 |---|---|
-| Screen Images | One device is enough (HeroSet shipped five shots from a single device and passed review). The always-on shot is deferred ([`../docs/status.md`](../docs/status.md), item 3); see [`screenshots.md`](screenshots.md). All five are 3.5–20 KB; the hero is 241 KB, the cover 76 KB. |
+| Screen Images | Re-rendered 2026-10-04 (owner brief): five, the best five for Pro, **one from an Instinct E 40 mm** (Pro is not sold on the Instinct 2 family, so the Instinct 2 is not used here), all from the current Pro build in the simulator. The set shows what Pro has: the temperature (1, 3, 4), the metric per bar and seconds (2), HeroSet mode (4). The always-on shot is still deferred ([`../docs/status.md`](../docs/status.md), item 3); see [`screenshots.md`](screenshots.md) for how and the sizes (all under 20 KB, hero 250 KB, cover 79 KB). The 2026-09-21 set is in `old/`. **OWNER approves the looks.** |
+| Cover, hero, icons | Re-rendered 2026-10-04. **Design proposal, OWNER decides:** Free and Pro share the mark; Pro adds a small white "PRO" pill in the ring's opening (cover, both icons) and beside the name (hero). Pro text never says "free"; no price in any image. The on-watch launcher icon is shared by both tiers and unchanged. |
 | Collects user data | Nothing leaves the watch. |
 | App Migration | No: support is the explicit 117-product list in [`../docs/compatibility.md`](../docs/compatibility.md); letting the store add untested devices would ship a layout nobody has run. |
 | Monetization | No. The form's own wording: Yes only if the app requests payment to enable features, or asks for tips or donations. HeroFace does neither; it is paid through the store, which is not what this field asks. |

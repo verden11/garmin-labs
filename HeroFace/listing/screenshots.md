@@ -1,86 +1,91 @@
-# Screenshots and store images
+# HeroFace Pro: screenshots and store images
 
-Status: 2026-09-21; the cover, hero and both device icons were re-rendered 2026-10-04 from `src/*.html` after the pixel-grid launcher icon (ROADMAP 11.1; not yet uploaded, ROADMAP 10.5). Everything below is captured and lives in `listing/`.
-The always-on shot was **deferred to a post-launch listing update** (user call,
-2026-09-21) — it needs a human at the simulator GUI, and the five screens here
-satisfy the store requirement without it.
+Status 2026-10-04: **a full set rendered from the current Pro build (`monkey.jungle`), simulator only, for the owner's look-approval; nothing uploaded** (ROADMAP 9.7, 1.5, 10.5). Everything the store form takes is in this folder: five screen images in `screens/`, `cover-500.png`, `hero-1440x720.png`, `icon-24-128.png`, `icon-64-128.png`. The superseded set (the 2026-09-21 FR965 and fenix5 captures, the first simulator batch and the old cover, hero and icons) is in `old/`. The Free twin's set is in [`../listing-free/screenshots.md`](../listing-free/screenshots.md); the two are made the same way.
 
-## What exists
+## The five screen images (upload order)
 
-`listing/screens/`, in upload order:
+All from the Pro build, native simulator pixels, clock 2026-10-04 10:09. No price in any image.
 
-| File | Screen | Mode | State | Source |
-|---|---|---|---|---|
-| `1-everyday.png` | 240 px | Everyday | Part-filled: 3406 steps, 20 intensity minutes, 7 floors | `fenix5` simulator |
-| `2-goals-met.png` | 240 px | Everyday | All three met: green bars, check marks, green ring, 1-day streak | simulator |
-| `3-heroset.png` | 454 px | HeroSet | 20/45/10 reps, rank 2, orange ring | **FR965**, System → Screenshot |
-| `4-heroset-complete.png` | 454 px | HeroSet | All three met, rank 2, streak 1 | **FR965** |
-| `5-no-barometer.png` | 240 px | Everyday | STEPS / INT / **MOVE** — the fallback when the watch has no barometer | `fr245` simulator |
+| # | File | Device | What it shows (what Pro has) |
+|---|---|---|---|
+| 1 | `screens/1-everyday.png` | `fr965`, 454 px | Everyday: 8420 steps, 18 intensity minutes, 7 floors, ring, blue accent, the temperature under the time |
+| 2 | `screens/2-your-bars.png` | `fr965`, 454 px | **Pro's own:** the bars set to distance, intensity minutes and floors, seconds beside the time, the pale magenta accent |
+| 3 | `screens/3-goals-met.png` | `fr965`, 454 px | All three goals met: green bars and ring, check marks, gold streak line |
+| 4 | `screens/4-heroset.png` | `fr965`, 454 px | HeroSet mode: push-ups, sit-ups, squats, rank and streak, gold ring (the HeroSet value is canned, see below) |
+| 5 | `screens/5-instinct-e40.png` | **`instincte40mm`, 166 px (the Instinct family)** | Black and white, the ring is a gauge in the round window (closed here), the time and date left of it, streak, three reversed labels for finished goals |
 
-The composed images, all in `listing/`: `cover-500.png` (store cover),
-`hero-1440x720.png`, `icon-24-128.png` and `icon-64-128.png` (optional device
-icons). Sources are in `listing/src/`; re-render after re-taking any screen:
+The Instinct has no Accent setting, so there is nothing to choose; the goals-met state was picked because it is the best-looking frame (the finished-goal pills and the streak line, "STEPS" in full; `instinct2` reads "STEP"). **Pro is sold for the Instinct E and Instinct 3 watches, not the Instinct 2 family** (Garmin's paid-app product list, `../../reports/Garmin policies and design guidelines.md`), so the Pro Instinct picture is an Instinct E 40 mm. The 166 px picture is the display's own pixel size; the store scales it. `instinct3solar45mm` did not save in the scripted run (it opens on its glance), so it was not used.
+
+## How they were made
+
+`tools/listing_shots.sh` drives the simulator in the container, one `docker/capture.sh` run, one scenario per picture (about 2 minutes each, one container at a time):
+
+```sh
+cd <repo root>
+docker/capture.sh HeroFace tools/listing_shots.sh pro      # writes HeroFace/listing/screens/1-…5-*.png
+```
+
+- The face is built in a **private copy** of the project, so `source/` and the repo's `properties.xml` are never touched. The clock is the simulator's own (`faketime`), the activity data is typed into Simulation > Activity Monitoring, and each file is the simulator's File > Save Screen Capture, so the size is the device's own.
+- Settings a user would change are set by editing the private copy's `resources-pro/settings/properties.xml`: shot 2 sets `Accent` 2 (Magenta), `Seconds` true, `Slot1` 4 (distance), `Slot2` 3 (intensity minutes), `Slot3` 5 (floors); the others use the defaults (blue, no seconds, bars on Auto).
+- **HeroSet mode (shot 4) is canned.** The simulator runs one app at a time, so the face never sees HeroSet's complication. The private copy's `HeroFaceLink.mc` is patched (`isLinked()` true, `progress()` parses `1|20261004|60|45|28|2|40|3|20261003|100`: 60 / 45 / 28 reps of a goal of 100, rank 2, 40 % into the rank, streak 3). Everything after that is the real drawing path, the same one the on-watch link feeds; the numbers are made up and say nothing about HeroSet.
+- Simulator data is fake: the 68° temperature, battery 50, heart rate 80, 421 kcal and the 4.2 mi distance are canned or derived. **Never crop a screenshot into a claim about real readings.** The simulator's activity history does not produce a multi-day streak, so shot 3 reads "1-DAY STREAK".
+- The FR965 wrist captures from 2026-09-20/21 (`old/3-heroset.png`, `old/4-heroset-complete.png`) are of the pre-split paid build and are no longer used.
+
+## Cover, hero, icons
+
+Sources in `src/`, rendered by headless Chrome (cover 500x500, hero 1440x720, icon 128x128; the fonts come from Google Fonts, so a network is needed). From the repo root:
 
 ```sh
 CH="/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-cd listing
-"$CH" --headless=new --hide-scrollbars --allow-file-access-from-files \
-  --virtual-time-budget=5000 --window-size=500,500 \
-  --screenshot="$PWD/cover-500.png" "file://$PWD/src/cover.html"
-"$CH" --headless=new --hide-scrollbars --allow-file-access-from-files \
-  --virtual-time-budget=5000 --window-size=1440,720 \
-  --screenshot="$PWD/hero-1440x720.png" "file://$PWD/src/hero.html"
-"$CH" --headless=new --hide-scrollbars --allow-file-access-from-files \
-  --virtual-time-budget=5000 --window-size=128,128 \
-  --screenshot="$PWD/icon-24-128.png" "file://$PWD/src/icon.html"
-python3 src/quantize64.py icon-24-128.png icon-64-128.png
+cd HeroFace/listing
+"$CH" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=5000 \
+  --window-size=500,500 --screenshot="$PWD/cover-500.png" "file://$PWD/src/cover.html"
+"$CH" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=5000 \
+  --window-size=1440,720 --screenshot="$PWD/hero-1440x720.png" "file://$PWD/src/hero.html"
+"$CH" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=5000 \
+  --window-size=128,128 --screenshot="$PWD/icon-24-128.png" "file://$PWD/src/icon.html"
+python3 src/quantize64.py icon-24-128.png icon-64-128.png     # the "64 Color" icon: every channel snapped to 00/55/AA/FF
 ```
 
+The 24-bit icon is the SVG mark (the same shapes as `resources/drawables/launcher_icon.svg`) rendered at 128 px; the 64-colour icon is that render snapped to Garmin's 64-colour palette, because Chrome antialiases the edges into off-palette colours.
 
-## Simulator captures, 2026-10-04 (native pixels, scripted)
+**Free versus Pro (a design proposal for the owner to approve):** the same mark in both. Pro adds a small white "PRO" pill in the opening of the ring, in the cover, both icons and (as a larger pill beside the name) the hero; Free has the plain mark. The pill is white with black text, so it clears the gold shield and every channel is palette-safe. The on-watch launcher icon is shared by both tiers and is not changed here (that is `resources/`, and an owner call).
 
-`tools/listing_shots.sh` drives the simulator in the container (`../docker/capture.sh HeroFace tools/listing_shots.sh pro`): the simulator's own clock is set (`faketime`), settings are the face's real defaults edited in a private copy, and each file is what the simulator's File > Save Screen Capture writes, so the pixel size is the device's own. Re-run after any layout change. Simulator values (weather, stress, heart rate, battery) are fake: do not crop them into a claim about real readings.
+Hero: the copy on the left (the name with its PRO pill and one sentence, no "free", no price), three round watches on the right: everyday, Pro's own (centre), HeroSet mode. The Instinct is not in the hero (a square 166 px picture clips in the round frame).
 
-New files beside the five above (everyday mode only; HeroSet mode stays a watch capture): `listing/screens/new-1-everyday.png` (fr965, 8420 steps, 18 intensity minutes, 7 floors), `new-2-goals-met.png` (all three met), `new-3-instinct2.png` and `new-4-instinct-e40.png` (the Instinct family: black and white, the ring is a gauge in the round window, no footer), and the Pro-only `new-5-seconds.png`. `listing-free/screens/` has the same set without the seconds shot. The simulator's activity history did not produce a multi-day streak, so only "1-DAY STREAK" appears. A goals-met Instinct shot was dropped: the check mark plus STEP does not fit the 40 px column and reads "ST.".
+## Limits and how they were checked
+
+Garmin's limits are in [`../../reports/listing-template.md`](../../reports/listing-template.md): screens under 150 KB each, cover 500x500 under 300 KB, hero 1440x720 under 2048 KB, device icons 128x128. Checked 2026-10-04 with:
+
+```sh
+sips -g pixelWidth -g pixelHeight screens/*.png cover-500.png hero-1440x720.png icon-*.png
+stat -f '%z %N' screens/*.png cover-500.png hero-1440x720.png icon-*.png          # bytes
+```
+
+| File | Pixels | Size |
+|---|---|---|
+| `screens/1-everyday.png` | 454x454 | 16.9 KB |
+| `screens/2-your-bars.png` | 454x454 | 16.9 KB |
+| `screens/3-goals-met.png` | 454x454 | 16.0 KB |
+| `screens/4-heroset.png` | 454x454 | 19.3 KB |
+| `screens/5-instinct-e40.png` | 166x166 | 1.6 KB |
+| `cover-500.png` | 500x500 | 79 KB |
+| `hero-1440x720.png` | 1440x720 | 250 KB |
+| `icon-24-128.png` | 128x128 | 3.6 KB |
+| `icon-64-128.png` | 128x128 | 1.4 KB |
 
 ## Still missing
 
-**Always on.** Capture it on the FR965, not the simulator: the sleep render is
-the one thing the simulator cannot vouch for, and it is what Garmin's burn-in
-rules apply to ([`docs/status.md`](../docs/status.md) §1).
-
-## Which source for which shot
-
-Everyday mode has to come from the simulator and HeroSet mode from the watch,
-because each is only real where it is captured:
-
-- The simulator runs one app at a time, so HeroSet never publishes its
-  complication there. `HeroFaceLink.progress` is gated on `_id != null`, which
-  is only set when `find()` sees the live complication — a cached value in
-  storage does not stand in for it. So the simulator always draws everyday
-  mode, whatever it has stored.
-- The watch has HeroSet installed and publishing, so it always draws HeroSet
-  mode. FR965: System → Screenshot writes a true 454×454 file.
-
-Set simulator state under Simulation → Activity Monitor and Simulation → Time,
-then File → Save Screenshot.
-
-```sh
-monkeyc -d fr965 -f monkey.jungle -o bin/HeroFace.prg -y ~/.garmin-connectiq/keys/developer_key
-monkeydo bin/HeroFace.prg fr965
-```
+**Always on.** Capture it on the FR965, not the simulator: the sleep render is the one thing the simulator cannot vouch for, and it is what Garmin's burn-in rules apply to ([`../docs/status.md`](../docs/status.md) §1). Deferred to a later listing update (user call, 2026-09-21).
 
 ## Where they go
 
 - **Store:** upload in the submission form, in the numbered order above.
-- **Website:** copied to `../site/public/heroface/screens/` as
-  `everyday.png`, `goals-met.png`, `heroset.png`, and wired into
-  `../site/src/apps/heroface/facts.ts`. The `Always on` slot there
-  still renders a "Screenshot pending" placeholder.
+- **Website:** `../../site/public/heroface/screens/` has the 2026-09 images (`everyday.png`, `goals-met.png`, `heroset.png`); the site is not touched here. Refreshing it from this set is a separate step.
 
 ## Honesty rules
 
-- Capture the real face, never a mock-up.
+- Capture the real face, never a mock-up; the one patched thing is the canned HeroSet value (shot 4), said above.
 - The numbers on screen must be ones the watch could actually produce.
-- No claim in the image that the listing itself could not make
-  ([`docs/status.md`](../docs/status.md)).
+- No claim in the image that the listing itself could not make ([`../docs/release-contract.md`](../docs/release-contract.md)): no battery, always-on, accuracy, watch count, rating or price.
+- The Pro listing's text never says "free", and neither does an image.

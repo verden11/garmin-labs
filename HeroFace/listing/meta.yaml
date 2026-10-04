@@ -25,9 +25,16 @@ package:
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-004 (the $2.50 tier for every paid app)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  cover: cover-500.png
-  hero: hero-1440x720.png
-  screens: screens/ (5 FR965/simulator shots uploaded; new-*.png are 2026-10-04 simulator captures)
+  status: rendered 2026-10-04, owner look-approval pending, not uploaded   # old/ holds the superseded set
+  cover: cover-500.png            # 500x500, 79 KB; the mark with a white PRO pill
+  hero: hero-1440x720.png         # 1440x720, 250 KB
+  screens:                        # simulator, Pro build, upload order; each under 150 KB
+    - screens/1-everyday.png      # fr965 454 px
+    - screens/2-your-bars.png     # fr965, Pro's own: distance / intensity / floors, seconds, Magenta accent
+    - screens/3-goals-met.png     # fr965
+    - screens/4-heroset.png       # fr965, HeroSet mode (canned HeroSet value, see screenshots.md)
+    - screens/5-instinct-e40.png  # instincte40mm 166 px: THE INSTINCT ONE (Pro is not sold on the Instinct 2 family)
+  icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; the mark with a PRO pill
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/heroface/

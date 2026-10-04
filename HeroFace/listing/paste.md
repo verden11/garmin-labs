@@ -91,11 +91,13 @@ Whatever the Category choice offers.
 
 ## Screen Images (under 150 KB each, upload in this order)
 
-1. [`screens/1-everyday.png`](screens/1-everyday.png)
-2. [`screens/2-goals-met.png`](screens/2-goals-met.png)
-3. [`screens/3-heroset.png`](screens/3-heroset.png)
-4. [`screens/4-heroset-complete.png`](screens/4-heroset-complete.png)
-5. [`screens/5-no-barometer.png`](screens/5-no-barometer.png)
+**OWNER approves the looks of all images (screens, cover, hero, icons) before upload.** Rendered 2026-10-04 from the current Pro build in the simulator; how and from what: [`screenshots.md`](screenshots.md). Caption in brackets is for you, not a form field.
+
+1. [`screens/1-everyday.png`](screens/1-everyday.png) (FR965: the time, three goal bars, the ring, the temperature)
+2. [`screens/2-your-bars.png`](screens/2-your-bars.png) (FR965, Pro's own: bars you choose, seconds beside the time, the magenta accent)
+3. [`screens/3-goals-met.png`](screens/3-goals-met.png) (FR965: every goal met, check marks, the streak)
+4. [`screens/4-heroset.png`](screens/4-heroset.png) (FR965: HeroSet mode, reps, rank and streak)
+5. [`screens/5-instinct-e40.png`](screens/5-instinct-e40.png) (**the Instinct one**: Instinct E 40 mm, black and white, the ring as a gauge in the round window)
 
 ## Device icons (optional, 128×128)
 

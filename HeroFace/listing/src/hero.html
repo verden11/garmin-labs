@@ -1,15 +1,18 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
-<!-- Store hero image (1440x720). Render: see ../screenshots.md. -->
+<!-- Store hero image (1440x720), HeroFace Pro. The screens are the uploaded ones (../screens/): everyday, Pro's own, HeroSet mode.
+     The PRO pill beside the name is the same pill as in the mark. Render: ../screenshots.md. -->
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#000;}
   body{display:flex;align-items:center;font-family:'Archivo',sans-serif;color:#fff;
        background:radial-gradient(900px 600px at 72% 50%,#0d1a2a 0%,#000 70%);}
   .copy{box-sizing:border-box;width:560px;padding-left:72px;padding-right:24px;}
-  .mark{width:74px;height:74px;display:block;margin-bottom:24px;}
-  h1{margin:0;font-size:72px;font-weight:800;font-stretch:112%;letter-spacing:-2px;line-height:1;}
+  .mark{width:92px;height:92px;display:block;margin-bottom:22px;}
+  h1{margin:0;font-size:66px;font-weight:800;font-stretch:112%;letter-spacing:-2px;line-height:1;white-space:nowrap;}
   h1 span{color:#55AAFF;}
+  h1 .pro{display:inline-block;vertical-align:middle;margin:-8px 0 0 12px;padding:6px 16px 5px;border-radius:999px;
+          background:#fff;color:#000;font-size:28px;font-stretch:100%;letter-spacing:.5px;}
   p{margin:24px 0 0;font-size:30px;line-height:1.3;color:#cfd6df;font-weight:450;}
   .screens{display:flex;align-items:center;gap:20px;padding-right:40px;}
   .w{border-radius:50%;overflow:hidden;background:#000;flex:none;
@@ -19,13 +22,13 @@
   .l{width:310px;height:310px;}
 </style></head><body>
   <div class="copy">
-    <svg class="mark" viewBox="2 2 61 61"><path d="M13.408 51.592A27 27 0 1 1 51.592 51.592" fill="none" stroke="#555555" stroke-width="5" stroke-linecap="round"/><path d="M13.408 51.592A27 27 0 0 1 32.5 5.5" fill="none" stroke="#55AAFF" stroke-width="5" stroke-linecap="round"/><path d="M20 22L32.5 18.5L45 22L43.5 35Q42.5 41 32.5 47Q22.5 41 21.5 35Z" fill="#FFAA00"/><path d="M26 25H30V30H35V25H39L38 36L35 38.5V35L32.5 32.5L30 35V38.5L27 36Z" fill="#000000"/></svg>
-    <h1>Hero<span>Face</span></h1>
-    <p>The time first, and today&rsquo;s goals underneath.</p>
+    <svg class="mark" viewBox="2 2 61 61"><path d="M13.408 51.592A27 27 0 1 1 51.592 51.592" fill="none" stroke="#555555" stroke-width="5" stroke-linecap="round"/><path d="M13.408 51.592A27 27 0 0 1 32.5 5.5" fill="none" stroke="#55AAFF" stroke-width="5" stroke-linecap="round"/><path d="M20 22L32.5 18.5L45 22L43.5 35Q42.5 41 32.5 47Q22.5 41 21.5 35Z" fill="#FFAA00"/><path d="M26 25H30V30H35V25H39L38 36L35 38.5V35L32.5 32.5L30 35V38.5L27 36Z" fill="#000000"/><rect x="20.5" y="51.5" width="24" height="10.5" rx="5.25" fill="#FFFFFF"/><text x="32.5" y="59.6" text-anchor="middle" font-family="Archivo,sans-serif" font-weight="800" font-size="8.6" letter-spacing=".4" fill="#000000">PRO</text></svg>
+    <h1>Hero<span>Face</span><span class="pro" style="color:#000">PRO</span></h1>
+    <p>The time first, and the three goals you choose underneath.</p>
   </div>
   <div class="screens">
     <div class="w s"><img src="../screens/1-everyday.png"></div>
-    <div class="w l"><img src="../screens/3-heroset.png"></div>
-    <div class="w s"><img src="../screens/2-goals-met.png"></div>
+    <div class="w l"><img src="../screens/2-your-bars.png"></div>
+    <div class="w s"><img src="../screens/4-heroset.png"></div>
   </div>
 </body></html>
