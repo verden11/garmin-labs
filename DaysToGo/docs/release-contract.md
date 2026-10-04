@@ -11,9 +11,13 @@ What the listing, the store page and the site may claim. Copy of the rules in [`
 | No permissions; nothing leaves your watch | Manifest has an empty permission list; no network code |
 | Works without your phone after setup | No phone code path |
 | Counts to New Year's Day until you set an event | `DaysToGoSettings` defaults |
+| **Pro only:** an event with a start time counts down to the minute (hours and minutes in the last 24 hours) | Unit tests (`DaysToGoZoneTest`, ADR-018 (the event minute and zone)), simulator only; the wrist checks in `status.md` (travel day, a DST day, phone-set Minute and zone surviving a reopened settings screen) before the upload |
+| **Pro only:** you can set the time zone the event starts in, as a UTC offset, and the countdown follows that clock | Same tests. The sentence must say the wearer chooses the offset (the watch keeps no time zone rules) |
+| The count of days stays on your own calendar and changes at your own midnight, also with an event time zone set | Unit tests (`dayCountFlipsAtWatchMidnightWhateverTheZone`); device wear day before the claim goes live |
 
 ## Forbidden
 
+- **Pro only (ADR-018 (the event minute and zone)):** "adjusts for daylight saving", "handles daylight saving", "knows the time zone of a city", "automatic time zones", or any wording that says the face works out an event's time zone or its DST. The face has no time-zone database: the wearer picks a UTC offset. **"Works across time zones" is allowed only in a sentence that also says the wearer picks the offset;** alone it reads as a DST promise, so it is forbidden. Never claim "to the second" (the face is to the minute), and never claim the Minute or zone settings are on the watch itself (phone only).
 - Battery figures, always-on ghosting, MIP contrast: unmeasured on a device.
 - Any watch count, or "works on X" for a watch only the simulator has seen (the store's list is shorter than the manifest; a paid app is sold only on Garmin's own list).
 - Any download, rating or review number.
@@ -30,7 +34,7 @@ What the listing, the store page and the site may claim. Copy of the rules in [`
 
 ## Free and Pro listings (ADR-014 (Free + Pro ladder), accepted 2026-10-04)
 
-- The same allowed and forbidden lists apply to both listings. Nothing is claimed that only the other tier ships: the Free listing never says it has timed events or a battery or steps line; the Pro listing's "adds" list is exactly those two (plus any later Pro-only item once built).
+- The same allowed and forbidden lists apply to both listings. Nothing is claimed that only the other tier ships: the Free listing never says it has timed events or a battery or steps line; the Pro listing's "adds" list is those two plus "to the minute" (Minute and Event time zone, ADR-018), plus any later Pro-only item once built.
 - "Free" wording is allowed **only** in the Free listing (which is $0). The Pro listing keeps the existing rule: no "free" wording while the price is paid.
 - Each listing names the other tier's store URL on its first line; the URL is a placeholder until both are live. The Free listing says "Get Days To Go Pro: <URL>"; the Pro listing says "Also available: Days To Go (<URL>)", **never "Try free first"** or any "free" wording. No download, rating or review number about either.
 - No device sentence and no watch model name goes in either listing, now or after approval (owner, 2026-10-04): the store's device tab is the claim, and there is no watch count. The review request ("If this face works for you, a rating in the store helps other people find it.", DayArc's wording) is in the Free listing only, by the owner's decision of 2026-10-04; it asks and claims nothing, so it is not a claim about ratings.

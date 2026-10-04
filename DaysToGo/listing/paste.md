@@ -5,7 +5,7 @@ Fill every <...> before pasting.
 ## Title
 
 ```text
-Days To Go Pro: Countdown, Hours, Footer
+Days To Go Pro: Countdown to the Minute
 ```
 
 ## Description
@@ -19,10 +19,13 @@ One number
 The days left is the biggest thing on the screen, at the largest size your watch can draw. The time above it, the date below. A thin ring around the bezel drains through the last year and fills on the day itself. No heart rate, no weather.
 
 Any date, your own event
-A birthday, an anniversary, a race, a trip — any date, with your own name for it (up to 16 characters), a set of six accent colours, and a count in days or in weeks and days. New Year's Day by default, so it is never empty; "Every year" makes a birthday or anniversary roll over by itself. An event with a time turns its last 24 hours into hours and minutes, and an optional bottom line can show your battery or step count.
+A birthday, an anniversary, a race, a trip — any date, with your own name for it (up to 16 characters), a set of six accent colours, and a count in days or in weeks and days. New Year's Day by default, so it is never empty; "Every year" makes a birthday or anniversary roll over by itself. An optional bottom line can show your battery or step count.
+
+To the minute
+Give an event a start time, down to the minute, and its last 24 hours count down in hours and minutes. If it starts in another time zone, pick the zone it starts in and the countdown follows that clock instead of yours. You choose the UTC offset that applies on the day of the event: the watch keeps no time zone rules, so it does not adjust for daylight saving.
 
 Whole calendar days
-The count is whole days on your calendar: tomorrow is 1 day, the day itself says TODAY, and afterwards it counts the days since. A date that does not exist, like 30 February, is never shown as a wrong number.
+The count is whole days on your own calendar and changes at your own midnight, in any time zone: tomorrow is 1 day, the day itself says TODAY, and afterwards it counts the days since. A date that does not exist, like 30 February, is never shown as a wrong number.
 
 One design, every screen
 Round and rectangular watches alike, full detail down to the smallest, dimming to a quiet number and clock when the screen sleeps.
@@ -42,7 +45,7 @@ Support and answers: https://verden.watch/days-to-go/support/
 ## What's New
 
 ```text
-The app is now called Days To Go Pro on the watch. Nothing changes in how it works. Also available: Days To Go, with the core countdown.
+New: count down to the minute. Give an event a start time and the time zone it starts in, and the last 24 hours count down in hours and minutes to the moment it starts. The count of days stays on your own calendar. The app is now called Days To Go Pro on the watch. Also available: Days To Go, with the core countdown.
 ```
 
 ## Hero Image
@@ -75,9 +78,9 @@ Whatever the Category choice offers.
 
 ## Screen Images
 
-1. `screens/1-hours-battery.png`
+1. `screens/1-to-the-minute.png`
 2. `screens/2-weeks-steps.png`
-3. `screens/3-days-battery.png`
+3. `screens/3-other-time-zone.png`
 4. `screens/4-rectangle.png`
 5. `screens/5-instinct.png`
 

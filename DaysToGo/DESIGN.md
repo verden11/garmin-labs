@@ -49,6 +49,10 @@ components:
 
 **One number.** Black ground. The day count is the largest thing on the screen, white, in the largest system numeric font that fits the height left over. A thin ring around the bezel drains clockwise from the top as the date approaches (square root of the share of the next 365 days still to go, so the last days stay visible) and is full, in the accent, on the day. More than a year out it is the grey track only, so a full accent ring can only mean the day itself. State is never colour alone: the words TODAY, HOURS, DAYS SINCE carry it.
 
+## Timed events, to the minute (Pro, ADR-018)
+
+A Pro event with a time (Time of day, Minute) and, optionally, an Event time zone changes **no row, font or colour**. The last 24 hours before the event's instant still read as the hero `H:MM` over the caption HOURS (for example `7:51`, rounded up to the minute so it never says `0:00` while time is left; `24:00` at most, which is the widest string and was already in the screen-fit states), with the ring as the share of those 24 hours. What the zone moves is only **when** that state starts and **when** TODAY arrives; the day count before it is whole local calendar days and flips at the watch's own midnight, so the same event shows the same number of days on any wrist. On an Instinct the hero is the same text in white on black, beside the window as before. There is no zone label on the face: the zone is a setting, never a row (one number, nothing more).
+
 ## Rows, top to bottom
 
 time · event name (accent, optional) · **hero** · caption · date (words) · bottom line (optional, off by default).

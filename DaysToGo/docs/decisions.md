@@ -7,7 +7,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 001 | Any event, countdown-first | Active |
 | 002 | Price: paid $1.99 first, one review at approval + 45 days | **Superseded** 2026-10-04 by 014 (the Free + Pro ladder; the owner retired the day-45 flip rule) and, for the price, by 017 (price: the $2.50 tier for every paid app) |
 | 003 | List settings, never `date` or `numeric` | Active |
-| 004 | Calendar-day arithmetic, no `Time.Moment` maths | Active |
+| 004 | Calendar-day arithmetic, no `Time.Moment` maths | Active; **Amended** 2026-10-04 by 018 (a Pro timed event also has an instant in its own zone; the count is unchanged) |
 | 005 | On-watch date picker | **Open**: gated by the owner's device test (plan phase 3) |
 | 006 | Device set: 117 round products (CIQ 3.0+) plus 3 rectangular AMOLED | Active |
 | 007 | Always-on is hero and time on a shifting grid | Active |
@@ -19,7 +19,9 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 013 | Ring beyond a year is the grey track only | Active |
 | 014 | Free + Pro ladder: a Free twin beside the paid app, which becomes Days To Go Pro | Active (accepted 2026-10-04: the owner approved the ladder) |
 | 015 | Instinct family: window gauge, black and white, no accent | Active (accepted 2026-10-04; simulator only) |
+| 016 | The bottom line shares the date row before it is dropped; a name steps down a font | Proposed (simulator only) |
 | 017 | Price: the $2.50 tier for every paid app | Active (accepted 2026-10-04; ships with the 1.1.0 upload) |
+| 018 | To the minute: Pro's Minute and Event time zone; the zone moves only HOURS and TODAY | Active, UNRELEASED (owner chose the headline 2026-10-04; simulator only; amends 004) |
 
 ## ADR-001: Any event, countdown-first
 
@@ -42,6 +44,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Evidence.** `research_notes/Countdown face research/settings_and_dates.md`, `rival_reviews.md`. Not yet confirmed on a phone: plan phase 3.
 
 ## ADR-004: Calendar-day arithmetic
+
+**Status: Active. Amended 2026-10-04 by [ADR-018](#adr-018-to-the-minute-pros-minute-and-event-time-zone) (to the minute).** What changes: a Pro timed event also has an instant (its written time in a chosen UTC offset), and "no time zones" is no longer true of that instant. What does not change: the day count is whole local calendar days, computed exactly as below, and flips at the watch's local midnight, in both tiers, whatever the zone. All-day events and the whole Free build are exactly as written here. The text below is the original decision.
 
 **Decision.** The count is integer arithmetic on year, month and day (`DaysToGoCalendar.dayNumber`), read from one `Gregorian.info(Time.now(), FORMAT_SHORT)`. No `Time.Moment` subtraction, no time zones, no DST. It flips at local midnight; the target date line reads a `Gregorian.moment` back with `utcInfo`.
 **Why.** Every rival day-count bug (a day off, tomorrow counted as two) is a calendar bug.
@@ -161,6 +165,41 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Open risk.** Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`); how it treats a repricing to a higher tier is not confirmed. Ship the change together with the 1.1.0 version upload (Pro), which is re-reviewed anyway. The Garmin email on repricing was cancelled (owner, 2026-10-04, [`../../ROADMAP.md`](../../ROADMAP.md) 2.1); the agent re-reads Garmin's published policies instead (`../../reports/Garmin policies and design guidelines.md`, running), so the risk stays open until that report answers it.
 
 **Reversed by.** The owner.
+
+## ADR-018: To the minute: Pro's Minute and Event time zone
+
+**Status: Active (owner chose the headline 2026-10-04: option 1 of `../../reports/Days To Go Pro research.md`, ROADMAP 3.10), UNRELEASED, simulator only. AMENDS [ADR-004](#adr-004-calendar-day-arithmetic) (calendar-day arithmetic), which is also marked Amended.** Nothing here is uploaded or on a wrist.
+
+**Context.** Pro's headline is "Count down to the minute your event starts, in the time zone it starts in." Pro already had a Time of day (the hour) and a last-24-hours H:MM; ADR-004 forbade any time zone. A race or a flight starts at a clock time in a place, and the wearer may be somewhere else.
+
+**Decision.**
+
+1. **Two Pro settings, appended** (ids never change; lists only, ADR-003 (list settings)): `Minute`, a list 0 to 59 (default 0); and `EventZone`, a list whose value 0 is **My watch time zone** (the default, today's behaviour) and whose other values are the real UTC offsets from UTC-12:00 to UTC+14:00 (40 of them, in 15-minute steps where a place uses one: UTC-09:30, UTC+05:45, UTC+12:45 and so on). The stored value is the offset as a quarter-hour index, `49 + minutes / 15`: 1 is UTC-12:00, 49 is UTC+00:00, 105 is UTC+14:00; list values are never negative. The mapping is frozen once shipped; a zone added later is a new, larger or unused value, never a re-numbering. A value outside 0 to 105, or a wrong type, falls back to the default. Hour must be set for either to matter: **an all-day event ignores Minute and zone** and stays exactly ADR-004.
+2. **There is no time-zone database on the watch, so the setting is a UTC offset, and the wearer chooses the offset the event's place is on at the event's date.** The face cannot know that a London race on 28 March is UTC+1 and on 20 March UTC+0. Docs, the phone setting's wording and the listing must not say the face "handles daylight saving"; "works across time zones" means only that the wearer sets the offset.
+3. **The event instant.** For a timed event with a chosen offset Oe: the event's written date and time are a wall-clock time at Oe, so the instant is that time minus Oe. The watch's own offset Ow (wall clock minus UTC, DST included) is read in `DaysToGoLocalTime.now()` from the same `Time.now()` as the date and the time of day. Everything is whole seconds on day numbers: no `Time.Moment` is built for the event (a Moment ends in January 2038, the year list runs to 2060), and `days * 86400` stays inside 32 bits.
+4. **The rule.** Let `d` be the calendar days from the watch's local today to the written date (ADR-004, unchanged, no zone anywhere in it); `s = Ow - Oe` (0 for My watch time zone); `T` the written time of day in seconds; and `r = d * 86400 + T - (watch local seconds of day) + s`, the seconds from now to the instant. Let `A = writtenDate + floor((T + s) / 86400)`, the watch-local day the instant falls on, and `L = max(writtenDate, A)`. A timed event is then:
+
+| # | Condition | State | Shown |
+|---|---|---|---|
+| 1 | all-day event (Hour not set) | UPCOMING if d > 0, TODAY if d = 0, PAST if d < 0 | `d` days; zone and Minute ignored; ADR-004 verbatim |
+| 2 | timed, r >= 24 h | UPCOMING | `max(d, 1)` days. The count is `d`: it drops at the **watch's** local midnight whatever the zone. The floor of 1 only matters when the zone puts the instant more than a day away while the written date is already today or behind (a 26 h shift at most); a count of 0 or a negative never shows |
+| 3 | timed, 0 < r < 24 h | HOURS | `H:MM` = `r` rounded up to the minute (0:01 at the last second, 24:00 at most); the existing hero, caption and ring |
+| 4 | timed, r <= 0 and today <= L | TODAY | the word TODAY, from the instant to the end of `L`; it is never skipped, even when the instant falls on a different local day than the written date |
+| 5 | timed, r <= 0 and today > L | PAST | days since = today - `L` |
+| 6 | every-year timed event | the first of last year's, this year's and next year's occurrence that is not PAST | last year's matters only across New Year, when a zone keeps it alive after its written day |
+
+   With My watch time zone `s` is 0, `A` is the written date, and the table is the pre-ADR-018 behaviour exactly (the existing suite passes unchanged).
+5. **What the zone may move.** Only **when the HOURS state starts** (row 3 begins when r drops under 24 h) and **when TODAY arrives** (row 4 begins when r reaches 0, and its end is the end of `L`). It does not move the day count: the count is `d`, flips at the watch's local midnight, and is the same number for the same written date in every zone. This keeps ADR-004's claim "the count flips at local midnight" true; the release contract keeps it.
+6. **Free is unchanged.** Free has no timed events, no Minute and no zone; its properties file, settings and compiled strings carry none of the new keys or words. The Pro-only strings (the two titles, "My watch time zone", the minute and offset labels) live in `resources-pro/strings` and `resources-pro-<lang>/strings`, which only the Pro jungle searches; the shared countdown code (`DaysToGoCountdown`, `DaysToGoEvent`, `DaysToGoLocalTime`) carries the arithmetic in Free too, dead there (the Free event always has zone 0), as the HOURS phase already did (ADR-014, the Free + Pro ladder). `tools/check_free_package.sh` adds `Minute` and `EventZone` to the Pro-only keys.
+7. **No new drawing.** The HOURS state already draws `H:MM` as the hero with the caption HOURS; nothing was added to a row, the layout or the fonts. On the Instinct the hero is text and works in 1 bit (the widest string, `24:00`, was already in the fit states).
+
+**Known limits (documented, not fixed).** (a) The default zone is the watch's wall clock: across the watch's own DST change the last 24 hours can be an hour off (spec rule 6); an explicit offset has no such error because it compares instants. (b) The offset is chosen by the wearer; a wrong DST choice is an hour wrong. (c) `A` uses the watch's offset now; if the watch's own DST changes between the instant and now, `L` can be a day off for an event within an hour of midnight. (d) "Days since" after a zone event counts from `L`, so for a far-east event it can read 1 day since while the written date is still today in another zone: it counts from the later of the two. (e) The seconds of the event are 0; the hero rounds up to the minute. (f) Minute and zone are phone settings only; the on-watch picker sets the date alone, so they depend on the phone route that the rival faces lost users on (untested on a wrist, ROADMAP 3.1).
+
+**Tests** (`DaysToGoZoneTest`, Pro only; the suite is Pro 66, Free 55): zone mapping at 0, 1, 49, 105 and out of range (row 0); default zone to the minute and the minute rollover (rows 3, 4, 5); midnight edge (rows 3, 4); count flips at the watch midnight over five zones and four watches (row 2); travel day with the event east of the watch and west of it (rows 2 to 5); written date reached with the instant still ahead (rows 2, 3, 4); +14 and -12, and the widest 26 h shift (rows 2 to 5); a DST-boundary day with an explicit offset, against the default's one-hour limit (row 3, limit a); a passed event and the every-year rollover, including across New Year (rows 5, 6); an all-day event with a Minute and a zone in its settings (row 1); the settings path to "7:51"; bad values fall back; Free ignores both keys.
+
+**Why.** Option 1 of the research is the only Pro line Free's calendar-day design leaves open on purpose, and it needs no permission and no memory (the arithmetic is a few dozen lines). Keeping the count local protects the one promise both listings make.
+
+**Reversed by.** The owner. A new ADR would supersede this one; the keys `Minute` and `EventZone` stay in the Pro properties file forever once shipped.
 
 ## Reference code
 

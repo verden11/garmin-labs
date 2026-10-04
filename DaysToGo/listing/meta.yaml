@@ -15,7 +15,7 @@ next:
   version: "1.1.0"
   status: drafted   # drafted | prepared | uploaded | in-review | live
   uploaded: null
-  summary: "Free + Pro ladder (proposed, ADR-014): renamed Days To Go Pro; plus the Instinct family (ADR-015, 127 products). Nothing approved or uploaded"
+  summary: "Free + Pro ladder (ADR-014): renamed Days To Go Pro; the Instinct family (ADR-015, 127 products); Pro headline To the minute (ADR-018: Minute and Event time zone, owner pick 2026-10-04). Nothing uploaded"
 package:
   file: dist/DaysToGoPro-1.1.0.iq
   products: 127   # <iq:product> lines in the manifest; the export has 210 part numbers (device variants), not a product count
@@ -29,9 +29,9 @@ assets:
   cover: cover-500.png (500x500, 17 KB; mark + name + PRO badge on a mint #55FFAA ground, 2026-10-04, ROADMAP 10.25; the dark cover is old/cover-500-dark-2026-10-04.png, the 1.0.1 face-render cover old/cover-500-face-render.png)
   hero: hero-1440x720.png (1440x720, 153 KB; mint ground, three black watch screens; the dark one is old/hero-1440x720-dark-2026-10-04.png)
   screens:   # upload order, 5 at most, each under 150 KB; simulator captures (canned data)
-    - {file: screens/1-hours-battery.png, caption: "Pro's headline, an event with a time: the last 24 hours as hours and minutes (7:51 HOURS), battery on the date row", device: fr965, px: 454, kb: 18}
+    - {file: screens/1-to-the-minute.png, caption: "Pro's headline, to the minute in the zone the event starts in: a 20:15 start at UTC+2 seen from a UTC clock at 10:09, 8:06 HOURS, battery on the date row", device: fr965, px: 454, kb: 0}
     - {file: screens/2-weeks-steps.png, caption: "Weeks and days to a named event, step count on the date row", device: fr965, px: 454, kb: 17}
-    - {file: screens/3-days-battery.png, caption: "161 days to a named event, battery on the date row, pink accent", device: fr965, px: 454, kb: 18}
+    - {file: screens/3-other-time-zone.png, caption: "The other side of the world: a 09:30 start in UTC+9 the next day is 14:21 HOURS away on a UTC clock, pink accent, battery on the date row", device: fr965, px: 454, kb: 0}
     - {file: screens/4-rectangle.png, caption: "The same face on a rectangular screen, hours state, amber accent", device: venusq2, px: "320x360", kb: 4}
     - {file: screens/5-instinct.png, caption: "Black and white, the ring is a gauge in the round window, hours state", device: instincte40mm, px: 498, kb: 3, instinct: true}   # 166 px native capture enlarged x3 without smoothing; the native one is screens/native/
   icons: [icon-64-128.png, icon-24-128.png]   # 128x128, mark + PRO badge; proposals, the real launcher icon is ROADMAP 3.3
@@ -41,8 +41,9 @@ site:
   support: https://verden.watch/days-to-go/support/
   privacy: https://verden.watch/days-to-go/privacy/
 owner_approvals:   # what only the owner may settle before paste.md is used
-  - "Title: 'Days To Go Pro: Countdown, Hours, Footer' is the plan's proposal, which keeps search words; 'Days To Go Pro' alone is the short alternative."
+  - "Title: 'Days To Go Pro: Countdown to the Minute' (39 characters; the old 'Countdown, Hours, Footer' went stale with the headline, ADR-018); 'Days To Go Pro' alone is the short alternative, 'Days To Go Pro: Countdown, Minute, Hours' keeps Hours as a search word."
   - "Line 1 of the description needs the Days To Go (Free) store URL, once that listing is live."
   - "The looks of all images before upload: hero (studio wordmark and three Pro screens, no price number, nothing about the other tier), cover (the studio mark, the name and a small amber PRO badge, now on a mint ground instead of black: Garmin brand page, ROADMAP 10.25), device icons (the same mark plus the PRO badge; the real launcher icon is ROADMAP 3.3), five screens. All rendered 2026-10-04 from the current Pro build; the 1.0.1 face-render cover is in old/."
+  - "Machine-drafted translations of the three new phone strings (Minute, Event time zone, My watch time zone; 14 languages): the owner reads or accepts them (resources-pro-<lang>/). The 'To the minute' description paragraph says the wearer picks the UTC offset and that the face does not adjust for daylight saving; the wrist checks W1 to W6 in docs/status.md come before the claim goes live."
   - "Upload condition: screens/5-instinct.png only with the package that adds the Instinct products (1.1.0)."
 open_items: "2.3 2.5 3.1 3.4 3.5 3.6 11.1"   # ids in ROADMAP.md

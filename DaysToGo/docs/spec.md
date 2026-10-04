@@ -48,12 +48,13 @@ Status: **Approved by the owner 2026-10-04, UNRELEASED, simulator only; nothing 
 | On-watch "Set date" picker | yes | yes |
 | Always-on frame, ring, hero, time, name, date lines, 15 languages | yes | yes |
 | Time of day for an event (the last 24 h read as `H:MM`, the HOURS state) | no | **yes** (Hour setting) |
+| Minute (0 to 59) and Event time zone (the watch's own, or UTC-12:00 to UTC+14:00) for a timed event: count to the minute, in the zone the event starts in (ADR-018 (the event minute and zone)) | no | **yes** (Minute and EventZone settings; Pro's headline, "To the minute") |
 | Bottom line: battery or steps (Footer setting) | no | **yes** |
 | Accent ids 6 to 11 (cyan, lime, yellow, orange, coral, magenta) | no | **deferred**: not built; Pro-only when they come |
 | New layout choice | no | **deferred**: not built |
 | Permissions | none | none (Free's are always a subset of Pro's) |
 
-Rules: Free ships the whole promise (the count, the date, the always-on frame). Its settings, properties, on-watch name and compiled code carry no "Pro" word and no Hour or Footer key, and it has no locked or greyed item and no upgrade text (unreferenced Hour and Footer display strings and the dead HOURS and footer-drawing code still ship, shared with Pro). A phone that sends Hour or Footer to Free is ignored (the Free properties file does not define them). The Pro headline is **open**: no research was run on what countdown buyers pay for beyond the timed event and bottom line, so Pro is thin until that is answered (plan WP4 step 1). On the "Unit unset" case: a wearer who never touches Count in gets calendar days in both tiers (`unitUnsetCountsCalendarDays`, passed in the simulator 2026-10-01).
+Rules: Free ships the whole promise (the count, the date, the always-on frame). Its settings, properties, on-watch name and compiled code carry no "Pro" word and no Hour, Minute, EventZone or Footer key, and it has no locked or greyed item and no upgrade text (unreferenced Hour and Footer display strings and the dead HOURS and footer-drawing code still ship, shared with Pro). A phone that sends Hour, Minute, EventZone or Footer to Free is ignored (the Free properties file does not define them); the Minute and zone strings are in Pro-only resource folders, so Free does not carry them at all. The Pro headline is **"To the minute"** (owner, 2026-10-04: option 1 of `../../reports/Days To Go Pro research.md`): count down to the minute an event starts, in the zone it starts in. It is UNRELEASED, simulator only. On the "Unit unset" case: a wearer who never touches Count in gets calendar days in both tiers (`unitUnsetCountsCalendarDays`, passed in the simulator 2026-10-01).
 
 ### Price
 
@@ -83,8 +84,8 @@ The owner chose paid ($1.99) on 2026-09-26. The research adds a risk the owner s
 | State | When | Hero | Caption | Ring |
 |---|---|---|---|---|
 | Upcoming | days > 0 | the day count, or whole weeks | DAY / DAYS / WEEKS (+ "+ n DAYS" in weeks mode) | square root of the share of the next 365 days still to go (1 day = 5% of the ring, 30 days = 29%); more than 365 days away: grey track only, so a full accent ring means the day itself |
-| Hours (**Pro only**: Free has no timed events) | timed event, under 24 h | `H:MM` | HOURS | share of the last 24 h still to go |
-| Today | the event's day (all-day) or its time has arrived | TODAY | | full, accent |
+| Hours (**Pro only**: Free has no timed events) | timed event, under 24 h to its instant (its time in its own zone, ADR-018) | `H:MM`, to the minute | HOURS | share of the last 24 h still to go |
+| Today | the event's day (all-day) or its instant has arrived (then until the end of its last local day) | TODAY | | full, accent |
 | Past | after the event | days since | DAY SINCE / DAYS SINCE | empty track, muted |
 | Invalid | a saved date that does not exist (30 Feb 2026) | SET A DATE | | none |
 
@@ -95,7 +96,7 @@ Why nothing else: the requests in rival reviews are "I just want a simple countd
 ## Setting the date
 
 - **Phone** (Garmin Connect, Connect IQ app, Garmin Express): `Event` (New Year's Day / Christmas Day / My own date), `Name` (text, 16), `Month`, `Day`, `Year`
-  (a list: *Every year*, then 2026 to 2060), `Time of day` (**Pro only**; *All day* or 00:00 to 23:00, stored as 0 = all day and 1 to 24, never a negative number), `Count in` (Days / Weeks and days), `Date style` (Automatic / Day first / Month first), `Bottom line` (**Pro only**), `Accent`. Free shows Event, Name, Month, Day, Year, Count in, Date style and Accent (see "Free and Pro").
+  (a list: *Every year*, then 2026 to 2060), `Time of day` (**Pro only**; *All day* or 00:00 to 23:00, stored as 0 = all day and 1 to 24, never a negative number), `Minute` (**Pro only**; 00 to 59, stored as 0 to 59, read only when a Time of day is set), `Event time zone` (**Pro only**; *My watch time zone*, stored as 0, or one of 40 real UTC offsets from UTC-12:00 to UTC+14:00, stored as a quarter-hour index, 1 = UTC-12:00, 49 = UTC+00:00, 105 = UTC+14:00; read only when a Time of day is set), `Count in` (Days / Weeks and days), `Date style` (Automatic / Day first / Month first), `Bottom line` (**Pro only**), `Accent`. Free shows Event, Name, Month, Day, Year, Count in, Date style and Accent (see "Free and Pro"). The Minute and Event time zone lists are phone settings only: the on-watch picker sets the date alone.
   **All lists**: a list has nothing to validate. The `date` type loses its value on iOS and Android (Countdown!: 32 of 49 low-star reviews are the date or saving it); `numeric`
   min/max failed in time2race ("must be between 0 and 0"). Generated by `tools/gen_settings.py free|pro` into `resources-free/settings/` and `resources-pro/settings/`.
 - **On the watch** (the watch's own Customize menu, then Set date. **Verified on the FR965, 2026-09-26, sideloaded build:** choose the face in the watch-face list, then *Customize* (next to *Apply*), then *Set date*; the picked date applied at once and survived a restart. The route on other watches is unverified): a three-column Picker (month, day, year) writing the same properties and switching Event to *My own date*.
@@ -116,12 +117,12 @@ The SDK's `System.DeviceSettings` exposes `is24Hour`, units, `firstDayOfWeek` an
 
 ## Rules the count follows (all unit-tested)
 
-1. Calendar days, integer arithmetic on year/month/day; no `Time.Moment`, no time zones, no DST. It flips at **local midnight**.
+1. Calendar days, integer arithmetic on year/month/day; no `Time.Moment` subtraction, no time-zone database, no DST rules. The **count** flips at the **watch's local midnight**, in both tiers, whatever Event time zone is set (ADR-004, amended by ADR-018 (the event minute and zone): the zone moves only when the HOURS state starts and when TODAY arrives).
 2. Tomorrow is 1. The event day is TODAY (not 0). The day after is "1 DAY SINCE" (or rolls forward for an every-year event).
-3. A timed event counts days until its last 24 h, then shows hours; once its time arrives it stays TODAY until midnight (also for an every-year event, which then rolls to next year).
+3. A timed event counts days until its last 24 h, then shows hours and minutes; once its time arrives it stays TODAY until midnight (also for an every-year event, which then rolls to next year). **Pro, with an Event time zone set:** "its time" is the written time in that zone converted to an instant and compared with `Time.now()`, so HOURS starts and TODAY arrives at the right moment for a wearer in another zone. The rule table (the calendar days to the written date `d`, the seconds to the instant `r`) and its edge cases are in ADR-018; in short: HOURS while 0 < r < 24 h; the count is `d` (never below 1) while r is 24 h or more; TODAY from the instant until the end of the later of the written date and the watch-local day the instant fell on; then days since. An all-day event ignores Minute and zone.
 4. A date that does not exist is Invalid, shown in words, never as a number: 30 Feb 2026, and also **every-year** 31 April or 30 February (the phone's Day list offers 1 to 31 for every month). 29 Feb every year is valid.
 5. The small date line takes its weekday from the calendar arithmetic and its weekday and month words from a Moment in 2026 read with `Gregorian.utcInfo()` (the SDK reads `moment()` fields as UTC; `info()` would shift the day west of UTC; a Moment cannot hold a date past January 2038). Verified in the simulator only.
-6. The time-of-day part of the last-24-hours display is wall-clock seconds, so on a DST-change day it can be an hour off. Accepted, documented.
+6. With **My watch time zone** (the default, and always in Free) the time-of-day part of the last-24-hours display is wall-clock seconds, so across the watch's own DST change it can be an hour off. Accepted, documented. With an explicit offset it is an exact instant difference. **The face has no time-zone database: the offset is the one the event's place is on at the event's date, and the wearer chooses it** (for example, a London event on 28 March is UTC+1, on 20 March UTC+0). Choosing the wrong one makes the countdown an hour wrong; nothing on the watch can know.
 7. Weeks mode applies from one full week on (`6 WEEKS + 3 DAYS`, `1 WEEK`); under 7 days the days are the honest number and it shows days. Past events always show days since.
 
 ## Design brief (visual identity is the owner's call, phase 4 gate)
@@ -153,7 +154,7 @@ These are starting proportions, not a mock-up; the mock-up comes from the design
 
 ## Claims that may be made (release contract, once built)
 
-Allowed only after the matching test or device check: "the count flips at midnight", "set the date on your watch", "no permissions, nothing leaves your watch", "works without your phone after setup".
+Allowed only after the matching test or device check: "the count flips at midnight" (also true with an Event time zone: it flips at the watch's own midnight), "count down to the minute your event starts" (Pro; simulator only until the wrist checks in `status.md`), "set the time zone the event starts in" (Pro; never "handles daylight saving": the wearer picks the offset), "set the date on your watch", "no permissions, nothing leaves your watch", "works without your phone after setup".
 Forbidden until measured on a device: battery figures, always-on ghosting, MIP contrast, any watch count (the store list shows fewer than the manifest), any download or rating number. Forbidden always: "the only countdown with no permissions" (Countdown!, 100,000 downloads, also asks for none); "works on every watch" or "set it on your watch" without "on many watches"; anything about rivals by name.
 
 ## Non-goals (v1)

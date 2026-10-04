@@ -55,7 +55,7 @@ also compiles anything under `docs/`.
 `tools/gen_settings.py [free|pro]` is the source of `resources-<tier>/settings/settings.xml`
 and `properties.xml` (no argument writes both tiers) and of `resources/strings/generated.xml`
 (numbers only, not translated, and a copy in every language folder). **There is no settings
-file in the shared `resources/`**: Free's lists omit Hour and Footer, Pro's have them all, and
+file in the shared `resources/`**: Free's lists omit Hour, Minute, EventZone and Footer, Pro's have them all, and
 the generator refuses to run if `resources/settings` exists. Hand-written ids:
 `python3 tools/gen_settings.py [free] --ids`.
 `PICKER_FIRST_YEAR/PICKER_LAST_YEAR` in `DaysToGoConfig` must match `FIRST_YEAR/LAST_YEAR` in the script.
@@ -67,7 +67,7 @@ the generator refuses to run if `resources/settings` exists. Hand-written ids:
 - **AppName** is defined only in `resources-pro/strings` and `resources-free/strings`. A language does not inherit the default's strings, so each jungle appends its tier folder to every
   `base.lang.<l>` path; if you add a language, add its line to **both** jungles (`make_beta.py` copies `monkey.jungle`) and its folder must not define AppName (`python3 tools/check_strings.py` fails if it does).
 - **`Application.Properties.getValue` of a key missing from the properties file**: SDK 9.2.0's reference says it throws `Properties.InvalidKeyException`. Observed too, in the simulator, 2026-10-01: see the test below.
-  The Free code never reads Hour or Footer, so nothing relies on it, and `DaysToGoSettings.read` catches it for the Pro path. The test `freeMissingPropertyKeyThrows` passed on Free (fr965, fr55, venusq2): it calls `getValue("Hour")` where the properties file lacks Hour, catches only `Properties.InvalidKeyException` and asserts it was thrown, so it proves the simulator throws that exception (not null, not a default, not another type) and nothing about a real watch.
+  The Free code never reads Hour, Minute, EventZone or Footer, so nothing relies on it, and `DaysToGoSettings.read` catches it for the Pro path. The test `freeMissingPropertyKeyThrows` passed on Free (fr965, fr55, venusq2): it calls `getValue("Hour")` where the properties file lacks Hour, catches only `Properties.InvalidKeyException` and asserts it was thrown, so it proves the simulator throws that exception (not null, not a default, not another type) and nothing about a real watch.
 - `tools/fit_languages.sh` takes `TIER=free` (default `pro`).
 
 ## Checking a store package (what the compiler actually produced)
@@ -81,12 +81,12 @@ tools/check_free_package.sh --build     # export both packages (about 4 minutes)
 tools/check_free_package.sh             # check the existing dist/DaysToGoFree.iq (Free) and dist/DaysToGoPro.iq (Pro)
 ```
 
-It exits non-zero unless: the Free settings keys are exactly Event, Name, Month, Day, Year, Unit, DateStyle, Accent (ids 0 to 5) on every part number; Hour and Footer appear in no Free `.prg`;
+It exits non-zero unless: the Free settings keys are exactly Event, Name, Month, Day, Year, Unit, DateStyle, Accent (ids 0 to 5) on every part number; Hour, Minute, EventZone and Footer appear in no Free `.prg`;
 the word "Pro" appears nowhere in the Free package (manifest, settings strings in every language, compiled `.prg`); `AppName` is "Days To Go" in every language of Free and "Days To Go Pro" in every language of Pro; the app ids are the expected, different ones; no permissions.
-**Positive controls**: every Pro `.prg` must contain the names Hour and Footer and the string "Days To Go Pro", and the Pro settings must carry both keys, so the Free checks are known to be able to see what they look for.
+**Positive controls**: every Pro `.prg` must contain the names Hour, Minute, EventZone and Footer and the string "Days To Go Pro", and the Pro settings must carry both keys, so the Free checks are known to be able to see what they look for.
 **Stale guard**: it fails if any file under `source/`, `resources*/`, either jungle or either manifest is newer than a package (rebuild with `--build`). **Product count**: the manifest must list 120 product ids, and the packages' part numbers must all be ones the SDK
 (`Devices/<id>/compiler.json`) assigns to those ids; the packages hold 199 of the SDK's 200 part numbers for them (`006-B2994-00` is absent from both tiers, reported as a note, not failed).
-**Not proven**: that the Hour and Footer display strings (`setting_hour`, `footer_*`, `h0` to `h23`) are absent. They live in the shared strings and still ship, unreferenced, in Free; only the settings keys, the compiled property names and the word "Pro" are policed. It proves package contents, not behaviour on a watch.
+**Not proven**: that the Hour and Footer display strings (`setting_hour`, `footer_*`, `h0` to `h23`) are absent. They live in the shared strings and still ship, unreferenced, in Free (the Minute and zone strings are in Pro-only folders and do not); only the settings keys, the compiled property names and the word "Pro" are policed. It proves package contents, not behaviour on a watch.
 Last run 2026-10-01 after the final edits: both packages OK (`--build`, compile only, simulator not used). Negative tests: the Pro package passed as the Free one fails (app id, keys, AppName); a package older than the sources fails as STALE.
 
 ## Beta app
