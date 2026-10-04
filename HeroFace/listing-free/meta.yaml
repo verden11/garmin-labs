@@ -17,7 +17,7 @@ next:
   uploaded: null
   summary: "the Free twin: everyday and HeroSet mode, accent colour; names confirmed 2026-10-04; store URLs and uploads are the owner's"
 package:
-  file: dist/HeroFaceFree-2026-10-04b.iq
+  file: dist/HeroFaceFree-1.0.0.iq
   products: 124   # <iq:product> lines in the manifest; the export has 207 part numbers (device variants), not a product count
   exported: 2026-10-04   # re-export 'b' from commit 99f2dc0, after the last code change; the unsuffixed 2026-10-04 file is stale
   check: "tools/check_free_package.sh: OK (keys Mode and Accent only, no Slot/Seconds/Weather, no 'Pro')"

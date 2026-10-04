@@ -17,7 +17,7 @@ next:
   uploaded: null
   summary: "Free + Pro ladder (proposed, ADR-001): the paid app is renamed HeroFace Pro; plus the Instinct family (ADR-002, 124 products). Nothing approved or uploaded"
 package:
-  file: dist/HeroFacePro-2026-10-04b.iq
+  file: dist/HeroFacePro-1.1.0.iq
   products: 124   # <iq:product> lines in the manifest; the export has 207 part numbers (device variants), not a product count
   exported: 2026-10-04   # re-export 'b' from commit 99f2dc0, after the last code change; the unsuffixed 2026-10-04 file is stale
   check: "tools/check_free_package.sh: OK (keys Mode Slot1-3 Accent Seconds Weather, name 'HeroFace Pro')"

@@ -13,10 +13,10 @@ Both listings, same day: DayArc (free) first, DayArc Pro second. Text: `../listi
 
 | File (absolute path) | Products | Check |
 |---|---|---|
-| `/Users/mbp/dev/garmin/DayArc/dist/DayArcSimple-2026-10-04b.iq` | 72 | `tools/check_package.sh`: OK (Instinct parts have no settings file, 89 others have Accent) |
-| `/Users/mbp/dev/garmin/DayArc/dist/DayArcPro-2026-10-04b.iq` | 72 | same script: OK |
+| `/Users/mbp/dev/garmin/DayArc/dist/DayArc-1.0.0.iq` | 72 | `tools/check_package.sh`: OK (Instinct parts have no settings file, 89 others have Accent) |
+| `/Users/mbp/dev/garmin/DayArc/dist/DayArcPro-1.0.0.iq` | 72 | same script: OK |
 
-**Re-exported 2026-10-04 (the `-2026-10-04b` files) from commit 40bb0a0, after the last code change; the earlier `-2026-10-04.iq` exports are stale: do not upload them.** Built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP.
+**Re-exported 2026-10-04 from commit 40bb0a0, after the last code change; older exports were moved to `dist-old/`, so `dist/` holds only the packages to upload.** Built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP.
 
 ## Never decide alone
 

@@ -17,7 +17,7 @@ next:
   uploaded: null
   summary: text drafted, not finalised; the $2.50 tier (ADR-018, supersedes the price of ADR-007), no price number on the site or in listing text; 72 products with the Instinct E and 3 Solar
 package:
-  file: dist/DayArcPro-2026-10-04b.iq
+  file: dist/DayArcPro-1.0.0.iq
   products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
   exported: 2026-10-04   # re-export 'b' from commit 40bb0a0, after the last code change; the unsuffixed 2026-10-04 file is stale
   check: "tools/check_package.sh: OK (Instinct parts carry no settings file, the other 89 have Accent)"
