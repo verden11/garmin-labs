@@ -48,7 +48,7 @@ If only read five: **[ADR-002](#adr-002)** (XP can't be farmed), **[ADR-018](#ad
 | 036 | Storage writes flat keys only; shared fit/exit-menu helpers | Active, amends 003 |
 | 037 | Wave 3: 16 more round AMOLED five-button watches | Active, **simulator-verified**, amended by 038 |
 | 038 | Wave 4: `minApiLevel` 3.4.0, 17 fēnix 6 / MARQ Gen 1 / Descent MK2 / FR945 LTE / Enduro watches | Active, **simulator-verified** |
-| 039 | First paid submission lists all 67 products; no in-app trial for v1 | Active |
+| 039 | First paid submission lists all 67 products; no in-app trial for v1 | Active (the price is Superseded by 056) |
 | 040 | Thresholds learned from saved counts; calibration screen removed; no position gating | Active, **simulator-verified**, amends 032/033 |
 | 043 | Connect sync: one activity per workout, one lap per set with exercise + reps | Shelved, see 054 |
 | 048 | Wave 5: 13 touch-first round watches (Venu 2/3/4, vívoactive 5/6, Approach S50/S70, D2 Air X10); swipe adjusts, only START commits | Active, **simulator-verified**, amends 029 |
@@ -59,6 +59,7 @@ If only read five: **[ADR-002](#adr-002)** (XP can't be farmed), **[ADR-018](#ad
 | 053 | Glance upload submitted as 1.2.0, not 1.1.2; Connect sync moves to 1.3.0 | Active |
 | 054 | Connect sync shelved: Connect's UI never renders developer lap/session fields; two device bugs found (stray recording on exit, discard still lapping) | Active, amends 043 |
 | 055 | Instinct family (semi-octagon, 1-bit, subscreen window): keep-out layout, black-and-white palette, XP gauge in the window; Instinct 2 / 2S / 2X, Descent G1, Instinct E, Instinct 3 Solar | **Proposed**, simulator evidence only, look approved 2026-10-03 |
+| 056 | Price: the $2.50 tier for every paid app (supersedes the price of 039) | Accepted 2026-10-04; ships with the next version upload |
 
 ---
 
@@ -222,7 +223,7 @@ Takes both manifests to 50 products. Same selection rule as [ADR-034](#adr-034):
 - **Limit:** unchanged — FR945 LTE lacks a `maxAccelRate` entry in its SDK profile (app samples at 25 Hz, which every accelerometer device supports), and no wave 4 watch has been used on a wrist.
 
 ### <a id="adr-039"></a>ADR-039: First paid submission lists all 67 products; no in-app trial
-Decided 2026-09-18 (user call on [`go-to-market.md`](status.md) open item 0).
+Decided 2026-09-18 (user call on [`go-to-market.md`](status.md) open item 0). **The price is Superseded by [ADR-056](#adr-056) (price: the $2.50 tier for every paid app); the product list and the no-trial decision below stand.**
 - **Products:** submit every product in both manifests, not a short FR965-first list. More buyers day one; accepted risk is that the store ([`listing/paste.md`](../listing/paste.md)) asks for every listed product to be tested and only FR965 was on a wrist. Listing and support page say the other 66 are simulator-verified ([`release-contract.md`](release-contract.md) forbidden claims unchanged). Beta testers per family (status item 6) stay wanted but no longer gate launch; a watch family that misbehaves in the field gets removed from both manifests in an update.
 - **Trial:** wanted a 3-day trial, but Garmin's paid-app monetization documents none; its 48-hour return window is the only built-in try-before-keep. The SDK's `iq:trialMode` (`AppBase.isTrial`, `getTrialDaysRemaining`) predates it and unlocks through a developer-run HTTPS unlock URL with an OAuth1 callback — a payment backend of our own, which is the opposite of selling through Garmin. v1 ships paid with no trial. Revisit only if Garmin documents trials for monetized apps (ask on the developer forum before a later release).
 - **Screenshots:** listing images come from the simulator running the store build (still the real build, no mockups), not from the watch.
@@ -465,3 +466,15 @@ All are at or above `minApiLevel` 3.4.0 (`instinct2`/`2s`/`crossover` list CIQ 3
 - Not measured: whether a real Instinct 2 serves the accelerometer at 25 Hz (a scratch probe that registered the listener hung the shared simulator twice, so no callback count exists), real bezel margins, real contrast. Round-product drawing was not box-diffed old versus new (the simulator would not run the comparison); the round paths are unchanged by construction (`rowCenterX` returns `centerX()` without a window, `textMargin` and the side inset are unchanged off semi-octagon products) and the round control suites pass.
 - Text widths at 176 px are larger than at 163 px (the 176 px products ship bigger fonts: XTINY is 23 px high against 19), which is why "STREAK 9999" needed a bare-number fallback and why the XP-to-go line is dropped rather than shortened.
 
+### <a id="adr-056"></a>ADR-056: Price: the $2.50 tier for every paid app. **Supersedes the price of [ADR-039](#adr-039)**
+**Status: Accepted 2026-10-04 (owner, chat).**
+
+**Decision.** HeroSet's price moves from the USD 2.00 tier (US $1.99) to the **USD 2.50 tier** of Garmin's price points (US $2.49, eurozone 2,99 EUR; measured table in `../../research_notes/Free and Pro ladder/garmin_rules.md`, source https://developer.garmin.com/connect-iq/monetization/price-points/). Every paid app in the studio (HeroSet, HeroFace Pro, Days To Go Pro, Two Suns Pro, DayArc Pro) takes the same tier. Free apps stay free. The owner sets the tier in the upload form; `listing/paste.md` Monetization names it because it is the owner's form input.
+
+**Why.** Room for later discounts or a rise: Garmin's tiers are $2.00, then every $0.25, so the $2.00 tier left no step down and a rise could only go up. Prices differ by region (the tier converts to a different number in each store), so no number is stated anywhere a reader sees it.
+
+**No price number on the site or in listing text.** The listing Description, What's New and the pages under `site/src/apps/heroset/` state no price; the owner's form selection is the only place a number appears.
+
+**Open risk.** Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`); how it treats a repricing to a higher tier is not confirmed. Ship the change together with the next version upload (1.3.1), which is re-reviewed anyway, so there is one review, not two. The Garmin email ([`../../ROADMAP.md`](../../ROADMAP.md) 2.1: does repricing remove an approved app) is still unsent.
+
+**Reversed by.** The owner. The price part of ADR-039 (USD 2.00, no trial wording on price) is Superseded; its product list and no-trial decision stand.

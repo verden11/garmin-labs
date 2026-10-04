@@ -115,7 +115,7 @@ Leave blank.
 
 ## Monetization
 
-**Paid: Yes**, USD 2.00
+**Paid: Yes**, price tier USD 2.50 (the form's own selection; this is the one place a number appears, never in the description text above)
 
 ## Companion App URL / Additional Hardware Requirements
 

@@ -17,7 +17,7 @@ Status: 2026-10-04 (1.3.0, the Instinct family, live since the owner's 2026-10-0
 | Connect/Strava sync | **Not in store build** | No toggle, no `Fit` permission. Dev build: opt-in, unverified ([ADR-043](decisions.md#adr-043), [`connect-sync-plan.md`](archive/connect-sync-plan.md)) |
 | Data leaving watch | None | No network, no recording, no analytics; permissions `Sensor` and `ComplicationPublisher` only |
 | Languages | 15: English (fallback), German, French, Spanish, Italian, Portuguese, Dutch, Polish, Swedish, Danish, Norwegian Bokmål, Finnish, Turkish, Lithuanian, Ukrainian | Simulator only |
-| Price / support | USD 2.00, no trial ([ADR-039](decisions.md#adr-039)); https://verden.watch/heroset/support/, `/privacy/`, `hello@verden.watch` | Merchant approved 2026-09-18 |
+| Price / support | Paid, the USD 2.50 tier (set in the upload form with 1.3.1; no price number in listing or site text, [ADR-056](decisions.md#adr-056) (price: the $2.50 tier)); no trial ([ADR-039](decisions.md#adr-039) (no in-app trial)); https://verden.watch/heroset/support/, `/privacy/`, `hello@verden.watch` | Merchant approved 2026-09-18 |
 
 ## Allowed claim
 

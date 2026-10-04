@@ -4,7 +4,7 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 
 ## Economics and rules
 
-Paid, USD 2.00 (→ $1.99 US), no trial ([ADR-039](../docs/decisions.md#adr-039); Garmin's 48-hour return window is the only try-before-keep). Garmin takes 15% of the tax-exclusive price; $100/yr merchant fee; $10 minimum payout (re-verify, values change). Merchant approved 2026-09-18.
+Paid, the $2.50 tier (owner's form selection, set with the 1.3.1 upload; live at the $2.00 tier until then; [ADR-056](../docs/decisions.md#adr-056), the $2.50 tier for every paid app; no price number in any listing text), no trial ([ADR-039](../docs/decisions.md#adr-039), the no-trial part; Garmin's 48-hour return window is the only try-before-keep). Garmin takes 15% of the tax-exclusive price; $100/yr merchant fee; $10 minimum payout (re-verify, values change). Merchant approved 2026-09-18.
 
 Garmin expects every listed product tested, screenshots matching the app, permissions justified. Accepted gap: 79 of 80 simulator-verified only ([ADR-039](../docs/decisions.md#adr-039), [ADR-048](../docs/decisions.md#adr-048)). Refs: [monetization](https://developer.garmin.com/connect-iq/monetization/), [publishing](https://developer.garmin.com/connect-iq/core-topics/publishing-to-the-store/), [app review](https://developer.garmin.com/connect-iq/app-review-guidelines/).
 

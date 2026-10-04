@@ -6,7 +6,7 @@
 
 Status: 2026-10-04. (open items moved to the root ROADMAP.md, 2026-10-04) History: [`../CHANGELOG.md`](../CHANGELOG.md), ADRs, `git log`.
 
-**Goal:** a paid Connect IQ Store app (USD 2.00 → $1.99 US, no trial, [ADR-039](decisions.md#adr-039)), live since 2026-09-21. Feature work waits unless it unblocks a fix; the glance ([ADR-051](decisions.md#adr-051)) is the one exception, requested by the owner 2026-09-26.
+**Goal:** a paid Connect IQ Store app (the $2.50 tier from the 1.3.1 upload, live until then at the $2.00 tier, [ADR-056](decisions.md#adr-056) (price: the $2.50 tier for every paid app); no trial, [ADR-039](decisions.md#adr-039) (no in-app trial)), live since 2026-09-21. Feature work waits unless it unblocks a fix; the glance ([ADR-051](decisions.md#adr-051)) is the one exception, requested by the owner 2026-09-26.
 
 ## Ready to upload: 1.3.1 (prepared 2026-10-04, NOT uploaded)
 
@@ -80,7 +80,7 @@ Cross-app order; HeroFace's half is in [`../../HeroFace/docs/status.md`](../../H
 
 **G. Upload 1.3.1 (prepared 2026-10-04, everything below is ready; the clicks are the owner's)**
 1. Developer page for the existing listing (link under "Where things stand") -> upload a new version -> file `HeroSet/dist/HeroSet-store-1.3.1.iq` (87 products, 134 device variants, same app id and permissions as 1.3.0).
-2. App Version `1.3.1`; What's New is in `listing/paste.md` (the Description is unchanged from 1.3.0); paste the blocks as they are. Keep every other field as submitted for 1.3.0 (price, category, privacy URL, review notification Yes, App Migration No).
+2. App Version `1.3.1`; What's New is in `listing/paste.md` (the Description is unchanged from 1.3.0); paste the blocks as they are. Set the price tier to USD 2.50 in the form (ADR-056 (price: the $2.50 tier); Garmin may re-review a repriced approved app, and this version upload is re-reviewed anyway). Keep every other field as submitted for 1.3.0 (category, privacy URL, review notification Yes, App Migration No).
 3. Hardware field: paste the website-link text at the end of `listing/paste.md` if it is still empty on the live listing (ROADMAP 6.6).
 4. After submitting, tell Claude: the upload date goes in `CHANGELOG.md` and `meta.yaml`. `instinctLive` in `site/src/apps/heroset/facts.ts` flips once Garmin shows the Instinct products in the device list (7.8).
 5. If the store drops any Instinct product from the device list (as it did 14 of 80 on 1.1.1, A1), note which in "Where things stand" and trim the site list to what the store shows.

@@ -10,7 +10,7 @@ store:
 live:
   version: 1.3.0
   since: 2026-10-03
-  note: uploaded by the owner 2026-10-03 (the Instinct family; exported before the 2026-10-04 bezel-corner, START: MENU and glance-bar fixes); 1.2.0 was uploaded 2026-09-27 (developed as 1.1.2, ADR-053) and approved 2026-10-01; 1.1.1 went live 2026-09-24
+  note: uploaded by the owner 2026-10-03 (the Instinct family; exported before the 2026-10-04 bezel-corner, START-to-MENU and glance-bar fixes); 1.2.0 was uploaded 2026-09-27 (developed as 1.1.2, ADR-053) and approved 2026-10-01; 1.1.1 went live 2026-09-24
 next:
   version: "1.3.1"
   status: prepared   # drafted | prepared | uploaded | in-review | live
@@ -22,7 +22,7 @@ package:
   exported: 2026-10-04
   check: "no check script exists; unpack check by hand (bsdtar): app id 568d5c9b-eb10-4678-bf28-0080c3efbbc1 (same as manifest-store.xml), permissions Sensor and ComplicationPublisher only, 134 part numbers, 134 .prg"
   note: "export: monkeyc -e -r -f store.jungle; built in the verden-ciq-build container; the older exports in dist/ and dist/old/ are untouched (two of the earlier ones in dist/old/ are DO NOT UPLOAD; dist/HeroSet-store-2026-10-04.iq is the 1.3.0 re-export, which has the bezel fixes but not the glance layout)"
-price: paid, USD 2.00 (USD 1.99 in the US), no trial, ADR-039
+price: paid, the USD 2.50 tier (set in the form with the 1.3.1 upload; live until then at the USD 2.00 tier), no number in listing text, no trial; ADR-056 (the $2.50 tier), ADR-039 (no trial)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   cover: cover-500-designed.png

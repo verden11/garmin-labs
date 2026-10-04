@@ -25,7 +25,7 @@ A button-first daily challenge that lives entirely on the watch: automatic rep c
 - Workout loop: dashboard → START → pick exercise → counting starts instantly → START to finish → adjust count with UP/DOWN → START to save → dashboard with save feedback and vibration.
 - Used mid-exercise: glanceable at arm's length, readable in daylight (AMOLED and MIP screens), operated by feel through bezel buttons; per-rep vibration confirms counts without looking.
 - Daily reset at local midnight; streak and rank persist.
-- Distribution: Garmin Connect IQ Store, paid (USD 2.00 → $1.99 US), no trial; Garmin's 48-hour return window is the only try-before-keep. Support site hosts the privacy policy and support page linked from the store listing.
+- Distribution: Garmin Connect IQ Store, paid, the $2.50 tier of Garmin's price points (set in the upload form; live at the $2.00 tier until the 1.3.1 upload, [ADR-056](docs/decisions.md#adr-056), no price number in listing or site text), no trial; Garmin's 48-hour return window is the only try-before-keep. Support site hosts the privacy policy and support page linked from the store listing.
 
 ## Capabilities and Constraints
 
