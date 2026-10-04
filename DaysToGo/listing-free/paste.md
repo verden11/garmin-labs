@@ -11,7 +11,7 @@ Days To Go: Countdown to a Date
 ## Description
 
 ```text
-Get Days To Go Pro: <PRO STORE URL>
+Get Days To Go Pro: https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4
 
 A countdown watch face: one big number for the days left until your date.
 

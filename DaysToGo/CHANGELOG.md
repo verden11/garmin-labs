@@ -20,7 +20,7 @@ text for each version is in [`listing/paste.md`](listing/paste.md).
 
 Everything below is **UNRELEASED**: built 2026-10-01 against the Free + Pro plan, the owner approved the ladder 2026-10-04 (`docs/decisions.md` ADR-014 (Free + Pro ladder), Active), simulator-only evidence, nothing uploaded. The headings are the versions the owner would upload; dates and uploads are theirs.
 
-### Days To Go (Free) 1.0.0 — UNRELEASED, a new app (new app id), not uploaded
+### Days To Go (Free) 1.0.0 — uploaded 2026-10-04 by the owner, in review (a new app; developer page https://apps-developer.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9; the public store URL works once Garmin approves)
 
 - First release of the Free twin: the same 120 products, 15 languages, no permissions. The big day count, the ring, the time, the event name and date lines, always-on, the on-watch "Set date" picker.
 - Settings: Event, Name, Month, Day, Year, Count in (days or weeks and days), Date style, Accent colour (the six shipped colours: mint, amber, sky, pink, violet, white).

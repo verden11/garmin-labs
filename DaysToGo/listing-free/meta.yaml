@@ -5,16 +5,16 @@ folder: DaysToGo/listing-free
 tier: free
 app_id: 9fde2744-b0f4-4396-927d-e4c7d65bb119
 store:
-  listing_url: null
-  developer_url: null
+  listing_url: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9   # valid once Garmin approves
+  developer_url: https://apps-developer.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9
 live:
   version: null
   since: null
-  note: a new app, not yet uploaded
+  note: a new app, uploaded 2026-10-04, in Garmin review; nothing live yet
 next:
   version: "1.0.0"
-  status: drafted   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
+  status: uploaded   # drafted | prepared | uploaded | in-review | live
+  uploaded: 2026-10-04
   summary: the Free twin; names confirmed 2026-10-04; titles and the Pro store URL are the owner's decisions
 package:
   file: dist/DaysToGoFree-1.0.0.iq
