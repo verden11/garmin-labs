@@ -34,7 +34,7 @@ Launch language list identical in both manifests: `eng`, `deu`, `fre`, `spa`, `i
 
 After string change: compare every qualified file's IDs and placeholders with `resources/strings/strings.xml`, then run the screen-fit suite in every language on the narrowest screens: `tools/fit-sweep.sh venu2s fr265s` (overlays each language's strings in a throwaway jungle, since the simulator has no CLI language switch; [ADR-049](decisions.md#adr-049)). `tools/fit-sweep.sh -l eng <product>…` checks products in English. `FIT_LINES=40` prints every problem line per run (default 3). Simulator evidence no replace real-device font and layout checks.
 
-## Unit tests (115 tests; 102 in store build)
+## Unit tests (116 tests; 103 in store build)
 
 ```bash
 monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y /path/to/developer_key
@@ -54,6 +54,8 @@ tools/glance-scope-check.sh [product...]     # default fr965; prints nothing but
 The glance process ([ADR-051](decisions.md#adr-051)) only has `(:glance)` code, and the default build (and `-l 2`) compiles without a word when glance code calls something that isn't. The script builds both jungles, app and tests, at `-l 3` and greps `not available in all function scopes`; `-l 3` also prints many unrelated type errors that predate the glance, which it ignores. To see the glance closure's size: `monkeyc -d fr965 -f store.jungle … --build-stats 0` (`Glance:` lines, limit 64 KB).
 
 The glance itself has to be looked at in the simulator by hand: Settings → Glance Launch Mode (greyed out unless `getGlanceView` is overridden; a GUI setting with no CLI switch). Unit tests cover its layout at every glance content area of the running screen width, so run the suite on one product per width (`fr255s`, `fenix7s`, `fenix7`, `fenix7x`, `venu2s`, `venu441mm`, `fr265`, `venu3`, `fenix9pro51mm`, plus `fr965`).
+
+The Instinct E 40/45 mm and 3 Solar glance (round window, [ADR-055](decisions.md#adr-055)) can be photographed without the GUI toggle: `../docker/shot.sh HeroSet store.jungle instincte40mm instincte45mm instinct3solar45mm` opens on the glance. To see a state other than the empty day, set `PREP` to a `perl -0pi` that replaces the `HeroSetGlanceReader.read(...)` call in `source/ui/glance/HeroSetGlanceView.mc` with a `new HeroSetDashboardState(...)` in the private copy (the repo is not touched). Simulator only.
 
 ### Checking another product
 

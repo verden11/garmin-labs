@@ -19,7 +19,7 @@ Live as a paid app on the Connect IQ Store.
 
 - **1.1.1 live.** Counting that learns from saved counts
   ([ADR-040](docs/decisions.md#adr-040)), manual correction, goals, XP/rank/streak, live HR/calories,
-  15 languages. 115 unit tests (102 in the store build).
+  15 languages. 116 unit tests (103 in the store build).
 - **Not proven on a wrist:** counting accuracy beyond a few FR965 sets; the
   other 79 watches and the touch UI (simulator only).
 - **1.2.0 (glance + idle-kill fix, ADR-053) uploaded 2026-09-27, awaiting Garmin review:** a read-only glance-list entry on 63 of the 80 watches, plus a fix for a set-losing bug found the same day ([ADR-051](docs/decisions.md#adr-051)/[052](docs/decisions.md#adr-052)). Uploaded on an owner call without the full FR965 check list — see [`docs/status.md`](docs/status.md).
