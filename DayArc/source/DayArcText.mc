@@ -121,4 +121,8 @@ class DayArcText {
     static function max(a as Number, b as Number) as Number {
         return a > b ? a : b;
     }
+
+    static function min(a as Number, b as Number) as Number {
+        return a < b ? a : b;
+    }
 }

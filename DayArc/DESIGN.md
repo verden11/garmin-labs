@@ -151,6 +151,8 @@ Top to bottom, every window but night:
    label only where the icon can't carry the meaning alone (next event, intensity minutes, run/wk,
    bike/wk, recovery, respiration, pulse ox, VO2max — 8 fields, once each).
 
+**Amended 2026-10-04 (ADR-016), supersedes the label-share and three-digit rules in item 7 and the paragraph below where they differ:** a grid cell is shown whole or not at all. A label is drawn only if it fits whole beside the value's natural width, else it is dropped (the icon carries the cell); a value must fit whole (only a calendar title may end in "...", and then keeps room for a clock time). Recovery time reads in hours ("42h"; the SDK gives minutes). If no rung fits with the grid, Pro is planned again without it, at Simple's tiers (date, label and sub line kept, stack centred), before any trimming. The hero icon is centred on the digits' middle, not on the font box (a number font's digits fill 0.67 to 0.77 of its ascent). On the Instinct E and 3 Solar the hero icons are half size (30x24, 24x24, 36x24, white, `resources-instinct/`) so the digits, not the icon, are the largest thing in the row.
+
 **Grid cell fit and corner fields, 2026-10-01 (after the owner's FR965 simulator screenshot of Pro evening, simulator only, not a wrist):**
 the screenshot showed a label cut to "Re..." beside "300", a value touching the next column's icon, and an
 icon-only cell's value far from its icon. Fixed in `DayArcGrid`/`DayArcLayout`: a gutter between the two columns

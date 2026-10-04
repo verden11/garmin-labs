@@ -8,8 +8,8 @@ base.excludeAnnotations = pro;mono
 # settings file (resources-accent is left out of their resourcePath: it has no effect on a 1-bit display). A
 # per-product excludeAnnotations REPLACES the base list, so the density's own exclude is restated.
 instincte40mm.excludeAnnotations = pro;color
-instincte40mm.resourcePath = resources
+instincte40mm.resourcePath = resources;resources-instinct
 instincte45mm.excludeAnnotations = pro;color
-instincte45mm.resourcePath = resources
+instincte45mm.resourcePath = resources;resources-instinct
 instinct3solar45mm.excludeAnnotations = pro;color
-instinct3solar45mm.resourcePath = resources
+instinct3solar45mm.resourcePath = resources;resources-instinct

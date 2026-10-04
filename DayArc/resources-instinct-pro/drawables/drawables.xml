@@ -1,0 +1,8 @@
+<drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- Pro on the Instinct E and 3 Solar only (ADR-016): the grid icons whose hue a 1-bit display rounds to black
+         (sunset #FF5500, flame #FF5500, bell #5555FF, bike #AA00FF) redrawn in white; the pill showed an empty slot. -->
+    <bitmap id="IconGridSunset" filename="icons/grid_sunset.svg" dithering="none" />
+    <bitmap id="IconGridFlame" filename="icons/grid_flame.svg" dithering="none" />
+    <bitmap id="IconGridBell" filename="icons/grid_bell.svg" dithering="none" />
+    <bitmap id="IconGridBike" filename="icons/grid_bike.svg" dithering="none" />
+</drawables>

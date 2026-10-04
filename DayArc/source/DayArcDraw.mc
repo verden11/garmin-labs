@@ -91,10 +91,13 @@ class DayArcDraw {
         var value = hero.get(:value);
         var fitted = DayArcText.truncated(dc, value instanceof String ? value : "", plan.heroFont, available);
         var left = layout.rowCenterX(y, rowHeight) - (iconWidth + dc.getTextWidthInPixels(fitted, plan.heroFont)) / 2;
-        if (icon != null) {
-            dc.drawBitmap(left, y + (rowHeight - icon.getHeight()) / 2, icon);
-        }
         var inkHeight = DayArcText.inkHeight(dc, plan.heroFont);
+        if (icon != null) {
+            // Level with the digits' middle (the row's top is empty headroom), kept inside the row.
+            var digitMiddle = y + (rowHeight + inkHeight) / 2 - inkHeight * DayArcConfig.DIGIT_HEIGHT_PERMILLE / 2000;
+            var iconTop = DayArcText.min(DayArcText.max(digitMiddle - icon.getHeight() / 2, y), y + rowHeight - icon.getHeight());
+            dc.drawBitmap(left, iconTop, icon);
+        }
         dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
         dc.drawText(left + iconWidth, y + (rowHeight - inkHeight) / 2, plan.heroFont, fitted, Graphics.TEXT_JUSTIFY_LEFT);
     }

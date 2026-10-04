@@ -11,7 +11,7 @@ exception is a single Accent colour list (ADR-014, owner-requested after first w
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (what it does, data sources, device reach),
 [`docs/status.md`](docs/status.md) (state, gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md)), [`docs/archive/plan.md`](docs/archive/plan.md) (implementation status, what's simulator-only),
-[`docs/decisions.md`](docs/decisions.md) (14 ADRs, each with evidence and what reverses it),
+[`docs/decisions.md`](docs/decisions.md) (16 ADRs, each with evidence and what reverses it),
 [`docs/status.md`](docs/status.md) (gates before either store upload),
 [`docs/release-contract.md`](docs/release-contract.md) (what may be claimed),
 [`docs/compatibility.md`](docs/compatibility.md), [`docs/development.md`](docs/development.md).
