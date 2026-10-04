@@ -122,8 +122,11 @@ class HeroSetGlanceView extends WatchUi.GlanceView {
         dc.setColor(HeroSetPalette.MUTED, Graphics.COLOR_TRANSPARENT);
         var o = HeroSetGlanceLayout.OUTLINE;
         dc.drawRectangle(x - o, y - o, width + 2 * o, height + 2 * o);
-        dc.setColor(HeroSetPalette.TRACK, Graphics.COLOR_TRANSPARENT);
-        dc.fillRectangle(x, y, width, height);
+        if (!HeroSetPalette.MONO) {
+            // A 1-bit display has no dim: the track stays the outline above, or every bar would read as full.
+            dc.setColor(HeroSetPalette.TRACK, Graphics.COLOR_TRANSPARENT);
+            dc.fillRectangle(x, y, width, height);
+        }
         var done = count >= goal;
         dc.setColor(done ? HeroSetPalette.DONE : HeroSetPalette.EFFORT, Graphics.COLOR_TRANSPARENT);
         // count <= 0 also covers a corrupt negative count; goal is at least
