@@ -11,7 +11,7 @@ exception is a single Accent colour list (ADR-014, owner-requested after first w
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (what it does, data sources, device reach),
 [`docs/status.md`](docs/status.md) (state, gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md)), [`docs/archive/plan.md`](docs/archive/plan.md) (implementation status, what's simulator-only),
-[`docs/decisions.md`](docs/decisions.md) (16 ADRs, each with evidence and what reverses it),
+[`docs/decisions.md`](docs/decisions.md) (17 ADRs, each with evidence and what reverses it),
 [`docs/status.md`](docs/status.md) (gates before either store upload),
 [`docs/release-contract.md`](docs/release-contract.md) (what may be claimed),
 [`docs/compatibility.md`](docs/compatibility.md), [`docs/development.md`](docs/development.md).
@@ -39,7 +39,12 @@ The evidence is in [`../reports/DayArc v1 scope and plan.md`](../reports/archive
   earlier dim-above-threshold version was removed, not just documented as removed, see ADR-006).
 - Build: `monkeyc -d fr965 -f monkey.simple.jungle -o bin/DayArc.prg -y ~/.garmin-connectiq/keys/developer_key -w --typecheck 3`
   (swap `monkey.pro.jungle` for the Pro build).
-- **Instinct E 40/45 mm and Instinct 3 Solar 45 mm (ADR-015, proposed, simulator only; 72 products now):** 1-bit, a round window top right, 65,536 B face memory. `DayArcPalette` is two classes, `(:color)` and `(:mono)`, chosen by the jungles (`base.excludeAnnotations = <density's>;mono`, and per Instinct product `<product>.excludeAnnotations = <density's>;color`; a per-product line **replaces** the base list, so restate the density's own). The arc is a gauge in the window; the Accent setting (its own `resources-accent/` folder, left out of those products' `resourcePath`) and `getSettingsView` are off there. The visible area is a circle about 98 px in radius (`DayArcLayout.VISIBLE_RADIUS_PX`), not the whole square: **screenshot the simulator for every layout change** (`docs/development.md`). The Instinct 2 family is not included (CIQ 3.4 has no Complications).
+- **Instinct E 40/45 mm and Instinct 3 Solar 45 mm (ADR-015, accepted 2026-10-04, simulator only; 72 products now):** 1-bit, a round window top right, 65,536 B face memory. `DayArcPalette` is two classes, `(:color)` and `(:mono)`, chosen by the jungles (`base.excludeAnnotations = <density's>;mono`, and per Instinct product `<product>.excludeAnnotations = <density's>;color`; a per-product line **replaces** the base list, so restate the density's own). The arc is a gauge in the window; the Accent setting (its own `resources-accent/` folder, left out of those products' `resourcePath`) and `getSettingsView` are off there. The visible area is a circle about 98 px in radius (`DayArcLayout.VISIBLE_RADIUS_PX`), not the whole square: **screenshot the simulator for every layout change** (`docs/development.md`). The Instinct 2 family is not included (CIQ 3.4 has no Complications).
+- **Hero icons are generated, in two sizes per screen (ADR-017, 2026-10-04):** `python3 tools/gen_hero_icons.py` writes every hero SVG
+  (`resources/` = the default 72/54 px, `resources-hero-L<n>` / `-S<n>` = the others), the Instinct weather glyph and the family lines
+  between the BEGIN/END markers of both jungles. Never hand-edit those SVGs or that block; a new screen size is a row in the script's
+  `FAMILIES` (measure its HOT/MEDIUM/MILD box with `tools/run_tests.sh <device>`, the `HEROINK` log line). The large icon sits beside the HOT
+  number tier, the small one beside MEDIUM/MILD (`DayArcStack.smallIcon`).
 - Package check: `tools/check_package.sh [--build]` (the 4 Instinct parts carry no settings file; every other part has Accent).
 - Tests: `tools/run_tests.sh <device> [jungle] [testName]`. Compile-only sweep across all 72
   products, both jungles: `tools/compile_sweep.sh` (no simulator needed).

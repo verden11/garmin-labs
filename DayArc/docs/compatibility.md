@@ -22,7 +22,33 @@ edge, with only the progress arc on the inscribed circle (ADR-001, amended 2026-
 - **Fixed 2026-10-04 (ADR-016):** a Pro grid cell is shown whole or not at all (a label that does not fit whole is dropped; only a calendar title may end in "..." and keeps room for a clock time), so the "12:..." and "R... 10" pills are gone; a Pro window whose grid cannot fit is drawn like Simple (date, label, sub line kept) instead of trimmed; the hero icons are half size on these watches (`resources-instinct/`).
 - **Not proven:** anything on a watch (real bezel margins, contrast, whether the pre-coloured icon bitmaps stay solid white on the real 1-bit panel). The simulator's clock is the container's, so the morning, midday and night windows were screenshot with a scratch patch of `DayArcWindow.windowFor` (data fields the simulator lacks show their empty states).
 
+## Hero icon sizes and the label rule (ADR-017, 2026-10-04)
+
+The hero icons are no longer one fixed size: `monkey.*.jungle` family lines (`round-218x218`, `round-454x454`, `rectangle-320x360`, ...) give each screen size a large and a small set from `resources-hero-L<n>` / `-S<n>` (the default in `resources/` serves round 360 and 390), written by `tools/gen_hero_icons.py`. Measured by `DayArcStackTest` (`HEROINK`) and `everyHeroIconLoadsAtExpectedSize` (`HEROICON`), simulator only. Digits are 0.72 of the number font's box; the table is in `DESIGN.md` "Hero icon size".
+
+| Screen (device run) | HOT / MEDIUM / MILD digits (px) | Large / small icon (px high) | Large vs HOT digits | Small vs MEDIUM / MILD digits |
+|---|---|---|---|---|
+| round 218 (fr255s) | 42 / 30 / 23 | 42 / 24 | 1.02 | 0.77 / 1.00 |
+| round 240 (fenix7s) | 48 / 35 / 28 | 48 / 30 | 0.98 | 0.89 / 1.11 |
+| round 260 (fenix7) | 52 / 38 / 31 | 54 / 36 | 1.06 | 0.92 / 1.13 |
+| round 280 (fenix7x) | 56 / 41 / 33 | 54 / 36 | 0.98 | 0.85 / 1.06 |
+| rectangle 320 x 360 (venusq2) | 80 / 54 / 43 | 78 / 48 | 0.98 | 0.87 / 1.09 |
+| round 360 (fr265s, default set) | 69 / 55 / 48 | 72 / 54 | 1.04 | 1.00 / 1.15 |
+| round 390 (fr165, default set) | 74 / 61 / 50 | 72 / 54 | 0.97 | 0.90 / 1.10 |
+| round 416 (epix2) | 77 / 57 / 46 | 78 / 54 | 1.01 | 0.96 / 1.20 |
+| rectangle 448 x 486 (venux1) | 89 / 79 / 58 | 90 / 66 | 1.01 | 0.84 / 1.14 |
+| round 454 (fr965) | 87 / 73 / 58 | 90 / 66 | 1.03 | 0.90 / 1.14 |
+| round 466 (fenix9pro51mm) | 90 / 79 / 59 | 90 / 66 | 1.00 | 0.84 / 1.12 |
+
+(The stress icon's ratios, from the `HEROICON` log lines of the unit run on that device, 2026-10-04, container simulator. The weather glyph is the same height and the battery shell 7/8 of it, so its ratios are 0.86 to 0.9 of these. The test accepts the large icon at 0.70 to 1.15 of the HOT digits and the small one at no more than 1.15 of the MEDIUM digits and at least 0.70 of the MILD ones. Every one of the 11 screen families passed, Simple, 21/21 each.)
+
+Before this, the same icons were 60x48 / 48x48 / 60x42 px everywhere: up to 1.14 times the FR255S's HOT digits (and the digits fell to 23 px at MILD) and only 0.48 to 0.55 of the FR965's.
+
+Where the ladder lands (`STACK` log lines at worst-case strings, container simulator, 2026-10-04; rung numbers are `DayArcConfig.STACK_LEVELS` after the new rung 7): **the hero label is kept in every window that has one, on every device tried.** Pro keeps two grid rows with the label on the FR255S (rungs 4 to 6), fenix 7S (4 to 6), FR165 (4 to 6, three rows in the evening-empty state), FR965 (4, 6), epix 2 (2, 3) and Venu X1 (3, 5); the Venu Sq 2 (rectangle 320 x 360) is on the new rung 7 (label kept, ONE grid row, it used to drop the label for two rows) except in the midday-empty state, which has no grid; the Instinct E 40 mm is on rung 7 (label kept, ONE grid row) in the morning, midday-data, evening-data and evening-empty states and has none in midday-empty; the 3 Solar draws a one-row grid with the label in the evening-data state only, and its morning and midday are the same picture as Simple (see `DESIGN.md` "Pro on the Instinct"). Simple on the same devices is at rungs 0 to 5 and never needs the new rung.
+
 ## Compile sweep
+
+**2026-10-04, after ADR-017 (hero icon sets, the new ladder rung):** `tools/compile_sweep.sh` **72/72 pass, 0 fail on both jungles**; `tools/check_package.sh --build` OK (93 part numbers each, exactly the 4 Instinct parts without a settings file; `dist/DayArcSimple.iq` 3.0 MB, `dist/DayArcPro.iq` 3.4 MB, git-ignored). Unit suite + screen fit, container simulator: Simple 21/21 on 13 devices (every screen family of the table above, plus the two Instinct products), Pro 24/24 on fr965, fr255s, epix2, instincte40mm, instinct3solar45mm, venusq2, venux1, fenix7s, fr165. Simulator only, not device proof.
 
 `tools/compile_sweep.sh`, 2026-09-28: **69/69 pass, 0 fail**, both `monkey.simple.jungle` and
 `monkey.pro.jungle` (`bin/compile-sweep-monkey.simple.txt`, `bin/compile-sweep-monkey.pro.txt`).
@@ -67,6 +93,8 @@ approachs50, venusq2 and venux1 (a TEST build, larger than release; the simulato
 `totalMemory` in test mode, 8.4 MB, is not the watch's limit). Simulator numbers, not device ones.
 
 ## Smallest screens (218px fr255s/fr255sm, 240px fenix7s/fenix7spro) — compiled, NOT rendered
+
+*Historical (2026-09-29): fr255s and fenix7s have since been rendered and tested (fr255s again 2026-10-04), and the hero icons are no longer 60x48 / 48x48 / 60x42 on these screens (ADR-017: 42 and 24 px on the 218 px screen). The arithmetic below predates both.*
 
 Only 4 of the 69 products have ever been rendered. fr255s and fenix7s compile clean (normal and
 `monkeyc -t` test builds, both jungles, 2026-09-29); their fit tests are written and unrun.
