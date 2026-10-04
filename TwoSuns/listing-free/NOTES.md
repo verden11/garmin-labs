@@ -74,4 +74,14 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 - **Category:** Utility (alternative: Health & Fitness, as for Pro). **Subcategory:** whatever the Category choice offers. **Preview Video:** none (YouTube or Vimeo only). **App Migration:** No; a new app, not an update.
 - **Monetization:** No: the Free app asks for no payment and unlocks nothing. Read the form's own wording at submission.
 - **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04).
-- **Images:** the owner approves the looks first; five images from the Free build, simulator only with canned data (sun times and the Body Battery number are set for the picture, never a reading); hero 242 KB (no curve, no date, nothing from Pro), cover 78 KB (the plain ring, no golden arcs, no pill; Pro's cover has both). Captions and devices are in `meta.yaml` `assets.screens`; details and commands in [`screenshots.md`](screenshots.md). Do not describe the black-and-white shot as a supported-device claim.
+- **Images:** the owner approves the looks first; five images from the Free build, simulator only with canned data (sun times and the Body Battery number are set for the picture, never a reading); hero 145 KB (no curve, no date, nothing from Pro), cover 12 KB (the plain ring, no golden arcs, no pill; Pro's cover has both). Captions and devices are in `meta.yaml` `assets.screens`; details and commands in [`screenshots.md`](screenshots.md). Do not describe the black-and-white shot as a supported-device claim.
+
+## 2026-10-04: cover and hero on a coloured ground (ROADMAP 10.25)
+
+Garmin's brand page: "Do not choose black or transparent backgrounds"; the owner chose light or coloured covers. Chosen for Free: **sky blue `#55AAFF` ground** (the default Sky accent), navy name with "Suns" in the night blue `#1B2A8F`, white daylight arc, no pill. Looked at at 500 px and at 100 px. Rejected, rendered and looked at:
+
+- **Pale blue `#E4F1FF` ground** with the ring in full face colours: weak presence at 100 px, and nothing but the missing pill told it from Pro's pale twin.
+- **Deeper blue `#2F8CF0`** with white text and an amber sun: strong, but white on it is 3.5:1 and it is not a palette value.
+- **White "Suns" on `#55AAFF`** (first try): 2.3:1, so "Suns" became the night blue.
+
+Open for the owner: the look; the device icons stay on black (Garmin's sentence is about the cover; the icon carries no text).
