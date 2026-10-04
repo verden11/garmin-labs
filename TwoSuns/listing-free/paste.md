@@ -31,7 +31,7 @@ One line for the sun
 How much daylight is left, or when the sun returns, from your watch's own sunrise and sunset.
 
 Your Body Battery
-Garmin's own number, shown as Garmin reports it, beside a small level bar. No advice attached. When the watch has no number, the face shows two dashes.
+Garmin's own number, shown as Garmin reports it, beside a small gauge. No advice attached. When the watch has no number, the face shows two dashes.
 
 One setting
 Accent colour, six to choose from, in Garmin Connect or right on the watch (Customize, next to Apply). The defaults work if you never touch it.

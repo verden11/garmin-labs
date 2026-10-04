@@ -22,7 +22,7 @@ Also available: Two Suns, a lighter version: <TWO SUNS STORE URL: owner fills in
 A watch face for the sun's day and your Body Battery: the time, a 24-hour ring for the light, and a curve of your last 24 hours.
 
 The time
-The largest thing on the screen. No steps, no heart rate, no weather, no advice.
+The largest thing on the screen. No steps, no heart rate, no advice.
 
 A ring for the sun
 A thin ring around the bezel is the 24 hours of your day, noon or midnight at the top. Night is dim, twilight lighter, daylight lit in your accent colour and dimmer once it has passed. Ticks mark sunrise and sunset; a marker sits where the sun is now, solid while it is up. An optional warm arc marks the golden hour.
