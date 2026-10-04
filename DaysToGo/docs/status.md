@@ -8,7 +8,7 @@
 
 Owner's runbook. Do the gates in order; each one names what "passed" looks like and where to record it. Nothing here is done yet unless it says so. Status of the build itself: [`archive/plan.md`](archive/plan.md) "Implementation status".
 
-## Ready to upload (prepared 2026-10-04, NOT uploaded)
+## Uploaded 2026-10-04 (Days To Go Free 1.0.0 new app, Days To Go Pro 1.1.0 update), in Garmin review: on approval record the dates, read the stores' device lists, set the site's Free store URL and Pro wording (ROADMAP 3.12)
 
 Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id), together, Free first. Text: `../listing-free/paste.md` and `../listing/paste.md` (now the 1.1.0 text, gate F9's text part is done; the sibling store URLs are placeholders); metadata `../listing*/meta.yaml`.
 

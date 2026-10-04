@@ -33,7 +33,7 @@ Everything below is **UNRELEASED**: built 2026-10-01 against the Free + Pro plan
 - ADRs: 014 (Free + Pro ladder), 015 (Instinct family); both accepted 2026-10-04.
 - Evidence: compiled for both jungles on fr965, fr55, venusq2, venux1 and swept across every manifest product (`tools/compile_sweep.sh`); the Free package's contents checked (`tools/check_free_package.sh`: no Hour or Footer setting, no "Pro" anywhere). Simulator, 2026-10-01: the 51 Free tests PASSED on fr965, fr55 and venusq2, and the screen-fit run (`tools/fit_all.sh`: fr55, fenix5s, fenix5, vivoactive4, fenix7x, fr265s, fr165, epix2, fr965, fenix9pro51mm) passes on Free. Free memory was not measured separately. Nothing has run on a wrist.
 
-### Days To Go Pro 1.1.0 — UNRELEASED, an update of the existing paid app id, not uploaded
+### Days To Go Pro 1.1.0 — uploaded 2026-10-04 by the owner, in review (an update of the existing paid app id; headline "To the minute", ADR-018)
 
 - The paid app is renamed on the watch to "Days To Go Pro" (confirmed name; the owner sets the tier in the upload form). Apart from "To the minute" below, behaviour, settings, ids and defaults are the same as 1.0.1: the settings of 1.0.1 are unchanged and keep their ids; two settings are appended.
 - **Instinct family, added 2026-10-03** (127 products; ADR-015, accepted 2026-10-04, simulator only), as in the Free entry above; Pro on an Instinct has no footer (battery or steps) and no Accent setting.

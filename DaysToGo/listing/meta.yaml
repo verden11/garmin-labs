@@ -13,9 +13,9 @@ live:
   note: 1.0.1 was submitted 2026-09-26 on top of 1.0.0; the app was approved 2026-09-28 and which version Garmin approved is not recorded
 next:
   version: "1.1.0"
-  status: drafted   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
-  summary: "Free + Pro ladder (ADR-014): renamed Days To Go Pro; the Instinct family (ADR-015, 127 products); Pro headline To the minute (ADR-018: Minute and Event time zone, owner pick 2026-10-04). Nothing uploaded"
+  status: uploaded   # drafted | prepared | uploaded | in-review | live
+  uploaded: 2026-10-04
+  summary: "Free + Pro ladder (ADR-014): renamed Days To Go Pro; the Instinct family (ADR-015, 127 products); Pro headline To the minute (ADR-018: Minute and Event time zone, owner pick 2026-10-04). uploaded 2026-10-04 by the owner, in Garmin review"
 package:
   file: dist/DaysToGoPro-1.1.0.iq
   products: 127   # <iq:product> lines in the manifest; the export has 210 part numbers (device variants), not a product count
