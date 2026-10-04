@@ -20,6 +20,15 @@ class DaysToGoConfig {
     static const NO_HOUR = -1;
     static const HOUR_SETTING_ALL_DAY = 0;
     static const HOUR_SETTING_LAST = 24;
+    // "Minute" setting (Pro): 0..59, read only for a timed event.
+    static const MINUTE_SETTING_LAST = 59;
+    // "Event time zone" setting (Pro, docs/decisions.md ADR-018 (the event minute and zone)). The list never stores a negative:
+    // 0 = the watch's own zone (the wall clock, as before); 1..105 are UTC offsets in quarter hours, 1 = UTC-12:00,
+    // 49 = UTC+00:00, 105 = UTC+14:00. The mapping is frozen once shipped.
+    static const ZONE_WATCH = 0;
+    static const ZONE_SETTING_LAST = 105;
+    static const ZONE_UTC_INDEX = 49;
+    static const ZONE_STEP_SECONDS = 900;
 
     // Calendar bounds the day arithmetic is valid for. Saved years are held to the
     // narrower PICKER range below, which also keeps `days * 86400` inside 32 bits.
@@ -113,6 +122,10 @@ class DaysToGoConfig {
     static const KEY_NAME = "Name";
     static const KEY_UNIT = "Unit";
     static const KEY_DATE_STYLE = "DateStyle";
+    (:pro)
+    static const KEY_MINUTE = "Minute";
+    (:pro)
+    static const KEY_ZONE = "EventZone";
     (:pro)
     static const KEY_FOOTER = "Footer";
     static const KEY_ACCENT = "Accent";

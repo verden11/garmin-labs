@@ -11,6 +11,8 @@ class DaysToGoSettings {
     var day as Number;
     var year as Number;
     var hour as Number;      // the raw "Time of day" setting; DaysToGoEvent converts it
+    var minute as Number;    // the "Minute" setting, 0..59 (Pro)
+    var zone as Number;      // the raw "Event time zone" setting (Pro); DaysToGoEvent.zoneOffset converts it
     var unit as Number;
     var dateStyle as Number;
     var footer as Number;
@@ -23,6 +25,8 @@ class DaysToGoSettings {
         day = within(values, DaysToGoConfig.KEY_DAY, 1, DaysToGoConfig.MAX_DAY_OF_MONTH, 1);
         year = yearFrom(values[DaysToGoConfig.KEY_YEAR] as Object?);
         hour = hourFrom(values);
+        minute = minuteFrom(values);
+        zone = zoneFrom(values);
         unit = choice(values, DaysToGoConfig.KEY_UNIT, DaysToGoConfig.UNIT_WEEKS, DaysToGoConfig.UNIT_DAYS);
         dateStyle = choice(values, DaysToGoConfig.KEY_DATE_STYLE, DaysToGoConfig.STYLE_MONTH_FIRST, DaysToGoConfig.STYLE_AUTO);
         footer = footerFrom(values);
@@ -40,13 +44,14 @@ class DaysToGoSettings {
         return new DaysToGoSettings(values);
     }
 
-    // The keys to read, in properties-file order. Pro reads all ten; Free's properties file does not define Hour or
-    // Footer, so the Free build never asks the system for them: no path in it depends on what a missing key does
-    // (docs/decisions.md ADR-014, the Free + Pro ladder).
+    // The keys to read, in properties-file order. Pro reads all twelve; Free's properties file does not define Hour,
+    // Minute, EventZone or Footer, so the Free build never asks the system for them: no path in it depends on what a
+    // missing key does (docs/decisions.md ADR-014, the Free + Pro ladder).
     (:pro)
     private static function settingKeys() as Array<String> {
         return [DaysToGoConfig.KEY_EVENT, DaysToGoConfig.KEY_NAME, DaysToGoConfig.KEY_MONTH, DaysToGoConfig.KEY_DAY,
-                DaysToGoConfig.KEY_YEAR, DaysToGoConfig.KEY_HOUR, DaysToGoConfig.KEY_UNIT, DaysToGoConfig.KEY_DATE_STYLE,
+                DaysToGoConfig.KEY_YEAR, DaysToGoConfig.KEY_HOUR, DaysToGoConfig.KEY_MINUTE, DaysToGoConfig.KEY_ZONE,
+                DaysToGoConfig.KEY_UNIT, DaysToGoConfig.KEY_DATE_STYLE,
                 DaysToGoConfig.KEY_FOOTER, DaysToGoConfig.KEY_ACCENT] as Array<String>;
     }
 
@@ -66,6 +71,27 @@ class DaysToGoSettings {
     (:free)
     private static function hourFrom(values as Dictionary) as Number {
         return DaysToGoConfig.HOUR_SETTING_ALL_DAY;
+    }
+
+    // Pro: the "Minute" list (0..59) and the "Event time zone" list (ADR-018). Free: the defaults, whatever a caller passes in.
+    (:pro)
+    private static function minuteFrom(values as Dictionary) as Number {
+        return within(values, DaysToGoConfig.KEY_MINUTE, 0, DaysToGoConfig.MINUTE_SETTING_LAST, 0);
+    }
+
+    (:free)
+    private static function minuteFrom(values as Dictionary) as Number {
+        return 0;
+    }
+
+    (:pro)
+    private static function zoneFrom(values as Dictionary) as Number {
+        return within(values, DaysToGoConfig.KEY_ZONE, DaysToGoConfig.ZONE_WATCH, DaysToGoConfig.ZONE_SETTING_LAST, DaysToGoConfig.ZONE_WATCH);
+    }
+
+    (:free)
+    private static function zoneFrom(values as Dictionary) as Number {
+        return DaysToGoConfig.ZONE_WATCH;
     }
 
     // Pro: the "Bottom line" list. Free: nothing.

@@ -55,7 +55,7 @@ function proSettingsPassThrough(logger as Test.Logger) as Boolean {
     var s = new DaysToGoSettings({"Hour" => 19, "Footer" => 2} as Dictionary);
     Test.assertEqual(s.hour, 19);
     Test.assertEqual(s.footer, DaysToGoConfig.FOOTER_STEPS);
-    Test.assertEqual(DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_CUSTOM, 9, 30, 2027, s.hour).hour, 18);
+    Test.assertEqual(DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_CUSTOM, 9, 30, 2027, s.hour, s.minute, s.zone).hour, 18);
     return true;
 }
 
@@ -66,7 +66,7 @@ function freeReturnsDefaultsForProKeys(logger as Test.Logger) as Boolean {
     var s = new DaysToGoSettings({"Hour" => 19, "Footer" => 2} as Dictionary);
     Test.assertEqual(s.hour, DaysToGoConfig.HOUR_SETTING_ALL_DAY);
     Test.assertEqual(s.footer, DaysToGoConfig.FOOTER_NONE);
-    Test.assertEqual(DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_CUSTOM, 9, 30, 2027, s.hour).hour, DaysToGoConfig.NO_HOUR);
+    Test.assertEqual(DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_CUSTOM, 9, 30, 2027, s.hour, s.minute, s.zone).hour, DaysToGoConfig.NO_HOUR);
     var state = DaysToGoReadings.build(s, new DaysToGoResult(DaysToGoConfig.PHASE_UPCOMING, 5, 0, 2027, 9, 30), 2026, false);
     Test.assert(state.footer == null);
     return true;
@@ -103,8 +103,8 @@ function freeMissingPropertyKeyThrows(logger as Test.Logger) as Boolean {
 function unitUnsetCountsCalendarDays(logger as Test.Logger) as Boolean {
     var s = new DaysToGoSettings({"Event" => 2, "Month" => 12, "Day" => 25, "Year" => 2026} as Dictionary);
     Test.assertEqual(s.unit, DaysToGoConfig.UNIT_DAYS);
-    var event = DaysToGoEvent.fromSettings(s.event, s.month, s.day, s.year, s.hour);
-    var result = DaysToGoCountdown.resolve(event, new DaysToGoLocalTime(2026, 10, 26, 0));
+    var event = DaysToGoEvent.fromSettings(s.event, s.month, s.day, s.year, s.hour, s.minute, s.zone);
+    var result = DaysToGoCountdown.resolve(event, new DaysToGoLocalTime(2026, 10, 26, 0, 0));
     Test.assertEqual(result.phase, DaysToGoConfig.PHASE_UPCOMING);
     Test.assertEqual(result.days, 60);   // 5 + 30 + 25
     var state = DaysToGoReadings.build(s, result, 2026, false);

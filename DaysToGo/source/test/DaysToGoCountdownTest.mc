@@ -4,8 +4,8 @@ import Toybox.Test;
 // Test helpers. hour -1 = all day, year 0 = every year.
 function resolveAt(month as Number, day as Number, year as Number, hour as Number,
                    nowYear as Number, nowMonth as Number, nowDay as Number, nowSecond as Number) as DaysToGoResult {
-    var event = new DaysToGoEvent(month, day, year, hour);
-    return DaysToGoCountdown.resolve(event, new DaysToGoLocalTime(nowYear, nowMonth, nowDay, nowSecond));
+    var event = new DaysToGoEvent(month, day, year, hour, 0, DaysToGoConfig.ZONE_WATCH);
+    return DaysToGoCountdown.resolve(event, new DaysToGoLocalTime(nowYear, nowMonth, nowDay, nowSecond, 0));
 }
 
 // Event Countdown's 2022 bug: entering tomorrow counted two days.
@@ -123,21 +123,21 @@ function farFutureAndBoundaries(logger as Test.Logger) as Boolean {
 // Presets are events with fixed fields; custom passes the settings through.
 (:test)
 function presetsIgnoreCustomFields(logger as Test.Logger) as Boolean {
-    var e = DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_NEW_YEAR, 7, 7, 2030, 10);
+    var e = DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_NEW_YEAR, 7, 7, 2030, 10, 0, 0);
     Test.assertEqual(e.month, 1);
     Test.assertEqual(e.day, 1);
     Test.assertEqual(e.year, DaysToGoConfig.EVERY_YEAR);
     Test.assertEqual(e.hour, DaysToGoConfig.NO_HOUR);
-    e = DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_CHRISTMAS, 7, 7, 2030, 9);
+    e = DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_CHRISTMAS, 7, 7, 2030, 9, 0, 0);
     Test.assertEqual(e.month, 12);
     Test.assertEqual(e.day, 25);
     // Custom passes month, day and year through and converts the raw hour setting: 19 means 18:00.
-    e = DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_CUSTOM, 7, 8, 2030, 19);
+    e = DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_CUSTOM, 7, 8, 2030, 19, 0, 0);
     Test.assertEqual(e.month, 7);
     Test.assertEqual(e.day, 8);
     Test.assertEqual(e.year, 2030);
     Test.assertEqual(e.hour, 18);
-    e = DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_CUSTOM, 7, 8, 2030, 0);
+    e = DaysToGoEvent.fromSettings(DaysToGoConfig.EVENT_CUSTOM, 7, 8, 2030, 0, 0, 0);
     Test.assertEqual(e.hour, DaysToGoConfig.NO_HOUR);
     return true;
 }

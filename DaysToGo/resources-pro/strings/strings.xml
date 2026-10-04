@@ -2,4 +2,9 @@
 
     <!-- The one string that differs by tier. It lives ONLY here (not in resources/ or any resources-<lang>/): a language folder that also defined AppName would override this one on a non-English watch. Unqualified, so every language falls back to it. -->
     <string id="AppName">Days To Go Pro</string>
+
+    <!-- Pro-only phone settings (ADR-018). English default; the 14 languages are in resources-pro-<lang>, apart from resources-<lang> so the Free build never carries them. The minute and UTC-offset labels are numbers only: resources-pro/strings/generated.xml (tools/gen_settings.py). -->
+    <string id="setting_minute">Minute</string>
+    <string id="setting_zone">Event time zone</string>
+    <string id="zone_watch">My watch time zone</string>
 </strings>

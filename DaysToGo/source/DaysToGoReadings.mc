@@ -9,7 +9,7 @@ class DaysToGoReadings {
 
     static function take(settings as DaysToGoSettings) as DaysToGoState {
         var now = DaysToGoLocalTime.now();
-        var event = DaysToGoEvent.fromSettings(settings.event, settings.month, settings.day, settings.year, settings.hour);
+        var event = DaysToGoEvent.fromSettings(settings.event, settings.month, settings.day, settings.year, settings.hour, settings.minute, settings.zone);
         var device = System.getDeviceSettings();
         var monthFirst = DaysToGoDateText.monthFirstFor(settings.dateStyle);
         var hour = now.secondOfDay / DaysToGoConfig.SECONDS_PER_HOUR;

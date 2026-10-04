@@ -1,0 +1,7 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <!-- Pro-only phone settings (ADR-018). Machine-drafted, not read by a native speaker (listing/NOTES.md). Kept apart from resources-pol so the Free build never carries them. -->
+    <string id="setting_minute">Minuta</string>
+    <string id="setting_zone">Strefa czasowa wydarzenia</string>
+    <string id="zone_watch">Strefa czasowa mojego zegarka</string>
+</strings>

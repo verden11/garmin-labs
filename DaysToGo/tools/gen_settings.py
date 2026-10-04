@@ -8,8 +8,10 @@ Writes, relative to the project root, for each tier asked for (free, pro; defaul
 and, tier-independent, every run:
   resources/strings/generated.xml     the numbers-only strings (not translated), and a copy in every
                                       resources-<lang>/strings/ (languages do not inherit the default's ids)
+  resources-pro/strings/generated.xml the Pro-only numbers-only strings (minute and time zone labels, ADR-018); every
+                                      language's jungle line already searches resources-pro, and Free never sees them
 
-Tiers (docs/decisions.md ADR-014 (Free + Pro ladder)): Pro has every setting; Free omits Hour and Footer (the Pro-only keys) and
+Tiers (docs/decisions.md ADR-014 (Free + Pro ladder)): Pro has every setting; Free omits Hour, Minute, EventZone and Footer (the Pro-only keys) and
 shows Accent ids 0-5. There is NO settings file in the shared resources/: two files would overlap.
 
 Everything users read as words (titles, list entries, month names) lives in
@@ -33,15 +35,32 @@ MONTHS = 12
 ACCENTS = ["mint", "amber", "sky", "pink", "violet", "white"]
 FREE_ACCENT_COUNT = 6
 TIERS = ("free", "pro")
-PRO_ONLY_KEYS = ("Hour", "Footer")
+PRO_ONLY_KEYS = ("Hour", "Minute", "EventZone", "Footer")
+# The event time zone list (ADR-018): the list value is a quarter-hour index, 1 = UTC-12:00, 49 = UTC+00:00, 105 = UTC+14:00
+# (0 = the watch's own zone). The mapping is frozen once shipped; only real zones are offered, in minutes east of UTC.
+# Keep ZONE_UTC_INDEX / ZONE_SETTING_LAST in step with DaysToGoConfig.
+ZONE_UTC_INDEX, ZONE_LAST = 49, 105
+ZONE_MINUTES = [-720, -660, -600, -570, -540, -480, -420, -360, -300, -240, -210, -180, -150, -120, -60, 0, 60, 120, 180, 210,
+                240, 270, 300, 330, 345, 360, 390, 420, 480, 525, 540, 570, 600, 630, 660, 720, 765, 780, 825, 840]
 XSI = ('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
        'xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd"')
 
 # (property id, default, type). List values are never negative (untested in Garmin Connect):
-# Hour is 0 = all day, 1..24 = 00:00..23:00; DaysToGoEvent.hourFromSetting converts.
+# Hour is 0 = all day, 1..24 = 00:00..23:00; DaysToGoEvent.hourFromSetting converts. Minute is 0..59 (read only with an Hour).
+# EventZone is 0 = the watch's own zone, else a quarter-hour index (above); DaysToGoEvent.zoneOffset converts.
 PROPS = [("Event", 0, "number"), ("Name", "", "string"), ("Month", 1, "number"), ("Day", 1, "number"),
-         ("Year", 0, "number"), ("Hour", 0, "number"), ("Unit", 0, "number"), ("DateStyle", 0, "number"),
+         ("Year", 0, "number"), ("Hour", 0, "number"), ("Minute", 0, "number"), ("EventZone", 0, "number"),
+         ("Unit", 0, "number"), ("DateStyle", 0, "number"),
          ("Footer", 0, "number"), ("Accent", 0, "number")]
+
+
+def zone_index(minutes):
+    return ZONE_UTC_INDEX + minutes // 15
+
+
+def zone_label(minutes):
+    sign = "-" if minutes < 0 else "+"
+    return f"UTC{sign}{abs(minutes) // 60:02d}:{abs(minutes) % 60:02d}"
 
 
 def entry(value, string_id):
@@ -65,6 +84,8 @@ def settings_xml(tier):
     out.append(lst("Year", "setting_year", [entry(0, "year_every")] + [entry(y, f"y{y}") for y in range(FIRST_YEAR, LAST_YEAR + 1)]))
     if pro:
         out.append(lst("Hour", "setting_hour", [entry(0, "hour_none")] + [entry(h + 1, f"h{h}") for h in range(24)]))
+        out.append(lst("Minute", "setting_minute", [entry(m, f"mi{m}") for m in range(60)]))
+        out.append(lst("EventZone", "setting_zone", [entry(0, "zone_watch")] + [entry(zone_index(m), f"zone_{zone_index(m)}") for m in ZONE_MINUTES]))
     out.append(lst("Unit", "setting_unit", [entry(0, "unit_days"), entry(1, "unit_weeks")]))
     out.append(lst("DateStyle", "setting_datestyle", [entry(0, "datestyle_auto"), entry(1, "datestyle_day"), entry(2, "datestyle_month")]))
     if pro:
@@ -101,15 +122,25 @@ def generated_strings():
     return "".join(out)
 
 
+def pro_generated_strings():
+    """Pro-only, numbers only (not translated): minute labels and UTC offsets. Lives in resources-pro/strings."""
+    out = [f"<strings {XSI}>\n"]
+    out += [f'    <string id="mi{m}">{m:02d}</string>\n' for m in range(60)]
+    out += [f'    <string id="zone_{zone_index(m)}">{zone_label(m)}</string>\n' for m in ZONE_MINUTES]
+    out.append("</strings>\n")
+    return "".join(out)
+
+
 def hand_ids(tier="pro"):
     ids = ["setting_event", "event_new_year", "event_christmas", "event_custom", "setting_name",
-           "setting_month", "setting_day", "setting_year", "year_every", "setting_hour", "hour_none",
+           "setting_month", "setting_day", "setting_year", "year_every", "setting_hour", "hour_none", "setting_minute",
+           "setting_zone", "zone_watch",
            "setting_unit", "unit_days", "unit_weeks", "setting_datestyle", "datestyle_auto",
            "datestyle_day", "datestyle_month", "setting_footer", "footer_none", "footer_battery",
            "footer_steps", "setting_accent"]
     ids += [f"month_{m}" for m in range(1, MONTHS + 1)] + [f"accent_{a}" for a in ACCENTS]
     if tier == "free":
-        ids = [i for i in ids if not i.startswith(("setting_hour", "hour_none", "setting_footer", "footer_"))]
+        ids = [i for i in ids if not i.startswith(("setting_hour", "hour_none", "setting_minute", "setting_zone", "zone_watch", "setting_footer", "footer_"))]
     return ids
 
 
@@ -124,13 +155,14 @@ if __name__ == "__main__":
     root = Path(__file__).resolve().parent.parent
     if (root / "resources" / "settings").exists():
         sys.exit("resources/settings must not exist: settings live in resources-free/ and resources-pro/ only")
-    langs = sorted(p.parent.name for p in root.glob("resources-*/strings") if p.parent.name not in ("resources-free", "resources-pro"))
+    langs = sorted(p.parent.name for p in root.glob("resources-*/strings") if p.parent.name not in ("resources-free", "resources-pro") and not p.parent.name.startswith("resources-pro-"))
     targets = []
     for tier in tiers:
         targets += [(f"resources-{tier}/settings/settings.xml", settings_xml(tier)),
                     (f"resources-{tier}/settings/properties.xml", properties_xml(tier)),
                     (f"resources-accent-{tier}/settings/accent.xml", accent_xml(tier))]
-    targets += [("resources/strings/generated.xml", generated_strings())]
+    targets += [("resources/strings/generated.xml", generated_strings()),
+                ("resources-pro/strings/generated.xml", pro_generated_strings())]
     targets += [(f"{lang}/strings/generated.xml", generated_strings()) for lang in langs]
     for rel, text in targets:
         path = root / rel

@@ -6,6 +6,8 @@
     <property id="Day" type="number">1</property>
     <property id="Year" type="number">0</property>
     <property id="Hour" type="number">0</property>
+    <property id="Minute" type="number">0</property>
+    <property id="EventZone" type="number">0</property>
     <property id="Unit" type="number">0</property>
     <property id="DateStyle" type="number">0</property>
     <property id="Footer" type="number">0</property>

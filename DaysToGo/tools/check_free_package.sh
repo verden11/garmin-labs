@@ -9,14 +9,14 @@
 # compiled .prg, a <part>-settings.json (the settings the phone renders: keys, list options, and every
 # string in every language) and one manifest.xml. This script extracts it and checks, for every part number:
 #   Free: the settings KEYS are exactly the Free set and the Accent list is ids 0-5; the word "Pro" appears nowhere
-#         (manifest, settings strings in every language, compiled .prg); no .prg contains the property names Hour or
+#         (manifest, settings strings in every language, compiled .prg); no .prg contains the property names Hour, Minute, EventZone or
 #         Footer as standalone strings; AppName is "Days To Go" in every language.
-#   Pro:  the settings keys are the full set including Hour and Footer; every .prg contains those two names and the
+#   Pro:  the settings keys are the full set including Hour, Minute, EventZone and Footer; every .prg contains those names and the
 #         string "Days To Go Pro" (positive controls: they prove the Free checks can see what they look for);
 #         AppName is "Days To Go Pro" in every language.
 #   Both: the app ids are the expected, different ones; no permissions; the part numbers equal the SDK's part
 #         numbers for the manifest's 127 product ids (one SDK part number may be absent, reported, not failed).
-# NOT proven: that the Hour/Footer display strings (setting_hour, footer_*, h0-h23) are absent. They live in the
+# NOT proven: that the Hour/Footer display strings (setting_hour, footer_*, h0-h23) are absent. (The Minute and zone strings are in Pro-only folders, ADR-018, so they are absent: no Pro word, no key.) They live in the
 # shared strings and still ship, unreferenced, in Free. Nor does it prove behaviour on a watch.
 set -u
 cd "$(dirname "$0")/.." || exit 2
@@ -52,8 +52,8 @@ python3 - "$WORK/free" "$WORK/pro" "$FREE_ID" "$PRO_ID" "$DEVICES" <<'PY'
 import glob, json, os, re, sys
 free_dir, pro_dir, free_id, pro_id, devices = sys.argv[1:6]
 FREE_KEYS = ["Event", "Name", "Month", "Day", "Year", "Unit", "DateStyle", "Accent"]
-PRO_ONLY = ["Hour", "Footer"]
-PRO_KEYS = ["Event", "Name", "Month", "Day", "Year", "Hour", "Unit", "DateStyle", "Footer", "Accent"]
+PRO_ONLY = ["Hour", "Minute", "EventZone", "Footer"]
+PRO_KEYS = ["Event", "Name", "Month", "Day", "Year", "Hour", "Minute", "EventZone", "Unit", "DateStyle", "Footer", "Accent"]
 # The Instinct family (ADR-015) has no Accent setting: a 1-bit display cannot show one. Its part numbers are read from
 # the SDK so the check can tell an Instinct part's settings file from a round one's.
 INSTINCT = ["instinct2", "instinct2s", "instinct2x", "descentg1", "instincte40mm", "instincte45mm", "instinct3solar45mm"]
@@ -172,6 +172,6 @@ if problems:
         print(f"  ... and {len(problems) - 40} more")
     sys.exit(1)
 print(f"OK: Free package ({free_products} products, {free_files} settings files): keys {FREE_KEYS} (no Accent on the 7 Instinct products), "
-      f"no Hour/Footer in settings or compiled .prg, no 'Pro' anywhere, AppName 'Days To Go' in every language.")
-print(f"OK: Pro package ({pro_products} products, {pro_files} settings files): keys {PRO_KEYS} (no Accent on the 7 Instinct products), AppName 'Days To Go Pro' in every language; Hour, Footer and the name found in every .prg (positive controls).")
+      f"no Hour/Minute/EventZone/Footer in settings or compiled .prg, no 'Pro' anywhere, AppName 'Days To Go' in every language.")
+print(f"OK: Pro package ({pro_products} products, {pro_files} settings files): keys {PRO_KEYS} (no Accent on the 7 Instinct products), AppName 'Days To Go Pro' in every language; Hour, Minute, EventZone, Footer and the name found in every .prg (positive controls).")
 PY

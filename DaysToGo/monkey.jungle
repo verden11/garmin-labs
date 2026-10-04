@@ -8,20 +8,20 @@ base.excludeAnnotations = free;mono
 # AppName is the one string that differs by tier, and a language does NOT inherit the default's strings
 # (the compiler warns "String id 'AppName' undefined for language ..."). So each language also searches the tier
 # folder; AppName is defined only there, never in resources/ or resources-<lang>/, so no language can override it.
-base.lang.dan = $(base.lang.dan);resources-pro
-base.lang.deu = $(base.lang.deu);resources-pro
-base.lang.dut = $(base.lang.dut);resources-pro
-base.lang.fin = $(base.lang.fin);resources-pro
-base.lang.fre = $(base.lang.fre);resources-pro
-base.lang.ita = $(base.lang.ita);resources-pro
-base.lang.lit = $(base.lang.lit);resources-pro
-base.lang.nob = $(base.lang.nob);resources-pro
-base.lang.pol = $(base.lang.pol);resources-pro
-base.lang.por = $(base.lang.por);resources-pro
-base.lang.spa = $(base.lang.spa);resources-pro
-base.lang.swe = $(base.lang.swe);resources-pro
-base.lang.tur = $(base.lang.tur);resources-pro
-base.lang.ukr = $(base.lang.ukr);resources-pro
+base.lang.dan = $(base.lang.dan);resources-pro;resources-pro-dan
+base.lang.deu = $(base.lang.deu);resources-pro;resources-pro-deu
+base.lang.dut = $(base.lang.dut);resources-pro;resources-pro-dut
+base.lang.fin = $(base.lang.fin);resources-pro;resources-pro-fin
+base.lang.fre = $(base.lang.fre);resources-pro;resources-pro-fre
+base.lang.ita = $(base.lang.ita);resources-pro;resources-pro-ita
+base.lang.lit = $(base.lang.lit);resources-pro;resources-pro-lit
+base.lang.nob = $(base.lang.nob);resources-pro;resources-pro-nob
+base.lang.pol = $(base.lang.pol);resources-pro;resources-pro-pol
+base.lang.por = $(base.lang.por);resources-pro;resources-pro-por
+base.lang.spa = $(base.lang.spa);resources-pro;resources-pro-spa
+base.lang.swe = $(base.lang.swe);resources-pro;resources-pro-swe
+base.lang.tur = $(base.lang.tur);resources-pro;resources-pro-tur
+base.lang.ukr = $(base.lang.ukr);resources-pro;resources-pro-ukr
 
 # The Instinct family (ADR-015): black-and-white palette (`color` excluded), and no Accent settings file
 # (resources-accent-<tier> is left out of their resourcePath: it has no effect on a 1-bit display). A per-product excludeAnnotations REPLACES the base list, so the tier's
