@@ -5,16 +5,16 @@ folder: HeroFace/listing-free
 tier: free
 app_id: be68898f-995b-45d9-860e-42ad508bd7fd
 store:
-  listing_url: null
-  developer_url: null
+  listing_url: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d   # valid once Garmin approves
+  developer_url: https://apps-developer.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d
 live:
   version: null
   since: null
-  note: a new app, not yet uploaded
+  note: a new app, uploaded 2026-10-04, in Garmin review; nothing live yet
 next:
   version: "1.0.0"
-  status: drafted   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
+  status: uploaded   # drafted | prepared | uploaded | in-review | live
+  uploaded: 2026-10-04
   summary: "the Free twin: everyday and HeroSet mode, accent colour; names confirmed 2026-10-04; store URLs and uploads are the owner's"
 package:
   file: dist/HeroFaceFree-1.0.0.iq

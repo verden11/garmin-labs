@@ -11,7 +11,7 @@ HeroFace Pro
 ## Description
 
 ```text
-Also available: HeroFace, a lighter version: <HEROFACE STORE URL>
+Also available: HeroFace, a lighter version: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d
 
 The time first, today's goals right under it. Three bars you choose, a ring for the whole day, a streak worth keeping — or your HeroSet reps and rank, if you have it.
 

@@ -8,7 +8,7 @@ Status: 2026-10-01 (the Free + Pro pair block added; the rest as of 2026-09-26).
 
 Live since 2026-09-22 (Garmin approval), **1.0.1 live since 2026-09-24**: https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116. Site pages `/heroface/`, `/heroface/support/`, `/heroface/privacy/` are live and the Get button links to the store. Anything that fails now is a code fix plus a listing update, not a withdrawal.
 
-## Ready to upload (prepared 2026-10-04, NOT uploaded)
+## Uploaded 2026-10-04 (HeroFace Free 1.0.0 new app, HeroFace Pro 1.1.0 update), in Garmin review: on approval record the dates, read both stores' device lists, set the site's Free store URL
 
 Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id, renamed inside the pending listing-repair submission, ROADMAP 5.6). Text: `../listing-free/paste.md` and `../listing/paste.md` (now the 1.1.0 text; sibling store URL placeholder); metadata `../listing*/meta.yaml`. Images re-rendered 2026-10-04 (`../listing/screenshots.md`).
 

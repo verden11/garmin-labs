@@ -7,7 +7,7 @@ One entry per Connect IQ Store publication, newest first. The store's
 
 Everything below is **UNRELEASED**: built 2026-10-01 against the Free + Pro plan, the owner approved the ladder on 2026-10-04 (`docs/decisions.md` ADR-001, the Free + Pro ladder, Active), nothing uploaded. Simulator only: 24 tests PASSED on each jungle on fr965, fenix5s and fr55 (2026-10-01, main thread); nothing on a wrist. The headings are the versions the owner would upload; dates and uploads are theirs.
 
-### HeroFace (Free) 1.0.0 — UNRELEASED, a new app (new app id), not uploaded
+### HeroFace (Free) 1.0.0 — uploaded 2026-10-04 by the owner, in review (a new app; developer page https://apps-developer.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d; the public store URL works once Garmin approves)
 
 - First release of the Free twin: the same 117 round watches, 15 languages and permission as the paid app. The time, the progress ring, three mission bars (steps, intensity minutes and floors, each falling back to what the watch has), the date, the step-goal streak, battery, heart rate, notifications, always-on, and HeroSet mode on Connect IQ 4.2+ watches with HeroSet installed.
 - Settings: Missions (HeroSet when installed, or everyday goals) and Accent colour (Blue, Cyan, Magenta).
@@ -18,7 +18,7 @@ Everything below is **UNRELEASED**: built 2026-10-01 against the Free + Pro plan
 - ADRs: 001 (Free + Pro ladder), 002 (Instinct family), 003 (Magenta recolour); all accepted 2026-10-04.
 - Evidence: compiled for both jungles with `-w --typecheck 3` and swept across every manifest product (`tools/compile_sweep.sh`); the Free package's contents checked (`tools/check_free_package.sh`: Mode and Accent only, no "Pro" anywhere). Simulator, 2026-10-01: the 24 Free tests PASSED on fr965, fenix5s and fr55, including `freeMissingPropertyKeyThrows` (the simulator throws `InvalidKeyException` for a key missing from the properties file) and the Magenta known-issue test (since replaced by the passing `magentaWasRecolouredToClearTheTrackRule`). **Not yet run:** the ten-size screen-fit loop on either jungle and the simulator memory view on fenix5s and vivoactive3. Nothing has run on a wrist, and a Free app id receiving HeroSet's private complication is untested on a watch.
 
-### HeroFace Pro 1.1.0 — UNRELEASED, an update of the existing paid app id, not uploaded
+### HeroFace Pro 1.1.0 — uploaded 2026-10-04 by the owner, in review (an update of the existing paid app id; $2.50 tier)
 
 - The paid app is renamed on the watch to "HeroFace Pro" (placeholder name; the owner decides it). Behaviour, settings, ids and defaults are the same as 1.0.1: `resources-pro/settings` is the old shared settings file unchanged.
 - **Instinct family, added 2026-10-03** (124 products; ADR-002, accepted 2026-10-04, simulator only), as in the Free entry above; Pro on an Instinct has no seconds, no temperature and no footer, and no Accent setting.
