@@ -45,7 +45,7 @@ Wrist and watch checks (a simulator cannot do these).
 - [ ] 5.5 `[you]` HeroFace: a Free app id receives HeroSet's complication on a watch. Also the FR965 store install of 1.0.1 (face then HeroSet installs, link appears within a minute, °F rounding).
 - [ ] 7.3 `[you]` HeroSet accuracy proof (gate 2): 3 x 10 reps per exercise at slow, medium, fast; 60 s still per exercise; one 30+ rep set. **Without it there is no HeroSet Free (7.4).**
 - [ ] 7.9 `[you]` HeroSet device checks on the FR965 dev build: B1 (START finishes a set, saves pickers, hint `UP/DOWN`, Back after a lone dropped rep), B5 (goal 30 and 500, survives restart), gate 7 (HR, calories, battery), store build sync, photograph every Validation Log page before it wraps (30 entries).
-- [ ] 9.6 `[you]` When any Instinct is in reach: HeroSet accelerometer at 25 Hz, the real bezel and window clearance, contrast, memory of every Instinct face (Two Suns Pro is at 77%), whether the on-watch Customize menu is offered, the HeroSet glance placement (9.11), and whether START selects inside a Menu2 (7.11 B3).
+- [ ] 9.6 `[you]` When any Instinct is in reach: HeroSet accelerometer at 25 Hz, the real bezel and window clearance, contrast, memory of every Instinct face (Two Suns Pro is at 77%), whether the on-watch Customize menu is offered (Two Suns Pro would be about 82% of face memory with the menu open), the HeroSet glance placement (9.11), and whether START selects inside a Menu2 (7.11 B3).
 
 People.
 - [ ] 7.10 `[you]` Native-speaker read of the 1.1.1 touch-hint strings (`deu`, `lit`, `pol`), the seven HeroFace Move abbreviations added 2026-10-04 (`BEV.` dan/nob, `BEW.` deu/dut, `MOV.` spa, `HRK.` tur, `JUD.` lit), and any language you ship as store copy (all faces are machine-drafted in 14 languages).
@@ -59,8 +59,8 @@ People.
 Running now (2026-10-04, parallel agents): 1.2, 1.3, 9.10 (DayArc and HeroFace design pass), 3.2, 9.4 (measurements).
 
 Simulator work (the GUI tooling in `docker/sim-gui.sh` can drive it).
-- [ ] 3.2 `[agent]` Days To Go Free fit and memory view on fenix5s / fr55 (not measured). Same for HeroFace Free on ten sizes and fenix5s / vivoactive3 (96 KB limit) (5.4). *Running.*
-- [ ] 9.4 `[agent]` Memory peaks no unit test measures: the Customize menu and pickers (Two Suns Pro first: 45.8 of 59.8 kB on Instinct, DaysToGo date picker, HeroFace), seconds power budget (HeroFace), MIP contrast screenshots. *Running.*
+- [x] 3.2 `[agent]` Days To Go Free fit and memory view on fenix5s / fr55 (not measured). Same for HeroFace Free on ten sizes and fenix5s / vivoactive3 (96 KB limit) (5.4). **Done 2026-10-04 (simulator): Days To Go Free 53/53 on fr55 and fenix5s (27.6 of 91.8 kB); HeroFace Free 25/25 on 11 devices incl. fenix5s and vivoactive3 (29.7 of 91.8 kB); tables in each `docs/compatibility.md`.**
+- [x] 9.4 `[agent]` Memory peaks no unit test measures: the Customize menu and pickers (Two Suns Pro first: 45.8 of 59.8 kB on Instinct, DaysToGo date picker, HeroFace), seconds power budget (HeroFace), MIP contrast screenshots. **Done 2026-10-04 as far as the simulator goes: nothing over a limit or within 5%; tightest is Two Suns Pro on Instinct E, 45.9 of 59.8 kB (77%), about 82% with the Customize menu open (derived); Days To Go picker adds 6.7 kB (worst case 53% on Instinct E); HeroFace has no menu or picker; seconds kept ticking, `onPowerBudgetExceeded` never fired. Not drivable: the real Customize route, the AMOLED power budget.**
 - [ ] 7.11 `[agent]` HeroSet by hand, what is left: tapping Resume on `venu441mm`; E4 done state and memory view of the glance. (Done 2026-10-04: B2 six of seven observed; E4 empty-day glance fits on fr965 / fr255s / fenix7; B3 open on a real watch, 9.6.) Driving notes: `HeroSet/docs/development.md`.
 
 Fixes and polish.
@@ -71,6 +71,8 @@ Fixes and polish.
 - [ ] 1.13 `[agent]` DayArc: the weather glyph reads as a blob (reviewer): redraw it on the pixel grid.
 - [ ] 1.14 `[agent]` DayArc: on the Instinct, Pro drops the hero label where Simple keeps it; on the 3 Solar the Pro morning is identical to Simple. Decide and fix, or document.
 - [ ] 1.15 `[agent]` DayArc: compile sweep, `tools/check_package.sh --build`, reviewer re-run (closes 1.3).
+- [ ] 10.13 `[agent]` Days To Go date picker: `pushDatePicker` never clears the background, so on colour MIP the harness showed white text on white, and on Instinct the columns were cut ("Octobe", "ery ye"). Clear to black like the SDK Picker sample, fit the columns on 166/176 px, verify in the harness (private-copy `watch-app` trick, see `DaysToGo/docs/compatibility.md`); then a wrist check on a MIP watch (3.1).
+- [ ] 5.9 `[agent]` HeroFace Pro: the ten-size fit loop (only Free was run on the small sizes) and a screenshot look at what Free really draws on fenix5s / vivoactive3 (the fit test's states always carry seconds and temperature).
 - [ ] 5.8 `[agent]` HeroFace: change the Magenta accent colour so it passes 3:1 against the track (keep the id and name; check against the face's reserved roles in `research_notes/Free and Pro ladder/accent_roster.md`); verify in the simulator. (Decided 5.3.)
 - [ ] 9.11 `[agent]` HeroSet glance on Instinct E / 3 Solar: lay it out around the round window with `getSubscreen()` (blind; the simulator draws it under the window), keep `tools/glance-scope-check.sh` green; a wrist check follows (9.6). (Decided 9.3.)
 - [ ] 10.11 `[agent]` HeroSet: seeding reps through `store.add` at launch crashed the app from the glance in the simulator (found 2026-10-04 while scripting screenshots); find out whether this is only the test harness or a real glance-process bug.
