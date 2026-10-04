@@ -16,7 +16,7 @@ Also available: Days To Go (<DAYS TO GO STORE URL>)
 A countdown watch face: one big number for the days left until your date.
 
 One number
-The days left is the biggest thing on the screen, at the largest size your watch can draw. The time above it, the date below. A thin ring around the bezel drains through the last year and fills on the day itself. No steps, no heart rate, no weather.
+The days left is the biggest thing on the screen, at the largest size your watch can draw. The time above it, the date below. A thin ring around the bezel drains through the last year and fills on the day itself. No heart rate, no weather.
 
 Any date, your own event
 A birthday, an anniversary, a race, a trip — any date, with your own name for it (up to 16 characters), a set of six accent colours, and a count in days or in weeks and days. New Year's Day by default, so it is never empty; "Every year" makes a birthday or anniversary roll over by itself. An event with a time turns its last 24 hours into hours and minutes, and an optional bottom line can show your battery or step count.
