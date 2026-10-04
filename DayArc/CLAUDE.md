@@ -1,9 +1,9 @@
 # DayArc / DayArc Pro — CLAUDE.md
 
-Garmin watch face pair (Connect IQ, Monkey C) from studio Verden. **Names working, not confirmed**
+Garmin watch face pair (Connect IQ, Monkey C) from studio Verden. **Names "DayArc" and "DayArc Pro" confirmed by the owner, 2026-10-04 (ROADMAP 1.4)**
 (store-collision and general web checked — `docs/decisions.md` ADR-012 — no registered-trademark
 search). One codebase, two store listings: **DayArc** (free) shows one focal read per time window
-(morning weather, midday stress, evening Body Battery, night time+date); **DayArc Pro** (paid, Garmin's second price step, no
+(morning weather, midday stress, evening Body Battery, night time+date); **DayArc Pro** (paid, the $2.50 tier, ADR-018, no
 flip-to-free) shows the same windows with a denser field grid under each hero read. Split is
 compile-time (`monkey.simple.jungle`/`monkey.pro.jungle`, `excludeAnnotations`), never a runtime
 toggle — deliberate, this platform's #1 complaint is settings not saving (ADR-003, ADR-011). The one
@@ -63,13 +63,13 @@ Not decided, and not to be decided alone: both launcher icons/covers/heroes (pla
 night-window default (ADR-010 — time+date only, a plan default, not confirmed), both listings'
 OWNER listing fields, languages beyond English, the site pages, both store submissions, whether to
 run a real trademark search. Decided: two-listing architecture (ADR-003), fixed-clock windows
-(ADR-004), pricing (ADR-007), Simple's calendar exclusion (ADR-008), Pro's density target (ADR-009).
+(ADR-004), pricing (ADR-007; its price part superseded by ADR-018), Simple's calendar exclusion (ADR-008), Pro's density target (ADR-009).
 **The look is owner-approved for direction and now built** (ADR-013, 2026-09-28: per-window/per-icon
 colour, real icons, always-visible date, window-progress arc). Simulator-tested,
 fr965/approachs50/venusq2/venux1, both jungles; still not shown to the owner as an actual render, and
 no real-device evidence — a mockup or a simulator pass is not device proof.
 
-Price: Simple free forever (nothing to flip). Pro is paid at Garmin's second price step (ADR-007, amended 2026-10-01), never flips to free — no price
+Price: Simple free forever (nothing to flip). Pro is paid at the $2.50 tier (ADR-018, price: the $2.50 tier for every paid app, which supersedes the price of ADR-007; set in the upload form, no price number in listing or site text), never flips to free — no price
 review date to set.
 
 ## House rules

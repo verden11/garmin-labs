@@ -3,7 +3,7 @@
 1. **Title.** "DayArc Pro," store-collision checked separately from "DayArc" (`docs/decisions.md`
    ADR-012, 996 fuzzy results, no exact match).
 2. **Description.** Names the Pro-only fields plainly as "as many as fit your watch's screen", never a count, never "resting" heart rate (no "insights"/"coaching" framing, per
-   `docs/release-contract.md`). States the price and the no-flip rule directly, since ADR-007 is a
+   `docs/release-contract.md`). States the no-flip rule directly (no price number: ADR-018, the $2.50 tier, is set in the form only), since ADR-007 is a
    deliberate departure from this studio's usual flip-to-free pattern and the listing should say so
    rather than let a reviewer assume the usual rule applies.
 3. **Category/data-collection/email.** Same as DayArc's listing — one product family, one set of

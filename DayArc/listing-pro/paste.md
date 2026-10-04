@@ -66,7 +66,7 @@ Blank — initial release.
 ## Monetization
 
 ```text
-Paid — Garmin's second price step (set in the dashboard; no number in the text, ADR-007 amended 2026-10-01), one-time, no subscription.
+Paid: Yes, price tier USD 2.50 (the form's own selection, set in the dashboard; ADR-018), one-time, no subscription. No price number goes in the description text.
 ```
 
 ## iOS / Android Companion App URL / Additional Hardware Requirements (optional)
