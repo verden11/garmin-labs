@@ -238,10 +238,12 @@ function weatherDegreesRoundAndConvert(logger as Test.Logger) as Boolean {
 (:test, :pro)
 function weatherHourLabels(logger as Test.Logger) as Boolean {
     Test.assertEqual(TwoSunsWeatherPlan.hourText(9 * 60 + 30, true), "9");
-    Test.assertEqual(TwoSunsWeatherPlan.hourText(16 * 60, false), "4");
-    Test.assertEqual(TwoSunsWeatherPlan.hourText(0, false), "12");
-    Test.assertEqual(TwoSunsWeatherPlan.hourText(12 * 60, false), "12");
+    Test.assertEqual(TwoSunsWeatherPlan.hourText(16 * 60, false), "4p");
+    Test.assertEqual(TwoSunsWeatherPlan.hourText(0, false), "12a");
+    Test.assertEqual(TwoSunsWeatherPlan.hourText(12 * 60, false), "12p");
     Test.assertEqual(TwoSunsWeatherPlan.hourText(25 * 60, true), "1");   // past midnight wraps
+    Test.assertEqual(TwoSunsWeatherPlan.hourText(9 * 60 + 30, false), "9a");
+    Test.assertEqual(TwoSunsWeatherPlan.hourText(23 * 60, false), "11p");
     return true;
 }
 
