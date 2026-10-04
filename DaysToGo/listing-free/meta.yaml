@@ -26,8 +26,8 @@ price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   status: rendered 2026-10-04 from the current Free build; proposals, the owner approves the looks; nothing uploaded; the superseded files are in old/
-  cover: cover-500.png (500x500, 81 KB; mark + name)
-  hero: hero-1440x720.png (1440x720, 268 KB)
+  cover: cover-500.png (500x500, 16 KB; mark + name on a mint #55FFAA ground, 2026-10-04, ROADMAP 10.25; the dark cover is old/cover-500-dark-2026-10-04.png)
+  hero: hero-1440x720.png (1440x720, 156 KB; mint ground, three black watch screens; the dark one is old/hero-1440x720-dark-2026-10-04.png)
   screens:   # upload order, 5 at most, each under 150 KB; simulator captures (canned data)
     - {file: screens/1-days-amber.png, caption: "161 days to a named event, amber accent", device: fr965, px: 454, kb: 18}
     - {file: screens/2-weeks-sky.png, caption: "The same count in weeks and days (6 WEEKS + 3 DAYS), sky accent", device: fr965, px: 454, kb: 18}
@@ -43,6 +43,6 @@ site:
 owner_approvals:   # what only the owner may settle before paste.md is used
   - "Title: 'Days To Go: Countdown to a Date' is the plan's proposal; search the store by eye for a collision first."
   - "Line 1 of the description needs the Days To Go Pro store URL, once Pro is live."
-  - "The looks of all images before upload: hero (three Free screens with three accent colours, no Pro-only thing, no price number), cover (the studio mark and the name; the Pro cover adds an amber PRO badge), device icons (the mark alone; the real launcher icon is ROADMAP 3.3), five screens. All rendered 2026-10-04 from the current Free build."
+  - "The looks of all images before upload: hero (three Free screens with three accent colours, no Pro-only thing, no price number), cover (the studio mark and the name on a mint ground instead of black, Garmin brand page, ROADMAP 10.25; the Pro cover adds an amber PRO badge), device icons (the mark alone; the real launcher icon is ROADMAP 3.3), five screens. All rendered 2026-10-04 from the current Free build."
   - "Upload condition: screens/5-instinct.png only with the package that adds the Instinct products (1.0.0)."
 open_items: "2.3 2.5 3.3 3.5 3.6"   # ids in ROADMAP.md
