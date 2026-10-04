@@ -1,16 +1,18 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
-<!-- Store cover (500x500): shows at ~100 px in browse, so mark + name only. -->
+<!-- Store cover (500x500): shows at ~100 px in browse, so mark + name only. Flat amber ground (Garmin: no black or transparent
+     backgrounds, ROADMAP 10.25): navy #0B1B33 on #FFAA00 is 9.0:1, "Set" #0A3FB0 on #FFAA00 is 4.7:1. -->
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;width:500px;height:500px;overflow:hidden;}
   body{display:flex;flex-direction:column;align-items:center;justify-content:center;
-       font-family:'Archivo',sans-serif;color:#fff;background:radial-gradient(360px 360px at 50% 45%,#0d1a2a 0%,#000 75%);}
-  .mark{width:240px;height:248px;display:block;}
-  h1{margin:28px 0 0;font-size:84px;font-weight:800;font-stretch:112%;letter-spacing:-2px;line-height:1;}
-  h1 span{color:#55AAFF;}
+       font-family:'Archivo',sans-serif;color:#0B1B33;background:#FFAA00;}
+  .mark{width:250px;height:258px;display:block;}
+  h1{margin:24px 0 0;font-size:84px;font-weight:800;font-stretch:112%;letter-spacing:-2px;line-height:1;}
+  h1 span{color:#0A3FB0;}
 </style></head><body>
-  <!-- the launcher icon's shield (resources/drawables/launcher_icon.svg, pixel-grid pass), cropped to its bounds -->
-  <svg class="mark" viewBox="4 3.5 57 58"><path d="M13 16L32.5 11L52 16L49 36Q48 45 32.5 54Q17 45 16 36Z" fill="#FFAA00"/><path d="M17 18L32.5 14L48 18L46 35Q45 42 32.5 50Q20 42 19 35Z" fill="#000000"/><path d="M23 22H29V29H36V22H42L41 38L36 42V36L32.5 33L29 36V42L24 38Z" fill="#FFAA00"/></svg>
+  <!-- the launcher icon's shield (resources/drawables/launcher_icon.svg, pixel-grid pass), cropped to its bounds; the gold rim stays,
+       a navy outline on the outside keeps it readable on the amber ground, the black plate is navy -->
+  <svg class="mark" viewBox="2.5 2 60 61"><path d="M13 16L32.5 11L52 16L49 36Q48 45 32.5 54Q17 45 16 36Z" fill="#0B1B33" stroke="#0B1B33" stroke-width="4" stroke-linejoin="round"/><path d="M13 16L32.5 11L52 16L49 36Q48 45 32.5 54Q17 45 16 36Z" fill="#FFAA00"/><path d="M17 18L32.5 14L48 18L46 35Q45 42 32.5 50Q20 42 19 35Z" fill="#0B1B33"/><path d="M23 22H29V29H36V22H42L41 38L36 42V36L32.5 33L29 36V42L24 38Z" fill="#FFAA00"/></svg>
   <h1>Hero<span>Set</span></h1>
 </body></html>

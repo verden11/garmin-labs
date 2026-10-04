@@ -46,13 +46,13 @@ Sources in `src/` (`hero.html`, `cover.html`, `icon.html`, `quantize64.py`); ren
 HeroSet/tools/render_listing.sh
 ```
 
-- `hero-1440x720.png`: logo mark, name, the promise line, and screens 1, 2 (the centre watch, the counting screen with `HR 145`) and 5 (the straps are faded out where the square cut them). No price, no accuracy claim.
-- `cover-500-designed.png`: shield and name only (it shows at about 100 px in browse).
+- `hero-1440x720.png`: on a flat amber `#FFAA00` ground (2026-10-04, ROADMAP 10.25; the dark one is `old/hero-1440x720-dark-2026-10-04.png`), navy text, the shield mark, name, the promise line, and screens 1, 2 (the centre watch, the counting screen with `HR 145`) and 5 (the straps are faded out where the square cut them). No price, no accuracy claim.
+- `cover-500-designed.png`: shield and name only (it shows at about 100 px in browse), flat amber `#FFAA00` ground with navy ink and a blue `#0A3FB0` "Set" (Garmin's brand page: no black or transparent backgrounds; the dark one is `old/cover-500-designed-dark-2026-10-04.png`; rejected variants in `NOTES.md`).
 - `icon-24-128.png` and `icon-64-128.png`: the launcher icon's shield on black, 128x128; the 64-colour one is the 24-bit render snapped to Garmin's 64-colour palette (channels 00/55/AA/FF) by `src/quantize64.py`. The shield is the current pixel-grid launcher shape (`resources/drawables/launcher_icon.svg`), cropped to its bounds.
 
 ## Limits checked (2026-10-04)
 
-`stat` on the files, each under Garmin's cap: screens 90 to 113 KB (cap 150), cover 72 KB (cap 300), hero 360 KB (cap 2048); icons 1 and 2 KB; all pixel sizes read from the files (`file`, `identify`): 720x720 x5, 500x500, 1440x720, 128x128 x2. `frame_all.sh` also fails loudly on a screen over 150 KB.
+`stat` on the files, each under Garmin's cap: screens 90 to 113 KB (cap 150), cover 12 KB (cap 300), hero 287 KB (cap 2048); icons 1 and 2 KB; all pixel sizes read from the files (`file`, `identify`): 720x720 x5, 500x500, 1440x720, 128x128 x2. `frame_all.sh` also fails loudly on a screen over 150 KB.
 
 ## Honesty rules
 
