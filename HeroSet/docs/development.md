@@ -86,3 +86,4 @@ Sync quick check: Connect Sync **On** â†’ save a push-up set and a sit-up set â†
 ## Signing key
 
 Key signs app, required for future Store updates: keep private, backed up, never committed (repo ignores `developer_key`, `.der`, `.pem`). Store it outside repo (maintainer copy: `~/.garmin-connectiq/keys/developer_key`). Losing it prevents updates.
+**Driving the simulator by hand-equivalent (2026-10-04).** `tools/drive_screens.sh` (run through `../docker/capture.sh HeroSet tools/drive_screens.sh <device> <btn|touch> ...`, header lists the arguments) walks glance, dashboard, menu, set, end-set menu, picker and save with xdotool and photographs each step on the device skin: bezel buttons are clicked on the skin, touch is a click or a quick drag. It is how ROADMAP 7.11 (B2, B3, E4) was checked. Simulator only, not a wrist.
