@@ -30,6 +30,7 @@ The evidence is in [`../reports/Countdown face research.md`](../reports/Countdow
 - Tests: `tools/run_tests.sh <device> [jungle] [testName]` (jungle defaults to `monkey.jungle`, Pro; run both). Trust the printed `PASSED (…)` line, not the exit code.
   A run that prints nothing means the simulator wedged (the script restarts it once).
 - Screen check per size: `tools/run_tests.sh <device> <jungle> everyStateFitsThisDisplay`; `daysToGoLayoutReport` prints every row's box.
+- The on-watch date picker (not reachable on a watch face in the simulator): `tools/picker_shot.sh <jungle> <device>...` from the repo root opens it in a private-copy harness and screenshots it (`YEARFIRST=1` for the widest column). A colour MIP picker draws white in the simulator whatever the app clears (the SDK sample does too), so only a wrist settles that.
 - Compile every product, both jungles, no simulator: `tools/compile_sweep.sh`. Prove the packages: `tools/check_free_package.sh [--build]` (Free has no Hour/Footer key and no "Pro" word; Pro has them).
 - Beta build (the Pro build with its own app id, for testing phone settings before release): `python3 tools/make_beta.py`, then export `beta.jungle`.
 - Store packages: Free `dist/DaysToGoFree.iq`, Pro `dist/DaysToGoPro.iq` (`dist/DaysToGo-1.0.1-submitted.iq` is the paid 1.0.1 as submitted).

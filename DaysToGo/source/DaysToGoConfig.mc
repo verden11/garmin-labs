@@ -43,6 +43,10 @@ class DaysToGoConfig {
     static const PICKER_YEAR_COLUMN = 2;
     static const PICKER_FIRST_YEAR = 2026;
     static const PICKER_LAST_YEAR = 2060;
+    // Three columns share the screen width, so the font steps down with it: tiny up to the first
+    // width (the Instinct family), small up to the second (the MIP watches), medium above.
+    static const PICKER_TINY_FONT_MAX_PX = 176;
+    static const PICKER_SMALL_FONT_MAX_PX = 280;
 
     static const SECONDS_PER_HOUR = 3600;
     static const SECONDS_PER_DAY = 86400;

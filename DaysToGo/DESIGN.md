@@ -59,6 +59,10 @@ Each row takes the largest font up to a height cap; the hero takes the rest. On 
 
 Hero and time only, `#555555`, the block stepping across a 3 × 3 grid (steps of 3.5% of the screen, about 16 px on 454, more than a digit stroke) once a minute; the hero is two sizes smaller than awake (starts at FONT_NUMBER_MEDIUM). No ring, name, date or caption. MIP watches keep the full face.
 
+## On-watch date picker (Customize, "Set date")
+
+Three columns that share the screen width, so each label must fit a third of it. The month is the **short word in the watch's language** (the same "Oct" the date row uses, `DaysToGoDateText.monthWord`), never the full name. The label font steps down with the screen: `FONT_TINY` up to 176 px (the Instinct family), `FONT_SMALL` up to 280 px (the MIP watches), `FONT_MEDIUM` above (ADR-005, amended 2026-10-04). The year column's first entry ("Every year") is broken after its first word onto two lines. White text on a black ground: the picker clears to black first, as the SDK's own Picker sample does (the simulator ignores that clear on a colour MIP watch, so only a wrist can confirm it).
+
 ## Constraints
 
 Primitives and system fonts only, no bitmaps. Every colour has channels 00, 55, AA or FF, the device-safe palette (why: see `watch-design-kit`'s `watch-design-lead` skill). The look is the spec's recommended direction; the owner may replace it with a design-tool mock-up (`docs/archive/plan.md` phase 4 gate).
