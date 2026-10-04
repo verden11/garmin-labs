@@ -54,6 +54,39 @@ Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle
 
 Tests after the change: the full suite PASSED on both jungles on `fr965`, `fr255s`, `epix2`, `venusq2`, `venux1`, `instinct2`, `instincte40mm`, `instinct3solar45mm`: Pro 52 (50 on an Instinct), Free 53 (51 on an Instinct). Simulator only; nothing on a wrist.
 
+## To the minute (ADR-018, 2026-10-04, UNRELEASED, simulator only)
+
+Pro's headline: Minute and Event time zone (phone settings), the countdown to the instant in the event's zone. Container simulator, SDK 9.2.0, English strings, the tree at commit `a6c7a35`. **Not device proof: nothing ran on a wrist, and the real time-zone and DST behaviour of a watch is unmeasured.**
+
+**Tests** (the full suite, `tools/run_tests.sh <device> [jungle]`; includes `everyStateFitsThisDisplay` and `alwaysOnFrameFitsAtEveryDrift`; the widest hours text, `24:00`, is among the fit states):
+
+| Device | Pro | Free |
+|---|---|---|
+| `fr965`, `fr255s`, `epix2`, `venusq2`, `fr55`, `fenix5s` | 66/66 | 55/55 |
+| `instincte40mm`, `instinct3solar45mm`, `instinct2`, `instinct2s` | 64/64 | 53/53 |
+
+Found on the way: `fr55` (an older compiler target) refuses a method with more than 9 arguments ("Too many arguments passed to method"; it affected only a test helper, now split). Production methods take at most 7.
+
+**Memory** (`FLAGS="-r -w" docker/shot.sh`, the store export's flags, the simulator window's status bar after the face drew, 1 kB = 1,024 B; the 96 KB class budget is 91.8 kB):
+
+| Device | Tier and state | Used | Limit | Share |
+|---|---|---|---|---|
+| `fr55` | Pro, to the minute (8:06 HOURS, name, bottom line) | 31.5 kB | 91.8 kB | 34% |
+| `fenix5s` | Pro, same state | 31.4 kB | 91.8 kB | 34% |
+| `fr55` | Pro before this work (9:51 HOURS, same state otherwise; tree `d03e30a`) | 28.2 kB | 91.8 kB | 31% |
+| `fr55` | Free (default New Year face) | 28.7 kB | 91.8 kB | 31% |
+| `fenix5s` | Free, same | 28.6 kB | 91.8 kB | 31% |
+| `fr55` | Free before this work (`d03e30a`) | 27.7 kB | 91.8 kB | 30% |
+| `instincte40mm`, `instinct3solar45mm` | Pro, to the minute | 28.2 kB | 59.8 kB | 47% |
+
+Pro grew about 3.3 kB (the arithmetic, 100 more phone strings, the settings keys); Free grew about 1.0 kB (the shared arithmetic, dead there: Free has no Minute or zone). Headroom on the smallest budget: about 60 kB. Compare the earlier readings above: the Instinct Pro figure moved from 24.9 kB (E 40 mm, default state) to 28.2 kB.
+
+**Instinct** (looked at, screenshots of `instincte40mm` and `instinct3solar45mm`, Pro, 8:06 HOURS with a name): `H:MM` is text beside the window, fully inside the visible circle, no overlap with the window, the time or the caption; the gauge in the window shows the share of the 24 hours. No layout change. **Round and rectangular:** `fr55`, `fenix5s` looked at (the hero `8:06` and the bottom line fit); `venusq2` runs the fit test.
+
+**Package.** `monkeyc -e -r` through `verden-ciq-build:9.2.0` (`docker/run.sh`), both jungles, 210 parts each. `tools/check_free_package.sh` with explicit file arguments: OK for both. Pro is 8.8 MB (was 7.5 MB: the labels and titles in 15 languages across 210 parts); the store limit for a package was not checked here.
+
+**Not proven:** any wrist behaviour; that Garmin Connect renders a 60-entry Minute list and a 40-entry zone list as intended (the lists are plain `list` settings, the same type as the Year list); the phone round trip of the two new keys (wrist check W1 in `status.md`).
+
 ## Instinct family (added 2026-10-03, ADR-015, accepted 2026-10-04, simulator only)
 
 Seven semi-octagon products join both manifests (127 products): `instinct2`, `instinct2s` (163 x 156), `instinct2x`, `descentg1` and `instincte45mm`, `instinct3solar45mm` (176 x 176), `instincte40mm` (166 x 166). `instinctcrossover` is left out (analog hands over the display, no window in the simulator). All are black and white (palette `000000`/`FFFFFF` only), **watch-face memory 65,536 B**, have a round window top right (62 px; 52 px on the E 40 mm, 54 px on the 2S), and are CIQ 3.4 (the Instinct 2 family) or 6.0 (E, 3 Solar). The face needs no Complications, so the CIQ 3.4 watches are reachable.
