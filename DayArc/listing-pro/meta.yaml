@@ -29,7 +29,7 @@ assets:
   screens: screens/ (2026-10-04 simulator captures; no store assets yet)
   screenshots_doc: screenshots.md
 site:
-  landing: https://verden.watch/day-arc/
-  support: https://verden.watch/day-arc/support/
-  privacy: https://verden.watch/day-arc/privacy/
+  landing: https://verden.watch/day-arc-pro/
+  support: https://verden.watch/day-arc-pro/support/
+  privacy: https://verden.watch/day-arc-pro/privacy/
 open_items: "1.1 1.4 1.5 1.7 1.8 1.9"   # ids in ROADMAP.md

@@ -30,3 +30,9 @@ only after gate 5's device test.
 
 Same open items as `../listing/NOTES.md`: both icons/cover/hero images, all screenshots
 (`screenshots.md`), the support/privacy URL slug, an optional real trademark search.
+
+## Sibling line, review request, More from Verden (ROADMAP 1.8, 2026-10-04)
+
+- **Line 1** is `Also available: DayArc, the lighter version with one reading per window: <URL>`, a placeholder until the DayArc listing is live. The paid listing never says "free": the old "no free tier ... a separate free listing" wording was removed (it was also false once the sibling is free).
+- Everything else as in `../listing/NOTES.md`: review request (owner may cut), "More from Verden" with free siblings only (all placeholders today), the device sentence as its own OWNER block, no Instinct wording until the store lists it.
+- `meta.yaml` site URLs corrected to the Pro slug (`/day-arc-pro/`), matching the paste block.

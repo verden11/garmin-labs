@@ -2,7 +2,7 @@
 
 Paste blocks only, in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); why each answer is what it is, and history, in [`NOTES.md`](NOTES.md).
 
-**Do not paste a block marked OWNER until it is decided** (see [`NOTES.md`](NOTES.md)).
+**Do not paste a block marked OWNER until it is decided** (see [`NOTES.md`](NOTES.md)). **Do not paste a block while a `<` placeholder remains in it** (store URLs are owner-supplied). Claims are checked against [`../docs/release-contract.md`](../docs/release-contract.md).
 
 ## Title (max 50)
 
@@ -12,7 +12,11 @@ DayArc
 
 ## Description (max 4000, one box per language)
 
+**OWNER, before pasting:** (1) the store URLs below are placeholders (line 1 needs DayArc Pro live; in "More from Verden" keep only the faces whose free listing is live, delete the other lines, and drop the whole block if none is); (2) "chosen in the Garmin Connect app" is unverified until a store install (release contract; status gate 5): keep it, or soften it to "in the settings"; (3) names and the review sentence are yours to keep or cut.
+
 ```text
+Get DayArc Pro: <DAYARC PRO STORE URL: owner fills in once the Pro listing is live>
+
 DayArc changes what it shows through the day, on a fixed schedule. One setting: an accent colour,
 chosen in the Garmin Connect app — or leave it on Auto, where each time of day has its own colour.
 
@@ -22,9 +26,26 @@ Evening: your Body Battery reading, the same way — a number, never good or bad
 Night: time and date — which every window shows in its header.
 
 DayArc shows one reading at a time, on purpose. Looking for more fields per window? DayArc Pro is a
-separate listing with a denser view of the same four windows.
+separate, paid listing with a denser view of the same four windows.
+
+If this face works for you, a rating in the store helps other people find it.
 
 DayArc reads data your watch already has. Nothing is sent anywhere, no location, no network.
+
+More from Verden
+Days To Go: <STORE URL of the free Days To Go, once live>
+Two Suns: <STORE URL of the free Two Suns, once live>
+HeroFace: <STORE URL of the free HeroFace, once live>
+
+Support and answers: https://verden.watch/day-arc/support/
+```
+
+## Device sentence (OWNER: not in the description above)
+
+Add it to the description, after the "Looking for more fields" paragraph, **only after** you have read both listings' real Compatible Devices lists in the store form, and without a watch name or count (release contract: no reach wider than tested):
+
+```text
+DayArc Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for.
 ```
 
 ## Version

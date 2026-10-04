@@ -35,3 +35,15 @@ only after gate 5's device test.
 - Support/privacy URL: TwoSuns's pattern is `https://verden.watch/<slug>/...`; DayArc's slug isn't
   picked yet (`../CLAUDE.md` "Open owner decisions").
 - Real trademark search, if the owner wants clearance beyond the store-collision check already done.
+
+## Sibling line, review request, More from Verden (ROADMAP 1.8, 2026-10-04)
+
+Written against `../docs/release-contract.md` and the WP10 Free skeleton (`../../reports/listing-template.md`).
+
+- **Line 1** is the Pro store URL (`Get DayArc Pro: <URL>`), a placeholder until the Pro listing is live. It costs the list-view preview (the store shows the first sentence); the owner may move it below the promise paragraph.
+- **Claims:** "separate, paid listing with a denser view" is the contract's "May claim" sentence. No "unlock", no "trial", no "upgrade", no count of fields. "Chosen in the Garmin Connect app" stays marked OWNER (unverified until a store install, gate 5).
+- **Review request:** one sentence, the owner may cut it.
+- **More from Verden:** free siblings only; none is live today, so every URL is a placeholder and the owner deletes the lines for any face whose free listing is not live. Free names are placeholders until OD3.
+- **Device sentence:** kept out of the description (its own OWNER block): it is a reach claim until both real device lists are visible. No watch names, no count.
+- **Instinct:** the 72-product package includes the Instinct E and 3 Solar; the listing text says nothing about it until the upload is approved and the store lists it (`meta.yaml` carries the sentence to add then).
+- **Support line** added as the last line (the form has no support field).
