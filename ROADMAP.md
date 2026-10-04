@@ -71,17 +71,17 @@ Fixes and polish.
 - [ ] 1.2 `[agent]` Fix what 1.1 finds; re-run tests on 6 devices, both jungles. Now also the DayArc recovery cell truncation (`R… 2501`) and the narrow Pro pill showing "12:..." / "8..." on a bottom row.
 - [ ] 1.3 `[agent]` Run `watch-design-reviewer` on the built DayArc Free and Pro (fifth pass); done when `disposition: ship` or all fixes closed.
 - [ ] 9.10 `[agent]` HeroFace Instinct: "✓ ST." (check mark plus STEP does not fit 40 px) and a multi-day streak in the simulator (history rows did not apply).
-- [ ] 11.1 `[agent]` Re-render listing images that changed: HeroFace `cover-500`, `hero-1440x720`, `icon-24-128`, `icon-64-128` from `src/*.html` (commands in `HeroFace/listing/screenshots.md`); Days To Go `hero-1440x720` (the blue ring arc was 4.4 units off); optional HeroSet store icon (older unscaled shield). Then 10.5.
-- [ ] 11.2 `[agent]` Add the line "launcher icon redrawn on the pixel grid" to the CHANGELOG entry of each app when it ships (HeroFace, Days To Go, HeroSet 1.3.0).
-- [ ] 11.3 `[agent]` Check the "Deploy to Firebase Hosting on merge" runs are green and https://verden.watch/ renders (`gh run list`).
+- [x] 11.1 `[agent]` Re-render listing images that changed: HeroFace `cover-500`, `hero-1440x720`, `icon-24-128`, `icon-64-128` from `src/*.html` (commands in `HeroFace/listing/screenshots.md`); Days To Go `hero-1440x720` (the blue ring arc was 4.4 units off); optional HeroSet store icon (older unscaled shield). Then 10.5. **Done 2026-10-04:** HeroFace cover, hero, device icons and Days To Go hero re-rendered (not uploaded: 10.5).
+- [x] 11.2 `[agent]` Add the line "launcher icon redrawn on the pixel grid" to the CHANGELOG entry of each app when it ships (HeroFace, Days To Go, HeroSet 1.3.0). **Done 2026-10-04:** CHANGELOG lines added (HeroSet 1.3.0 already had it).
+- [x] 11.3 `[agent]` Check the "Deploy to Firebase Hosting on merge" runs are green and https://verden.watch/ renders (`gh run list`). **Done 2026-10-04:** runs green; newest deploy predates the history rewrite, later `site/` changes are comments/docs only, so no deploy needed. verden.watch returns 200.
 Packages, listings, site (prepare so each upload is a paste).
-- [ ] 1.8 `[agent]` Finish DayArc's listing drafts against `release-contract.md` (sibling URL on line 1, review request, "More from Verden").
-- [ ] 3.5 `[agent]` Final Days To Go listings (the Pro text must not say "free"); same for Two Suns and HeroFace.
+- [x] 1.8 `[agent]` Finish DayArc's listing drafts against `release-contract.md` (sibling URL on line 1, review request, "More from Verden"). **Done 2026-10-04:** both drafts finished (sibling URL, review ask, More from Verden); OWNER fields still marked.
+- [x] 3.5 `[agent]` Final Days To Go listings (the Pro text must not say "free"); same for Two Suns and HeroFace. **Done 2026-10-04:** Days To Go, Two Suns, HeroFace Pro are the 1.1.0 text; Free texts carry placeholders you fill.
 - [ ] 6.1 `[agent]` Site: `freeStoreUrl` and a "Free or Pro" section per app page, per-tier privacy and support wording (WP8). Deploy by push when a Free is live.
-- [ ] 6.2 `[agent]` Write `tools/store_poll.py` and its CSV (WP9).
-- [ ] 6.3 `[agent]` Write the listing template (WP10) including the "Additional Hardware Requirements" website-link field.
+- [x] 6.2 `[agent]` Write `tools/store_poll.py` and its CSV (WP9). **Done 2026-10-04:** `tools/store_poll.py` + `tools/store_poll_ids.txt`, offline `--selftest`.
+- [x] 6.3 `[agent]` Write the listing template (WP10) including the "Additional Hardware Requirements" website-link field. **Done 2026-10-04:** `reports/listing-template.md`.
 - [ ] 9.7 `[agent]` Final listing screenshots for every app after the looks are settled: `docker/capture.sh` scenarios exist for DaysToGo, HeroFace, DayArc, HeroSet (Instinct) and a prepared one for Two Suns; you approve the covers and heroes (1.5).
-- [ ] 9.8 `[agent]` Before each re-upload: fresh `.iq` export, package check, What's New and `meta.yaml` version, CHANGELOG dated entry, store device list note.
+- [x] 9.8 `[agent]` Before each re-upload: fresh `.iq` export, package check, What's New and `meta.yaml` version, CHANGELOG dated entry, store device list note. **Done 2026-10-04:** fresh `.iq` for all 9 packages in `<Project>/dist/<Name>-2026-10-04.iq`, package checks pass, meta.yaml and status.md "Ready to upload" notes written.
 - [ ] 9.9 `[agent]` Site: gate Instinct claims behind a flag per app as HeroSet does (`instinctLive`); HeroFace says `watchCount = 117`; flip after Garmin approves each upload (7.8).
 - [ ] 7.4 `[agent]` After 7.3: ADR-044 (complication contract) review, then build HeroSet Free (WP7).
 - [ ] 2.4 `[agent]` After OD2 yes: flip the Proposed ADRs to Active (DaysToGo 014/015, TwoSuns 020/021/024, HeroFace 001/002, DayArc 015), mark ADR-002s superseded, write approval dates, drop the day-45 reminders.
@@ -92,6 +92,9 @@ Later features (need an earlier item first).
 - [ ] 8.1 `[agent]` Daring mockup for Days To Go, screenshot-verified at 454 px and the smallest size; stop for look approval (8.2).
 - [ ] 8.3 `[both]` Extra accent colours (ids 6 to 11) after the 15-language names are OK'd; repeat for Two Suns and HeroFace.
 - [ ] 12.1 `[agent]` Two Suns / DayArc on the Instinct 2 family, only after 9.2 says yes.
+
+- [ ] 10.6 `[you]` **Is HeroSet 1.3.0 already live?** A public store read on 2026-10-04 showed `latestExternalVersion` 1.3.0 released 2026-10-03 with the Instinct What's New (97 device types). If yes, it predates today's bezel/hint/glance-bar fixes, so the fresh export needs a new App Version (your call); then fix `live:` in `HeroSet/listing/meta.yaml` and 7.7.
+- [ ] 10.7 `[you]` Native-speaker read of the seven new HeroFace Move abbreviations (`BEV.` dan/nob, `BEW.` deu/dut, `MOV.` spa, `HRK.` tur, `JUD.` lit; machine drafted, 2026-10-04).
 
 ## 4. Waiting on a date or an outside event
 
