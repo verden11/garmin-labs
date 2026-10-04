@@ -78,6 +78,9 @@ class HeroSetGlanceView extends WatchUi.GlanceView {
         if (streak > 0) {
             candidates.add(Lang.format(load(Rez.Strings.dashboard_streak), [streak]));
             candidates.add(Lang.format(load(Rez.Strings.dashboard_streak_short), [streak]));
+            // Left of the Instinct's window even "STRISCIA 99" has no room: the
+            // number alone, as on the dashboard (ADR-055).
+            candidates.add(streak.toString());
         } else if (!done) {
             // Beside a check "NO STREAK YET" would contradict it; the row
             // drops to the check alone instead.
