@@ -14,6 +14,6 @@ The listing sells a practical everyday face: time first, three daily goals as ba
 
 ## Claims allowed and forbidden
 
-Allowed: the metric list, the 117 supported watches, "nothing leaves your watch", the HeroSet link on Connect IQ 4.2+ watches, the settings.
+Allowed: the metric list, "Compatible Devices" as the store shows it (no watch count: the package has 117 products in 1.0.1 and the store lists only 69, see "Paid vs free reach"), "nothing leaves your watch", the HeroSet link on Connect IQ 4.2+ watches, the settings.
 
 Forbidden until measured on a watch: any battery-life number, any always-on claim beyond what the FR965 night of 2026-09-21/22 backs (§1: the face works always-on without burn-in retention on that watch), "works with every Garmin", accuracy claims of any kind, and any review, rating or user count — none exist. (The one-line request "If this face works for you, a rating in the store helps other people find it." is in the Free listing only, by the owner's decision of 2026-10-04; it asks and claims nothing.)

@@ -124,7 +124,7 @@ One muted `#AAAAAA` row above the first row of the stack: a classic battery (out
 
 ## Always-on (AMOLED)
 
-Only on watches that require burn-in protection. The time, the Body Battery value and the sun sentence, `#5555AA`, the block stepping across a 3 × 3 grid every minute in steps of 3.5% of D (15 px on 454); the time is always two font sizes below whatever awake just picked (derived at draw time, `TwoSunsDraw.fontsBelow`, ADR-007 amendment, `docs/decisions.md`). No ring, curve, glyph or date. Text is fitted against a circle smaller by one step, so a shifted block stays inside. MIP watches keep the full face. **Not measured on a watch:** lit-pixel share, ghosting, whether the screen blanks — see `watch-design-kit`'s `knowledge/platform-facts.md` for the (unverified) burn-in limit this design targets.
+Only on watches that require burn-in protection. The time, the Body Battery value and the sun sentence, `#5555AA`, the block stepping across a 3 × 3 grid every minute in steps of 3.5% of D (15 px on 454); the time is always two font sizes below whatever awake just picked (derived at draw time, `TwoSunsDraw.fontsBelow`, ADR-007 amendment, `docs/decisions.md`). No ring, curve, glyph or date. Text is fitted against a circle smaller by one step, so a shifted block stays inside. MIP watches keep the full face. **Not measured on a watch:** lit-pixel share, ghosting, whether the screen blanks — Garmin's published burn-in limit is cited in the ADR-007 amendment of 2026-10-04 (`docs/decisions.md`); `watch-design-kit`'s `knowledge/platform-facts.md` still tags it unverified.
 
 ### Always-on text colour against Garmin's "avoid much white or blue" (finding, 2026-10-04, ROADMAP 10.17; no colour changed)
 

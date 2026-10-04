@@ -29,7 +29,7 @@ The description carries one line, "HeroSet is a paid app. Refunds follow the Con
 
 ## Allowed claim
 
-Button-first daily push-ups, sit-ups, squats app for 80 round Garmin watches, five-button and touch-first (87 including seven black-and-white Instinct-family watches once the Instinct upload is live; say "Instinct" only then). Automatic rep counting that learns from the counts you save, count adjustable before save, a daily goal you set on the watch (100 by default, 10 to 500), XP, rank, streaks, live HR and calorie estimate. Rank reflects reps done, not goals hit: XP stops at 100 reps per exercise per day whatever the goal is. Everything stays on the watch: no activity recorded, nothing synced. Counting depends on placement and movement, so it can be off.
+Button-first daily push-ups, sit-ups, squats app for 80 round Garmin watches, five-button and touch-first (87 in the package including seven black-and-white Instinct-family watches, but a paid HeroSet is sold on only three of them: say "Instinct E (40 and 45 mm) and Instinct 3 Solar", never the Instinct 2 family or Descent G1; see "Paid vs free reach"). Automatic rep counting that learns from the counts you save, count adjustable before save, a daily goal you set on the watch (100 by default, 10 to 500), XP, rank, streaks, live HR and calorie estimate. Rank reflects reps done, not goals hit: XP stops at 100 reps per exercise per day whatever the goal is. Everything stays on the watch: no activity recorded, nothing synced. Counting depends on placement and movement, so it can be off.
 
 Public copy: no "beta", say "adjust" (never "fix"/"correct"), keep the "can be off" caveat.
 
