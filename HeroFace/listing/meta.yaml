@@ -26,8 +26,8 @@ price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live unti
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   status: rendered 2026-10-04, owner look-approval pending, not uploaded   # old/ holds the superseded set
-  cover: cover-500.png            # 500x500, 79 KB; the mark with a white PRO pill
-  hero: hero-1440x720.png         # 1440x720, 254 KB
+  cover: cover-500.png            # 500x500, 16 KB; royal blue #0A55D6, the mark with a white PRO pill; dark version in old/
+  hero: hero-1440x720.png         # 1440x720, 280 KB; royal blue; dark version in old/
   screens:                        # simulator, Pro build, upload order; each under 150 KB
     - {file: screens/1-everyday.png, caption: "The time, three goal bars, the ring, the temperature", device: fr965, px: 454}
     - {file: screens/2-your-bars.png, caption: "Pro's own: bars you choose (move bar, steps, intensity minutes), seconds beside the time, the Magenta accent", device: fr965, px: 454}

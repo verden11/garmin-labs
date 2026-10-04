@@ -26,8 +26,8 @@ price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   status: rendered 2026-10-04, owner look-approval pending, not uploaded   # old/ holds the earlier simulator batch
-  cover: cover-500.png            # 500x500, the plain mark (Pro adds a PRO pill)
-  hero: hero-1440x720.png         # 1440x720, three accents
+  cover: cover-500.png            # 500x500, 12 KB, the plain mark on sky blue #1F7AFF (Pro: royal blue + PRO pill); dark version in old/
+  hero: hero-1440x720.png         # 1440x720, 247 KB, three accents on sky blue; dark version in old/
   screens:                        # simulator, Free build, upload order; each under 150 KB
     - {file: screens/1-everyday.png, caption: "The time, three goal bars, the ring", device: fr965, px: 454}
     - {file: screens/2-accent-cyan.png, caption: "Your accent colour, here Cyan", device: fr965, px: 454}

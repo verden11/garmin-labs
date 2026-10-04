@@ -48,7 +48,9 @@ cd HeroFace/listing-free
 python3 ../listing/src/quantize64.py icon-24-128.png icon-64-128.png
 ```
 
-**Free versus Pro (design proposal, the owner approves):** the same mark; Free is the plain mark, Pro adds a small white "PRO" pill in the opening of the ring. The Free cover and icons are the plain mark, the same as the earlier HeroFace cover. Hero: the name, "The time first, today's goals underneath, in your colour.", and three round watches in the three accents (Cyan, Blue, Magenta). No "Pro" word, no price, no temperature or seconds in the pictures.
+**Backgrounds (ROADMAP 10.25, owner decision 2026-10-04).** Garmin's brand page says "Do not choose black or transparent backgrounds" ([`../../reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md), Store images). Cover and hero are now a solid sky blue `#1F7AFF` (Pro: the deeper royal blue `#0A55D6`), name in white Archivo, the mark's ring white on a pale-blue track, the gold shield and black fist unchanged; the hero keeps the three watches, whose black screens sit on the blue. The dark covers and heroes are `old/cover-500-dark-2026-10-04.png` and `old/hero-1440x720-dark-2026-10-04.png`. The 128x128 device icons are unchanged (black ground, the launcher's own look): Garmin's text is about the 500x500 cover image; whether the store also wants coloured device icons is not in the pages read, so that is an owner call. Rejected variants: `NOTES.md`.
+
+**Free versus Pro (design proposal, the owner approves):** the same mark; Free is the plain mark on sky blue, Pro adds a white "PRO" pill in the opening of the ring on a deeper blue. The Free cover and icons are the plain mark. Hero: the name, "The time first, today's goals underneath, in your colour.", and three round watches in the three accents (Cyan, Blue, Magenta). No "Pro" word, no price, no temperature or seconds in the pictures.
 
 ## Limits and how they were checked
 
@@ -62,8 +64,8 @@ Limits from [`../../reports/listing-template.md`](../../reports/listing-template
 | `screens/4-heroset.png` | 454x454 | 18.5 KB |
 | `screens/5-instinct-e40.png` | 498x498 (x3 of the 166 px native) | 3.5 KB |
 | `screens/native/5-instincte40mm-166.png` | 166x166 | 1.6 KB |
-| `cover-500.png` | 500x500 | 76 KB |
-| `hero-1440x720.png` | 1440x720 | 242 KB |
+| `cover-500.png` | 500x500 | 11.7 KB |
+| `hero-1440x720.png` | 1440x720 | 247 KB |
 | `icon-24-128.png` | 128x128 | 2.4 KB |
 | `icon-64-128.png` | 128x128 | 1.1 KB |
 

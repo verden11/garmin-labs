@@ -53,7 +53,9 @@ python3 src/quantize64.py icon-24-128.png icon-64-128.png     # the "64 Color" i
 
 The 24-bit icon is the SVG mark (the same shapes as `resources/drawables/launcher_icon.svg`) rendered at 128 px; the 64-colour icon is that render snapped to Garmin's 64-colour palette, because Chrome antialiases the edges into off-palette colours.
 
-**Free versus Pro (a design proposal for the owner to approve):** the same mark in both. Pro adds a small white "PRO" pill in the opening of the ring, in the cover, both icons and (as a larger pill beside the name) the hero; Free has the plain mark. The pill is white with black text, so it clears the gold shield and every channel is palette-safe. The on-watch launcher icon is shared by both tiers and is not changed here (that is `resources/`, and an owner call).
+**Backgrounds (ROADMAP 10.25, owner decision 2026-10-04).** Garmin's brand page says "Do not choose black or transparent backgrounds" ([`../../reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md), Store images). Cover and hero are now a solid sky blue `#1F7AFF` (Pro: the deeper royal blue `#0A55D6`), name in white Archivo, the mark's ring white on a pale-blue track, the gold shield and black fist unchanged; the hero keeps the three watches, whose black screens sit on the blue. The dark covers and heroes are `old/cover-500-dark-2026-10-04.png` and `old/hero-1440x720-dark-2026-10-04.png`. The 128x128 device icons are unchanged (black ground, the launcher's own look): Garmin's text is about the 500x500 cover image; whether the store also wants coloured device icons is not in the pages read, so that is an owner call. Rejected variants: `NOTES.md`.
+
+**Free versus Pro (a design proposal for the owner to approve):** the same mark in both. Pro adds a white "PRO" pill in the opening of the ring, in the cover (drawn larger there so it reads at 100 px), both icons (small, white with black text, palette-safe) and, as a pill beside the name, the hero; Free has the plain mark. On the cover and hero the pill is white with royal-blue text. The on-watch launcher icon is shared by both tiers and is not changed here (that is `resources/`, and an owner call).
 
 Hero: the copy on the left (the name with its PRO pill and one sentence, no "free", no price), three round watches on the right: everyday, Pro's own (centre), HeroSet mode. The Instinct is not in the hero (a square 166 px picture clips in the round frame).
 
@@ -74,8 +76,8 @@ stat -f '%z %N' screens/*.png cover-500.png hero-1440x720.png icon-*.png        
 | `screens/4-heroset.png` | 454x454 | 19.3 KB |
 | `screens/5-instinct-e40.png` | 498x498 (x3 of the 166 px native) | 3.5 KB |
 | `screens/native/5-instincte40mm-166.png` | 166x166 | 1.6 KB |
-| `cover-500.png` | 500x500 | 79 KB |
-| `hero-1440x720.png` | 1440x720 | 254 KB |
+| `cover-500.png` | 500x500 | 15.7 KB |
+| `hero-1440x720.png` | 1440x720 | 280 KB |
 | `icon-24-128.png` | 128x128 | 3.6 KB |
 | `icon-64-128.png` | 128x128 | 1.4 KB |
 
