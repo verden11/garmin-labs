@@ -53,7 +53,9 @@ The evidence is in [`../reports/DayArc v1 scope and plan.md`](../reports/archive
   `DayArcStack`/`DayArcArc`, ADR-013's amendment, and not yet re-checked on the wrist). Otherwise
   everything is simulator-only: compile sweep (69/69 both
   densities) plus render/test exercise on 4 spot-check devices (fr965, approachs50, venusq2,
-  venux1). No screenshot of either build exists (no display in the dev sandbox).
+  venux1), widened 2026-10-04 (72/72 compile sweep, unit suite on 13 devices). Simulator screenshots of
+  every window exist since 2026-10-03 (`../docker/capture.sh DayArc tools/window_shots.sh ...`, untracked
+  `bin/shots/`); none is a device photo.
 
 ## Open owner decisions
 

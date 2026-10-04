@@ -126,10 +126,10 @@ def weather(height, hue):
     if h < 36:                          # no rays at this size: lift the disc so more than a sliver clears the cloud
         sy, sr = round(0.38 * h), round(0.21 * h)
     body = f'<circle cx="{sx}" cy="{sy}" r="{sr}" fill="{hue}" />\n'
-    if h >= 36:   # rays: north, north-east, east (the cloud hides the rest); axis and 45 degree only
+    if h >= 24:   # rays: north, north-east, east (the cloud hides the rest); axis and 45 degree only. Below 36 px: one short north-east tick (an east ray touched the number)
         inner = sr + t                      # a visible gap of t/2 between the disc and a ray's round cap
-        outer = inner + max(4, round(0.09 * h))
-        for ang in (90, 45, 0):
+        outer = inner + max(2 if h < 36 else 4, round(0.09 * h))
+        for ang in ((90, 45, 0) if h >= 36 else (45,)):
             c, s = math.cos(math.radians(ang)), -math.sin(math.radians(ang))
             body += (f'<path d="M{n(sx + inner * c)} {n(sy + inner * s)}L{n(sx + outer * c)} {n(sy + outer * s)}" '
                      f'stroke="{hue}" stroke-width="{t}" stroke-linecap="round" fill="none" />\n')
