@@ -87,7 +87,17 @@ Interactions, Localization), Personality UI overview, the AMOLED watch-face FAQ,
 Everything below is labelled **Garmin says** (quoted or closely paraphrased from those pages), **Community** (forum posters; read through a
 summarising fetch, so not verbatim, and only Brandon.ConnectIQ is Garmin staff), or **Inference** (ours).
 
+Sources read 2026-10-04 (all returned 200; base `https://developer.garmin.com/connect-iq/articles/`): `app-review-guidelines/Overview.html`, `monetization/App_Sales.html`,
+`monetization/Price_Points.html`, `monetization/Merchant_Onboarding.html`, `monetization/Account_Management.html`, `user-experience-guidelines/Overview.html`, `.../Watch_Faces.html`,
+`.../Incorporating_the_Visual_Design_and_Product_Personalities.html`, `.../Views.html`, `.../Entry_Points.html`, `.../Designing_Workflows_and_Interactions.html`, `.../Localization.html`,
+`personality-library/Personality_UI.html`, `connect-iq-faq/How_Do_I_Make_a_Watch_Face_for_AMOLED_Products.html`, `core-topics/Glances.html`; also
+`https://developer.garmin.com/downloads/connect-iq/sdks/agreement.html` (Developer Agreement, Exhibit A), `https://developer.garmin.com/brand-guidelines/connect-iq/`, and the store API
+`https://apps.garmin.com/api/appsLibraryExternalServices/api/asw/apps/<id>?countryCode=US` (our four listings, GLANCE `07ae0f49-…`, EASY Round `9a619d99-…`). Forum threads 415896, 404968, 436796 and the5krunner
+(2025-11-22) were read through a summarising fetch: not verbatim. Request count was about 55, above the budget of about 40. The Chrome tools were not needed.
+
 ## Corrections to the 2026-09-28 section
+
+0. **The price-points article is server-rendered** (every currency table is in the page HTML), not JS-rendered as the 2026-09-28 note says; `curl` is enough.
 
 1. **App Sales product list unchanged**: still 43 / 37 / 8 / 7 / 17 entries (API 6.0 / 5.2 / 5.1 / 5.0 / 3.4).
 2. **Free-only reach is 37 products, not 33** (HeroFace, Days To Go), and **11 more products are missing from every paid listing although they are
