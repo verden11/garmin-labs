@@ -4,7 +4,7 @@ Status: 2026-10-04. The 69 products that can run a watch face at Connect IQ 4.2 
 
 ## Supported products
 
-One build for all of them: rows are stacked from measured font heights, so there are no per-device resources; the face draws only with primitives and system fonts. Watch-face memory is at least 128 KB on all 69. Memory used in a normal (non-test) run has **not** been recorded for this face.
+One build for all of them: rows are stacked from measured font heights, so there are no per-device resources; the face draws only with primitives and system fonts. Watch-face memory is at least 128 KB on all 69. Memory used in a normal (`-r`) run was read on 2026-10-04 ("Measured 2026-10-04" below): 46.0 of 123.8 kB (Pro, round) and 45.9 of 59.8 kB (Pro, Instinct E).
 
 | Screen | Products | `manifest` ids | Fit test run on (simulator) |
 |---|---|---|---|
@@ -64,8 +64,31 @@ Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle
 - Tests: Pro 154, Free 67 (`development.md`). Run 2026-10-03 in the container: **Pro 154 passed** and **Free 67 passed** on the ten `fit_all.sh` devices (`fr255s`, `fenix7s`, `fenix7`, `fenix7x`, `fr265s`, `fr165`, `epix2`, `fr965`, `venusq2`, `fenix9pro51mm`). Simulator only.
 - **Watch battery row (Pro, ADR-023), live-state boxes from `twoSunsLayoutReport` 2026-10-03:** drawn on `fenix7x` (280), `fr165` (390), `epix2` (416), `fr965` (454) and `fenix9pro51mm` (466); not drawn on `fr265s` and `venusq2` (360). Not measured: the other products.
 - **Weather row (Pro, ADR-022), fit measured 2026-10-03 in the simulator** (`twoSunsLayoutReport`, `everyStateFitsThisDisplay` with four weather states, `weatherRowFormFollowsTheScreen`): the two-line row on 240 px and larger round screens (and the 320 by 360 `venusq2`), the one-line row beside the date on 218 px (`fr255s`). `fr265s` (360 px) has the least room (4 px spare). Not run: `venux1`, `fenix9pro51mm`, the other 60 products' real fonts.
-- Screen fit and memory for Free are **not measured**: Free draws fewer rows (no date, no curve), so each state is a subset of what Pro already fits and its fit is expected to be no worse, but that is inference. Run `tools/fit_all.sh monkey.free.jungle`.
+- Screen fit for Free is **not measured**, and its memory was read only on `fr255s` (26.1 kB of 123.8 kB) and the Instinct E (26.1 kB of 59.8 kB), 2026-10-04: Free draws fewer rows (no date, no curve), so each state is a subset of what Pro already fits and its fit is expected to be no worse, but that is inference. Run `tools/fit_all.sh monkey.free.jungle`.
 - The on-watch Customize menu has the Accent item only in Free; Pro's has the five.
+
+## Measured 2026-10-04 (simulator)
+
+Container simulator, SDK 9.2.0, English strings, the tree at `c0eead8` (Free's larger Body Battery number). **Simulator numbers, not device proof: nothing here ran on a wrist, and the simulator's weather, Body Battery and sun values are canned.** Memory is read off the simulator window's status bar ("used/limit kB", 1 kB = 1,024 B) of a `-r` build (the store export's flags) after the face drew (`FLAGS="-r -w" docker/shot.sh TwoSuns <jungle> <device>`).
+
+| Device | Tier | Check | Result | Limit | Share |
+|---|---|---|---|---|---|
+| `instincte40mm` | Pro | face drawn | 45.9 kB used | 59.8 kB | **77%** |
+| `instincte45mm` | Pro | face drawn | 45.9 kB used | 59.8 kB | **77%** |
+| `instincte40mm` | Free | face drawn | 26.1 kB used | 59.8 kB | 44% |
+| `fr255s` (218 px MIP) | Pro / Free | face drawn | 46.0 / 26.1 kB used | 123.8 kB | 37% / 21% |
+| `fenix7s` (240 px MIP) | Pro | face drawn | 46.0 kB used | 123.8 kB | 37% |
+| `fr955` (260 px MIP) | Pro | face drawn | 46.0 kB used | 123.8 kB | 37% |
+| `instincte40mm` | Pro | Customize menu open (harness, below) | 42.0 kB used | n/a (harness 123.8 kB) | n/a |
+| `instincte40mm` | Pro | "Ring orientation" list open | 42.9 kB used | n/a | n/a |
+| `instincte40mm` | Pro | after toggling Curve, Date, Weather, Battery and scrolling | 42.0 kB used | n/a | n/a |
+| `instincte40mm` | Pro | harness baseline (empty view, same code) | 39.6 kB used | n/a | n/a |
+
+The Instinct Pro face at **77% of the simulator's budget (13.9 kB free) is the tightest figure of any face**; it is not within 5% of the limit, but it is the one to watch when the face grows (the Pro `.prg` already carries the weather row and the battery row). The earlier reading (45.8 kB) moved by 0.1 kB. Free on an Instinct is 26.1 kB (it was 25.9 kB before `c0eead8`).
+
+**How the Customize menu was measured (and what that is worth).** The simulator has no route to the on-watch Customize screen (File > Edit Watch Face is greyed on every device tried) and a watch face may not `pushView`. So, in a private copy only (the repo is untouched), the manifest type was changed to `watch-app`, the `ComplicationSubscriber` permission removed (a watch-app cannot hold it) and the three `Complications` reads in `TwoSunsSources` stubbed to null (a few hundred bytes of code; the face is not shown), and `getInitialView` returned the real `TwoSunsSettingsMenu` and `TwoSunsSettingsDelegate`; the skin's Select, Down and Back buttons were clicked to open the Ring orientation list, back out, and toggle the four Pro toggles (the Instinct menu has no Accent and no Golden item). The reading is "this code with the menu on screen and no watch-face view"; the limit shown is the harness app's, not the face's 59.8 kB. Against an empty-view baseline of 39.6 kB the menu costs 2.4 kB and the orientation list 0.9 kB more. **Worst case if the real watch kept the face resident under the menu:** 45.9 + 2.4 + 0.9 = 49.2 kB of 59.8 kB (82%, 10.6 kB free); if it runs Customize without the face (the settings entry point is `getSettingsView`, not `getInitialView`), about 42.9 kB (72%). Either way the menu does not push the Instinct Pro past its limit; which of the two the real watch does, and which limit applies in that mode, is not known. The weather list, a refreshed Body Battery history and a real `Weather` object graph were not exercised (the simulator's canned weather is what drew the weather row above), so **a real-watch memory check on an Instinct E / 3 Solar is still needed before an upload**.
+
+**MIP look (screenshots read by eye, `fr255s`, `fenix7s`, `fr955`).** The 24-hour ring, the time, the date, the Body Battery number and bolt and the sun sentence are readable; the weather row's three "ahead" icons are drawn in a mid grey (dimmer than the yellow now temperature) and are the faintest element, still readable on `fr955` and `fenix7s` (with the 4p / 8p / 11p labels) and on the 218 px `fr255s` (one-line row, no labels). Free on `fr255s` (time, bolt and number, sentence) is clean. Daylight legibility cannot be judged from a simulator picture.
 
 ## Paid distribution
 
