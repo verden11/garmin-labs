@@ -42,7 +42,14 @@ English plus 14 (dan, deu, dut, fin, fre, ita, lit, nob, pol, por, spa, swe, tur
 
 ## Images
 
-One 454 × 454 FR965 simulator screenshot and a 500 × 500 cover exist; see [`screenshots.md`](screenshots.md). A hero (1440×720) was drafted 2026-09-27, adapted from HeroFace's own `listing/src/` generators as this file already suggested — **not uploaded**: DaysToGo is mid-review (1.0.1, submitted 2026-09-26) and whether editing a live listing image restarts or affects that review is unconfirmed against Garmin's own published docs. Owner's call before adding it to `README.md`'s Hero Image field. More states (named event in weeks, last day in hours, TODAY) and a real launcher icon would help.
+**Re-done 2026-10-04 (owner chat): a complete new image set, all proposals the owner approves before upload.** Five screens (hours with the battery line, weeks with the steps line, days with the battery line, a rectangle, an Instinct), a hero, a cover and the two device icons, all from the current Pro build; details, commands and the limit check are in [`screenshots.md`](screenshots.md). The earlier cover, hero and screens are in `old/`.
+
+- **Pro shows what Pro adds** (Hour for a timed event, the bottom line), no price number, never "free".
+- **Free vs Pro:** the same mark (the launcher icon's ring and "1"); Pro adds a small amber PRO badge on the cover, hero and both icons. Owner approves or replaces it; the real launcher icon is ROADMAP 3.3.
+- **Instinct picture from the Instinct E 40 mm**, not the Instinct 2: Garmin's paid-app product list has no Instinct 2, 2S, 2X or Descent G1 (`reports/Garmin policies and design guidelines.md`). Never name the Instinct 2 family in a Pro caption or text. Device-reach rule: the picture goes up with the upload that adds the Instinct products; no watch name or count in the form text (held-back sentence in `meta.yaml`).
+- The bottom line is not drawn on the rectangle or on an Instinct E (no room), so those two pictures show the hours state only.
+- Not pictured: the date picker (see `screenshots.md`), the always-on state.
+- The old caution about editing a live listing's images mid-review (1.0.1, 2026-09-26) is moot: the app is approved (2026-09-28); whether swapping images triggers re-review is still ROADMAP 10.5.
 
 ## Previous What's New blocks
 

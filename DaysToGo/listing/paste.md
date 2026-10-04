@@ -57,7 +57,9 @@ The app is now called Days To Go Pro on the watch. Nothing changes in how it wor
 
 ## Hero Image (optional, 1440×720, under 2048 KB)
 
-Not made; leave blank.
+**OWNER approves the look first** (all store images below are proposals, rendered 2026-10-04 from the current Pro build; the hero shows the studio wordmark and three Pro screens, no price number, nothing about the other tier).
+
+[`hero-1440x720.png`](hero-1440x720.png)
 
 ## Category
 
@@ -81,17 +83,24 @@ Whatever the Category choice offers.
 
 ## Cover Image (500×500, under 300 KB)
 
-[`cover-500.png`](cover-500.png) (the screenshot centred on black; replace with a designed cover if you make one)
+**OWNER approves the look.** [`cover-500.png`](cover-500.png): the studio mark (the launcher icon's ring and "1") and the name, with a small amber PRO badge that tells Pro from Free. The cover uploaded with 1.0.1 (a face render) is in [`old/`](old/).
 
-## Screen Images (under 150 KB each, upload in this order)
+## Screen Images (under 150 KB each, upload in this order, five at most)
 
-1. [`screens/1-countdown.png`](screens/1-countdown.png) (FR965 simulator, 97 DAYS)
+Simulator captures of the Pro build, 2026-10-04 (canned clock, battery and steps; not real readings). Captions are for you, not form fields.
 
-One device is enough. More states (a named event in weeks, the last day in hours, TODAY) would help; capture and add them in order after this one.
+1. [`screens/1-hours-battery.png`](screens/1-hours-battery.png): Pro's headline, an event with a time: the last 24 hours as hours and minutes (7:51 HOURS), with the battery on the date row. FR965.
+2. [`screens/2-weeks-steps.png`](screens/2-weeks-steps.png): weeks and days to a named event, with the step count on the date row. FR965.
+3. [`screens/3-days-battery.png`](screens/3-days-battery.png): 161 days to a named event, battery on the date row, pink accent. FR965.
+4. [`screens/4-rectangle.png`](screens/4-rectangle.png): the same face on a rectangular screen (Venu Sq 2), hours state, amber accent.
+5. **Instinct family:** [`screens/5-instinct.png`](screens/5-instinct.png): black and white, the ring is a gauge in the round window, hours state. Instinct E 40 mm (Garmin's paid-app list has no Instinct 2 or Descent G1, so never name those in a Pro caption). The simulator image is 166 px; this file is it enlarged x3 without smoothing (the native one is `screens/native/`). Upload it only with the package that adds the Instinct products (1.1.0), and mention no watch name in the form text ([`NOTES.md`](NOTES.md), device-reach rule).
 
 ## Device icons (optional, 128×128)
 
-Not made; leave blank.
+**OWNER approves the look** (proposal: the same mark as Free plus the PRO badge; the real launcher icon is still the owner's, ROADMAP 3.3).
+
+- 64 Color: [`icon-64-128.png`](icon-64-128.png)
+- 24 bit: [`icon-24-128.png`](icon-24-128.png)
 
 ## Preview Video (optional)
 

@@ -25,9 +25,16 @@ package:
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-017 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-014 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  cover: cover-500.png (a direct face render, already uploaded with 1.0.1)
-  hero: hero-1440x720.png (draft, not uploaded)
-  screens: screens/ (1-countdown.png predates the split; 2026-10-04 captures beside it)
+  status: rendered 2026-10-04 from the current Pro build; proposals, the owner approves the looks; nothing uploaded; the superseded files are in old/
+  cover: cover-500.png (500x500, 83 KB; mark + name + PRO badge; the 1.0.1 face-render cover is old/cover-500-face-render.png)
+  hero: hero-1440x720.png (1440x720, 265 KB)
+  screens:   # upload order, 5 at most, each under 150 KB; simulator captures (canned data)
+    - screens/1-hours-battery.png    # fr965, 454 px, 18 KB
+    - screens/2-weeks-steps.png      # fr965, 454 px, 17 KB
+    - screens/3-days-battery.png     # fr965, 454 px, 18 KB
+    - screens/4-rectangle.png        # venusq2, 320x360, 4 KB
+    - screens/5-instinct.png         # INSTINCT: instincte40mm 166 px enlarged x3 to 498 px, 3 KB; native capture in screens/native/
+  icons: [icon-64-128.png, icon-24-128.png]   # 128x128, mark + PRO badge; proposals, the real launcher icon is ROADMAP 3.3
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/days-to-go/

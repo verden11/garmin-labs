@@ -11,7 +11,7 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 | Pro's name and title | "Days To Go Pro" / "Days To Go Pro: Countdown, Hours, Footer" (plan proposal) |
 | Pro's store URL (line 1) | `<PRO STORE URL ...>`: needs Pro live (or upload Pro first); the line must be the real URL, not a placeholder, at submission |
 | Pro's price | The $2.50 tier (ADR-017, price: the $2.50 tier for every paid app), set in the form with the 1.1.0 upload; today it is the lowest tier. **The listing never states a price** |
-| Icon and cover | Not made; look and identity are the owner's |
+| Icon, cover, hero, screens | **Prepared 2026-10-04 as proposals** (see "Images" below); the owner approves or replaces the looks, and still owes the real launcher icon (ROADMAP 3.3) |
 | Translations | English only; any translation is machine-drafted and needs the owner's OK and a native read (`../listing/NOTES.md` "Languages") |
 | Upload order | Free (new app) first, Pro 1.1.0 the same day |
 | Whether line 1 is the sibling URL | The plan (D8) puts it first. It costs the list-view preview, which shows the first sentence; the old Pro listing's rule was that the first sentence carries the promise. The owner may move the URL line below the promise sentence |
@@ -69,3 +69,12 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 2. Put the live Free URL on the first line of the Pro listing ("Also available: Days To Go (<URL>)", no "free" wording on the paid listing) and the live Pro URL here.
 3. Record both app ids and the approval dates for the gates G1 to G4 in the ladder plan; do not turn download buckets into revenue.
 4. Send nothing to Garmin about twins until the owner decides (the email is the owner's).
+
+## Images (prepared 2026-10-04, proposals)
+
+A complete set from the current Free build: five screens (days with a name, weeks and days, TODAY, a rectangle, an Instinct), hero, cover, two device icons; details, commands and the limit check are in [`screenshots.md`](screenshots.md). The earlier captures are in `old/`.
+
+- Free shows only Free's fields (Event, Name, Month/Day/Year, Unit, Date style, Accent); the accent colour varies across the set. No bottom line, no hours, no price number, no PRO badge.
+- **Free vs Pro:** the same mark (the launcher icon's ring and "1"); Pro adds a small amber PRO badge. Owner approves or replaces it; the real launcher icon is ROADMAP 3.3.
+- The Instinct picture is the Instinct 2 (Free may show any Instinct; the Pro listing must use the Instinct E or Instinct 3 Solar, which are on Garmin's paid-app list). Device-reach rule: it goes up with the upload that adds the Instinct products; no watch name or count in the form text (held-back sentences in `meta.yaml`).
+- Not pictured: the date picker (needs a device check before any "set it on your watch" claim), the always-on state.

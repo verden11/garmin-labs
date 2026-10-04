@@ -61,7 +61,9 @@ First release of the free Days To Go: a big day count, your own date and name, s
 
 ## Hero Image (optional, 1440×720, under 2048 KB)
 
-Not made; leave blank. (`../listing/hero-1440x720.png` is a Pro-era draft, never uploaded; do not reuse it for Free without the owner's look-approval.)
+**OWNER approves the look first** (all store images below are proposals, rendered 2026-10-04 from the current Free build; the hero shows three Free screens with three accent colours, no Pro-only thing, no price number).
+
+[`hero-1440x720.png`](hero-1440x720.png)
 
 ## Category
 
@@ -85,15 +87,24 @@ Whatever the Category choice offers.
 
 ## Cover Image (500×500, under 300 KB)
 
-Not made for Free. **Owner's call** (visual identity). Take it from the Free build; do not reuse a Pro image that shows a bottom line or hours.
+**OWNER approves the look.** [`cover-500.png`](cover-500.png): the studio mark (the launcher icon's ring and "1") and the name; the Pro cover is the same plus an amber PRO badge.
 
-## Screen Images (under 150 KB each, upload in this order)
+## Screen Images (under 150 KB each, upload in this order, five at most)
 
-None exist for Free (none invented). See [`screenshots.md`](screenshots.md) for what to capture, from the Free build in the simulator (`monkeydo bin/<free>.prg fr965`, built with `monkey.free.jungle`).
+Simulator captures of the Free build, 2026-10-04 (canned clock; not real readings), so no Pro-only thing can appear. Captions are for you, not form fields.
+
+1. [`screens/1-days-amber.png`](screens/1-days-amber.png): 161 days to a named event, amber accent. FR965.
+2. [`screens/2-weeks-sky.png`](screens/2-weeks-sky.png): the same count in weeks and days (6 WEEKS + 3 DAYS), sky accent. FR965.
+3. [`screens/3-today-pink.png`](screens/3-today-pink.png): the day itself (TODAY), pink accent, the ring full. FR965.
+4. [`screens/4-rectangle.png`](screens/4-rectangle.png): the same face on a rectangular screen (Venu Sq 2), violet accent.
+5. **Instinct family:** [`screens/5-instinct.png`](screens/5-instinct.png): black and white, the ring is a gauge in the round window. Instinct 2 (Free may show any Instinct). The simulator image is 176 px; this file is it enlarged x3 without smoothing (the native one is `screens/native/`). Upload it only with the package that adds the Instinct products (1.0.0), and mention no watch name in the form text ([`NOTES.md`](NOTES.md), device-reach rule).
 
 ## Device icons (optional, 128×128)
 
-Not made; leave blank.
+**OWNER approves the look** (proposal: the mark alone; Pro adds a PRO badge; the real launcher icon is still the owner's, ROADMAP 3.3).
+
+- 64 Color: [`icon-64-128.png`](icon-64-128.png)
+- 24 bit: [`icon-24-128.png`](icon-24-128.png)
 
 ## Preview Video (optional)
 
