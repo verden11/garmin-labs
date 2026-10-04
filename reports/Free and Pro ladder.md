@@ -224,8 +224,8 @@ device reach or revenue we have not measured.
 
 | # | Decision | Recommended | Deadline |
 |---|---|---|---|
-| OD1 | Approve the ladder and the two pilots | Yes | before Wave 1 |
-| OD2 | Retire the day-45 flip rule for DaysToGo and TwoSuns | Yes | October (reminder dates fall about 2026-11-10 to 11-12) |
+| OD1 | Approve the ladder and the two pilots | **Yes (owner, 2026-10-04)** | before Wave 1 |
+| OD2 | Retire the day-45 flip rule for DaysToGo and TwoSuns | **Yes (owner, 2026-10-04)** | October (reminder dates fall about 2026-11-10 to 11-12) |
 | OD3 | Naming: Free clean, Pro "<Name> Pro" | Yes, folded into next submissions | before Free listing text |
 | OD4 | Pro price: $3.00 for faces; HeroSet $2.00; TwoSuns tier fix | As D6 | before each Pro upload |
 | OD5 | Send the Garmin email (`garmin_questions.md`) | Yes | this week |
