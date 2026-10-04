@@ -53,6 +53,9 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 | App Migration | No: a new app id, not a newly compatible device on an existing app |
 | What's new | Blank, this app's rule for an initial release (`../listing/NOTES.md`); a draft line is in the README |
 | Price | $0 (free). The Free listing is the only listing where "free" wording is allowed (release contract) |
+| Additional Hardware Requirements | Paste the bare URL `https://verden.watch/two-suns/` only (API field `hardwareProductUrl`; the old sentence is retired, ROADMAP 10.16) |
+| Refund line | None: a free app has nothing to refund |
+| Device sentence (ROADMAP 10.15) | Two Suns has almost no Free-only reach: every one of its 72 products except D2 Air X10 is on Garmin's paid list (the Instinct E and 3 Solar included), and D2 Air X10 is one of the 11 products no paid app is sold on. The held-back sentence is therefore not a genuine plus; the owner may drop it rather than paste it ([`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach") |
 
 ## After approval (plan WP5, WP9)
 

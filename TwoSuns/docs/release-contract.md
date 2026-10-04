@@ -29,6 +29,12 @@ What the listing, the store page and the site may claim. The checkable form of t
 - Translated store copy that no native speaker has read.
 - A claim about the look, a screenshot, or "designed for" a watch before the owner has approved the look and supplied the images.
 
+## Paid vs free reach and the refund line (2026-10-04)
+
+**Devices.** Garmin sells paid apps only on the products of its App Sales list. Two Suns 1.0.0 is listed on 68 of its 69 products (D2 Air X10, on the list but sold to no paid app, is the one gap). The Instinct E 40/45 mm and Instinct 3 Solar added in 1.1.0 are on the list (the 1.1.0 manifest has 72 products), and **Pro names no other Instinct watch**: Instinct 2, 2S, 2X and Descent G1, which are not on the list, are not in Two Suns at all. So nothing in the Pro text needs removing, and the Free twin has almost no extra reach (1 product), which is why its held-back device sentence is optional ([`compatibility.md`](compatibility.md) "Paid vs free reach").
+
+**Refund line.** The Pro description ends with "Two Suns Pro is a paid app. Refunds follow the Connect IQ Store return window." (guideline 4d). It does not restate the hours (Garmin's full return-policy text is not published on a page we could read; its one stated figure is the 48-hour window before funds are captured). The Free description has no refund line. The Pro listing still never uses the word "free".
+
 ## Free and Pro listings (ADR-020 (Free + Pro ladder), accepted 2026-10-04)
 
 - The same allowed and forbidden lists apply to both listings. Nothing is claimed that only the other tier ships: the Free listing never mentions the energy curve, golden hour, tomorrow's sunrise, twilight, the date row, ring orientation or a remembered place, and names Pro only in its sibling line (no "Pro adds" list); the Pro listing describes only what Pro has.

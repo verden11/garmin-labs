@@ -94,6 +94,10 @@ The Instinct Pro face at **77% of the simulator's budget (13.9 kB free) is the t
 
 A paid app (Pro) is sold only on the SDK's App_Sales product list (lowest tier CIQ 3.4) and in its country list, so the store's list will be shorter than this manifest. **No watch count goes in the listing.**
 
+## Paid vs free reach (2026-10-04)
+
+Measured on the live 1.0.0 listing, by store part number against the manifest: **68 of 69 products are listed; 1 is not (D2 Air X10: on Garmin's paid list, yet sold to no paid app, reason unknown)**; 0 products are off the paid list. The 3 Instinct products added in 1.1.0 (72 in total) are on the paid list. So the paid Pro reaches about 71 of 72 products and a Free twin would add at most 1 (the unexplained one): **no Free-only reach to advertise**. No Instinct 2, 2S, 2X or Descent G1 exists in this app. Source: [`../../reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md) section 3.
+
 ## The export and "89 devices"
 
 `monkeyc -e -r -f monkey.jungle -o dist/TwoSuns.iq -y $KEY` prints "89 OUT OF 89 DEVICES BUILT" for a manifest of 69 products. Inspected 2026-09-27 (`p7zip`, the `.iq` is a 7z archive): its own `manifest.xml` lists 89 `<iq:product>` entries, but keyed by internal build **part numbers** (e.g. `006-B4776-00`), not by the device ids our source manifest uses (`fr965` etc.) — this SDK version's package format does not carry human-readable device names in that tag, so the 89 could not be matched back to specific watch models from the archive alone. The build console names a device only when it warns (57 of the 89, all just the known launcher-icon-scaling notice); the other 32 build silently, with no id printed anywhere. **Still unresolved when this was written (2026-09-27), but the size of the gap is now confirmed by the archive itself, not just the console's count line.** The only way left to resolve it is what the checklist already says: at upload, the store form's own "Compatible Devices" list is authoritative and reads the actual package, not our guess.
