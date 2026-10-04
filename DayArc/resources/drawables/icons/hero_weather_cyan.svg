@@ -1,8 +1,8 @@
 <svg width="90" height="72" viewBox="0 0 90 72" xmlns="http://www.w3.org/2000/svg">
 <circle cx="58" cy="33" r="14" fill="#55FFFF" />
-<path d="M58 12L58 6" stroke="#55FFFF" stroke-width="7" stroke-linecap="round" fill="none" />
-<path d="M72.85 18.15L77.09 13.91" stroke="#55FFFF" stroke-width="7" stroke-linecap="round" fill="none" />
-<path d="M79 33L85 33" stroke="#55FFFF" stroke-width="7" stroke-linecap="round" fill="none" />
-<path d="M17.5 68.5 H52.5 A12 12 0 0 0 54.78 44.72 A18 18 0 0 0 20.3 40.78 A14 14 0 1 0 17.5 68.5Z" fill="#000000" stroke="#000000" stroke-width="15" stroke-linejoin="round" />
-<path d="M17.5 68.5 H52.5 A12 12 0 0 0 54.78 44.72 A18 18 0 0 0 20.3 40.78 A14 14 0 1 0 17.5 68.5Z" fill="#000000" stroke="#55FFFF" stroke-width="7" stroke-linejoin="round" />
+<path d="M58 10L58 4" stroke="#55FFFF" stroke-width="9" stroke-linecap="round" fill="none" />
+<path d="M74.26 16.74L78.51 12.49" stroke="#55FFFF" stroke-width="9" stroke-linecap="round" fill="none" />
+<path d="M81 33L87 33" stroke="#55FFFF" stroke-width="9" stroke-linecap="round" fill="none" />
+<path d="M18.5 67.5 H51.5 A12 12 0 0 0 54.39 43.85 A18 18 0 0 0 21.26 39.77 A14 14 0 1 0 18.5 67.5Z" fill="#000000" stroke="#000000" stroke-width="17" stroke-linejoin="round" />
+<path d="M18.5 67.5 H51.5 A12 12 0 0 0 54.39 43.85 A18 18 0 0 0 21.26 39.77 A14 14 0 1 0 18.5 67.5Z" fill="#000000" stroke="#55FFFF" stroke-width="9" stroke-linejoin="round" />
 </svg>
