@@ -211,6 +211,11 @@ class HeroFaceLayout {
         return shortInset() / 5;
     }
 
+    // Side padding of a finished goal's reversed label on the 1-bit Instinct (HeroFaceMissions.drawLabel).
+    function doneLabelPad() as Number {
+        return shortInset() / 8;
+    }
+
     function barHeight() as Number {
         return shortInset() / 3;
     }

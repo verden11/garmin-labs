@@ -44,4 +44,6 @@ Durable decisions, newest last. The earlier choices (minApiLevel, Everyday-first
 
 **Site.** `../site/src/apps/heroface/facts.ts` still says `watchCount = 117` and "Every round watch", which stays true for the live app. Nothing about Instinct goes on the site until an upload is approved and the store lists the watches; then gate the copy behind a flag as HeroSet does (`instinctLive`) and update the count.
 
+**Amendment 2026-10-04 (owner's standing authorisation to redesign HeroFace UI/UX; ROADMAP 9.10).** On the 176 px Instinct the three columns are about 42 px wide and "check + STEP" did not fit, so a finished step goal read "✓ ST." (a label cut with a "."). On a 1-bit display a finished goal's label is now **reversed**: black on a white pill two pixels wider each side (`HeroFaceMissions.drawLabel`, `HeroFaceLayout.doneLabelPad`), no check, label never cut for the check; the full solid bar still says "done" there as well. Colour products keep the green check and label unchanged. Evidence: simulator screenshots of Free and Pro on `instinct2` and `instincte40mm` (a 12-day streak seeded through the app's own streak code in a private copy, because the simulator's history rows did not apply: "13-DAY STREAK" and "12-DAY STREAK" drew whole). Simulator only, no watch.
+
 **Verification.** See `docs/compatibility.md` "Instinct family". Simulator only.

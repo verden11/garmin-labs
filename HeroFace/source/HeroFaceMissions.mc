@@ -51,18 +51,27 @@ class HeroFaceMissions {
         dc.fillRoundedRectangle(left, top, fill, height, (fill < height ? fill : height) / 2);
     }
 
+    // A finished goal: a drawn check beside its label in green. On the 1-bit Instinct the columns are about 42 px and
+    // "check + STEP" did not fit ("ST."), so the label itself is reversed (black on a white pill) instead, which costs
+    // two pixels each side and no check; the full solid bar says "done" there as well (ADR-002 amendment, 2026-10-04).
     private static function drawLabel(dc as Graphics.Dc, layout as HeroFaceLayout, center as Number, width as Number, top as Number, metric as HeroFaceMetric) as Void {
         var done = metric.isDone();
-        var check = done ? checkWidth(dc) : 0;
-        var label = HeroFaceDraw.firstWithin(dc, width - check, Graphics.FONT_XTINY, HeroFaceText.labels(metric.kind));
+        var reversed = done && HeroFacePalette.MONO;
+        var check = done && !reversed ? checkWidth(dc) : 0;
+        var pad = reversed ? layout.doneLabelPad() : 0;
+        var label = HeroFaceDraw.firstWithin(dc, width - check - 2 * pad, Graphics.FONT_XTINY, HeroFaceText.labels(metric.kind));
         if (layout.subscreen() != null) {
             // The Instinct's columns are about 40 px: a long translation is cut with a "." rather than reaching the next one.
-            label = HeroFaceDraw.truncated(dc, label, Graphics.FONT_XTINY, width - check);
+            label = HeroFaceDraw.truncated(dc, label, Graphics.FONT_XTINY, width - check - 2 * pad);
         }
         var textWidth = dc.getTextWidthInPixels(label, Graphics.FONT_XTINY);
         var left = center - (textWidth + check) / 2;
         dc.setColor(done ? HeroFacePalette.DONE : HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);
-        if (done) {
+        if (reversed) {
+            var line = dc.getFontHeight(Graphics.FONT_XTINY);
+            dc.fillRoundedRectangle(left - pad, top, textWidth + 2 * pad, line, line / 4);
+            dc.setColor(HeroFacePalette.BACKGROUND, Graphics.COLOR_TRANSPARENT);
+        } else if (done) {
             drawCheck(dc, left, top + Graphics.getFontAscent(Graphics.FONT_XTINY), checkWidth(dc) * 2 / 3);
         }
         HeroFaceDraw.text(dc, layout, left + check, top, Graphics.FONT_XTINY, label, Graphics.TEXT_JUSTIFY_LEFT);
