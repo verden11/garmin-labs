@@ -39,7 +39,7 @@ Uploads. You said you will re-upload every app and face when ready. **Packages a
 Assets (agent renders, you approve and upload).
 - [ ] 1.5 `[you]` Launcher icons, covers and hero images for DayArc, DayArc Pro, Days To Go Free/Pro, Two Suns Free/Pro, HeroFace Free/Pro (placeholders now), then 9.7.
 - [ ] 3.3 `[you]` Days To Go: an icon for each tier.
-- [ ] 10.5 `[you]` Replace the live listing images that changed (HeroFace cover/hero/icons, Days To Go hero; re-rendered 2026-10-04, 11.1); check whether swapping images triggers re-review.
+- [ ] 10.5 `[you]` Replace the live listing images that changed (HeroFace cover/hero/icons, Days To Go hero; re-rendered 2026-10-04, 11.1); check whether swapping images triggers re-review. **HeroSet cover and hero (amber) updated in the live listing by the owner, 2026-10-04.** Left: any other live listing whose images were replaced by the new sets (the new Free apps and the Pro updates carry them already).
 
 Wrist and watch checks (a simulator cannot do these).
 - [ ] 1.1 `[you]` Wear the DayArc dev build on the FR965 through all four time windows; list what is wrong or say "fine". Open from 2026-10-03: edges crisp; 2 px strokes after a full day (any "no": `git revert a170619`, the pixel-grid icons commit; see `DayArc/docs/decisions.md` ADR-013 amendment).
