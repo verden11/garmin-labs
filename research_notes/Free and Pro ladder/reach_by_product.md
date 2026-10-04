@@ -35,6 +35,13 @@ browse the store for faces.
   cannot upgrade. The free description must say so plainly (guideline 4a) and the face must never show an upgrade prompt.
 - **TwoSuns, DayArc, HeroSet:** near-zero extra reach. Their free twin is justified by trial/social-proof/family-shelf value only, not reach.
 
+## Correction 2026-10-04
+
+Re-measured by store part number against the live manifests (`garmin_rules.md`, "Re-read 2026-10-04", section 3). **Free-only reach for HeroFace and Days To Go is 37 products, not 33**
+(the substring floor wrongly counted D2 Air, Enduro, fēnix 6S and Venu as on the list), **plus 11 products that are on the App Sales list but missing from every paid listing**
+(MARQ Gen 1 x8, Descent Mk2/Mk2i, Mk2 S, D2 Air X10): 48 products in all. Two free rival listings (GLANCE, EASY Round) are offered on all of them, so a Free twin reaches the whole manifest (inference from those two).
+The "Known gap" below is explained for 37 and measured but still unexplained for the 11.
+
 ## Known gap
 
 The store lists fewer products than manifest minus allow-list would predict (HeroFace 69 listed vs 84 on-list; earlier notes:

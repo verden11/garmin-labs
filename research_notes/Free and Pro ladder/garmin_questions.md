@@ -3,7 +3,10 @@
 Owner sends (never decide/send alone). One email to Connect IQ developer support (find the current contact on Garmin's developer
 pages or the dashboard; the address was not verified in this research). Plain, numbered so the reply can be matched.
 
-## Email draft
+**2026-10-04: the owner will not email Garmin.** Questions 2, 3, 4 (partly), 5 and 6 were answered from Garmin's published pages and the public store API in
+`garmin_rules.md` "Re-read 2026-10-04" and `reports/Garmin policies and design guidelines.md`. Still unanswerable from published sources: paid-to-paid repricing, paid-to-free effects, duplicate-listing rules, why 11 products on the paid list are not offered.
+
+## Email draft (not to be sent)
 
 Subject: Free and paid listings of the same watch face: policy questions
 
