@@ -14,6 +14,10 @@ cover.
 
 - `source/`, `resources/` (shared) — Monkey C source and resources.
 - `resources-pro/` — Pro-only override (`AppName`, launcher icon).
+- `resources-hero-L<n>/`, `resources-hero-S<n>/` — the hero icons at one size each (large beside the biggest digits, small beside the
+  others), picked per screen size by the jungle family lines; **generated** by `tools/gen_hero_icons.py` (ADR-017), as is the 72/54 px
+  default in `resources/`. `resources-accent/`, `resources-instinct/`, `resources-instinct-pro/` — the Accent setting and the 1-bit
+  Instinct overrides (ADR-014, ADR-015, ADR-016).
 - `manifest.simple.xml` / `manifest.pro.xml`, `monkey.simple.jungle` / `monkey.pro.jungle` — two
   build targets from one source tree (`docs/decisions.md` ADR-003).
 - `docs/` — spec, plan, ADRs, compatibility, publish checklist.

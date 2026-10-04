@@ -60,8 +60,10 @@ Nothing below has been seen on a wrist; the simulator has no display in this env
 3. **The arc clears the clock** — no arc/digit contact at the clock's top corners, in every window.
 4. **The stack is vertically centred** and nothing sits crammed against the bezel.
 5. **Pro's grid** — how many rows show per window (2-3 expected on FR965), and that they read.
-6. **Icon size vs the text beside it** — the icons are fixed-pixel bitmaps (DESIGN.md
-   "Iconography"); judge whether they look right next to the hero number.
+6. **Icon size vs the text beside it** — the hero icons now come in a large and a small size per screen (ADR-017, 2026-10-04: the large
+   beside the HOT digits, the small beside MEDIUM/MILD), the grid icons are still 24 px (DESIGN.md "Iconography"). Judge whether the hero
+   icon looks level with the number on YOUR watch, in each window and in Pro (where the number falls to the smaller tiers), and whether the
+   redrawn weather glyph (outlined cloud, solid sun, three rays) reads as weather and not a blob.
 7. **Accent colour, on the WATCH** (the only route a sideloaded build has — there is no phone page for
    a dev-signed app): pick the face in the watch-face list, Customize next to Apply, choose each of
    the seven values (does the arc, the hero value, the gauge fill and the hero icon follow, does
@@ -69,13 +71,13 @@ Nothing below has been seen on a wrist; the simulator has no display in this env
    delegate closes the whole Customize screen on select — check that lands somewhere sensible and
    nothing hangs. Restart the watch: the choice must survive. The Garmin Connect phone page cannot
    be tested from a sideloaded build; it waits for a store install (gate 5).
-8. **Icons after the pixel-grid change (2026-10-03, ADR-013 Amendment 4)** — grid icons are now 24×24 with
-   2 px strokes (were 22 px, strokes 2.2–2.5), hero icons 60×48 / 48×48 / 60×42 (were 56×45 / 52×52 /
-   68×48). On the wrist: (a) are the 2 px strokes too thin or too light against the 64-colour AMOLED
-   (stairs, steps, run, refresh, sunrise/sunset, thermometer, bars, breath); (b) are the icon edges
-   crisp, not soft; (c) do the 24 px grid rows still fit on the smallest round product you own, in
-   Pro, and does the hero row still look balanced with the smaller Body Battery icon; (d) is Body
-   Battery's redrawn blocky battery still recognisable. Any "no" → revert the one commit (ADR text).
+8. **Icons after the pixel-grid change (2026-10-03, ADR-013 Amendment 4) and the per-screen sizes (2026-10-04, ADR-017)** — grid icons are
+   24×24 with 2 px strokes; hero icons are line icons with a stroke of 0.12 of their height (4 to 11 px, was 2 to 6), in two sizes per screen
+   (FR965: 90 px beside the big digits, 66 px beside the smaller ones; FR255S: 42 and 24). On the wrist: (a) are the 2 px grid strokes too
+   thin or too light against the 64-colour AMOLED (stairs, steps, run, refresh, sunrise/sunset, thermometer, bars, breath); (b) are the
+   icon edges crisp, not soft; (c) do the 24 px grid rows still fit on the smallest round product you own, in Pro; (d) do the hero strokes
+   read heavy or just level with the digits, and is Body Battery's blocky shell still recognisable. Any "no" on the strokes → change
+   `stroke()` in `tools/gen_hero_icons.py`, regenerate (ADR-017 "Reversed by").
 9. Report anything that looks smaller than it needs to be — the planner is deliberately
    conservative (font boxes carry padding above the digits) and the wrist is what tunes it.
 
@@ -83,7 +85,7 @@ Nothing below has been seen on a wrist; the simulator has no display in this env
 
 (a) **Accent list vs the studio roster:** `research_notes/Free and Pro ladder/accent_roster.md` says Sky/Mint/Amber/Pink/Violet/White; built is cyan/green/blue/rose/purple/amber. Ids are append-only after the first upload, so the list must be decided BEFORE the first upload. All six offered accents equal a Pro grid-icon category hue (cyan = respiration, amber = thermometer, rose = droplet, green = steps, blue = calendar, purple = stairs) — ADR-014 notes it, unresolved; DESIGN.md lists no reserved colours.
 (b) **No written track-contrast rule:** arc fill on `ARC_TRACK` #555555 is 1.94:1 for purple, 2.53 for rose (Auto's own evening hue), 3.05 for blue; the gauge fill on the MUTED #AAAAAA track is about 1.05 for blue — decide a rule, or drop blue/purple.
-(c) **Pro hierarchy:** on fr965 Pro the hero equals the clock (both FONT_NUMBER_MILD, h81) at rung 5, Pro sits at rung 5-6 in every window, venusq2 Pro at rung 7-8 with 1px gaps and the hero label dropped, and Pro's grid shows about 4-6 of 7-10 fields vs ADR-009's 8-12 — either change the ladder order, or update ADR-009, DESIGN.md "Layout" and spec.md.
+(c) **Pro hierarchy:** on fr965 Pro the hero equals the clock (both FONT_NUMBER_MILD, h81) at rung 5, Pro sits at rung 5-6 in every window, venusq2 Pro at rung 7-8 with 1px gaps and the hero label dropped (**since 2026-10-04, ADR-017: the label is kept and the grid shrinks to one row there, and on the Instinct**), and Pro's grid shows about 4-6 of 7-10 fields vs ADR-009's 8-12 — either change the ladder order, or update ADR-009, DESIGN.md "Layout" and spec.md.
 (d) **Rectangular corners:** rectangular products use full-width rows to ~19px above the bottom edge with grid icons near x=6, while TwoSuns keeps the round chord there; the display corner radii are unknown — needs a look on a Venu Sq 2 / Venu X1, or the radius from the SDK device definition.
 (e) **Night clock jump:** the night clock sits at y=148 in the active frame but ~182 in the AMOLED idle frame, so it jumps on wrist-raise — look on the wrist.
 

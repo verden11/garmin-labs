@@ -17,6 +17,8 @@ evidence is that one photo; the fixes and the setting have not been re-checked o
 
 Added 2026-10-03: **Instinct E 40/45 mm and Instinct 3 Solar 45 mm** (72 products instead of 69; ADR-015, accepted 2026-10-04, simulator only): black and white, the window-progress arc becomes a gauge in the round window, no Accent setting (so no "Customize" on these watches), no corner pills. The visible area on an Instinct is a circle about 98 px in radius, which the layout and the tests now model. The Instinct 2 family is not included (no Complications at CIQ 3.4). Evidence: `docs/compatibility.md` "Instinct E and Instinct 3 Solar".
 
+Changed 2026-10-04 (ADR-017, simulator only): the hero icon is sized to the screen and to the number beside it (two sizes per screen size, 42 px / 24 px on a 218 px watch up to 90 px / 66 px on a 454 px one) with a stroke about 0.12 of its height; the weather glyph is redrawn (an outlined cloud in front of a sun with rays instead of one fused shape); Pro keeps the hero label (the Instinct draws one row of fields with the label instead of two rows without it, and on the 3 Solar the morning and midday are the same as Simple). Earlier the same day (ADR-016): fields are shown whole or not at all, recovery reads in hours, half-size hero icons on the Instinct.
+
 Built:
 
 - Four time windows (morning/midday/evening/night), fixed clock, shared by both listings.
