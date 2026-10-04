@@ -43,6 +43,7 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 | Collects user data | Nothing leaves the watch. |
 | App Migration | No: support is the explicit 117-product list in [`../docs/compatibility.md`](../docs/compatibility.md); letting the store add untested devices would ship a layout nobody has run. |
 | Monetization | No. The form's own wording: Yes only if the app requests payment to enable features, or asks for tips or donations. HeroFace does neither; it is paid through the store, which is not what this field asks. |
+| Price | Paid, the $2.50 tier of Garmin's price points, chosen in the upload/merchant step of the form with the 1.1.0 upload (live at the $2.00 tier until then; ADR-004, price: the $2.50 tier for every paid app). No price number is in the text (ADR-004, price: the $2.50 tier for every paid app). Garmin may re-review a repriced approved app; the version upload is re-reviewed anyway |
 | Companion App | Blank: HeroSet is not a companion app, it is a separate paid watch app the face can read. |
 | Answers otherwise | Follow HeroSet's ([`../../HeroSet/listing/paste.md`](../../HeroSet/listing/paste.md)) except where the watch-face form differs. |
 
@@ -59,5 +60,5 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 - **Line 1:** `Also available: HeroFace, a lighter version: <URL>`. The paid listing never says "free". The rest is the 1.0.1 text, which already describes only what Pro has (the metric per bar, seconds, the temperature, three accents).
 - **Instinct:** the sentence about the Instinct ring gauge is out of the paste text until the upload is approved and the store lists those watches (`meta.yaml` `held_back_text`; ADR-002 (Instinct family)).
 - **Version** `1.1.0`; the What's New is the rename line, naming the sibling without "free".
-- No device sentence, no watch count (release contract). The price is not in the text.
+- No device sentence, no watch count (release contract). No price number is in the text (ADR-004, price: the $2.50 tier for every paid app).
 - "More from Verden" is left out: it lists only live free siblings, none live today.

@@ -2,13 +2,13 @@
 
 Garmin watch face (Connect IQ, Monkey C) from studio Verden. Time-first, in
 HeroSet's visual language: bezel ring, three mission bars, gold streak.
-124 products (117 round + 7 Instinct, ADR-002 (Instinct family), accepted 2026-10-04, simulator only), `minApiLevel` 3.0.0. Paid, USD 2.00, 15 languages.
+124 products (117 round + 7 Instinct, ADR-002 (Instinct family), accepted 2026-10-04, simulator only), `minApiLevel` 3.0.0. Paid at the $2.50 tier ([ADR-004](docs/decisions.md#adr-004), price: the $2.50 tier for every paid app; set in the upload form with the next version upload, live at the $2.00 tier until then, no price number in listing or site text), 15 languages.
 
 **Free + Pro (approved by the owner 2026-10-04, UNRELEASED, [`docs/decisions.md`](docs/decisions.md) ADR-001 "Free + Pro ladder"; it replaces the old plan's decision 8 (`docs/archive/plan.md`), the price, and the day-45 price-flip rule is retired):**
 the live paid app (`manifest.xml`, `monkey.jungle`, app id `8cd8f7f5-…`) becomes **HeroFace Pro** 1.1.0, behaviour unchanged; a new **Free** twin (`manifest.free.xml`,
 `monkey.free.jungle`, app id `be68898f-995b-45d9-860e-42ad508bd7fd`, 1.0.0) is built beside it from the same source, split at compile time with `(:pro)` / `(:free)`.
 Free: Everyday and HeroSet mode, slots fixed to Auto, Accent 0 to 2, no seconds, no temperature. Pro adds the metric per slot, Seconds and the temperature. Both keep the three accents (Magenta recoloured `#FFAAFF` on 2026-10-04 to clear the 3:1 track rule, ADR-003).
-Names, prices, icons, uploads are the owner's (the on-watch names "HeroFace" and "HeroFace Pro" are placeholders).
+Names, icons, uploads are the owner's (the on-watch names "HeroFace" and "HeroFace Pro" are the confirmed pair, 2026-10-04). Pro price: the $2.50 tier ([ADR-004](docs/decisions.md#adr-004), price: the $2.50 tier for every paid app); Free is free.
 
 **Read first:** [`docs/status.md`](docs/status.md) (where things stand, evidence, gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md)), then [`docs/archive/plan.md`](docs/archive/plan.md) (the finished build plan, and why),
 [`PRODUCT.md`](PRODUCT.md) (product truth), [`DESIGN.md`](DESIGN.md) (the visual system),

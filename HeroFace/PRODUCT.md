@@ -32,7 +32,7 @@ The mission-bar and progress-ring language from HeroSet, applied to everyday goa
 - Connect IQ watch face, `minApiLevel` 3.0.0, one build. Newer APIs sit behind `has` checks. Round screens first; rectangle and Instinct shapes come later ([`docs/archive/plan.md`](docs/archive/plan.md) phase 4).
 - The smallest watch-face memory budget among the 117 shipped round products is 96 KB, so it draws only with primitives and system fonts and uses no bitmaps. (64 KB belongs to the rectangle and Instinct products, which are not in scope yet.)
 - No network, no permissions except `ComplicationSubscriber`. Nothing leaves the watch.
-- Price: paid, lowest tier USD 2.00 ($1.99 US), same as HeroSet. Garmin's 48-hour return window is the only trial.
+- Price: paid, the $2.50 tier of Garmin's price points for HeroFace Pro (live at the $2.00 tier until the 1.1.0 upload; [ADR-004](docs/decisions.md#adr-004), price: the $2.50 tier for every paid app); HeroFace (Free) is free. No price number in listing or site text. Garmin's 48-hour return window is the only trial.
 - Languages: English at launch; built so translations need no code change.
 
 ## Brand Commitments

@@ -11,7 +11,7 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 | Pro's name and title | "HeroFace Pro" (plan WP6 step 5: renamed **inside the pending listing-repair submission**, keeping its device tokens in the title) |
 | Pro's store URL (line 1) | `<PRO STORE URL ...>`: needs Pro live (or upload Pro first); the line must be the real URL, not a placeholder, at submission |
 | HeroSet's store URL (the "With HeroSet" paragraph) | Filled in 2026-10-04 from the live listing (the site's `storeUrl`); add HeroSet Free's URL when it exists |
-| Pro's price | Today USD 2.00 (US $1.99). **The listing never states a price** |
+| Pro's price | The $2.50 tier from the 1.1.0 upload (live at the $2.00 tier until then; ADR-004, price: the $2.50 tier for every paid app). **The listing never states a price** |
 | Icon and cover | Not made; look and identity are the owner's |
 | Translations | English only; any translation is machine-drafted and needs the owner's OK and a native read (`../listing/NOTES.md` "Languages") |
 | Upload order | Free (new app) first, Pro 1.1.0 the same day |
@@ -44,7 +44,7 @@ The Instinct ring-gauge sentence is out of the paste text until the upload is ap
 
 ## Description rules
 
-Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000 characters, plain text (the store keeps line breaks and shows `**` literally), describe what the app is, the last line is the support URL (the form has no support field). The Free description follows the WP10 skeleton: sibling line, promise, what Free has, one line that HeroSet mode needs HeroSet, "Pro adds", permissions in plain words. The review request and the device sentence are left out until the Free listing's real device list is visible. **"More from Verden" is left out**: it lists only live free siblings, and none is known to be live today.
+Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000 characters, plain text (the store keeps line breaks and shows `**` literally), describe what the app is, the last line is the support URL (the form has no support field). The Free description follows the WP10 skeleton: sibling line, promise, what Free has, one line that HeroSet mode needs HeroSet, "Pro adds", permissions in plain words. The one-line review request ("If this face works for you, a rating in the store helps other people find it.", owner, 2026-10-04, DayArc's wording) is in; the device sentence is left out until the Free listing's real device list is visible. **"More from Verden" is left out**: it lists only live free siblings, and none is known to be live today.
 
 ## Why each answer
 

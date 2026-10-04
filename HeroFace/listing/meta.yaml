@@ -22,7 +22,7 @@ package:
   exported: 2026-10-04
   check: "tools/check_free_package.sh: OK (keys Mode Slot1-3 Accent Seconds Weather, name 'HeroFace Pro')"
   note: "export: monkeyc -e -r -f monkey.jungle -w --typecheck 3; the live 1.0.1 package is the old dist/HeroFace.iq; built in the verden-ciq-build container; same bytes as dist/HeroFacePro.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
-price: paid, USD 2.00 (the lowest tier); Pro price is OD4
+price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-004 (the $2.50 tier for every paid app)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   cover: cover-500.png

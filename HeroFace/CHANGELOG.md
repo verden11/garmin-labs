@@ -20,12 +20,12 @@ Everything below is **UNRELEASED**: built 2026-10-01 against the Free + Pro plan
 
 ### HeroFace Pro 1.1.0 — UNRELEASED, an update of the existing paid app id, not uploaded
 
-- The paid app is renamed on the watch to "HeroFace Pro" (placeholder name; the owner decides it and the price). Behaviour, settings, ids and defaults are the same as 1.0.1: `resources-pro/settings` is the old shared settings file unchanged.
+- The paid app is renamed on the watch to "HeroFace Pro" (placeholder name; the owner decides it). Behaviour, settings, ids and defaults are the same as 1.0.1: `resources-pro/settings` is the old shared settings file unchanged.
 - **Instinct family, added 2026-10-03** (124 products; ADR-002, accepted 2026-10-04, simulator only), as in the Free entry above; Pro on an Instinct has no seconds, no temperature and no footer, and no Accent setting.
 - Accent **Magenta** is now a paler magenta (`#FFAAFF`, was `#FF55FF`): it clears the face's own 3:1 rule against the bar track (4.42:1, was 2.84:1). Same setting, same id and name; a user who chose Magenta sees the lighter shade (ADR-003, owner decision 2026-10-04). Needs a line in the 1.1.0 What's New. The plan's other Pro additions (more accent colours, an alternate layout) are **not built**.
 - Launcher icon redrawn on the pixel grid (whole-number vertices; same look, crisper edges; no What's New line needed).
 - Build change: Pro is now `monkey.jungle` with `resources;resources-pro` and `(:free)` code excluded. The strict compile (`-w --typecheck 3`) is now clean: type-only fixes in `HeroFaceLink`, `HeroFaceSettings`, `HeroFaceStreak` (no behaviour change).
-- ADRs: 001 (Free + Pro ladder, accepted 2026-10-04), 003 (Magenta recolour). The ladder replaces plan decision 8 (the price); the owner sets the Pro price.
+- ADRs: 001 (Free + Pro ladder, accepted 2026-10-04), 003 (Magenta recolour). The ladder replaces plan decision 8 (the price); the Pro price is the $2.50 tier, set in the upload form with the 1.1.0 upload (004, price: the $2.50 tier for every paid app; no price number in listing text).
 - Evidence: as above. 24 Pro tests (the 16 existing plus 8 new) PASSED in the simulator on fr965, fenix5s and fr55 (2026-10-01); the ten-size fit loop and the memory view are not yet run; nothing on a wrist.
 
 ## 1.0.1 — uploaded 2026-09-24, live 2026-09-24

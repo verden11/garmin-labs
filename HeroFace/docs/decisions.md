@@ -4,7 +4,7 @@ Durable decisions, newest last. The earlier choices (minApiLevel, Everyday-first
 
 ## ADR-001: Free + Pro ladder
 
-**Status: Accepted (Active) 2026-10-04: the owner approved the Free + Pro ladder on 2026-10-04 (OD1 and OD2 in `../../reports/Free and Pro ladder.md`).** Written 2026-10-01 as Proposed. The ladder replaces plan.md decision 8 (paid at the lowest tier, USD 2.00, one price for the one app) and the day-45 price-flip rule is retired. Still the owner's, not decided here: store names, the Pro price, icons, translations and every upload. Nothing here is uploaded or priced.
+**Status: Accepted (Active) 2026-10-04: the owner approved the Free + Pro ladder on 2026-10-04 (OD1 and OD2 in `../../reports/Free and Pro ladder.md`).** Written 2026-10-01 as Proposed. The ladder replaces plan.md decision 8 (paid at the lowest tier, USD 2.00, one price for the one app) and the day-45 price-flip rule is retired. The Pro price is **decided by ADR-004 (price: the $2.50 tier for every paid app)**; still the owner's, not decided here: icons, translations and every upload. Nothing here is uploaded or priced.
 
 **Decision.** HeroFace ships as a pair built from one codebase at compile time, the method DaysToGo and DayArc use (`../../DaysToGo/docs/decisions.md`, ADR-014 there, and `../../DayArc/docs/decisions.md`, ADR-003 there: no runtime toggle, no unlock key, no locked items):
 
@@ -58,3 +58,17 @@ Durable decisions, newest last. The earlier choices (minApiLevel, Everyday-first
 **Why a recolour of the shipped id, against the append-only rule.** The rule exists so a saved setting does not change meaning. Here the meaning (Magenta) is kept and only the shade moves, by the owner's explicit call; a new id would have left two Magentas in the list and the phone's stored `2` on the failing colour. Existing Pro users who chose Magenta see the lighter shade after 1.1.0: a visible change, listed in the CHANGELOG.
 
 **Verification.** `everyAccentClearsTheTrackRule` (all three), `magentaWasRecolouredToClearTheTrackRule` (pins 4.42), `shippedAccentIdsKeepTheirColours` (Blue, Cyan and the new Magenta) and the full suite on fr965, fr255s, epix2, instincte40mm and instinct2, both tiers (the Instinct has no Accent setting and draws white); a simulator screenshot with Magenta selected. Simulator only; not looked at on a wrist.
+
+## ADR-004: Price: the $2.50 tier for every paid app
+
+**Status: Accepted 2026-10-04 (owner, chat).** Supersedes the price of plan.md decision 8 (paid at the lowest tier, USD 2.00; `archive/plan.md`) and resolves the "Pro price" left open by ADR-001 (the Free + Pro ladder).
+
+**Decision.** HeroFace Pro (the paid app, live app id `8cd8f7f5-2169-42a6-b6c2-c1e797e2f313`) moves to the **USD 2.50 tier** of Garmin's price points (US $2.49, eurozone 2,99 EUR; measured table in `../../research_notes/Free and Pro ladder/garmin_rules.md`, source https://developer.garmin.com/connect-iq/monetization/price-points/). Every paid app in the studio (HeroSet, HeroFace Pro, Days To Go Pro, Two Suns Pro, DayArc Pro) takes the same tier. HeroFace (Free) stays free. The owner sets the tier in the upload form.
+
+**Why.** Room for later discounts or a rise: Garmin's tiers are $2.00, then every $0.25, so the $2.00 tier left no step down. The tier converts to a different number in each store, so no number is stated where a reader sees it.
+
+**No price number on the site or in listing text.** Neither listing's Description or What's New, nor the pages under `site/src/apps/heroface/`, state a price.
+
+**Open risk.** Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`); how it treats a repricing to a higher tier is not confirmed. Ship the change together with the next version upload (Pro 1.1.0), which is re-reviewed anyway. The Garmin email ([`../../ROADMAP.md`](../../ROADMAP.md) 2.1) is still unsent.
+
+**Reversed by.** The owner.

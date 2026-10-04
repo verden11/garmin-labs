@@ -42,6 +42,8 @@ HeroSet mode needs HeroSet installed (https://apps.garmin.com/apps/54bbf625-82af
 HeroFace Pro adds
 Choose what each of the three bars shows: steps, calories, intensity minutes, distance, floors or the move bar. Seconds beside the time. The temperature.
 
+If this face works for you, a rating in the store helps other people find it.
+
 Nothing leaves your watch
 No account, no internet, no analytics, no ads. The store lists "Communication & Data Transmission" because HeroFace can read HeroSet's progress on the same watch; nothing is sent anywhere.
 

@@ -30,11 +30,11 @@ Order and the HeroSet half: [`../../HeroSet/docs/status.md`](../../HeroSet/docs/
 
 ## Free + Pro pair (approved by the owner 2026-10-04, UNRELEASED: ADR-001, the Free + Pro ladder)
 
-Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP6). The plan gates WP6 on the HeroSet/HeroFace 30-day readout and G1; the owner approved the ladder on 2026-10-04 (OD1, OD2; the day-45 price-flip rule is retired), but names, the Pro price and every upload are still open, so the live paid app and its price are unchanged until they upload.
+Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP6). The plan gates WP6 on the HeroSet/HeroFace 30-day readout and G1; the owner approved the ladder on 2026-10-04 (OD1, OD2; the day-45 price-flip rule is retired), but names are confirmed (2026-10-04), the Pro price is the $2.50 tier (ADR-004, price: the $2.50 tier for every paid app) and every upload is still open, so the live paid app and its price are unchanged until they upload; the new tier is set in the upload form with that upload.
 
 | # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
 |---|---|---|
-| F1 | Owner signs off OD1 (the ladder), OD2, OD3 (names), OD4 (Pro price). ADR-001 is Active | **Ladder done 2026-10-04**; names and the price are still F2 and the owner's |
+| F1 | Owner signs off OD1 (the ladder), OD2, OD3 (names), OD4 (Pro price). ADR-001 is Active | **Ladder, names and the price tier done 2026-10-04** (price: the $2.50 tier, ADR-004); set in the form at upload |
 | F2 | Store names and titles chosen and searched by eye (placeholders: "HeroFace" / "HeroFace Pro"). The name is also the on-watch AppName: change `resources-free/strings` and `resources-pro/strings` only | **Open** (owner) |
 | F3 | Pro's headline: Pro is thin today (the metric per bar, seconds, the temperature). Decide whether to build more (accents, the alternate layout) first; Magenta's track contrast was fixed 2026-10-04 (ADR-003, `#FFAAFF`, 4.42:1) | **Open** (owner / watch-design-lead) |
 | F4 | Launcher icon per tier (still the shared placeholder) | **Open** (owner) |
