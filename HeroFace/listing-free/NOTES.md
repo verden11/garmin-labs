@@ -10,7 +10,7 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 | On-watch app name | "HeroFace" (`../resources-free/strings/strings.xml`) |
 | Pro's name and title | "HeroFace Pro" (plan WP6 step 5: renamed **inside the pending listing-repair submission**, keeping its device tokens in the title) |
 | Pro's store URL (line 1) | `<PRO STORE URL ...>`: needs Pro live (or upload Pro first); the line must be the real URL, not a placeholder, at submission |
-| HeroSet's store URL (the "With HeroSet" paragraph) | `<HEROSET STORE URL ...>`: the owner fills it in; the plan says to link HeroSet (and HeroSet Free when it exists) |
+| HeroSet's store URL (the "With HeroSet" paragraph) | Filled in 2026-10-04 from the live listing (the site's `storeUrl`); add HeroSet Free's URL when it exists |
 | Pro's price | Today USD 2.00 (US $1.99). **The listing never states a price** |
 | Icon and cover | Not made; look and identity are the owner's |
 | Translations | English only; any translation is machine-drafted and needs the owner's OK and a native read (`../listing/NOTES.md` "Languages") |

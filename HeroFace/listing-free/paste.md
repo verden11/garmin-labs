@@ -2,7 +2,7 @@
 
 Paste blocks only, in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); why each answer is what it is, and history, in [`NOTES.md`](NOTES.md).
 
-**Do not paste a block while a `<` placeholder remains in it** (the Pro and HeroSet store URLs are owner-supplied; the Description block has two). Check each block for a `<` before pasting.
+**Do not paste a block while a `<` placeholder remains in it** (the Pro store URL on line 1 is owner-supplied; HeroSet is live and its URL is filled in). Check each block for a `<` before pasting.
 
 ## Title (max 50)
 
@@ -14,7 +14,7 @@ HeroFace
 
 ## Description (max 4000, one box per language)
 
-English only until the owner decides on translations (see [`NOTES.md`](NOTES.md)). Line 1 is the sibling's store URL; replace the placeholder with the real Pro URL once Pro is live. The HeroSet sentence needs HeroSet's real store URL; the owner fills it.
+English only until the owner decides on translations (see [`NOTES.md`](NOTES.md)). Line 1 is the sibling's store URL; replace the placeholder with the real Pro URL once Pro is live. The HeroSet sentence carries HeroSet's live store URL (from the site's `storeUrl`).
 
 ```text
 Get HeroFace Pro: <PRO STORE URL: owner fills in once the Pro listing is live>
@@ -37,7 +37,7 @@ Round watches, one design
 It measures itself to your screen, up to a 466-pixel fēnix. On always-on watches it dims to a quiet clock that shifts position every minute. See Compatible Devices for your model.
 
 With HeroSet
-HeroSet mode needs HeroSet installed: get HeroSet here, <HEROSET STORE URL: owner fills in>. On Connect IQ 4.2+ watches with HeroSet, the bars show today's push-ups, sit-ups and squats instead, with your HeroSet rank and streak, and holding the face opens HeroSet. Without HeroSet, the face shows your everyday goals and nothing is missing.
+HeroSet mode needs HeroSet installed (https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377). On Connect IQ 4.2+ watches with HeroSet, the bars show today's push-ups, sit-ups and squats instead, with your HeroSet rank and streak, and holding the face opens HeroSet. Without HeroSet, the face shows your everyday goals and nothing is missing.
 
 HeroFace Pro adds
 Choose what each of the three bars shows: steps, calories, intensity minutes, distance, floors or the move bar. Seconds beside the time. The temperature.
