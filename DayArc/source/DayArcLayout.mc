@@ -32,6 +32,7 @@ class DayArcLayout {
     private static const GAUGE_SAG_PERMILLE = 44;
     private static const PILL_PAD_H_PERMILLE = 16;
     private static const PILL_PEN_PERMILLE = 4;
+    private static const PILL_PAD_H_MIN_PX = 4;   // on 166 px the permille pad was 2 px: "12:00a" touched the outline
     private static const GAUGE_SIDE_PADDING_PERMILLE = 160;
 
     // Icon bitmaps (ADR-013) are fixed-pixel resources, not runtime-scaled (DESIGN.md
@@ -179,7 +180,7 @@ class DayArcLayout {
     }
 
     function pillPadH() as Number {
-        return permille(PILL_PAD_H_PERMILLE);
+        return DayArcText.max(PILL_PAD_H_MIN_PX, permille(PILL_PAD_H_PERMILLE));
     }
 
     function pillPen() as Number {

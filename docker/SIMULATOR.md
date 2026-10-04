@@ -56,7 +56,7 @@ Per project, run by hand (no CI yet). All through the container: `<Project>/tool
 | **Settings drift** | the generated settings files match their table, every key has a constant | `TwoSuns/tools/gen_settings.py --check`, DaysToGo `gen_settings.py` |
 | **Screenshot + eye** | what the unit tests cannot see: bezel clipping, the glance, real proportions | `docker/shot.sh` (section 1) |
 
-Counts at the last full run (2026-10-03/04): HeroSet dev 115 / store 102; DaysToGo Pro 51, Free 52 (49 / 50 on an Instinct); HeroFace 25 (21 on an Instinct); DayArc Pro 23, Simple 20; TwoSuns Pro 154, Free 67 (146 / 60 on an Instinct).
+Counts at the last full run (2026-10-03/04): HeroSet dev 115 / store 102; DaysToGo Pro 51, Free 52 (49 / 50 on an Instinct); HeroFace 25 (21 on an Instinct); DayArc Pro 24, Simple 21 (2026-10-04); TwoSuns Pro 154, Free 67 (146 / 60 on an Instinct).
 
 ### What is NOT tested automatically
 

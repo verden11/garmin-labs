@@ -126,12 +126,15 @@ class DayArcDraw {
         var centreY = low - radius;
         var span = Math.toDegrees(Math.asin(half.toFloat() / radius)).toNumber();
         var startDeg = GAUGE_BOTTOM_DEGREES - span;
-        dc.setPenWidth(pen);
+        // 1-bit: the track is a hairline (every role is white there, so a full-pen track hid the fill share).
+        dc.setPenWidth(DayArcPalette.MONO ? 1 : pen);
         dc.setColor(DayArcPalette.MUTED, Graphics.COLOR_TRANSPARENT);
         dc.drawArc(centreX, centreY, radius, Graphics.ARC_COUNTER_CLOCKWISE, startDeg, GAUGE_BOTTOM_DEGREES + span);
         dc.setPenWidth(1);
-        fillCap(dc, centreX, centreY, radius, startDeg, pen);
-        fillCap(dc, centreX, centreY, radius, GAUGE_BOTTOM_DEGREES + span, pen);
+        if (!DayArcPalette.MONO) {
+            fillCap(dc, centreX, centreY, radius, startDeg, pen);
+            fillCap(dc, centreX, centreY, radius, GAUGE_BOTTOM_DEGREES + span, pen);
+        }
         var clamped = value < 0 ? 0 : (value > max ? max : value);
         var endDeg = startDeg + 2 * span * clamped / max;
         if (clamped > 0) {

@@ -98,16 +98,8 @@ class DayArcFields {
         } as Dictionary;
     }
 
-    // The empty state is always a sentence. Simple adds "N of 100" under the gauge; Pro does not: the
-    // number and the gauge already say it, and the row is worth more to the grid (E1, 2026-10-01).
-    (:simple)
-    private static function batterySub(battery as Number or Null) as String or Null {
-        return battery == null
-            ? WatchUi.loadResource(Rez.Strings.evening_battery_unavailable) as String
-            : Lang.format(WatchUi.loadResource(Rez.Strings.evening_battery_of_100) as String, [battery]);
-    }
-
-    (:pro)
+    // The empty state is always a sentence. Neither density adds "N of 100" under the gauge: the number and the
+    // gauge already say it, and the row is worth more to the hero and the grid (ADR-016, ADR-013 "open" item closed).
     private static function batterySub(battery as Number or Null) as String or Null {
         return battery == null ? WatchUi.loadResource(Rez.Strings.evening_battery_unavailable) as String : null;
     }
