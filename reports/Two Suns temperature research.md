@@ -1,6 +1,6 @@
 # Two Suns Pro: weather and temperature through the day
 
-2026-10-03. Research and a mockup. **No Monkey C written. Nothing here is owner-approved.** Sourced notes: [`research_notes/Two Suns temperature research/`](../research_notes/Two%20Suns%20temperature%20research/README.md). Mockup: [`TwoSuns/docs/temperature-mockup.html`](../TwoSuns/docs/temperature-mockup.html).
+2026-10-03. Research and a mockup. **No Monkey C written. Nothing here is owner-approved.** Sourced notes: [`research_notes/Two Suns temperature research/`](../research_notes/Two%20Suns%20temperature%20research/README.md). Mockup: [`TwoSuns/docs/temperature-mockup.html`](../TwoSuns/docs/archive/temperature-mockup.html).
 
 ## Rev 3 (2026-10-03): owner's decisions, small-screen fit solved
 
@@ -10,7 +10,7 @@ Owner decisions: weather row, with the **now icon and its number coloured**, the
 
 ## Rev 2 (2026-10-03): the owner wants conditions, feels-like and the day ahead
 
-New requirement: daytime only, current conditions and feels-like temperature, and what is ahead. That changes the recommendation. **Ticks (A below) now answer the wrong question** (they show a temperature trend, not conditions) and are demoted to an optional later add-on. Mockup: [`TwoSuns/docs/weather-mockup.html`](../TwoSuns/docs/weather-mockup.html), screenshot `research_notes/Two Suns temperature research/weather-row-screenshot-2026-10-03.jpg`.
+New requirement: daytime only, current conditions and feels-like temperature, and what is ahead. That changes the recommendation. **Ticks (A below) now answer the wrong question** (they show a temperature trend, not conditions) and are demoted to an optional later add-on. Mockup: [`TwoSuns/docs/weather-mockup.html`](../TwoSuns/docs/archive/weather-mockup.html), screenshot `research_notes/Two Suns temperature research/weather-row-screenshot-2026-10-03.jpg`.
 
 **Recommendation: one new Pro "weather row" between the time and the energy band.**
 - **Now cell:** condition icon, temperature, `feels 15°` underneath. Feels-like is `CurrentConditions.feelsLikeTemperature` (docs: wind chill or heat index). Shown only when it differs from the temperature by 2 or more degrees (proposal).

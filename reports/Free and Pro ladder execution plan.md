@@ -166,7 +166,7 @@ Depends on: the other session's uncommitted work being committed or handed over.
 2. **Align the accent roster (optional, recommended):** DayArc lists Auto, cyan, amber, rose, green, blue, purple; the family roster is Sky, Mint, Amber, Pink, Violet, White (Free) plus six (Pro). Proposal: Auto stays; Free = Auto + the six; Pro = Auto + the eligible set; separate `settings.xml` per tier (move it out of the shared `resources/`, same tier-only-folder rule as section 1; today one file serves both jungles). Owner decides; not blocking.
 3. Run `tools/compile_sweep.sh` (69 products, both jungles) and `tools/run_tests.sh fr965` on both jungles after the merge.
 4. Run `watch-design-reviewer` on the built version (ADR-013 says it has never run).
-5. Owner: look approval of the actual render (gate 4 in `docs/publish-checklist.md`), icons and covers, the trademark search, names, price (ADR-007 says $1.99; D6 recommends $3.00 for Pro), the night-window default (ADR-010).
+5. Owner: look approval of the actual render (gate 4 in `docs/status.md`), icons and covers, the trademark search, names, price (ADR-007 says $1.99; D6 recommends $3.00 for Pro), the night-window default (ADR-010).
 6. Listing: `listing/` (DayArc) and `listing-pro/` (DayArc Pro) already exist. Apply the D8 pattern: sibling store URL on the first line of each, review request in the free text, honest device note, "More from Verden" block with the live free siblings.
 7. Site: `day-arc` and `day-arc-pro` pages exist as two slugs. Keep both; add cross-links. Do not merge slugs (published URLs).
 8. Submission is the owner's. Upload order: Free first, Pro the same day.
@@ -187,7 +187,7 @@ Depends on: WP0 (OD1–OD4), WP2 (approved DaysToGo mockups), WP1.
 3. **Free settings:** Event, Name, Month, Day, Year, Unit (days or weeks), Date style, Accent (ids 0–5). Pro adds: Hour (timed events, which turn the count into H:MM under 24 h), Footer (battery or steps), Accent 6–11, and the new layout choice.
 4. Free properties file defines only Free keys; Config returns defaults for Pro keys.
 5. **Tests** as section 1, plus: the Free jungle with `Unit` unset counts calendar days correctly (the existing 43 tests run against both jungles).
-6. **Listing.** `listing-free/README.md` in the store form's field order. Title budget (50 chars): Free "Days To Go: Countdown to a Date" (check store-collision in the browser first); Pro "Days To Go Pro: Countdown, Hours, Footer". First line: the sibling's store URL. Sibling block: live free faces only. Device sentence: "Pro is sold only on devices Garmin lists for paid apps; this free version also runs on older watches such as FR245 and vívoactive 4." (verify against the free listing's real device list after approval.)
+6. **Listing.** `listing-free/paste.md` in the store form's field order. Title budget (50 chars): Free "Days To Go: Countdown to a Date" (check store-collision in the browser first); Pro "Days To Go Pro: Countdown, Hours, Footer". First line: the sibling's store URL. Sibling block: live free faces only. Device sentence: "Pro is sold only on devices Garmin lists for paid apps; this free version also runs on older watches such as FR245 and vívoactive 4." (verify against the free listing's real device list after approval.)
 7. **Site:** WP8.
 8. Owner: names, price tier for Pro, look approval, machine translations, upload Free 1.0.0 (new app) and Pro 1.1.0 (existing id) together.
 
@@ -257,7 +257,7 @@ The site models one page per app (`site/src/apps/<slug>`); URLs are published an
 
 ### WP10. Listing kit (≈1 h once, reused)
 
-A template `research_notes/Free and Pro ladder/listing_template.md` with placeholders; every twin's listing follows it. Field order follows the store form (each project's `listing/README.md` shows it).
+A template `research_notes/Free and Pro ladder/listing_template.md` with placeholders; every twin's listing follows it. Field order follows the store form (each project's `listing/paste.md` shows it).
 
 The template also fills **Additional Hardware Requirements (Optional)** with the site link: `No additional hardware needed. Help, privacy and more apps: https://verden.watch/<slug>/` (owner, 2026-10-02: other apps use the field this way; not a documented Garmin rule, so keep it true; see `research_notes/Free and Pro ladder/garmin_rules.md`).
 
@@ -305,7 +305,7 @@ its root `CLAUDE.md` ("Studio direction") so both skills see them on every run, 
 > 2. **Spec the split** per product with the six rules in `reports/Free and Pro ladder.md` D2: Free delivers the whole promise honestly; no locked items visible; Pro additive; Free must be beautiful; permissions only shrink in Free; upgrade talk only in the store text and site.
 > 3. **Pricing is the owner's call.** Provide the input: the recommendation in D6 with its evidence (top-30 paid price mix, break-even 59 → 39 sales, base-case +15%, elasticity assumed), and record the decision as an ADR including that there is no flip rule. Ask Garmin whether repricing an approved app removes it before any live repricing.
 > 4. **Commission the open research** with `anthropic-skills:deep-research`: which Pro headline countdown buyers pay for (DaysToGo); whether the Free tier of each face can stand alone on reviews (check rival free faces' complaints). File under `research_notes/`.
-> 5. **Gate discipline:** add to each project's `docs/publish-checklist.md` a Free-listing block and keep the "Never decide alone" list (names, price, identity, privacy-cost permissions, uploads, device tests, site deploys, machine translations).
+> 5. **Gate discipline:** add to each project's `docs/status.md` a Free-listing block and keep the "Never decide alone" list (names, price, identity, privacy-cost permissions, uploads, device tests, site deploys, machine translations).
 > 6. **Listings:** write both tiers' store text from the template (WP10), sibling store URL first, honest device note, review request, "More from Verden", cumulative What's New; check every claim against `release-contract.md`.
 > 7. **Measure:** own gates G1–G4 (section 2) and the monthly readout (WP9). Distinguish measured, inferred, assumed.
 

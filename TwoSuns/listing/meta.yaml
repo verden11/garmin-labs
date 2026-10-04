@@ -1,0 +1,35 @@
+# Listing metadata. The copy-and-paste text is paste.md; why each answer is what it is, and history, are in NOTES.md.
+# Dates are ISO; null = not yet, or not recorded. Update this file (not paste.md) when a version is uploaded or approved.
+app: Two Suns (paid; becomes Two Suns Pro)
+folder: TwoSuns/listing
+tier: paid
+app_id: 6c3c5a3d-b312-4c0f-bf37-2a3fc3a79580
+store:
+  listing_url: "https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b"
+  developer_url: null
+live:
+  version: 1.0.0
+  since: 2026-09-28
+  note: approved 2026-09-28 (late afternoon); the store shows $2.25 against $1.99 documented (read the dashboard tier)
+next:
+  version: "1.1.0"
+  status: drafted   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023); the 1.0.1 fix is prepared (commit 807977d), not submitted; Instinct E and 3 Solar are PR 14 (ADR-024, look not approved)
+package:
+  file: dist/TwoSunsPro.iq
+  products: 69
+  exported: null
+  note: 72 products once PR 14 merges; dist/TwoSuns.iq and dist/TwoSuns-1.0.1-prepared.iq are the prepared 1.0.1 (export a 1.0.x from commit 807977d, not from this tree)
+price: paid, USD 1.99 documented (the store shows $2.25), ADR-002; day-45 review due 2026-11-12 unless OD2 retires it
+limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
+assets:
+  cover: cover-500.png
+  hero: hero-1440x720.png
+  screens: screens/ (1-face.png, 2-sleep.png, owner FR965 simulator captures)
+  screenshots_doc: screenshots.md
+site:
+  landing: https://verden.watch/two-suns/
+  support: https://verden.watch/two-suns/support/
+  privacy: https://verden.watch/two-suns/privacy/
+open_items: "2.3 2.5 4.1 4.2 4.3 4.4 9.1"   # ids in ROADMAP.md

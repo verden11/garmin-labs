@@ -40,14 +40,14 @@ HeroFace/source/*.mc`) — the reference point every estimate below is sized
 against.
 
 Two things every concept below respects, because they're already decided:
-- **One HeroSet complication, not several** (`HeroFace/docs/plan.md`:
+- **One HeroSet complication, not several** (`HeroFace/docs/archive/plan.md`:
   "Deliberately not planned: a second complication for HeroSet"). Any new
   face that wants the HeroSet link reads the *same* private complication
   HeroFace already subscribes to — it doesn't ask HeroSet to publish a
   second one, unless a spec below says otherwise and flags it as a
   cross-folder contract change.
 - **Phase 4 (rectangle, Instinct sub-window) is HeroFace's own planned
-  extension**, not a new product (`HeroFace/docs/plan.md` phase 4) — scoped
+  extension**, not a new product (`HeroFace/docs/archive/plan.md` phase 4) — scoped
   under §4 "device support" instead, so it doesn't compete with that plan.
 
 **API grounding.** This container's network policy blocks
@@ -106,12 +106,12 @@ everything is already a sibling folder.
 
 **Positioning.** HeroFace's finish review treats "battery is the currency
 on this platform" as an AMOLED/always-on problem
-(`HeroFace/docs/plan.md`, finish review item 5) and its visual system
+(`HeroFace/docs/archive/plan.md`, finish review item 5) and its visual system
 (gold/blue/green on black, `HeroFace/PRODUCT.md` "Brand Commitments") is an
 AMOLED design carried onto MIP screens because it's one build for both.
 Field Face flips the premium: built *for* the MIP/outdoor segment, where
 always-on has **no burn-in cost at all** — MIP watches show the full face
-all the time (`HeroFace/docs/plan.md`: "MIP watches show the full face all
+all the time (`HeroFace/docs/archive/plan.md`: "MIP watches show the full face all
 the time"), so this face needs **no AOD/sleep draw path at all** — a real
 simplification versus HeroFace, not just a reskin.
 
@@ -179,7 +179,7 @@ larger-screen set first.
 Field Face doesn't need, because MIP has no AOD mode to draw for.
 
 **Store/site work** (not counted above, same pattern as HeroFace's own
-phase 2, "partly done" per `HeroFace/docs/plan.md`): listing copy,
+phase 2, "partly done" per `HeroFace/docs/archive/plan.md`): listing copy,
 per-screen-size screenshots from the simulator, `site/src/apps/
 field/` (landing/support/privacy), cross-linked from HeroFace's and
 HeroSet's listings.
@@ -189,7 +189,7 @@ HeroSet's listings.
 skips AOD, partial-update, and the complication-link/parsing code
 entirely. **2–4 dev days** for a store-buildable v1 core, **+1–2 days**
 for store listing and site pages, following HeroFace's own timeline as
-the closest reference point (`HeroFace/docs/plan.md`'s dated decisions
+the closest reference point (`HeroFace/docs/archive/plan.md`'s dated decisions
 show it went from spike to store-ready inside about a day of focused
 work, and Field Face does strictly less than HeroFace).
 
@@ -221,7 +221,7 @@ pressure handling noted above if those competitors don't already do it
 4. Write `FieldFaceLayout.mc` first, off the Barrel's row-stacker, and get
    a static time-only screen building and rendering in the simulator
    before adding any data row — this is the same order HeroFace's own
-   spike phase used (`HeroFace/docs/plan.md` phase 0).
+   spike phase used (`HeroFace/docs/archive/plan.md` phase 0).
 5. Add `ActivityMonitor.Info` steps/intensity/floors next (proven API, no
    risk), then `FieldFaceWeather.mc`'s sunrise/sunset/pressure (the
    `(searched, not fetched)` APIs) last, so any surprise there doesn't
@@ -292,7 +292,7 @@ lean on besides the required-but-secondary "install HeroSet" screen.
 1. Scaffold the project as a Watch Face targeting `fr965` first (not the
    smallest screen this time — start where HeroFace's own complication
    link is already verified on real hardware, per
-   `HeroFace/docs/go-to-market.md`, so the hardest part is tested on known
+   `HeroFace/docs/status.md`, so the hardest part is tested on known
    ground).
 2. Copy `HeroFaceContract.mc` and `HeroFaceLink.mc` **unchanged** (via the
    Barrel or direct copy) — get the complication subscribe/parse working
@@ -652,7 +652,7 @@ gut-check against what stock Garmin already shows before greenlighting.
 ## 3. Features / UX / design / performance — beyond the existing backlogs
 
 Checked against `HeroSet/docs/ideas.md` (don't duplicate its 5 ranked ideas
-or its one rejected item — day history) and `HeroFace/docs/plan.md`'s "What's
+or its one rejected item — day history) and `HeroFace/docs/archive/plan.md`'s "What's
 next" (don't duplicate its device-run, permission-reprompt, listing, or
 phase-4 items).
 
@@ -709,7 +709,7 @@ phase-4 items).
   in the weather-adjacent row when the weather setting is on. **Effort**:
   small, one new data field in `HeroFaceReadings.mc`'s gathering pass and
   one row in `HeroFaceFooter.mc`/under-time drawing. **Risk**: row space is
-  already tight and measured (`HeroFace/docs/plan.md`'s finish review:
+  already tight and measured (`HeroFace/docs/archive/plan.md`'s finish review:
   "the top row is 209 px of usable chord on fr965... the date with a
   temperature needs 243 and would lose its month") — this needs the same
   measured-fit treatment (ADR-018-style), not eyeballing, before it ships.
@@ -730,7 +730,7 @@ phase-4 items).
 
 ### HeroFace: 3 ideas from a background sub-agent's full source read, all reusing already-unused native data (no new research, no new permission)
 
-All three read Toybox data `HeroFace/docs/plan.md`'s own "native data a
+All three read Toybox data `HeroFace/docs/archive/plan.md`'s own "native data a
 face can read" table already names as available at the 3.0/2.1 floor but
 that nothing in `HeroFace/source` currently reads (confirmed by grep, zero
 hits for each). None touch the complication contract, none add a settings
@@ -738,7 +738,7 @@ screen (auto-detected/always-on, same pattern as the existing notification
 count), so none conflict with `plan.md`'s "Deliberately not planned" list.
 
 - **Phone-disconnected icon in the footer.** `DeviceSettings.phoneConnected`
-  is named available at the 3.0 floor (`HeroFace/docs/plan.md:44`) but
+  is named available at the 3.0 floor (`HeroFace/docs/archive/plan.md:44`) but
   unread. The footer already has a measured overflow mechanism — it drops
   items from the right when they don't fit (`HeroFaceFooter.mc:28-31`) —
   so a 4th icon kind slots into existing, already-measured logic rather
@@ -751,7 +751,7 @@ count), so none conflict with `plan.md`'s "Deliberately not planned" list.
   usage before building. **Effort**: small (one footer `kind`, one drawn
   glyph, one boolean read).
 - **Do-not-disturb icon, same footer.** `DeviceSettings.doNotDisturb`
-  (API 2.1.0, named at `HeroFace/docs/plan.md:45`, unread in source) — same
+  (API 2.1.0, named at `HeroFace/docs/archive/plan.md:45`, unread in source) — same
   "honest glance" logic (a DND state the user set on purpose and might
   forget is silently swallowing notifications on a face checked "many
   times a day, mid-workout"). **Competes for the exact same footer space
@@ -761,7 +761,7 @@ count), so none conflict with `plan.md`'s "Deliberately not planned" list.
   phase above. **Effort**: small, same shape.
 - **Battery footer: "days remaining" fallback near empty.** "84%" is
   today's number; "3D" (days left, via `System.Stats.batteryInDays`,
-  "3.3+, behind `has`", named at `HeroFace/docs/plan.md:43`, unread in
+  "3.3+, behind `has`", named at `HeroFace/docs/archive/plan.md:43`, unread in
   source) is closer to the decision a low-battery user actually wants.
   Fits the existing terse, iconless-number footer convention exactly
   (DESIGN.md: "the battery number carries no percent sign — the icon
@@ -834,7 +834,7 @@ ranked by (device count reachable × blocker cost), not re-derived here.
 
 | Opportunity | Blocks | Reachable now | Cost |
 |---|---|---|---|
-| HeroFace phase 4: rectangle (Venu Sq2 ×4, Venu X1) | New stacked (non-round) layout | 5 products | Medium — already scoped in `HeroFace/docs/plan.md` phase 4, just not started |
+| HeroFace phase 4: rectangle (Venu Sq2 ×4, Venu X1) | New stacked (non-round) layout | 5 products | Medium — already scoped in `HeroFace/docs/archive/plan.md` phase 4, just not started |
 | HeroFace phase 4: Instinct semi-octagon sub-window | Layout doesn't model the cut-out | 8 products | Medium — same doc, same phase |
 | HeroSet: touch watches (Venu, Vivoactive, Approach) | No UP/DOWN keys; picker/workout are button-first per ADR-029 | `venu3`, `venu3s`, `venu441mm`, `vivoactive5`, `vivoactive6`, `approachs50`, `approachs7047mm` | High — needs a touch/swipe input path and new hint copy, a real UX redesign of the picker, not a manifest add |
 | HeroSet: pre-3.4 Forerunners with `has :showToast` guard | Missing save-confirmation API | FR945/745/245M (candidate wave already named in the compatibility doc) | Low — the doc already identifies the guard needed; smallest lift on this list |

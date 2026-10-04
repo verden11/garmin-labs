@@ -4,7 +4,7 @@ Status: 2026-09-26. Spec and plan written; implementation under way (see `plan.m
 independent of HeroSet and HeroFace: own look, own app id, no complication link.
 
 Sources: [`reports/Countdown face research.md`](../../reports/Countdown%20face%20research.md) and the notes in
-`research_notes/Countdown face research/`. The build order is in [`plan.md`](plan.md). Verified reference code is in
+`research_notes/Countdown face research/`. The build order is in [`archive/plan.md`](archive/plan.md). Verified reference code is in
 [`../source/`](../source/) and [`../tools/`](../tools/).
 
 ## In one paragraph

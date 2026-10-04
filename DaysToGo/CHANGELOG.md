@@ -1,7 +1,7 @@
 # Days To Go changelog
 
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
-text for each version is in [`listing/README.md`](listing/README.md).
+text for each version is in [`listing/paste.md`](listing/paste.md).
 
 ## 1.0.1 — submitted 2026-09-26 on top of 1.0.0 (the app was approved 2026-09-28, late afternoon, per the owner; which version Garmin approved is not recorded)
 
@@ -13,7 +13,7 @@ text for each version is in [`listing/README.md`](listing/README.md).
 
 - First release: 120 products (117 round, 3 rectangular AMOLED), Connect IQ 3.0+, one big day count, list settings plus an on-watch date picker, weeks and hours, event name, date style, optional battery or steps line, always-on frame, 15 languages (14 machine-drafted, not read by native speakers).
 - Paid, lowest tier (USD 2.00, $1.99 US). Price review due approval + 45 days (`docs/spec.md` "Price review").
-- ADRs 001 to 013. Submitted **without** the beta round trip (owner's decision, `docs/publish-checklist.md`).
+- ADRs 001 to 013. Submitted **without** the beta round trip (owner's decision, `docs/status.md`).
 - Evidence: simulator only (42 tests on 14 products; 15 languages on the FR965's smallest screen size, fr55); on the FR965, sideloaded: the default count, the on-watch date picker and a restart. Not tested on a device: the phone date route, always-on, midnight, battery.
 
 ## Unreleased

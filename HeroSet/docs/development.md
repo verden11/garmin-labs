@@ -81,7 +81,7 @@ Simulator no catch everything ([ADR-022](decisions.md#adr-022), [ADR-023](decisi
 
 Main menu → **Validation Log** ([ADR-026](decisions.md#adr-026)): newest-first `detected -> saved` per workout set, plus Connect Sync lines `HH:MM SYNC NEW/SAVED m:ss/EMPTY/OFF/FAIL` ([ADR-043](decisions.md#adr-043)). One 30-line ring buffer for both: copy trials off ([`validation-log.md`](validation-log.md)) before long sync testing.
 
-Sync quick check: Connect Sync **On** → save a push-up set and a sit-up set → Back out of HeroSet → log shows `SYNC NEW`, `SYNC SAVED m:ss` → after phone sync, Connect has **one** HeroSet activity with 2 laps and totals. Full list: [`connect-sync-plan.md`](connect-sync-plan.md) device acceptance.
+Sync quick check: Connect Sync **On** → save a push-up set and a sit-up set → Back out of HeroSet → log shows `SYNC NEW`, `SYNC SAVED m:ss` → after phone sync, Connect has **one** HeroSet activity with 2 laps and totals. Full list: [`connect-sync-plan.md`](archive/connect-sync-plan.md) device acceptance.
 
 ## Signing key
 

@@ -1,8 +1,8 @@
 # DayArc / DayArc Pro changelog
 
 One entry per Connect IQ Store publication, newest first, either listing (noted per entry). The
-store's "What's New" text for each version is in that listing's `listing/README.md` or
-`listing-pro/README.md`.
+store's "What's New" text for each version is in that listing's `listing/paste.md` or
+`listing-pro/paste.md`.
 
 **There has been no store publication.** Nothing is submitted, no version number is confirmed.
 
@@ -60,4 +60,4 @@ Not done, and not to be claimed:
   checked above).
 - Icon size (fixed pixels, not scaled per device) and the arc's clearance from the clock are
   arithmetically derived and internally consistent, but not yet visually confirmed on a real render
-  — flagged in `docs/publish-checklist.md` gate 17.
+  — flagged in `docs/status.md` gate 17.

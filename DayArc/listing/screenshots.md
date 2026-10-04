@@ -28,7 +28,7 @@ progress arc is visibly part-filled (arc = progress through the *current* window
 Optional 5th: any window with an empty state (e.g. morning with weather unavailable) — proves
 "never blank", and the hero icon still shows.
 
-## Not for the store, for the owner's look check (publish-checklist gate 4)
+## Not for the store, for the owner's look check (status.md gate 4)
 
 One capture each of morning or midday on a **small round** device (approachs50) and a
 **rectangular** one (venusq2) — the only way to see the arc/icon sizing there (no screenshot of the

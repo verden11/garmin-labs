@@ -20,8 +20,7 @@ watch projects.
 
 `reports/` holds research and review reports; the sourced notes behind each are in `research_notes/<report title>/`.
 
-`TODO.md` is the single running to-do list, HeroSet/HeroFace only by convention (the newer watch
-face projects track their own open items in `docs/publish-checklist.md` instead).
+`ROADMAP.md` is the single to-do list for every project: what needs the owner's decision, what needs their hands (watch, store dashboard, people), what the agent can do now, what waits on a date. Per-project `docs/status.md` keeps where things stand, evidence, release gates and upload steps, **never open checkboxes**; add or tick items in ROADMAP.md only.
 
 Every watch project shares one file layout — see root `README.md` "Layout" for the exact tree, not
 restated here. Keep new files in that shape.
@@ -70,5 +69,5 @@ govern** (for example DaysToGo and TwoSuns ADR-002, the price and day-45 review)
   decision → an ADR in that project's `docs/decisions.md`.
 - **Every store publication** gets an entry in that app's `CHANGELOG.md`
   (version, upload date, user-facing changes, ADRs) and a paste-ready
-  What's New block in that app's `listing/README.md` (the previous block moves
+  What's New block in that app's `listing/paste.md` (the previous block moves
   to `listing/NOTES.md`, and the App Version field is bumped).

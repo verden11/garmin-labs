@@ -31,7 +31,7 @@ ADJUST`); deliberately no hold-to-accelerate (ADR-029), so big manual entry take
 
 **Sync boundary**: store build keeps everything on the watch: no sync toggle, no `Fit` permission, no activity ([ADR-021](decisions.md#adr-021)/[033](decisions.md#adr-033)).
 
-**Connect Sync (dev build only, off by default, [ADR-043](decisions.md#adr-043))**: main menu toggle, sublabel `Saves to Connect` / `Watch only`, START flips it, no confirmation ([ADR-027](decisions.md#adr-027)). Label is `Connect Sync` so the switch doesn't cut it off ([ADR-029](decisions.md#adr-029)); new sublabels not yet fit-checked on the watch. When on, each visit with saved workout reps becomes one Connect strength activity at exit, one lap per set (exercise + reps), totals in the summary. No in-app message; appears after phone sync. Full behavior: [`connect-sync-plan.md`](connect-sync-plan.md). **Unverified on the watch.**
+**Connect Sync (dev build only, off by default, [ADR-043](decisions.md#adr-043))**: main menu toggle, sublabel `Saves to Connect` / `Watch only`, START flips it, no confirmation ([ADR-027](decisions.md#adr-027)). Label is `Connect Sync` so the switch doesn't cut it off ([ADR-029](decisions.md#adr-029)); new sublabels not yet fit-checked on the watch. When on, each visit with saved workout reps becomes one Connect strength activity at exit, one lap per set (exercise + reps), totals in the summary. No in-app message; appears after phone sync. Full behavior: [`connect-sync-plan.md`](archive/connect-sync-plan.md). **Unverified on the watch.**
 
 ## Learning from saved counts ([ADR-040](decisions.md#adr-040))
 
@@ -55,10 +55,10 @@ On Connect IQ 4.0+ watches the glance list (scroll from the watch face) shows a 
 
 - **Status row:** the streak (`N DAY STREAK`, shorter wording if it does not fit, `NO STREAK YET` at zero), muted while today is open. When all three goals are met it becomes a green check and gold `MISSION COMPLETE`, or the streak in gold if that does not fit.
 - **Pills:** blue fill up to the goal; a finished pill is full and green. Done is the full bar and the check, never colour alone ([ADR-049](decisions.md#adr-049)). The first pill that is not full is the exercise the main menu opens on.
-- **Read-only, no input.** Selecting the entry starts HeroSet on the dashboard; Back should return to the glance list (unverified on a watch, [`go-to-market.md`](go-to-market.md) E3). There is no hint text and no time-of-day cue.
+- **Read-only, no input.** Selecting the entry starts HeroSet on the dashboard; Back should return to the glance list (unverified on a watch, [`status.md`](status.md) E3). There is no hint text and no time-of-day cue.
 - **Right at midnight:** the glance reads the day itself, so at 00:01 it shows zeros and the streak the dashboard would show, before the app has been opened.
 
 ## Instinct 2 family, proposed ([ADR-055](decisions.md#adr-055); look approved 2026-10-03)
 
-Black-and-white display with a round subscreen window top right. Buttons are the five-button set (UP/DOWN, START as select, BACK; the Instinct 2's select key is printed `GPS`, hints stay `START`, owner call 2026-10-03). No colour anywhere: gold, blue, green and red are all white, so nothing relies on them (full bars, DONE, signs, words). Rows beside the window are centered in the band left of it; the dashboard's XP ring is the window's gauge, rank and streak sit beside it, mission bars use the full width below. Mockup: [`instinct-mockup.html`](instinct-mockup.html).
+Black-and-white display with a round subscreen window top right. Buttons are the five-button set (UP/DOWN, START as select, BACK; the Instinct 2's select key is printed `GPS`, hints stay `START`, owner call 2026-10-03). No colour anywhere: gold, blue, green and red are all white, so nothing relies on them (full bars, DONE, signs, words). Rows beside the window are centered in the band left of it; the dashboard's XP ring is the window's gauge, rank and streak sit beside it, mission bars use the full width below. Mockup: [`instinct-mockup.html`](archive/instinct-mockup.html).
 

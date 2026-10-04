@@ -4,13 +4,13 @@ Garmin watch face (Connect IQ, Monkey C) from studio Verden. Time-first, in
 HeroSet's visual language: bezel ring, three mission bars, gold streak.
 124 products (117 round + 7 Instinct, ADR-002 (Instinct family), proposed, simulator only), `minApiLevel` 3.0.0. Paid, USD 2.00, 15 languages.
 
-**Free + Pro (proposed, UNRELEASED, [`docs/decisions.md`](docs/decisions.md) ADR-001 "Free + Pro ladder"; the owner has not signed off, so plan.md decision 8, the price, still governs):**
+**Free + Pro (proposed, UNRELEASED, [`docs/decisions.md`](docs/decisions.md) ADR-001 "Free + Pro ladder"; the owner has not signed off, so the old plan's decision 8 (`docs/archive/plan.md`), the price, still governs):**
 the live paid app (`manifest.xml`, `monkey.jungle`, app id `8cd8f7f5-…`) becomes **HeroFace Pro** 1.1.0, behaviour unchanged; a new **Free** twin (`manifest.free.xml`,
 `monkey.free.jungle`, app id `be68898f-995b-45d9-860e-42ad508bd7fd`, 1.0.0) is built beside it from the same source, split at compile time with `(:pro)` / `(:free)`.
 Free: Everyday and HeroSet mode, slots fixed to Auto, Accent 0 to 2, no seconds, no temperature. Pro adds the metric per slot, Seconds and the temperature. Both keep the shipped three accents.
 Names, prices, icons, uploads are the owner's (the on-watch names "HeroFace" and "HeroFace Pro" are placeholders).
 
-**Read first:** [`docs/plan.md`](docs/plan.md) (what is built, what is next, and why),
+**Read first:** [`docs/status.md`](docs/status.md) (where things stand, evidence, gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md)), then [`docs/archive/plan.md`](docs/archive/plan.md) (the finished build plan, and why),
 [`PRODUCT.md`](PRODUCT.md) (product truth), [`DESIGN.md`](DESIGN.md) (the visual system),
 [`docs/compatibility.md`](docs/compatibility.md) (products and the evidence per screen size).
 
@@ -49,7 +49,7 @@ Names, prices, icons, uploads are the owner's (the on-watch names "HeroFace" and
 - The FR965 has run it (2026-09-20 onward): install, render, the HeroSet link,
   reboot survival and a full day of always-on wear. Battery, ghosting, the
   seconds power budget and settings delivery are still open — see
-  [`docs/go-to-market.md`](docs/go-to-market.md) §1. Simulator evidence is not device evidence; say so
+  [`docs/status.md`](docs/status.md) §1. Simulator evidence is not device evidence; say so
   when reporting.
 
 ## House rules
@@ -72,7 +72,7 @@ Same as HeroSet ([`../HeroSet/CLAUDE.md`](../HeroSet/CLAUDE.md) house rules), wh
 
 ## Keeping things in sync
 
-- Behaviour change → update [`docs/plan.md`](docs/plan.md) (and [`DESIGN.md`](DESIGN.md) if it is visual).
+- Behaviour change → update [`docs/status.md`](docs/status.md) / [`docs/decisions.md`](docs/decisions.md) (and [`DESIGN.md`](DESIGN.md) if it is visual).
 - Contract change → both projects and HeroSet's [ADR-044](../HeroSet/docs/decisions.md#adr-044) (the complication contract), same session. The Free + Pro split touches none of it.
 - New product or layout change → run the screen-fit test for that screen size
   and update [`docs/compatibility.md`](docs/compatibility.md).

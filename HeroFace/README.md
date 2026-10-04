@@ -87,7 +87,7 @@ manifest.free.xml, monkey.free.jungle    Free (its own app id)
 tools/                    run_tests.sh, compile_sweep.sh, check_free_package.sh, check_strings.py
 listing/                  store form copy (Pro, the live listing)
 listing-free/             store form copy (Free, a draft; nothing uploaded)
-docs/plan.md              what is built and what comes next
+docs/archive/plan.md              what is built and what comes next
 docs/decisions.md         durable decisions (the Free + Pro ladder)
 PRODUCT.md                product truth
 DESIGN.md                 the visual system

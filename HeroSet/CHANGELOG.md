@@ -1,14 +1,14 @@
 # HeroSet changelog
 
 One entry per Connect IQ Store publication, newest first. The store's
-"What's New" text for each version is in [`listing/README.md`](listing/README.md); the why is in
+"What's New" text for each version is in [`listing/paste.md`](listing/paste.md); the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
 ## Unreleased, drafted as 1.3.0 (fix for a bug in 1.2.0; not uploaded, the version number is the owner's call)
 
 - **Fix:** after saving a short set (for example 4 push-ups), starting the same exercise again began from that count instead of 0. Cause: Finish, quick-Save and Discard cleared the recoverable draft ([ADR-052](docs/decisions.md#adr-052)), then the workout view hid and its hide-time checkpoint wrote the just-saved count back as a new draft; sets longer than 15 s were unaffected because a periodic checkpoint had already recorded the count. The view now remembers that its set ended and never checkpoints after that. Found by the owner on a watch, 2026-10-02. Two regression tests (dev build). 114/114 dev, 101/101 store (unchanged, the new tests are dev-only), fr965 simulator only.
 - Launcher icon (shield) and complication icon redrawn on whole-number vertices (pixel-grid pass, TODO I3); no What's New line needed.
-- Ready 2026-10-04: What's New and App Version `1.3.0` drafted in `listing/README.md`; `dist/HeroSet-store.iq` re-exported after the Instinct bezel-corner fix (87 products, 134 device variants). Needs only the owner's upload ([`docs/go-to-market.md`](docs/go-to-market.md) G); 1.2.0 on the store still has the bug.
+- Ready 2026-10-04: What's New and App Version `1.3.0` drafted in `listing/paste.md`; `dist/HeroSet-store.iq` re-exported after the Instinct bezel-corner fix (87 products, 134 device variants). Needs only the owner's upload ([`docs/status.md`](docs/status.md) G); 1.2.0 on the store still has the bug.
 
 ## Unreleased, drafted as 1.3.0 (Instinct family, merged to main 2026-10-03, not uploaded)
 
@@ -43,7 +43,7 @@ Submitted as `1.2.0`, not `1.1.2` as this build was called during development â€
   fix (ADR-052) is confirmed on FR965. **Owner call, 2026-09-27: uploaded without
   E2b (saved-set/midnight/streak through the glance), E4 (simulator visual pass) or
   E5 (crash log, battery comparison)** â€” see
-  [`docs/go-to-market.md`](docs/go-to-market.md) for exactly what did and didn't
+  [`docs/status.md`](docs/status.md) for exactly what did and didn't
   run first.
 
 ## 1.1.1 â€” uploaded 2026-09-24, live 2026-09-24
@@ -61,7 +61,7 @@ Submitted as `1.2.0`, not `1.1.2` as this build was called during development â€
 - Reliability: publishing to HeroFace can no longer crash the app; a failed
   storage write stays flagged for the whole save ([ADR-010](docs/decisions.md#adr-010)/[044](docs/decisions.md#adr-044)).
 - Evidence: simulator only (99 dev / 88 store tests, all 80 products); device
-  checks deferred by owner call ([`docs/go-to-market.md`](docs/go-to-market.md), "Next session" B).
+  checks deferred by owner call ([`docs/status.md`](docs/status.md), "Next session" B).
 
 ## 1.1.0 â€” uploaded 2026-09-21, live 2026-09-22
 

@@ -19,7 +19,7 @@ configure" opening with the new one in `README.md` (both files already carry it)
 no settings field of its own in this project's field list, and nothing else changes: **"Does your app
 collect user data?" stays No** (the choice is one small number kept in the watch's own settings
 storage and never sent to the developer — the same answer TwoSuns gave while also shipping a list
-setting, `../../TwoSuns/listing/README.md`; owner to confirm this reading of the question), no new
+setting, `../../TwoSuns/listing/paste.md`; owner to confirm this reading of the question), no new
 permission, no new store field. The privacy page (`site/src/apps/day-arc*/Privacy.tsx`) was updated
 to say so in the same change. **Not claimed anywhere:** that the colour can also be changed on the
 watch itself (Customize, next to Apply) — built, but not yet tried on a wrist, so per

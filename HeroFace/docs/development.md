@@ -28,7 +28,7 @@ python3 tools/check_strings.py                 # translation parity and the AppN
 ```
 
 `dist/old/` holds the earlier packages (`HeroFace.iq`, `HeroFace-next.iq`); nothing was at `dist/HeroFace.iq` when the ladder work started, and the new names
-are `dist/HeroFaceFree.iq` and `dist/HeroFacePro.iq`, so neither collides with the `../dist/HeroFace.iq` that `listing/README.md` still names for 1.0.1.
+are `dist/HeroFaceFree.iq` and `dist/HeroFacePro.iq`, so neither collides with the `../dist/HeroFace.iq` that `listing/paste.md` still names for 1.0.1.
 Both jungles set `base.sourcePath = source` on purpose: without it the build also compiles anything under `docs/`.
 
 Trust the printed `PASSED (…)` line, not the exit code. A run that hangs means

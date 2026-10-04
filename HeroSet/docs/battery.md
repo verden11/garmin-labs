@@ -1,6 +1,6 @@
 # Battery impact
 
-Status: 2026-09-26 · code analysis only, **nothing measured yet**. Post-launch backlog (go-to-market).
+Status: 2026-09-26 · code analysis only, **nothing measured yet**. Post-launch backlog (`docs/status.md`).
 
 ## Where power goes
 
@@ -24,7 +24,7 @@ Dashboard 60 s day check, storage writes (per save only) and learning (one burst
 
 ## Candidates (verify on watch first)
 
-1. **No inactivity timeout on the workout screen.** Sensors + HR + redraw run forever if a set is left open — separate from, and still open: candidate, pause after N minutes without a rep (Back menu has Resume). **The system-level timeout for an app launched from the glance is a different, sharper case, and it is no longer silently lossy**: confirmed on FR965 at exactly 120s (redraws don't reset it), fixed same day by [ADR-052](decisions.md#adr-052)'s periodic recoverable draft — gate E1-retest in [`go-to-market.md`](go-to-market.md) still owed on a watch.
+1. **No inactivity timeout on the workout screen.** Sensors + HR + redraw run forever if a set is left open — separate from, and still open: candidate, pause after N minutes without a rep (Back menu has Resume). **The system-level timeout for an app launched from the glance is a different, sharper case, and it is no longer silently lossy**: confirmed on FR965 at exactly 120s (redraws don't reset it), fixed same day by [ADR-052](decisions.md#adr-052)'s periodic recoverable draft — gate E1-retest in [`status.md`](status.md) still owed on a watch.
 2. **Redraw with display off:** timer stops only in `onHide`; likely keeps redrawing a dark screen. Item 1 covers most of it.
 3. **Redraw cost:** new `HeroSetLayout` + font fitting every second. Cache layout and count font (recompute on digit-count change); keep measuring ([ADR-018](decisions.md#adr-018)).
 4. **Is `setEnabledSensors([SENSOR_ONBOARD_HEARTRATE])` needed?** `Sensor.getInfo().heartRate` may read at all-day rate without it. HR readout is decorative ([ADR-021](decisions.md#adr-021)).

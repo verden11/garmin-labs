@@ -33,7 +33,7 @@ tools/compile_sweep.sh                          # compile every product, both ju
 python3 tools/gen_settings.py --check           # settings files match their tables
 python3 tools/check_strings.py                  # translation parity and length
 monkeyc -e -r -f monkey.free.jungle -o dist/TwoSunsFree.iq -y $KEY   # Free store package
-monkeyc -e -r -f monkey.jungle -o dist/TwoSunsPro.iq -y $KEY         # Pro store package (the live app id; see docs/publish-checklist.md: the "89 devices" oddity)
+monkeyc -e -r -f monkey.jungle -o dist/TwoSunsPro.iq -y $KEY         # Pro store package (the live app id; see docs/status.md: the "89 devices" oddity)
 tools/check_free_package.sh                     # Free has only ComplicationSubscriber, only the Accent key, no Pro code or word; Pro has them
 # dist/TwoSuns.iq is the pre-ladder 1.0.1 package, never overwritten (a copy: dist/TwoSuns-1.0.1-prepared.iq)
 ```
@@ -77,6 +77,6 @@ manifest.free.xml, monkey.free.jungle    Free (its own app id)
 tools/                              run_tests.sh, fit_all.sh, fit_products.sh, fit_languages.sh, compile_sweep.sh,
                                     check_free_package.sh, gen_settings.py, gen_sun_tests.py, check_strings.py
 docs/                               spec, plan, decisions, compatibility, development, release contract, publish checklist
-listing/                            store form copy, Pro (the live listing): listing/README.md, listing/NOTES.md
+listing/                            store form copy, Pro (the live listing): listing/paste.md, listing/NOTES.md
 listing-free/                       store form copy, Free (a draft; nothing uploaded)
 ```

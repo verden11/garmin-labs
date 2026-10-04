@@ -1,10 +1,10 @@
 # HeroFace listing — notes
 
-What sits behind [`README.md`](README.md), the paste-ready copy. Nothing here is pasted into the form. Paths are relative to `HeroFace/listing/`. Release history: [`../CHANGELOG.md`](../CHANGELOG.md). Claims and gates: [`../docs/go-to-market.md`](../docs/go-to-market.md).
+What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Paths are relative to `HeroFace/listing/`. Release history: [`../CHANGELOG.md`](../CHANGELOG.md). Claims and gates: [`../docs/status.md`](../docs/status.md).
 
-**Live since 2026-09-22:** https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116. Every field is checked against what the build does ([`../docs/go-to-market.md`](../docs/go-to-market.md), "Claims allowed and forbidden"). Review takes about 72 hours; a rejection comes back with specific reasons.
+**Live since 2026-09-22:** https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116. Every field is checked against what the build does ([`../docs/status.md`](../docs/status.md), "Claims allowed and forbidden"). Review takes about 72 hours; a rejection comes back with specific reasons.
 
-> **Pointer (2026-10-01):** this is the paid app's listing, unchanged. A Free twin and the Pro 1.1.0 rename are proposed and unreleased ([`../docs/decisions.md`](../docs/decisions.md) ADR-001, the Free + Pro ladder); the Free draft is [`../listing-free/README.md`](../listing-free/README.md). The Pro package is now `../dist/HeroFacePro.iq` (the `../dist/HeroFace.iq` named below is not in the tree; earlier packages are in `../dist/old/`).
+> **Pointer (2026-10-01):** this is the paid app's listing, unchanged. A Free twin and the Pro 1.1.0 rename are proposed and unreleased ([`../docs/decisions.md`](../docs/decisions.md) ADR-001, the Free + Pro ladder); the Free draft is [`../listing-free/paste.md`](../listing-free/paste.md). The Pro package is now `../dist/HeroFacePro.iq` (the `../dist/HeroFace.iq` named below is not in the tree; earlier packages are in `../dist/old/`).
 
 **No Keywords field.** The upload form has no keywords/tags field; the README's Keywords section is removed (it never matched the real form). Same fix applied across all four apps' listing docs.
 
@@ -26,7 +26,7 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 
 - **Version:** the HeroFace form showed the version read from the package; HeroSet's form took it as free text, so type it only if a field asks.
 - **Category options (watch faces):** Analog, Animal, Around the world, Cartoon, Digital, Family, Fantasy, Fun, Geek, Marine, Nature, Retro, Simple, Stylish, Utility. There is no "Watch Faces" option; Digital is the pick, "Simple" the other defensible one.
-- **Compatible Devices** is read from the package, not chosen. The form expands the manifest's 117 products into Garmin's marketing names (Mercedes-Benz editions, ForeAthlete variants, per-size fēnix 9 entries), so the list looks longer than 117. That is expected, not a manifest error. The live list shows fewer products than the manifest ([`../docs/go-to-market.md`](../docs/go-to-market.md), item 4).
+- **Compatible Devices** is read from the package, not chosen. The form expands the manifest's 117 products into Garmin's marketing names (Mercedes-Benz editions, ForeAthlete variants, per-size fēnix 9 entries), so the list looks longer than 117. That is expected, not a manifest error. The live list shows fewer products than the manifest ([`../docs/status.md`](../docs/status.md), item 4).
 
 ## Description rules
 
@@ -39,12 +39,12 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 
 | Field | Reason |
 |---|---|
-| Screen Images | One device is enough (HeroSet shipped five shots from a single device and passed review). The always-on shot is deferred ([`../docs/go-to-market.md`](../docs/go-to-market.md), item 3); see [`screenshots.md`](screenshots.md). All five are 3.5–20 KB; the hero is 241 KB, the cover 76 KB. |
+| Screen Images | One device is enough (HeroSet shipped five shots from a single device and passed review). The always-on shot is deferred ([`../docs/status.md`](../docs/status.md), item 3); see [`screenshots.md`](screenshots.md). All five are 3.5–20 KB; the hero is 241 KB, the cover 76 KB. |
 | Collects user data | Nothing leaves the watch. |
 | App Migration | No: support is the explicit 117-product list in [`../docs/compatibility.md`](../docs/compatibility.md); letting the store add untested devices would ship a layout nobody has run. |
 | Monetization | No. The form's own wording: Yes only if the app requests payment to enable features, or asks for tips or donations. HeroFace does neither; it is paid through the store, which is not what this field asks. |
 | Companion App | Blank: HeroSet is not a companion app, it is a separate paid watch app the face can read. |
-| Answers otherwise | Follow HeroSet's ([`../../HeroSet/listing/README.md`](../../HeroSet/listing/README.md)) except where the watch-face form differs. |
+| Answers otherwise | Follow HeroSet's ([`../../HeroSet/listing/paste.md`](../../HeroSet/listing/paste.md)) except where the watch-face form differs. |
 
 ## What's new: history
 

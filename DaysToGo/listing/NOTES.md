@@ -1,13 +1,13 @@
 # Days To Go listing — notes
 
-What sits behind [`README.md`](README.md), the paste-ready copy. Nothing here is pasted into the form. Release history: [`../CHANGELOG.md`](../CHANGELOG.md). Claims and gates: [`../docs/release-contract.md`](../docs/release-contract.md).
+What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Release history: [`../CHANGELOG.md`](../CHANGELOG.md). Claims and gates: [`../docs/release-contract.md`](../docs/release-contract.md).
 
 ## Before you submit (owner)
 
-The full runbook, with the order, the timing and what to do after approval, is [`../docs/publish-checklist.md`](../docs/publish-checklist.md). The short list:
+The full runbook, with the order, the timing and what to do after approval, is [`../docs/status.md`](../docs/status.md). The short list:
 
 1. Store search by eye for "Days To Go", and a trademark search (the code-side search found no exact match on 2026-09-26; the search is relevance-capped).
-2. **Waived by the owner on 2026-09-26** (`../docs/publish-checklist.md`): the beta round trip on the FR965 (T2 phone date survives, T4 picker and phone do not destroy each other). It can still be run any time with a Beta App upload. Until it is, the description must not promise that the phone saves the date, and the "set it on the watch" sentence stays out.
+2. **Waived by the owner on 2026-09-26** (`../docs/status.md`): the beta round trip on the FR965 (T2 phone date survives, T4 picker and phone do not destroy each other). It can still be run any time with a Beta App upload. Until it is, the description must not promise that the phone saves the date, and the "set it on the watch" sentence stays out.
 3. The always-on night and wear day on the FR965 (checklist gates 4 and 5).
 4. Real launcher icon (the file in `resources/drawables/` is a simple placeholder: a mint ring and a "1"), cover, hero and screenshots.
 5. Site pages live (`npm run deploy` in `site/`): support and privacy must be reachable before review.
@@ -49,7 +49,7 @@ One 454 × 454 FR965 simulator screenshot and a 500 × 500 cover exist; see [`sc
 
 ## Pro 1.1.0: draft What's New and edits (UNRELEASED, proposed under ADR-014 (Free + Pro ladder), nothing uploaded)
 
-Not in `README.md` on purpose: that file is the paste-ready copy of the submitted 1.0.1, and nothing for 1.1.0 is approved. On upload (publish-checklist gate F9), move the 1.0.1 block here to history and paste these. Names, the price and the sibling URL are the owner's decisions; the strings below are the plan's placeholders.
+Not in `paste.md` on purpose: that file is the paste-ready copy of the submitted 1.0.1, and nothing for 1.1.0 is approved. On upload (status.md gate F9), move the 1.0.1 block here to history and paste these. Names, the price and the sibling URL are the owner's decisions; the strings below are the plan's placeholders.
 
 - **Title** (plan proposal): `Days To Go Pro: Countdown, Hours, Footer`.
 - **Description line 1** (new): `Also available: Days To Go (<STORE URL of the other listing: owner fills in once it is live>)`. The paid listing must not use the word "free" (release contract; store review guideline 4d), so the plan's "Try free first" wording is deliberately not used. The rest of the description is unchanged: it already describes only what Pro has (timed events, the battery or steps line, six accents).

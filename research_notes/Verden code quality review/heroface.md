@@ -3,7 +3,7 @@
 Scope: `/Users/mbp/dev/garmin/HeroFace` (21 source files, 3 test files, about 2,560 lines including docs), plus the cross-folder contract (HeroSet ADR-044/045, `HeroSetComplicationPublisher.mc`). This was a read-only review. I did not run the simulator or monkeydo, so nothing here is device evidence.
 
 How I got the evidence:
-- I read every `.mc` file, the manifest, jungle, settings, properties, `CLAUDE.md`, `docs/plan.md`, `docs/compatibility.md`, and parts of `docs/go-to-market.md` and `docs/development.md`.
+- I read every `.mc` file, the manifest, jungle, settings, properties, `CLAUDE.md`, `docs/archive/plan.md`, `docs/compatibility.md`, and parts of `docs/status.md` and `docs/development.md`.
 - I looked up API levels in the SDK 9.2.0 docs.
 - I read `memoryLimit` for the watch-face app type from each of the 117 products' `compiler.json`.
 - I compiled with monkeyc for `fr55`, `fenix5s` and `fr965` at `-l 2` (all built), and at `-l 3` (5 strict-typing errors, see (c)).
@@ -26,7 +26,7 @@ HeroFace is small, disciplined and mostly correct. It has no watchdog-scale work
    - It draws `FONT_NUMBER_MEDIUM` ([HeroFaceSleep.mc:18](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceSleep.mc)).
    - The SDK FAQ says: "On the original Venu® no more than 10% of the screen can be on, and no pixel can be on longer than 3 mins … the system will shut off the screen". It says the Venu 2 onward uses a 10%-luminance rule instead ([SDK FAQ: How do I make a watch face for AMOLED products](file:///Users/mbp/Library/Application%20Support/Garmin/ConnectIQ/Sdks/connectiq-sdk-mac-9.2.0-2026-06-09-92a1605b2/doc/docs/Connect_IQ_FAQ/How_Do_I_Make_a_Watch_Face_for_AMOLED_Products.html)).
    - The manifest ships `venu`, `venud` and `d2air` ([manifest.xml](/Users/mbp/dev/garmin/HeroFace/manifest.xml)). These are AMOLED products on CIQ 3.2–3.3 firmware per `compiler.json`, so they are Venu-1 generation.
-   - The only device evidence is one FR965 night with no image retention ([go-to-market.md:40-53](/Users/mbp/dev/garmin/HeroFace/docs/go-to-market.md)). The FR965 falls under the luminance rule, so that night says nothing about the 3-minute rule.
+   - The only device evidence is one FR965 night with no image retention ([go-to-market.md:40-53](/Users/mbp/dev/garmin/HeroFace/docs/status.md)). The FR965 falls under the luminance rule, so that night says nothing about the 3-minute rule.
    - Fix:
      - Run the simulator's File → View Screen Heat Map on `venu` once the sweep is done.
      - If it trips, make the walk cover more ground per minute (e.g. step both axes every minute, over a larger grid than 8 px, or with a per-minute 1-px checkerboard mask), or use a thinner font on burn-in products.
@@ -51,8 +51,8 @@ HeroFace is small, disciplined and mostly correct. It has no watchdog-scale work
    - Fix: retry `find()` at the minute rebuild while unlinked, which is cheap. Alternatively, document the restart requirement on the support page.
 6. **[MED] Doc drift is heavy and contradicts the current state.** The full list is in (f). The headline items:
    - [compatibility.md:50](/Users/mbp/dev/garmin/HeroFace/docs/compatibility.md) says "**No watch has run it yet.**", while [CLAUDE.md](/Users/mbp/dev/garmin/HeroFace/CLAUDE.md) says the FR965 has run it.
-   - plan.md says the always-on screen shows "time plus a thin ring" ([plan.md:133](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)), but the code draws no ring.
-   - [go-to-market.md:172](/Users/mbp/dev/garmin/HeroFace/docs/go-to-market.md) says "English only", but 15 languages ship.
+   - plan.md says the always-on screen shows "time plus a thin ring" ([plan.md:133](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)), but the code draws no ring.
+   - [go-to-market.md:172](/Users/mbp/dev/garmin/HeroFace/docs/status.md) says "English only", but 15 languages ship.
 7. **[LOW] Duplicated goal constant.** `HeroFaceContract.DEFAULT_GOAL = 100` ([HeroFaceContract.mc:21](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceContract.mc)) duplicates `HeroFaceConfig.HEROSET_GOAL = 100` ([HeroFaceConfig.mc:32](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceConfig.mc)). This breaks the "tunables in HeroFaceConfig" rule. Fix: use `HeroFaceConfig.HEROSET_GOAL` in the contract.
 8. **[LOW] Test gaps in the robustness paths.** There are no tests for the settings type fallback, the link's uninstall and caching path, the translated rank wording, or the slot fallback chain. Details are in (e).
 
@@ -80,7 +80,7 @@ The render paths are light. All data gathering is cached once per minute, and th
     - history: about 7 entries;
     - complication enumeration: once, at start.
 - **Good: the partial update is minimal.** It is clip → clear → one `drawText` → unclip, and it returns early when there is no seconds box ([HeroFaceView.mc:99-110](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceView.mc)). Garmin allows a 20 ms budget per partial update ([SDK UX guidelines: Watch Faces](file:///Users/mbp/Library/Application%20Support/Garmin/ConnectIQ/Sdks/connectiq-sdk-mac-9.2.0-2026-06-09-92a1605b2/doc/docs/User_Experience_Guidelines/Watch_Faces.html)).
-- **Good: there is a budget fallback.** `onPowerBudgetExceeded` leads to `disableSeconds()` ([HeroFaceDelegate.mc:22-27](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceDelegate.mc), [HeroFaceView.mc:46-50](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceView.mc)), and a test covers it by mutation ([go-to-market.md:57-64](/Users/mbp/dev/garmin/HeroFace/docs/go-to-market.md)). The real per-update cost was never measured ([go-to-market.md:65-69](/Users/mbp/dev/garmin/HeroFace/docs/go-to-market.md)).
+- **Good: there is a budget fallback.** `onPowerBudgetExceeded` leads to `disableSeconds()` ([HeroFaceDelegate.mc:22-27](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceDelegate.mc), [HeroFaceView.mc:46-50](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceView.mc)), and a test covers it by mutation ([go-to-market.md:57-64](/Users/mbp/dev/garmin/HeroFace/docs/status.md)). The real per-update cost was never measured ([go-to-market.md:65-69](/Users/mbp/dev/garmin/HeroFace/docs/status.md)).
 - **[LOW] Small allocations on every awake frame.** While awake, each 1 Hz `onUpdate` still allocates:
   - label and value arrays and formatted strings per column ([HeroFaceText.mc:26-63](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceText.mc), [HeroFaceMissions.mc:23,49](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceMissions.mc));
   - footer arrays ([HeroFaceFooter.mc:14-31](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceFooter.mc)).
@@ -91,7 +91,7 @@ The render paths are light. All data gathering is cached once per minute, and th
 - **[LOW, uncertain] The always-on screen is chosen from one flag.**
   - Sleep rendering depends only on `requiresBurnInProtection` ([HeroFaceView.mc:35,61](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceView.mc)).
   - The SDK FAQ's own example uses `System.getDisplayMode()` for Venu 2 and later, and uses the flag only for the original Venu.
-  - The FR965 run shows the flag was true there ([go-to-market.md:42-45](/Users/mbp/dev/garmin/HeroFace/docs/go-to-market.md)). Whether every AMOLED product in the manifest returns true is not verifiable offline: the device JSONs carry no such key.
+  - The FR965 run shows the flag was true there ([go-to-market.md:42-45](/Users/mbp/dev/garmin/HeroFace/docs/status.md)). Whether every AMOLED product in the manifest returns true is not verifiable offline: the device JSONs carry no such key.
   - If any AMOLED product returns false, the full face (white time, ring, bars) is drawn in always-on mode.
   - Fix: treat `displayType == amoled`-class devices as burn-in either way, e.g. `_burnIn = flag || (System has :getDisplayMode)`. Or verify the flag per AMOLED screen size in the simulator.
 - **Every unguarded API is at CIQ 3.0 or below.** I checked each against the SDK 9.2.0 docs:
@@ -131,7 +131,7 @@ The render paths are light. All data gathering is cached once per minute, and th
 - **[LOW] Heart rate may be stale.** The newest history sample has no age check ([HeroFaceReadings.mc:152-156](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceReadings.mc)), so an off-wrist watch can show a stale heart rate. Garmin faces behave the same way, so this is acceptable.
 - **[LOW, uncertain] Seconds clip box.** The box is sized to `"00"` ([HeroFaceClock.mc:19](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceClock.mc)). If `FONT_XTINY` digits are not tabular on some product, digits wider than "0" would clip in the partial update. Fix: measure `"88"` as well and take the larger width.
 - **Memory.**
-  - The smallest watch-face `memoryLimit` across all 117 manifest products is 98,304 bytes (96 KB). Examples include `fenix5`, `fenix5s`, `vivoactive3`, `fr935` and `d2charlie` (from `Devices/<id>/compiler.json`, appType `watchFace`). The "64 KB" in [plan.md:32](/Users/mbp/dev/garmin/HeroFace/docs/plan.md) refers to the 130-product set that included Instinct and rectangle products, and is corrected at [plan.md:144,191](/Users/mbp/dev/garmin/HeroFace/docs/plan.md).
+  - The smallest watch-face `memoryLimit` across all 117 manifest products is 98,304 bytes (96 KB). Examples include `fenix5`, `fenix5s`, `vivoactive3`, `fr935` and `d2charlie` (from `Devices/<id>/compiler.json`, appType `watchFace`). The "64 KB" in [plan.md:32](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md) refers to the 130-product set that included Instinct and rectangle products, and is corrected at [plan.md:144,191](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md).
   - The code holds no bitmaps, and the string cache is bounded by the number of string ids ([HeroFaceText.mc:9-19](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceText.mc)).
   - `.prg` sizes are 140 KB (fenix5s), 144 KB (fr55) and 152 KB (fr965). Those are flash sizes, not RAM.
 - **[LOW] `d2charlie` lists a part on CIQ 2.4.1 firmware** (compiler.json), below `minApiLevel` 3.0.0. The store should filter those units out, so this is informational.
@@ -141,7 +141,7 @@ The render paths are light. All data gathering is cached once per minute, and th
 - The biggest always-on uncertainty is not code quality but which rule each AMOLED firmware applies.
 
 ### Gaps
-- Runtime peak memory on a 96 KB product was not measured. [plan.md:140](/Users/mbp/dev/garmin/HeroFace/docs/plan.md) says the spike checked it, but records no figure. Fix: record the simulator's peak memory for `fenix5s` in compatibility.md.
+- Runtime peak memory on a 96 KB product was not measured. [plan.md:140](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md) says the spike checked it, but records no figure. Fix: record the simulator's peak memory for `fenix5s` in compatibility.md.
 - The partial-update cost is still unmeasured (same as go-to-market §1).
 
 ---
@@ -291,7 +291,7 @@ There are 15 tests: 11 logic tests plus 4 render or screen-fit tests. They cover
   - The HeroSet state uses a hard-coded English `"RANK 999  STREAK 9999"` ([HeroFaceTestStates.mc:52](/Users/mbp/dev/garmin/HeroFace/source/test/HeroFaceTestStates.mc)).
   - `firstFitting` returns the last candidate even when it does not fit ([HeroFaceDraw.mc:49-56](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceDraw.mc)), so a long translation of `rank_only` could overflow undetected.
   - Fix: add a second pass with `HeroFaceText.format(Rez.Strings.rank_streak, [999, 9999])`.
-- **[LOW] A test state production can no longer show.** `HeroFaceTestStates.fresh()` still uses `"0-DAY STREAK"` ([HeroFaceTestStates.mc:38](/Users/mbp/dev/garmin/HeroFace/source/test/HeroFaceTestStates.mc)). The finish review removed that from production ([plan.md:179-180](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)). Fix: make `streakLines` empty, which also exercises the temperature-only row.
+- **[LOW] A test state production can no longer show.** `HeroFaceTestStates.fresh()` still uses `"0-DAY STREAK"` ([HeroFaceTestStates.mc:38](/Users/mbp/dev/garmin/HeroFace/source/test/HeroFaceTestStates.mc)). The finish review removed that from production ([plan.md:179-180](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)). Fix: make `streakLines` empty, which also exercises the temperature-only row.
 - **Missing tests:**
   - `HeroFaceSettings` falling back on a wrong-typed or missing property ([HeroFaceSettings.mc:26-42](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceSettings.mc)).
   - `HeroFaceLink.remember` and the uninstall path.
@@ -317,19 +317,19 @@ There are 15 tests: 11 logic tests plus 4 render or screen-fit tests. They cover
 
 ### Cited Findings
 - **plan.md:**
-  - Status is 2026-09-20 and lists "Left: … submission itself" ([plan.md:3-10](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)), but the face went live on 2026-09-22.
-  - "What's next #1: Device run on the FR965 (blocks everything else)" ([plan.md:165](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)) has already been done.
-  - The always-on screen is described as "time plus a thin ring only" ([plan.md:133](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)). Line 212 and the code say there is no ring ([HeroFaceSleep.mc:5-7](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceSleep.mc)).
-  - The ASCII screen ([plan.md:123-129](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)) shows the streak on top, the date under the time and a steps ring. The code has the date on top, the streak and temperature under the time, and a day-score ring ([HeroFaceView.mc:112-148](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceView.mc)).
-  - "The streak took the narrow row … the date moved under the time" ([plan.md:211](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)) was reversed by plan.md:194-198.
-  - "Accent colour: 4–6 choices" ([plan.md:83](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)), but the code has 3 ([HeroFacePalette.mc:23](/Users/mbp/dev/garmin/HeroFace/source/HeroFacePalette.mc)).
-  - "Seconds … only where `onPartialUpdate` is supported" and "Weather … only shown where `Toybox has :Weather`" ([plan.md:84-85](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)). In fact both settings are always listed ([settings.xml](/Users/mbp/dev/garmin/HeroFace/resources/settings/settings.xml)), so the Weather toggle appears on fēnix 5, which has no weather.
-  - "`Dc has :setAntiAlias`" is named as a guard ([plan.md:90](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)), but it is not used anywhere.
-  - "v1 ships English only" and "weekday and month abbreviations in strings.xml" ([plan.md:98-102](/Users/mbp/dev/garmin/HeroFace/docs/plan.md)) have both been superseded.
-- **compatibility.md:** "**No watch has run it yet.**" ([compatibility.md:50](/Users/mbp/dev/garmin/HeroFace/docs/compatibility.md)) contradicts [CLAUDE.md](/Users/mbp/dev/garmin/HeroFace/CLAUDE.md) ("The FR965 has run it (2026-09-20 onward)") and [go-to-market.md:40-53](/Users/mbp/dev/garmin/HeroFace/docs/go-to-market.md). This file is modified in the working tree, so check it against that edit.
+  - Status is 2026-09-20 and lists "Left: … submission itself" ([plan.md:3-10](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)), but the face went live on 2026-09-22.
+  - "What's next #1: Device run on the FR965 (blocks everything else)" ([plan.md:165](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)) has already been done.
+  - The always-on screen is described as "time plus a thin ring only" ([plan.md:133](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)). Line 212 and the code say there is no ring ([HeroFaceSleep.mc:5-7](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceSleep.mc)).
+  - The ASCII screen ([plan.md:123-129](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)) shows the streak on top, the date under the time and a steps ring. The code has the date on top, the streak and temperature under the time, and a day-score ring ([HeroFaceView.mc:112-148](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceView.mc)).
+  - "The streak took the narrow row … the date moved under the time" ([plan.md:211](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)) was reversed by plan.md:194-198.
+  - "Accent colour: 4–6 choices" ([plan.md:83](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)), but the code has 3 ([HeroFacePalette.mc:23](/Users/mbp/dev/garmin/HeroFace/source/HeroFacePalette.mc)).
+  - "Seconds … only where `onPartialUpdate` is supported" and "Weather … only shown where `Toybox has :Weather`" ([plan.md:84-85](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)). In fact both settings are always listed ([settings.xml](/Users/mbp/dev/garmin/HeroFace/resources/settings/settings.xml)), so the Weather toggle appears on fēnix 5, which has no weather.
+  - "`Dc has :setAntiAlias`" is named as a guard ([plan.md:90](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)), but it is not used anywhere.
+  - "v1 ships English only" and "weekday and month abbreviations in strings.xml" ([plan.md:98-102](/Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md)) have both been superseded.
+- **compatibility.md:** "**No watch has run it yet.**" ([compatibility.md:50](/Users/mbp/dev/garmin/HeroFace/docs/compatibility.md)) contradicts [CLAUDE.md](/Users/mbp/dev/garmin/HeroFace/CLAUDE.md) ("The FR965 has run it (2026-09-20 onward)") and [go-to-market.md:40-53](/Users/mbp/dev/garmin/HeroFace/docs/status.md). This file is modified in the working tree, so check it against that edit.
 - **go-to-market.md:**
-  - §1 opens "Everything below is unknown until the face runs on the FR965" ([go-to-market.md:37](/Users/mbp/dev/garmin/HeroFace/docs/go-to-market.md)).
-  - §5 says "English only (by decision). Translations after launch." and "13 round watches below CIQ 3.0" ([go-to-market.md:172-173](/Users/mbp/dev/garmin/HeroFace/docs/go-to-market.md)). The manifest has 15 languages, and compatibility.md says 15 old watches ([compatibility.md:60](/Users/mbp/dev/garmin/HeroFace/docs/compatibility.md)).
+  - §1 opens "Everything below is unknown until the face runs on the FR965" ([go-to-market.md:37](/Users/mbp/dev/garmin/HeroFace/docs/status.md)).
+  - §5 says "English only (by decision). Translations after launch." and "13 round watches below CIQ 3.0" ([go-to-market.md:172-173](/Users/mbp/dev/garmin/HeroFace/docs/status.md)). The manifest has 15 languages, and compatibility.md says 15 old watches ([compatibility.md:60](/Users/mbp/dev/garmin/HeroFace/docs/compatibility.md)).
 - **Contract docs:** ADR-044 lists 9 fields and says "stored by subscribers" ([decisions.md:263](/Users/mbp/dev/garmin/HeroSet/docs/decisions.md)). The HeroFaceContract header lists 9 fields ([HeroFaceContract.mc:4](/Users/mbp/dev/garmin/HeroFace/source/HeroFaceContract.mc)). plan.md:110-119 and CLAUDE.md are correct with 10 fields.
 - **Accurate:** the test count of 15 matches the code: 11 in [HeroFaceLogicTest.mc](/Users/mbp/dev/garmin/HeroFace/source/test/HeroFaceLogicTest.mc) plus 4 in [HeroFaceScreenFitTest.mc](/Users/mbp/dev/garmin/HeroFace/source/test/HeroFaceScreenFitTest.mc) ([README.md:24](/Users/mbp/dev/garmin/HeroFace/README.md)). The 96 KB minimum memory matches `compiler.json`.
 

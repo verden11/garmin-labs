@@ -51,7 +51,7 @@ components:
 
 # Design
 
-The visual system **as built** (2026-09-26). **The owner has not approved the look**, the rectangular screens have not been looked at by eye, the launcher icon is a placeholder, and **no screenshot of the face exists** (this environment cannot capture the simulator). Everything here is read from the code and the simulator's layout report; nothing has been seen on a watch. The owner may replace the direction with a design-tool mock-up ([`docs/plan.md`](docs/plan.md) phase 4 gate); then this file and the spec change.
+The visual system **as built** (2026-09-26). **The owner has not approved the look**, the rectangular screens have not been looked at by eye, the launcher icon is a placeholder, and **no screenshot of the face exists** (this environment cannot capture the simulator). Everything here is read from the code and the simulator's layout report; nothing has been seen on a watch. The owner may replace the direction with a design-tool mock-up ([`docs/archive/plan.md`](docs/archive/plan.md) phase 4 gate); then this file and the spec change.
 
 ## Direction
 

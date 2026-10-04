@@ -1,6 +1,6 @@
 # Go-to-market for HeroSet and HeroFace on the Connect IQ store: distilled, graded, re-verified (2026-09-25)
 
-**Scope and method.** Re-read in full: `reports/Selling HeroSet and HeroFace.md` (the report) and its five notes in `research_notes/Selling HeroSet and HeroFace/` (`listing_and_organic.md` = LO, `free_vs_paid_funnel.md` = FP, `indie_case_studies.md` = IC, `fitness_app_niche.md` = FN, `micro_budget_ads.md` = MA). Grounded against `HeroSet/docs/go-to-market.md`, `HeroFace/docs/go-to-market.md`, both `listing/README.md`, root `README.md`, HeroSet ADR-039. Re-verified on 2026-09-25: the live store API for both apps, a search-rank basket, top-120 free/paid counts, the Strength Training shelf, and Garmin developer docs and forum announcements (fetched, not from memory). No repo file was modified.
+**Scope and method.** Re-read in full: `reports/Selling HeroSet and HeroFace.md` (the report) and its five notes in `research_notes/Selling HeroSet and HeroFace/` (`listing_and_organic.md` = LO, `free_vs_paid_funnel.md` = FP, `indie_case_studies.md` = IC, `fitness_app_niche.md` = FN, `micro_budget_ads.md` = MA). Grounded against `HeroSet/docs/status.md`, `HeroFace/docs/status.md`, both `listing/paste.md`, root `README.md`, HeroSet ADR-039. Re-verified on 2026-09-25: the live store API for both apps, a search-rank basket, top-120 free/paid counts, the Strength Training shelf, and Garmin developer docs and forum announcements (fetched, not from memory). No repo file was modified.
 
 **Grades.** **V** verified: I re-checked it today against a primary source (Garmin doc or live store API). **V-local** verified in the local notes to a primary source, not re-checked by me. **P** plausible: inference or one secondary source. **U** unverified: no usable source. **S** stale or contradicted: a re-check disagrees.
 
@@ -97,7 +97,7 @@ The docs already handled the *product* side of the research (accurate claims, pr
 
 | Research recommendation | State today | Status |
 |---|---|---|
-| HeroSet category 219 to **Strength Training 277** ("highest-return action") | `HeroSet/listing/README.md` says Category = Strength Training. **Live API still 219 on 2026-09-25 after 1.1.1**; app is not on the Strength Training shelf. Category is either not editable per version or was not saved. | **OPEN, README and live disagree** |
+| HeroSet category 219 to **Strength Training 277** ("highest-return action") | `HeroSet/listing/paste.md` says Category = Strength Training. **Live API still 219 on 2026-09-25 after 1.1.1**; app is not on the Strength Training shelf. Category is either not editable per version or was not saved. | **OPEN, README and live disagree** |
 | Extend HeroSet title with exercise nouns | Title unchanged, 32/50 | OPEN |
 | Add singular and plural surface forms to HeroSet copy | Description has "push-ups", "sit-ups", "squats" only; no "push-up", "pushups", "situps", "pushup". "pushup" search: not in top 210 | OPEN |
 | HeroSet cumulative What's New (was 166 chars) | Live What's New now 583 chars (1.1.1 block); not cumulative | PARTIAL |
@@ -200,7 +200,7 @@ Garmin firmware release notes for rep-count accuracy (the existential risk); Pus
 
 ### Gaps
 - No Connect IQ case study proves any external channel (Reddit, YouTube, press) drove installs; none was found.
-- Effort estimates are mine, not from the sources; they assume the reviewed copy in the two `listing/README.md` files is used as the base.
+- Effort estimates are mine, not from the sources; they assume the reviewed copy in the two `listing/paste.md` files is used as the base.
 
 ---
 

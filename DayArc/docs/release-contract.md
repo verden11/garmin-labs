@@ -18,7 +18,7 @@ Every listing sentence gets checked against this file before it ships.
 - That there is one setting, **Accent colour** (a short list of colours, default Auto = each time of
   day has its own colour) (ADR-014). Both listings. "Changeable in the Garmin Connect app" is the
   intended store wording but is **unverified until a store install** — a sideloaded build cannot
-  exercise the phone page (`docs/publish-checklist.md` gate 5); the owner decides whether to ship it
+  exercise the phone page (`docs/status.md` gate 5); the owner decides whether to ship it
   worded firmly or softly.
 
 ## May never claim

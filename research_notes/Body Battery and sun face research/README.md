@@ -1,7 +1,7 @@
 # Body Battery and sun face research: notes
 
 Snapshot **2026-09-26**. Sourced notes behind [`reports/Body Battery and sun face research.md`](../../reports/Body%20Battery%20and%20sun%20face%20research.md).
-The product it leads to is specified in [`TwoSuns/docs/spec.md`](../../TwoSuns/docs/spec.md) and planned in [`TwoSuns/docs/plan.md`](../../TwoSuns/docs/plan.md).
+The product it leads to is specified in [`TwoSuns/docs/spec.md`](../../TwoSuns/docs/spec.md) and planned in [`TwoSuns/docs/archive/plan.md`](../../TwoSuns/docs/archive/plan.md).
 Every claim carries its source. Anything not verified says so.
 
 | File | What it holds |

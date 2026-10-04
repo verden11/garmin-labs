@@ -1,17 +1,12 @@
 # HeroFace docs
 
-| I want to… | Read |
-|---|---|
-| Know what is built, what is next, and why | [`plan.md`](plan.md) |
-| Launch it | [`go-to-market.md`](go-to-market.md) |
-| Fill in the store listing (paste-ready copy, What's New, images) | [`../listing/README.md`](../listing/README.md); why and limits: [`../listing/NOTES.md`](../listing/NOTES.md) |
-| See what each store version changed | [`../CHANGELOG.md`](../CHANGELOG.md) |
-| Know which watches it runs on, and the evidence | [`compatibility.md`](compatibility.md) |
-| Build, test, translate, check a screen | [`development.md`](development.md) |
-| Understand the visual system | [`../DESIGN.md`](../DESIGN.md) |
-| Know the product truth | [`../PRODUCT.md`](../PRODUCT.md) |
-| Know why it is built the way it is (the Free + Pro ladder) | [`decisions.md`](decisions.md) |
-| Fill in the Free store listing (draft, nothing uploaded) | [`../listing-free/README.md`](../listing-free/README.md) |
+Open work is in the root [`ROADMAP.md`](../../ROADMAP.md), never here. Rules for agents: [`../CLAUDE.md`](../CLAUDE.md).
 
-Device builds and the on-watch tick list are git-ignored, in
-`../../device-test/`, so one folder holds both HeroFace and HeroSet.
+| Doc | What |
+|---|---|
+| [`status.md`](status.md) | Where things stand, the HeroSet link, device evidence, the Free + Pro pair |
+| [`decisions.md`](decisions.md) | ADRs (why) |
+| [`compatibility.md`](compatibility.md) | Products, API levels, memory, evidence per device |
+| [`release-contract.md`](release-contract.md) | What may be claimed and what may not |
+| [`development.md`](development.md) | Commands, tests, how to debug |
+| [`archive/`](archive/) | The build plan and the Instinct mockup |

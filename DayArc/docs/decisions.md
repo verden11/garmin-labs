@@ -283,7 +283,7 @@ mitigations that decision records.
 
 **Decision:** **DayArc** (Simple), **DayArc Pro** (Pro). App ids: `56a7298c-dcbf-41ff-b013-9a073a59d2dd`
 (Simple), `cc86c6b6-9a5c-4908-9056-165ff4b81982` (Pro) — never change once published. Site slugs
-still open (see `docs/publish-checklist.md`).
+still open (see `docs/status.md`).
 
 **Evidence:** `apps.garmin.com` search for "DayArc" (985 fuzzy results) and "DayArc Pro" (996 fuzzy
 results), no exact title match in either; general web scan found one unrelated company ("Day Arc
@@ -296,8 +296,8 @@ submission.
 
 **Status:** Built, 2026-09-28 (was "approved direction, not yet built" earlier the same day).
 Simulator-tested on fr965/approachs50/venusq2/venux1, both jungles, plus the full 69-product compile
-sweep — see `docs/plan.md`. No real-device evidence and no owner screenshot review of the built
-version yet; `docs/publish-checklist.md` gate 4 stays open for that.
+sweep — see `docs/archive/plan.md`. No real-device evidence and no owner screenshot review of the built
+version yet; `docs/status.md` gate 4 stays open for that.
 
 **Decision:** Reverses the "none in v1" iconography stance and the single-accent-hue palette this
 project shipped with. Full detail lives in `DESIGN.md` ("Iconography", "Layout"); summarized here:
@@ -352,7 +352,7 @@ size (plain `dc.drawBitmap` doesn't scale); see `DESIGN.md` "Iconography" for th
 fresh-context review already ran once against the built version, 2026-09-28, and found 8 issues (a
 real geometry bug on Venu Sq 2/X1, a duplicated date cell, an arc/clock overlap, an inconsistent
 empty-state icon, a wrong icon highlight colour, a doc claim ahead of its test, two dead strings, and
-a house-rule function-length violation) — all fixed, see `docs/plan.md`. `watch-design-reviewer`
+a house-rule function-length violation) — all fixed, see `docs/archive/plan.md`. `watch-design-reviewer`
 itself (the craft-focused agent, distinct from this fix-finding review) has still not run against
 the built version.
 
@@ -374,7 +374,7 @@ every row up in its band is fitted against the arc's inner edge (`DayArcArc.rowM
 (ADR-001 amendment). **Hardened after the third review, 2026-09-29:** the plan cache also keys on
 the date and replans when a live string is wider than its plan; the draw path null-guards every live
 string; a plan that fits nowhere falls to TRIM rungs and then drops any row that would cross the
-bottom, so it is always safe to draw. Details and per-device numbers: `DESIGN.md` "Layout", `docs/plan.md`.
+bottom, so it is always safe to draw. Details and per-device numbers: `DESIGN.md` "Layout", `docs/archive/plan.md`.
 
 **Amendment, 2026-10-01 (owner, after a simulator screenshot of Pro evening on the FR965; simulator only, not a wrist):**
 the grid is now **centred pairs of compact cells** (left cell ends at the gutter, right starts after it, a lone cell is
@@ -468,7 +468,7 @@ mitigations ARE part of the decision, not extras:
   `drawBitmap2`'s `:tintColor`, which is broken on FR165/FR165m.
 - **Tested pure.** The clamp and the choice-to-hue mapping are pure functions with unit tests
   (garbage values, every index, 64-colour safety); the tests never write a real property.
-- **Gate 5 now has something to test on a device** (`docs/publish-checklist.md`): on a sideloaded
+- **Gate 5 now has something to test on a device** (`docs/status.md`): on a sideloaded
   build, the Customize picker only (choose, select-then-exit, restart the watch); the phone page only
   after a store install.
 

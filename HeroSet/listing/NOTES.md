@@ -1,6 +1,6 @@
 # HeroSet listing — notes
 
-What sits behind [`README.md`](README.md), the paste-ready copy. Nothing here is pasted into the form. Paths are relative to `HeroSet/listing/`. Release history: [`../CHANGELOG.md`](../CHANGELOG.md).
+What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Paths are relative to `HeroSet/listing/`. Release history: [`../CHANGELOG.md`](../CHANGELOG.md).
 
 ## Economics and rules
 
@@ -12,13 +12,13 @@ Live listing: https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377.
 
 ## Upload file
 
-Upload `dist/HeroSet-store.iq` (re-exported 2026-10-04 from main at c2f41eb, after the bezel-corner and START: MENU fixes ([ADR-055](../docs/decisions.md#adr-055) amendment); the 2026-10-03 export had the clipped footer (kept as `dist/old/HeroSet-store-1.3.0-prefix-bezel-bug-DO-NOT-UPLOAD.iq`) and the first 2026-10-04 one shortened START: MENU (`dist/old/HeroSet-store-1.3.0-before-hint-fix.iq`): 87 products, 134 device variants, same app id `568d5c9b-eb10-4678-bf28-0080c3efbbc1`, permissions exactly `Sensor` + `ComplicationPublisher`; the 1.2.0 export is in `dist/old/HeroSet-store-1.2.0-shipped.iq`). Re-export if any source changes first ([`../docs/development.md`](../docs/development.md); `dist/` holds only the current export; `bin/` is scratch). 1.1.1 was uploaded from `bin/HeroSet-store-next.iq` (exported 2026-09-24, 126 device variants, includes the 13 touch-first products). Never upload `bin/HeroSet-store-1.0.0-shipped.iq`.
+Upload `dist/HeroSet-store.iq` (re-exported 2026-10-04 from main at c0d0a54, after the bezel-corner and START: MENU fixes ([ADR-055](../docs/decisions.md#adr-055) amendment); the 2026-10-03 export had the clipped footer (kept as `dist/old/HeroSet-store-1.3.0-prefix-bezel-bug-DO-NOT-UPLOAD.iq`) and the first 2026-10-04 one shortened START: MENU (`dist/old/HeroSet-store-1.3.0-before-hint-fix.iq`): 87 products, 134 device variants, same app id `568d5c9b-eb10-4678-bf28-0080c3efbbc1`, permissions exactly `Sensor` + `ComplicationPublisher`; the 1.2.0 export is in `dist/old/HeroSet-store-1.2.0-shipped.iq`). Re-export if any source changes first ([`../docs/development.md`](../docs/development.md); `dist/` holds only the current export; `bin/` is scratch). 1.1.1 was uploaded from `bin/HeroSet-store-next.iq` (exported 2026-09-24, 126 device variants, includes the 13 touch-first products). Never upload `bin/HeroSet-store-1.0.0-shipped.iq`.
 
 ## Form limits and options
 
 Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version 20.
 
-- **Category options:** Beliefs, Business, Celestial, Communication, Education, Entertainment, Finance, Food & Drink, Games, Golf, Health & Fitness, Home Automation, Lifestyle, Marine, Medical, Navigation, Social, Sports, Strength Training, Tools, Travel, Weather, Wellness. The API read 219 (Health & Fitness) on 2026-09-25: see the open item in [`../docs/go-to-market.md`](../docs/go-to-market.md).
+- **Category options:** Beliefs, Business, Celestial, Communication, Education, Entertainment, Finance, Food & Drink, Games, Golf, Health & Fitness, Home Automation, Lifestyle, Marine, Medical, Navigation, Social, Sports, Strength Training, Tools, Travel, Weather, Wellness. The API read 219 (Health & Fitness) on 2026-09-25: see the open item in [`../docs/status.md`](../docs/status.md).
 - **Subcategory options:** Cycling, Geocaching, Hiking, Other, Running, Swimming, Walking. No strength option.
 
 ## Why each answer

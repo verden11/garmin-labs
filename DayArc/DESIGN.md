@@ -30,9 +30,9 @@ the hero's type, colour, or position.
 **Status 2026-09-28, built:** ADR-013's redesign is now in `source/` (was mockup-only when this
 section was first written; that status paragraph is superseded, kept below for the record of what
 "approved" meant before it was built). Simulator-tested on fr965/approachs50/venusq2/venux1, both
-jungles (`docs/plan.md` "Implementation status"); the full 69-product compile sweep runs alongside
+jungles (`docs/archive/plan.md` "Implementation status"); the full 69-product compile sweep runs alongside
 this build. **Still no real-device evidence and no owner screenshot review of the actual build** —
-`docs/publish-checklist.md` gate 4 stays open for that specifically; a mockup or a simulator render
+`docs/status.md` gate 4 stays open for that specifically; a mockup or a simulator render
 is not device proof, same rule as everywhere else in this studio.
 
 **Status, after the owner's first wrist photo (FR965, evening, 2026-09-28) — the project's first
@@ -333,11 +333,11 @@ gauge's dim-above-threshold tier re-encoding Garmin's own stress band as a brigh
 chord-math gap (grid only, not the rest of the frame), the grid's unreserved label/value widths, the
 grid-capacity/column-width inconsistency, a raw Garmin string (training status) that could smuggle
 in a banned word, and the clock competing with the hero at full brightness. All 8 fixed in source
-(see `docs/decisions.md` ADR-006, `docs/plan.md` "Implementation status"); re-review not yet re-run
+(see `docs/decisions.md` ADR-006, `docs/archive/plan.md` "Implementation status"); re-review not yet re-run
 to confirm `disposition: ship`. Still open: the grid's fixed-cell-font trade-off (above) wasn't
 flagged as wrong, just noted as a deliberate trade — stands as documented.
 
-**Owner look-approval (`docs/publish-checklist.md` gate 4), 2026-09-28:** the icon/colour direction
+**Owner look-approval (`docs/status.md` gate 4), 2026-09-28:** the icon/colour direction
 in ADR-013 was approved by the owner across several iterations of an HTML/SVG mockup (Claude
 Artifact "Design" canvas), each round screenshot-verified in a real browser rather than just read as
 markup — that verification step is what caught the Pro grid overflowing its own circle (last row

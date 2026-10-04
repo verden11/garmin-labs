@@ -1,6 +1,6 @@
 # Two Suns listing — notes
 
-What sits behind [`README.md`](README.md), the paste-ready copy. Nothing here is pasted into the form. Claims and gates: [`../docs/spec.md`](../docs/spec.md) ("Claims that may be made") and [`../docs/release-contract.md`](../docs/release-contract.md). Release history: [`../CHANGELOG.md`](../CHANGELOG.md) (an entry is due with every store publication: version, upload date, user-facing changes, ADRs; the previous What's New block then moves here, and the App Version field is bumped).
+What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Claims and gates: [`../docs/spec.md`](../docs/spec.md) ("Claims that may be made") and [`../docs/release-contract.md`](../docs/release-contract.md). Release history: [`../CHANGELOG.md`](../CHANGELOG.md) (an entry is due with every store publication: version, upload date, user-facing changes, ADRs; the previous What's New block then moves here, and the App Version field is bumped).
 
 Written 2026-09-26 (plan phase 8); text finalised 2026-09-27 (name, category, price, "collects user data" all confirmed by the owner; see the table below). **No screenshot of the face exists** (the environment that wrote this cannot capture the simulator; the owner will supply images later). Two device checks have run on the owner's FR965 (sunrise/sunset match, Positioning); nothing else has run on a watch. The site pages are written and build in a scratch copy; they are not deployed.
 
@@ -36,7 +36,7 @@ Written 2026-09-26 (plan phase 8); text finalised 2026-09-27 (name, category, pr
 
 Spec D7: if the on-watch probe without Positioning still gets a location from an activity or the weather, the permission is dropped and the listing says so. Places that state the current truth (Positioning declared) and must change together, in the same session:
 
-1. `../listing/README.md` description, paragraph "Permissions, and your place": remove "and Positioning (the last location the watch already knows)", change to two permissions; say the location comes from the watch's activity or weather data if that is what the probe showed.
+1. `../listing/paste.md` description, paragraph "Permissions, and your place": remove "and Positioning (the last location the watch already knows)", change to two permissions; say the location comes from the watch's activity or weather data if that is what the probe showed.
 2. `site/src/apps/two-suns/facts.ts`: delete the `Positioning` entry of `permissions` (the privacy page's count and list follow).
 3. `site/src/apps/two-suns/Privacy.tsx`: the "Location" section says the face "reads the last location your watch already knows"; reword to the source the probe proved. The "In short" count follows `permissions.length`.
 4. `site/src/apps/two-suns/Landing.tsx` (fact "Your place stays on the watch") and `Support.tsx` ("No place yet") describe the place, not the permission, and normally stay as they are.
@@ -96,7 +96,7 @@ None (1.0.0 is the first).
 
 ## Pro 1.1.0: draft What's New and edits (UNRELEASED, proposed under ADR-020 (Free + Pro ladder), nothing uploaded)
 
-Not in `README.md` on purpose: that file is the paste-ready copy of the prepared 1.0.1, and nothing for 1.1.0 is approved. On upload (publish-checklist gate F9), move the then-current What's New block here to history and paste these. Names, the price and the sibling URL are the owner's decisions; the strings below are the plan's placeholders.
+Not in `paste.md` on purpose: that file is the paste-ready copy of the prepared 1.0.1, and nothing for 1.1.0 is approved. On upload (status.md gate F9), move the then-current What's New block here to history and paste these. Names, the price and the sibling URL are the owner's decisions; the strings below are the plan's placeholders.
 
 - **Title**: `Two Suns Pro` (placeholder; the owner decides and may add device or feature tokens within the 50 characters).
 - **Description line 1** (new): `Also available: Two Suns, a lighter version: <FREE STORE URL: owner fills in once that listing is live>` (no "free" wording in the paid listing: release contract). The rest of the description is unchanged: it already describes only what Pro has (the curve, the place-based sun, golden hour, the date, ring orientation, six accents). Add the Free sibling in a "More from Verden" block only if the owner wants it.

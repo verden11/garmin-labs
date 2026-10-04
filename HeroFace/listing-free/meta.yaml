@@ -1,0 +1,35 @@
+# Listing metadata. The copy-and-paste text is paste.md; why each answer is what it is, and history, are in NOTES.md.
+# Dates are ISO; null = not yet, or not recorded. Update this file (not paste.md) when a version is uploaded or approved.
+app: HeroFace (Free)
+folder: HeroFace/listing-free
+tier: free
+app_id: be68898f-995b-45d9-860e-42ad508bd7fd
+store:
+  listing_url: null
+  developer_url: null
+live:
+  version: null
+  since: null
+  note: a new app, not yet uploaded
+next:
+  version: "1.0.0"
+  status: drafted   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: "the Free twin: everyday and HeroSet mode, accent colour; names, titles, store URLs and price are the owner's decisions"
+package:
+  file: dist/HeroFaceFree.iq
+  products: 124
+  exported: null
+  note: a new app id; export with tools/check_free_package.sh --build
+price: free
+limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
+assets:
+  cover: null
+  hero: null
+  screens: screens/ (2026-10-04 simulator captures)
+  screenshots_doc: screenshots.md
+site:
+  landing: https://verden.watch/heroface/
+  support: https://verden.watch/heroface/support/
+  privacy: https://verden.watch/heroface/privacy/
+open_items: "2.3 2.5 5.2 5.3 5.6"   # ids in ROADMAP.md

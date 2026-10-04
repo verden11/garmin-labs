@@ -10,8 +10,8 @@ review 45 days after store approval (spec "Price review"; ADR-002, the price and
 same source, split at compile time with `(:pro)` / `(:free)`. Free: Event, Name, Month, Day, Year, Unit, Date style, Accent (ids 0 to 5). Pro adds Hour (timed events) and Footer (battery or steps). Names, prices, icon, uploads are the owner's.
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (the product and its rules),
-[`docs/plan.md`](docs/plan.md) (what is built and what is left, with the owner-only steps),
-[`docs/publish-checklist.md`](docs/publish-checklist.md) (when and how to publish), [`docs/decisions.md`](docs/decisions.md) (ADRs), [`docs/compatibility.md`](docs/compatibility.md).
+[`docs/status.md`](docs/status.md) (state, gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md)), [`docs/archive/plan.md`](docs/archive/plan.md) (what is built and what is left, with the owner-only steps),
+[`docs/decisions.md`](docs/decisions.md) (ADRs), [`docs/compatibility.md`](docs/compatibility.md).
 The evidence is in [`../reports/Countdown face research.md`](../reports/Countdown%20face%20research.md).
 
 ## Fast facts
@@ -53,7 +53,7 @@ Same as HeroFace ([`../HeroFace/CLAUDE.md`](../HeroFace/CLAUDE.md)), which this 
 - Behaviour change → `docs/spec.md` (and `DESIGN.md` if visual) in the same session; a durable decision → an ADR in `docs/decisions.md`.
 - New layout or string → run the screen-fit test for each screen size and update `docs/compatibility.md`.
 - User-facing claims live in the listing and `../site/src/apps/days-to-go/`; change both together, never change a published URL.
-- Every store publication gets a `CHANGELOG.md` entry and a What's New block in `listing/README.md`.
+- Every store publication gets a `CHANGELOG.md` entry and a What's New block in `listing/paste.md`.
 - Test count appears in `README.md` and here: **Pro 51, Free 52** on round and rectangular products (48 shared + 2 Pro-only / + 3 Free-only, + the Instinct layout test), **Pro 49, Free 50** on an Instinct (the colour-only accent tests drop, a mono one joins), simulator tests PASSED 2026-10-03 (fr965, fr55, venusq2 and the 7 Instinct products; no wrist); update both.
 - **Instinct family (ADR-015, proposed; 7 products, 1-bit, a round window top right):** `DaysToGoPalette` is two classes, `(:color)` and `(:mono)`, chosen by the jungles (`base.excludeAnnotations = <tier>;mono`, and per Instinct product `<product>.excludeAnnotations = <tier>;color` — a per-product line **replaces** the base list, so restate the tier's own). The Accent setting is its own file (`resources-accent-<tier>/settings/accent.xml`, from `tools/gen_settings.py`) and the Instinct `resourcePath` leaves that folder out. The visible area is a circle about 98 px in radius (`DaysToGoLayout.VISIBLE_RADIUS_PX`), not the whole square: **screenshot the simulator for every layout change** (`docs/development.md` "Screenshots").
 - A new language: its line in **both** manifests and **both** jungles; its folder must not define `AppName` (`python3 tools/check_strings.py`).

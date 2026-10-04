@@ -1,0 +1,35 @@
+# Listing metadata. The copy-and-paste text is paste.md; why each answer is what it is, and history, are in NOTES.md.
+# Dates are ISO; null = not yet, or not recorded. Update this file (not paste.md) when a version is uploaded or approved.
+app: HeroFace (paid; becomes HeroFace Pro)
+folder: HeroFace/listing
+tier: paid
+app_id: 8cd8f7f5-2169-42a6-b6c2-c1e797e2f313
+store:
+  listing_url: "https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116"
+  developer_url: null
+live:
+  version: 1.0.1
+  since: 2026-09-24
+  note: live on the FR965 store install 2026-09-26
+next:
+  version: "1.1.0"
+  status: drafted   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: "Free + Pro ladder (proposed, ADR-001): the paid app is renamed HeroFace Pro; plus the Instinct family (ADR-002, 124 products). Nothing approved or uploaded"
+package:
+  file: dist/HeroFacePro.iq
+  products: 124
+  exported: null
+  note: export with tools/check_free_package.sh --build; the live 1.0.1 package is the old dist/HeroFace.iq
+price: paid, USD 2.00 (the lowest tier); Pro price is OD4
+limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
+assets:
+  cover: cover-500.png
+  hero: hero-1440x720.png
+  screens: screens/ (5 FR965/simulator shots uploaded; new-*.png are 2026-10-04 simulator captures)
+  screenshots_doc: screenshots.md
+site:
+  landing: https://verden.watch/heroface/
+  support: https://verden.watch/heroface/support/
+  privacy: https://verden.watch/heroface/privacy/
+open_items: "2.3 2.5 5.1 5.2 5.3 5.5 5.6 11.1"   # ids in ROADMAP.md

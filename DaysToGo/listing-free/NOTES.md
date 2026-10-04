@@ -1,6 +1,6 @@
 # Days To Go (Free) listing: notes
 
-What sits behind [`README.md`](README.md), the paste-ready copy. Nothing here is pasted into the form. Status 2026-10-01: **draft, UNRELEASED, simulator only, nothing uploaded**; built against the Free + Pro plan (WP4 step 6 and the WP10 description skeleton, `../../reports/Free and Pro ladder execution plan.md`). Decision record: ADR-014 (Free + Pro ladder, proposed) in [`../docs/decisions.md`](../docs/decisions.md). Claims are checked against [`../docs/release-contract.md`](../docs/release-contract.md), which now has a "Free and Pro listings" section.
+What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Status 2026-10-01: **draft, UNRELEASED, simulator only, nothing uploaded**; built against the Free + Pro plan (WP4 step 6 and the WP10 description skeleton, `../../reports/Free and Pro ladder execution plan.md`). Decision record: ADR-014 (Free + Pro ladder, proposed) in [`../docs/decisions.md`](../docs/decisions.md). Claims are checked against [`../docs/release-contract.md`](../docs/release-contract.md), which now has a "Free and Pro listings" section.
 
 ## Owner decisions (not made here)
 
@@ -32,7 +32,7 @@ What sits behind [`README.md`](README.md), the paste-ready copy. Nothing here is
 | The device sentence | **Not in the paste-ready text.** It is a to-verify note (below): no device claim goes in until the store shows the Free listing's real device list |
 | The review request | **Not in the paste-ready text.** The plan's WP10 skeleton has a one-sentence review request, but the release contract does not list it as an allowed claim; the owner decides whether to add one (for example "If this face works for you, a rating in the store helps other people find it.") |
 
-Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any watch count, download, rating or review number, "the only countdown with no permissions", "works on every watch", rivals by name, "set it on your watch" (the beta round trip T4 is still open, `../docs/publish-checklist.md`).
+Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any watch count, download, rating or review number, "the only countdown with no permissions", "works on every watch", rivals by name, "set it on your watch" (the beta round trip T4 is still open, `../docs/status.md`).
 
 ## To verify after approval (not paste-ready)
 

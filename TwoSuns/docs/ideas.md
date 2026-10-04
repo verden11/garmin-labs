@@ -1,6 +1,6 @@
 # Feature ideas
 
-Status: 2026-09-27. Candidate features for after v1 ships — not open items, not scheduled. [`plan.md`](plan.md) phase 9 (device evidence) and submission come first; nothing here is built. A durable decision made from one of these gets an ADR in [`decisions.md`](decisions.md) and moves into `plan.md`'s Tier B / phase 10 backlog; this entry then says so.
+Status: 2026-09-27. Candidate features for after v1 ships — not open items, not scheduled. [`archive/plan.md`](archive/plan.md) phase 9 (device evidence) and submission come first; nothing here is built. A durable decision made from one of these gets an ADR in [`decisions.md`](decisions.md) and moves into `plan.md`'s Tier B / phase 10 backlog; this entry then says so.
 
 ---
 

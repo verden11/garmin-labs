@@ -2,7 +2,7 @@ import type { Screenshot } from '../types.ts'
 
 // HeroSet's Instinct support (ADR-055) is merged but not uploaded to the store yet.
 // Flip this to true in the commit that follows the approved Instinct upload
-// (HeroSet docs/go-to-market.md F), so the site never claims a watch the store does not list.
+// (HeroSet docs/status.md F), so the site never claims a watch the store does not list.
 export const instinctLive = false
 
 // Mirrors HeroSet docs/compatibility.md; update both together.

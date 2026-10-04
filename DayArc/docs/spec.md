@@ -3,9 +3,9 @@
 Name: **DayArc** (free) / **DayArc Pro** (paid) — confirmed by store-collision and general web
 check, no registered-trademark search (`docs/decisions.md` ADR-012).
 
-Written from [`Time of day adaptive watch face.md`](../../reports/Time%20of%20day%20adaptive%20watch%20face.md)
+Written from [`Time of day adaptive watch face.md`](../../reports/archive/Time%20of%20day%20adaptive%20watch%20face.md)
 (sourced notes: `research_notes/Time of day adaptive watch face/`) and its successor,
-[`DayArc v1 scope and plan.md`](../../reports/DayArc%20v1%20scope%20and%20plan.md), which corrects
+[`DayArc v1 scope and plan.md`](../../reports/archive/DayArc%20v1%20scope%20and%20plan.md), which corrects
 the original report's data-source and calendar-feasibility claims after an adversarial review and a
 full `Toybox.Complications` catalog check. The original report's competitive/wording/craft research
 stands; its technical/scope claims are superseded by the plan doc and by this spec.

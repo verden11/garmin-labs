@@ -2,7 +2,7 @@
 
 Status: 2026-09-26. Candidate features, ranked by value per unit of cost.
 
-**Not open items.** Nothing here is committed, scheduled or blocking; [`go-to-market.md`](go-to-market.md) stays the only home for open items. Connect sync (1.3.0) is shelved, [ADR-054](decisions.md#adr-054); nothing here depends on it shipping. Anything that graduates gets an ADR in [`decisions.md`](decisions.md) and moves to the go-to-market backlog; the entry here then says so.
+**Not open items.** Nothing here is committed, scheduled or blocking; [`status.md`](status.md) is not the home for open items either: the root ROADMAP.md is. Connect sync (1.3.0) is shelved, [ADR-054](decisions.md#adr-054); nothing here depends on it shipping. Anything that graduates gets an ADR in [`decisions.md`](decisions.md) and moves to the go-to-market backlog; the entry here then says so.
 
 Every idea is checked against [`release-contract.md`](release-contract.md) (forbidden claims), [ADR-029](decisions.md#adr-029) (no long-press gestures), [ADR-044](decisions.md#adr-044) (the complication field order HeroFace depends on) and the store build's `Sensor` + `ComplicationPublisher` permissions ([ADR-033](decisions.md#adr-033)). Where one of those is the real cost, the entry says it.
 

@@ -30,7 +30,7 @@ Of 21 HeroSet, 12 HeroFace and 15 website findings in the fix list, all are fixe
 | # | Sev | Status | Evidence at HEAD |
 |---|---|---|---|
 | S1 uncaught `updateComplication` | High | FIXED | `HeroSet/source/app/HeroSetComplicationPublisher.mc:29-31` `try ... catch (e instanceof Lang.OperationNotAllowedException)`; ADR-044 last bullet |
-| S2 d2airx10 START dead on dashboard | Med | FIXED in code, N/V on device | `HeroSet/source/app/HeroSetDelegate.mc:33-34` `onKey` -> `isStart ? onMenu()`. Simulator key map only; device check B3 still unticked (`HeroSet/docs/go-to-market.md:31`) |
+| S2 d2airx10 START dead on dashboard | Med | FIXED in code, N/V on device | `HeroSet/source/app/HeroSetDelegate.mc:33-34` `onKey` -> `isStart ? onMenu()`. Simulator key map only; device check B3 still unticked (`HeroSet/docs/status.md:31`) |
 | S3 untyped store/app/sensor members | Med | FIXED | `HeroSetStore.mc:36,37,40`, `HeroSetApp.mc:7-8`, `HeroSetSensorManager.mc:6` all `as` typed |
 | S4 storage seam `Lang.Object` | Med | FIXED | `HeroSetStorage.mc:12,16`, `HeroSetPersistentStorage.mc:14,18`, `HeroSetStore.mc:276` use `Storage.ValueType` |
 | S5 write-failure flag cleared by later writes | Med | FIXED (catch still broad) | `HeroSetStore.mc:82,176` reset only at start of `add`/`setGoal`; `_set` (276-282) only sets true and `println`s; test `HeroSetStoreWriteTest.mc:28`; ADR-010 amended. Catch is deliberately still catch-all (documented) |
@@ -48,7 +48,7 @@ Of 21 HeroSet, 12 HeroFace and 15 website findings in the fix list, all are fixe
 | S17 goal exit test + log format | Low | FIXED | `HeroSetExitMenuTest.mc:25-29`; `HeroSetStore.mc:237` `format("%04d")` |
 | S18 `prepare()` length, test file budget | Low | FIXED (trivial drift) | `HeroSetMenuDelegate.mc:18-46` split into `stampSync`/`stampProgress`; `architecture.md:188` says test file 377 lines, it is now 378 |
 | S19 stale ADR/comment refs | Low | FIXED | ADR-010/044 read correct; no `ADR-029` in `HeroSetMissionBars`; publisher comment names `resources-complications/` |
-| S20 test counts | Low | PARTIAL | `HeroSet/CLAUDE.md:18`, `README.md:21`, `docs/development.md:37`, `CHANGELOG.md:21` say 99/88, but `HeroSet/docs/go-to-market.md:9` still says 94/85 (open item D1, `go-to-market.md:39`). Static grep of `(:test` gives 104 including 5 helper annotations, consistent with 99 but not proof; only the runner's `PASSED` line counts |
+| S20 test counts | Low | PARTIAL | `HeroSet/CLAUDE.md:18`, `README.md:21`, `docs/development.md:37`, `CHANGELOG.md:21` say 99/88, but `HeroSet/docs/status.md:9` still says 94/85 (open item D1, `go-to-market.md:39`). Static grep of `(:test` gives 104 including 5 helper annotations, consistent with 99 but not proof; only the runner's `PASSED` line counts |
 | S21 fit-sweep tooling | Low | FIXED | `HeroSet/tools/fit-sweep.sh`; `docs/development.md:35` |
 | UI-F1 hint clipping in translated SWIPE hints | Med (unverified) | STALE/closed | Review itself says the sweep showed every hint fits in 15 languages. `HeroSetDraw.hint` (`HeroSetDraw.mc:52-59`) still has no fallback wording by design; `fit-sweep.sh` is the gate |
 
@@ -81,7 +81,7 @@ Lower-ranked HeroSet items that were in the notes but not in the fix table:
 
 | # | Sev | Status | Evidence at HEAD |
 |---|---|---|---|
-| F1 original-Venu 3-minute pixel rule | High, unverified | OPEN | `HeroFace/source/HeroFaceSleep.mc:14-19` unchanged: dx moves every minute, dy every 3 minutes, +-4 px (`HeroFaceConfig.mc:52-53`), `FONT_NUMBER_MEDIUM`. `HeroFace/docs/compatibility.md:53-55` now states the sleep screen is "unchecked" against the rule; `HeroFace/docs/go-to-market.md:14` item 6 lists the heat map. SDK FAQ quote and menu path re-verified (see below) |
+| F1 original-Venu 3-minute pixel rule | High, unverified | OPEN | `HeroFace/source/HeroFaceSleep.mc:14-19` unchanged: dx moves every minute, dy every 3 minutes, +-4 px (`HeroFaceConfig.mc:52-53`), `FONT_NUMBER_MEDIUM`. `HeroFace/docs/compatibility.md:53-55` now states the sleep screen is "unchecked" against the rule; `HeroFace/docs/status.md:14` item 6 lists the heat map. SDK FAQ quote and menu path re-verified (see below) |
 | F2 nullable `complicationId` | Med | FIXED | `HeroFaceLink.mc:29-43` null guard plus `try`; `exitTo` also in `try` |
 | F3 dead "HeroSet" mode | Med | FIXED | `settings.xml` lists only values 0 and 1; `MODE_HEROSET` removed; stored 2 reads as Auto (plan.md:80); Connect display for such a user unchecked (go-to-market item 4) |
 | F4 link found only at start | Med | FIXED in code, N/V on device | `HeroFaceView.mc:75-76` calls `_link.start()` each minute while unlinked (inside the `onUpdate` path); battery/watchdog cost of `getComplications()` per minute unmeasured |
@@ -94,13 +94,13 @@ Lower-ranked HeroSet items that were in the notes but not in the fix table:
 | F11 seconds box, slot re-resolve | Low | PARTIAL by decision | `HeroFaceClock.mc:20-21` measures "88" and "00"; slots still resolve at start/settings change only (declared unnecessary) |
 | F12 test gaps | Low | PARTIAL | negative-field test added (`HeroFaceLogicTest.mc:154`); settings-fallback test skipped (claim: Properties rejects wrong types); no tests for link uninstall, `dayKey`, sleep offsets, metric chains |
 
-Other HeroFace notes items: sleep screen and `onPartialUpdate` bypass `HeroFaceDraw.text`, so fit tests never cover them (also `reports/Improvements backlog.md` item 1; OPEN). Header comment in `HeroFaceSleep.mc:5-7` says the block "steps across a 3 x 3 grid once a minute", which overstates: only x moves each minute (OPEN, wording). Peak memory on a 96 KB product and partial-update cost still unmeasured (go-to-market gate 4, OPEN). Lenient `String.toNumber` and uninstall-path behaviour on device: unverified (OPEN, low). HeroFace 1.0.1 (carries F2/F3/F4/F10) is recorded as uploaded 2026-09-24 but the store API still served 1.0.0 at the 2026-09-25 check (`HeroFace/docs/go-to-market.md:19,21`).
+Other HeroFace notes items: sleep screen and `onPartialUpdate` bypass `HeroFaceDraw.text`, so fit tests never cover them (also `reports/Improvements backlog.md` item 1; OPEN). Header comment in `HeroFaceSleep.mc:5-7` says the block "steps across a 3 x 3 grid once a minute", which overstates: only x moves each minute (OPEN, wording). Peak memory on a 96 KB product and partial-update cost still unmeasured (go-to-market gate 4, OPEN). Lenient `String.toNumber` and uninstall-path behaviour on device: unverified (OPEN, low). HeroFace 1.0.1 (carries F2/F3/F4/F10) is recorded as uploaded 2026-09-24 but the store API still served 1.0.0 at the 2026-09-25 check (`HeroFace/docs/status.md:19,21`).
 
 **Website (W1-W15)**
 
 | # | Sev | Status | Evidence at HEAD |
 |---|---|---|---|
-| W1 staged "80 watches" before store build | High (timing) | RESOLVED; the hold worked. Separate mismatch OPEN | HeroSet 1.1.1 live 2026-09-24 15:32 UTC = 18:32 +0300 (`HeroSet/CHANGELOG.md:7`, go-to-market:14). The 80-count reached `main` in `29c034d` at 23:53 +0300, i.e. after the store build was live, exactly as the review prescribed. What is open is different: the store API lists 66 of the 80 uploaded products (`HeroSet/docs/go-to-market.md:46`, "store-side device policy") and 69 of HeroFace's 117 while the site says 117 (`HeroFace/docs/go-to-market.md:19`). Decision C1 ("what does the site's 80 mean") still open |
+| W1 staged "80 watches" before store build | High (timing) | RESOLVED; the hold worked. Separate mismatch OPEN | HeroSet 1.1.1 live 2026-09-24 15:32 UTC = 18:32 +0300 (`HeroSet/CHANGELOG.md:7`, go-to-market:14). The 80-count reached `main` in `29c034d` at 23:53 +0300, i.e. after the store build was live, exactly as the review prescribed. What is open is different: the store API lists 66 of the 80 uploaded products (`HeroSet/docs/status.md:46`, "store-side device policy") and 69 of HeroFace's 117 while the site says 117 (`HeroFace/docs/status.md:19`). Decision C1 ("what does the site's 80 mean") still open |
 | W2 simulator overclaim (HeroFace) | Med | FIXED | `heroface/Landing.tsx:79`, `Support.tsx:66` say "every screen size passes". Wording is clumsy ("passes each screen check") but not an overclaim. HeroSet Landing:87 keeps "every other model passes" (true: per-product runs) |
 | W3 "no tapping"/goal wording | Med | FIXED | `heroset/Landing.tsx:15,44,68` |
 | W4 `.hero__reps` in band | Med | FIXED | `.band__figure` exists (`global.css:203`) |
@@ -120,7 +120,7 @@ Design/owner decisions: WCAG 2.2.2 pause control resolved by making each hero co
 
 ### Inferences
 - Static fixes are essentially complete; the residue is (a) things needing the simulator GUI or a watch, (b) owner decisions about public claims, (c) low-value hygiene the review itself said to do "only if touched".
-- The report's own limit stands: every "FIXED" above is verified from code and the recorded simulator evidence, not on a device. HeroSet 1.1.1 shipped with device checks deferred by owner call (`HeroSet/docs/go-to-market.md:51`, ADR-050), so S2, the ADR-048 `onKey` path and touch behaviour on 13 products are live but unverified on hardware.
+- The report's own limit stands: every "FIXED" above is verified from code and the recorded simulator evidence, not on a device. HeroSet 1.1.1 shipped with device checks deferred by owner call (`HeroSet/docs/status.md:51`, ADR-050), so S2, the ADR-048 `onKey` path and touch behaviour on 13 products are live but unverified on hardware.
 
 ### Gaps
 - I did not rebuild or re-run `-l 3`, the sweeps or the tests; counts (99/88, 16/16) are from docs.
@@ -140,7 +140,7 @@ Do the two zero-code checks first (Screen Heat Map on `venu`; site vs store devi
 | 2 | Site device counts vs store listing (HeroSet C1, HeroFace item 7): "80 watches" and "117 watches" vs 66 and 69 listed | 15 min copy + owner decision | Not the W1 timing problem: the products were uploaded, the store omits some (store-side policy, Garmin question A4). Options in C1: say "manifest count" or "N in the store today, see Compatible Devices". Store listings link these pages |
 | 3 | Enforce the CSP (rename header after deploy-preview console check, HeroSet C2) | 10 min | Makes the "no third-party scripts" privacy claim mechanical; one review item still half done |
 | 4 | Owed device/simulator checks: FR965 START finishes/saves (B1), `d2airx10` dashboard START and Menu2 (B3), `venu441mm` by hand (B2), HeroFace 1.0.1 relink, stored-mode-2, F to C rounding (item 4), confirm 1.0.1 is actually live | wear time | Converts the FIXED-in-simulator items into evidence; includes battery/watchdog cost of per-minute `find()` |
-| 5 | Doc drift batch: `HeroSet/docs/go-to-market.md:9` 94/85, `architecture.md:188` 377 lines, HeroFace `plan.md:31,89,164`, `go-to-market.md:52`, `HeroFaceSleep.mc:5-7` comment | 20 min | Cheap and the review's central theme; test counts live in five places and one always lags |
+| 5 | Doc drift batch: `HeroSet/docs/status.md:9` 94/85, `architecture.md:188` 377 lines, HeroFace `plan.md:31,89,164`, `go-to-market.md:52`, `HeroFaceSleep.mc:5-7` comment | 20 min | Cheap and the review's central theme; test counts live in five places and one always lags |
 | 6 | W14: recapture HeroFace screenshots at 454 px plus the Always-on shot (also feeds the store listing) | simulator session | Visible on a live page ("Screenshot pending") |
 | 7 | Native-speaker read of 1.1.1 touch hints (deu, lit, pol) plus Portuguese `RANK` | outside help | Strings shipped unreviewed (ADR-048/049) |
 | 8 | HeroFace: route sleep and `onPartialUpdate` text through `HeroFaceDraw.text` AND add harness cases (`reports/Improvements backlog.md` item 1); settings-fallback and sleep-offset tests | small | Swapping the call alone adds no coverage, because the harness never runs those paths |

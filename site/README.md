@@ -65,7 +65,7 @@ vite.config.ts          dev middleware that renders pages on request
 - `src/apps/heroface/facts.ts` mirrors HeroFace `docs/compatibility.md` (117 watches, 66 that can link to HeroSet) and the language list.
 - `src/apps/days-to-go/` has no `storeUrl` until the store approves the app (the page shows "Coming soon"); its `facts.ts` carries only the language list, no watch list, until a live store build exists. Slug has a hyphen: `dist/days-to-go/index.html` is verified.
 - `FacePreview.tsx` redraws the face in SVG from HeroFace's `HeroFaceLayout.mc` proportions; if the watch layout changes, update it.
-- Claims follow HeroFace `docs/go-to-market.md` ("Claims allowed and forbidden"). Screen checks cover every screen size, not every model: say so.
+- Claims follow HeroFace `docs/status.md` ("Claims allowed and forbidden"). Screen checks cover every screen size, not every model: say so.
 
 ## Two Suns specifics
 

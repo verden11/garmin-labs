@@ -197,8 +197,8 @@ HeroFace already sits on the best-evidenced gap (one honest $2.00 price, per-siz
 [B/trends]: /Users/mbp/dev/garmin/research_notes/Garmin%20IQ%20store%20face%20gaps/trends.md
 [B/mkt]: /Users/mbp/dev/garmin/research_notes/Garmin%20IQ%20store%20face%20gaps/marketing.md
 [B/popular]: /Users/mbp/dev/garmin/research_notes/Garmin%20IQ%20store%20face%20gaps/popular_faces.md
-[GTM]: /Users/mbp/dev/garmin/HeroFace/docs/go-to-market.md
-[PLAN]: /Users/mbp/dev/garmin/HeroFace/docs/plan.md
+[GTM]: /Users/mbp/dev/garmin/HeroFace/docs/status.md
+[PLAN]: /Users/mbp/dev/garmin/HeroFace/docs/archive/plan.md
 [store API pull]: https://apps.garmin.com/api/appsLibraryExternalServices/api/asw/apps?startPageIndex=0&pageSize=30&sortType=mostPopular&countryCode=US&appType=WATCHFACE
 [store API pull, 2026-09-25]: https://apps.garmin.com/api/appsLibraryExternalServices/api/asw/apps?startPageIndex=0&pageSize=30&sortType=mostPopular&countryCode=US&appType=WATCHFACE
 [rendered compatible-devices page]: https://developer.garmin.com/connect-iq/compatible-devices/

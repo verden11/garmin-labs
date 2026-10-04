@@ -7,7 +7,7 @@ windows with a denser field grid under each hero read.
 
 Status: unbuilt on any real device; simulator-tested (compile sweep both densities, all 72
 products; render/test exercised on 4 representative devices). See
-[`docs/plan.md`](docs/plan.md) "Implementation status" for exactly what that does and doesn't
+[`docs/archive/plan.md`](docs/archive/plan.md) "Implementation status" for exactly what that does and doesn't
 cover.
 
 ## Layout
@@ -22,6 +22,6 @@ cover.
 - `CHANGELOG.md` — one entry per store publication, either listing.
 
 See [`docs/spec.md`](docs/spec.md) for what this app does,
-[`docs/plan.md`](docs/plan.md) for implementation status,
-[`docs/publish-checklist.md`](docs/publish-checklist.md) for what's left before either listing can
+[`docs/archive/plan.md`](docs/archive/plan.md) for implementation status,
+[`docs/status.md`](docs/status.md) for what's left before either listing can
 ship.

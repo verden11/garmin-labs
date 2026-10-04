@@ -1,25 +1,18 @@
 # HeroSet docs
 
-Resuming? Read [`go-to-market.md`](go-to-market.md) first (open items), then [`architecture.md`](architecture.md) and the five flagged ADRs in [`decisions.md`](decisions.md).
+Open work is in the root [`ROADMAP.md`](../../ROADMAP.md), never here. Rules for agents: [`../CLAUDE.md`](../CLAUDE.md).
 
 | Doc | What |
 |---|---|
-| [`go-to-market.md`](go-to-market.md) | Status, open items, launch gates. Only home for blockers |
-| [`architecture.md`](architecture.md) | Structure, layers, modules, data flow, navigation, debt |
-| [`decisions.md`](decisions.md) | Why: ADRs, append-only |
-| [`input-and-ux.md`](input-and-ux.md) | What each screen shows, what every button does |
-| [`development.md`](development.md) | Build, test, sign, device crash logs |
-| [`testing-plan.md`](testing-plan.md) | What's tested where |
-| [`release-contract.md`](release-contract.md) | Allowed/forbidden claims; check before user-facing copy |
-| [`compatibility.md`](compatibility.md) | Supported watches, why others aren't, adding one |
-| [`connect-sync-plan.md`](connect-sync-plan.md) | Connect sync: limits, behavior, device acceptance — shelved, ADR-054 |
-| [`instinct-mockup.html`](instinct-mockup.html) | Instinct 2 dashboard/workout mockup (approved look, ADR-055) |
-| [`validation-log.md`](validation-log.md) | On-watch accuracy trial data |
-| [`battery.md`](battery.md) | Battery analysis + measurement plan (post-launch) |
-| [`ideas.md`](ideas.md) | Candidate features, ranked. Not open items |
-| [`../listing/README.md`](../listing/README.md) | Store listing: paste-ready form values (`README.md`), notes on economics, limits and history (`NOTES.md`); images beside them |
-| [`../CHANGELOG.md`](../CHANGELOG.md) | One entry per store publication |
-| [`../PRODUCT.md`](../PRODUCT.md) | Product truth for design work (Impeccable) |
-| `../site` | Public site: landing, support, privacy |
-
-Rules: behavior change → update its doc same session · durable decision → new ADR · status-dated docs bump their date · one fact, one home: link, don't copy.
+| [`status.md`](status.md) | Where things stand, evidence, launch gates, the checks to run |
+| [`architecture.md`](architecture.md) | Structure, layers, modules, data flow, navigation, debt (the spec of the code) |
+| [`input-and-ux.md`](input-and-ux.md) | Screens and buttons (the spec of the UX) |
+| [`decisions.md`](decisions.md) | ADRs (why); read the five flagged at the top |
+| [`compatibility.md`](compatibility.md) | Products, API levels, memory, evidence per device |
+| [`release-contract.md`](release-contract.md) | What may be claimed |
+| [`development.md`](development.md) | Commands, device debugging |
+| [`testing-plan.md`](testing-plan.md) | What is tested and how |
+| [`battery.md`](battery.md) | Battery impact analysis (nothing measured yet) |
+| [`validation-log.md`](validation-log.md) | Raw FR965 accuracy trial data for gate 2 |
+| [`ideas.md`](ideas.md) | Candidate features, ranked (not open items) |
+| [`archive/`](archive/) | Shelved and finished: the Connect sync plan, the Instinct mockup |

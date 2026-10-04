@@ -1,0 +1,35 @@
+# Listing metadata. The copy-and-paste text is paste.md; why each answer is what it is, and history, are in NOTES.md.
+# Dates are ISO; null = not yet, or not recorded. Update this file (not paste.md) when a version is uploaded or approved.
+app: DayArc (the free density; called Simple in the code)
+folder: DayArc/listing
+tier: free
+app_id: 56a7298c-dcbf-41ff-b013-9a073a59d2dd
+store:
+  listing_url: null
+  developer_url: null
+live:
+  version: null
+  since: null
+  note: never submitted
+next:
+  version: "1.0.0"
+  status: drafted   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: text drafted, not finalised; fields marked OWNER in paste.md are undecided; 72 products with the Instinct E and 3 Solar (ADR-015)
+package:
+  file: dist/DayArcSimple.iq
+  products: 72
+  exported: null
+  note: export with tools/check_package.sh --build
+price: free
+limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
+assets:
+  cover: null
+  hero: null
+  screens: screens/ (2026-10-04 simulator captures; no store assets yet)
+  screenshots_doc: screenshots.md
+site:
+  landing: https://verden.watch/day-arc/
+  support: https://verden.watch/day-arc/support/
+  privacy: https://verden.watch/day-arc/privacy/
+open_items: "1.1 1.4 1.5 1.7 1.8 1.9"   # ids in ROADMAP.md

@@ -10,14 +10,14 @@ toggle — deliberate, this platform's #1 complaint is settings not saving (ADR-
 exception is a single Accent colour list (ADR-014, owner-requested after first wear).
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (what it does, data sources, device reach),
-[`docs/plan.md`](docs/plan.md) (implementation status, what's simulator-only),
+[`docs/status.md`](docs/status.md) (state, gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md)), [`docs/archive/plan.md`](docs/archive/plan.md) (implementation status, what's simulator-only),
 [`docs/decisions.md`](docs/decisions.md) (14 ADRs, each with evidence and what reverses it),
-[`docs/publish-checklist.md`](docs/publish-checklist.md) (gates before either store upload),
+[`docs/status.md`](docs/status.md) (gates before either store upload),
 [`docs/release-contract.md`](docs/release-contract.md) (what may be claimed),
 [`docs/compatibility.md`](docs/compatibility.md), [`docs/development.md`](docs/development.md).
-The evidence is in [`../reports/DayArc v1 scope and plan.md`](../reports/DayArc%20v1%20scope%20and%20plan.md)
+The evidence is in [`../reports/DayArc v1 scope and plan.md`](../reports/archive/DayArc%20v1%20scope%20and%20plan.md)
 (supersedes the original report's technical/scope claims) and
-[`../reports/Time of day adaptive watch face.md`](../reports/Time%20of%20day%20adaptive%20watch%20face.md)
+[`../reports/Time of day adaptive watch face.md`](../reports/archive/Time%20of%20day%20adaptive%20watch%20face.md)
 (competitive/wording/craft research still stands).
 
 ## Fast facts

@@ -1,6 +1,6 @@
 # HeroFace (Free) listing: notes
 
-What sits behind [`README.md`](README.md), the paste-ready copy. Nothing here is pasted into the form. Status 2026-10-01: **draft, UNRELEASED, simulator tests passed (24 on each jungle on fr965, fenix5s, fr55, 2026-10-01), nothing uploaded, nothing on a wrist**; built against the Free + Pro plan (WP6 and the WP10 description skeleton, `../../reports/Free and Pro ladder execution plan.md`). Decision record: ADR-001 (Free + Pro ladder, proposed) in [`../docs/decisions.md`](../docs/decisions.md). Claims are checked against "Claims allowed and forbidden" in [`../docs/go-to-market.md`](../docs/go-to-market.md) (HeroFace has no separate release-contract file).
+What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Status 2026-10-01: **draft, UNRELEASED, simulator tests passed (24 on each jungle on fr965, fenix5s, fr55, 2026-10-01), nothing uploaded, nothing on a wrist**; built against the Free + Pro plan (WP6 and the WP10 description skeleton, `../../reports/Free and Pro ladder execution plan.md`). Decision record: ADR-001 (Free + Pro ladder, proposed) in [`../docs/decisions.md`](../docs/decisions.md). Claims are checked against "Claims allowed and forbidden" in [`../docs/status.md`](../docs/status.md) (HeroFace has no separate release-contract file).
 
 ## Owner decisions (not made here)
 
@@ -29,7 +29,7 @@ The rule "no Pro word in Free" (`../docs/decisions.md`, enforced by `tools/check
 | Bars fall back to what the watch measures | The fallback chains (`HeroFaceConfig.SLOT_CHAINS`), `fr245` run in the simulator (2026-09-22, Pro 1.0.1) |
 | A gold streak line counts days in a row | `HeroFaceStreak`, logic tests; unchanged by the split |
 | Blue, cyan or magenta accent | The Accent list, ids 0 to 2 in both tiers; `shippedAccentIdsKeepTheirColours` (passes in the simulator, both jungles). **Magenta misses the face's own 3:1 track rule (2.84:1): a known issue for the owner, no claim about it** |
-| HeroSet mode needs HeroSet installed; bars show reps, rank, streak; holding the face opens HeroSet; **Connect IQ 4.2+** | Plan "Two modes", the link on the FR965 from 2026-09-20 (**the paid app's id; the Free app id has never been tried against HeroSet's private complication**, `../docs/go-to-market.md` F7) |
+| HeroSet mode needs HeroSet installed; bars show reps, rank, streak; holding the face opens HeroSet; **Connect IQ 4.2+** | Plan "Two modes", the link on the FR965 from 2026-09-20 (**the paid app's id; the Free app id has never been tried against HeroSet's private complication**, `../docs/status.md` F7) |
 | "Without HeroSet, nothing is missing" | The same sentence the live Pro listing uses; Free shows everyday goals when no complication exists |
 | Dims to a quiet clock that shifts every minute on always-on watches | The always-on frame; **no ghosting or battery claim**, forbidden until measured |
 | "Up to a 466-pixel fēnix", "round watches" | Screen-fit on ten sizes (Pro build, simulator); the Free build's fit run is still to do |

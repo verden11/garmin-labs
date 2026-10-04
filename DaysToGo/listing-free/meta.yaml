@@ -1,0 +1,35 @@
+# Listing metadata. The copy-and-paste text is paste.md; why each answer is what it is, and history, are in NOTES.md.
+# Dates are ISO; null = not yet, or not recorded. Update this file (not paste.md) when a version is uploaded or approved.
+app: Days To Go (Free)
+folder: DaysToGo/listing-free
+tier: free
+app_id: 9fde2744-b0f4-4396-927d-e4c7d65bb119
+store:
+  listing_url: null
+  developer_url: null
+live:
+  version: null
+  since: null
+  note: a new app, not yet uploaded
+next:
+  version: "1.0.0"
+  status: drafted   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: the Free twin; names, titles, the Pro store URL and the price are the owner's decisions
+package:
+  file: dist/DaysToGoFree.iq
+  products: 127
+  exported: null
+  note: a new app id
+price: free
+limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
+assets:
+  cover: null
+  hero: null
+  screens: screens/ (2026-10-04 simulator captures)
+  screenshots_doc: screenshots.md
+site:
+  landing: https://verden.watch/days-to-go/
+  support: https://verden.watch/days-to-go/support/
+  privacy: https://verden.watch/days-to-go/privacy/
+open_items: "2.3 2.5 3.3 3.5 3.6"   # ids in ROADMAP.md

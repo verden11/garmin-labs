@@ -5,9 +5,9 @@ Garmin watch face (Connect IQ, Monkey C) from studio Verden. **"Two Suns" is con
 **Free + Pro (proposed, UNRELEASED, ADR-020 "Free + Pro ladder" and ADR-021 "Body Battery in Free"; the owner has not signed off, so ADR-002, the price and day-45 review, still governs):** the live paid app (`manifest.xml`, `monkey.jungle`, app id above) becomes **Two Suns Pro** 1.1.0, unchanged in behaviour except the weather row (below); a new **Free** twin (`manifest.free.xml`, `monkey.free.jungle`, app id `9d5735b5-ac4b-4fa8-86d3-eee0f4f83c04`, 1.0.0) is built beside it from the same source, split at compile time with `(:pro)` / `(:free)`. Free: the time, the 24-hour ring from Garmin's own sunrise and sunset, Garmin's Body Battery number, Accent (ids 0 to 5); permission `ComplicationSubscriber` only, no location, no stored place. Pro adds the energy curve (`SensorHistory`), the place-based sun (`Positioning`), golden hour, ring orientation, the date row and **the weather row** (ADR-022 (Weather row in Pro), proposed, built, UNRELEASED: `Toybox.Weather`, no permission; the now condition icon and feels-like number, three mono icons ahead to sunset, the next day after sunset; setting `Weather`), **the watch battery row** (ADR-023, Pro, setting `Battery`, drawn only where the chord has room) and a **bolt-gauge Body Battery glyph in both tiers** (ADR-023, replaces the level pill). Names, prices, icon, uploads are the owner's.
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (the product and its rules; "Built vs specified" lists what the build changed),
-[`docs/plan.md`](docs/plan.md) (state of each phase, what the build learned, the owner-only steps),
+[`docs/status.md`](docs/status.md) (state, gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md)), [`docs/archive/plan.md`](docs/archive/plan.md) (state of each phase, what the build learned, the owner-only steps),
 [`docs/decisions.md`](docs/decisions.md) (ADRs, each with its evidence level and what would reverse it),
-[`docs/publish-checklist.md`](docs/publish-checklist.md) (the gates before a store upload), [`docs/release-contract.md`](docs/release-contract.md) (what may be claimed), [`docs/compatibility.md`](docs/compatibility.md), [`docs/development.md`](docs/development.md), [`docs/ideas.md`](docs/ideas.md) (post-v1 candidates, none built).
+[`docs/status.md`](docs/status.md) (the gates before a store upload), [`docs/release-contract.md`](docs/release-contract.md) (what may be claimed), [`docs/compatibility.md`](docs/compatibility.md), [`docs/development.md`](docs/development.md), [`docs/ideas.md`](docs/ideas.md) (post-v1 candidates, none built).
 The evidence is in [`../reports/Body Battery and sun face research.md`](../reports/Body%20Battery%20and%20sun%20face%20research.md) and `../research_notes/Body Battery and sun face research/` (start with `platform.md`).
 
 ## Fast facts
@@ -32,7 +32,7 @@ The evidence is in [`../reports/Body Battery and sun face research.md`](../repor
 
 ## Open owner decisions
 
-Not decided, and not to be decided alone: the Free + Pro pair (ADR-020, Free + Pro ladder, and ADR-021, Body Battery in Free: names, prices, icon, uploads, whether the date row and ring orientation are Pro only, the empty Body Battery state's wording); the look (colours, glyph, layout, the rectangles) and the launcher icon (a generic placeholder now); the price flip rule; tier B (v1.1); screenshots (owner supplies); the site deploy; the store submission. Decided: the name (Two Suns, ADR-010), the category (Utility), the Positioning permission (kept; ADR-005), languages (ship all 15). Full list with gates: [`docs/publish-checklist.md`](docs/publish-checklist.md).
+Not decided, and not to be decided alone: the Free + Pro pair (ADR-020, Free + Pro ladder, and ADR-021, Body Battery in Free: names, prices, icon, uploads, whether the date row and ring orientation are Pro only, the empty Body Battery state's wording); the look (colours, glyph, layout, the rectangles) and the launcher icon (a generic placeholder now); the price flip rule; tier B (v1.1); screenshots (owner supplies); the site deploy; the store submission. Decided: the name (Two Suns, ADR-010), the category (Utility), the Positioning permission (kept; ADR-005), languages (ship all 15). Full list with gates: [`docs/status.md`](docs/status.md).
 
 Price: paid, USD 1.99, Garmin's first paid price step, same tier as Days To Go (spec D3, ADR-002).
 Approved 2026-09-28 (late afternoon, owner). Price review due 2026-11-12 (approval + 45 days) unless the Free + Pro ladder (OD2) retires it; the store price shows $2.25, a real Garmin tier.
@@ -57,7 +57,7 @@ Same as Days To Go ([`../DaysToGo/CLAUDE.md`](../DaysToGo/CLAUDE.md)) and HeroFa
 - New layout or string → run the screen-fit test for each screen size and update `docs/compatibility.md`. New string → `tools/check_strings.py`.
 - Settings change → `tools/gen_settings.py`, then `--check`.
 - User-facing claims live in the listing and `../site/src/apps/two-suns/`; change both together, never change a published URL. Check every claim against `docs/release-contract.md`.
-- Every store publication gets a `CHANGELOG.md` entry and a What's New block in `listing/README.md`.
+- Every store publication gets a `CHANGELOG.md` entry and a What's New block in `listing/paste.md`.
 - Test count appears in `README.md` and here: **Pro 154, Free 67** (60 shared, 94 Pro-only, 7 Free-only); both run 2026-10-03 in the container (Pro on nine devices, Free on two), simulator only; update both.
 - A new language: its line in **both** manifests and **both** jungles; its folder must not define `AppName` (`python3 tools/check_strings.py`). A new Pro-only function gets a `(:free)` twin or its callers are `(:pro)` too; a new test that touches Pro-only code is `(:test, :pro)`.
 - Edits outside `TwoSuns/` are limited to the root `CLAUDE.md` table row, the root `README.md`, and `site/`. Ask before touching `HeroSet/`, `HeroFace/` or `DaysToGo/`.

@@ -268,4 +268,4 @@ Feasible and cheap **without** the `Background` permission (unlike idea #4's nud
 ### Gaps
 - No evidence on whether at-risk cues raise retention for this audience; only competing apps' feature lists.
 - Best evening threshold unknown; would need user testing.
-- I did not check `docs/go-to-market.md` or the site pages for any claim that mentions glances.
+- I did not check `docs/status.md` or the site pages for any claim that mentions glances.

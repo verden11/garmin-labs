@@ -47,7 +47,7 @@ New files beside the five above (everyday mode only; HeroSet mode stays a watch 
 
 **Always on.** Capture it on the FR965, not the simulator: the sleep render is
 the one thing the simulator cannot vouch for, and it is what Garmin's burn-in
-rules apply to ([`docs/go-to-market.md`](../docs/go-to-market.md) §1).
+rules apply to ([`docs/status.md`](../docs/status.md) §1).
 
 ## Which source for which shot
 
@@ -83,4 +83,4 @@ monkeydo bin/HeroFace.prg fr965
 - Capture the real face, never a mock-up.
 - The numbers on screen must be ones the watch could actually produce.
 - No claim in the image that the listing itself could not make
-  ([`docs/go-to-market.md`](../docs/go-to-market.md)).
+  ([`docs/status.md`](../docs/status.md)).

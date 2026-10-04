@@ -27,7 +27,7 @@ Launch, menu entry points, each Finish → picker → save path, Back menus (Res
 
 ## Physical FR965
 
-Open checks live in [`go-to-market.md`](go-to-market.md) "Next session" B, C and E (glance); sync acceptance in [`connect-sync-plan.md`](connect-sync-plan.md). Crash logs: [`development.md`](development.md).
+Open checks live in [`status.md`](status.md) "Next session" B, C and E (glance); sync acceptance in [`connect-sync-plan.md`](archive/connect-sync-plan.md). Crash logs: [`development.md`](development.md).
 
 ## Not yet
 

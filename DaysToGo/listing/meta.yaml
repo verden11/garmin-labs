@@ -1,0 +1,35 @@
+# Listing metadata. The copy-and-paste text is paste.md; why each answer is what it is, and history, are in NOTES.md.
+# Dates are ISO; null = not yet, or not recorded. Update this file (not paste.md) when a version is uploaded or approved.
+app: Days To Go (paid; becomes Days To Go Pro)
+folder: DaysToGo/listing
+tier: paid
+app_id: 45fad8be-72b0-4c4b-8b8e-58d9924d622c
+store:
+  listing_url: null
+  developer_url: null
+live:
+  version: 1.0.1
+  since: 2026-09-28
+  note: 1.0.1 was submitted 2026-09-26 on top of 1.0.0; the app was approved 2026-09-28 and which version Garmin approved is not recorded
+next:
+  version: "1.1.0"
+  status: drafted   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: "Free + Pro ladder (proposed, ADR-014): renamed Days To Go Pro; plus the Instinct family (ADR-015, 127 products). Nothing approved or uploaded"
+package:
+  file: dist/DaysToGoPro.iq
+  products: 127
+  exported: null
+  note: dist/DaysToGo-1.0.1-submitted.iq is the paid 1.0.1 as submitted
+price: paid, USD 2.00 (USD 1.99 in the US), ADR-002; day-45 price review due 2026-11-12 unless OD2 retires it
+limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
+assets:
+  cover: cover-500.png (a direct face render, already uploaded with 1.0.1)
+  hero: hero-1440x720.png (draft, not uploaded)
+  screens: screens/ (1-countdown.png predates the split; 2026-10-04 captures beside it)
+  screenshots_doc: screenshots.md
+site:
+  landing: https://verden.watch/days-to-go/
+  support: https://verden.watch/days-to-go/support/
+  privacy: https://verden.watch/days-to-go/privacy/
+open_items: "2.3 2.5 3.1 3.4 3.5 3.6 11.1"   # ids in ROADMAP.md

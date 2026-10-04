@@ -3,7 +3,7 @@
 Research snapshot: **2026-09-26**. Store figures come from the Connect IQ store's own backend API; platform claims from the installed SDK 9.2.0
 documentation and from Garmin forum threads; code claims from a build-and-test run in the SDK 9.2.0 simulator. Every substantive claim carries its source in
 `research_notes/Countdown face research/`. The product it leads to is specified in [`DaysToGo/docs/spec.md`](../DaysToGo/docs/spec.md) and planned in
-[`DaysToGo/docs/plan.md`](../DaysToGo/docs/plan.md).
+[`DaysToGo/docs/archive/plan.md`](../DaysToGo/docs/archive/plan.md).
 
 ## What's in which file
 

@@ -1,7 +1,7 @@
 # HeroFace changelog
 
 One entry per Connect IQ Store publication, newest first. The store's
-"What's New" text for each version is in [`listing/README.md`](listing/README.md).
+"What's New" text for each version is in [`listing/paste.md`](listing/paste.md).
 
 ## Unreleased
 

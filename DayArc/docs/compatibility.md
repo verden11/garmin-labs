@@ -37,7 +37,7 @@ round AMOLED — also the device the full dev-loop above ran against),
 **approachs50** (390px — a small round AMOLED, but NOT the smallest round product: that is
 fr255s/fr255sm at 218px MIP, then fenix7s/fenix7spro at 240px, `../TwoSuns/docs/compatibility.md`),
 **venusq2**, **venux1** (the two rectangular shapes). All pass, both densities, zero warnings past
-the expected launcher-icon-scaling notice (real icons not supplied yet, `docs/publish-checklist.md`
+the expected launcher-icon-scaling notice (real icons not supplied yet, `docs/status.md`
 gate 11).
 
 **Not run:** the other 65 products' render/fit — compiled only. A full 69×2 render sweep would need

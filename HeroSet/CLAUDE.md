@@ -4,7 +4,7 @@ Garmin watch app (Forerunner 965 first, 80 round AMOLED + MIP watches supported,
 
 **`docs/` = source of truth; this file only orientation + house rules.** Resume order:
 
-1. [`docs/go-to-market.md`](docs/go-to-market.md): status, open + blocked items.
+1. [`docs/status.md`](docs/status.md): state, evidence, launch gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md).
 2. [`docs/architecture.md`](docs/architecture.md): structure, layers, navigation, known debt.
 3. [`docs/decisions.md`](docs/decisions.md): ADRs (why). Read five flagged at top.
 4. As needed: [`docs/input-and-ux.md`](docs/input-and-ux.md) (screens/buttons), [`docs/development.md`](docs/development.md) (commands, device debugging), [`docs/testing-plan.md`](docs/testing-plan.md), [`docs/release-contract.md`](docs/release-contract.md) (check before any user-facing claim).
@@ -42,7 +42,7 @@ Garmin watch app (Forerunner 965 first, 80 round AMOLED + MIP watches supported,
 - Behavior change → update doc describing it, same session.
 - Durable decision → new ADR at end of [`docs/decisions.md`](docs/decisions.md) (mark older ones Superseded/Amended; don't delete).
 - Refer to an ADR as a link, `[ADR-048](docs/decisions.md#adr-048)` (path relative to the file), and start each new ADR heading with `<a id="adr-NNN"></a>` so the anchor survives title edits.
-- Open items + blockers live only in [`go-to-market.md`](docs/go-to-market.md). History lives in git + ADRs, not status sections.
-- Status-dated docs ([`go-to-market.md`](docs/go-to-market.md), [`release-contract.md`](docs/release-contract.md), [`compatibility.md`](docs/compatibility.md), [`battery.md`](docs/battery.md), [`connect-sync-plan.md`](docs/connect-sync-plan.md)): bump date when editing.
-- Test count appears in this file, `README.md`, [`docs/development.md`](docs/development.md), [`docs/go-to-market.md`](docs/go-to-market.md) and [`CHANGELOG.md`](CHANGELOG.md) (the newest entry); update all five.
+- Open items live only in the root [`ROADMAP.md`](../ROADMAP.md); [`status.md`](docs/status.md) keeps state, evidence and gates. History lives in git + ADRs, not status sections.
+- Status-dated docs ([`status.md`](docs/status.md), [`release-contract.md`](docs/release-contract.md), [`compatibility.md`](docs/compatibility.md), [`battery.md`](docs/battery.md), [`connect-sync-plan.md`](docs/archive/connect-sync-plan.md)): bump date when editing.
+- Test count appears in this file, `README.md`, [`docs/development.md`](docs/development.md), [`docs/status.md`](docs/status.md) and [`CHANGELOG.md`](CHANGELOG.md) (the newest entry); update all five.
 - Prefer editing existing docs; genuinely new doc gets linked from [`docs/README.md`](docs/README.md).

@@ -1,6 +1,6 @@
 # Body Battery and sun face research
 
-Research snapshot: **2026-09-26**. Store figures come from the Connect IQ store's own backend API; platform claims from the installed SDK 9.2.0 documentation, from compiler and simulator probes written for this report, from Garmin's own pages, and from Garmin forum threads; sun-time accuracy from the US Naval Observatory. Every substantive claim carries its source in `research_notes/Body Battery and sun face research/`. The product it leads to is specified in [`TwoSuns/docs/spec.md`](../TwoSuns/docs/spec.md) and planned in [`TwoSuns/docs/plan.md`](../TwoSuns/docs/plan.md).
+Research snapshot: **2026-09-26**. Store figures come from the Connect IQ store's own backend API; platform claims from the installed SDK 9.2.0 documentation, from compiler and simulator probes written for this report, from Garmin's own pages, and from Garmin forum threads; sun-time accuracy from the US Naval Observatory. Every substantive claim carries its source in `research_notes/Body Battery and sun face research/`. The product it leads to is specified in [`TwoSuns/docs/spec.md`](../TwoSuns/docs/spec.md) and planned in [`TwoSuns/docs/archive/plan.md`](../TwoSuns/docs/archive/plan.md).
 
 ## What's in which file
 
