@@ -20,6 +20,9 @@ class DaysToGoLayout {
 
     // The stack spans this share of the content radius above and below the centre.
     private static const SPAN_PERMILLE = 800;
+    // A rectangle's rows are as tall as a round watch's (320 px: 39 px smallest font) but its circle is no bigger, so the stack
+    // runs closer to the ring's inside edge there. Every text is still measured against the chord, so none touches the ring (ADR-016).
+    private static const RECTANGLE_SPAN_PERMILLE = 900;
     private static const GAP_PERMILLE = 12;
 
     // The Instinct window sits in a bezel ring wider than itself (about 10 px at 176); the gauge's fill is a quarter of its radius.
@@ -60,6 +63,7 @@ class DaysToGoLayout {
     private var _d as Number;
     private var _radius as Number;
     private var _subscreen as Graphics.BoundingBox?;
+    private var _rectangle as Boolean;
     // The window's box as plain numbers (BoundingBox fields are nullable); all 0 and unused off the Instinct.
     private var _windowX as Number = 0;
     private var _windowY as Number = 0;
@@ -71,6 +75,7 @@ class DaysToGoLayout {
         _height = dc.getHeight();
         _d = _width < _height ? _width : _height;
         _radius = _d / 2;
+        _rectangle = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_RECTANGLE;
         // Asked of semi-octagon screens only (the Instinct's round window, ADR-015), so no round
         // product's geometry can depend on it.
         _subscreen = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_SEMI_OCTAGON && (WatchUi has :getSubscreen)
@@ -144,7 +149,7 @@ class DaysToGoLayout {
     // date, footer. Each argument is that row's height, 0 when the row is
     // absent. The hero takes everything between the name and the caption.
     function rows(timeH as Number, nameH as Number, captionH as Number, dateH as Number, footerH as Number) as DaysToGoRows {
-        var span = contentRadius() * SPAN_PERMILLE / DaysToGoConfig.PERMILLE;
+        var span = contentRadius() * (_rectangle ? RECTANGLE_SPAN_PERMILLE : SPAN_PERMILLE) / DaysToGoConfig.PERMILLE;
         var gap = _d * GAP_PERMILLE / DaysToGoConfig.PERMILLE;
         var rows = new DaysToGoRows();
         // Beside the Instinct window the stack runs the screen's height, top to a bottom margin, and the hero starts

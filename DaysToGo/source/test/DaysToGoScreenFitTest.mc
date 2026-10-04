@@ -44,8 +44,8 @@ function everyStateFitsThisDisplay(logger as Test.Logger) as Boolean {
 
 // A bottom line the owner switched on is drawn, on its own row or sharing the date's, with a named event too (the
 // busiest stack: it used to vanish on a 454 px display). Asked of round displays of 218 px and up only: the Instinct
-// has no bottom line (ADR-015), and a 320 px rectangle's circle leaves the hero too little room for the name and the
-// bottom line both (they give way, in that order, as they always did).
+// has no bottom line (ADR-015), and a 320 px rectangle's circle (ADR-016, amended 2026-10-04) leaves the hero too little room for
+// the bottom line beside the name, so it gives way there.
 (:test)
 function bottomLineIsDrawnNotSilentlyDropped(logger as Test.Logger) as Boolean {
     var dc = testDc();

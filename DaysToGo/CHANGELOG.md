@@ -26,6 +26,7 @@ Everything below is **UNRELEASED**: built 2026-10-01 against the Free + Pro plan
 - Settings: Event, Name, Month, Day, Year, Count in (days or weeks and days), Date style, Accent colour (the six shipped colours: mint, amber, sky, pink, violet, white).
 - Not in Free (Pro only): timed events (the last 24 hours as H:MM) and the battery or steps line.
 - **Instinct family, added 2026-10-03 (127 products instead of 120; ADR-015, accepted 2026-10-04, simulator only):** `instinct2`, `instinct2s`, `instinct2x`, `descentg1`, `instincte40mm`, `instincte45mm`, `instinct3solar45mm`. Black and white; the ring becomes a gauge in the round window; no Accent setting on these watches (owner's choice) and no footer. The visible area on an Instinct is a circle about 98 px in radius, which the layout and the fit test now model. Evidence: `docs/compatibility.md` "Instinct family".
+- Rectangles (Venu Sq 2 and Sq 2 Music): a long stack (a named event, the date, the unit) now keeps the name and the largest count; before, the name was dropped. The date may use its shorter wording there, and Pro's bottom line can still be dropped (ADR-016, amended 2026-10-04). The Instinct 2 and 3 Solar still cut a 12-character name with "..." (documented, `docs/compatibility.md`).
 - Launcher icon redrawn on the pixel grid (whole-number vertices; same look, crisper edges; no What's New line needed).
 - App id `9fde2744-b0f4-4396-927d-e4c7d65bb119` (generated 2026-10-01). Store name and title are the owner's decision (placeholder "Days To Go").
 - ADRs: 014 (Free + Pro ladder), 015 (Instinct family); both accepted 2026-10-04.
@@ -35,6 +36,7 @@ Everything below is **UNRELEASED**: built 2026-10-01 against the Free + Pro plan
 
 - The paid app is renamed on the watch to "Days To Go Pro" (placeholder name; the owner decides it and the price). Behaviour, settings, ids and defaults are the same as 1.0.1: `resources-pro/settings` is byte-identical to the old shared settings.
 - **Instinct family, added 2026-10-03** (127 products; ADR-015, accepted 2026-10-04, simulator only), as in the Free entry above; Pro on an Instinct has no footer (battery or steps) and no Accent setting.
+- Rectangles (Venu Sq 2 and Sq 2 Music): as in the Free entry above (a named event keeps its name; the bottom line can still be dropped there).
 - No new feature. The plan's other Pro additions (accent ids 6 to 11, a new layout choice) are **deferred**, not built; the Pro headline question is open (Pro is thin: timed events and the battery or steps line).
 - Launcher icon redrawn on the pixel grid (whole-number vertices; same look, crisper edges; no What's New line needed).
 - Build change: Pro is now `monkey.jungle` with `resources;resources-pro` and `(:free)` code excluded; `beta.jungle` follows it.

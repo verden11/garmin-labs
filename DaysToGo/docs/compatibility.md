@@ -43,6 +43,17 @@ Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle
 - Screen fit: `tools/fit_all.sh` (the ten devices `fr55`, `fenix5s`, `fenix5`, `vivoactive4`, `fenix7x`, `fr265s`, `fr165`, `epix2`, `fr965`, `fenix9pro51mm`) passes on **both** jungles, simulator, 2026-10-01. Free memory use was **not measured separately at the time** (read 2026-10-04: "Measured 2026-10-04" below); the fit tests passing is the only Free layout evidence, and the three rectangles were run for tests on `venusq2` only.
 - The on-watch "Customize" menu is the same in both tiers: one item, "Set date" (no accent item, no Pro item).
 
+**Long stacks, 2026-10-04 (ADR-016 amended, ROADMAP 10.12; simulator only).** A 12-character event name with a date and Pro's bottom line on:
+
+| Product | Result |
+|---|---|
+| `venusq2`, `venusq2m` (320 x 360) | The stack now spans 90 % of the content radius on a rectangle (80 % before; 39 px rows left the hero too little height). The name shows again and the hero keeps its largest font; the date steps down to its shorter wording ("Dec 19", not "Sat Dec 19") in Pro and Free; **Pro's bottom line is still dropped** (it does not fit that chord). |
+| `venux1` (448 x 486) | Name, date and bottom line all show (on its own row). Looked at. |
+| `fr965`, `fr255s`, `epix2` | Unchanged by construction (the change is for rectangles only); name, date and bottom line show. Looked at. |
+| `instinct3solar45mm`, `instinct2` (176 x 176) | **Still cut a 12-character name** ("Anna and T..."), Pro and Free: the 23 px smallest font is already used, and a two-line name was tried and rejected because the hero would lose its room (ADR-016). `instincte40mm` (166 px) shows it whole. Not screenshotted: `instincte45mm` (same 176 px screen), `instinct2s`, `instinct2x`, `descentg1`. |
+
+Tests after the change: the full suite PASSED on both jungles on `fr965`, `fr255s`, `epix2`, `venusq2`, `venux1`, `instinct2`, `instincte40mm`, `instinct3solar45mm`: Pro 52 (50 on an Instinct), Free 53 (51 on an Instinct). Simulator only; nothing on a wrist.
+
 ## Instinct family (added 2026-10-03, ADR-015, accepted 2026-10-04, simulator only)
 
 Seven semi-octagon products join both manifests (127 products): `instinct2`, `instinct2s` (163 x 156), `instinct2x`, `descentg1` and `instincte45mm`, `instinct3solar45mm` (176 x 176), `instincte40mm` (166 x 166). `instinctcrossover` is left out (analog hands over the display, no window in the simulator). All are black and white (palette `000000`/`FFFFFF` only), **watch-face memory 65,536 B**, have a round window top right (62 px; 52 px on the E 40 mm, 54 px on the 2S), and are CIQ 3.4 (the Instinct 2 family) or 6.0 (E, 3 Solar). The face needs no Complications, so the CIQ 3.4 watches are reachable.

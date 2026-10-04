@@ -15,6 +15,7 @@ class DaysToGoTestStates {
         for (var i = 0; i < heroes.size(); i++) {
             states.add(upcoming(heroes[i], 0, "WWWWWWWWWWWWWWWW"));
         }
+        states.add(upcoming(76, 0, "Anna and Tom"));
         states.add(upcoming(45, 1, "70.3"));
         states.add(upcoming(41, 1, "WWWWWWWWWWWWWWWW"));
         states.add(upcoming(91, 0, ""));
