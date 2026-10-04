@@ -20,15 +20,13 @@ class HeroFacePalette {
     // AOD time: dimmer than TEXT so an always-on AMOLED spends less light.
     static const SLEEP_TEXT = 0x555555;
 
-    // Accent setting, by index; ids are append-only (a shipped id never changes
-    // colour) and both the Free and the Pro build offer all three (docs/decisions.md
-    // ADR-001, the Free + Pro ladder). The rule is 3:1 against TRACK so a part-filled
-    // bar still reads: Blue (3.05) and Cyan (5.95) clear it, Magenta measures 2.84
-    // and does not (a known issue, test magentaMissesTheTrackRuleKnownIssue; the
-    // colour is the owner's design call, not changed here). None is gold or green
-    // (those carry meaning) and none is white, which is the time's own colour: a
-    // bar must never read as clock.
-    static const ACCENTS = [0x55AAFF, 0x00FFFF, 0xFF55FF] as Array<Number>;
+    // Accent setting, by index; ids are append-only and both the Free and the Pro build offer all three
+    // (docs/decisions.md ADR-001, the Free + Pro ladder). The rule is 3:1 against TRACK so a part-filled
+    // bar still reads: Blue measures 3.05, Cyan 5.95 and Magenta 4.42. Magenta (id 2) was #FF55FF at 2.84 and
+    // the owner had it recoloured to #FFAAFF on 2026-10-04 (ADR-003): the id and the name stay, and 64-colour
+    // Garmin has no more saturated magenta that clears 3:1. None is gold or green (those carry meaning) and
+    // none is white, which is the time's own colour: a bar must never read as clock.
+    static const ACCENTS = [0x55AAFF, 0x00FFFF, 0xFFAAFF] as Array<Number>;
 
     static function accent(index as Number) as Number {
         return index >= 0 && index < ACCENTS.size() ? ACCENTS[index] : ACCENTS[0];

@@ -11,7 +11,7 @@ colors:
   alert: "#FF0000"
   accent-blue: "#55AAFF"
   accent-cyan: "#00FFFF"
-  accent-magenta: "#FF55FF"
+  accent-magenta: "#FFAAFF"
   sleep-text: "#555555"
 typography:
   time:
@@ -127,9 +127,16 @@ A black field with a single white number, a muted grey voice for everything seco
 
 ### Secondary
 - **Alert Red** (`{colors.alert}`): two uses only — a move-bar in the alert state, and battery at or below 15%. Never a progress colour.
-- **Accent alternatives** (`{colors.accent-cyan}`, `{colors.accent-magenta}`): the two other settings-selectable accents. The rule is 3:1 against the track so a part-filled bar still reads; Effort Blue measures 3.05 and Cyan 5.95, but **Magenta measures 2.84 and misses it** (a known issue for the owner, recorded by `magentaMissesTheTrackRuleKnownIssue`; no colour was changed). None is gold or green.
+- **Accent alternatives** (`{colors.accent-cyan}`, `{colors.accent-magenta}`): the two other settings-selectable accents. The rule is 3:1 against the track so a part-filled bar still reads, and all three pass. Magenta was `#FF55FF` (2.84, a miss); the owner had it recoloured to the pale magenta `#FFAAFF` on 2026-10-04 (ADR-003), same id and name. None is gold or green.
 
-**Accent ids and tiers (no visual change; ADR-001, the Free + Pro ladder in `docs/decisions.md`).** The ids are append-only and a shipped id never changes colour: 0 Effort Blue `#55AAFF` (the default), 1 Cyan `#00FFFF`, 2 Magenta `#FF55FF`. The **Free** build and the **Pro** build offer the same three; HeroFace stays at its shipped three (the plan's WP6 list of ids 3 to 7 is DaysToGo's table pasted in and is not used). Reserved, never admitted as an accent: gold, green, alert red, white and the two greys, so none of Amber, Yellow, Lime, Mint, Orange, Coral or White. A new accent is a new id appended at the end, after the owner's look-approval and a track-contrast decision (`docs/decisions.md`).
+| Accent (id) | Colour | On TRACK `#555555` (rule: 3:1) | On black | On white (the time) |
+|---|---|---|---|---|
+| Effort Blue (0) | `#55AAFF` | 3.05 | 8.58 | 2.45 |
+| Cyan (1) | `#00FFFF` | 5.95 | 16.75 | 1.25 |
+| Magenta (2) | `#FFAAFF` | 4.42 | 12.45 | 1.69 |
+| Magenta before 2026-10-04 | `#FF55FF` | 2.84 (missed) | 8.00 | 2.63 |
+
+**Accent ids and tiers (ADR-001, the Free + Pro ladder in `docs/decisions.md`).** The ids are append-only; the one shade change is Magenta's, by the owner (ADR-003): 0 Effort Blue `#55AAFF` (the default), 1 Cyan `#00FFFF`, 2 Magenta `#FFAAFF`. The **Free** build and the **Pro** build offer the same three; HeroFace stays at its shipped three (the plan's WP6 list of ids 3 to 7 is DaysToGo's table pasted in and is not used). Reserved, never admitted as an accent: gold, green, alert red, white and the two greys, so none of Amber, Yellow, Lime, Mint, Orange, Coral or White. A new accent is a new id appended at the end, after the owner's look-approval, and it must clear 3:1 against the track.
 
 ### Neutral
 - **Void Black** (`{colors.ground}`): the only background. It is never tinted, never layered, never lightened into a card.
@@ -258,6 +265,6 @@ The entire sleep composition on burn-in screens: a dim `{colors.sleep-text}` tim
 - **Don't** put anything but the dim time on a burn-in-protected screen in sleep.
 - **Don't** let anything on the face compete with the time for size.
 
-## Instinct (1-bit, a round window top right; ADR-002, proposed, simulator only)
+## Instinct (1-bit, a round window top right; ADR-002, accepted 2026-10-04, simulator only)
 
 Black and white only: every colour role is white (gold, green, red and the accent collapse; the Never-Colour-Alone rule already had a shape or a word for each state: an outlined track under a solid fill, a drawn check and a full bar for done, the number beside every icon). **The bezel ring becomes a gauge in the round window** (a hairline circle, a thick fill from 12 o'clock clockwise, closed when every goal is done). The time and the date share the band left of the window, the streak sits just below it, and the three mission columns end above the bottom corners. **No footer, temperature or seconds** (the smallest font is 23 px tall on a 176 px screen). What shows is the square cut by a circle about 98 px in radius, so rows are clipped to a 96 px circle. The mockup (`docs/archive/instinct-mockup.html`) is the approved look, not the built layout. **A finished goal there is a reversed label** (black on a white pill, no check, 2026-10-04, ADR-002 amendment): the columns are about 42 px and "check + STEP" cut the label to "ST.".

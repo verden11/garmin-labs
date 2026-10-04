@@ -9,11 +9,11 @@ you hit your step goal. On watches with Connect IQ 4.2+ and
 [HeroSet](../HeroSet) installed, the bars can switch to your push-ups, sit-ups
 and squats, with your HeroSet rank and streak.
 
-Two builds from one source (proposed, UNRELEASED, [`docs/decisions.md`](docs/decisions.md) ADR-001, the Free + Pro ladder): **HeroFace** (Free,
+Two builds from one source (UNRELEASED, ladder approved by the owner 2026-10-04, [`docs/decisions.md`](docs/decisions.md) ADR-001, the Free + Pro ladder): **HeroFace** (Free,
 `monkey.free.jungle`: everyday and HeroSet mode, accent colour) and **HeroFace Pro** (the paid app, `monkey.jungle`: adds the metric per
 bar, seconds and the temperature). The on-watch names are placeholders.
 
-117 round watches and 7 Instinct watches (black and white, with a round window; proposed, simulator only), Connect IQ 3.0 and up, in 15 languages:
+117 round watches and 7 Instinct watches (black and white, with a round window; ADR-002, simulator only), Connect IQ 3.0 and up, in 15 languages:
 [`docs/compatibility.md`](docs/compatibility.md).
 
 ## Build

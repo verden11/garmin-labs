@@ -41,9 +41,9 @@ and `proSettingsReadTheirDefaults` are Pro-only (`(:test, :pro)`), `freeReturnsD
 
 - **Logic** (`HeroFaceLogicTest`): streak arithmetic, HeroSet's contract, the
   ring average, time wording. No device needed.
-- **Accent table** (`HeroFaceAccentTest`): every channel in {00, 55, AA, FF}, at least 3:1 on black, shipped ids keep their colours,
+- **Accent table** (`HeroFaceAccentTest`): every channel in {00, 55, AA, FF}, at least 3:1 on black, Blue and Cyan keep their colours and Magenta is the owner's 2026-10-04 recolour (ADR-003),
   out-of-range falls back to the default, no accent is a reserved role colour, and the face's own rule (3:1 against TRACK):
-  Blue and Cyan pass, and Magenta's 2.84:1 is recorded by `magentaMissesTheTrackRuleKnownIssue` (a known issue for the owner, not silently passed).
+  all three pass (`everyAccentClearsTheTrackRule`), and Magenta's 4.42:1 is pinned by `magentaWasRecolouredToClearTheTrackRule`.
 - **Settings** (`HeroFaceSettingsTest`): Pro reads the shipped defaults; Free reads none of the five Pro keys (Auto slots, no seconds, no temperature) and a missing key throws `InvalidKeyException`.
 - **Screen fit** (`everyStateFitsThisDisplay`): renders the face's widest
   states with the device's real fonts and fails on text leaving the round

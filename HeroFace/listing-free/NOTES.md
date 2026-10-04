@@ -28,7 +28,7 @@ The rule "no Pro word in Free" (`../docs/decisions.md`, enforced by `tools/check
 | The time is the largest element; three goal bars (steps, intensity minutes, floors) with fallbacks; a whole-day ring | Plan "Missions are slots", the layout and fit tests (simulator only); the live Pro listing says the same |
 | Bars fall back to what the watch measures | The fallback chains (`HeroFaceConfig.SLOT_CHAINS`), `fr245` run in the simulator (2026-09-22, Pro 1.0.1) |
 | A gold streak line counts days in a row | `HeroFaceStreak`, logic tests; unchanged by the split |
-| Blue, cyan or magenta accent | The Accent list, ids 0 to 2 in both tiers; `shippedAccentIdsKeepTheirColours` (passes in the simulator, both jungles). **Magenta misses the face's own 3:1 track rule (2.84:1): a known issue for the owner, no claim about it** |
+| Blue, cyan or magenta accent | The Accent list, ids 0 to 2 in both tiers; `shippedAccentIdsKeepTheirColours` (passes in the simulator, both jungles). Magenta is `#FFAAFF` since 2026-10-04 (ADR-003) and clears the face's own 3:1 track rule (4.42:1); no claim about it** |
 | HeroSet mode needs HeroSet installed; bars show reps, rank, streak; holding the face opens HeroSet; **Connect IQ 4.2+** | Plan "Two modes", the link on the FR965 from 2026-09-20 (**the paid app's id; the Free app id has never been tried against HeroSet's private complication**, `../docs/status.md` F7) |
 | "Without HeroSet, nothing is missing" | The same sentence the live Pro listing uses; Free shows everyday goals when no complication exists |
 | Dims to a quiet clock that shifts every minute on always-on watches | The always-on frame; **no ghosting or battery claim**, forbidden until measured |

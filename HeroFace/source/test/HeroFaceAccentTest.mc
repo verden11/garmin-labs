@@ -23,11 +23,10 @@ class HeroFaceAccentCheck {
     static const SHIFT_RED = 16;              // channel positions in 0xRRGGBB
     static const SHIFT_GREEN = 8;
     static const SHIFT_BLUE = 0;
-    static const SHIPPED = [0x55AAFF, 0x00FFFF, 0xFF55FF] as Array<Number>;
+    static const SHIPPED = [0x55AAFF, 0x00FFFF, 0xFFAAFF] as Array<Number>;
     static const MAGENTA = 2;
-    // What the TRACK rule measured for Magenta when this test was written (2026-10-01): 2.838, below 3.0. The known-issue test
-    // pins it, so changing the colour or the track fails it and the owner's decision gets recorded instead of drifting.
-    static const MAGENTA_MEASURED = 2.84;
+    // What the TRACK rule measures for Magenta since the owner's recolour (2026-10-04, ADR-003): 4.418, up from 2.838.
+    static const MAGENTA_MEASURED = 4.42;
     static const MEASURED_TOLERANCE = 0.01;
 
     static function channelOf(rgb as Number, shift as Number) as Number {
@@ -72,26 +71,23 @@ function everyAccentReadsOnBlack(logger as Test.Logger) as Boolean {
     return true;
 }
 
-// The face's own rule (HeroFacePalette): an accent clears 3:1 against TRACK so a part-filled bar reads. Blue and Cyan do.
-// Magenta does not: see magentaMissesTheTrackRuleKnownIssue.
+// The face's own rule (HeroFacePalette): an accent clears 3:1 against TRACK so a part-filled bar reads. All three do
+// (Magenta was 2.84 until the owner's recolour, ADR-003).
 (:test :color)
-function blueAndCyanClearTheTrackRule(logger as Test.Logger) as Boolean {
-    for (var i = 0; i < HeroFaceAccentCheck.MAGENTA; i++) {
+function everyAccentClearsTheTrackRule(logger as Test.Logger) as Boolean {
+    for (var i = 0; i < HeroFacePalette.ACCENTS.size(); i++) {
         var ratio = HeroFaceAccentCheck.contrast(HeroFacePalette.ACCENTS[i], HeroFacePalette.TRACK);
         Test.assertMessage(ratio >= HeroFaceAccentCheck.MIN_CONTRAST, "accent " + i + " contrast " + ratio.format("%.2f") + ":1 on the track");
     }
     return true;
 }
 
-// KNOWN ISSUE, an owner and design decision (nothing here changes the colour): shipped Magenta (0xFF55FF, id 2) measures
-// 2.84:1 against TRACK, under the face's own 3:1 rule. This passes while that stays true and FAILS the day the colour or the
-// track changes, so the decision gets written down (recolour, re-cut the track, or relax the rule) instead of the rule
-// being silently met or silently broken. Ids are append-only, so a recolour is a new id, not an edit.
+// The owner's recolour (2026-10-04): id 2 keeps its id and its name "Magenta" and is now the pale magenta #FFAAFF. The figure is
+// pinned so moving the colour or the track records the new number instead of drifting.
 (:test :color)
-function magentaMissesTheTrackRuleKnownIssue(logger as Test.Logger) as Boolean {
+function magentaWasRecolouredToClearTheTrackRule(logger as Test.Logger) as Boolean {
     var ratio = HeroFaceAccentCheck.contrast(HeroFacePalette.ACCENTS[HeroFaceAccentCheck.MAGENTA], HeroFacePalette.TRACK);
     logger.debug("Magenta on TRACK: " + ratio.format("%.3f") + ":1 (the rule is 3:1)");
-    Test.assertMessage(ratio < HeroFaceAccentCheck.MIN_CONTRAST, "Magenta now clears the track rule (" + ratio.format("%.2f") + ":1): retire this known-issue test");
     Test.assertMessage((ratio - HeroFaceAccentCheck.MAGENTA_MEASURED).abs() < HeroFaceAccentCheck.MEASURED_TOLERANCE, "Magenta's track contrast moved to " + ratio.format("%.3f") + ":1: record the new figure");
     return true;
 }
@@ -106,7 +102,7 @@ function noAccentIsAReservedRoleColour(logger as Test.Logger) as Boolean {
     return true;
 }
 
-// Append-only: a shipped id never changes its colour (the phone and the watch store the id). HeroFace stays at its
+// Append-only: ids never move, and Blue and Cyan never changed; only Magenta (id 2) was recoloured, by the owner's decision (ADR-003). HeroFace stays at its
 // shipped three in both tiers, so the Free list (Mode, Accent 0-2) and the Pro list are the same three entries.
 (:test :color)
 function shippedAccentIdsKeepTheirColours(logger as Test.Logger) as Boolean {

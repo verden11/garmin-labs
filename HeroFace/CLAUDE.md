@@ -2,12 +2,12 @@
 
 Garmin watch face (Connect IQ, Monkey C) from studio Verden. Time-first, in
 HeroSet's visual language: bezel ring, three mission bars, gold streak.
-124 products (117 round + 7 Instinct, ADR-002 (Instinct family), proposed, simulator only), `minApiLevel` 3.0.0. Paid, USD 2.00, 15 languages.
+124 products (117 round + 7 Instinct, ADR-002 (Instinct family), accepted 2026-10-04, simulator only), `minApiLevel` 3.0.0. Paid, USD 2.00, 15 languages.
 
-**Free + Pro (proposed, UNRELEASED, [`docs/decisions.md`](docs/decisions.md) ADR-001 "Free + Pro ladder"; the owner has not signed off, so the old plan's decision 8 (`docs/archive/plan.md`), the price, still governs):**
+**Free + Pro (approved by the owner 2026-10-04, UNRELEASED, [`docs/decisions.md`](docs/decisions.md) ADR-001 "Free + Pro ladder"; it replaces the old plan's decision 8 (`docs/archive/plan.md`), the price, and the day-45 price-flip rule is retired):**
 the live paid app (`manifest.xml`, `monkey.jungle`, app id `8cd8f7f5-…`) becomes **HeroFace Pro** 1.1.0, behaviour unchanged; a new **Free** twin (`manifest.free.xml`,
 `monkey.free.jungle`, app id `be68898f-995b-45d9-860e-42ad508bd7fd`, 1.0.0) is built beside it from the same source, split at compile time with `(:pro)` / `(:free)`.
-Free: Everyday and HeroSet mode, slots fixed to Auto, Accent 0 to 2, no seconds, no temperature. Pro adds the metric per slot, Seconds and the temperature. Both keep the shipped three accents.
+Free: Everyday and HeroSet mode, slots fixed to Auto, Accent 0 to 2, no seconds, no temperature. Pro adds the metric per slot, Seconds and the temperature. Both keep the three accents (Magenta recoloured `#FFAAFF` on 2026-10-04 to clear the 3:1 track rule, ADR-003).
 Names, prices, icons, uploads are the owner's (the on-watch names "HeroFace" and "HeroFace Pro" are placeholders).
 
 **Read first:** [`docs/status.md`](docs/status.md) (where things stand, evidence, gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md)), then [`docs/archive/plan.md`](docs/archive/plan.md) (the finished build plan, and why),
@@ -37,7 +37,8 @@ Names, prices, icons, uploads are the owner's (the on-watch names "HeroFace" and
   `Toybox.Weather` read and no `onPartialUpdate`. `Application.Properties.getValue` of a key missing from the properties file throws `InvalidKeyException` (SDK 9.2.0 reference).
   `AppName` lives only in `resources-free/strings` and `resources-pro/strings`, never in `resources/` or a `resources-<lang>/`; each jungle appends its tier folder to every `base.lang.<l>`
   (`python3 tools/check_strings.py`). There is **no settings file in the shared `resources/`**.
-- Tests: Pro **24**, Free **24** (22 shared; Pro-only `disabledSecondsDrawNoSecondsBox`, `proSettingsReadTheirDefaults`; Free-only `freeReturnsDefaultsForProKeys`, `freeMissingPropertyKeyThrows`),
+- Tests, latest run 2026-10-04 (after the Magenta recolour, ADR-003; container simulator, no wrist): Pro 25 and Free 25 PASSED on fr965, fr255s and epix2, Pro 21 and Free 21 on instincte40mm and instinct2, the screen-fit test included.
+- Tests, first run: Pro **24**, Free **24** (22 shared; Pro-only `disabledSecondsDrawNoSecondsBox`, `proSettingsReadTheirDefaults`; Free-only `freeReturnsDefaultsForProKeys`, `freeMissingPropertyKeyThrows`),
   **PASSED in the simulator** on fr965, fenix5s and fr55 on both jungles (2026-10-01; the ten-size fit loop and the memory view on fenix5s/vivoactive3 not yet run; nothing on a wrist): `tools/run_tests.sh <device> [jungle] [testName] [expectedCount]` (jungle defaults to `monkey.jungle`, Pro; run both; `EXPECT=24` fails a full run on a count mismatch).
   Trust the printed `PASSED (…)` line, not the exit code. A hung run means the
   simulator needs restarting.
@@ -77,6 +78,6 @@ Same as HeroSet ([`../HeroSet/CLAUDE.md`](../HeroSet/CLAUDE.md) house rules), wh
 - New product or layout change → run the screen-fit test for that screen size
   and update [`docs/compatibility.md`](docs/compatibility.md).
 - Test count appears in `README.md` and here (**Pro 25, Free 25** on round products; **21 each** on an Instinct: the five colour-only accent tests drop, a mono test and the window layout test join); update both.
-- **Instinct family (ADR-002, proposed; 7 products, 1-bit, a round window top right):** `HeroFacePalette` is two classes, `(:color)` and `(:mono)`, chosen by the jungles (`base.excludeAnnotations = <tier>;mono`, and per Instinct product `<product>.excludeAnnotations = <tier>;color`; a per-product line **replaces** the base list, so restate the tier's own). The Accent setting is its own file (`resources-accent-<tier>`; Pro's Seconds and Weather are in `resources-pro-tail`) and the Instinct `resourcePath` leaves the accent folder out. The visible area is a circle about 98 px in radius (`HeroFaceLayout.VISIBLE_RADIUS_PX`), not the whole square: **screenshot the simulator for every layout change** (`docs/development.md`). `tools/fit_languages.sh <product>` runs the per-language fit.
+- **Instinct family (ADR-002, accepted 2026-10-04; 7 products, 1-bit, a round window top right):** `HeroFacePalette` is two classes, `(:color)` and `(:mono)`, chosen by the jungles (`base.excludeAnnotations = <tier>;mono`, and per Instinct product `<product>.excludeAnnotations = <tier>;color`; a per-product line **replaces** the base list, so restate the tier's own). The Accent setting is its own file (`resources-accent-<tier>`; Pro's Seconds and Weather are in `resources-pro-tail`) and the Instinct `resourcePath` leaves the accent folder out. The visible area is a circle about 98 px in radius (`HeroFaceLayout.VISIBLE_RADIUS_PX`), not the whole square: **screenshot the simulator for every layout change** (`docs/development.md`). `tools/fit_languages.sh <product>` runs the per-language fit.
 - A new language: its line in **both** manifests and **both** jungles; its folder must not define `AppName` (`python3 tools/check_strings.py`).
 - A change to a tier's settings: both `resources-*/settings` folders, and `tools/check_free_package.sh` (it pins each tier's keys and lists).

@@ -28,15 +28,15 @@ Order and the HeroSet half: [`../../HeroSet/docs/status.md`](../../HeroSet/docs/
 - 3. Review W14: re-capture the site screenshots at 454 px plus the always-on screen; original-Venu heat map (simulator GUI). The always-on shot also goes into the listing (decided 2026-09-21 to ship without it); the watch's own System → Screenshot may capture the awake face rather than the sleep screen (inferred, untested).
 - 4. Store device list: 69 of 117 products listed (2026-09-25). Missing: fēnix 5/5 Plus/5S/5X, fēnix 6S, fēnix Chronos, FR55, FR245/245M, FR645/645M, FR745, FR935, FR945/945 LTE, vívoactive 3/3M/3 LTE/4/4S, Venu, Venu D, D2 Air, D2 Air X10, D2 Charlie/Delta ×3, Descent MK1/MK2/MK2S, Enduro, Approach S62, MARQ Gen 1 ×8, Legacy Hero/Saga ×4. HeroSet misses the same families, so this looks store-side: same Garmin question as HeroSet A1.
 
-## Free + Pro pair (proposed, UNRELEASED: ADR-001, the Free + Pro ladder)
+## Free + Pro pair (approved by the owner 2026-10-04, UNRELEASED: ADR-001, the Free + Pro ladder)
 
-Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP6). The plan gates WP6 on the HeroSet/HeroFace 30-day readout and G1; the owner has not signed off OD1 to OD4, so the live paid app and its price are unchanged and the gates above still govern.
+Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP6). The plan gates WP6 on the HeroSet/HeroFace 30-day readout and G1; the owner approved the ladder on 2026-10-04 (OD1, OD2; the day-45 price-flip rule is retired), but names, the Pro price and every upload are still open, so the live paid app and its price are unchanged until they upload.
 
 | # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
 |---|---|---|
-| F1 | Owner signs off OD1 (the ladder), OD2, OD3 (names), OD4 (Pro price). ADR-001 then becomes Active | **Open** (owner) |
+| F1 | Owner signs off OD1 (the ladder), OD2, OD3 (names), OD4 (Pro price). ADR-001 is Active | **Ladder done 2026-10-04**; names and the price are still F2 and the owner's |
 | F2 | Store names and titles chosen and searched by eye (placeholders: "HeroFace" / "HeroFace Pro"). The name is also the on-watch AppName: change `resources-free/strings` and `resources-pro/strings` only | **Open** (owner) |
-| F3 | Pro's headline: Pro is thin today (the metric per bar, seconds, the temperature). Decide whether to build more (accents, the alternate layout) first; Magenta's 2.84:1 track contrast needs a decision | **Open** (owner / watch-design-lead) |
+| F3 | Pro's headline: Pro is thin today (the metric per bar, seconds, the temperature). Decide whether to build more (accents, the alternate layout) first; Magenta's track contrast was fixed 2026-10-04 (ADR-003, `#FFAAFF`, 4.42:1) | **Open** (owner / watch-design-lead) |
 | F4 | Launcher icon per tier (still the shared placeholder) | **Open** (owner) |
 | F5 | Tests on both jungles: `tools/run_tests.sh <device> monkey.jungle` and `... monkey.free.jungle` on fr965, fr55, fenix5s and a 96 KB product; the ten-size fit run on both | **Partly done, simulator only:** 24 and 24 PASSED on fr965, fenix5s, fr55 (2026-10-01). **Done 2026-10-04 (container simulator, not device proof):** Free 25/25 PASSED on all ten sizes plus `vivoactive3`, and Free uses 29.6 kB of 91.8 kB on `fenix5s` and `vivoactive3` after the face drew (`-r` build, status bar); see `compatibility.md` "Measured 2026-10-04". **Open:** the ten-size fit loop on the Pro jungle |
 | F6 | Packages exported and checked: `tools/check_free_package.sh --build` | see CHANGELOG evidence |
