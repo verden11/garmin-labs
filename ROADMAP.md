@@ -24,7 +24,7 @@ Do not keep open checkboxes anywhere else. Status 2026-10-04 (evening).
 
 ## 2. Your hands (a watch, the store dashboard, a person)
 
-Uploads. You said you will re-upload every app and face when ready; the packages are exported and checked (9.8 done: `<Project>/dist/<Name>-2026-10-04.iq`, "Ready to upload" in each `docs/status.md`), but **the design passes below change code: re-export (agent) after the last layout change, then upload.**
+Uploads. You said you will re-upload every app and face when ready. **Packages are exported and checked (9.8 done, re-exported after the last code change on 2026-10-04):** HeroSet `HeroSet/dist/HeroSet-store-1.3.1.iq`; the others `<Project>/dist/<Name>-2026-10-04b.iq` (Free and Pro each; the unsuffixed `-2026-10-04.iq` files are stale, do not upload them). "Ready to upload" is in each `docs/status.md`. If the DayArc reviewer pass (1.16) changes code, re-export DayArc.
 - [ ] 7.7 `[you]` Upload **HeroSet 1.3.1** (1.3.0 is live since 2026-10-03; 1.3.1 adds the bezel-corner, `START: MENU` and glance-bar fixes; the glance fix 9.11 should go in first). Needs 10.10. Steps: `HeroSet/docs/status.md`.
 - [ ] 7.2 `[you]` Upload the 7 framed HeroSet screenshots (`HeroSet/listing/screens-framed/`) to the live listing (edit details need no re-review).
 - [ ] 1.9 `[you]` Upload DayArc Free first, DayArc Pro the same day (after 1.4 and 1.5).
