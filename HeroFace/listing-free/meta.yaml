@@ -29,18 +29,23 @@ assets:
   cover: cover-500.png            # 500x500, the plain mark (Pro adds a PRO pill)
   hero: hero-1440x720.png         # 1440x720, three accents
   screens:                        # simulator, Free build, upload order; each under 150 KB
-    - screens/1-everyday.png      # fr965 454 px
-    - screens/2-accent-cyan.png   # fr965, the Cyan accent
-    - screens/3-goals-met.png     # fr965
-    - screens/4-heroset.png       # fr965, HeroSet mode (canned HeroSet value, see screenshots.md)
-    - screens/5-instinct-e40.png  # instincte40mm 166 px: THE INSTINCT ONE
+    - {file: screens/1-everyday.png, caption: "The time, three goal bars, the ring", device: fr965, px: 454}
+    - {file: screens/2-accent-cyan.png, caption: "Your accent colour, here Cyan", device: fr965, px: 454}
+    - {file: screens/3-goals-met.png, caption: "Every goal met: check marks and the streak", device: fr965, px: 454}
+    - {file: screens/4-heroset.png, caption: "HeroSet mode: reps, rank and streak (canned HeroSet value, see screenshots.md)", device: fr965, px: 454}
+    - {file: screens/5-instinct-e40.png, caption: "Black and white, the ring as a gauge in the round window", device: instincte40mm, px: 166, instinct: true}
   icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; the plain mark
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/heroface/
   support: https://verden.watch/heroface/support/
   privacy: https://verden.watch/heroface/privacy/
-held_back_text:   # Instinct wording kept OUT of paste.md until the upload is approved and the store lists those watches; add it then
-  - "On Instinct, in black and white, the ring is a gauge in the round window (no battery line there).  (description, end of \"The time owns the screen\")"
-  - "HeroFace Pro is sold only on watches Garmin lists for paid apps; this version also installs on some watches Pro cannot be bought for, including the Instinct 2, 2S, 2X and Descent G1.  (description, after \"HeroFace Pro adds\"; add it only once the Free listing's own Compatible Devices list shows those watches and the Instinct upload is approved; ROADMAP 10.15)"
+owner_approvals:   # what only the owner may settle before paste.md is used
+  - "Title: 'HeroFace' is the placeholder (the current store title); search the store by eye for a collision first."
+  - "Line 1 of the description needs the HeroFace Pro store URL, once Pro is live; the HeroSet URL in 'With HeroSet' is already the live one."
+  - "Whether the Free listing may name Pro at all (line 1 and 'HeroFace Pro adds'); move or drop both if not."
+  - "The looks of every image (screens, hero, cover, icons) before upload; rendered 2026-10-04 from the current Free build in the simulator (screenshots.md). The Pro listing's images carry a PRO pill, these do not: do not swap them."
+  - "Translations: English only; any translation is machine-drafted and needs the owner's OK and a native read."
+  - "Upload order: Free (new app) first, Pro 1.1.0 the same day."
+  - "Whether line 1 stays the sibling URL (it costs the list-view preview, which shows the first sentence)."
 open_items: "2.3 2.5 5.2 5.3 5.6"   # ids in ROADMAP.md

@@ -29,17 +29,19 @@ assets:
   cover: cover-500.png            # 500x500, 79 KB; the mark with a white PRO pill
   hero: hero-1440x720.png         # 1440x720, 250 KB
   screens:                        # simulator, Pro build, upload order; each under 150 KB
-    - screens/1-everyday.png      # fr965 454 px
-    - screens/2-your-bars.png     # fr965, Pro's own: distance / intensity / floors, seconds, Magenta accent
-    - screens/3-goals-met.png     # fr965
-    - screens/4-heroset.png       # fr965, HeroSet mode (canned HeroSet value, see screenshots.md)
-    - screens/5-instinct-e40.png  # instincte40mm 166 px: THE INSTINCT ONE (Pro is not sold on the Instinct 2 family)
+    - {file: screens/1-everyday.png, caption: "The time, three goal bars, the ring, the temperature", device: fr965, px: 454}
+    - {file: screens/2-your-bars.png, caption: "Pro's own: bars you choose (distance, intensity minutes, floors), seconds beside the time, the Magenta accent", device: fr965, px: 454}
+    - {file: screens/3-goals-met.png, caption: "Every goal met: check marks and the streak", device: fr965, px: 454}
+    - {file: screens/4-heroset.png, caption: "HeroSet mode: reps, rank and streak (canned HeroSet value, see screenshots.md)", device: fr965, px: 454}
+    - {file: screens/5-instinct-e40.png, caption: "The Instinct one: black and white, the ring as a gauge in the round window", device: instincte40mm, px: 166, instinct: true}   # Pro is not sold on the Instinct 2 family, so that watch is not used
   icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; the mark with a PRO pill
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/heroface/
   support: https://verden.watch/heroface/support/
   privacy: https://verden.watch/heroface/privacy/
-held_back_text:   # Instinct wording kept OUT of paste.md until the upload is approved and the store lists those watches; add it then
-  - "On the Instinct E (40 and 45 mm) and Instinct 3 Solar, in black and white, the ring is a gauge in the round window (no battery line, temperature or seconds there).  (description, end of \"The time owns the screen\"; names ONLY these three Instinct watches: Instinct 2, 2S, 2X and Descent G1 are not on Garmin's paid-app list, so the paid listing is not sold on them; ROADMAP 10.15)"
+owner_approvals:   # what only the owner may settle before paste.md is used
+  - "Title: 'HeroFace Pro' (plan WP6 step 5: rename the paid listing inside the pending listing-repair submission, keeping the device tokens the title carries; the live title is 'HeroFace')."
+  - "Line 1 of the description needs the HeroFace (Free) store URL, once that listing is live."
+  - "The looks of all images (five screens, cover, hero, icons) before upload; rendered 2026-10-04 from the current Pro build; how in screenshots.md."
 open_items: "2.3 2.5 5.1 5.2 5.3 5.5 5.6 11.1"   # ids in ROADMAP.md

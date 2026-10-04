@@ -1,23 +1,17 @@
-# HeroFace — store listing (paste)
+# HeroFace Pro — store listing (paste)
 
-Paste blocks only, in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); why each answer is what it is, and history, in [`NOTES.md`](NOTES.md).
+Fill every <...> before pasting.
 
-**Do not paste a block while a `<` placeholder remains in it** (the sibling store URL is owner-supplied). **This file is the 1.1.0 text** (the Pro rename); the submitted 1.0.1 What's New is in [`NOTES.md`](NOTES.md). This listing never uses the word "free" (it is paid; store review guideline 4d).
-
-## Title (max 50)
-
-**OWNER decides** the name. Plan WP6 step 5: rename the paid listing "HeroFace Pro" **inside the pending listing-repair submission**, keeping the device tokens that title carries (the live title is just "HeroFace"):
+## Title
 
 ```text
 HeroFace Pro
 ```
 
-## Description (max 4000, one box per language)
-
-Languages are added one at a time: pick a language, press **Add**, fill Title + Description. Only English is drafted; see [`NOTES.md`](NOTES.md) for the other languages. Line 1 is the sibling's store URL; replace the placeholder with the real URL once that listing is live.
+## Description
 
 ```text
-Also available: HeroFace, a lighter version: <HEROFACE STORE URL: owner fills in once that listing is live>
+Also available: HeroFace, a lighter version: <HEROFACE STORE URL>
 
 The time first, today's goals right under it. Three bars you choose, a ring for the whole day, a streak worth keeping — or your HeroSet reps and rank, if you have it.
 
@@ -34,7 +28,7 @@ Keep the streak
 Meet your step goal and a gold line counts the days in a row. Miss a day and the count starts again.
 
 Round watches, one design
-It measures itself to your screen, up to a 466-pixel fēnix. On always-on watches it dims to a quiet clock that shifts position every minute. See Compatible Devices for your model.
+It measures itself to your screen, up to the largest 466-pixel round screens. On always-on watches it dims to a quiet clock that shifts position every minute. See Compatible Devices for your model.
 
 With HeroSet
 On Connect IQ 4.2+ watches, if you own HeroSet — the daily push-up, sit-up and squat app — the bars can show today's reps, your rank and your HeroSet streak instead, and holding the face opens HeroSet. Without HeroSet, nothing is missing.
@@ -42,28 +36,24 @@ On Connect IQ 4.2+ watches, if you own HeroSet — the daily push-up, sit-up and
 Nothing leaves your watch
 No account, no internet, no analytics, no ads. The store lists "Communication & Data Transmission" because HeroFace can read HeroSet's progress on the same watch; nothing is sent anywhere.
 
-HeroFace Pro is a paid app. Refunds follow the Connect IQ Store return window.
-
 Support and answers: https://verden.watch/heroface/support/
 ```
 
-## Version
-
-The form reads it from the package; if a field asks, type:
+## App Version
 
 ```text
 1.1.0
 ```
 
-## What's new
+## What's New
 
 ```text
 The app is now called HeroFace Pro on the watch. Nothing changes in how it works. Also available: HeroFace, a lighter version with three fixed goal bars and your HeroSet mode. The Magenta accent is now a paler shade so it reads clearly against the grey track.
 ```
 
-## Hero Image (optional, 1440×720, under 2048 KB)
+## Hero Image
 
-[`hero-1440x720.png`](hero-1440x720.png)
+`hero-1440x720.png`
 
 ## Category
 
@@ -75,7 +65,7 @@ Whatever the Category choice offers.
 
 ## Does your app collect user data?
 
-**No.** The privacy-policy URL field is conditional on Yes, so it may not appear.
+**No**
 
 ## Does your app decode/encode any ANT+ profiles?
 
@@ -85,36 +75,34 @@ Whatever the Category choice offers.
 
 **No**
 
-## Cover Image (500×500, under 300 KB)
+## Cover Image
 
-[`cover-500.png`](cover-500.png)
+`cover-500.png`
 
-## Screen Images (under 150 KB each, upload in this order)
+## Screen Images
 
-**OWNER approves the looks of all images (screens, cover, hero, icons) before upload.** Rendered 2026-10-04 from the current Pro build in the simulator; how and from what: [`screenshots.md`](screenshots.md). Caption in brackets is for you, not a form field.
+1. `screens/1-everyday.png`
+2. `screens/2-your-bars.png`
+3. `screens/3-goals-met.png`
+4. `screens/4-heroset.png`
+5. `screens/5-instinct-e40.png`
 
-1. [`screens/1-everyday.png`](screens/1-everyday.png) (FR965: the time, three goal bars, the ring, the temperature)
-2. [`screens/2-your-bars.png`](screens/2-your-bars.png) (FR965, Pro's own: bars you choose, seconds beside the time, the magenta accent)
-3. [`screens/3-goals-met.png`](screens/3-goals-met.png) (FR965: every goal met, check marks, the streak)
-4. [`screens/4-heroset.png`](screens/4-heroset.png) (FR965: HeroSet mode, reps, rank and streak)
-5. [`screens/5-instinct-e40.png`](screens/5-instinct-e40.png) (**the Instinct one**: Instinct E 40 mm, black and white, the ring as a gauge in the round window)
+## Device icons
 
-## Device icons (optional, 128×128)
+- 64 Color: `icon-64-128.png`
+- 24 bit: `icon-24-128.png`
 
-- 64 Color: [`icon-64-128.png`](icon-64-128.png)
-- 24 bit: [`icon-24-128.png`](icon-24-128.png)
+## Preview Video
 
-## Preview Video (optional)
+None.
 
-None (YouTube/Vimeo only).
-
-## Email Address (shown publicly)
+## Email Address
 
 ```text
 hello@verden.watch
 ```
 
-## Source Code URL (optional)
+## Source Code URL
 
 Leave blank.
 
@@ -122,7 +110,7 @@ Leave blank.
 
 **Yes**
 
-## App Migration (add newly compatible devices)
+## App Migration
 
 **No**
 
@@ -130,9 +118,7 @@ Leave blank.
 
 **No**
 
-## iOS / Android Companion App URL / Additional Hardware Requirements (optional)
-
-Paste the **bare URL only**, nothing else: the store's API names this field `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02: used as the link to the website; Garmin research 2026-10-04, [`reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md)). Paste:
+## Additional Hardware Requirements
 
 ```text
 https://verden.watch/heroface/

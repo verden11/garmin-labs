@@ -29,16 +29,19 @@ assets:
   hero: hero-1440x720.png     # 1440x720, under 2048 KB; src/hero.html; look not yet approved
   icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; src/icon.html + src/quantize64.py; look not yet approved
   screens:                    # upload order; 2026-10-04 simulator captures at native pixels, 24-hour clock, canned or random values; each under 150 KB
-    - screens/1-morning.png          # FR965 454 px
-    - screens/2-midday.png           # FR965 454 px
-    - screens/3-evening.png          # FR965 454 px
-    - screens/4-accent-blue.png      # FR965 454 px, Accent set to blue
-    - screens/5-instinct-evening.png # INSTINCT: Instinct E 40 mm, 166 px, black and white
+    - {file: screens/1-morning.png, caption: "Morning, weather with sunrise/sunset, battery, heart rate, steps and floors around it", device: fr965, px: 454}
+    - {file: screens/2-midday.png, caption: "Midday, a stress reading with the calendar, intensity minutes, steps, calories, heart rate and floors around it", device: fr965, px: 454}
+    - {file: screens/3-evening.png, caption: "Evening, Body Battery with recovery time, respiration, steps, pulse ox, heart rate and calories around it", device: fr965, px: 454}
+    - {file: screens/4-accent-blue.png, caption: "The one setting, the accent colour (here blue in the evening)", device: fr965, px: 454}
+    - {file: screens/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window, one row of readings under it", device: instincte40mm, px: 166, instinct: true}
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/day-arc-pro/
   support: https://verden.watch/day-arc-pro/support/
   privacy: https://verden.watch/day-arc-pro/privacy/
-held_back_text:   # wording kept OUT of paste.md until the store lists the watches / both device lists are visible; add it then
-  - "Pro is sold only on watches Garmin lists for paid apps; DayArc, the lighter version, can also be installed on some watches Pro cannot be bought for.  (device sentence: add after the 'separate listing' paragraph ONLY once both listings' real Compatible Devices lists are visible; no watch name or count; never the word free)"
+owner_approvals:   # what only the owner may settle before paste.md is used
+  - "Store URLs in the description: line 1 needs DayArc live; under 'More from Verden' keep only the free faces that are live and delete every other line."
+  - "'Chosen in the Garmin Connect app' is unverified until a store install (docs/status.md gate 5): keep it firm or soften it."
+  - "The looks of the hero (proposal: the arc mark with a white PRO tag, three windows with their grids, no price, no claim beyond what each window shows), the cover (the arc mark and the name with a white PRO tag in the arc), the device icons and the five screens (simulator captures with canned or random values, not readings; the night window is left out on purpose)."
+  - "Before uploading screens 2 to 4: the flame cell shows 0 and the midday calendar cell shows '00:00' (simulator limits, see screenshots.md); accept or hold those frames."
 open_items: "1.1 1.4 1.5 1.7 1.8 1.9"   # ids in ROADMAP.md

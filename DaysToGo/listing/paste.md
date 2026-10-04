@@ -1,23 +1,17 @@
-# Days To Go — store listing (paste)
+# Days To Go Pro — store listing (paste)
 
-Paste blocks only, in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); why each answer is what it is, and history, in [`NOTES.md`](NOTES.md).
+Fill every <...> before pasting.
 
-**Do not paste a block while a `<` placeholder remains in it** (the sibling store URL is owner-supplied). **This file is the 1.1.0 text** (the Pro rename); the submitted 1.0.1 What's New is in [`NOTES.md`](NOTES.md). This listing never uses the word "free" (it is paid; release contract, store review guideline 4d).
-
-## Title (max 50)
-
-**OWNER decides** the name (the plan's proposal below, which keeps search words; "Days To Go Pro" alone is the short alternative):
+## Title
 
 ```text
 Days To Go Pro: Countdown, Hours, Footer
 ```
 
-## Description (max 4000, one box per language)
-
-Languages are added one at a time: pick a language, press **Add**, fill Title + Description. Only English is drafted; see [`NOTES.md`](NOTES.md). Line 1 is the sibling's store URL (the Days To Go listing); replace the placeholder with the real URL once it is live.
+## Description
 
 ```text
-Also available: Days To Go (<DAYS TO GO STORE URL: owner fills in once that listing is live>)
+Also available: Days To Go (<DAYS TO GO STORE URL>)
 
 A countdown watch face: one big number for the days left until your date.
 
@@ -36,34 +30,28 @@ Round and rectangular watches alike, full detail down to the smallest, dimming t
 Nothing leaves your watch
 No permissions, no account, no internet, no analytics, no ads.
 
-Days To Go Pro is a paid app. Refunds follow the Connect IQ Store return window.
-
 Support and answers: https://verden.watch/days-to-go/support/
 ```
 
-## Version
-
-The form reads it from the package; if a field asks, type:
+## App Version
 
 ```text
 1.1.0
 ```
 
-## What's new
+## What's New
 
 ```text
 The app is now called Days To Go Pro on the watch. Nothing changes in how it works. Also available: Days To Go, with the core countdown.
 ```
 
-## Hero Image (optional, 1440×720, under 2048 KB)
+## Hero Image
 
-**OWNER approves the look first** (all store images below are proposals, rendered 2026-10-04 from the current Pro build; the hero shows the studio wordmark and three Pro screens, no price number, nothing about the other tier).
-
-[`hero-1440x720.png`](hero-1440x720.png)
+`hero-1440x720.png`
 
 ## Category
 
-**Utility** (alternative: Simple)
+**Utility**
 
 ## Subcategory
 
@@ -71,7 +59,7 @@ Whatever the Category choice offers.
 
 ## Does your app collect user data?
 
-**No.** The privacy-policy URL field is conditional on Yes, so it may not appear.
+**No**
 
 ## Does your app decode/encode any ANT+ profiles?
 
@@ -81,38 +69,34 @@ Whatever the Category choice offers.
 
 **No**
 
-## Cover Image (500×500, under 300 KB)
+## Cover Image
 
-**OWNER approves the look.** [`cover-500.png`](cover-500.png): the studio mark (the launcher icon's ring and "1") and the name, with a small amber PRO badge that tells Pro from Free. The cover uploaded with 1.0.1 (a face render) is in [`old/`](old/).
+`cover-500.png`
 
-## Screen Images (under 150 KB each, upload in this order, five at most)
+## Screen Images
 
-Simulator captures of the Pro build, 2026-10-04 (canned clock, battery and steps; not real readings). Captions are for you, not form fields.
+1. `screens/1-hours-battery.png`
+2. `screens/2-weeks-steps.png`
+3. `screens/3-days-battery.png`
+4. `screens/4-rectangle.png`
+5. `screens/5-instinct.png`
 
-1. [`screens/1-hours-battery.png`](screens/1-hours-battery.png): Pro's headline, an event with a time: the last 24 hours as hours and minutes (7:51 HOURS), with the battery on the date row. FR965.
-2. [`screens/2-weeks-steps.png`](screens/2-weeks-steps.png): weeks and days to a named event, with the step count on the date row. FR965.
-3. [`screens/3-days-battery.png`](screens/3-days-battery.png): 161 days to a named event, battery on the date row, pink accent. FR965.
-4. [`screens/4-rectangle.png`](screens/4-rectangle.png): the same face on a rectangular screen (Venu Sq 2), hours state, amber accent.
-5. **Instinct family:** [`screens/5-instinct.png`](screens/5-instinct.png): black and white, the ring is a gauge in the round window, hours state. Instinct E 40 mm (Garmin's paid-app list has no Instinct 2 or Descent G1, so never name those in a Pro caption). The simulator image is 166 px; this file is it enlarged x3 without smoothing (the native one is `screens/native/`). Upload it only with the package that adds the Instinct products (1.1.0), and mention no watch name in the form text ([`NOTES.md`](NOTES.md), device-reach rule).
+## Device icons
 
-## Device icons (optional, 128×128)
+- 64 Color: `icon-64-128.png`
+- 24 bit: `icon-24-128.png`
 
-**OWNER approves the look** (proposal: the same mark as Free plus the PRO badge; the real launcher icon is still the owner's, ROADMAP 3.3).
+## Preview Video
 
-- 64 Color: [`icon-64-128.png`](icon-64-128.png)
-- 24 bit: [`icon-24-128.png`](icon-24-128.png)
+None.
 
-## Preview Video (optional)
-
-None (YouTube/Vimeo only).
-
-## Email Address (shown publicly)
+## Email Address
 
 ```text
 hello@verden.watch
 ```
 
-## Source Code URL (optional)
+## Source Code URL
 
 Leave blank.
 
@@ -120,7 +104,7 @@ Leave blank.
 
 **Yes**
 
-## App Migration (add newly compatible devices)
+## App Migration
 
 **No**
 
@@ -128,9 +112,7 @@ Leave blank.
 
 **No**
 
-## iOS / Android Companion App URL / Additional Hardware Requirements (optional)
-
-Paste the **bare URL only**, nothing else: the store's API names this field `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02: used as the link to the website; Garmin research 2026-10-04, [`reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md)). Paste:
+## Additional Hardware Requirements
 
 ```text
 https://verden.watch/days-to-go/

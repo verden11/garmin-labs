@@ -29,17 +29,20 @@ assets:
   cover: cover-500.png (500x500, 83 KB; mark + name + PRO badge; the 1.0.1 face-render cover is old/cover-500-face-render.png)
   hero: hero-1440x720.png (1440x720, 265 KB)
   screens:   # upload order, 5 at most, each under 150 KB; simulator captures (canned data)
-    - screens/1-hours-battery.png    # fr965, 454 px, 18 KB
-    - screens/2-weeks-steps.png      # fr965, 454 px, 17 KB
-    - screens/3-days-battery.png     # fr965, 454 px, 18 KB
-    - screens/4-rectangle.png        # venusq2, 320x360, 4 KB
-    - screens/5-instinct.png         # INSTINCT: instincte40mm 166 px enlarged x3 to 498 px, 3 KB; native capture in screens/native/
+    - {file: screens/1-hours-battery.png, caption: "Pro's headline, an event with a time: the last 24 hours as hours and minutes (7:51 HOURS), battery on the date row", device: fr965, px: 454, kb: 18}
+    - {file: screens/2-weeks-steps.png, caption: "Weeks and days to a named event, step count on the date row", device: fr965, px: 454, kb: 17}
+    - {file: screens/3-days-battery.png, caption: "161 days to a named event, battery on the date row, pink accent", device: fr965, px: 454, kb: 18}
+    - {file: screens/4-rectangle.png, caption: "The same face on a rectangular screen, hours state, amber accent", device: venusq2, px: "320x360", kb: 4}
+    - {file: screens/5-instinct.png, caption: "Black and white, the ring is a gauge in the round window, hours state", device: instincte40mm, px: 498, kb: 3, instinct: true}   # 166 px native capture enlarged x3 without smoothing; the native one is screens/native/
   icons: [icon-64-128.png, icon-24-128.png]   # 128x128, mark + PRO badge; proposals, the real launcher icon is ROADMAP 3.3
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/days-to-go/
   support: https://verden.watch/days-to-go/support/
   privacy: https://verden.watch/days-to-go/privacy/
-held_back_text:   # Instinct wording kept OUT of paste.md until the upload is approved and the store lists those watches; add it then
-  - "On the Instinct E (40 and 45 mm) and Instinct 3 Solar, in black and white, the ring becomes a gauge in the round window.  (description, after \"One design, every screen\"; names ONLY these three Instinct watches: Instinct 2, 2S, 2X and Descent G1 are not on Garmin's paid-app list, so the paid listing is not sold on them; ROADMAP 10.15)"
+owner_approvals:   # what only the owner may settle before paste.md is used
+  - "Title: 'Days To Go Pro: Countdown, Hours, Footer' is the plan's proposal, which keeps search words; 'Days To Go Pro' alone is the short alternative."
+  - "Line 1 of the description needs the Days To Go (Free) store URL, once that listing is live."
+  - "The looks of all images before upload: hero (studio wordmark and three Pro screens, no price number, nothing about the other tier), cover (the studio mark, the name and a small amber PRO badge), device icons (the same mark plus the PRO badge; the real launcher icon is ROADMAP 3.3), five screens. All rendered 2026-10-04 from the current Pro build; the 1.0.1 face-render cover is in old/."
+  - "Upload condition: screens/5-instinct.png only with the package that adds the Instinct products (1.1.0)."
 open_items: "2.3 2.5 3.1 3.4 3.5 3.6 11.1"   # ids in ROADMAP.md

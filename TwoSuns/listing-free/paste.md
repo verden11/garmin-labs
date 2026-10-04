@@ -1,23 +1,17 @@
 # Two Suns (Free) — store listing (paste)
 
-Paste blocks only, in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); why each answer is what it is, and history, in [`NOTES.md`](NOTES.md).
+Fill every <...> before pasting.
 
-**Do not paste a block while a `<` placeholder remains in it** (store URLs are owner-supplied). Check each block for a `<` before pasting.
-
-## Title (max 50)
-
-Plan placeholder, **owner decides** (and searches the store by eye for a collision first):
+## Title
 
 ```text
 Two Suns
 ```
 
-## Description (max 4000, one box per language)
-
-English only until the owner decides on translations (see [`NOTES.md`](NOTES.md)). Line 1 is the sibling's store URL; replace the placeholder with the real Pro URL once Pro is live.
+## Description
 
 ```text
-Looking for more? Get Two Suns Pro: <PRO STORE URL: owner fills in once the Pro listing is live>
+Looking for more? Get Two Suns Pro: <PRO STORE URL>
 
 A watch face for the sun's day: the time, a 24-hour ring for the light, and your Body Battery number.
 
@@ -47,25 +41,23 @@ This free version reads only your watch's own sunrise, sunset and Body Battery n
 Support and answers: https://verden.watch/two-suns/support/
 ```
 
-## Version
-
-The form reads it from the package; if a field asks, type:
+## App Version
 
 ```text
 1.0.0
 ```
 
-## What's new
+## What's New
 
-Blank, per this app's rule for an initial release ([`../listing/NOTES.md`](../listing/NOTES.md): the form has no "first release" field and the text reads as noise). If the owner prefers a line, a draft: `First release of the free Two Suns: the time, a 24-hour sun ring, your Body Battery number and an accent colour.`
+Leave blank.
 
-## Hero Image (optional, 1440×720, under 2048 KB)
+## Hero Image
 
-**OWNER approves the look first** (rendered 2026-10-04 from the Free build in the simulator; canned data, see [`screenshots.md`](screenshots.md)). [`hero-1440x720.png`](hero-1440x720.png), 242 KB. It shows no curve, no date and nothing from Pro.
+`hero-1440x720.png`
 
 ## Category
 
-**Utility** (alternative: Health & Fitness, as for Pro)
+**Utility**
 
 ## Subcategory
 
@@ -73,7 +65,7 @@ Whatever the Category choice offers.
 
 ## Does your app collect user data?
 
-**No.** Free reads no location and keeps no place; nothing leaves the watch. The privacy-policy URL field is conditional on Yes, so it may not appear.
+**No**
 
 ## Does your app decode/encode any ANT+ profiles?
 
@@ -83,40 +75,34 @@ Whatever the Category choice offers.
 
 **No**
 
-## Cover Image (500×500, under 300 KB)
+## Cover Image
 
-**OWNER approves the look first.** [`cover-500.png`](cover-500.png), 78 KB: the plain ring, no golden arcs, no pill (Pro's cover has both).
+`cover-500.png`
 
-## Screen Images (under 150 KB each, upload in this order)
+## Screen Images
 
-**OWNER approves the looks first.** Five images from the Free build, simulator only with canned data (sun times and the Body Battery number are set for the picture, never a reading). Details and commands in [`screenshots.md`](screenshots.md).
+1. `screens/1-day.png`
+2. `screens/2-evening.png`
+3. `screens/3-accent-pink.png`
+4. `screens/4-instinct-e45.png`
+5. `screens/5-small-fr255s.png`
 
-1. [`screens/1-day.png`](screens/1-day.png), 16 KB, FR965: the day, the ring and Garmin's number
-2. [`screens/2-evening.png`](screens/2-evening.png), 17 KB, FR965: after sunset (mint accent)
-3. [`screens/3-accent-pink.png`](screens/3-accent-pink.png), 16 KB, FR965: another accent (the one setting)
-4. [`screens/4-instinct-e45.png`](screens/4-instinct-e45.png), 1.2 KB, **Instinct E 45 mm (the Instinct-family shot, black and white, the ring as a dial in the round window)**
-5. [`screens/5-small-fr255s.png`](screens/5-small-fr255s.png), 4 KB, FR255S: a small round screen (violet accent)
+## Device icons
 
-Do not describe the Instinct shot as a supported-device claim until the store lists those watches (`meta.yaml` `held_back_text`).
+- 64 Color: `icon-64-128.png`
+- 24 bit: `icon-24-128.png`
 
-## Device icons (optional, 128×128)
+## Preview Video
 
-**OWNER approves the look first.**
+None.
 
-- 64 Color: [`icon-64-128.png`](icon-64-128.png)
-- 24 bit: [`icon-24-128.png`](icon-24-128.png)
-
-## Preview Video (optional)
-
-None (YouTube/Vimeo only).
-
-## Email Address (shown publicly)
+## Email Address
 
 ```text
 hello@verden.watch
 ```
 
-## Source Code URL (optional)
+## Source Code URL
 
 Leave blank.
 
@@ -124,17 +110,15 @@ Leave blank.
 
 **Yes**
 
-## App Migration (add newly compatible devices)
+## App Migration
 
-**No** (this is a new app, not an update)
+**No**
 
 ## Monetization
 
-**No**: the Free app asks for no payment and unlocks nothing. Read the form's own wording at submission.
+**No**
 
-## iOS / Android Companion App URL / Additional Hardware Requirements (optional)
-
-Paste the **bare URL only**, nothing else: the store's API names this field `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02: used as the link to the website; Garmin research 2026-10-04, [`reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md)). Paste:
+## Additional Hardware Requirements
 
 ```text
 https://verden.watch/two-suns/

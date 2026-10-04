@@ -1,35 +1,23 @@
 # DayArc Pro — store listing (paste)
 
-Paste blocks only, in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); why each answer is what it is, and history, in [`NOTES.md`](NOTES.md).
+Fill every <...> before pasting.
 
-**Do not paste a block marked OWNER until it is decided** (see [`NOTES.md`](NOTES.md)). **Do not paste a block while a `<` placeholder remains in it** (store URLs are owner-supplied). Claims are checked against [`../docs/release-contract.md`](../docs/release-contract.md). This listing never uses the word "free" (it is paid; store review guideline 4d).
-
-## Title (max 50)
+## Title
 
 ```text
 DayArc Pro
 ```
 
-## Description (max 4000, one box per language)
-
-**OWNER, before pasting:** the store URLs are placeholders (line 1 needs the DayArc listing live; keep only the free faces that are live under "More from Verden"), and "chosen in the Garmin Connect app" is unverified until a store install. Details: [`NOTES.md`](NOTES.md).
+## Description
 
 ```text
-Also available: DayArc, the lighter version with one reading per window: <DAYARC STORE URL: owner fills in once that listing is live>
+Also available: DayArc, the lighter version with one reading per window: <DAYARC STORE URL>
 
-DayArc Pro changes what it shows through the day, on a fixed schedule. One setting: an accent
-colour, chosen in the Garmin Connect app — or leave it on Auto, where each time of day has its own
-colour.
+DayArc Pro changes what it shows through the day, on a fixed schedule. One setting: an accent colour, chosen in the Garmin Connect app — or leave it on Auto, where each time of day has its own colour.
 
-The same four windows as DayArc, denser: under each window's main reading, Pro shows as many of your
-watch's other readings as fit its screen — in the morning sunrise/sunset, battery, heart rate, steps,
-floors and notifications; at midday your next calendar event, heart rate, intensity minutes, floors,
-steps, calories, notifications, current temperature and weekly run and bike distance; in the evening
-recovery time, respiration, heart rate, steps, calories, pulse ox and VO2max. A smaller screen shows
-fewer. Every window shows the time and date; night shows only those.
+The same four windows as DayArc, denser: under each window's main reading, Pro shows as many of your watch's other readings as fit its screen — in the morning sunrise/sunset, battery, heart rate, steps, floors and notifications; at midday your next calendar event, heart rate, intensity minutes, floors, steps, calories, notifications, current temperature and weekly run and bike distance; in the evening recovery time, respiration, heart rate, steps, calories, pulse ox and VO2max. A smaller screen shows fewer. Every window shows the time and date; night shows only those.
 
-Every reading is shown as a number, never a mood or a verdict. Fields the watch can't provide show
-as "--", not blank and not a guess.
+Every reading is shown as a number, never a mood or a verdict. Fields the watch can't provide show as "--", not blank and not a guess.
 
 DayArc Pro is a separate listing from DayArc, with its own price: one purchase, no subscription.
 
@@ -37,83 +25,67 @@ If this face works for you, a rating in the store helps other people find it.
 
 DayArc Pro reads data your watch already has. Nothing is sent anywhere, no location, no network.
 
-DayArc Pro is a paid app. Refunds follow the Connect IQ Store return window.
-
 More from Verden
-Days To Go: <DAYS TO GO STORE URL, once live>
-Two Suns: <TWO SUNS STORE URL, once live>
-HeroFace: <HEROFACE STORE URL, once live>
+Days To Go: <DAYS TO GO STORE URL>
+Two Suns: <TWO SUNS STORE URL>
+HeroFace: <HEROFACE STORE URL>
 
 Support and answers: https://verden.watch/day-arc-pro/support/
 ```
 
-## Version
+## App Version
 
 ```text
 1.0.0
 ```
 
-## What's new
+## What's New
 
-Blank — initial release.
+Leave blank.
 
-## Hero Image (optional, 1440×720, under 2048 KB)
+## Hero Image
 
-**OWNER, look approval first** (proposal: the arc mark with a white PRO tag, three windows with their grids, no price, no claim beyond what each window shows).
-
-[`hero-1440x720.png`](hero-1440x720.png)
+`hero-1440x720.png`
 
 ## Category
 
-**Utility** (alternative: Health & Fitness).
+**Utility**
 
 ## Does your app collect user data?
 
-**No.** Nothing leaves the watch: no network code, no `Communications` permission, no location.
+**No**
 
-## Cover Image (500×500, under 300 KB)
+## Cover Image
 
-**OWNER, look approval first** (the arc mark and the name with a white PRO tag in the arc: the proposal that tells this listing from the lighter DayArc).
+`cover-500.png`
 
-[`cover-500.png`](cover-500.png)
+## Screen Images
 
-## Screen Images (under 150 KB each, upload in this order)
+1. `screens/1-morning.png`
+2. `screens/2-midday.png`
+3. `screens/3-evening.png`
+4. `screens/4-accent-blue.png`
+5. `screens/5-instinct-evening.png`
 
-At most 5; the night window is left out on purpose. All five are the simulator's own captures at native pixels with a 24-hour clock; the values (weather, sun times, heart rate, Body Battery, stress and the rest) are the simulator's canned or random ones, not readings. Captions are notes for the owner, not form fields (how each was made: [`screenshots.md`](screenshots.md)).
+## Device icons
 
-1. [`screens/1-morning.png`](screens/1-morning.png): Morning, weather with sunrise/sunset, battery, heart rate, steps and floors around it. FR965, 454 px.
-2. [`screens/2-midday.png`](screens/2-midday.png): Midday, a stress reading with the calendar, intensity minutes, steps, calories, heart rate and floors around it. FR965, 454 px.
-3. [`screens/3-evening.png`](screens/3-evening.png): Evening, Body Battery with recovery time, respiration, steps, pulse ox, heart rate and calories around it. FR965, 454 px.
-4. [`screens/4-accent-blue.png`](screens/4-accent-blue.png): The one setting, the accent colour (here blue in the evening). FR965, 454 px.
-5. [`screens/5-instinct-evening.png`](screens/5-instinct-evening.png): **The Instinct one**: black and white, the arc a gauge in the round window, with one row of readings under it. Instinct E 40 mm, 166 px.
+- 64 Color: `icon-64-128.png`
+- 24 bit: `icon-24-128.png`
 
-**OWNER, before uploading 2 to 4:** the flame cell shows 0 and the midday calendar cell shows "00:00" (simulator limits, see [`screenshots.md`](screenshots.md)); accept or hold those frames.
+## Email Address
 
-Do not add the word Instinct to the description for this: the device wording waits for the store's real device list ([`meta.yaml`](meta.yaml) `held_back_text`).
-
-## Device icons (optional, 128×128)
-
-**OWNER, look approval first.**
-
-- 64 Color: [`icon-64-128.png`](icon-64-128.png)
-- 24 bit: [`icon-24-128.png`](icon-24-128.png)
+```text
+hello@verden.watch
+```
 
 ## Monetization
 
 ```text
-Paid: Yes, price tier USD 2.50 (the form's own selection, set in the dashboard; ADR-018), one-time, no subscription. No price number goes in the description text.
+Paid: Yes, price tier USD 2.50
 ```
 
-## iOS / Android Companion App URL / Additional Hardware Requirements (optional)
-
-Paste the **bare URL only**, nothing else: the store's API names this field `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02: used as the link to the website; Garmin research 2026-10-04, [`reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md)). Paste:
+## Additional Hardware Requirements
 
 ```text
 https://verden.watch/day-arc-pro/
-```
-
-## Email Address (shown publicly)
-
-```text
-hello@verden.watch
 ```

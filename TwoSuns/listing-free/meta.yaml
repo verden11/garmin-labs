@@ -30,17 +30,19 @@ assets:   # all rendered 2026-10-04 from the Free build in the simulator (canned
   icon_64: icon-64-128.png        # 128x128, 1 KB
   icon_24: icon-24-128.png        # 128x128, 2 KB
   screens:                        # upload order; native simulator pixels, each under 150 KB
-    - screens/1-day.png           # FR965 454 px, 16 KB
-    - screens/2-evening.png       # FR965 454 px, 17 KB
-    - screens/3-accent-pink.png   # FR965 454 px, 16 KB
-    - screens/4-instinct-e45.png  # INSTINCT E 45 mm 176 px, 1.2 KB (black and white)
-    - screens/5-small-fr255s.png  # FR255S 218 px, 4 KB
+    - {file: screens/1-day.png, caption: "The day, the ring and Garmin's number", device: fr965, px: 454, kb: 16}
+    - {file: screens/2-evening.png, caption: "After sunset (mint accent)", device: fr965, px: 454, kb: 17}
+    - {file: screens/3-accent-pink.png, caption: "Another accent (the one setting)", device: fr965, px: 454, kb: 16}
+    - {file: screens/4-instinct-e45.png, caption: "Black and white, the ring as a dial in the round window", device: instincte45mm, px: 176, kb: 1.2, instinct: true}
+    - {file: screens/5-small-fr255s.png, caption: "A small round screen (violet accent)", device: fr255s, px: 218, kb: 4}
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/two-suns/
   support: https://verden.watch/two-suns/support/
   privacy: https://verden.watch/two-suns/privacy/
-held_back_text:   # Instinct wording kept OUT of paste.md until the upload is approved and the store lists those watches; add it then
-  - "Fits round and rectangular watches alike, and on the Instinct E and Instinct 3 Solar it is black and white with the ring as a small 24-hour dial in the round window.  (replaces the first sentence of \"One face, every screen\")"
-  - "Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for.  (device sentence: add as line 2 of the description ONLY after both listings' real device lists are visible in the store form, SDK Monetization/App_Sales; no watch name or count)"
+owner_approvals:   # what only the owner may settle before paste.md is used
+  - "Title: 'Two Suns' is the plan placeholder; search the store by eye for a collision first."
+  - "Line 1 of the description needs the Two Suns Pro store URL, once Pro is live."
+  - "The looks of the hero (rendered 2026-10-04 from the Free build in the simulator, canned data; it shows no curve, no date and nothing from Pro), the cover (the plain ring, no golden arcs, no pill), the device icons and the five screens (simulator only with canned data: sun times and the Body Battery number are set for the picture, never a reading; details in screenshots.md)."
+  - "What's New is blank, per this app's rule for an initial release. If a line is preferred, a draft: 'First release of the free Two Suns: the time, a 24-hour sun ring, your Body Battery number and an accent colour.'"
 open_items: "2.3 2.5 4.3 4.4"   # ids in ROADMAP.md
