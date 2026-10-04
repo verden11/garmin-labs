@@ -202,7 +202,7 @@ function ringTwilightSkipsAnInconsistentCalculation(logger as Test.Logger) as Bo
     return true;
 }
 
-(:test)
+(:test, :color)
 function dimLowersOnlyFullChannels(logger as Test.Logger) as Boolean {
     Test.assertEqual(TwoSunsPalette.dim(0xFFAA00), 0xAAAA00);
     Test.assertEqual(TwoSunsPalette.dim(0x55FFAA), 0x55AAAA);
@@ -240,7 +240,7 @@ function dimPartsStayReadable(logger as Test.Logger) as Boolean {
 }
 
 // For every accent the ring's five colours (night, twilight, gone, left, golden) are all different.
-(:test)
+(:test, :color)
 function ringColoursAreDistinctForEveryAccent(logger as Test.Logger) as Boolean {
     for (var a = 0; a < TwoSunsPalette.ACCENTS.size(); a++) {
         var accent = TwoSunsPalette.ACCENTS[a];

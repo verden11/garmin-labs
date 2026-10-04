@@ -1,9 +1,9 @@
 <settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
 
-    <setting propertyKey="@Properties.Orientation" title="@Strings.setting_orientation">
+    <setting propertyKey="@Properties.Golden" title="@Strings.setting_golden">
         <settingConfig type="list">
-            <listEntry value="0">@Strings.orientation_noon</listEntry>
-            <listEntry value="1">@Strings.orientation_midnight</listEntry>
+            <listEntry value="0">@Strings.off</listEntry>
+            <listEntry value="1">@Strings.on</listEntry>
         </settingConfig>
     </setting>
 </settings>

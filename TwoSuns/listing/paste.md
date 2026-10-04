@@ -31,7 +31,7 @@ Five settings
 Accent colour, ring orientation, golden hour, the energy curve, the date — plain lists, changeable in Garmin Connect or right on the watch (Customize, next to Apply), defaults work if you never touch them.
 
 One face, every screen
-Fits round and rectangular watches alike, full detail down to the smallest, and dims to a quiet time, number and sun line when the screen sleeps.
+Fits round and rectangular watches alike, full detail down to the smallest, and on the Instinct E and Instinct 3 Solar it is black and white with the ring as a small 24-hour dial in the round window. It dims to a quiet time, number and sun line when the screen sleeps.
 
 Your place stays on your watch
 The face reads your last known location (rounded to about 11 km), your recent Body Battery, and the watch's own sun data — nothing leaves the watch. No internet, no account, no analytics, no ads.

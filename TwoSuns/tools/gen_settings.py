@@ -47,9 +47,19 @@ def tier_settings(tier):
     return [s for s in SETTINGS if tier == "pro" or s[0] not in PRO_ONLY_KEYS]
 
 
-def settings_xml(tier):
+# The settings files, in the order the phone shows them (the compiler merges the files in resourcePath order). Accent and
+# Golden are each their own folder so the Instinct products, whose 1-bit display can show neither, leave them out of their
+# resourcePath (docs/decisions.md ADR-024); the pieces between keep the shipped order.
+GROUPS = {
+    "pro": [("resources-accent-pro", ["Accent"]), ("resources-pro", ["Orientation"]), ("resources-golden-pro", ["Golden"]),
+            ("resources-pro-tail", ["Curve", "Date", "Weather", "Battery"])],
+    "free": [("resources-accent-free", ["Accent"])],
+}
+
+
+def settings_xml(tier, keys):
     out = [f"<settings {XSI}>\n\n"]
-    for prop, title, _default, entries in tier_settings(tier):
+    for prop, title, _default, entries in [s for s in tier_settings(tier) if s[0] in keys]:
         body = "\n            ".join(f'<listEntry value="{v}">@Strings.{s}</listEntry>' for v, s in entries)
         out.append(f'    <setting propertyKey="@Properties.{prop}" title="@Strings.{title}">\n'
                    f'        <settingConfig type="list">\n            {body}\n        </settingConfig>\n    </setting>\n')
@@ -75,8 +85,8 @@ def hand_ids(tier="pro"):
 
 
 def tier_files(tier):
-    return ((f"resources-{tier}/settings/settings.xml", settings_xml(tier)),
-            (f"resources-{tier}/settings/properties.xml", properties_xml(tier)))
+    files = [(f"{folder}/settings/settings.xml", settings_xml(tier, keys)) for folder, keys in GROUPS[tier]]
+    return tuple(files) + ((f"resources-{tier}/settings/properties.xml", properties_xml(tier)),)
 
 
 def check(root):
@@ -89,6 +99,8 @@ def check(root):
         for rel, text in tier_files(tier):
             if not (root / rel).exists() or (root / rel).read_text() != text:
                 print(rel, "differs from the generated text"); bad += 1
+        if tier == "free" and (root / "resources-free" / "settings" / "settings.xml").exists():
+            print("resources-free/settings/settings.xml must not exist: Free's one setting is in resources-accent-free"); bad += 1
     config = (root / "source" / "TwoSunsConfig.mc").read_text()
     for prop, _title, _default, _entries in SETTINGS:
         if f'= "{prop}";' not in config:

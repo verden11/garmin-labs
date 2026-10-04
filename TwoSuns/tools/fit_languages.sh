@@ -9,12 +9,18 @@
 #
 # Prints one line per run; exits 1 if any run failed. Needs the simulator running.
 set -u
+# Runs in a container by default (own simulator, no pkill, parallel-safe: ../../docker/README.md). CIQ_DOCKER=0 = host simulator.
+[[ -z ${CIQ_IN_DOCKER:-} && ${CIQ_DOCKER:-1} != 0 ]] && exec "${0:A:h:h:h}/docker/run.sh" "${0:A:h:h}" /ciq-docker/ciq-run.sh "tools/${0:t}" "$@"
 PROJECT=${0:A:h:h}
 SDK_BIN=${SDK_BIN:-$(dirname "$(command -v monkeyc)")}
 KEY=${KEY:-$HOME/.garmin-connectiq/keys/developer_key}
 RUN_TIMEOUT=${RUN_TIMEOUT:-150}
 TIER=${TIER:-pro}
-if [[ $TIER == free ]]; then MANIFEST=manifest.free.xml EXCLUDE=pro; else MANIFEST=manifest.xml EXCLUDE=free; fi
+# The settings files are in several folders, in the order the phone shows them (see monkey.jungle); the Instinct products leave out the
+# Accent and Golden folders (ADR-024).
+if [[ $TIER == free ]]; then MANIFEST=manifest.free.xml JUNGLE=monkey.free.jungle EXCLUDE=pro ALL="resources:resources-free:resources-accent-free" INSTINCT="resources:resources-free"
+else MANIFEST=manifest.xml JUNGLE=monkey.jungle EXCLUDE=free ALL="resources:resources-accent-pro:resources-pro:resources-golden-pro:resources-pro-tail" INSTINCT="resources:resources-pro:resources-pro-tail"; fi
+paths() { local out="" p; for p in ${(s/:/)1}; do out+="$PROJECT/$p;"; done; echo "$out"; }
 LANGS=(eng dan deu dut fin fre ita lit nob pol por spa swe tur ukr)
 if [[ ${1:-} == -l ]]; then LANGS=(${=2}); shift 2; fi
 WORK=$(mktemp -d)
@@ -29,9 +35,14 @@ for product in "$@"; do
     cat > $WORK/$lang.jungle <<EOF
 project.manifest = $PROJECT/$MANIFEST
 base.sourcePath = $PROJECT/source
-base.resourcePath = $PROJECT/resources;$PROJECT/resources-$TIER;$WORK/$lang
-base.excludeAnnotations = $EXCLUDE
+base.resourcePath = $(paths $ALL)$WORK/$lang
+base.excludeAnnotations = $EXCLUDE;mono
 EOF
+    # The Instinct products: the black-and-white palette and no Accent or Golden file, as the real jungle has (ADR-024).
+    if grep -q "^$product.excludeAnnotations" $PROJECT/$JUNGLE; then
+      echo "$product.excludeAnnotations = $EXCLUDE;color" >> $WORK/$lang.jungle
+      echo "$product.resourcePath = $(paths $INSTINCT)$WORK/$lang" >> $WORK/$lang.jungle
+    fi
     prg=$WORK/$lang-$product.prg
     if ! "$SDK_BIN/monkeyc" -t -d $product -f $WORK/$lang.jungle -o $prg -y $KEY > $WORK/build.log 2>&1; then
       echo "$lang $product: BUILD FAILED"; head -3 $WORK/build.log; failed=1; continue

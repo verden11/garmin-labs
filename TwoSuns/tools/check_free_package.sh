@@ -67,7 +67,21 @@ PRO_ONLY = ["Orientation", "Golden", "Curve", "Date", "Weather", "Battery"]
 PRO_KEYS = FREE_KEYS + PRO_ONLY
 FREE_PERMISSIONS = {"ComplicationSubscriber"}
 PRO_PERMISSIONS = {"ComplicationSubscriber", "Positioning", "SensorHistory"}
-PRODUCTS = 69
+PRODUCTS = 72   # 69 plus the 3 Connect IQ 6 Instinct products (ADR-024)
+# The Instinct products show neither an accent nor the golden hour (1-bit display): their Pro parts have no Accent or Golden setting,
+# and their Free parts have no settings file at all. The part numbers come from the SDK so the check can tell them from round parts.
+INSTINCT = ["instincte40mm", "instincte45mm", "instinct3solar45mm"]
+INSTINCT_PARTS = set()
+for _pid in INSTINCT:
+    _path = os.path.join(devices, _pid, "compiler.json")
+    if os.path.exists(_path):
+        INSTINCT_PARTS |= {p["number"] for p in json.load(open(_path))["partNumbers"]}
+if not INSTINCT_PARTS:
+    print("note: SDK device files not found; the Instinct parts cannot be told apart, so the settings checks will fail")
+
+
+def part_of(path):
+    return os.path.basename(path).split("-settings.json")[0]
 # Property names scanned for in the compiled .prg. A .prg stores a string as <length byte><text><NUL>, so a standalone name is matched
 # as control byte + name + NUL: that skips the longer titles that contain it ("Golden hour", the French "Orientation de l'anneau").
 # Date is left out: the shared setting title "Date" is that exact string (see the header).
@@ -129,16 +143,27 @@ def check(root, tier, app_name, keys, app_id, permissions):
         fail(f"{tier}: permissions {sorted(got_permissions)}, expected {sorted(permissions)}")
     products = len(re.findall(r"<iq:product ", manifest))
     files = part_files(root, "*-settings.json")
-    if len(files) != products:
+    parts = set(re.findall(r'<iq:product [^>]*partNumber="([^"]+)"', manifest))
+    instinct_in = INSTINCT_PARTS & parts
+    if tier == "FREE":
+        if {part_of(f) for f in files} & INSTINCT_PARTS:
+            fail(f"{tier}: an Instinct part has a settings file (its only setting, Accent, is hidden there)")
+        if len(files) != products - len(instinct_in):
+            fail(f"{tier}: {len(files)} settings files for {products} products and {len(instinct_in)} Instinct parts")
+    elif len(files) != products:
         fail(f"{tier}: {len(files)} settings files for {products} products")
+    if not instinct_in:
+        fail(f"{tier}: no Instinct part in the package (the Accent and Golden exemption was never exercised)")
     for path in files:
         data = json.loads(read_text(path))
         got = [s["key"] for s in data["settings"]]
-        if got != keys:
-            fail(f"{tier}: {path}: keys {got}, expected {keys}")
-        accent = [s for s in data["settings"] if s["key"] == "Accent"][0]
-        if [o["value"] for o in accent["configOptions"]] != list(range(6)):
-            fail(f"{tier}: {path}: Accent ids are not 0-5")
+        wanted = [k for k in keys if k not in ("Accent", "Golden")] if part_of(path) in INSTINCT_PARTS else keys
+        if got != wanted:
+            fail(f"{tier}: {path}: keys {got}, expected {wanted}")
+        if part_of(path) not in INSTINCT_PARTS:
+            accent = [s for s in data["settings"] if s["key"] == "Accent"][0]
+            if [o["value"] for o in accent["configOptions"]] != list(range(6)):
+                fail(f"{tier}: {path}: Accent ids are not 0-5")
         for lang, strings in data["languages"].items():
             if strings.get("AppName") != app_name:
                 fail(f"{tier}: {path}: language {lang} AppName is {strings.get('AppName')!r}, expected {app_name!r}")
@@ -210,7 +235,7 @@ for path in glob.glob(free_dir + "/**/*", recursive=True):
 for path in part_files(pro_dir, "*-settings.json"):
     got = [s["key"] for s in json.loads(read_text(path))["settings"]]
     for key in PRO_ONLY:
-        if key not in got:
+        if key not in got and not (part_of(path) in INSTINCT_PARTS and key == "Golden"):
             fail(f"PRO: {path}: missing {key}")
 for path in part_files(pro_dir, "*.prg"):
     raw = read_bytes(path)
@@ -242,7 +267,7 @@ if problems:
     if len(problems) > 40:
         print(f"  ... and {len(problems) - 40} more")
     sys.exit(1)
-parts_note = "part numbers equal the SDK's for the manifest's 69 products" if parts_checked else "part-number check SKIPPED (SDK device files not found)"
+parts_note = "part numbers equal the SDK's for the manifest's 72 products" if parts_checked else "part-number check SKIPPED (SDK device files not found)"
 print(f"OK: Free package ({free_products} part numbers, {free_files} settings files): permissions {sorted(free_perms)} only, keys {FREE_KEYS} (Accent 0-5), "
       f"no Pro-only function or file in debug.xml, no 'Pro' anywhere, AppName 'Two Suns' in every language; {parts_note}.")
 print(f"OK: Pro package ({pro_products} part numbers, {pro_files} settings files): permissions {sorted(pro_perms)}, keys {PRO_KEYS}, AppName 'Two Suns Pro' in every language; "

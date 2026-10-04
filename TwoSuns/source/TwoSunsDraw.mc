@@ -110,7 +110,8 @@ class TwoSunsDraw {
 
     private static function centered(dc as Graphics.Dc, layout as TwoSunsLayout, dx as Number, top as Number, bandHeight as Number,
                                      font as Graphics.FontDefinition, str as String) as Void {
-        text(dc, layout, layout.centerX() + dx, top + (bandHeight - dc.getFontHeight(font)) / 2, font, str, Graphics.TEXT_JUSTIFY_CENTER);
+        var y = top + (bandHeight - dc.getFontHeight(font)) / 2;
+        text(dc, layout, layout.rowCenterX(y, dc.getFontHeight(font)) + dx, y, font, str, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
     static function fits(dc as Graphics.Dc, layout as TwoSunsLayout, radius as Number, top as Number, bandHeight as Number,

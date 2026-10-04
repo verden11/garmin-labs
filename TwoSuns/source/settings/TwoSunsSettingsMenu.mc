@@ -22,7 +22,9 @@ class TwoSunsSettingsMenu extends WatchUi.Menu2 {
 
     function initialize() {
         Menu2.initialize({:title => WatchUi.loadResource(Rez.Strings.AppName) as String});
-        addItem(new WatchUi.MenuItem(WatchUi.loadResource(Rez.Strings.setting_accent) as String, null, ITEM_ACCENT, null));
+        if (!TwoSunsPalette.MONO) {   // a 1-bit display cannot show an accent (ADR-024)
+            addItem(new WatchUi.MenuItem(WatchUi.loadResource(Rez.Strings.setting_accent) as String, null, ITEM_ACCENT, null));
+        }
         addProItems();
     }
 
@@ -30,7 +32,9 @@ class TwoSunsSettingsMenu extends WatchUi.Menu2 {
     private function addProItems() as Void {
         var settings = TwoSunsSettings.load();
         addItem(new WatchUi.MenuItem(WatchUi.loadResource(Rez.Strings.setting_orientation) as String, null, ITEM_ORIENTATION, null));
-        addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource(Rez.Strings.setting_golden) as String, null, ITEM_GOLDEN, settings.golden, null));
+        if (!TwoSunsPalette.MONO) {   // nor the golden hour, which is a colour (ADR-024)
+            addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource(Rez.Strings.setting_golden) as String, null, ITEM_GOLDEN, settings.golden, null));
+        }
         addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource(Rez.Strings.setting_curve) as String, null, ITEM_CURVE, settings.curve, null));
         addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource(Rez.Strings.setting_date) as String, null, ITEM_DATE, settings.date, null));
         addItem(new WatchUi.ToggleMenuItem(WatchUi.loadResource(Rez.Strings.setting_weather) as String, null, ITEM_WEATHER, settings.weather, null));

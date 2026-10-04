@@ -36,7 +36,7 @@ One setting
 Accent colour, six to choose from, in Garmin Connect or right on the watch (Customize, next to Apply). The defaults work if you never touch it.
 
 One face, every screen
-Fits round and rectangular watches alike, and dims to a quiet time, number and sun line when the screen sleeps.
+Fits round and rectangular watches alike, and on the Instinct E and Instinct 3 Solar it is black and white with the ring as a small 24-hour dial in the round window. It dims to a quiet time, number and sun line when the screen sleeps.
 
 If this face works for you, a rating in the store helps other people find it.
 

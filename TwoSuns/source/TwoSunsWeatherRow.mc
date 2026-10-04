@@ -64,7 +64,7 @@ class TwoSunsWeatherRow {
         var gap = cellGap(layout);
         var withLow = lowKept(dc, layout, weather, mode, top, ahead);
         var leadW = leadWidth(dc, layout, weather, mode, withLow);
-        var x = layout.centerX() - totalWidth(dc, layout, weather, mode, ahead, withLow) / 2;
+        var x = layout.rowCenterX(top, rowHeight) - totalWidth(dc, layout, weather, mode, ahead, withLow) / 2;
         if (leadW > 0) {
             drawLead(dc, layout, weather, mode, x, top, rowHeight, withLow);
             TwoSunsDraw.box(layout, x, top, leadW, rowHeight, "weather");

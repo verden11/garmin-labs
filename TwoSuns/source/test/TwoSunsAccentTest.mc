@@ -67,7 +67,7 @@ function everyAccentAndItsDimReadOnBlack(logger as Test.Logger) as Boolean {
 }
 
 // The ring's golden hour keeps its own colour: no accent, and no dimmed accent, may be it.
-(:test)
+(:test, :color)
 function noAccentIsTheGoldenHourColour(logger as Test.Logger) as Boolean {
     for (var i = 0; i < TwoSunsPalette.ACCENTS.size(); i++) {
         Test.assertNotEqual(TwoSunsPalette.ACCENTS[i], TwoSunsPalette.GOLDEN);
@@ -78,7 +78,7 @@ function noAccentIsTheGoldenHourColour(logger as Test.Logger) as Boolean {
 
 // Append-only: a shipped id never changes its colour (the phone and the watch store the id). Ids 6 and up
 // are deferred; when they land they are appended and this list grows.
-(:test)
+(:test, :color)
 function shippedAccentIdsKeepTheirColours(logger as Test.Logger) as Boolean {
     var shipped = TwoSunsAccentCheck.SHIPPED;
     Test.assert(TwoSunsPalette.ACCENTS.size() >= shipped.size());
@@ -101,7 +101,7 @@ function outOfRangeAccentIsTheDefault(logger as Test.Logger) as Boolean {
 }
 
 // Both tiers offer ids 0 to 5 (the Free list is the shipped list), and the settings reader accepts each.
-(:test)
+(:test, :color)
 function freeAccentIdsAreAccepted(logger as Test.Logger) as Boolean {
     for (var id = TwoSunsAccentCheck.FIRST_FREE_ACCENT; id <= TwoSunsAccentCheck.LAST_FREE_ACCENT; id++) {
         Test.assertEqual(new TwoSunsSettings({"Accent" => id} as Dictionary).accent, id);
