@@ -24,6 +24,11 @@ function stackFitsWorstCaseOnThisDevice(logger as Test.Logger) as Boolean {
     var dc = dayArcTestDc();
     var layout = new DayArcLayout(dc);
     var failures = "";
+    var inks = "";
+    for (var f = 0; f < DayArcLayout.HERO_FONTS.size(); f++) {
+        inks += " " + DayArcText.inkHeight(dc, DayArcLayout.HERO_FONTS[f]);
+    }
+    logger.debug("HEROINK " + dc.getWidth() + "x" + dc.getHeight() + " hot/medium/mild" + inks);
     var variants = ["morning-data", "morning-empty", "midday-data", "midday-empty", "evening-data", "evening-empty", "night"] as Array<String>;
     for (var v = 0; v < variants.size(); v++) {
         failures += dayArcCheckVariant(logger, dc, layout, variants[v], v);
@@ -84,7 +89,7 @@ function dayArcLogPlan(logger as Test.Logger, dc as Graphics.Dc, layout as DayAr
         gridRows = DayArcGrid.draw(dc, layout, plan.gridTop(), hero.get(:cells) as Array<Dictionary>);
     }
     logger.debug("STACK " + dc.getWidth() + "x" + dc.getHeight() + " " + name + " level=" + plan.level + " fits=" + plan.fits
-        + " gap=" + plan.gap + " sublines=" + plan.subLineCount + " reservedGridRows=" + plan.gridRows + " rows(y/h)" + rows
+        + " heroInk=" + DayArcText.inkHeight(dc, plan.heroFont) + " iconW=" + plan.iconWidth + " gap=" + plan.gap + " sublines=" + plan.subLineCount + " reservedGridRows=" + plan.gridRows + " rows(y/h)" + rows
         + " bottom=" + dayArcPlanBottom(plan) + " gridTop=" + plan.gridTop() + " gridRows=" + gridRows);
 }
 

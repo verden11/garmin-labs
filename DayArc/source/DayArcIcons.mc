@@ -9,22 +9,60 @@ import Toybox.Lang;
 class DayArcIcons {
     // Hero icons are pre-coloured bitmaps, one per hue (tools/gen_hero_icons.py) — a runtime tint
     // would hit drawBitmap2's FR165/FR165m :tintColor bug. Indexed like DayArcPalette.ACCENTS.
-    // `choice` is the wearer's Accent colour (0 = Auto: this window's own hue).
+    // `choice` is the wearer's Accent colour (0 = Auto: this window's own hue). Two sizes of every icon exist per screen
+    // (ADR-017: the jungles load them from resources-hero-*): the LARGE one (heroFor) sits beside the HOT number tier, the
+    // SMALL one (heroSmallFor) beside MEDIUM and MILD, so the icon stays about as tall as the digits whichever tier the
+    // planner picks.
     static function heroFor(window as Number, choice as Number) as ResourceId or Null {
+        return heroIcon(window, choice, false);
+    }
+
+    static function heroSmallFor(window as Number, choice as Number) as ResourceId or Null {
+        return heroIcon(window, choice, true);
+    }
+
+    private static function heroIcon(window as Number, choice as Number, small as Boolean) as ResourceId or Null {
         var hue = DayArcPalette.hueIndex(window, choice);
         if (window == DayArcConfig.WINDOW_MORNING) {
-            return [Rez.Drawables.IconHeroWeatherCyan, Rez.Drawables.IconHeroWeatherAmber, Rez.Drawables.IconHeroWeatherRose,
-                    Rez.Drawables.IconHeroWeatherGreen, Rez.Drawables.IconHeroWeatherBlue, Rez.Drawables.IconHeroWeatherPurple][hue];
+            return (small ? smallWeather() : largeWeather())[hue];
         }
         if (window == DayArcConfig.WINDOW_MIDDAY) {
-            return [Rez.Drawables.IconHeroStressCyan, Rez.Drawables.IconHeroStressAmber, Rez.Drawables.IconHeroStressRose,
-                    Rez.Drawables.IconHeroStressGreen, Rez.Drawables.IconHeroStressBlue, Rez.Drawables.IconHeroStressPurple][hue];
+            return (small ? smallStress() : largeStress())[hue];
         }
         if (window == DayArcConfig.WINDOW_EVENING) {
-            return [Rez.Drawables.IconHeroBatteryCyan, Rez.Drawables.IconHeroBatteryAmber, Rez.Drawables.IconHeroBatteryRose,
-                    Rez.Drawables.IconHeroBatteryGreen, Rez.Drawables.IconHeroBatteryBlue, Rez.Drawables.IconHeroBatteryPurple][hue];
+            return (small ? smallBattery() : largeBattery())[hue];
         }
         return null; // night: no hero, no icon
+    }
+
+    private static function largeWeather() as Array<ResourceId> {
+        return [Rez.Drawables.IconHeroWeatherCyan, Rez.Drawables.IconHeroWeatherAmber, Rez.Drawables.IconHeroWeatherRose,
+                Rez.Drawables.IconHeroWeatherGreen, Rez.Drawables.IconHeroWeatherBlue, Rez.Drawables.IconHeroWeatherPurple] as Array<ResourceId>;
+    }
+
+    private static function largeStress() as Array<ResourceId> {
+        return [Rez.Drawables.IconHeroStressCyan, Rez.Drawables.IconHeroStressAmber, Rez.Drawables.IconHeroStressRose,
+                Rez.Drawables.IconHeroStressGreen, Rez.Drawables.IconHeroStressBlue, Rez.Drawables.IconHeroStressPurple] as Array<ResourceId>;
+    }
+
+    private static function largeBattery() as Array<ResourceId> {
+        return [Rez.Drawables.IconHeroBatteryCyan, Rez.Drawables.IconHeroBatteryAmber, Rez.Drawables.IconHeroBatteryRose,
+                Rez.Drawables.IconHeroBatteryGreen, Rez.Drawables.IconHeroBatteryBlue, Rez.Drawables.IconHeroBatteryPurple] as Array<ResourceId>;
+    }
+
+    private static function smallWeather() as Array<ResourceId> {
+        return [Rez.Drawables.IconHeroSmallWeatherCyan, Rez.Drawables.IconHeroSmallWeatherAmber, Rez.Drawables.IconHeroSmallWeatherRose,
+                Rez.Drawables.IconHeroSmallWeatherGreen, Rez.Drawables.IconHeroSmallWeatherBlue, Rez.Drawables.IconHeroSmallWeatherPurple] as Array<ResourceId>;
+    }
+
+    private static function smallStress() as Array<ResourceId> {
+        return [Rez.Drawables.IconHeroSmallStressCyan, Rez.Drawables.IconHeroSmallStressAmber, Rez.Drawables.IconHeroSmallStressRose,
+                Rez.Drawables.IconHeroSmallStressGreen, Rez.Drawables.IconHeroSmallStressBlue, Rez.Drawables.IconHeroSmallStressPurple] as Array<ResourceId>;
+    }
+
+    private static function smallBattery() as Array<ResourceId> {
+        return [Rez.Drawables.IconHeroSmallBatteryCyan, Rez.Drawables.IconHeroSmallBatteryAmber, Rez.Drawables.IconHeroSmallBatteryRose,
+                Rez.Drawables.IconHeroSmallBatteryGreen, Rez.Drawables.IconHeroSmallBatteryBlue, Rez.Drawables.IconHeroSmallBatteryPurple] as Array<ResourceId>;
     }
 
     (:pro)

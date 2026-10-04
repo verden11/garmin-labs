@@ -1,0 +1,21 @@
+<drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- Hero icons, large slot, 90 px high (tools/gen_hero_icons.py, ADR-017). -->
+    <bitmap id="IconHeroWeatherCyan" filename="icons/hero_weather_cyan.svg" dithering="none" />
+    <bitmap id="IconHeroWeatherAmber" filename="icons/hero_weather_amber.svg" dithering="none" />
+    <bitmap id="IconHeroWeatherRose" filename="icons/hero_weather_rose.svg" dithering="none" />
+    <bitmap id="IconHeroWeatherGreen" filename="icons/hero_weather_green.svg" dithering="none" />
+    <bitmap id="IconHeroWeatherBlue" filename="icons/hero_weather_blue.svg" dithering="none" />
+    <bitmap id="IconHeroWeatherPurple" filename="icons/hero_weather_purple.svg" dithering="none" />
+    <bitmap id="IconHeroStressCyan" filename="icons/hero_stress_cyan.svg" dithering="none" />
+    <bitmap id="IconHeroStressAmber" filename="icons/hero_stress_amber.svg" dithering="none" />
+    <bitmap id="IconHeroStressRose" filename="icons/hero_stress_rose.svg" dithering="none" />
+    <bitmap id="IconHeroStressGreen" filename="icons/hero_stress_green.svg" dithering="none" />
+    <bitmap id="IconHeroStressBlue" filename="icons/hero_stress_blue.svg" dithering="none" />
+    <bitmap id="IconHeroStressPurple" filename="icons/hero_stress_purple.svg" dithering="none" />
+    <bitmap id="IconHeroBatteryCyan" filename="icons/hero_battery_cyan.svg" dithering="none" />
+    <bitmap id="IconHeroBatteryAmber" filename="icons/hero_battery_amber.svg" dithering="none" />
+    <bitmap id="IconHeroBatteryRose" filename="icons/hero_battery_rose.svg" dithering="none" />
+    <bitmap id="IconHeroBatteryGreen" filename="icons/hero_battery_green.svg" dithering="none" />
+    <bitmap id="IconHeroBatteryBlue" filename="icons/hero_battery_blue.svg" dithering="none" />
+    <bitmap id="IconHeroBatteryPurple" filename="icons/hero_battery_purple.svg" dithering="none" />
+</drawables>

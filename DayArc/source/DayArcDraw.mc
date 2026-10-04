@@ -84,7 +84,9 @@ class DayArcDraw {
     private static function drawHeroGroup(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, hero as Dictionary, accent as Number) as Void {
         var y = plan.ys[DayArcStack.ROW_HERO];
         var rowHeight = plan.hs[DayArcStack.ROW_HERO];
-        var iconId = hero.hasKey(:icon) ? hero.get(:icon) as ResourceId or Null : null;
+        // The size the plan was made for: the small icon beside MEDIUM and MILD digits, the large one beside HOT (ADR-017).
+        var iconKey = plan.smallIcon && hero.hasKey(:iconSmall) ? :iconSmall : :icon;
+        var iconId = hero.hasKey(iconKey) ? hero.get(iconKey) as ResourceId or Null : null;
         var icon = iconId != null ? WatchUi.loadResource(iconId) as WatchUi.BitmapResource : null;
         var iconWidth = icon != null ? icon.getWidth() + layout.heroIconGap() : 0;
         var available = plan.rowWidth(y, rowHeight) - iconWidth;

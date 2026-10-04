@@ -42,9 +42,11 @@ class DayArcFields {
         }
         // WINDOW_NIGHT: no data block, time + date only (ADR-010) — an empty hero, so no icon.
         hero.put(:dateText, dateText);
-        var icon = DayArcIcons.heroFor(window, DayArcSettings.accentChoice());
+        var choice = DayArcSettings.accentChoice();
+        var icon = DayArcIcons.heroFor(window, choice);
         if (icon != null) {
-            hero.put(:icon, icon);
+            hero.put(:icon, icon);                                    // beside the HOT number tier
+            hero.put(:iconSmall, DayArcIcons.heroSmallFor(window, choice)); // beside MEDIUM and MILD (ADR-017)
         }
         return hero;
     }
