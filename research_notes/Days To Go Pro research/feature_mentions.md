@@ -1,6 +1,6 @@
 # What the listing descriptions promise (feature word counts)
 
-Source: the 83 countdown-like faces in `countdown_faces.csv` marked `genuine = y` (public store API, 2026-10-04). A regex over the English description, so a count is a lower bound and a false positive is possible (for example `arc` or `phase`). **Fact: the word is in the text. Inference: nothing about what buyers want.**
+Source: the 83 countdown-like faces in `countdown_faces.csv` marked `genuine = y` (public store API, 2026-10-04). A regex over the English description, so a count is a lower bound and a false positive is possible (for example `arc` or `phase`). **Fact: the word is in the text. Inference: nothing about what buyers want.** Caveat: many of the 41 external-unlock listings are template variants of the same Christmas or winter face by a few developers, so their word counts repeat one description many times and inflate the data, colour and image rows.
 
 | Feature word group | all genuine (n=83) | free (n=36) | free + external unlock (n=41) | paid (store) (n=6) | >=1000 downloads (n=18) |
 |---|---:|---:|---:|---:|---:|
