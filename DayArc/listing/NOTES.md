@@ -68,3 +68,19 @@ How they are made: [`screenshots.md`](screenshots.md). Why they are what they ar
 - **What's New:** blank, initial release. **Category:** Utility (alternative: Health & Fitness; the same choice TwoSuns made, ADR-012 does not touch this). **Collects user data:** No; nothing leaves the watch: no network code, no `Communications` permission, no location (DayArc reads no location at all, simpler than TwoSuns). **Monetization:** Free.
 - **Images:** the owner approves the looks first (`meta.yaml` `owner_approvals`); at most 5 screens; all five are the simulator's own captures at native pixels with a 24-hour clock; the values (weather, stress, Body Battery) are the simulator's canned ones, not readings; the night window is left out on purpose. Captions and devices are in `meta.yaml` `assets.screens`.
 - **Form fields not in paste.md:** the file never carried Subcategory, ANT+ profiles, regional limits, Preview Video, Source Code URL, Review Notification or App Migration, and does not now; the template's answers for them (`../../reports/listing-template.md`) are No / No / none / blank / Yes / No, to be read against the real form at submission. The Email Address and Hardware blocks now follow the form order (Hardware last).
+
+## Light-ground cover and hero (ROADMAP 10.25, owner decision 2026-10-04)
+
+Garmin's brand page says "Do not choose black or transparent backgrounds"; the old cover and hero were black with a navy glow (kept as `old/cover-500-dark.png`, `old/hero-1440x720-dark.png`). New ground: indigo gradient `#4B3BC4` to `#2A2582` on cover and hero, the same in both tiers so the pair reads as one family; Free is the plain mark, Pro has the white PRO tag (as before). The hero keeps the black watch screens, on the indigo.
+
+Looked at three-plus variants at 500 px and at 100 px:
+- **Cream `#FFF4E0` (rejected).** Cyan has about 1.2:1 contrast on cream, so the middle arc segment and the "r" of the name wash out; the white dot has to turn dark, which changes the mark. It was the weakest at thumbnail size.
+- **Bright blue `#1F5FD0` (rejected).** Cyan and the blue ground sit too close in hue; the middle segment is the weakest of the three arcs.
+- **Flat indigo `#3A2E9C` (close second).** Same read as the gradient; the gradient adds a little depth and was picked.
+- **Indigo gradient (chosen).** Amber, cyan and rose all stay vivid, the white dot and the white name keep full contrast, and it is legible at 100 px.
+
+Device icons 128x128 are left black: the quoted rule names the 500x500 store icon (cover), and a device icon is drawn on the watch's own ground; the owner may want a coloured ground there too. Owner approves the looks.
+
+## Form fields added to `paste.md` (ROADMAP 10.24, 2026-10-04)
+
+Answered as the sibling listings do (`../../TwoSuns/listing-free/paste.md`, `../../HeroSet/listing/paste.md`): **Subcategory** "whatever the Category choice offers" (Category stays Utility; HeroSet's own category has an "Other" entry, a face's Utility may not); **ANT+** No (the face decodes no ANT+ profile); **regional limits** No; **Preview Video** none (YouTube or Vimeo only); **Source Code URL** blank; **Review Notification** Yes; **App Migration** No (a new app id, not a newly compatible device on an existing app). Privacy-policy URL is not added: the field is conditional on "collects user data" being Yes.

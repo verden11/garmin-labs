@@ -25,8 +25,8 @@ package:
 price: paid, the USD 2.50 tier (set in the form; ADR-018); no number in text
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  cover: cover-500.png        # 500x500, under 300 KB; rendered 2026-10-04 from src/cover.html (PRO tag); look not yet approved by the owner
-  hero: hero-1440x720.png     # 1440x720, under 2048 KB; src/hero.html; look not yet approved
+  cover: cover-500.png        # 500x500, under 300 KB; rendered 2026-10-04 on an indigo ground (not black) from src/cover.html (PRO tag); look not yet approved by the owner
+  hero: hero-1440x720.png     # 1440x720, under 2048 KB; indigo ground; src/hero.html; look not yet approved
   icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; src/icon.html + src/quantize64.py; look not yet approved
   screens:                    # upload order; 2026-10-04 simulator captures at native pixels, 24-hour clock, canned or random values; each under 150 KB
     - {file: screens/1-morning.png, caption: "Morning, weather with sunrise/sunset, battery, heart rate, steps and floors around it", device: fr965, px: 454}
@@ -42,6 +42,6 @@ site:
 owner_approvals:   # what only the owner may settle before paste.md is used
   - "Store URLs in the description: line 1 needs DayArc live; under 'More from Verden' keep only the free faces that are live and delete every other line."
   - "'Chosen in the Garmin Connect app' is unverified until a store install (docs/status.md gate 5): keep it firm or soften it."
-  - "The looks of the hero (proposal: the arc mark with a white PRO tag, three windows with their grids, no price, no claim beyond what each window shows), the cover (the arc mark and the name with a white PRO tag in the arc), the device icons and the five screens (simulator captures with canned or random values, not readings; the night window is left out on purpose)."
+  - "The looks of the hero (proposal: the arc mark with a white PRO tag, three windows with their grids, no price, no claim beyond what each window shows), the cover (the arc mark and the name on an indigo ground, not black, with a white PRO tag in the arc), the device icons and the five screens (simulator captures with canned or random values, not readings; the night window is left out on purpose)."
   - "Before uploading screens 2 to 4: the flame cell shows 0 and the midday calendar cell shows '00:00' (simulator limits, see screenshots.md); accept or hold those frames."
 open_items: "1.1 1.4 1.5 1.7 1.8 1.9"   # ids in ROADMAP.md

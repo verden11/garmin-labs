@@ -52,7 +52,19 @@ Leave blank.
 
 **Utility**
 
+## Subcategory
+
+Whatever the Category choice offers.
+
 ## Does your app collect user data?
+
+**No**
+
+## Does your app decode/encode any ANT+ profiles?
+
+**No**
+
+## Does your app have regional limits?
 
 **No**
 
@@ -73,11 +85,27 @@ Leave blank.
 - 64 Color: `icon-64-128.png`
 - 24 bit: `icon-24-128.png`
 
+## Preview Video
+
+None.
+
 ## Email Address
 
 ```text
 hello@verden.watch
 ```
+
+## Source Code URL
+
+Leave blank.
+
+## Review Notification
+
+**Yes**
+
+## App Migration
+
+**No**
 
 ## Monetization
 

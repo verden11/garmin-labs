@@ -16,6 +16,8 @@ At most five, the best five for this tier. The face changes through the day, so 
 
 DayArc's manifest has three black-and-white Instincts (`instincte40mm`, `instincte45mm`, `instinct3solar45mm`); the E 40 mm frame has the largest hero of the three, so it is the one shown. Free shows one reading per window, so the Instinct frame is the hero and a gauge.
 
+**Light-ground covers (ROADMAP 10.25, 2026-10-04):** cover and hero sit on an indigo gradient (`#4B3BC4` to `#2A2582`), never black (Garmin's brand page: "Do not choose black or transparent backgrounds"); the arc mark, the white dot and the name are unchanged, the black watch screens sit on it. The dark ones are in `old/`. The 128x128 device icons stay black: Garmin's quote is about the 500x500 store cover, and a device icon is drawn on the watch's own ground. Cover about 65 KB, hero under 480 KB.
+
 Composed images, all in this folder: `cover-500.png` (500x500), `hero-1440x720.png`, `icon-24-128.png`, `icon-64-128.png` (the two device icons, 128x128). The mark is the day as an arc (amber morning, cyan midday, rose evening, a white dot for now) in `src/mark.svg`; the hues are the face's own Auto accents. **Proposal for the owner:** Free is the plain mark, DayArc Pro carries a white PRO tag (`../listing-pro/`), so the two tell apart in the store at 100 px.
 
 ## How they were made
