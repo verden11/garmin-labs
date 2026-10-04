@@ -9,7 +9,7 @@ All from the Pro build, native simulator pixels, clock 2026-10-04 10:09. No pric
 | # | File | Device | What it shows (what Pro has) |
 |---|---|---|---|
 | 1 | `screens/1-everyday.png` | `fr965`, 454 px | Everyday: 8420 steps, 18 intensity minutes, 7 floors, ring, blue accent, the temperature under the time |
-| 2 | `screens/2-your-bars.png` | `fr965`, 454 px | **Pro's own:** the bars set to distance, intensity minutes and floors, seconds beside the time, the pale magenta accent |
+| 2 | `screens/2-your-bars.png` | `fr965`, 454 px | **Pro's own:** the bars set to the move bar, steps and intensity minutes (each bar fills), seconds beside the time, the pale magenta accent |
 | 3 | `screens/3-goals-met.png` | `fr965`, 454 px | All three goals met: green bars and ring, check marks, gold streak line |
 | 4 | `screens/4-heroset.png` | `fr965`, 454 px | HeroSet mode: push-ups, sit-ups, squats, rank and streak, gold ring (the HeroSet value is canned, see below) |
 | 5 | `screens/5-instinct-e40.png` | **`instincte40mm`, 166 px native, shown x3 (the Instinct family)** | Black and white, the ring is a gauge in the round window (closed here), the time and date left of it, streak, three reversed labels for finished goals |
@@ -30,9 +30,9 @@ docker/capture.sh HeroFace tools/listing_shots.sh pro 2-your-bars.png   # one pi
 
 - The five pictures came out of one full run that also took a few extra frames (a second custom-bars variant, Instinct 2 and Instinct E 45 mm, a goals-met HeroSet frame); the script was trimmed to the chosen five afterwards and the unused frames were discarded. The scenes are unchanged. Extra arguments after `pro` name the files to re-take alone (`... pro 3-goals-met.png`); a "NOT SAVED" line means repeat that one. In the Free twin's long run the simulator kept a stored Accent value, so Free's accent frames are taken one per run; look at every picture.
 - The face is built in a **private copy** of the project, so `source/` and the repo's `properties.xml` are never touched. The clock is the simulator's own (`faketime`), the activity data is typed into Simulation > Activity Monitoring, and each file is the simulator's File > Save Screen Capture, so the size is the device's own.
-- Settings a user would change are set by editing the private copy's `resources-pro/settings/properties.xml`: shot 2 sets `Accent` 2 (Magenta), `Seconds` true, `Slot1` 4 (distance), `Slot2` 3 (intensity minutes), `Slot3` 5 (floors); the others use the defaults (blue, no seconds, bars on Auto).
+- Settings a user would change are set by editing the private copy's `resources-pro/settings/properties.xml`: shot 2 sets `Accent` 2 (Magenta), `Seconds` true, `Slot1` 6 (move bar), `Slot2` 1 (steps), `Slot3` 3 (intensity minutes); only metrics with a goal were used, so every column has a filling bar (distance and calories have no goal and draw an empty column; the first version of this picture used distance and was retaken for that reason); the others use the defaults (blue, no seconds, bars on Auto).
 - **HeroSet mode (shot 4) is canned.** The simulator runs one app at a time, so the face never sees HeroSet's complication. The private copy's `HeroFaceLink.mc` is patched (`isLinked()` true, `progress()` parses `1|20261004|60|45|28|2|40|3|20261003|100`: 60 / 45 / 28 reps of a goal of 100, rank 2, 40 % into the rank, streak 3). Everything after that is the real drawing path, the same one the on-watch link feeds; the numbers are made up and say nothing about HeroSet.
-- Simulator data is fake: the 68° temperature, battery 50, heart rate 80 and the 4.2 mi distance are canned or derived. **Never crop a screenshot into a claim about real readings.** The simulator's activity history does not produce a multi-day streak, so shot 3 reads "1-DAY STREAK".
+- Simulator data is fake: the 68° temperature, battery 50, heart rate 80 and the move bar reading "OK" are canned or derived. **Never crop a screenshot into a claim about real readings.** The simulator's activity history does not produce a multi-day streak, so shot 3 reads "1-DAY STREAK".
 - The FR965 wrist captures from 2026-09-20/21 (`old/3-heroset.png`, `old/4-heroset-complete.png`) are of the pre-split paid build and are no longer used.
 
 ## Cover, hero, icons
@@ -69,13 +69,13 @@ stat -f '%z %N' screens/*.png cover-500.png hero-1440x720.png icon-*.png        
 | File | Pixels | Size |
 |---|---|---|
 | `screens/1-everyday.png` | 454x454 | 16.9 KB |
-| `screens/2-your-bars.png` | 454x454 | 16.9 KB |
+| `screens/2-your-bars.png` | 454x454 | 18.2 KB |
 | `screens/3-goals-met.png` | 454x454 | 16.0 KB |
 | `screens/4-heroset.png` | 454x454 | 19.3 KB |
 | `screens/5-instinct-e40.png` | 498x498 (x3 of the 166 px native) | 3.5 KB |
 | `screens/native/5-instincte40mm-166.png` | 166x166 | 1.6 KB |
 | `cover-500.png` | 500x500 | 79 KB |
-| `hero-1440x720.png` | 1440x720 | 250 KB |
+| `hero-1440x720.png` | 1440x720 | 254 KB |
 | `icon-24-128.png` | 128x128 | 3.6 KB |
 | `icon-64-128.png` | 128x128 | 1.4 KB |
 

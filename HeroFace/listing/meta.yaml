@@ -27,10 +27,10 @@ limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   status: rendered 2026-10-04, owner look-approval pending, not uploaded   # old/ holds the superseded set
   cover: cover-500.png            # 500x500, 79 KB; the mark with a white PRO pill
-  hero: hero-1440x720.png         # 1440x720, 250 KB
+  hero: hero-1440x720.png         # 1440x720, 254 KB
   screens:                        # simulator, Pro build, upload order; each under 150 KB
     - {file: screens/1-everyday.png, caption: "The time, three goal bars, the ring, the temperature", device: fr965, px: 454}
-    - {file: screens/2-your-bars.png, caption: "Pro's own: bars you choose (distance, intensity minutes, floors), seconds beside the time, the Magenta accent", device: fr965, px: 454}
+    - {file: screens/2-your-bars.png, caption: "Pro's own: bars you choose (move bar, steps, intensity minutes), seconds beside the time, the Magenta accent", device: fr965, px: 454}
     - {file: screens/3-goals-met.png, caption: "Every goal met: check marks and the streak", device: fr965, px: 454}
     - {file: screens/4-heroset.png, caption: "HeroSet mode: reps, rank and streak (canned HeroSet value, see screenshots.md)", device: fr965, px: 454}
     - {file: screens/5-instinct-e40.png, caption: "The Instinct one: black and white, the ring as a gauge in the round window", device: instincte40mm, px: 498, native_px: 166, instinct: true}   # Pro is not sold on the Instinct 2 family, so that watch is not used

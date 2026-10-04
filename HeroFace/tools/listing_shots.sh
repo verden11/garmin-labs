@@ -35,8 +35,8 @@ DONE="10000 10400 24 12 $H $H $H $H $H 3000 3000"     # every goal met
 # Round, FR965 (454 px)
 scene 1-everyday.png fr965 $PART
 if [ "$TIER" = pro ]; then
-  # what Pro adds: a metric per bar (distance, intensity minutes, floors), seconds beside the time, the pale magenta accent
-  set_prop Accent 2; set_prop Seconds true; set_prop Slot1 4; set_prop Slot2 3; set_prop Slot3 5
+  # what Pro adds: a metric per bar (move bar, steps, intensity minutes), seconds beside the time, the pale magenta accent
+  set_prop Accent 2; set_prop Seconds true; set_prop Slot1 6; set_prop Slot2 1; set_prop Slot3 3
   scene 2-your-bars.png fr965 $PART
   set_prop Accent 0; set_prop Seconds false; set_prop Slot1 0; set_prop Slot2 0; set_prop Slot3 0
 else
