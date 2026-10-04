@@ -35,6 +35,17 @@ function clockTimeRespectsBothHourFormats(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// The recovery cell showed "R… 2501": the SDK's value is minutes, the grid wants a short hours reading.
+(:test)
+function recoveryMinutesReadAsHours(logger as Test.Logger) as Boolean {
+    Test.assertEqual(DayArcFormat.hoursFromMinutes(null), "--");
+    Test.assertEqual(DayArcFormat.hoursFromMinutes(0), "0h");
+    Test.assertEqual(DayArcFormat.hoursFromMinutes(29), "0h");
+    Test.assertEqual(DayArcFormat.hoursFromMinutes(30), "1h");
+    Test.assertEqual(DayArcFormat.hoursFromMinutes(2501), "42h");
+    return true;
+}
+
 (:test)
 function countAndPercentHandleNull(logger as Test.Logger) as Boolean {
     Test.assertEqual(DayArcFormat.count(null), "--");

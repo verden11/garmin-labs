@@ -53,6 +53,12 @@ class DayArcFormat {
         return value == null ? (WatchUi.loadResource(Rez.Strings.value_none) as String) : value.toString();
     }
 
+    // Recovery time arrives in MINUTES (Complications.COMPLICATION_TYPE_RECOVERY_TIME, SDK 9.2.0), the wrist
+    // photo of 2026-10-03 showed it raw as "2501"; the watch's own screens say hours, so round to hours.
+    static function hoursFromMinutes(minutes as Number or Null) as String {
+        return minutes == null ? (WatchUi.loadResource(Rez.Strings.value_none) as String) : ((minutes + 30) / 60).toString() + "h";
+    }
+
     static function percent(value as Number or Null) as String {
         return value == null ? (WatchUi.loadResource(Rez.Strings.value_none) as String) : value.toString() + "%";
     }

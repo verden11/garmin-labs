@@ -10,7 +10,9 @@ import Toybox.WatchUi;
 // from the end, never the middle. Rows are centred pairs of compact cells (see draw).
 class DayArcGrid {
     (:pro)
-    private static const MIN_VALUE_SAMPLE = "100";
+    // What a flexible value (a calendar title) must at least have room for: a clock time. Three digits left "12:..." on
+    // an Instinct (screenshot 2026-10-04); a cell that cannot show this much is not drawn.
+    private static const MIN_FLEX_SAMPLE = "00:00a";
 
     // Simple never puts :cells in a hero dict (DayArcFields' (:simple) forWindow builds none), so
     // this is unreachable there — a same-signature stub so DayArcDraw stays one shared function
@@ -101,37 +103,30 @@ class DayArcGrid {
         return true;
     }
 
-    // Same budget arithmetic as drawCell: the label is fitted to its capped share, the value gets
-    // what is left and must keep room for its own text or three digits, whichever is smaller (a
-    // long value such as a calendar title may still truncate, but never to one character). Public
-    // for DayArcLayoutTest.
+    // A cell is shown whole or not at all, except a flexible value (a calendar title, :flex): the label
+    // shows only if it fits WHOLE beside the value's natural width, else it is dropped (the icon still says
+    // what the cell is), and the value must then fit whole. A flexible value keeps at least a clock time of
+    // room and may end in "...". Never "R... 2501" or "12:..." (owner's FR965 photo 2026-10-03, the
+    // Instinct screenshots 2026-10-04). Public for DayArcLayoutTest.
     (:pro)
     static function cellFits(dc as Graphics.Dc, layout as DayArcLayout, cell as Dictionary, columnWidth as Number) as Boolean {
-        var cellWidth = layout.gridCellInnerWidth(columnWidth);
-        var textLeft = textOffset(layout, cell);
-        var value = cell.get(:value) as String;
-        var label = cell.get(:label) as String or Null;
-        var labelWidth = 0;
-        if (label != null) {
-            var natural = dc.getTextWidthInPixels(label, DayArcLayout.CELL_FONT);
-            var labelCap = labelMaxWidth(dc, layout, value, cellWidth - textLeft);
-            labelWidth = natural < labelCap ? natural : labelCap;
-        }
-        var valueBudget = cellWidth - textLeft - labelWidth - layout.gridValueGap();
-        var natural = dc.getTextWidthInPixels(value, DayArcLayout.CELL_FONT);
-        var floor = dc.getTextWidthInPixels(MIN_VALUE_SAMPLE, DayArcLayout.CELL_FONT);
-        return valueBudget >= (natural < floor ? natural : floor);
+        var inner = layout.gridCellInnerWidth(columnWidth) - textOffset(layout, cell);
+        var label = shownLabel(dc, layout, cell, inner);
+        var budget = inner - (label != null ? dc.getTextWidthInPixels(label, DayArcLayout.CELL_FONT) + layout.gridValueGap() : 0);
+        var natural = dc.getTextWidthInPixels(cell.get(:value) as String, DayArcLayout.CELL_FONT);
+        var floor = dc.getTextWidthInPixels(MIN_FLEX_SAMPLE, DayArcLayout.CELL_FONT);
+        return budget >= (cell.hasKey(:flex) && floor < natural ? floor : natural);
     }
 
-    // The label's share of what is left after the icon: whatever the value does not need, so a short
-    // value ("50%") is shown WHOLE and the label gives way — "Batt 8..." on an FR965 (2026-10-02 wrist
-    // photo) was the value cut 3 px short — but never below half the DESIGN.md share, so a long value
-    // (a calendar title) cannot erase its label. Same call in cellFits and fitted.
+    // The label if it fits whole next to the value's natural width, else null. Same call in cellFits and fitted.
     (:pro)
-    private static function labelMaxWidth(dc as Graphics.Dc, layout as DayArcLayout, value as String, available as Number) as Number {
-        var floor = layout.gridLabelMaxWidth(available) / 2;
-        var rest = available - dc.getTextWidthInPixels(value, DayArcLayout.CELL_FONT) - layout.gridValueGap();
-        return rest > floor ? rest : floor;
+    private static function shownLabel(dc as Graphics.Dc, layout as DayArcLayout, cell as Dictionary, inner as Number) as String or Null {
+        var label = cell.get(:label) as String or Null;
+        if (label == null) {
+            return null;
+        }
+        var need = dc.getTextWidthInPixels(label, DayArcLayout.CELL_FONT) + layout.gridValueGap() + dc.getTextWidthInPixels(cell.get(:value) as String, DayArcLayout.CELL_FONT);
+        return need <= inner ? label : null;
     }
 
     (:pro)
@@ -140,20 +135,14 @@ class DayArcGrid {
         return hasIcon ? DayArcLayout.GRID_ICON_SIZE + layout.gridIconGap() : 0;
     }
 
-    // A cell's content at the widths it was given: the label truncated to its budget, then the value to
-    // what is left, plus the compact total width. Same arithmetic as cellFits.
+    // A cell's content at the widths it was given: the label if it fits whole, then the value truncated to
+    // what is left (only a flexible value is ever cut), plus the compact total width. Same arithmetic as cellFits.
     (:pro)
     private static function fitted(dc as Graphics.Dc, layout as DayArcLayout, cell as Dictionary, cellWidth as Number) as Dictionary {
         var offset = textOffset(layout, cell);
-        var rawValue = cell.get(:value) as String;
-        var label = cell.get(:label) as String or Null;
-        var labelText = null as String or Null;
-        var labelWidth = 0;
-        if (label != null) {
-            labelText = DayArcText.truncated(dc, label, DayArcLayout.CELL_FONT, labelMaxWidth(dc, layout, rawValue, cellWidth - offset));
-            labelWidth = dc.getTextWidthInPixels(labelText, DayArcLayout.CELL_FONT) + layout.gridValueGap();
-        }
-        var value = DayArcText.truncated(dc, rawValue, DayArcLayout.CELL_FONT, cellWidth - offset - labelWidth);
+        var labelText = shownLabel(dc, layout, cell, cellWidth - offset);
+        var labelWidth = labelText != null ? dc.getTextWidthInPixels(labelText, DayArcLayout.CELL_FONT) + layout.gridValueGap() : 0;
+        var value = DayArcText.truncated(dc, cell.get(:value) as String, DayArcLayout.CELL_FONT, cellWidth - offset - labelWidth);
         return {:label => labelText, :value => value,
                 :width => offset + labelWidth + dc.getTextWidthInPixels(value, DayArcLayout.CELL_FONT)} as Dictionary;
     }

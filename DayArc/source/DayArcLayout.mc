@@ -42,12 +42,10 @@ class DayArcLayout {
     private static const HERO_ICON_GAP_PERMILLE = 20;
     private static const GRID_ICON_GAP_PERMILLE = 10;
 
-    // Grid cell layout (DESIGN.md "Layout": "each cell reserves a measured share for its label,
-    // capped at 55% of the column"; watch-design-reviewer, 2026-09-28: this ratio and the value/
-    // label gap were bare literals in DayArcDraw, against this file's own "no magic numbers" rule).
-    private static const GRID_LABEL_MAX_PERMILLE = 550;
+    // Grid cell layout (DESIGN.md "Layout": a label shows whole or not at all, never cut).
     private static const GRID_COLUMN_GAP_PERMILLE = 40; // gutter between the two columns; before it, one column's value butted into the next column's icon
     private static const GRID_VALUE_GAP_PERMILLE = 9; // ~4px on fr965's 454px display
+    private static const GRID_VALUE_GAP_MIN_PX = 3;    // on an Instinct's 166 px a permille gap was 1 px: "Rec5h"
 
     static const CLOCK_FONTS = [Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD, Graphics.FONT_LARGE] as Array<Graphics.FontDefinition>;
     static const HERO_FONTS = [Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
@@ -250,19 +248,13 @@ class DayArcLayout {
         return rowMaxWidth(rowTop, rowHeight) / GRID_COLUMNS;
     }
 
-    // DESIGN.md "Layout": a cell's label is capped at this share of its remaining column width
-    // (after any icon reservation), so the value always keeps a legible minimum.
-    function gridLabelMaxWidth(remainingColumnWidth as Number) as Number {
-        return remainingColumnWidth * GRID_LABEL_MAX_PERMILLE / PERMILLE;
-    }
-
     // The gutter between the two columns, split evenly: each cell is this much narrower than its half of the row.
     function gridColumnGap() as Number {
         return permille(GRID_COLUMN_GAP_PERMILLE);
     }
 
     function gridValueGap() as Number {
-        return permille(GRID_VALUE_GAP_PERMILLE);
+        return DayArcText.max(GRID_VALUE_GAP_MIN_PX, permille(GRID_VALUE_GAP_PERMILLE));
     }
 
     function gaugeHeight() as Number {

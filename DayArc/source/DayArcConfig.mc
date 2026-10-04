@@ -53,6 +53,10 @@ class DayArcConfig {
     static const WORST_TEMPERATURE = "-40°";
     static const WORST_MORNING_SUB = "104/-40  100% rain  UV 11";   // HIGH_LOW_TEMPERATURE is "55/43"-shaped (simulator)
     static const MAX_SUB_LINES = 2;
+    // A number font's digits fill about this share of its ascent (the rest is empty headroom above them): measured off
+    // simulator screenshots, 0.77 on an FR965 and 0.67 on an epix 2 (2026-10-04). The hero icon is centred on that
+    // estimate, not on the font box, so it sits level with the digits (the Dc has no glyph metrics to ask).
+    static const DIGIT_HEIGHT_PERMILLE = 720;
 
     // The vertical fit ladder (DESIGN.md "Layout"), one row per rung, first that fits wins. Columns are
     // named by the LEVEL_* indices below. Order = the owner's standing rule "do not shrink unless
@@ -77,6 +81,9 @@ class DayArcConfig {
     static const LEVEL_DROP_LABEL = 4;
     static const LEVEL_GRID_ROWS = 5;
     static const LEVEL_TRIM = 6;
+    // Pro, ADR-016: when no rung fits with the grid, the rungs before this index are tried again WITHOUT it (drawn like
+    // Simple, at Simple's own tiers) before any TRIM rung throws the date, label and sub line away.
+    static const STACK_FIRST_TRIM = 9;
     static const STACK_LEVELS = [
         [0, 0, 0, 1, 0, GRID_ROWS, TRIM_NONE], [0, 0, 0, 2, 0, GRID_ROWS, TRIM_NONE],
         [1, 0, 0, 2, 0, GRID_ROWS, TRIM_NONE], [1, 0, 1, 2, 0, GRID_ROWS, TRIM_NONE],

@@ -146,9 +146,11 @@ class DayArcFields {
     (:pro)
     private static function middayCells() as Array<Dictionary> {
         var nextEvent = DayArcSources.complicationString(Complications.COMPLICATION_TYPE_CALENDAR_EVENTS);
+        var calendar = iconCell(Rez.Strings.midday_calendar_label, DayArcIcons.GRID_CALENDAR,
+            nextEvent != null ? nextEvent : (WatchUi.loadResource(Rez.Strings.midday_calendar_none) as String));
+        calendar.put(:flex, true); // an event title is the one value that may end in "..." (DayArcGrid.cellFits)
         return [
-            iconCell(Rez.Strings.midday_calendar_label, DayArcIcons.GRID_CALENDAR,
-                nextEvent != null ? nextEvent : (WatchUi.loadResource(Rez.Strings.midday_calendar_none) as String)),
+            calendar,
             iconOnlyCell(DayArcIcons.GRID_HEART, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_HEART_RATE))),
             iconCell(Rez.Strings.label_intensity_minutes, DayArcIcons.GRID_BOLT, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_INTENSITY_MINUTES))),
             iconOnlyCell(DayArcIcons.GRID_STAIRS, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_FLOORS_CLIMBED))),
@@ -166,7 +168,7 @@ class DayArcFields {
         var vo2Run = DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_VO2MAX_RUN);
         var vo2 = vo2Run != null ? vo2Run : DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_VO2MAX_BIKE);
         return [
-            iconCell(Rez.Strings.label_recovery_time, DayArcIcons.GRID_REFRESH, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_RECOVERY_TIME))),
+            iconCell(Rez.Strings.label_recovery_time, DayArcIcons.GRID_REFRESH, DayArcFormat.hoursFromMinutes(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_RECOVERY_TIME))),
             iconCell(Rez.Strings.label_respiration, DayArcIcons.GRID_BREATH, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_RESPIRATION_RATE))),
             iconOnlyCell(DayArcIcons.GRID_HEART, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_HEART_RATE))),
             iconOnlyCell(DayArcIcons.GRID_STEPS, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_STEPS))),

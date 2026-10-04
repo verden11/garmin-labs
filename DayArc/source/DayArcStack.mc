@@ -89,17 +89,28 @@ class DayArcStack {
         return _dc as Graphics.Dc;
     }
 
-    // A second sub line is tried only when one line at this rung failed because the sub text itself
-    // did not fit its row — never just to split a string that already fits.
+    // Three passes over the ladder: every non-trim rung with the grid, then (Pro only) the same rungs without it,
+    // then the TRIM rungs (ADR-016). A second sub line is tried only when one line at this rung failed because the
+    // sub text itself did not fit its row, never just to split a string that already fits.
     private function search() as Void {
-        for (var rung = 0; rung < DayArcConfig.STACK_LEVELS.size(); rung++) {
-            if (attempt(rung, 1)) {
-                return;
+        var trim = DayArcConfig.STACK_FIRST_TRIM;
+        if (!tryPass(0, trim, false) || (pro && !tryPass(0, trim, true))) {
+            return;
+        }
+        tryPass(trim, DayArcConfig.STACK_LEVELS.size(), false);
+    }
+
+    // True when no rung of the pass fits; false (and the plan is solved) when one does.
+    private function tryPass(from as Number, to as Number, noGrid as Boolean) as Boolean {
+        for (var rung = from; rung < to; rung++) {
+            if (attempt(rung, 1, noGrid)) {
+                return false;
             }
-            if (strings.get(:sub) != null && !DayArcStackFit.rowFits(self, dc(), ROW_SUB) && attempt(rung, DayArcConfig.MAX_SUB_LINES)) {
-                return;
+            if (strings.get(:sub) != null && !DayArcStackFit.rowFits(self, dc(), ROW_SUB) && attempt(rung, DayArcConfig.MAX_SUB_LINES, noGrid)) {
+                return false;
             }
         }
+        return true;
     }
 
     // Where Pro's grid rows begin (no divider since E1; the lift budget is part of the grid block).
@@ -128,21 +139,21 @@ class DayArcStack {
 
     // Row heights and tiers for one rung, then centre (or, in Pro, top-anchor) the stack, slide it
     // down until the rows up near the arc clear it, and check everything.
-    private function attempt(rung as Number, lines as Number) as Boolean {
+    private function attempt(rung as Number, lines as Number, noGrid as Boolean) as Boolean {
         var t = DayArcConfig.STACK_LEVELS[rung];
         level = rung;
         clockFont = DayArcLayout.CLOCK_FONTS[t[DayArcConfig.LEVEL_CLOCK]];
         heroFont = DayArcLayout.HERO_FONTS[t[DayArcConfig.LEVEL_HERO]];
         textFont = DayArcLayout.LABEL_FONTS[t[DayArcConfig.LEVEL_TEXT]];
         gap = layout.rowGap() / t[DayArcConfig.LEVEL_GAP_DIVISOR];
-        gridRows = t[DayArcConfig.LEVEL_GRID_ROWS];
+        gridRows = noGrid ? 0 : t[DayArcConfig.LEVEL_GRID_ROWS];
         var trim = t[DayArcConfig.LEVEL_TRIM];
         subLineCount = trim == DayArcConfig.TRIM_NONE ? lines : 1;
         measure(trim, t[DayArcConfig.LEVEL_DROP_LABEL] == 1);
         var total = totalHeight();
         var limit = layout.gridBottom();
         var start = layout.topMargin();
-        if (!pro && total < limit - start) {
+        if (hs[ROW_GRID] == 0 && total < limit - start) {   // a stack with no grid block centres, Pro's included
             start += (limit - start - total) / 2;
         }
         if (_window == DayArcConfig.WINDOW_NIGHT) {
@@ -182,7 +193,7 @@ class DayArcStack {
             plannedSub = subLineCount == DayArcConfig.MAX_SUB_LINES ? DayArcText.split(dc(), sub, textFont) : [sub] as Array<String>;
         }
         hs[ROW_SUB] = plannedSub.size() * textHeight;
-        hs[ROW_GRID] = pro && optional ? layout.gridReserve(dc(), gridRows) : 0;
+        hs[ROW_GRID] = pro && optional && gridRows > 0 ? layout.gridReserve(dc(), gridRows) : 0;
     }
 
     private function totalHeight() as Number {
