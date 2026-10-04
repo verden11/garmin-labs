@@ -16,10 +16,10 @@ Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id). Text: `../listing-fre
 
 | File (absolute path) | Products | Check |
 |---|---|---|
-| `/Users/mbp/dev/garmin/TwoSuns/dist/TwoSunsFree-2026-10-04.iq` | 72 | `tools/check_free_package.sh`: OK (permission ComplicationSubscriber only, key Accent only) |
-| `/Users/mbp/dev/garmin/TwoSuns/dist/TwoSunsPro-2026-10-04.iq` | 72 | same script: OK (Positioning, SensorHistory, seven keys) |
+| `/Users/mbp/dev/garmin/TwoSuns/dist/TwoSunsFree-2026-10-04b.iq` | 72 | `tools/check_free_package.sh`: OK (permission ComplicationSubscriber only, key Accent only) |
+| `/Users/mbp/dev/garmin/TwoSuns/dist/TwoSunsPro-2026-10-04b.iq` | 72 | same script: OK (Positioning, SensorHistory, seven keys) |
 
-built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP.
+**Re-exported 2026-10-04 (the `-2026-10-04b` files) from commit 99f2dc0, after the last code change; the earlier `-2026-10-04.iq` exports are stale: do not upload them.** Built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP.
 
 ## Never decide alone
 

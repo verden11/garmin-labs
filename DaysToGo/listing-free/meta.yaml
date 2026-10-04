@@ -17,9 +17,9 @@ next:
   uploaded: null
   summary: the Free twin; names confirmed 2026-10-04; titles and the Pro store URL are the owner's decisions
 package:
-  file: dist/DaysToGoFree-2026-10-04.iq
+  file: dist/DaysToGoFree-2026-10-04b.iq
   products: 127   # <iq:product> lines in the manifest; the export has 210 part numbers (device variants), not a product count
-  exported: 2026-10-04
+  exported: 2026-10-04   # re-export 'b' from commit 99f2dc0, after the last code change; the unsuffixed 2026-10-04 file is stale
   check: "tools/check_free_package.sh: OK (no Hour/Footer key or code, no 'Pro' anywhere, AppName Days To Go)"
   note: "export: monkeyc -e -r -f monkey.free.jungle; built in the verden-ciq-build container; same bytes as dist/DaysToGoFree.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
 price: free
