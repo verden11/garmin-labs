@@ -10,11 +10,10 @@ class TwoSunsPalette {
     static const TEXT = 0xFFFFFF;
     static const MUTED = 0xAAAAAA;
     static const TRACK = 0x555555;
-    // Always-on: dimmer than TEXT so an AMOLED spends less light. Same value as NIGHT (below), reused
-    // deliberately for its contrast (2.8:1 for 0x555555 alone fails the project's own >=3:1 rule for a
-    // persistent/always-on colour; NIGHT is 3.27:1); safe to share because the ring never draws during
-    // sleep (TwoSunsSleep.draw), so the two never appear together (watch-design-reviewer, 2026-09-27).
-    static const SLEEP_TEXT = 0x5555AA;
+    // Always-on (AMOLED only, so it need not be 64-colour safe): a dim neutral grey, per Garmin's "avoid much white or blue,
+    // consider light gray" (ADR-027). 3.14:1 against black, so above the project's >=3:1 bar for a persistent colour (0x555555
+    // alone is 2.8:1), and a touch less luminous than the 0x5555AA it replaces (0.107 against 0.113 relative luminance).
+    static const SLEEP_TEXT = 0x5C5C5C;
 
     // The "Accent" setting, by index: sky (default), mint, autumn, violet, pink, winter. Sky is the
     // default because blue carries no "status" meaning (unlike amber, which reads as a warning colour

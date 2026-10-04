@@ -127,7 +127,7 @@ That is 10 of 11 screen sizes from `tools/fit_all.sh` (one product each), supers
 ## What was NOT tested
 
 - **The rectangles by eye** (Venu Sq 2, Sq 2 Music, Venu X1): the fit test passed on all three, but the owner has not looked at them.
-- **MIP contrast in daylight** (night track `#5555AA` is 3.3:1 and the stale fill and always-on text `#555555` 2.8:1, computed from hex values, not measured).
+- **MIP contrast in daylight** (night track `#5555AA` is 3.3:1 and the stale fill `#555555` 2.8:1; the always-on text is `#5C5C5C`, 3.1:1, AMOLED only, ADR-027, computed from hex values, not measured).
 - **Always-on on a real AMOLED**: lit-pixel share, ghosting, whether the screen blanks.
 - **Translations in any language.** The tests run in English; the date line in the test states is fixed English ("Wed 30 Sep"). `tools/fit_languages.sh` was written and not run. `tools/check_strings.py` checks parity and length only.
 - **Real data**: the simulator has no GPS position, canned weather, canned Complication sun values and synthetic Body Battery history; layout and logic are proved, data never.

@@ -145,7 +145,7 @@ Time format follows the system's 12/24 h. No numeric fields. Settings reach the 
 
 The visual system as built is in [`../DESIGN.md`](../DESIGN.md). **The look, the rectangles and the launcher icon are not approved**; no screenshot of the face exists (this environment cannot capture the simulator). Decided by the build, not by the owner: the colours, the row drop order. The glyph shape (2026-09-27) was the owner's call, on the real-device photo.
 
-Constraints (from the SDK and Days To Go): primitives and system fonts only, no bitmaps; proportional layout with measured text fit; 64-colour safe values (each channel 00, 55, AA or FF); black ground; a state is never colour alone. **In bright sun the dim tracks must still read**: the night track is at least 3:1 against black (`#5555AA`, 3.3:1, computed from the hex value, not measured on a screen).
+Constraints (from the SDK and Days To Go): primitives and system fonts only, no bitmaps; proportional layout with measured text fit; 64-colour safe values (each channel 00, 55, AA or FF; the one exception is the AMOLED-only always-on grey `#5C5C5C`, ADR-027); black ground; a state is never colour alone. **In bright sun the dim tracks must still read**: the night track is at least 3:1 against black (`#5555AA`, 3.3:1, computed from the hex value, not measured on a screen).
 
 Direction, **"two suns"**: black ground; one accent; a 24-hour ring around the bezel. Ring encoding: night = dim track; civil twilight = a light lavender; daylight still to come = accent; daylight already gone = the accent with each FF channel dropped to AA; sunrise and sunset = short white radial ticks; sun = a white dot with a black halo on the ring at the current time, solid when the sun is up and an outline when it is not; golden hour (setting) = a `#FF5500` arc. The time is the hero, the largest of `FONT_NUMBER_HOT`, `MEDIUM`, `MILD` that fits under 260 permille of the shorter side (raised from 230, owner feedback on a real FR965, 2026-09-27). Under the time, one band: a level pill (a plain rounded bar, no battery nub — see "Built vs specified"), the Body Battery value in the accent (dimmed to `dim(accent)` below level 30, muted grey when stale), and the 24-hour curve (a fill, a white line, the current point a dot: solid in the level colour, an outline when stale). The bottom line is the sun sentence. The date is small and muted, above the time. No layer overlaps another (a Sun Watch Toutou complaint: steps bar over sun times).
 
@@ -153,7 +153,7 @@ Rows are stacked from measured font heights (Days To Go ADR-012), not from fract
 
 **Free (ADR-025):** awake, the Body Battery number is a size larger than in Pro (the stack has room); the always-on frame keeps the small size.
 
-**Always-on (AMOLED):** time, the Body Battery number and the sun sentence in `#5555AA` (ADR-007, amended 2026-09-27), the whole block stepping across a 3 by 3 grid every minute (ADR-007). No ring, no curve, no glyph, no date. MIP watches show the full face at all times.
+**Always-on (AMOLED):** time, the Body Battery number and the sun sentence in `#5C5C5C`, a dim grey (ADR-007, amended 2026-09-27; colour changed by ADR-027, always-on text is a dim grey), the whole block stepping across a 3 by 3 grid every minute (ADR-007). No ring, no curve, no glyph, no date. MIP watches show the full face at all times.
 
 ## Devices and memory
 
@@ -220,7 +220,7 @@ Owner notes, 2026-09-27, from the real-device look. Neither is v1 or blocking; b
 | Body Battery accuracy | No independent validation of the composite score found | Show Garmin's number as Garmin reports it; no claims |
 | A copy from Vesper Solar and the many sun faces | Vesper Solar, 3 days old | Moat: correct numbers, no blanks, Body Battery curve, finish |
 | Translations never fit-tested; no native reader | `tools/fit_languages.sh` written, not run; `tools/check_strings.py` checks parity and length only | Run it on the smallest and a rectangular screen before shipping any language; say "machine-drafted" |
-| The stale curve fill is `#555555` (2.8:1 against black); the always-on text was too, raised to `#5555AA` (3.3:1) 2026-09-27 | Computed from the hex value | Stale is carried by shape (hollow glyph, outline dot) and is awake-only; check on a MIP watch in daylight |
+| The stale curve fill is `#555555` (2.8:1 against black); the always-on text was too, raised to `#5555AA` 2026-09-27 and moved to the grey `#5C5C5C` (3.1:1) 2026-10-04 (ADR-027, always-on text is a dim grey) | Computed from the hex value | Stale is carried by shape (hollow glyph, outline dot) and is awake-only; check on a MIP watch in daylight |
 | Nobody pays for a single-idea face | about 75 paid Body Battery/sun faces, 2 at 1,000+ | Flagged; same price review and success test as Days To Go |
 | DST day ring jump | Wall-clock ring | Documented; a test covers 29 March and 25 October London |
 | Polar-circle transition days | USNO vs one-noon declination | ±1 day accepted, tested and documented |

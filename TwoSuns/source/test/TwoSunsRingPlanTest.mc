@@ -232,6 +232,7 @@ function ringContrast(color as Number) as Float {
 (:test)
 function dimPartsStayReadable(logger as Test.Logger) as Boolean {
     Test.assertMessage(ringContrast(TwoSunsPalette.NIGHT) >= 3.0, "night track contrast " + ringContrast(TwoSunsPalette.NIGHT));
+    Test.assertMessage(ringContrast(TwoSunsPalette.SLEEP_TEXT) >= 3.0, "always-on text contrast " + ringContrast(TwoSunsPalette.SLEEP_TEXT));
     for (var i = 0; i < TwoSunsPalette.ACCENTS.size(); i++) {
         var gone = TwoSunsRing.colorFor(TwoSunsConfig.RING_DAY_GONE, TwoSunsPalette.ACCENTS[i]);
         Test.assertMessage(ringContrast(gone) >= 3.0, "accent " + i + " gone contrast " + ringContrast(gone));

@@ -5,7 +5,7 @@ colors:
   ground: "#000000"
   text: "#FFFFFF"
   muted: "#AAAAAA"
-  sleep-text: "#5555AA"
+  sleep-text: "#5C5C5C"
   night: "#5555AA"
   twilight: "#AAAAFF"
   golden: "#FF5500"
@@ -99,14 +99,15 @@ All values have channels 00, 55, AA or FF, the device-safe palette (why: see `wa
 |---|---|---|
 | Text, white accent | `#FFFFFF` | 21.0 : 1 |
 | Muted | `#AAAAAA` | 9.0 : 1 |
-| Night track, curve fill (fresh), always-on text | `#5555AA` | 3.3 : 1 |
+| Night track, curve fill (fresh) | `#5555AA` | 3.3 : 1 |
+| Always-on text (AMOLED sleep frame only; not 64-colour, AMOLED shows any value) | `#5C5C5C` | 3.1 : 1 |
 | Twilight | `#AAAAFF` | 9.9 : 1 |
 | Golden hour | `#FF5500` | 6.6 : 1 |
 | Stale curve fill (awake only) | `#555555` | 2.8 : 1 |
 
 Accents (default first) and their "gone" form: sky `#55AAFF` 8.6 : 1 → `#55AAAA` 7.7 (default, chosen 2026-09-27 over the old amber default: blue carries no "status" meaning, so it never misreads as a low value); mint `#55FFAA` 16.3 → `#55AAAA` 7.7; autumn (the old "amber", renamed not recoloured) `#FFAA00` 11.0 → `#AAAA00` 8.5; violet `#AA55FF` 5.5 → `#AA55AA` 4.6; pink `#FF55AA` 7.1 → `#AA55AA` 4.6; winter (the old "white") `#FFFFFF` 21.0 → `#55AAAA` 7.7 (nudged from the naive `#AAAAAA`, which is bit-identical to MUTED/stale — see "watch-design-reviewer findings, 2026-09-27" below). The unit test `dimPartsStayReadable` asserts at least 3:1 for the night track and for every accent's gone form; `dimNeverEqualsMuted` (new) asserts no accent's gone form ever equals MUTED.
 
-Always-on text is `#5555AA`, 3.3:1 (fixed 2026-09-27, ADR-007 amendment, `docs/decisions.md`). Stale curve fill stays `#555555`, 2.8:1 (awake-only, carried by shape too); still worth a look-approval check in daylight on a MIP watch. `TwoSunsPalette.TRACK` (`#555555`) is defined but no code draws it.
+Always-on text is `#5C5C5C`, 3.1:1 (was `#555555` 2.8:1, then `#5555AA` 3.3:1 from 2026-09-27; now a grey, ADR-027 (always-on text is a dim grey), `docs/decisions.md`). Stale curve fill stays `#555555`, 2.8:1 (awake-only, carried by shape too); still worth a look-approval check in daylight on a MIP watch. `TwoSunsPalette.TRACK` (`#555555`) is defined but no code draws it.
 
 ## Accent ids, and the Free build (ADR-020, accepted 2026-10-04, UNRELEASED)
 
@@ -124,11 +125,11 @@ One muted `#AAAAAA` row above the first row of the stack: a classic battery (out
 
 ## Always-on (AMOLED)
 
-Only on watches that require burn-in protection. The time, the Body Battery value and the sun sentence, `#5555AA`, the block stepping across a 3 × 3 grid every minute in steps of 3.5% of D (15 px on 454); the time is always two font sizes below whatever awake just picked (derived at draw time, `TwoSunsDraw.fontsBelow`, ADR-007 amendment, `docs/decisions.md`). No ring, curve, glyph or date. Text is fitted against a circle smaller by one step, so a shifted block stays inside. MIP watches keep the full face. **Not measured on a watch:** lit-pixel share, ghosting, whether the screen blanks — Garmin's published burn-in limit is cited in the ADR-007 amendment of 2026-10-04 (`docs/decisions.md`); `watch-design-kit`'s `knowledge/platform-facts.md` still tags it unverified.
+Only on watches that require burn-in protection. The time, the Body Battery value and the sun sentence, `#5C5C5C` (a dim grey, ADR-027 (always-on text is a dim grey)), the block stepping across a 3 × 3 grid every minute in steps of 3.5% of D (15 px on 454); the time is always two font sizes below whatever awake just picked (derived at draw time, `TwoSunsDraw.fontsBelow`, ADR-007 amendment, `docs/decisions.md`). No ring, curve, glyph or date. Text is fitted against a circle smaller by one step, so a shifted block stays inside. MIP watches keep the full face. **Not measured on a watch:** lit-pixel share, ghosting, whether the screen blanks — Garmin's published burn-in limit is cited in the ADR-007 amendment of 2026-10-04 (`docs/decisions.md`); `watch-design-kit`'s `knowledge/platform-facts.md` still tags it unverified.
 
 ### Always-on text colour against Garmin's "avoid much white or blue" (finding, 2026-10-04, ROADMAP 10.17; no colour changed)
 
-Garmin's watch-face page says, for always-on: "Avoid using much white or blue. Consider using light gray instead." It gives no reason, no threshold for "much", and no measure. Our always-on text is `#5555AA`, a blue-family colour (blue channel `AA`, red and green `55`). Facts, computed from the hex values: relative luminance `#555555` 0.09 (2.8:1 on black), `#5555AA` 0.11 (3.3:1), `#AAAAAA` 0.40 (9.0:1), white 1.00. (1) On Venu 2 and later Garmin's rule is under 10% of the screen's *luminance*, and a block of time, number and sun line in `#5555AA` is a small area at about a ninth of white's luminance per pixel, so the share is small whatever the exact area; (2) the original Venu's rule counts lit pixels in any colour but black, so colour does not matter there; (3) Garmin's "light gray" (`#AAAAAA`) would draw the same blue channel (`AA`) as ours plus red and green, about 3.5 times the luminance, so it is not a way to use less blue; the only colour with less blue that still clears our own 3:1 bar is a non-blue one (for example `#AA5555`, 4.1:1), and why Garmin names blue is not stated (any reason about subpixel ageing is our inference, not Garmin's). **Finding:** the choice sits between our 3:1 contrast bar (why `#555555` was raised in the 2026-09-27 amendment) and a piece of advice with no stated reason; the pixel and luminance budgets are met with margin by arithmetic, but unmeasured. Keep `#5555AA` until the heat map and an always-on night on a wrist (ROADMAP 3.1) say otherwise; if the owner wants to follow the advice literally, it is a one-constant change (`TwoSunsPalette.SLEEP_TEXT`) and a look-approval question, not a change made here.
+Garmin's watch-face page says, for always-on: "Avoid using much white or blue. Consider using light gray instead." It gives no reason, no threshold for "much", and no measure. Our always-on text was `#5555AA`, a blue-family colour (blue channel `AA`, red and green `55`). Facts, computed from the hex values: relative luminance `#555555` 0.09 (2.8:1 on black), `#5555AA` 0.11 (3.3:1), `#AAAAAA` 0.40 (9.0:1), white 1.00. (1) On Venu 2 and later Garmin's rule is under 10% of the screen's *luminance*, and a block of time, number and sun line in `#5555AA` is a small area at about a ninth of white's luminance per pixel, so the share is small whatever the exact area; (2) the original Venu's rule counts lit pixels in any colour but black, so colour does not matter there; (3) Garmin's "light gray" (`#AAAAAA`) would draw the same blue channel (`AA`) as ours plus red and green, about 3.5 times the luminance, so it is not a way to use less blue; the only colour with less blue that still clears our own 3:1 bar is a non-blue one (for example `#AA5555`, 4.1:1), and why Garmin names blue is not stated (any reason about subpixel ageing is our inference, not Garmin's). **Finding:** the choice sits between our 3:1 contrast bar (why `#555555` was raised in the 2026-09-27 amendment) and a piece of advice with no stated reason; the pixel and luminance budgets are met with margin by arithmetic, but unmeasured. **Resolved 2026-10-04: the owner chose to follow the advice now** (ROADMAP 10.26, ADR-027 (always-on text is a dim grey)). `TwoSunsPalette.SLEEP_TEXT` is now `#5C5C5C`: neutral grey with no blue channel, 3.14:1 against black (above our own 3:1 bar; `#555555` at 2.8:1 is not), relative luminance 0.107 against `#5555AA`'s 0.113, so the luminance budget is a touch lower and the lit-pixel share is unchanged (same glyphs, same area). It is not a 64-colour value: only AMOLED draws the sleep frame, and AMOLED renders any value (a MIP watch never takes this path). Garmin's own "light gray" (`#AAAAAA`) was not used: 3.5 times the luminance, brighter than a persistent colour needs. The heat map and an always-on night on a wrist (ROADMAP 3.1) are still open.
 
 ## Failure display
 
