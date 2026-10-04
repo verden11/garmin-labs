@@ -99,12 +99,14 @@ class DayArcStack {
         return _dc as Graphics.Dc;
     }
 
-    // Three passes over the ladder: every non-trim rung with the grid, then (Pro only) the same rungs without it,
-    // then the TRIM rungs (ADR-016). A second sub line is tried only when one line at this rung failed because the
-    // sub text itself did not fit its row, never just to split a string that already fits.
+    // The passes over the ladder (ADR-016, ADR-017): the rungs that keep the hero label with the grid, then (Pro only)
+    // without it; the same two for the rungs that drop the label; then the TRIM rungs. So a grid row is never bought with
+    // the label while a Simple-like plan keeps it. A second sub line is tried only when one line at this rung failed
+    // because the sub text itself did not fit its row, never just to split a string that already fits.
     private function search() as Void {
+        var drop = DayArcConfig.STACK_FIRST_DROP_LABEL;
         var trim = DayArcConfig.STACK_FIRST_TRIM;
-        if (!tryPass(0, trim, false) || (pro && !tryPass(0, trim, true))) {
+        if (!tryPass(0, drop, false) || (pro && !tryPass(0, drop, true)) || !tryPass(drop, trim, false) || (pro && !tryPass(drop, trim, true))) {
             return;
         }
         tryPass(trim, DayArcConfig.STACK_LEVELS.size(), false);
@@ -154,11 +156,11 @@ class DayArcStack {
         level = rung;
         clockFont = DayArcLayout.CLOCK_FONTS[t[DayArcConfig.LEVEL_CLOCK]];
         heroFont = DayArcLayout.HERO_FONTS[t[DayArcConfig.LEVEL_HERO]];
-        textFont = DayArcLayout.LABEL_FONTS[t[DayArcConfig.LEVEL_TEXT]];
-        gap = layout.rowGap() / t[DayArcConfig.LEVEL_GAP_DIVISOR];
         smallIcon = t[DayArcConfig.LEVEL_HERO] != 0;
         iconWidth = _iconSizes[smallIcon ? 2 : 0];
         _iconHeight = _iconSizes[smallIcon ? 3 : 1];
+        textFont = DayArcLayout.LABEL_FONTS[t[DayArcConfig.LEVEL_TEXT]];
+        gap = layout.rowGap() / t[DayArcConfig.LEVEL_GAP_DIVISOR];
         gridRows = noGrid ? 0 : t[DayArcConfig.LEVEL_GRID_ROWS];
         var trim = t[DayArcConfig.LEVEL_TRIM];
         subLineCount = trim == DayArcConfig.TRIM_NONE ? lines : 1;
