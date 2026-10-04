@@ -36,7 +36,7 @@ the simulator wedged: quit it, restart, run again. It does this every few runs.
 
 ## The test kinds
 
-Pro runs 24 tests and Free 24 (**PASSED in the simulator on both jungles on fr965, fenix5s and fr55, 2026-10-01**; the ten-size fit loop and the memory view are not yet run; use `EXPECT=24` or a 4th argument of `tools/run_tests.sh` to fail a full run on a count mismatch): 22 are shared, `disabledSecondsDrawNoSecondsBox`
+Pro runs 24 tests and Free 24 (**PASSED in the simulator on both jungles on fr965, fenix5s and fr55, 2026-10-01**; the ten-size fit loop (Free, 2026-10-04: 25/25 on all ten sizes plus `vivoactive3`) and the memory view (2026-10-04, `compatibility.md` "Measured 2026-10-04") were run later, the Pro ten-size loop is not yet run; use `EXPECT=24` or a 4th argument of `tools/run_tests.sh` to fail a full run on a count mismatch): 22 are shared, `disabledSecondsDrawNoSecondsBox`
 and `proSettingsReadTheirDefaults` are Pro-only (`(:test, :pro)`), `freeReturnsDefaultsForProKeys` and `freeMissingPropertyKeyThrows` are Free-only.
 
 - **Logic** (`HeroFaceLogicTest`): streak arithmetic, HeroSet's contract, the
