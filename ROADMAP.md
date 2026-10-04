@@ -64,9 +64,13 @@ Simulator work (the GUI tooling in `docker/sim-gui.sh` can drive it).
 - [ ] 7.11 `[agent]` HeroSet by hand, what is left: tapping Resume on `venu441mm`; E4 done state and memory view of the glance. (Done 2026-10-04: B2 six of seven observed; E4 empty-day glance fits on fr965 / fr255s / fenix7; B3 open on a real watch, 9.6.) Driving notes: `HeroSet/docs/development.md`.
 
 Fixes and polish.
-- [ ] 1.2 `[agent]` DayArc: fix what the design pass finds, incl. the recovery cell truncation (`R… 2501`) and the narrow Pro pill showing "12:..." / "8..." on a bottom row; re-run tests on 6 devices, both jungles. *Running.*
-- [ ] 1.3 `[agent]` Run `watch-design-reviewer` on the built DayArc Free and Pro (fifth pass); done when `disposition: ship` or all fixes closed. *Running.*
-- [ ] 9.10 `[agent]` HeroFace Instinct: "✓ ST." (check mark plus STEP does not fit 40 px) and a multi-day streak in the simulator (history rows did not apply). *Running.*
+- [x] 1.2 `[agent]` DayArc: fix what the design pass finds, incl. the recovery cell truncation (`R… 2501`) and the narrow Pro pill showing "12:..." / "8..." on a bottom row; re-run tests on 6 devices, both jungles. **Done 2026-10-04 (simulator): recovery cell reads `42h`; a grid cell is whole or not at all; Pro without grid when none fits; hero icon aligned; Instinct hero and grid icons redrawn; tests green (DayArc ADR-016).**
+- [ ] 1.3 `[agent]` Run `watch-design-reviewer` on the built DayArc Free and Pro (fifth pass); done when `disposition: ship` or all fixes closed. **Partly done 2026-10-04: reviewer returned `fix`, code findings closed; open: re-run the reviewer after 1.12 to 1.15.**
+- [x] 9.10 `[agent]` HeroFace Instinct: "✓ ST." (check mark plus STEP does not fit 40 px) and a multi-day streak in the simulator (history rows did not apply). **Done 2026-10-04 (simulator): a finished goal draws its label reversed on the 1-bit Instinct (HeroFace ADR-002 amendment); a 12-day streak seeded through the app code draws whole.**
+- [ ] 1.12 `[agent]` DayArc: hero icon scale on round watches (too big on FR255S, small and thin on FR965): needs icon sets per screen size.
+- [ ] 1.13 `[agent]` DayArc: the weather glyph reads as a blob (reviewer): redraw it on the pixel grid.
+- [ ] 1.14 `[agent]` DayArc: on the Instinct, Pro drops the hero label where Simple keeps it; on the 3 Solar the Pro morning is identical to Simple. Decide and fix, or document.
+- [ ] 1.15 `[agent]` DayArc: compile sweep, `tools/check_package.sh --build`, reviewer re-run (closes 1.3).
 - [ ] 5.8 `[agent]` HeroFace: change the Magenta accent colour so it passes 3:1 against the track (keep the id and name; check against the face's reserved roles in `research_notes/Free and Pro ladder/accent_roster.md`); verify in the simulator. (Decided 5.3.)
 - [ ] 9.11 `[agent]` HeroSet glance on Instinct E / 3 Solar: lay it out around the round window with `getSubscreen()` (blind; the simulator draws it under the window), keep `tools/glance-scope-check.sh` green; a wrist check follows (9.6). (Decided 9.3.)
 - [ ] 10.8 `[agent]` HeroSet: seeding reps through `store.add` at launch crashed the app from the glance in the simulator (found 2026-10-04 while scripting screenshots); find out whether this is only the test harness or a real glance-process bug.
