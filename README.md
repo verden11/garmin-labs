@@ -63,7 +63,7 @@ cd site && npm install && npm run dev
 The Connect IQ signing key lives outside this repo at
 `~/.garmin-connectiq/keys/developer_key` and is never committed.
 
-**Tests run in containers by default** (own simulator per agent, reproducible on a new machine): [`docker/README.md`](docker/README.md). `CIQ_DOCKER=0` uses the host simulator.
+**Tests run in containers by default** (own simulator per agent, reproducible on a new machine): [`docker/README.md`](docker/README.md); how to take simulator screenshots and what is tested automatically: [`docker/SIMULATOR.md`](docker/SIMULATOR.md). `CIQ_DOCKER=0` uses the host simulator.
 
 ## Hosting
 

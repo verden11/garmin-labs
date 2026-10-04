@@ -61,3 +61,5 @@ Notes:
   `Devices/` + `Fonts/`), run `docker/build.sh`. Bump `CIQ_SDK_VERSION` in the Dockerfile to upgrade.
 - Linux simulator, not a watch. Simulator passing is not device proof.
 - `capture.sh` / `sim-gui.sh` (2026-10-04): a scenario script (per project, `tools/listing_shots.sh`) boots the simulator on a fake clock (`sim_boot "2026-10-04 07:15:00"`), loads a build, sets activity data through the Simulation menu's dialog (`sim_activity`), switches the time to 24-hour (`sim_24h`) and saves with File > Save Screen Capture (`sim_save`), which writes the display at its native pixel size (no skin). GUI coordinates were read off the simulator on the 1280x1024 virtual screen; the activity dialog is placed by reading its window geometry. Menu popups paint black in a screenshot of the root window but can be read with `xwd -id <window>`. `sim_save` removes an existing file first: a replace prompt would otherwise swallow the save.
+
+Screenshots from the simulator, scenario scripts, and the list of what is tested automatically (and what is not): [`SIMULATOR.md`](SIMULATOR.md).
