@@ -45,6 +45,12 @@ Every listing sentence gets checked against this file before it ships.
 - "Free trial," "unlock," or any language implying Pro is Simple-plus-a-toggle — they are separate
   products, separate listings, separate app ids (ADR-003).
 
+## Paid vs free reach and the refund line (2026-10-04)
+
+**Devices.** Garmin sells paid apps only on the products of its App Sales list. DayArc has never been submitted, so its device list is unmeasured; its device set (Connect IQ 4.2+, 72 products with the Instinct E 40/45 mm and Instinct 3 Solar, ADR-015) is Two Suns' family, and Two Suns' live paid listing misses 1 of 69 (D2 Air X10, on the list but sold to no paid app). **Instinct 2, 2S, 2X and Descent G1 are not in either DayArc build**, so DayArc Pro's text names no watch that Garmin does not sell paid apps on, and the Free DayArc has almost no extra reach: its held-back device sentence ("sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for") is optional and probably not a genuine plus. Add a number here after the first listing shows its Compatible Devices ([`../../reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md) section 3).
+
+**Refund line.** The DayArc Pro description ends with "DayArc Pro is a paid app. Refunds follow the Connect IQ Store return window." (guideline 4d), without restating the hours (Garmin's full return-policy text is not published on a page we could read; its one stated figure is the 48-hour window before funds are captured). The Free DayArc has no refund line. The Pro listing still never uses the word "free".
+
 ## Data and privacy
 
 Nothing leaves the watch. No location is read (no `Positioning` permission, unlike TwoSuns — DayArc

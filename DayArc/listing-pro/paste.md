@@ -37,6 +37,8 @@ If this face works for you, a rating in the store helps other people find it.
 
 DayArc Pro reads data your watch already has. Nothing is sent anywhere, no location, no network.
 
+DayArc Pro is a paid app. Refunds follow the Connect IQ Store return window.
+
 More from Verden
 Days To Go: <DAYS TO GO STORE URL, once live>
 Two Suns: <TWO SUNS STORE URL, once live>
@@ -71,12 +73,10 @@ Paid: Yes, price tier USD 2.50 (the form's own selection, set in the dashboard; 
 
 ## iOS / Android Companion App URL / Additional Hardware Requirements (optional)
 
-Use it as a link to the website: many Connect IQ apps do (owner, 2026-10-02), the field is optional free text, and
-the page has the support and privacy pages and the other apps. Garmin does not document this use, so keep the text true
-(it states that no extra hardware is needed). Paste:
+Paste the **bare URL only**, nothing else: the store's API names this field `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02: used as the link to the website; Garmin research 2026-10-04, [`reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md)). Paste:
 
 ```text
-No additional hardware needed. Help, privacy and more apps: https://verden.watch/day-arc-pro/
+https://verden.watch/day-arc-pro/
 ```
 
 ## Email Address (shown publicly)

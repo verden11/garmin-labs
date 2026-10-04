@@ -46,6 +46,7 @@ Written against `../docs/release-contract.md` and the WP10 Free skeleton (`../..
 - **Claims:** "separate, paid listing with a denser view" is the contract's "May claim" sentence. No "unlock", no "trial", no "upgrade", no count of fields. "Chosen in the Garmin Connect app" stays marked OWNER (unverified until a store install, gate 5).
 - **Review request:** one sentence, the owner may cut it.
 - **More from Verden:** free siblings only; none is live today, so every URL is a placeholder and the owner deletes the lines for any face whose free listing is not live. Free names are placeholders until OD3.
+- **Additional Hardware Requirements (ROADMAP 10.16):** paste the bare URL `https://verden.watch/day-arc/` only (API field `hardwareProductUrl`; the old "No additional hardware needed..." sentence is retired). No refund line: a free app has nothing to refund.
 - **Device sentence:** kept out of the description (`meta.yaml` `held_back_text`): it is a reach claim until both real device lists are visible. No watch names, no count.
 - **Instinct:** the 72-product package includes the Instinct E and 3 Solar; the listing text says nothing about it until the upload is approved and the store lists it (`meta.yaml` carries the sentence to add then).
 - **Support line** added as the last line (the form has no support field).
