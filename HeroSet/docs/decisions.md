@@ -475,6 +475,6 @@ All are at or above `minApiLevel` 3.4.0 (`instinct2`/`2s`/`crossover` list CIQ 3
 
 **No price number on the site or in listing text.** The listing Description, What's New and the pages under `site/src/apps/heroset/` state no price; the owner's form selection is the only place a number appears.
 
-**Open risk.** Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`); how it treats a repricing to a higher tier is not confirmed. Ship the change together with the next version upload (1.3.1), which is re-reviewed anyway, so there is one review, not two. The Garmin email ([`../../ROADMAP.md`](../../ROADMAP.md) 2.1: does repricing remove an approved app) is still unsent.
+**Open risk.** Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`); how it treats a repricing to a higher tier is not confirmed. Ship the change together with the next version upload (1.3.1), which is re-reviewed anyway, so there is one review, not two. The Garmin email on repricing was cancelled (owner, 2026-10-04, [`../../ROADMAP.md`](../../ROADMAP.md) 2.1); the agent re-reads Garmin's published policies instead (`../../reports/Garmin policies and design guidelines.md`, running), so the risk stays open until that report answers it.
 
 **Reversed by.** The owner. The price part of ADR-039 (USD 2.00, no trial wording on price) is Superseded; its product list and no-trial decision stand.

@@ -17,7 +17,7 @@ Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id, renamed inside the pen
 | `/Users/mbp/dev/garmin/HeroFace/dist/HeroFaceFree-2026-10-04.iq` | 124 | `tools/check_free_package.sh`: OK (keys Mode and Accent only, no "Pro") |
 | `/Users/mbp/dev/garmin/HeroFace/dist/HeroFacePro-2026-10-04.iq` | 124 | same script: OK (Slot1-3, Seconds, Weather, name "HeroFace Pro") |
 
-built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The owner's decisions (names, prices, icons, uploads, translations) are still open: see ROADMAP.
+built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP.
 
 ## Checks to run (the procedures; the to-do items are in the root ROADMAP.md)
 

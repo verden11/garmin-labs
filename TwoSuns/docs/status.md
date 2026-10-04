@@ -19,7 +19,7 @@ Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id). Text: `../listing-fre
 | `/Users/mbp/dev/garmin/TwoSuns/dist/TwoSunsFree-2026-10-04.iq` | 72 | `tools/check_free_package.sh`: OK (permission ComplicationSubscriber only, key Accent only) |
 | `/Users/mbp/dev/garmin/TwoSuns/dist/TwoSunsPro-2026-10-04.iq` | 72 | same script: OK (Positioning, SensorHistory, seven keys) |
 
-built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The owner's decisions (names, prices, icons, uploads, translations) are still open: see ROADMAP.
+built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP.
 
 ## Never decide alone
 
@@ -50,7 +50,7 @@ The store name; the price wording (the tier itself is decided: $2.50, ADR-026); 
 - **Earliest sensible day:** the day after gate 6 (the wear day) with gates 1 to 5 and 7 to 12 done. Nothing else is time-based: there is no launch date to hit.
 - **Do not** publish a build that gates 3, 5 and 6 did not use. Export the package from the commit you wore.
 - **Review takes about 72 hours** (HeroFace notes); a rejection names its reasons. Advice, not evidence: submit early in the week.
-- **Price is set in the upload form** (Pro: the $2.50 tier, ADR-026). Changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`; unconfirmed for a higher tier, ROADMAP 2.1), so the repricing ships together with the 1.1.0 version upload, which is re-reviewed anyway.
+- **Price is set in the upload form** (Pro: the $2.50 tier, ADR-026). Changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`; unconfirmed for a higher tier; policy research in ROADMAP 2.1), so the repricing ships together with the 1.1.0 version upload, which is re-reviewed anyway.
 - A paid app is sold only on Garmin's own list of watches and countries, so the store's device list will be shorter than the manifest's 69. Never quote a watch count.
 
 ## Store form answers

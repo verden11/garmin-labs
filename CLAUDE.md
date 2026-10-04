@@ -12,7 +12,7 @@ file only covers what spans folders.
 | `HeroFace/` | Garmin watch face (Connect IQ, Monkey C) | [`HeroFace/CLAUDE.md`](HeroFace/CLAUDE.md) |
 | `DaysToGo/` | Garmin countdown watch face (Connect IQ, Monkey C) | [`DaysToGo/CLAUDE.md`](DaysToGo/CLAUDE.md) |
 | `TwoSuns/` | Garmin sun and Body Battery watch face, "Two Suns" (Connect IQ, Monkey C) — submitted 2026-09-27, approved 2026-09-28 | [`TwoSuns/CLAUDE.md`](TwoSuns/CLAUDE.md) |
-| `DayArc/` | Garmin time-of-day-adaptive watch face pair, "DayArc" (free) / "DayArc Pro" (paid, Garmin's second price step, no flip) — one codebase, two build targets/listings (Connect IQ, Monkey C) — built and tested in the simulator; the only real-device evidence is one owner photo (bug evidence, fixes not re-checked on a wrist) | [`DayArc/CLAUDE.md`](DayArc/CLAUDE.md) |
+| `DayArc/` | Garmin time-of-day-adaptive watch face pair, "DayArc" (free) / "DayArc Pro" (paid, the $2.50 tier, no flip) — one codebase, two build targets/listings (Connect IQ, Monkey C) — built and tested in the simulator; the only real-device evidence is one owner photo (bug evidence, fixes not re-checked on a wrist) | [`DayArc/CLAUDE.md`](DayArc/CLAUDE.md) |
 | `site/` | Public website (Vite + React, prerendered) | [`site/CLAUDE.md`](site/CLAUDE.md) |
 
 `device-test/` is git-ignored scratch for on-watch builds, shared by both
@@ -54,8 +54,8 @@ Three directives from the owner. They apply to every watch project and to every 
 [`reports/Free and Pro ladder.md`](reports/Free%20and%20Pro%20ladder.md) and
 [`reports/Free and Pro ladder execution plan.md`](reports/Free%20and%20Pro%20ladder%20execution%20plan.md) (live paid id becomes the
 Pro, the Free is a new app id, no flip-to-free). The ladder ADRs are Active (HeroFace ADR-001, DaysToGo ADR-014, TwoSuns ADR-020) and
-DaysToGo and TwoSuns ADR-002 (the price and the day-45 review) are Superseded: **the day-45 flip rule is retired.** Names, the Pro prices, icons,
-translations and every upload stay owner decisions, and HeroSet and DayArc follow their own ADRs. **2026-10-01: the owner asked for the missing Free builds, so the Free variants of DaysToGo, TwoSuns and HeroFace exist in the working tree (UNRELEASED). Building is done; uploads, names, prices, icons, translations and the site stay owner decisions. HeroSet Free is not built (accuracy-proof gate). Owner decisions 2026-10-04: HeroFace Free has no temperature; Two Suns Free keeps `--` for a missing Body Battery number; HeroFace Magenta was recoloured to pass the 3:1 track rule (HeroFace ADR-003).**
+DaysToGo and TwoSuns ADR-002 (the price and the day-45 review) are Superseded: **the day-45 flip rule is retired.** **Price (owner, 2026-10-04): every paid app takes the $2.50 tier of Garmin's price points** (HeroSet ADR-056, HeroFace ADR-004, DaysToGo ADR-017, TwoSuns ADR-026, DayArc ADR-018; US $2.49, eurozone 2,99 EUR); free apps stay free; **no price number in site or listing text** (prices vary per region); the owner sets the tier in the upload form with each paid app's next version upload (ROADMAP 2.7). Names are confirmed (Free = clean name, Pro = "<Name> Pro"); icons,
+translations and every upload stay owner decisions, and HeroSet and DayArc follow their own ADRs. **2026-10-01: the owner asked for the missing Free builds, so the Free variants of DaysToGo, TwoSuns and HeroFace exist in the working tree (UNRELEASED). Building is done; uploads, icons, translations and the site stay owner decisions. HeroSet Free is not built (accuracy-proof gate). Owner decisions 2026-10-04: HeroFace Free has no temperature; Two Suns Free keeps `--` for a missing Body Battery number; HeroFace Magenta was recoloured to pass the 3:1 track rule (HeroFace ADR-003).**
 
 ## House rules everywhere
 

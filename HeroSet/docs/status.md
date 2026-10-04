@@ -16,7 +16,7 @@ Version 1.3.1 changes no product and no permission; it carries the fixes found a
 |---|---|---|
 | `/Users/mbp/dev/garmin/HeroSet/dist/HeroSet-store-1.3.1.iq` | 87 | no check script: unpacked with `bsdtar` 2026-10-04: app id 568d5c9b-eb10-4678-bf28-0080c3efbbc1 (same as `manifest-store.xml`), permissions Sensor and ComplicationPublisher only, 134 part numbers and 134 .prg, 87 `<iq:product>` lines in the manifest |
 
-Built in the `verden-ciq-build` container (`docker/run.sh`, `monkeyc -e -r -f store.jungle -o dist/HeroSet-store.iq`, then renamed: an export written straight to a differently named `-o` held a second, stale `HeroSet-store.prg` per product). Simulator and compile only, **nothing on a wrist**. The file is in the ignored `dist/` folder (the 1.3.0 files and `dist/old/` are untouched). Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The owner's decisions (names, prices, icons, uploads, translations) are still open: see ROADMAP.
+Built in the `verden-ciq-build` container (`docker/run.sh`, `monkeyc -e -r -f store.jungle -o dist/HeroSet-store.iq`, then renamed: an export written straight to a differently named `-o` held a second, stale `HeroSet-store.prg` per product). Simulator and compile only, **nothing on a wrist**. The file is in the ignored `dist/` folder (the 1.3.0 files and `dist/old/` are untouched). Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP.
 
 ## Where things stand
 

@@ -69,6 +69,6 @@ Durable decisions, newest last. The earlier choices (minApiLevel, Everyday-first
 
 **No price number on the site or in listing text.** Neither listing's Description or What's New, nor the pages under `site/src/apps/heroface/`, state a price.
 
-**Open risk.** Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`); how it treats a repricing to a higher tier is not confirmed. Ship the change together with the next version upload (Pro 1.1.0), which is re-reviewed anyway. The Garmin email ([`../../ROADMAP.md`](../../ROADMAP.md) 2.1) is still unsent.
+**Open risk.** Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`); how it treats a repricing to a higher tier is not confirmed. Ship the change together with the next version upload (Pro 1.1.0), which is re-reviewed anyway. The Garmin email on repricing was cancelled (owner, 2026-10-04, [`../../ROADMAP.md`](../../ROADMAP.md) 2.1); the agent re-reads Garmin's published policies instead (`../../reports/Garmin policies and design guidelines.md`, running), so the risk stays open until that report answers it.
 
 **Reversed by.** The owner.

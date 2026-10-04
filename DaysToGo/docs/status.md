@@ -17,7 +17,7 @@ Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id), together, Free first.
 | `/Users/mbp/dev/garmin/DaysToGo/dist/DaysToGoFree-2026-10-04.iq` | 127 | `tools/check_free_package.sh`: OK (no Hour/Footer, no "Pro" anywhere) |
 | `/Users/mbp/dev/garmin/DaysToGo/dist/DaysToGoPro-2026-10-04.iq` | 127 | same script: OK (Hour, Footer and the name found) |
 
-built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The owner's decisions (names, prices, icons, uploads, translations) are still open: see ROADMAP. The paid 1.0.1 as submitted is `DaysToGo-1.0.1-submitted.iq`.
+built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP. The paid 1.0.1 as submitted is `DaysToGo-1.0.1-submitted.iq`.
 
 ## Owner decision, 2026-09-26: submit without the beta round trip
 
@@ -52,7 +52,7 @@ Gates still required (the owner may waive any of them too, but they are cheap): 
 - **Earliest sensible day:** the day after gate 5 (the wear day) and gates 1, 2, 4, 6 to 9 are done. Nothing else is time-based: there is no launch date to hit.
 - **Do not** publish a build that gates 2 to 5 did not use. Export the package from the commit you wore.
 - **Review takes about 72 hours** (HeroFace notes); a rejection names its reasons. Advice, not evidence: submit early in the week so any rejection lands on working days.
-- **Price is set in the upload form** (Pro: the $2.50 tier, ADR-017). Changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`; Garmin's handling of a repricing is unconfirmed, ROADMAP 2.1), so the repricing ships together with the 1.1.0 version upload, which is re-reviewed anyway.
+- **Price is set in the upload form** (Pro: the $2.50 tier, ADR-017). Changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`; Garmin's handling of a repricing is unconfirmed; policy research in ROADMAP 2.1), so the repricing ships together with the 1.1.0 version upload, which is re-reviewed anyway.
 - A paid app is sold only on Garmin's own list of watches and countries, so the store's device list will be shorter than the manifest's 120. Never quote a watch count.
 
 ## Submit (one sitting, about 30 minutes)
