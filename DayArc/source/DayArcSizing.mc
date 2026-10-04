@@ -34,10 +34,32 @@ class DayArcSizing {
             && coveredBy(dc, sized.get(:sub), hero.hasKey(:sub) ? hero.get(:sub) : null, text);
     }
 
-    // Pro's grid: the plan checked its grid rows against the cell values of the moment it was made, so a value that later
-    // grows wider (steps 999 -> 1000) must replan, or the grid drops a row the plan reserved room for and leaves a gap
-    // (1.17, FR255S). A calendar title (:flex) is exempt: it may end in "..." whatever its width. One-way: a narrower value
-    // keeps the plan, so tiers do not flicker.
+    // Pro's grid is planned against copies of the live cells whose value is at least four digits wide (WORST_CELL_VALUE), the
+    // way the text rows are planned against worst-case strings: the grid's rows, and with them the hero's tier, then do not
+    // follow a reading (steps 999 -> 1000) through the day (ADR-017, reviewer pass eight). A calendar title (:flex) is kept
+    // as it is: it may end in "..." whatever its width.
+    static function sizedCells(dc as Graphics.Dc, live as Array<Dictionary>) as Array<Dictionary> {
+        var sized = [] as Array<Dictionary>;
+        for (var i = 0; i < live.size(); i++) {
+            var cell = live[i];
+            if (cell.hasKey(:flex)) {
+                sized.add(cell);
+                continue;
+            }
+            var copy = {:value => wider(dc, cell.get(:value) as String, DayArcConfig.WORST_CELL_VALUE, DayArcLayout.CELL_FONT)} as Dictionary;
+            var keys = [:label, :icon] as Array<Symbol>;
+            for (var k = 0; k < keys.size(); k++) {
+                if (cell.hasKey(keys[k])) {
+                    copy.put(keys[k], cell.get(keys[k]));
+                }
+            }
+            sized.add(copy);
+        }
+        return sized;
+    }
+
+    // True when no live grid value is wider than the (sized) one the plan was made for: that happens only past four digits
+    // (steps 10000) or for a wider time string, and then the plan is rebuilt. One way: a narrower value keeps the plan.
     static function cellsCovered(dc as Graphics.Dc, planned as Array<Dictionary>, hero as Dictionary) as Boolean {
         var live = hero.get(:cells);
         if (!(live instanceof Array)) {

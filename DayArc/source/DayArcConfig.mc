@@ -50,6 +50,7 @@ class DayArcConfig {
     static const WORST_CLOCK = "88:88";
     static const WORST_DATE = "Wed, Sep 30";       // the simulator's own complication string is "Mon 28"; this leaves headroom for locales
     static const WORST_COUNT = "100";
+    static const WORST_CELL_VALUE = "8888";   // Pro's grid is planned against four digits (steps 1000+), so the hero tier never follows a reading
     static const WORST_TEMPERATURE = "-40°";
     static const WORST_MORNING_SUB = "104/-40  100% rain  UV 11";   // HIGH_LOW_TEMPERATURE is "55/43"-shaped (simulator)
     static const MAX_SUB_LINES = 2;

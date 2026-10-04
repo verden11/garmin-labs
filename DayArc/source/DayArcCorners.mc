@@ -31,6 +31,8 @@ class DayArcCorners {
         return place(dc, layout, plan, date, cells, false);
     }
 
+    // The room is computed from the date as given: the live string when the planner asks (DayArcStackFit, :liveDate) and when
+    // drawing. The date only changes in the night window, where there are no corner fields, so the answer is stable inside a window.
     (:pro)
     private static function place(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, date as String or Null, cells as Array<Dictionary>, paint as Boolean) as Array<Dictionary> {
         var y = plan.ys[DayArcStack.ROW_DATE];

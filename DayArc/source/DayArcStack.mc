@@ -68,7 +68,7 @@ class DayArcStack {
         // Simple's does — night is the one window where the two densities render identically.
         pro = hero.hasKey(:cells) && window != DayArcConfig.WINDOW_NIGHT;
         if (pro) {
-            cells = hero.get(:cells) as Array<Dictionary>;
+            cells = DayArcSizing.sizedCells(dc, hero.get(:cells) as Array<Dictionary>);
         }
         strings = DayArcSizing.strings(dc, window, hero);
         loadIconSizes(window);
