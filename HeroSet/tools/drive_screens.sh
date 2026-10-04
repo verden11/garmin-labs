@@ -1,6 +1,6 @@
 # Drives HeroSet through its screens in the simulator (xdotool) and photographs each one: the face on its skin.
 # A scenario for docker/capture.sh, not run by hand:
-#   ../docker/capture.sh HeroSet tools/drive_screens.sh <device> <btn|touch> [jungle] [seed p,s,q] [detected] [glance|noglance] [all|resume|home]
+#   ../docker/capture.sh HeroSet tools/drive_screens.sh <device> <btn|touch> [jungle] [seed p,s,q] [detected] [glance|noglance] [all|resume|home] [act]
 # Writes /work/bin/drive-<device>-<step>.png (the display, SCALE percent, default 100). Simulator only, never device proof.
 # Buttons are pressed by clicking their place on the skin (key boxes from the device's simulator.json; the window has a 25 px
 # menu bar above the skin). On a device with a glance the simulator opens on the glance list, and the first START does
@@ -10,7 +10,7 @@
 # ROADMAP 10.11). The rep count on the set screen is patched to `detected` (no sensor data).
 # A touch device is also driven with the mouse on the display: a click is a tap, a quick drag a swipe (swipe right must start
 # within 81 px of the left edge and finish in under 250 ms, per the device's simulator.json).
-DEV=$1; MODE=${2:-btn}; JUNGLE=${3:-store.jungle}; SEED=${4:-0,0,0}; DETECTED=${5:-23}; GLANCE=${6:-glance}; ONLY=${7:-all}
+DEV=$1; MODE=${2:-btn}; JUNGLE=${3:-store.jungle}; SEED=${4:-0,0,0}; DETECTED=${5:-23}; GLANCE=${6:-glance}; ONLY=${7:-all}; ACT=${8:-}
 J=/root/.Garmin/ConnectIQ/Devices/$DEV/simulator.json
 read -r DX DY DW DH < <(jq -r '.display.location | "\(.x) \(.y) \(.width) \(.height)"' "$J"); DY=$((DY + 25))
 OUT=/work/bin; mkdir -p "$OUT"
@@ -41,6 +41,8 @@ if [ "$GLANCE" = glance ]; then
   if [ "$MODE" = touch ] || [ "$(jq '[.keys[].id] | index("down")' "$J")" = null ]; then tap 0 -$((DH / 3)) 6; else press down 3; snap 0b-glance; press enter 6; fi
 fi
 snap 1-dashboard
+# act (after the glance, which the dialog disturbs): Simulation > Activity Data > Start/play, so Sensor.getInfo() has a heart rate on the set screen (docker/SIMULATOR.md)
+[ "$ACT" = act ] && sim_activity_data_start
 [ "$ONLY" = home ] && { echo "drive done"; return 0 2>/dev/null || exit 0; }
 if [ "$MODE" = touch ]; then
   # Touch-first (B2/B3): tap opens the menu, tap on an item selects it; a tap mid-set or in the picker does nothing,
@@ -64,7 +66,10 @@ if [ "$MODE" = touch ]; then
   tap 0 -$((DH * 7 / 100)) 3; snap 8c-after-tap-resume
 else
   press enter 3; snap 2-menu
-  press enter 3; snap 3-counting
+  press enter 3
+  # act: let the set run, so the elapsed time reads like a real set (the activity simulation gives HR, not calories: CAL stays 0)
+  [ "$ACT" = act ] && sleep "${ACT_WAIT:-25}"
+  snap 3-counting
   press esc 2; snap 4-endmenu
   press esc 2; snap 4b-resumed
   press enter 3; snap 5-review                                         # START = Finish: the picker, pre-loaded

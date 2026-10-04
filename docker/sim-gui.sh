@@ -7,6 +7,7 @@
 #   sim_activity key=value ...   Simulation > Activity Monitoring > Set Activity Monitor Info, today's row:
 #                                goal steps distance calories floors moderate vigorous floors_goal, and
 #                                history=<steps,steps,...> (yesterday first; their goal stays 5000); then Apply
+#   sim_activity_data_start      Simulation > Activity Data > Start + play: a simulated heart rate for Sensor.getInfo() (see below)
 #   sim_24h                      Settings > Time Display > 24 Hour
 #   sim_save <file.png>          File > Save Screen Capture: the display at native pixels
 # The GUI coordinates were read off the simulator on a 1280x1024 virtual screen; check one shot before trusting a new device.
@@ -57,6 +58,27 @@ sim_activity() {
   done
   sim_click 1213 $((AM_Y + AM_H - 30)) 1.5
   xdotool search --onlyvisible --name "Edit Activity Monitor Info" | xargs -r -n1 xdotool windowclose 2>/dev/null || true
+}
+
+# Simulation > Activity Data: the activity simulation ("Data Source: Data Simulation") feeds Sensor.getInfo() a heart rate that
+# keeps changing. Click the dialog's Start (Data Field Timer Controls) and its play button, then close the dialog: the simulated
+# activity keeps running. The dialog is 489x393 and centred on the simulator window (offsets read off it, FR965 and Instinct E).
+sim_activity_data_start() {
+  local X Y WIDTH HEIGHT id w; id=$(xdotool search --onlyvisible --name "CIQ Simulator" | head -1)
+  eval "$(xdotool getwindowgeometry --shell "$id")"
+  local dx=$((X + WIDTH / 2 - 245)) dy=$((Y + HEIGHT / 2 - 197))
+  local try
+  for try in 1 2 3; do   # the menu sometimes does not open on the first click: Escape and try again
+    sim_click 150 12 1; sim_click 160 63 4
+    w=$(for id in $(xdotool search --onlyvisible --name ""); do
+          eval "$(xdotool getwindowgeometry --shell "$id" 2>/dev/null)"; [ "$WIDTH" = 489 ] && [ "$HEIGHT" = 393 ] && echo "$id"; done | head -1)
+    [ -n "$w" ] && break; xdotool key Escape; sleep 1
+  done
+  [ -n "$w" ] || { echo "sim_activity_data_start: dialog not found" >&2; return 1; }
+  sim_click $((dx + 60)) $((dy + 184)) 2     # Start
+  sim_click $((dx + 30)) $((dy + 335)) 2     # play
+  [ -n "${ACT_SHOT:-}" ] && xwd -id "$w" -display "$DISPLAY" | convert xwd:- "$ACT_SHOT"   # debug: the dialog as it is now
+  xdotool windowclose "$w" 2>/dev/null; sleep 1
 }
 
 # Settings > Time Display > 24 Hour (the simulator starts on 12 Hour; a face with no AM/PM would read 20:00 as 08:00)

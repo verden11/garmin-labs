@@ -36,7 +36,7 @@ assets:   # all re-rendered 2026-10-04 from the 1.3.1 store build; looks not yet
     - {file: screens-framed/4-complete.png, caption: "Daily mission complete, all three done, streak started", device: fr965, kb: 92}
     - {file: screens-framed/5-instinct.png, caption: "The Instinct one: the same dashboard in black and white", device: instincte45mm, kb: 113, instinct: true}
   screenshots_doc: screenshots.md
-  note: "All chassis + strap simulator captures of the store build (real, no mockups, ADR-039); the earlier set (1-dashboard ... 5-complete, the spares) is in old/. The store takes no caption field: the captions are for the owner and the site. The hero shows an Instinct E 45 mm beside two Forerunner 965 screens."
+  note: "Screen 2 (and the hero that shows it) retaken 2026-10-04 with the simulator's activity data running: HR 145, CAL 0 (the simulation gives no calories). All chassis + strap simulator captures of the store build (real, no mockups, ADR-039); the earlier set (1-dashboard ... 5-complete, the spares) is in old/. The store takes no caption field: the captions are for the owner and the site. The hero shows an Instinct E 45 mm beside two Forerunner 965 screens."
 site:
   landing: https://verden.watch/heroset/
   support: https://verden.watch/heroset/support/

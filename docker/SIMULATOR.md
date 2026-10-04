@@ -1,6 +1,6 @@
 # Simulator: screenshots and automatic testing
 
-Status 2026-10-04. Everything here runs in a container (own simulator, nothing killed on the host), is **simulator only**, and is
+Status 2026-10-04 (heart rate: `sim_activity_data_start`). Everything here runs in a container (own simulator, nothing killed on the host), is **simulator only**, and is
 not device proof. Setup, images and the run scripts: [`README.md`](README.md).
 
 ## 1. How to get a screenshot from the emulator
@@ -27,6 +27,7 @@ A scenario is a bash file sourced inside the container after `docker/sim-gui.sh`
 - `sim_boot "2026-10-04 07:15:00"` starts the simulator on that clock (`faketime -f "@..."`: the clock runs on from there; a bare time freezes it and the app never loads). `TZ` does not reach the simulator.
 - `sim_load <jungle> <device> [monkeyc flags]` builds and runs; `LOAD_WAIT` (default 25 s). Devices with a glance (Instinct E, 3 Solar) open on the glance in the simulator.
 - `sim_activity goal=10000 steps=8420 moderate=18 floors=7 calories=1650 history=10000,10000,...` fills Simulation > Activity Monitoring > Set Activity Monitor Info (today's row; the dialog is placed by reading its window geometry). Faces that cache per minute need a ~75 s wait afterwards. The seven history rows did not produce a multi-day streak in HeroFace.
+- `sim_activity_data_start` Simulation > Activity Data > Start and play ("Data Source: Data Simulation"), then closes the dialog; the simulated activity keeps running and `Sensor.getInfo().heartRate` then returns a moving rate (about 120 to 160 in the HeroSet runs), and the dialog's timer, distance and calories count up. Without it the heart rate is `null` (an app reads `--`). Offsets are from the dialog's centre on the simulator window (489x393), retried three times because the menu click sometimes does not open it. Cautions: run it **after** the app is on the screen you want (done before the glance wake, the HeroSet glance did not open the app), and do not combine it with `sim_activity` on the same run: the Activity Monitor Info dialog's Calories value is overwritten by the simulation, and `ActivityMonitor.getInfo().calories` stayed 0 in the app for 3 minutes (HeroSet `CAL 0`). HeroSet: `docker/capture.sh HeroSet tools/drive_screens.sh fr965 btn store.jungle 60,45,30 23 glance all act`.
 - `sim_24h` switches Settings > Time Display to 24-hour (the simulator starts on 12-hour, and a face with no AM/PM reads 20:00 as 08:00).
 - `sim_save <file.png>` File > Save Screen Capture. It deletes an existing file first: a replace prompt would otherwise swallow the save and the old picture would stay.
 - Settings a user would change are set by editing the face's default `properties.xml` in the private copy (`set_prop Name "70.3"` with a `sed`, see `DaysToGo/tools/listing_shots.sh`). App data a user would produce is put in through the app's own code, patched in the private copy (HeroSet calls `HeroSetStore.add` once at start, `HeroSet/tools/listing_shots.sh`).
@@ -34,7 +35,7 @@ A scenario is a bash file sourced inside the container after `docker/sim-gui.sh`
 
 ### What the simulator's data is
 
-Weather (66 °F, 77/63, 10% rain), stress, Body Battery, heart rate, battery, the calendar event and sun times are **canned or random**. Never crop a screenshot into a claim about real readings, and do not use values the watch could not produce. Check each picture by eye before it goes anywhere: the scripted run proves the capture worked, not that the screen looks right (a replaced file, a face stuck on its glance, or a state that dropped a row all looked fine to the script).
+Weather (66 °F, 77/63, 10% rain), stress, Body Battery, heart rate (none until `sim_activity_data_start`, then simulated), battery, the calendar event and sun times are **canned or random**. Never crop a screenshot into a claim about real readings, and do not use values the watch could not produce. Check each picture by eye before it goes anywhere: the scripted run proves the capture worked, not that the screen looks right (a replaced file, a face stuck on its glance, or a state that dropped a row all looked fine to the script).
 
 ### Existing scenarios
 
