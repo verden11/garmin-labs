@@ -25,9 +25,16 @@ package:
 price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  cover: null
-  hero: null
-  screens: screens/ (2026-10-04 simulator captures)
+  status: rendered 2026-10-04, owner look-approval pending, not uploaded   # old/ holds the earlier simulator batch
+  cover: cover-500.png            # 500x500, the plain mark (Pro adds a PRO pill)
+  hero: hero-1440x720.png         # 1440x720, three accents
+  screens:                        # simulator, Free build, upload order; each under 150 KB
+    - screens/1-everyday.png      # fr965 454 px
+    - screens/2-accent-cyan.png   # fr965, the Cyan accent
+    - screens/3-goals-met.png     # fr965
+    - screens/4-heroset.png       # fr965, HeroSet mode (canned HeroSet value, see screenshots.md)
+    - screens/5-instinct-e40.png  # instincte40mm 166 px: THE INSTINCT ONE
+  icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; the plain mark
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/heroface/

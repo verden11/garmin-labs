@@ -12,7 +12,7 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 | Pro's store URL (line 1) | `<PRO STORE URL ...>`: needs Pro live (or upload Pro first); the line must be the real URL, not a placeholder, at submission |
 | HeroSet's store URL (the "With HeroSet" paragraph) | Filled in 2026-10-04 from the live listing (the site's `storeUrl`); add HeroSet Free's URL when it exists |
 | Pro's price | The $2.50 tier from the 1.1.0 upload (live at the $2.00 tier until then; ADR-004, price: the $2.50 tier for every paid app). **The listing never states a price** |
-| Icon and cover | Not made; look and identity are the owner's |
+| Icon, cover, hero, screens | **Rendered 2026-10-04 for the owner's look-approval** ([`screenshots.md`](screenshots.md)): five Free-build simulator screens (one from an Instinct E 40 mm), a hero showing the three accents, the plain mark as cover and icons. **Design proposal, OWNER decides:** Free = the plain mark, Pro = the same mark with a small white "PRO" pill (cover, both icons, hero). Free's pictures show only what Free has (no temperature, no seconds, bars on Auto, accent, HeroSet mode); the HeroSet value in shot 4 is canned in the simulator's private copy. The on-watch launcher icon is shared by both tiers and unchanged |
 | Translations | English only; any translation is machine-drafted and needs the owner's OK and a native read (`../listing/NOTES.md` "Languages") |
 | Upload order | Free (new app) first, Pro 1.1.0 the same day |
 | Whether line 1 is the sibling URL | The plan (D8) puts it first. It costs the list-view preview, which shows the first sentence; the owner may move the URL line below the promise sentence |

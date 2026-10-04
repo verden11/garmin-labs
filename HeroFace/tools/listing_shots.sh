@@ -1,8 +1,8 @@
 # Listing screenshots for HeroFace, native simulator pixels, both tiers. Run (one tier per container run):
-#   ../docker/capture.sh HeroFace tools/listing_shots.sh <free|pro>
+#   ../docker/capture.sh HeroFace tools/listing_shots.sh <free|pro> [only these files, e.g. 3-goals-met.png 5-instinct-e40.png]
 # Writes listing[-free]/screens/*.png. The private copy of the project (never the repo) is edited per scene: settings the
 # way a user would set them (properties.xml) and, for HeroSet mode only, a canned HeroSet value (see heroset_on).
-TIER=${1:?free|pro}
+TIER=${1:?free|pro}; shift; ONLY="$*"
 if [ "$TIER" = free ]; then JUNGLE=monkey.free.jungle; OUT=/work/listing-free/screens; else JUNGLE=monkey.jungle; OUT=/work/listing/screens; fi
 NOW="2026-10-04 10:09:00"
 H=10000
@@ -22,6 +22,7 @@ heroset_off() { cp /tmp/HeroFaceLink.orig $LINK; }
 
 scene() {   # scene <file> <device> <goal> <steps> <moderate> <floors> [history: steps for yesterday, the day before, ...]
   local file=$1 device=$2 goal=$3 steps=$4 mod=$5 floors=$6; shift 6
+  [ -z "$ONLY" ] || [[ " $ONLY " == *" ${file##*/} "* ]] || return 0   # a re-run of some pictures: ... free 3-goals-met.png
   local hist=; [ $# -gt 0 ] && hist="history=$(echo "$@" | tr ' ' ',')"
   sim_boot "$NOW"; sim_load $JUNGLE "$device"
   sim_activity goal=$goal steps=$steps moderate=$mod floors=$floors calories=1650 $hist

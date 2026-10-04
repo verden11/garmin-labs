@@ -66,7 +66,9 @@ First release of the free HeroFace: the time, three goal bars, a progress ring, 
 
 ## Hero Image (optional, 1440×720, under 2048 KB)
 
-Not made; leave blank. (`../listing/hero-1440x720.png` is the Pro listing's and shows the paid face; do not reuse it for Free without the owner's look-approval.)
+**OWNER approves the looks of every image below (screens, hero, cover, icons) before upload.** Rendered 2026-10-04 from the current Free build in the simulator ([`screenshots.md`](screenshots.md)); the Pro listing's images carry a "PRO" pill, these do not (do not swap them).
+
+[`hero-1440x720.png`](hero-1440x720.png)
 
 ## Category
 
@@ -90,15 +92,24 @@ Whatever the Category choice offers.
 
 ## Cover Image (500×500, under 300 KB)
 
-Not made for Free. **Owner's call** (visual identity). Do not reuse the Pro cover if it shows seconds or a temperature.
+[`cover-500.png`](cover-500.png) (**OWNER**: the plain mark and the name; Pro's cover adds a PRO pill. Do not use the Pro cover here.)
 
 ## Screen Images (under 150 KB each, upload in this order)
 
-None exist for Free (none invented). See [`screenshots.md`](screenshots.md) for what to capture, from the Free build.
+Caption in brackets is for you, not a form field.
+
+1. [`screens/1-everyday.png`](screens/1-everyday.png) (FR965: the time, three goal bars, the ring)
+2. [`screens/2-accent-cyan.png`](screens/2-accent-cyan.png) (FR965: your accent colour, here Cyan)
+3. [`screens/3-goals-met.png`](screens/3-goals-met.png) (FR965: every goal met, check marks, the streak)
+4. [`screens/4-heroset.png`](screens/4-heroset.png) (FR965: HeroSet mode, reps, rank and streak)
+5. [`screens/5-instinct-e40.png`](screens/5-instinct-e40.png) (**the Instinct one**: Instinct E 40 mm, black and white, the ring as a gauge in the round window)
 
 ## Device icons (optional, 128×128)
 
-Not made; leave blank.
+- 64 Color: [`icon-64-128.png`](icon-64-128.png)
+- 24 bit: [`icon-24-128.png`](icon-24-128.png)
+
+(**OWNER**: the plain mark, as the cover.)
 
 ## Preview Video (optional)
 
