@@ -18,7 +18,7 @@ next:
   summary: the Free twin (Accent only, Garmin sun and Body Battery numbers only); names, titles, the Pro store URL and the price are the owner's decisions
 package:
   file: dist/TwoSunsFree.iq
-  products: 69
+  products: 72
   exported: null
   note: a new app id; the export prints more devices than the manifest lists (docs/compatibility.md)
 price: free

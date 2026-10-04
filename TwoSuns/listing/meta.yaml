@@ -15,12 +15,12 @@ next:
   version: "1.1.0"
   status: drafted   # drafted | prepared | uploaded | in-review | live
   uploaded: null
-  summary: Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023); the 1.0.1 fix is prepared (commit 807977d), not submitted; Instinct E and 3 Solar are PR 14 (ADR-024, look not approved)
+  summary: Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023); the 1.0.1 fix is prepared (commit 807977d), not submitted; Instinct E and 3 Solar (ADR-024) are included, look not yet approved
 package:
   file: dist/TwoSunsPro.iq
-  products: 69
+  products: 72
   exported: null
-  note: 72 products once PR 14 merges; dist/TwoSuns.iq and dist/TwoSuns-1.0.1-prepared.iq are the prepared 1.0.1 (export a 1.0.x from commit 807977d, not from this tree)
+  note: dist/TwoSuns.iq and dist/TwoSuns-1.0.1-prepared.iq are the prepared 1.0.1 (export a 1.0.x from commit 807977d, not from this tree)
 price: paid, USD 1.99 documented (the store shows $2.25), ADR-002; day-45 review due 2026-11-12 unless OD2 retires it
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
