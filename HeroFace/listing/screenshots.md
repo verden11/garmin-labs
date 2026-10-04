@@ -12,9 +12,9 @@ All from the Pro build, native simulator pixels, clock 2026-10-04 10:09. No pric
 | 2 | `screens/2-your-bars.png` | `fr965`, 454 px | **Pro's own:** the bars set to distance, intensity minutes and floors, seconds beside the time, the pale magenta accent |
 | 3 | `screens/3-goals-met.png` | `fr965`, 454 px | All three goals met: green bars and ring, check marks, gold streak line |
 | 4 | `screens/4-heroset.png` | `fr965`, 454 px | HeroSet mode: push-ups, sit-ups, squats, rank and streak, gold ring (the HeroSet value is canned, see below) |
-| 5 | `screens/5-instinct-e40.png` | **`instincte40mm`, 166 px (the Instinct family)** | Black and white, the ring is a gauge in the round window (closed here), the time and date left of it, streak, three reversed labels for finished goals |
+| 5 | `screens/5-instinct-e40.png` | **`instincte40mm`, 166 px native, shown x3 (the Instinct family)** | Black and white, the ring is a gauge in the round window (closed here), the time and date left of it, streak, three reversed labels for finished goals |
 
-The Instinct has no Accent setting, so there is nothing to choose; the goals-met state was picked because it is the best-looking frame (the finished-goal pills and the streak line, "STEPS" in full; `instinct2` reads "STEP"). **Pro is sold for the Instinct E and Instinct 3 watches, not the Instinct 2 family** (Garmin's paid-app product list, `../../reports/Garmin policies and design guidelines.md`), so the Pro Instinct picture is an Instinct E 40 mm. The 166 px picture is the display's own pixel size; the store scales it. `instinct3solar45mm` did not save in the scripted run (it opens on its glance), so it was not used.
+The Instinct has no Accent setting, so there is nothing to choose; the goals-met state was picked because it is the best-looking frame (the finished-goal pills and the streak line, "STEPS" in full; `instinct2` reads "STEP"). **Pro is sold for the Instinct E and Instinct 3 watches, not the Instinct 2 family** (Garmin's paid-app product list, `../../reports/Garmin policies and design guidelines.md`), so the Pro Instinct picture is an Instinct E 40 mm. `screens/native/5-instincte40mm-166.png` is the simulator's own 166 px capture; `screens/5-instinct-e40.png` (the one to upload, as in the Days To Go listing) is the same pixels enlarged x3 with nearest-neighbour (498 px, two colours, no smoothing) because the store shows screenshots larger than the display: `src/instinct-up.html`, rendered by the same Chrome command with `--window-size=498,498` and `--screenshot="$PWD/screens/5-instinct-e40.png"`. Use the native file if you prefer. `instinct3solar45mm` did not save in the scripted run (it opens on its glance), so it was not used.
 
 ## How they were made
 
@@ -22,8 +22,11 @@ The Instinct has no Accent setting, so there is nothing to choose; the goals-met
 
 ```sh
 cd <repo root>
-docker/capture.sh HeroFace tools/listing_shots.sh pro      # writes HeroFace/listing/screens/1-…5-*.png
+docker/capture.sh HeroFace tools/listing_shots.sh pro 2-your-bars.png   # one picture per run (see below); writes HeroFace/listing/screens/2-your-bars.png
+# the other four the same way: 1-everyday.png  3-goals-met.png  4-heroset.png  5-instincte40mm-166.png (the native Instinct frame, saved in screens/native/; then render src/instinct-up.html with Chrome to make the x3 upload file)
 ```
+
+**Take each picture in its own run.** In the Free twin's long run the simulator kept the Accent value stored by the first scene (the Cyan and Magenta frames came out blue); Pro's 2026-10-04 set was taken in one longer run in a different order (HeroSet scenes first) where it did not happen, and the trimmed script's order (1-everyday, then 2-your-bars) was **not** re-proven in one run. One picture per run is the safe, documented way, and the extra arguments make that cheap.
 
 - The five pictures came out of one full run that also took a few extra frames (a second custom-bars variant, Instinct 2 and Instinct E 45 mm, a goals-met HeroSet frame); the script was trimmed to the chosen five afterwards and the unused frames were discarded. The scenes are unchanged. Extra arguments after `pro` name the files to re-take alone (`... pro 3-goals-met.png`); a "NOT SAVED" line means repeat that one. In the Free twin's long run the simulator kept a stored Accent value, so Free's accent frames are taken one per run; look at every picture.
 - The face is built in a **private copy** of the project, so `source/` and the repo's `properties.xml` are never touched. The clock is the simulator's own (`faketime`), the activity data is typed into Simulation > Activity Monitoring, and each file is the simulator's File > Save Screen Capture, so the size is the device's own.
@@ -69,7 +72,8 @@ stat -f '%z %N' screens/*.png cover-500.png hero-1440x720.png icon-*.png        
 | `screens/2-your-bars.png` | 454x454 | 16.9 KB |
 | `screens/3-goals-met.png` | 454x454 | 16.0 KB |
 | `screens/4-heroset.png` | 454x454 | 19.3 KB |
-| `screens/5-instinct-e40.png` | 166x166 | 1.6 KB |
+| `screens/5-instinct-e40.png` | 498x498 (x3 of the 166 px native) | 3.5 KB |
+| `screens/native/5-instincte40mm-166.png` | 166x166 | 1.6 KB |
 | `cover-500.png` | 500x500 | 79 KB |
 | `hero-1440x720.png` | 1440x720 | 250 KB |
 | `icon-24-128.png` | 128x128 | 3.6 KB |

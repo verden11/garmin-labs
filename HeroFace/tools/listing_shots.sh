@@ -1,5 +1,5 @@
 # Listing screenshots for HeroFace, native simulator pixels, both tiers. Run (one tier per container run):
-#   ../docker/capture.sh HeroFace tools/listing_shots.sh <free|pro> [only these files, e.g. 3-goals-met.png 5-instinct-e40.png]
+#   ../docker/capture.sh HeroFace tools/listing_shots.sh <free|pro> [only these files, e.g. 3-goals-met.png 5-instincte40mm-166.png]
 # Writes listing[-free]/screens/*.png. The private copy of the project (never the repo) is edited per scene: settings the
 # way a user would set them (properties.xml) and, for HeroSet mode only, a canned HeroSet value (see heroset_on).
 TIER=${1:?free|pro}; shift; ONLY="$*"
@@ -49,5 +49,5 @@ scene 3-goals-met.png fr965 $DONE
 heroset_on 60 45 28 2 40 3; scene 4-heroset.png fr965 $PART; heroset_off
 
 # the Instinct family (1-bit: no accent; the ring is a gauge in the round window); Pro is sold for the Instinct E and 3 only
-scene 5-instinct-e40.png instincte40mm $DONE
+scene "$OUT/native/5-instincte40mm-166.png" instincte40mm $DONE   # then src/instinct-up.html makes screens/5-instinct-e40.png (x3, nearest-neighbour)
 echo scenario done

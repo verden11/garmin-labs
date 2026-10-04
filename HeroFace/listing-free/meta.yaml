@@ -33,7 +33,7 @@ assets:
     - {file: screens/2-accent-cyan.png, caption: "Your accent colour, here Cyan", device: fr965, px: 454}
     - {file: screens/3-goals-met.png, caption: "Every goal met: check marks and the streak", device: fr965, px: 454}
     - {file: screens/4-heroset.png, caption: "HeroSet mode: reps, rank and streak (canned HeroSet value, see screenshots.md)", device: fr965, px: 454}
-    - {file: screens/5-instinct-e40.png, caption: "Black and white, the ring as a gauge in the round window", device: instincte40mm, px: 166, instinct: true}
+    - {file: screens/5-instinct-e40.png, caption: "Black and white, the ring as a gauge in the round window", device: instincte40mm, px: 498, native_px: 166, instinct: true}
   icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; the plain mark
   screenshots_doc: screenshots.md
 site:

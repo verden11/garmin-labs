@@ -33,7 +33,7 @@ assets:
     - {file: screens/2-your-bars.png, caption: "Pro's own: bars you choose (distance, intensity minutes, floors), seconds beside the time, the Magenta accent", device: fr965, px: 454}
     - {file: screens/3-goals-met.png, caption: "Every goal met: check marks and the streak", device: fr965, px: 454}
     - {file: screens/4-heroset.png, caption: "HeroSet mode: reps, rank and streak (canned HeroSet value, see screenshots.md)", device: fr965, px: 454}
-    - {file: screens/5-instinct-e40.png, caption: "The Instinct one: black and white, the ring as a gauge in the round window", device: instincte40mm, px: 166, instinct: true}   # Pro is not sold on the Instinct 2 family, so that watch is not used
+    - {file: screens/5-instinct-e40.png, caption: "The Instinct one: black and white, the ring as a gauge in the round window", device: instincte40mm, px: 498, native_px: 166, instinct: true}   # Pro is not sold on the Instinct 2 family, so that watch is not used
   icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; the mark with a PRO pill
   screenshots_doc: screenshots.md
 site:
