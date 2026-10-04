@@ -16,18 +16,18 @@ Do not keep open checkboxes anywhere else. Status 2026-10-04.
 
 ## 1. Decide (needs your answer; blocks agent work)
 
-- [ ] 2.3 `[you]` **OD1/OD2:** do the Free + Pro ladder, and retire the day-45 flip rule? Write yes/no in `reports/Free and Pro ladder.md`. (Unblocks 2.4, M3, M4, M5.)
+- [x] 2.3 `[you]` **OD1/OD2:** do the Free + Pro ladder, and retire the day-45 flip rule? Write yes/no in `reports/Free and Pro ladder.md`. (Unblocks 2.4, M3, M4, M5.) **Decided 2026-10-04:** yes to both: Free + Pro for every face, day-45 flip rule retired. 2.4 is now agent work (after the design agents finish).
 - [ ] 2.5 `[you]` **OD3/OD4:** names and Pro price tier for each face (placeholders now: "X" / "X Pro"). Two Suns shows $2.25 in the store against $1.99 documented.
-- [ ] 3.4 `[you]` Days To Go: Pro's headline: thin Pro as it is (timed events, bottom line), or research what countdown buyers pay for.
-- [ ] 4.1 `[you]` Two Suns: submit the prepared 1.0.1 (existing id) now from commit `807977d`, or fold it into 1.1.0.
-- [ ] 4.3 `[you]` Two Suns Free: wording of a missing Body Battery number (`--` now; words need 14 translations). Also whether the date row and ring orientation are Pro only.
-- [ ] 5.2 `[you]` HeroFace: confirm Free has no temperature (paid users have it by default).
-- [ ] 5.3 `[you]` HeroFace: Magenta accent fails the 3:1 contrast rule against the track (2.84). Keep, fix the colour, or drop it.
+- [ ] 3.4 `[you]` Days To Go: Pro's headline: thin Pro as it is (timed events, bottom line), or research what countdown buyers pay for. **Decided 2026-10-04:** research what countdown buyers pay for before shipping Days To Go (agent, new 3.8); M3 waits on it.
+- [x] 4.1 `[you]` Two Suns: submit the prepared 1.0.1 (existing id) now from commit `807977d`, or fold it into 1.1.0. **Decided 2026-10-04:** fold the prepared 1.0.1 into 1.1.0 (one upload).
+- [x] 4.3 `[you]` Two Suns Free: wording of a missing Body Battery number (`--` now; words need 14 translations). Also whether the date row and ring orientation are Pro only. **Decided 2026-10-04:** keep `--` for a missing Body Battery number; the date row and ring orientation stay in Free.
+- [x] 5.2 `[you]` HeroFace: confirm Free has no temperature (paid users have it by default). **Decided 2026-10-04:** Free has no temperature (paid users keep it).
+- [x] 5.3 `[you]` HeroFace: Magenta accent fails the 3:1 contrast rule against the track (2.84). Keep, fix the colour, or drop it. **Decided 2026-10-04:** fix the Magenta colour so it passes 3:1 (agent, new 5.8).
 - [ ] 1.4 `[you]` DayArc: confirm the names "DayArc" / "DayArc Pro" after a store search and a trademark search.
-- [ ] 1.7 `[you]` DayArc: night-window default (ADR-010 placeholder) and languages (English only v1?).
+- [x] 1.7 `[you]` DayArc: night-window default (ADR-010 placeholder) and languages (English only v1?). **Decided 2026-10-04:** keep the placeholder night window; ship all 15 languages (machine drafted).
 - [x] 9.1 `[you]` Look approval for the Instinct faces: Two Suns approved 2026-10-04 (merged to main, 72 products); the other four were approved as mocked.
-- [ ] 9.2 `[you]` **Instinct 2 family and Descent G1 (CIQ 3.4) for Two Suns and DayArc?** They have no Complications, so it needs a separate build (Two Suns' Tier B: our own sun calculation and a remembered place; DayArc: another source for every field) and an on-wrist location probe. Yes (which first), or leave them out for good. This is the only gap between the faces' device lists.
-- [ ] 9.3 `[you]` HeroSet glance on Instinct E / 3 Solar: the simulator draws it under the round window (text and third bar cut). Fix it blind (use `getSubscreen()`), or wait for a real watch?
+- [x] 9.2 `[you]` **Instinct 2 family and Descent G1 (CIQ 3.4) for Two Suns and DayArc?** They have no Complications, so it needs a separate build (Two Suns' Tier B: our own sun calculation and a remembered place; DayArc: another source for every field) and an on-wrist location probe. Yes (which first), or leave them out for good. This is the only gap between the faces' device lists. **Decided 2026-10-04:** leave the Instinct 2 family and Descent G1 out for good for Two Suns and DayArc; 12.1 is cancelled.
+- [x] 9.3 `[you]` HeroSet glance on Instinct E / 3 Solar: the simulator draws it under the round window (text and third bar cut). Fix it blind (use `getSubscreen()`), or wait for a real watch? **Decided 2026-10-04:** fix blind with `getSubscreen()` (agent, new 9.11); a real watch confirms later.
 - [ ] 8.2 `[you]` (later) Approve a direction for a bolder Days To Go; then implement.
 
 ## 2. Your hands (a watch, the store dashboard, a person)
@@ -88,12 +88,16 @@ Packages, listings, site (prepare so each upload is a paste).
 - [ ] 7.8 `[agent]` After 7.7 is approved: `instinctLive = true` in `site/src/apps/heroset/facts.ts`, push, record the approval date in CHANGELOG and the release contract. If the store drops an Instinct product from its device list, trim the site list.
 - [ ] 1.10 `[agent]` After DayArc approval: add the two `storeUrl`s to the site, push, verify live.
 - [ ] 3.7 `[agent]` Days To Go site: Free/Pro section and Free store URL, deploy via push.
+- [ ] 5.8 `[agent]` HeroFace: change the Magenta accent colour so it passes 3:1 against the track (keep the id and name; check against the face's reserved roles in `research_notes/Free and Pro ladder/accent_roster.md`); verify in the simulator.
+- [ ] 9.11 `[agent]` HeroSet glance on Instinct E / 3 Solar: lay it out around the round window with `getSubscreen()` (blind; the simulator draws it under the window), keep `tools/glance-scope-check.sh` green; a wrist check follows (9.6).
+- [ ] 3.8 `[agent]` Days To Go: research what countdown-watch buyers pay for (store reads, reviews), propose a Pro headline; the owner then picks (3.4 decided "research first").
+- [ ] 10.10 `[agent]` HeroSet 1.3.1: bump the version string, `HeroSet/listing/meta.yaml` (`live: 1.3.0`, next 1.3.1), What's New (the three fixes since 1.3.0), CHANGELOG, re-run the package check.
 Later features (need an earlier item first).
 - [ ] 8.1 `[agent]` Daring mockup for Days To Go, screenshot-verified at 454 px and the smallest size; stop for look approval (8.2).
 - [ ] 8.3 `[both]` Extra accent colours (ids 6 to 11) after the 15-language names are OK'd; repeat for Two Suns and HeroFace.
-- [ ] 12.1 `[agent]` Two Suns / DayArc on the Instinct 2 family, only after 9.2 says yes.
+- [x] ~~12.1~~ cancelled 2026-10-04 (9.2: left out for good).
 
-- [ ] 10.6 `[you]` **Is HeroSet 1.3.0 already live?** A public store read on 2026-10-04 showed `latestExternalVersion` 1.3.0 released 2026-10-03 with the Instinct What's New (97 device types). If yes, it predates today's bezel/hint/glance-bar fixes, so the fresh export needs a new App Version (your call); then fix `live:` in `HeroSet/listing/meta.yaml` and 7.7.
+- [x] 10.6 `[you]` **Is HeroSet 1.3.0 already live?** A public store read on 2026-10-04 showed `latestExternalVersion` 1.3.0 released 2026-10-03 with the Instinct What's New (97 device types). If yes, it predates today's bezel/hint/glance-bar fixes, so the fresh export needs a new App Version (your call); then fix `live:` in `HeroSet/listing/meta.yaml` and 7.7. **Answer 2026-10-04: yes, uploaded.** HeroSet 1.3.0 is live; the fresh export ships as 1.3.1 (agent: version string, meta.yaml `live:`, 7.7).
 - [ ] 10.7 `[you]` Native-speaker read of the seven new HeroFace Move abbreviations (`BEV.` dan/nob, `BEW.` deu/dut, `MOV.` spa, `HRK.` tur, `JUD.` lit; machine drafted, 2026-10-04).
 
 - [ ] 10.8 `[agent]` HeroSet: seeding reps through `store.add` at launch crashed the app from the glance in the simulator (found 2026-10-04 while scripting screenshots); find out whether this is only the test harness or a real glance-process bug.
