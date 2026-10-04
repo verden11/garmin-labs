@@ -56,12 +56,12 @@ Per project, run by hand (no CI yet). All through the container: `<Project>/tool
 | **Settings drift** | the generated settings files match their table, every key has a constant | `TwoSuns/tools/gen_settings.py --check`, DaysToGo `gen_settings.py` |
 | **Screenshot + eye** | what the unit tests cannot see: bezel clipping, the glance, real proportions | `docker/shot.sh` (section 1) |
 
-Counts at the last full run (2026-10-03/04): HeroSet dev 115 / store 102; DaysToGo Pro 51, Free 52 (49 / 50 on an Instinct); HeroFace 25 (21 on an Instinct); DayArc Pro 24, Simple 21 (2026-10-04); TwoSuns Pro 154, Free 67 (146 / 60 on an Instinct).
+Counts at the last full run (2026-10-03/04): HeroSet dev 116 / store 103; DaysToGo Pro 51, Free 52 (49 / 50 on an Instinct); HeroFace 25 (21 on an Instinct); DayArc Pro 24, Simple 21 (2026-10-04); TwoSuns Pro 154, Free 67 (146 / 60 on an Instinct).
 
 ### What is NOT tested automatically
 
 - **Anything on a real watch**: sensors and accelerometer rates, GPS/location, real weather and Body Battery, the phone settings round trip, battery drain, always-on / burn-in behaviour (the simulator would not enter it), contrast and legibility in daylight, the real bezel margins.
 - **Memory peaks**: the unit run does not measure them; read the status bar of a `-r` shot (`FLAGS="-r -w" docker/shot.sh ...`) after the face drew. The on-watch Customize menu, pickers and long lists are not exercised that way. Two Suns Pro is at 45.8 of 59.8 kB on an Instinct.
 - **Visual quality**: no test says a screen looks right; a human looks at the screenshots.
-- **The Instinct glance placement** (the simulator draws it under the round window, HeroSet ADR-055) and the Instinct 2 family for DayArc and Two Suns (no Complications on CIQ 3.4).
+- **The Instinct glance placement** (the simulator draws it under the round window; HeroSet lays it out around the window blind, ADR-055 amended 2026-10-04, a wrist must confirm) and the Instinct 2 family for DayArc and Two Suns (no Complications on CIQ 3.4).
 - **Round-watch drawing diffs** after a layout change: the round paths are unchanged by construction and the round control suites pass, but no old-versus-new pixel comparison exists.

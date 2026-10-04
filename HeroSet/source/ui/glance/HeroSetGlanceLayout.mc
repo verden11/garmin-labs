@@ -6,6 +6,11 @@ import Toybox.Lang;
 // chord geometry and does not apply to this rectangle. Pure arithmetic on the
 // width, height and the text row's font height, so tests can check every
 // product's area without drawing.
+// On the Instinct E and 3 Solar the system draws the glance under the round
+// subscreen window (ADR-055); `window` is [left, bottom] of that window in
+// screen coordinates (from WatchUi.getSubscreen, null everywhere else) and both
+// rows then stop left of it. The glance area's own origin is not available to an app, so it is a
+// constant read off the SDK's device data.
 (:glance)
 class HeroSetGlanceLayout {
 
@@ -21,15 +26,22 @@ class HeroSetGlanceLayout {
     private static const PILL_MIN_HEIGHT = 4;
     private static const ROW_GAP_DIVISOR = 14;
     private static const PILL_GAP_DIVISOR = 20;
+    // glance.contentArea x and y in simulator.json of instincte40mm,
+    // instincte45mm and instinct3solar45mm (the only products with a window
+    // and a glance): where the glance's (0, 0) lies on the screen.
+    static const WINDOW_AREA_X = 9;
+    static const WINDOW_AREA_Y = 19;
 
     private var _width as Lang.Number;
     private var _height as Lang.Number;
     private var _textHeight as Lang.Number;
+    private var _window as [Lang.Number, Lang.Number]?;
 
-    function initialize(width as Lang.Number, height as Lang.Number, textHeight as Lang.Number) {
+    function initialize(width as Lang.Number, height as Lang.Number, textHeight as Lang.Number, window as [Lang.Number, Lang.Number]?) {
         _width = width;
         _height = height;
         _textHeight = textHeight;
+        _window = window;
     }
 
     // Never less than the outline plus a pixel, so the outline stays inside
@@ -39,9 +51,19 @@ class HeroSetGlanceLayout {
         return pad < OUTLINE + 1 ? OUTLINE + 1 : pad;
     }
 
+    // Where the rows end: the padded right edge, or left of the subscreen window
+    // (and its bezel ring, about a pad wide) when the block shares its height.
+    function rightEdge() as Lang.Number {
+        var window = _window;
+        if (window == null || window[1] - WINDOW_AREA_Y + pad() <= textTop()) {
+            return _width - pad();
+        }
+        return window[0] - WINDOW_AREA_X - pad();
+    }
+
     // Width available to the text row, before any check mark.
     function contentWidth() as Lang.Number {
-        return _width - SIDES * pad();
+        return rightEdge() - pad();
     }
 
     function pillHeight() as Lang.Number {
@@ -70,7 +92,8 @@ class HeroSetGlanceLayout {
     }
 
     function pillGap() as Lang.Number {
-        return _width / PILL_GAP_DIVISOR;
+        // The width the rows have to share, which is the whole area unless a window narrows it.
+        return (rightEdge() + pad()) / PILL_GAP_DIVISOR;
     }
 
     function pillWidth(count as Lang.Number) as Lang.Number {

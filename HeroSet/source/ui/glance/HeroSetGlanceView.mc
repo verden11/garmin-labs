@@ -1,5 +1,6 @@
 import Toybox.Graphics;
 import Toybox.Lang;
+import Toybox.System;
 import Toybox.WatchUi;
 
 // HeroSet's entry in the glance list: today's three missions as pill bars
@@ -37,10 +38,21 @@ class HeroSetGlanceView extends WatchUi.GlanceView {
         drawState(dc, dc.getWidth(), dc.getHeight(), state);
     }
 
+    // The Instinct's round window as [left, bottom] in screen coordinates
+    // (ADR-055); null on every other product, so no other glance's geometry can
+    // depend on it.
+    static function window() as [Lang.Number, Lang.Number]? {
+        if (System.getDeviceSettings().screenShape != System.SCREEN_SHAPE_SEMI_OCTAGON || !(WatchUi has :getSubscreen)) {
+            return null;
+        }
+        var box = WatchUi.getSubscreen();
+        return box == null ? null : [box.x, box.y + box.height];
+    }
+
     // Split from onUpdate so tests can draw a state into a bitmap at any
     // product's glance size.
     function drawState(dc as Dc, width as Lang.Number, height as Lang.Number, state as HeroSetDashboardState) as Void {
-        var layout = new HeroSetGlanceLayout(width, height, dc.getFontHeight(FONT));
+        var layout = new HeroSetGlanceLayout(width, height, dc.getFontHeight(FONT), window());
         var done = HeroSetRules.missionComplete(state.pushups, state.situps, state.squats, state.goal);
         drawStatus(dc, layout, state, done);
         drawPills(dc, layout, state);
@@ -70,6 +82,9 @@ class HeroSetGlanceView extends WatchUi.GlanceView {
             // Beside a check "NO STREAK YET" would contradict it; the row
             // drops to the check alone instead.
             candidates.add(load(Rez.Strings.dashboard_streak_none));
+            // Left of the Instinct's window "NO STREAK YET" has no room; the
+            // dashboard falls back to this too (ADR-055).
+            candidates.add(Lang.format(load(Rez.Strings.dashboard_streak_short), [streak]));
         }
         return candidates;
     }

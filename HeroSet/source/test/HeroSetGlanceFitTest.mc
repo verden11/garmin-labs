@@ -91,7 +91,7 @@ class HeroSetGlanceAreas {
     }
 
     static function layoutProblems(w as Lang.Number, h as Lang.Number, textHeight as Lang.Number, problems as Lang.Array<Lang.String>) as Void {
-        var layout = new HeroSetGlanceLayout(w, h, textHeight);
+        var layout = new HeroSetGlanceLayout(w, h, textHeight, HeroSetGlanceView.window());
         var name = w + "x" + h + " font " + textHeight + ": ";
         var o = HeroSetGlanceLayout.OUTLINE;
         if (!layout.fitsHeight()) {
@@ -108,6 +108,10 @@ class HeroSetGlanceAreas {
         }
         if (layout.pillWidth(3) < MIN_PILL_WIDTH) {
             problems.add(name + "pills too narrow");
+        }
+        var window = HeroSetGlanceView.window();
+        if (window != null && layout.pillLeft(2, 3) + layout.pillWidth(3) + o > window[0] - HeroSetGlanceLayout.WINDOW_AREA_X) {
+            problems.add(name + "pills under the subscreen window");
         }
     }
 
@@ -155,7 +159,7 @@ function glanceStatusRowStaysInsideTheAreaOnThisScreen(logger as Test.Logger) as
     for (var i = 0; i < rows.size(); i++) {
         var w = rows[i][1];
         var h = rows[i][2];
-        var layout = new HeroSetGlanceLayout(w, h, textHeight);
+        var layout = new HeroSetGlanceLayout(w, h, textHeight, HeroSetGlanceView.window());
         var states = [
             HeroSetGlanceAreas.state(0, HeroSetGlanceAreas.TYPICAL_STREAK, goal),
             HeroSetGlanceAreas.state(0, 0, goal),
@@ -173,6 +177,10 @@ function glanceStatusRowStaysInsideTheAreaOnThisScreen(logger as Test.Logger) as
             }
             if (s == 0 && plan[0].length() == 0) {
                 problems.add(summary + ": no words fit for a " + HeroSetGlanceAreas.TYPICAL_STREAK + " day streak");
+            }
+            var window = HeroSetGlanceView.window();
+            if (plan[0].length() > 0 && window != null && right > window[0] - HeroSetGlanceLayout.WINDOW_AREA_X) {
+                problems.add(summary + " state " + s + ": words end at " + right + ", under the subscreen window");
             }
             if (done && layout.pad() + plan[2] > w - layout.pad()) {
                 problems.add(summary + " state " + s + ": check past the right edge");
@@ -210,5 +218,26 @@ function glanceDrawsEveryStateAtEveryAreaOnThisScreen(logger as Test.Logger) as 
         }
     }
     logger.debug("RESULT drew " + rows.size() * states.size() + " glances on screen " + System.getDeviceSettings().screenWidth);
+    return true;
+}
+
+// Beside a subscreen window (a made-up one at the Instinct E's place, so every
+// product checks it) both rows end left of the window and its ring, and the
+// layout is exactly what it was without a window everywhere else.
+(:test)
+function glanceRowsStopLeftOfASubscreenWindow(logger as Test.Logger) as Lang.Boolean {
+    var window = [113, 62] as [Lang.Number, Lang.Number];
+    var beside = new HeroSetGlanceLayout(164, 61, 20, window);
+    var plain = new HeroSetGlanceLayout(164, 61, 20, null);
+    var limit = window[0] - HeroSetGlanceLayout.WINDOW_AREA_X - beside.pad();
+    var o = HeroSetGlanceLayout.OUTLINE;
+    logger.debug("RESULT beside " + beside.rightEdge() + " pills " + beside.pillWidth(3) + ", plain " + plain.rightEdge());
+    Test.assertEqual(beside.rightEdge(), limit);
+    Test.assert(beside.pillLeft(2, 3) + beside.pillWidth(3) + o <= limit + o);
+    Test.assert(beside.pillWidth(3) >= HeroSetGlanceAreas.MIN_PILL_WIDTH);
+    Test.assertEqual(plain.rightEdge(), 164 - plain.pad());
+    // A window that ends above the block leaves the full width.
+    var above = [113, 10] as [Lang.Number, Lang.Number];
+    Test.assertEqual(new HeroSetGlanceLayout(164, 61, 20, above).rightEdge(), plain.rightEdge());
     return true;
 }
