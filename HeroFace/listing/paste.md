@@ -56,7 +56,7 @@ The form reads it from the package; if a field asks, type:
 ## What's new
 
 ```text
-The app is now called HeroFace Pro on the watch. Nothing changes in how it works. Also available: HeroFace, a lighter version with three fixed goal bars and your HeroSet mode.
+The app is now called HeroFace Pro on the watch. Nothing changes in how it works. Also available: HeroFace, a lighter version with three fixed goal bars and your HeroSet mode. The Magenta accent is now a paler shade so it reads clearly against the grey track.
 ```
 
 ## Hero Image (optional, 1440×720, under 2048 KB)
