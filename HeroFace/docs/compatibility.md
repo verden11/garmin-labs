@@ -85,15 +85,15 @@ Seven semi-octagon products join both manifests (124 products): `instinct2`, `in
 
 ## Measured 2026-10-04 (simulator)
 
-Container simulator, SDK 9.2.0, English strings. **Simulator numbers, not device proof: nothing here ran on a wrist.** Memory is read off the simulator window's status bar ("used/limit kB", 1 kB = 1,024 B) of a `-r` build (the store export's flags) after the face drew (`FLAGS="-r -w" docker/shot.sh HeroFace monkey.free.jungle <device>`). A test run's memory is the harness's own 8 MB and is not used.
+Container simulator, SDK 9.2.0, English strings; the face-drawn memory and the Free suite were re-run on the tree at `971a825` (the Instinct goal label), the power-budget runs on the tree just before it (`c0eead8`). **Simulator numbers, not device proof: nothing here ran on a wrist.** Memory is read off the simulator window's status bar ("used/limit kB", 1 kB = 1,024 B) of a `-r` build (the store export's flags) after the face drew (`FLAGS="-r -w" docker/shot.sh HeroFace monkey.free.jungle <device>`). A test run's memory is the harness's own 8 MB and is not used.
 
 | Device | Tier | Check | Result | Limit | Share |
 |---|---|---|---|---|---|
-| `fenix5s` (218 px MIP, 96 KB class) | Free | face drawn | 29.6 kB used | 91.8 kB | 32% |
-| `vivoactive3` (240 px MIP, 96 KB class) | Free | face drawn | 29.6 kB used | 91.8 kB | 32% |
-| `fenix5s` | Pro | face drawn, Seconds off (default) | 30.5 kB used | 91.8 kB | 33% |
-| `vivoactive3` | Pro | face drawn, Seconds off (default) | 30.5 kB used | 91.8 kB | 33% |
-| `fenix5s` | Pro | Seconds on, Always-Active (low power), after about 2 minutes of partial updates | 30.9 kB used | 91.8 kB | 34% |
+| `fenix5s` (218 px MIP, 96 KB class) | Free | face drawn | 29.7 kB used | 91.8 kB | 32% |
+| `vivoactive3` (240 px MIP, 96 KB class) | Free | face drawn | 29.7 kB used | 91.8 kB | 32% |
+| `fenix5s` | Pro | face drawn, Seconds off (default) | 30.7 kB used | 91.8 kB | 33% |
+| `vivoactive3` | Pro | face drawn, Seconds off (default) | 30.7 kB used | 91.8 kB | 33% |
+| `fenix5s` | Pro | Seconds on, Always-Active (low power), after about 2 minutes of partial updates | 30.9 kB used (tree before `971a825`; Seconds off read 30.5 kB then) | 91.8 kB | 34% |
 | `fr955` (260 px MIP) | Pro | Seconds on, Always-Active, partial updates running | 26.7 kB used | 123.8 kB | 22% |
 
 Screen fit and the full suite on the **Free** jungle (`tools/run_tests.sh <device> monkey.free.jungle`, includes `everyStateFitsThisDisplay`), 25/25 PASSED on each of the ten sizes plus the 96 KB product `vivoactive3`: `fr55` (208), `fenix5s` (218), `vivoactive3` (240), `fenix5` (240), `vivoactive4` (260), `fenix7x` (280), `fr265s` (360), `fr165` (390), `epix2` (416), `fr965` (454), `fenix9pro51mm` (466). This closes the "ten-size fit loop and the memory view not yet run" gap for Free (not repeated on Pro here). **Caveat unchanged:** the fit states always carry seconds and a temperature, so a Free run draws Pro-shaped frames; what Free really draws (date, time, three bars, battery and heart rate row, no seconds, no temperature) was looked at on the `fenix5s` and `vivoactive3` screenshots only, with the simulator's canned data (no streak, so the streak-alone row was not drawn).
