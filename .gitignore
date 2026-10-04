@@ -5,3 +5,5 @@
 
 # Device-testing scratch, shared by the watch projects
 device-test/
+
+.claude/worktrees/
