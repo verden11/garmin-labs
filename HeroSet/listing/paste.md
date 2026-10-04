@@ -46,6 +46,8 @@ HeroSet is a paid app. Refunds follow the Connect IQ Store return window.
 
 ## Hero Image (1440×720)
 
+OWNER: look to approve (it now shows an Instinct E 45 mm beside two Forerunner 965 screens; [`screenshots.md`](screenshots.md)).
+
 [`hero-1440x720.png`](hero-1440x720.png)
 
 ## Category
@@ -76,21 +78,23 @@ https://verden.watch/heroset/privacy/
 
 ## Cover Image (500×500)
 
+OWNER: look to approve (the shield is now the launcher icon's current shape; also the two device icons below).
+
 [`cover-500-designed.png`](cover-500-designed.png)
 
 ## Screen Images (upload in this order)
 
-Garmin caps this at 5 images; upload in this exact order (filenames are numbered to match).
+OWNER: the looks of these five are yours to approve before upload (re-rendered 2026-10-04 from the 1.3.1 store build; how in [`screenshots.md`](screenshots.md)).
 
-1. [`screens-framed/1-dashboard.png`](screens-framed/1-dashboard.png) (fr965, goal 100)
-2. [`screens-framed/2-counting.png`](screens-framed/2-counting.png) (fr965, mid-set, HR live)
-3. [`screens-framed/3-review.png`](screens-framed/3-review.png) (fr965, review picker, `UP/DOWN: ADJUST`)
-4. [`screens-framed/4-saved.png`](screens-framed/4-saved.png) (fr965, `+N SAVED` dashboard)
-5. [`screens-framed/5-complete.png`](screens-framed/5-complete.png) (fr965, `DAILY MISSION COMPLETE`, 1 day streak)
+Garmin caps this at 5 images, each under 150 KB; upload in this exact order (filenames are numbered to match).
 
-All chassis + strap simulator captures of the store build (real, no mockups, [ADR-039](../docs/decisions.md#adr-039)). Replaces the earlier tight-crop `screens/1-6` set.
+1. [`screens-framed/1-dashboard.png`](screens-framed/1-dashboard.png): Today at a glance: rank, three bars, one screen (Forerunner 965).
+2. [`screens-framed/2-counting.png`](screens-framed/2-counting.png): Counting a set: the big count and today's total (Forerunner 965).
+3. [`screens-framed/3-review.png`](screens-framed/3-review.png): Check and adjust the count before it is saved (Forerunner 965).
+4. [`screens-framed/4-complete.png`](screens-framed/4-complete.png): Daily mission complete, all three done, streak started (Forerunner 965).
+5. [`screens-framed/5-instinct.png`](screens-framed/5-instinct.png): **The Instinct one**: the same dashboard in black and white on an Instinct E 45 mm.
 
-**Not used, kept as spares in the same folder** (menu and touch-device shots didn't make the 5-image cap): [`screens-framed/menu.png`](screens-framed/menu.png), [`screens-framed/venu-review-touch.png`](screens-framed/venu-review-touch.png) (Venu 4 41mm, `SWIPE: ADJUST`, has an added swipe-gesture glyph — the one non-capture graphic in this set).
+All chassis + strap simulator captures of the store build (real, no mockups, [ADR-039](../docs/decisions.md#adr-039)). The earlier set (`1-dashboard` ... `5-complete`, the spares) is in `old/`. The store takes no caption field here; the one-line captions above are for your own reference (and the site, if it reuses them).
 
 ## Device icons (optional, 128×128)
 

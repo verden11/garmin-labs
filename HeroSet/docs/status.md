@@ -36,7 +36,7 @@ Cross-app order; HeroFace's half is in [`../../HeroFace/docs/status.md`](../../H
 - A1. Ask Garmin why 14 of 80 products (and 48 of HeroFace's 117) are not listed; record the answer in "Where things stand". "Signature check failed" → Garmin developer forum.
 - A2. The API reads category 219 (Health & Fitness): check the dashboard saved Strength Training / Other, or whether the change needs review. (Description and What's New edits via Edit Details need no re-review.)
 - A3. Findability: mobile Connect IQ search lists HeroSet for "heroset" and "rep counter" (2026-09-25). Still to do: search "HeroFace" with a fēnix 9 or Forerunner 170 selected, for the reported paid-listings-hidden bug.
-- A4. Venu screenshot for the listing is in `listing/screens/6-review-touch.png` (2026-09-26). To do: upload it as an extra Screen Image on the HeroSet store listing.
+- A4. Venu screenshot for the listing (2026-09-26) is in `listing/old/screens/6-review-touch.png`, superseded: the 2026-10-04 listing set is five framed images, none from a Venu (the store caps Screen Images at 5; [`../listing/screenshots.md`](../listing/screenshots.md)).
 
 **E. Glance (submitted as 1.2.0, gates the upload)** — FR965, dev build, all-day wear ([ADR-051](decisions.md#adr-051)); none of this has run on a watch, and the simulator's Glance Launch Mode (Settings) is a GUI toggle that could not be scripted
 - [x] E1. **FAILED, then fixed and confirmed (FR965, dev build, 2026-09-27).** A set launched from the glance and left idle was killed at exactly 120s (screen stays lit, redraws don't reset the timer); reps were lost. Fixed same day: [ADR-052](decisions.md#adr-052), a periodic recoverable draft. **Closed** — see E1-retest.

@@ -16,18 +16,21 @@
      watch's real silhouette instead of a card rectangle. */
   .screens{display:flex;align-items:center;gap:24px;padding-right:40px;}
   .w{flex:none;filter:drop-shadow(0 30px 50px rgba(0,0,0,.7));}
-  .w img{width:100%;height:100%;object-fit:contain;display:block;}
-  .s{width:220px;height:220px;}
-  .l{width:280px;height:280px;}
+  /* the straps are cut by the 720 px square: fade their ends out instead of a hard edge */
+  .w img{width:100%;height:100%;object-fit:contain;display:block;
+         -webkit-mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 86%,transparent 100%);
+         mask-image:linear-gradient(to bottom,transparent 0,#000 14%,#000 86%,transparent 100%);}
+  .s{width:250px;height:250px;}
+  .l{width:310px;height:310px;}
 </style></head><body>
   <div class="copy">
-    <svg class="mark" viewBox="4 3 57 59"><path d="M10 13L32.5 7L55 13L52 36Q50 47 32.5 58Q15 47 13 36Z" fill="#ffaa00"/><path d="M14.5 16L32.5 11L50.5 16L48 35Q46.5 43.5 32.5 53Q18.5 43.5 17 35Z" fill="#000"/><path d="M21 20H28V28H37V20H44L42 39L37 43V37L32.5 33L28 37V43L23 39Z" fill="#ffaa00"/></svg>
+    <svg class="mark" viewBox="4 3.5 57 58"><path d="M13 16L32.5 11L52 16L49 36Q48 45 32.5 54Q17 45 16 36Z" fill="#FFAA00"/><path d="M17 18L32.5 14L48 18L46 35Q45 42 32.5 50Q20 42 19 35Z" fill="#000000"/><path d="M23 22H29V29H36V22H42L41 38L36 42V36L32.5 33L29 36V42L24 38Z" fill="#FFAA00"/></svg>
     <h1>Hero<span>Set</span></h1>
     <p>100 push-ups, 100 sit-ups and 100 squats a day, counted on your wrist.</p>
   </div>
   <div class="screens">
     <div class="w s"><img src="../screens-framed/1-dashboard.png"></div>
     <div class="w l"><img src="../screens-framed/2-counting.png"></div>
-    <div class="w s"><img src="../screens-framed/4-saved.png"></div>
+    <div class="w s"><img src="../screens-framed/5-instinct.png"></div>
   </div>
 </body></html>

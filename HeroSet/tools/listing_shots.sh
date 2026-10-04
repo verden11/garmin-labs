@@ -1,4 +1,5 @@
-# Listing screenshots for HeroSet on the Instinct family (the existing set is from the FR965, in listing/screens-framed/).
+# Look-only Instinct captures (display only, no skin). SUPERSEDED for the store images by tools/drive_screens.sh + tools/frame_all.sh
+# (listing/screenshots.md); it writes to listing/screens/, which is no longer a listing folder.
 # Native simulator pixels. The day's reps are put in through the app's own HeroSetStore.add, exactly as a saved set would:
 # the private project copy is patched to call it once at start (the repo is not touched).
 # Run: ../docker/capture.sh HeroSet tools/listing_shots.sh        (writes listing/screens/instinct-*.png)

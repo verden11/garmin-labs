@@ -24,10 +24,17 @@ package:
   note: "export: monkeyc -e -r -f store.jungle; built in the verden-ciq-build container; the older exports in dist/ and dist/old/ are untouched (two of the earlier ones in dist/old/ are DO NOT UPLOAD; dist/HeroSet-store-2026-10-04.iq is the 1.3.0 re-export, which has the bezel fixes but not the glance layout)"
 price: paid, the USD 2.50 tier (set in the form with the 1.3.1 upload; live until then at the USD 2.00 tier), no number in listing text, no trial; ADR-056 (the $2.50 tier), ADR-039 (no trial)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
-assets:
-  cover: cover-500-designed.png
-  hero: hero-1440x720.png
-  screens: screens-framed/ (5 uploaded in order, 2 spares); Instinct captures are in screenshots notes, not framed
+assets:   # all re-rendered 2026-10-04 from the 1.3.1 store build; looks not yet approved by the owner; superseded files are in old/
+  rendered: 2026-10-04
+  cover: {file: cover-500-designed.png, px: 500x500, kb: 72, cap_kb: 300}
+  hero: {file: hero-1440x720.png, px: 1440x720, kb: 360, cap_kb: 2048}
+  device_icons: {"64_color": {file: icon-64-128.png, px: 128x128, kb: 1}, "24_bit": {file: icon-24-128.png, px: 128x128, kb: 2}}
+  screens:   # upload order; each 720x720, transparent background, cap 150 KB
+    - {file: screens-framed/1-dashboard.png, device: fr965, kb: 94}
+    - {file: screens-framed/2-counting.png, device: fr965, kb: 89}
+    - {file: screens-framed/3-review.png, device: fr965, kb: 90}
+    - {file: screens-framed/4-complete.png, device: fr965, kb: 92}
+    - {file: screens-framed/5-instinct.png, device: instincte45mm, kb: 113, instinct: true}
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/heroset/

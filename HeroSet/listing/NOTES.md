@@ -29,7 +29,7 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 | App Version | Free text, not read from the manifest; bump on every upload (patch for fixes, minor for features). 1.1.1 live ([ADR-050](../docs/decisions.md#adr-050)); the glance build ([ADR-051](../docs/decisions.md#adr-051)) was submitted as **1.2.0**, not the 1.1.2 it was called during development ([ADR-053](../docs/decisions.md#adr-053)); Connect sync (1.3.0) is shelved, [ADR-054](../docs/decisions.md#adr-054). |
 | Collects user data | No: the store build has no network access, no activity recording, no sync ([ADR-033](../docs/decisions.md#adr-033)). The privacy policy is still linked (gate 6). |
 | Cover Image | Shield + name only: it shows at about 100 px in browse, so no screen text. |
-| Screen Images | Simulator captures of the store build ([ADR-039](../docs/decisions.md#adr-039)), no mockups; the app's own pixels are never altered. Chassis+strap style, 2026-09-27: real full-window captures cropped to 720² and white-padded, background then keyed to transparent (connected-component flood fill from the corners) — the only post-capture edit, cosmetic only. If a shot shows a changed UI, re-take it and update the site copy in `../../site/public/heroset/screens/`. |
+| Screen Images | Simulator captures of the store build ([ADR-039](../docs/decisions.md#adr-039)), no mockups; the app's own pixels are never altered. Re-taken 2026-10-04 (the UI had changed since 2026-09-27; the old ones are in `old/`): five images, the story home screen, counting, review and adjust, mission complete, plus one Instinct. Chassis+strap style: the whole simulator window cropped to the skin, 720², background keyed to transparent (flood fill from the corners), 256 colours to stay under the 150 KB cap: the only post-capture edit, cosmetic only. The Instinct image is an **Instinct E 45 mm** because the Instinct 2 family and Descent G1 are not on Garmin's paid-app product list (a paid listing is not sold there), and the caption names no Instinct 2 watch. The seeded reps (60/45/30, 100/100/100) are put in through the app's own store, the day and time are the simulator's canned ones. The counting screen reads `HR --`: the container simulator feeds no heart rate (the 2026-09 shots, taken on the host simulator, showed 143), so it is what the build draws with no sensor; do not claim live HR from this picture. If a shot shows a changed UI, re-take it and update the site copy in `../../site/public/heroset/screens/`. How, with commands: [`screenshots.md`](screenshots.md). |
 | Email | The dedicated support address, also on the site's support and privacy pages. |
 | App Migration | No: support is an explicit list of products (80 live, 87 from 1.3.0; [`../docs/compatibility.md`](../docs/compatibility.md), [ADR-034](../docs/decisions.md#adr-034)/[035](../docs/decisions.md#adr-035)/[037](../docs/decisions.md#adr-037)/[038](../docs/decisions.md#adr-038)/[048](../docs/decisions.md#adr-048)); don't let the store add untested devices. |
 | Monetization | Paid through the store. |
@@ -40,14 +40,10 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 ## Image sources
 
 - **Framed** (`framed/`, 1300×1300, watch frame around the store screens): marketing extras for ads and social. Not part of the store form. Only copy of the art, no source file.
-- **Hero** (`hero-1440x720.png`): real store-build screens from `screens/`, no watch frame. Source `src/hero.html`. Re-render after re-taking screens:
-
-  ```sh
-  "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome" --headless=new --hide-scrollbars --allow-file-access-from-files --virtual-time-budget=5000 --window-size=1440,720 --screenshot="$PWD/hero-1440x720.png" "file://$PWD/src/hero.html"
-  ```
-
-- **Cover** (`cover-500-designed.png`, 500×500): source `src/cover.html`, rendered the same way with `--window-size=500,500`.
-- **Device icons:** launcher shield on black. Render `src/icon.html` at window 128×128 for the 24-bit icon, then `python3 src/quantize64.py icon-24-128.png icon-64-128.png`.
+- **Hero** (`hero-1440x720.png`): the framed screens 1, 2 and 5 (two Forerunner 965, one Instinct E 45 mm), strap ends faded. Source `src/hero.html`.
+- **Cover** (`cover-500-designed.png`, 500×500): source `src/cover.html`.
+- **Device icons:** the launcher icon's shield (current pixel-grid shape) on black, `src/icon.html`; the 64-colour one is the same render snapped by `src/quantize64.py`.
+- All three, and the icons, are rendered by `../tools/render_listing.sh`; the screens by `../tools/drive_screens.sh` + `../tools/frame_all.sh` ([`screenshots.md`](screenshots.md)). The shield was redrawn on 2026-10-04 to match the launcher icon (it had the heavier pre-pixel-grid shape): a look change for the owner to approve.
 
 ## What's New: history and copy rules
 

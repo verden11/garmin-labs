@@ -1,6 +1,6 @@
 # Drives HeroSet through its screens in the simulator (xdotool) and photographs each one: the face on its skin.
 # A scenario for docker/capture.sh, not run by hand:
-#   ../docker/capture.sh HeroSet tools/drive_screens.sh <device> <btn|touch> [jungle] [seed p,s,q] [detected] [glance|noglance] [all|resume]
+#   ../docker/capture.sh HeroSet tools/drive_screens.sh <device> <btn|touch> [jungle] [seed p,s,q] [detected] [glance|noglance] [all|resume|home]
 # Writes /work/bin/drive-<device>-<step>.png (the display, SCALE percent, default 100). Simulator only, never device proof.
 # Buttons are pressed by clicking their place on the skin (key boxes from the device's simulator.json; the window has a 25 px
 # menu bar above the skin). On a device with a glance the simulator opens on the glance list, and the first START does
@@ -14,7 +14,9 @@ DEV=$1; MODE=${2:-btn}; JUNGLE=${3:-store.jungle}; SEED=${4:-0,0,0}; DETECTED=${
 J=/root/.Garmin/ConnectIQ/Devices/$DEV/simulator.json
 read -r DX DY DW DH < <(jq -r '.display.location | "\(.x) \(.y) \(.width) \(.height)"' "$J"); DY=$((DY + 25))
 OUT=/work/bin; mkdir -p "$OUT"
-snap() { xwd -root -display "$DISPLAY" | convert xwd:- -crop "${DW}x${DH}+${DX}+${DY}" +repage -scale "${SCALE:-100}%" "$OUT/drive-$DEV-$1.png"; echo "snap $1"; }
+snap() { xwd -root -display "$DISPLAY" | convert xwd:- -crop "${DW}x${DH}+${DX}+${DY}" +repage -scale "${SCALE:-100}%" "$OUT/drive-$DEV-$1.png"; echo "snap $1"
+  # the whole simulator window (the device skin: chassis, strap, buttons), for the framed listing images
+  local w; w=$(xdotool search --onlyvisible --name "CIQ Simulator" | head -1); [ -n "$w" ] && xwd -id "$w" -display "$DISPLAY" | convert xwd:- "$OUT/drive-$DEV-$1-window.png"; return 0; }
 # press <enter|esc|up|down> [seconds]
 press() {
   read -r kx ky < <(jq -r --arg k "$1" '[.keys[] | select(.id == $k)][0] | "\(.location.x + .location.width / 2 | floor) \(.location.y + .location.height / 2 + 25 | floor)"' "$J")
@@ -39,6 +41,7 @@ if [ "$GLANCE" = glance ]; then
   if [ "$MODE" = touch ] || [ "$(jq '[.keys[].id] | index("down")' "$J")" = null ]; then tap 0 -$((DH / 3)) 6; else press down 3; snap 0b-glance; press enter 6; fi
 fi
 snap 1-dashboard
+[ "$ONLY" = home ] && { echo "drive done"; return 0 2>/dev/null || exit 0; }
 if [ "$MODE" = touch ]; then
   # Touch-first (B2/B3): tap opens the menu, tap on an item selects it; a tap mid-set or in the picker does nothing,
   # START finishes and saves, swipe up is +1, swipe right from the edge is Back (the Resume menu).

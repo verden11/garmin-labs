@@ -79,7 +79,7 @@ source/            Monkey C: app/ domain/ data/ sensor/ layout/ ui/ test/
 resources/         strings, menus, launcher icon
 resources-store/   release menu overlay (no Connect Sync, no validation log)
 docs/              architecture, decisions, UX, testing, launch plan
-listing/           Connect IQ Store upload images (screens/, cover, hero, device icons; sources in src/)
+listing/           Connect IQ Store upload images (screens-framed/, cover, hero, device icons; sources in src/; how: listing/screenshots.md)
 bin/               scratch build output (git-ignored)
 dist/              store .iq only (git-ignored)
 ```
