@@ -17,10 +17,11 @@ next:
   uploaded: null
   summary: "Free + Pro ladder (proposed, ADR-001): the paid app is renamed HeroFace Pro; plus the Instinct family (ADR-002, 124 products). Nothing approved or uploaded"
 package:
-  file: dist/HeroFacePro.iq
-  products: 124
-  exported: null
-  note: export with tools/check_free_package.sh --build; the live 1.0.1 package is the old dist/HeroFace.iq
+  file: dist/HeroFacePro-2026-10-04.iq
+  products: 124   # <iq:product> lines in the manifest; the export has 207 part numbers (device variants), not a product count
+  exported: 2026-10-04
+  check: "tools/check_free_package.sh: OK (keys Mode Slot1-3 Accent Seconds Weather, name 'HeroFace Pro')"
+  note: "export: monkeyc -e -r -f monkey.jungle -w --typecheck 3; the live 1.0.1 package is the old dist/HeroFace.iq; built in the verden-ciq-build container; same bytes as dist/HeroFacePro.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
 price: paid, USD 2.00 (the lowest tier); Pro price is OD4
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:

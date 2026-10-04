@@ -8,6 +8,16 @@ Status: 2026-10-01. (open items moved to the root ROADMAP.md, 2026-10-04) Histor
 
 **Goal:** a paid Connect IQ Store app (USD 2.00 → $1.99 US, no trial, [ADR-039](decisions.md#adr-039)), live since 2026-09-21. Feature work waits unless it unblocks a fix; the glance ([ADR-051](decisions.md#adr-051)) is the one exception, requested by the owner 2026-09-26.
 
+## Ready to upload (prepared 2026-10-04, NOT uploaded)
+
+**Check before uploading anything: the public store already reports `latestExternalVersion` 1.3.0 for this listing (releaseDate 2026-10-03 12:32 UTC, the Instinct What's New, 97 device types; read from the store API 2026-10-04), while this repo says 1.3.0 is not uploaded.** If 1.3.0 is live, it was exported before the 2026-10-04 bezel-corner, hint and glance-bar fixes, so this export needs a new App Version (free text; the owner's call). The `live:` fields in `../listing/meta.yaml` and ROADMAP 7.7 are left unchanged until the owner confirms. Text: `../listing/paste.md`.
+
+| File (absolute path) | Products | Check |
+|---|---|---|
+| `/Users/mbp/dev/garmin/HeroSet/dist/HeroSet-store-2026-10-04.iq` | 87 | no check script: unpacked with `bsdtar`: app id 568d5c9b-eb10-4678-bf28-0080c3efbbc1 (same as `manifest-store.xml`), permissions Sensor and ComplicationPublisher only, 134 part numbers and 134 .prg |
+
+built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The owner's decisions (names, prices, icons, uploads, translations) are still open: see ROADMAP.
+
 ## Where things stand
 
 - **1.2.0 (glance + idle-kill fix, submitted under that number rather than 1.1.2, ADR-053) uploaded 2026-09-27, approved by Garmin (owner reported 2026-10-01; approval date not recorded), now live.** A read-only glance-list entry on the 63 watches with Connect IQ 4.0+ ([ADR-051](decisions.md#adr-051), [`compatibility.md`](compatibility.md)), plus the recoverable-draft fix for the glance-launch idle-timeout kill found the same day ([ADR-052](decisions.md#adr-052)). Nothing else changes for users. **Owner call: uploaded without E2b, E4 or E5** (see "Next session" E below for exactly what ran and what didn't); the ship-blocking check, E1, did run and pass. `dist/HeroSet-store.iq` exported 2026-09-27. Screenshots not updated for this upload (owner will add later; text fields don't need them).

@@ -8,6 +8,17 @@
 
 Owner's runbook. Do the gates in order; each one names what "passed" looks like and where to record it. Nothing here is done yet unless it says so. Status of the build itself: [`archive/plan.md`](archive/plan.md) "Implementation status".
 
+## Ready to upload (prepared 2026-10-04, NOT uploaded)
+
+Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id), together, Free first. Text: `../listing-free/paste.md` and `../listing/paste.md` (now the 1.1.0 text, gate F9's text part is done; the sibling store URLs are placeholders); metadata `../listing*/meta.yaml`.
+
+| File (absolute path) | Products | Check |
+|---|---|---|
+| `/Users/mbp/dev/garmin/DaysToGo/dist/DaysToGoFree-2026-10-04.iq` | 127 | `tools/check_free_package.sh`: OK (no Hour/Footer, no "Pro" anywhere) |
+| `/Users/mbp/dev/garmin/DaysToGo/dist/DaysToGoPro-2026-10-04.iq` | 127 | same script: OK (Hour, Footer and the name found) |
+
+built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The owner's decisions (names, prices, icons, uploads, translations) are still open: see ROADMAP. The paid 1.0.1 as submitted is `DaysToGo-1.0.1-submitted.iq`.
+
 ## Owner decision, 2026-09-26: submit without the beta round trip
 
 The owner chose to submit straight to the store and fix issues in later versions. That waives gates 2 and 3 (phone round trip, T4 decision) and accepts these risks, on record:
@@ -75,7 +86,7 @@ Nothing in this block is done unless it says so; nothing is uploaded. Builds aga
 | F6 | Packages exported and checked: `tools/check_free_package.sh --build` | **Done 2026-10-01** after the final edits (compile only; `dist/DaysToGoFree.iq` and `dist/DaysToGoPro.iq`; see `development.md`) |
 | F7 | Device check on the FR965, store-build equivalent: Free shows no Hour or Footer in the phone and Customize screens, the accent change round trip (phone, sync, restart; then on the watch), the on-watch name in the watch-face list | **Open** (owner) |
 | F8 | Listing-free filled from `../listing-free/paste.md`; screenshots taken from the Free build (none exist) | **Open** |
-| F9 | Pro's `../listing/paste.md` What's New and version bumped for 1.1.0 (draft is in `../listing/NOTES.md`), sibling Free URL on its first line; `CHANGELOG.md` entries get their dates | **Open** (on upload) |
+| F9 | Pro's `../listing/paste.md` What's New and version are the 1.1.0 text since 2026-10-04 (the sibling URL on line 1 is a placeholder); `CHANGELOG.md` entries get their dates | **Text done; URL and dates open** (on upload) |
 | F10 | Site: `freeStoreUrl`, a "Free or Pro" section, per-tier privacy and support wording (plan WP8). Do not change a published URL | **Open** (not in this folder) |
 | F11 | Translations of any new string (none were added by this work), machine drafts need the owner's OK | n/a so far |
 

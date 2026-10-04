@@ -17,10 +17,11 @@ next:
   uploaded: null
   summary: Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023); the 1.0.1 fix is prepared (commit 807977d), not submitted; Instinct E and 3 Solar (ADR-024) are included, look approved 2026-10-04, simulator only
 package:
-  file: dist/TwoSunsPro.iq
-  products: 72
-  exported: null
-  note: dist/TwoSuns.iq and dist/TwoSuns-1.0.1-prepared.iq are the prepared 1.0.1 (export a 1.0.x from commit 807977d, not from this tree)
+  file: dist/TwoSunsPro-2026-10-04.iq
+  products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
+  exported: 2026-10-04
+  check: "tools/check_free_package.sh: OK (Positioning and SensorHistory declared, keys Accent Orientation Golden Curve Date Weather Battery)"
+  note: "export: monkeyc -e -r -f monkey.jungle; dist/TwoSuns-1.0.1-prepared.iq is the separate 1.0.1 package (ROADMAP 4.1); built in the verden-ciq-build container; same bytes as dist/TwoSunsPro.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
 price: paid, USD 1.99 documented (the store shows $2.25), ADR-002; day-45 review due 2026-11-12 unless OD2 retires it
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:

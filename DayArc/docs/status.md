@@ -7,6 +7,17 @@
 Owner's runbook, both listings. Status of the build itself: [`archive/plan.md`](archive/plan.md) "Implementation
 status". What may be claimed: [`release-contract.md`](release-contract.md).
 
+## Ready to upload (prepared 2026-10-04, NOT uploaded)
+
+Both listings, same day: DayArc (free) first, DayArc Pro second. Text: `../listing/paste.md`, `../listing-pro/paste.md` (store URL placeholders and the OWNER items in `../listing*/NOTES.md` first); metadata `../listing*/meta.yaml`.
+
+| File (absolute path) | Products | Check |
+|---|---|---|
+| `/Users/mbp/dev/garmin/DayArc/dist/DayArcSimple-2026-10-04.iq` | 72 | `tools/check_package.sh`: OK (Instinct parts have no settings file, 89 others have Accent) |
+| `/Users/mbp/dev/garmin/DayArc/dist/DayArcPro-2026-10-04.iq` | 72 | same script: OK |
+
+built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/` under a dated name (the older exports and `dist/old/` are untouched); the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The owner's decisions (names, prices, icons, uploads, translations) are still open: see ROADMAP.
+
 ## Never decide alone
 
 The store names; the price and its wording; the visual identity and both launcher icons; any
