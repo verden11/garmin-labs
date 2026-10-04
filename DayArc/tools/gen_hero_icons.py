@@ -10,7 +10,7 @@ build, so the code never knows the pixel sizes (the planner reads the loaded bit
 
 A folder holds one size of one slot. The default (`resources/`, 72 px large and 54 px small) serves round 360 and 390.
 Height = the digits (0.72 x the HOT font's box, DayArcConfig.DIGIT_HEIGHT_PERMILLE) rounded to a multiple of 6, so a stroke
-(a tenth of the height) and the sizes stay tidy; the SMALL one is the mean of the MEDIUM and MILD digits.
+(0.12 of the height) and the sizes stay tidy; the SMALL one is the mean of the MEDIUM and MILD digits.
 
 Pixel grid (ADR-013 amendment 4, kept): every SVG is drawn in PIXEL coordinates (viewBox = width x height, so the SDK's
 rasteriser never resamples), every stroke is a whole number of pixels, straight edges sit on pixel boundaries (an odd
@@ -49,9 +49,9 @@ STRESS_REST = ("h-2c-.894 0 -1.662 -.857 -1.761 -2c-.296 -3.45 -.749 -6 -2.749 -
 
 
 def stroke(height):
-    # about a tenth of the height: the digits' own stroke is about 0.13 of theirs, and a thinner icon read as faint beside
+    # about 0.12 of the height: the digits' own stroke is 0.13 (FR965) to 0.18 (the bolder epix 2 font) of theirs, and a thinner icon read as faint beside
     # them on the 454 px screen (ROADMAP 1.12)
-    return round(height / 10)
+    return 2 if height <= 24 else round(height * 0.12)   # 2 px is the floor of a legible line
 
 
 def n(x):
@@ -123,6 +123,8 @@ def weather(height, hue):
     t = stroke(height)
     gap = max(2, round(h / 20))
     sx, sy, sr = round(0.80 * h), round(0.46 * h), round(0.20 * h)   # the sun, upper right, partly behind the cloud
+    if h < 36:                          # no rays at this size: lift the disc so more than a sliver clears the cloud
+        sy, sr = round(0.38 * h), round(0.21 * h)
     body = f'<circle cx="{sx}" cy="{sy}" r="{sr}" fill="{hue}" />\n'
     if h >= 36:   # rays: north, north-east, east (the cloud hides the rest); axis and 45 degree only
         inner = sr + t                      # a visible gap of t/2 between the disc and a ray's round cap
