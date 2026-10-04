@@ -64,9 +64,9 @@ People.
 
 Simulator work (the GUI tooling in `docker/sim-gui.sh` can drive it).
 - [ ] 3.2 `[agent]` Days To Go Free fit and memory view on fenix5s / fr55 (not measured). Same for HeroFace Free on ten sizes and fenix5s / vivoactive3 (96 KB limit) (5.4).
-- [ ] 7.11 `[agent]` HeroSet by hand in the simulator: B2 `venu441mm` (tap mid-set does nothing, START finishes, swipe up = +1, swipe-right shows Resume), B3 `d2airx10` (START opens the menu), glance modes on fr965 / fenix7 / fr255s (E4).
+- [ ] 7.11 `[agent]` HeroSet by hand in the simulator: B2 `venu441mm` (tap mid-set does nothing, START finishes, swipe up = +1, swipe-right shows Resume), B3 `d2airx10` (START opens the menu), glance modes on fr965 / fenix7 / fr255s (E4). **Partly done 2026-10-04 (simulator):** B2 on `venu441mm` all six observed (not driven: tapping Resume); B3 `d2airx10`: START opens the menu from the dashboard, but a second START inside the menu did nothing (same on venu441mm; first item sits partly under the round bezel), so whether START selects in a Menu2 on a real watch is open (wrist check); E4 empty-day glance fits on fr965/fr255s/fenix7, done state and memory view not looked at. Driving notes: `HeroSet/docs/development.md`.
 - [ ] 9.4 `[agent]` Memory peaks no unit test measures: the Customize menu and pickers (Two Suns Pro first: 45.8 of 59.8 kB on Instinct, DaysToGo date picker, HeroFace), seconds power budget (HeroFace), MIP contrast screenshots.
-- [ ] 9.5 `[agent]` Two Suns weather conditions in the simulator's Weather Editor (B5 rain, icon per condition) and sleep/AOD if the simulator can be made to enter it.
+- [ ] 9.5 `[agent]` Two Suns weather conditions in the simulator's Weather Editor (B5 rain, icon per condition) and sleep/AOD if the simulator can be made to enter it. **Not doable in the simulator (tried 2026-10-04):** the face's weather row stays on the canned partly cloudy / 77° whatever the Weather Editor sets, and Always-On did not draw; conditions stay unit-tested only, so B5 and the icon per condition need the wrist (4.2). Notes: `TwoSuns/docs/development.md`.
 Fixes and polish.
 - [ ] 1.2 `[agent]` Fix what 1.1 finds; re-run tests on 6 devices, both jungles. Now also the DayArc recovery cell truncation (`R… 2501`) and the narrow Pro pill showing "12:..." / "8..." on a bottom row.
 - [ ] 1.3 `[agent]` Run `watch-design-reviewer` on the built DayArc Free and Pro (fifth pass); done when `disposition: ship` or all fixes closed.
@@ -95,6 +95,9 @@ Later features (need an earlier item first).
 
 - [ ] 10.6 `[you]` **Is HeroSet 1.3.0 already live?** A public store read on 2026-10-04 showed `latestExternalVersion` 1.3.0 released 2026-10-03 with the Instinct What's New (97 device types). If yes, it predates today's bezel/hint/glance-bar fixes, so the fresh export needs a new App Version (your call); then fix `live:` in `HeroSet/listing/meta.yaml` and 7.7.
 - [ ] 10.7 `[you]` Native-speaker read of the seven new HeroFace Move abbreviations (`BEV.` dan/nob, `BEW.` deu/dut, `MOV.` spa, `HRK.` tur, `JUD.` lit; machine drafted, 2026-10-04).
+
+- [ ] 10.8 `[agent]` HeroSet: seeding reps through `store.add` at launch crashed the app from the glance in the simulator (found 2026-10-04 while scripting screenshots); find out whether this is only the test harness or a real glance-process bug.
+- [ ] 10.9 `[agent]` Days To Go: the Instinct 3 Solar still cuts a 12-character event name (smallest font already), and the `venusq2` rectangle drops name and bottom line on a long stack; decide a fix or document it.
 
 ## 4. Waiting on a date or an outside event
 
