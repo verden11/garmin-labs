@@ -47,14 +47,6 @@ This free version reads only your watch's own sunrise, sunset and Body Battery n
 Support and answers: https://verden.watch/two-suns/support/
 ```
 
-## Device sentence (OWNER: not in the description above)
-
-Add it as line 2 of the description **only after** you have read both listings' real device lists in the store form (SDK `Monetization/App_Sales`), and with no watch name or count (release contract):
-
-```text
-Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for.
-```
-
 ## Version
 
 The form reads it from the package; if a field asks, type:

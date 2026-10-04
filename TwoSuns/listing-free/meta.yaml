@@ -34,4 +34,5 @@ site:
   privacy: https://verden.watch/two-suns/privacy/
 held_back_text:   # Instinct wording kept OUT of paste.md until the upload is approved and the store lists those watches; add it then
   - "Fits round and rectangular watches alike, and on the Instinct E and Instinct 3 Solar it is black and white with the ring as a small 24-hour dial in the round window.  (replaces the first sentence of \"One face, every screen\")"
+  - "Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for.  (device sentence: add as line 2 of the description ONLY after both listings' real device lists are visible in the store form, SDK Monetization/App_Sales; no watch name or count)"
 open_items: "2.3 2.5 4.3 4.4"   # ids in ROADMAP.md

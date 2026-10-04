@@ -12,7 +12,7 @@ DayArc Pro
 
 ## Description (max 4000, one box per language)
 
-**OWNER, before pasting:** (1) the store URLs below are placeholders (line 1 needs the DayArc listing live; in "More from Verden" keep only the faces whose free listing is live, delete the other lines, and drop the whole block if none is); (2) "chosen in the Garmin Connect app" is unverified until a store install (release contract; status gate 5): keep it, or soften it to "in the settings"; (3) the review sentence is yours to keep or cut.
+**OWNER, before pasting:** the store URLs are placeholders (line 1 needs the DayArc listing live; keep only the free faces that are live under "More from Verden"), and "chosen in the Garmin Connect app" is unverified until a store install. Details: [`NOTES.md`](NOTES.md).
 
 ```text
 Also available: DayArc, the lighter version with one reading per window: <DAYARC STORE URL: owner fills in once that listing is live>
@@ -38,19 +38,11 @@ If this face works for you, a rating in the store helps other people find it.
 DayArc Pro reads data your watch already has. Nothing is sent anywhere, no location, no network.
 
 More from Verden
-Days To Go: <STORE URL of the free Days To Go, once live>
-Two Suns: <STORE URL of the free Two Suns, once live>
-HeroFace: <STORE URL of the free HeroFace, once live>
+Days To Go: <DAYS TO GO STORE URL, once live>
+Two Suns: <TWO SUNS STORE URL, once live>
+HeroFace: <HEROFACE STORE URL, once live>
 
 Support and answers: https://verden.watch/day-arc-pro/support/
-```
-
-## Device sentence (OWNER: not in the description above)
-
-Add it to the description, after the "separate listing" paragraph, **only after** you have read both listings' real Compatible Devices lists in the store form, and without a watch name or count. Without the word "free":
-
-```text
-Pro is sold only on watches Garmin lists for paid apps; DayArc, the lighter version, can also be installed on some watches Pro cannot be bought for.
 ```
 
 ## Version
@@ -74,7 +66,7 @@ Blank — initial release.
 ## Monetization
 
 ```text
-Paid — Garmin's second price step (set in the dashboard; no number in the text, ADR-007 amended 2026-10-01), one-time, no subscription, no flip-to-free.
+Paid — Garmin's second price step (set in the dashboard; no number in the text, ADR-007 amended 2026-10-01), one-time, no subscription.
 ```
 
 ## iOS / Android Companion App URL / Additional Hardware Requirements (optional)

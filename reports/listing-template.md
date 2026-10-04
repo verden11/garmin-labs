@@ -11,7 +11,7 @@ A listing folder is `<Project>/listing/` (the live or only paid listing), `<Proj
 | File | Holds | Never holds |
 |---|---|---|
 | `paste.md` | **Only the blocks the owner copies into the form**, in the upload form's field order, one fenced block per field. A one-paragraph header (form URL, "one block = one field", pointers to the other two files). | History, rationale, status, version tables, open questions (those go in `NOTES.md` / `meta.yaml`). Short instructions *between* blocks are allowed when a field is a radio or a file (for example "No", or the image path). |
-| `meta.yaml` | **Machine data**: app, folder, tier, app id, store URLs, live version and date, next version and status (`drafted / prepared / uploaded / in-review / live`), package file, product count, export date, price, limits, assets, site URLs, `open_items` (ROADMAP ids), `held_back_text` (see 4). Dates are ISO, `null` = not yet. | Copy that is pasted, prose rationale. |
+| `meta.yaml` | **Machine data**: app, folder, tier, app id, store URLs, live version and date, next version and status (`drafted / prepared / uploaded / in-review / live`), package file, product count, export date, price, limits, assets, site URLs, `open_items` (ROADMAP ids), `held_back_text` (see 3 and 4). Dates are ISO, `null` = not yet. | Copy that is pasted, prose rationale. |
 | `NOTES.md` | **Why**: the reason for each answer, the claim check against `release-contract.md`, owner decisions and their placeholders, the previous What's New blocks (newest first), language and image notes, what to do after approval. | Anything the owner has to paste. |
 
 Beside them: `screenshots.md` (how the images are made), `screens/`, `src/` (generators), the rendered PNGs.
@@ -44,7 +44,7 @@ No additional hardware needed. Help, privacy and more apps: https://verden.watch
 1. **Line 1:** `Get <Name> Pro: <PRO STORE URL: owner fills in once the Pro listing is live>` (the sibling's store URL first, so list views show it; the owner may move it below the promise sentence, noting that it costs the list-view preview).
 2. The one-sentence promise, plainly. Nothing implied.
 3. What this version has: concrete (fields, accent choices, always-on), described as what the face *is*, not tap-by-tap steps.
-4. "<Name> Pro adds": the same words as the Pro listing; one line about devices Pro cannot be bought on goes in the **device sentence** block (below), not in the description.
+4. "<Name> Pro adds": the same words as the Pro listing; one line about devices Pro cannot be bought on goes in the held-back device sentence (below), not in the description.
 5. One review sentence (the owner may cut it): `If this face works for you, a rating in the store helps other people find it.`
 6. Permissions in plain words; "Nothing leaves your watch." only while it is still true.
 7. **More from Verden:** up to four store URLs of **live free** siblings, one per line. None live: leave the block out. A placeholder line for a sibling that is not live is deleted, not pasted.
@@ -63,9 +63,9 @@ No additional hardware needed. Help, privacy and more apps: https://verden.watch
 - Cumulative What's New for updates; a new app's first What's New is a short line or blank (each project's NOTES says which).
 - Support route `hello@verden.watch`.
 
-### Device sentence (its own block, OWNER)
+### Device sentence (held back, in `meta.yaml`)
 
-Written as a separate block under the description, marked OWNER, never inside it. Add it only after the real Compatible Devices lists of both listings are visible in the store form, with no watch name and no count:
+Not a form field, so never a block in `paste.md` and never inside the description. It lives in `meta.yaml` `held_back_text`. Add it to the description only after the real Compatible Devices lists of both listings are visible in the store form, with no watch name and no count:
 
 - Free: `<Name> Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for.`
 - Pro: `Pro is sold only on watches Garmin lists for paid apps; <Name>, the lighter version, can also be installed on some watches Pro cannot be bought for.` (no "free")

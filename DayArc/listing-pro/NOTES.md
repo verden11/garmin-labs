@@ -33,6 +33,8 @@ Same open items as `../listing/NOTES.md`: both icons/cover/hero images, all scre
 
 ## Sibling line, review request, More from Verden (ROADMAP 1.8, 2026-10-04)
 
+The device sentence and the Instinct wording are in `meta.yaml` `held_back_text`, not in `paste.md` (not form fields). The owner decisions before pasting: the placeholder store URLs, and "chosen in the Garmin Connect app" (unverified until a store install, status gate 5).
+
 - **Line 1** is `Also available: DayArc, the lighter version with one reading per window: <URL>`, a placeholder until the DayArc listing is live. The paid listing never says "free": the old "no free tier ... a separate free listing" wording was removed (it was also false once the sibling is free).
-- Everything else as in `../listing/NOTES.md`: review request (owner may cut), "More from Verden" with free siblings only (all placeholders today), the device sentence as its own OWNER block, no Instinct wording until the store lists it.
+- Everything else as in `../listing/NOTES.md`: review request (owner may cut), "More from Verden" with free siblings only (all placeholders today), the device sentence in `meta.yaml` `held_back_text`, no Instinct wording until the store lists it.
 - `meta.yaml` site URLs corrected to the Pro slug (`/day-arc-pro/`), matching the paste block.

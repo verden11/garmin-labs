@@ -12,7 +12,7 @@ DayArc
 
 ## Description (max 4000, one box per language)
 
-**OWNER, before pasting:** (1) the store URLs below are placeholders (line 1 needs DayArc Pro live; in "More from Verden" keep only the faces whose free listing is live, delete the other lines, and drop the whole block if none is); (2) "chosen in the Garmin Connect app" is unverified until a store install (release contract; status gate 5): keep it, or soften it to "in the settings"; (3) names and the review sentence are yours to keep or cut.
+**OWNER, before pasting:** the store URLs are placeholders (line 1 needs DayArc Pro live; keep only the free faces that are live under "More from Verden"), and "chosen in the Garmin Connect app" is unverified until a store install. Details: [`NOTES.md`](NOTES.md).
 
 ```text
 Get DayArc Pro: <DAYARC PRO STORE URL: owner fills in once the Pro listing is live>
@@ -33,19 +33,11 @@ If this face works for you, a rating in the store helps other people find it.
 DayArc reads data your watch already has. Nothing is sent anywhere, no location, no network.
 
 More from Verden
-Days To Go: <STORE URL of the free Days To Go, once live>
-Two Suns: <STORE URL of the free Two Suns, once live>
-HeroFace: <STORE URL of the free HeroFace, once live>
+Days To Go: <DAYS TO GO STORE URL, once live>
+Two Suns: <TWO SUNS STORE URL, once live>
+HeroFace: <HEROFACE STORE URL, once live>
 
 Support and answers: https://verden.watch/day-arc/support/
-```
-
-## Device sentence (OWNER: not in the description above)
-
-Add it to the description, after the "Looking for more fields" paragraph, **only after** you have read both listings' real Compatible Devices lists in the store form, and without a watch name or count (release contract: no reach wider than tested):
-
-```text
-DayArc Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for.
 ```
 
 ## Version
