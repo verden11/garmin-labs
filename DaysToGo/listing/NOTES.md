@@ -20,7 +20,7 @@ The full runbook, with the order, the timing and what to do after approval, is [
 
 ## Description rules
 
-- One box per language, 4000 characters, plain text: the store shows `**` and `>` literally and keeps every line break. The English description is **1771 characters** (2026-10-04, with the "To the minute" paragraph; the limit is 4000). There is no Keywords field and no What's New field on the form; the README no longer carries a Keywords block (2026-09-27 tidy-up — the form never had one).
+- One box per language, 4000 characters, plain text: the store shows `**` and `>` literally and keeps every line break. The English description is **1799 characters** (2026-10-04, with the "To the minute" paragraph; the limit is 4000). There is no Keywords field and no What's New field on the form; the README no longer carries a Keywords block (2026-09-27 tidy-up — the form never had one).
 - About what the app **is**, not how to use it: describe the feature, not the tap-by-tap steps to reach it (2026-09-27 tidy-up, applied across all four apps' listings).
 - The first sentence carries the weight (the store truncates in list views); the last line is the support URL (the form has no support field).
 - No watch count, no brand names, no battery or ghosting claims, no download or rating numbers, no "the only countdown with no permissions". Claims allowed: [`../docs/release-contract.md`](../docs/release-contract.md).

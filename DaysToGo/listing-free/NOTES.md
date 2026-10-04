@@ -8,7 +8,7 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 |---|---|
 | Store title (Free) | "Days To Go: Countdown to a Date" (31 characters, the plan's proposal); store-collision check by eye first |
 | On-watch app name | "Days To Go" (`../resources-free/strings/strings.xml`) |
-| Pro's name and title | "Days To Go Pro" / "Days To Go Pro: Countdown, Hours, Footer" (plan proposal) |
+| Pro's name and title | "Days To Go Pro" / "Days To Go Pro: Countdown to the Minute" (2026-10-04, ADR-018; the earlier "Countdown, Hours, Footer" went stale) |
 | Pro's store URL (line 1) | `<PRO STORE URL ...>`: needs Pro live (or upload Pro first); the line must be the real URL, not a placeholder, at submission |
 | Pro's price | The $2.50 tier (ADR-017, price: the $2.50 tier for every paid app), set in the form with the 1.1.0 upload; today it is the lowest tier. **The listing never states a price** |
 | Icon, cover, hero, screens | **Prepared 2026-10-04 as proposals** (see "Images" below); the owner approves or replaces the looks, and still owes the real launcher icon (ROADMAP 3.3) |

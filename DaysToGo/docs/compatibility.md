@@ -172,7 +172,7 @@ Each run is 43 tests (the sweep of 2026-09-26 ran 42; the truncation test was ad
 
 ## Languages and time zone (simulator, 2026-09-26)
 
-- **Translations on the smallest screen (fr55, 208 px):** all 14 languages plus English pass `everyStateFitsThisDisplay` and `alwaysOnFrameFitsAtEveryDrift` (`tools/fit_languages.sh`, which overlays each language's strings). In the 14 languages the six word tests report errors by design (they assert English wording). Not covered: the weekday and month words, which come from the simulator's own language (English), so the date line was not measured in translation; and native-speaker quality.
+- **Translations on the smallest screen (fr55, 208 px):** all 14 languages plus English pass `everyStateFitsThisDisplay` and `alwaysOnFrameFitsAtEveryDrift` (`tools/fit_languages.sh`, which overlays each language's strings). In the 14 languages the word tests report errors by design (six at the time; 8 on a Pro run since ADR-018, which added tests that read the English caption) (they assert English wording). Not covered: the weekday and month words, which come from the simulator's own language (English), so the date line was not measured in translation; and native-speaker quality.
 - **West of UTC:** the full suite (42 tests) passes on fr965 with the simulator started under `TZ=America/Los_Angeles`. That the simulator really used that zone is assumed from the environment variable, not observed.
 
 ## Memory (normal run, simulator, 2026-09-26)

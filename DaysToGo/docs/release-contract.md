@@ -12,7 +12,7 @@ What the listing, the store page and the site may claim. Copy of the rules in [`
 | Works without your phone after setup | No phone code path |
 | Counts to New Year's Day until you set an event | `DaysToGoSettings` defaults |
 | **Pro only:** an event with a start time counts down to the minute (hours and minutes in the last 24 hours) | Unit tests (`DaysToGoZoneTest`, ADR-018 (the event minute and zone)), simulator only; the wrist checks in `status.md` (travel day, a DST day, phone-set Minute and zone surviving a reopened settings screen) before the upload |
-| **Pro only:** you can set the time zone the event starts in, as a UTC offset, and the countdown follows that clock | Same tests. The sentence must say the wearer chooses the offset (the watch keeps no time zone rules) |
+| **Pro only:** you can set the time zone the event starts in, as a UTC offset, and the countdown follows that clock | Same tests. The description must say the wearer chooses the offset (the watch keeps no time zone rules). The headline phrase ("count down to the minute, in the time zone it starts in") may stand alone in the title and the images only because the same listing's description and What's New carry that offset sentence; never use it in a place that has no such sentence |
 | The count of days stays on your own calendar and changes at your own midnight, also with an event time zone set | Unit tests (`dayCountFlipsAtWatchMidnightWhateverTheZone`); device wear day before the claim goes live |
 
 ## Forbidden
