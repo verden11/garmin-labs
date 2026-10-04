@@ -12,7 +12,7 @@ and Pro says so in its own body.
 | 004 | Window trigger: fixed clock | Active |
 | 005 | UV and pulse ox as bonus fields | Active |
 | 006 | No-verdict wording extends to every metric | Active |
-| 007 | Price: Simple free, Pro paid at Garmin's second price step, no flip | Active (amended 2026-10-01) |
+| 007 | Price: Simple free, Pro paid at Garmin's second price step, no flip | Active (amended 2026-10-01); the price part is superseded by ADR-018 (the $2.50 tier) |
 | 008 | Simple excludes calendar deliberately | Active |
 | 009 | Pro accepts kitchen-sink density on purpose | Active |
 | 010 | Night window (23:00-5:00) | Open — owner-reversible |
@@ -179,7 +179,7 @@ despite the single-hue rule.
 
 ## ADR-007: Price — Simple free, Pro paid (Garmin's second price step), no flip-to-free
 
-**Status:** Active.
+**Status:** Active; the price part (the second step) is superseded by ADR-018 (the $2.50 tier for every paid app, 2026-10-04); Simple is free and Pro never flips.
 
 **Decision:** Simple is free at launch and stays free (no flip rule, nothing to define). Pro is
 $1.99 and never flips to free — a deliberate break from the DaysToGo/TwoSuns 45-day
