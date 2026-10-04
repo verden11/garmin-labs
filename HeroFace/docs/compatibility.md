@@ -82,6 +82,19 @@ Seven semi-octagon products join both manifests (124 products): `instinct2`, `in
 - **Tests, 2026-10-03, container simulator:** Pro 21/21 on `instinct2`, `instinct2s`, `instinct2x`, `descentg1`, `instincte40mm`, `instincte45mm`, `instinct3solar45mm`; Free 21/21 on `instinct2`, `instincte40mm`; round controls Pro 25/25 on `fr965`, `fr55` and Free 25/25 on `fr965`. Per-language screen fit (15 languages) on `instinct2`, `instinct2s`, `instincte40mm`: all 15 pass on all three (`tools/fit_languages.sh <product>`; mission labels and values are cut with a "." when a translation is longer than the 40 px column). Compile sweep, both jungles, every product: 124/124 pass on both jungles (`tools/compile_sweep.sh`, `-w --typecheck 3`). `tools/check_free_package.sh --build`: OK (207 part numbers; no Accent key on the 7 Instinct parts).
 - **Not proven:** anything on a watch (real bezel margins, contrast, the HeroSet link on an Instinct E or 3 Solar, whether the on-watch Customize menu is offered).
 
+## Measured 2026-10-04 (simulator)
+
+Container simulator, SDK 9.2.0, English strings. **Simulator numbers, not device proof: nothing here ran on a wrist.** Memory is read off the simulator window's status bar ("used/limit kB", 1 kB = 1,024 B) of a `-r` build (the store export's flags) after the face drew (`FLAGS="-r -w" docker/shot.sh HeroFace monkey.free.jungle <device>`). A test run's memory is the harness's own 8 MB and is not used.
+
+| Device | Tier | Check | Result | Limit | Share |
+|---|---|---|---|---|---|
+| `fenix5s` (218 px MIP, 96 KB class) | Free | face drawn | 29.6 kB used | 91.8 kB | 32% |
+| `vivoactive3` (240 px MIP, 96 KB class) | Free | face drawn | 29.6 kB used | 91.8 kB | 32% |
+
+Screen fit and the full suite on the **Free** jungle (`tools/run_tests.sh <device> monkey.free.jungle`, includes `everyStateFitsThisDisplay`), 25/25 PASSED on each of the ten sizes plus the 96 KB product `vivoactive3`: `fr55` (208), `fenix5s` (218), `vivoactive3` (240), `fenix5` (240), `vivoactive4` (260), `fenix7x` (280), `fr265s` (360), `fr165` (390), `epix2` (416), `fr965` (454), `fenix9pro51mm` (466). This closes the "ten-size fit loop and the memory view not yet run" gap for Free (not repeated on Pro here). **Caveat unchanged:** the fit states always carry seconds and a temperature, so a Free run draws Pro-shaped frames; what Free really draws (date, time, three bars, battery and heart rate row, no seconds, no temperature) was looked at on the `fenix5s` and `vivoactive3` screenshots only, with the simulator's canned data (no streak, so the streak-alone row was not drawn).
+
+Headroom on the 96 KB class is about 62 kB; no limit risk. HeroFace has no on-watch Customize menu and no picker (no `getSettingsView`), so there is no menu peak to measure. The partial-update (seconds) power measurement is Pro-only and is recorded in `status.md` §1.
+
 ## Adding a product
 
 1. Check `compiler.json` in the SDK's `Devices/` folder: display shape and
