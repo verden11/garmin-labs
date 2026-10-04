@@ -32,4 +32,6 @@ site:
   landing: https://verden.watch/two-suns/
   support: https://verden.watch/two-suns/support/
   privacy: https://verden.watch/two-suns/privacy/
+held_back_text:   # Instinct wording kept OUT of paste.md until the upload is approved and the store lists those watches; add it then
+  - "Fits round and rectangular watches alike, and on the Instinct E and Instinct 3 Solar it is black and white with the ring as a small 24-hour dial in the round window.  (replaces the first sentence of \"One face, every screen\")"
 open_items: "2.3 2.5 4.1 4.2 4.3 4.4 9.2"   # ids in ROADMAP.md

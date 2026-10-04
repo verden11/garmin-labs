@@ -39,6 +39,10 @@ Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any wat
 - **Device sentence** (plan WP4 step 6): "Pro is sold only on devices Garmin lists for paid apps; this free version also runs on older watches such as FR245 and vívoactive 4." Add a version of it only after the Free listing's real compatible-device list shows those watches, and without a watch count. The contract forbids "works on X" for a watch only the simulator has seen.
 - **Pro-available line**: the plan puts "say so on line 2" if Pro is offered on the reader's device. Nothing is claimed about Pro's availability until the Pro listing's device list is visible.
 
+## Instinct
+
+The Instinct wording is out of the paste text until the upload is approved and the store lists those watches; the sentence is kept in `meta.yaml` (`held_back_text`).
+
 ## Description rules
 
 Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000 characters, plain text (the store keeps line breaks and shows `**` literally), describe what the app is, the last line is the support URL (the form has no support field). The Free description follows the WP10 skeleton: sibling line, promise, what Free has, "Pro adds", permissions in plain words (the review request and the device sentence are left out, see above). **"More from Verden" is left out**: it lists only live free siblings, and none is known to be live today; add up to four store URLs after a free sibling is approved.

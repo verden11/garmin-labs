@@ -35,6 +35,10 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 
 Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any watch count, download, rating or review number, "works without GPS or your phone" (not run), accuracy of the sun times or of Body Battery, rivals by name.
 
+## Instinct
+
+The Instinct wording is out of the paste text until the upload is approved and the store lists those watches; the sentence is kept in `meta.yaml` (`held_back_text`).
+
 ## Description rules
 
 Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000 characters, plain text (the store keeps line breaks and shows `**` literally), describe what the app is, the last line is the support URL (the form has no support field). The Free description follows the WP10 skeleton: sibling line, promise, what Free has, a one-sentence review request, permissions in plain words. **"More from Verden" is left out**: it lists only live free siblings, and none is known to be live today.

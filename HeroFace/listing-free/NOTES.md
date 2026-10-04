@@ -38,6 +38,10 @@ The rule "no Pro word in Free" (`../docs/decisions.md`, enforced by `tools/check
 
 Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any watch count, download, rating or review number, "works with every Garmin", accuracy of any kind, a "free" or "Pro" claim about the paid listing.
 
+## Instinct
+
+The Instinct ring-gauge sentence is out of the paste text until the upload is approved and the store lists those watches; the sentence is kept in `meta.yaml` (`held_back_text`; ADR-002, Instinct family, proposed).
+
 ## Description rules
 
 Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000 characters, plain text (the store keeps line breaks and shows `**` literally), describe what the app is, the last line is the support URL (the form has no support field). The Free description follows the WP10 skeleton: sibling line, promise, what Free has, one line that HeroSet mode needs HeroSet, "Pro adds", permissions in plain words. The review request and the device sentence are left out until the Free listing's real device list is visible. **"More from Verden" is left out**: it lists only live free siblings, and none is known to be live today.

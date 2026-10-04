@@ -45,20 +45,17 @@ One 454 × 454 FR965 simulator screenshot and a 500 × 500 cover exist; see [`sc
 
 ## Previous What's New blocks
 
+- **1.0.1:** `Long event names on small screens now end in "..." instead of being cut off without a marker.`
 - **1.0.0:** `First release.`
 
-## Pro 1.1.0: draft What's New and edits (UNRELEASED, proposed under ADR-014 (Free + Pro ladder), nothing uploaded)
+## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, proposed under ADR-014 (Free + Pro ladder), nothing uploaded; moved from a draft here, 2026-10-04)
 
-Not in `paste.md` on purpose: that file is the paste-ready copy of the submitted 1.0.1, and nothing for 1.1.0 is approved. On upload (status.md gate F9), move the 1.0.1 block here to history and paste these. Names, the price and the sibling URL are the owner's decisions; the strings below are the plan's placeholders.
+`paste.md` is the 1.1.0 text. Names, the price and the sibling URL are the owner's decisions; the strings are the plan's placeholders.
 
-- **Title** (plan proposal): `Days To Go Pro: Countdown, Hours, Footer`.
-- **Description line 1** (new): `Also available: Days To Go (<STORE URL of the other listing: owner fills in once it is live>)`. The paid listing must not use the word "free" (release contract; store review guideline 4d), so the plan's "Try free first" wording is deliberately not used. The rest of the description is unchanged: it already describes only what Pro has (timed events, the battery or steps line, six accents).
-- **Version**: `1.1.0`.
-- **What's new** (draft):
-
-```text
-The app is now called Days To Go Pro on the watch. Nothing changes in how it works. Also available: Days To Go, with the core countdown.
-```
-
-- Device note (plan WP4 step 6): not in the draft. Add one only after the other listing's real device list is visible, with no "free" wording and no watch names or count.
+- **Title** (plan proposal, OWNER decides): `Days To Go Pro: Countdown, Hours, Footer`.
+- **Line 1:** `Also available: Days To Go (<URL>)`. The paid listing must not use the word "free" (release contract; store review guideline 4d), so the plan's "Try free first" wording is deliberately not used. The rest of the description is the 1.0.1 text: it already describes only what Pro has (timed events, the battery or steps line, six accents).
+- **Instinct:** the sentence about the Instinct ring gauge is out of the paste text until the upload is approved and the store lists those watches; it is kept in `meta.yaml` (`held_back_text`).
+- **Version** `1.1.0`; the What's New is the rename line, naming the sibling without "free".
+- Device note (plan WP4 step 6): not in the text. Add one only after the other listing's real device list is visible, with no "free" wording and no watch names or count.
 - The price is **not** in this file. Re-pricing an approved app removes it for re-review (SDK `Monetization/App_Sales`); the owner decides whether and when.
+- "More from Verden" is left out: it lists only live free siblings, none live today.

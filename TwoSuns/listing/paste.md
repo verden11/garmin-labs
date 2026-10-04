@@ -2,17 +2,23 @@
 
 Paste blocks only, in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); why each answer is what it is, and history, in [`NOTES.md`](NOTES.md).
 
+**Do not paste a block while a `<` placeholder remains in it** (the sibling store URL is owner-supplied). **This file is the 1.1.0 text** (the Pro rename); the prepared 1.0.1 What's New is in [`NOTES.md`](NOTES.md). This listing never uses the word "free" (it is paid; release contract, store review guideline 4d).
+
 ## Title (max 50)
 
+**OWNER decides** the name (placeholder; device or feature tokens may be added within 50 characters):
+
 ```text
-Two Suns
+Two Suns Pro
 ```
 
 ## Description (max 4000, one box per language)
 
-Languages are added one at a time: pick a language, press **Add**, fill Title + Description. Only English is drafted; see [`NOTES.md`](NOTES.md).
+Languages are added one at a time: pick a language, press **Add**, fill Title + Description. Only English is drafted; see [`NOTES.md`](NOTES.md). Line 1 is the sibling's store URL; replace the placeholder with the real URL once that listing is live.
 
 ```text
+Also available: Two Suns, a lighter version: <TWO SUNS STORE URL: owner fills in once that listing is live>
+
 A watch face for the sun's day and your Body Battery: the time, a 24-hour ring for the light, and a curve of your last 24 hours.
 
 The time
@@ -27,11 +33,11 @@ The last 24 hours of your Garmin Body Battery under the time, with the current p
 One line for the sun
 How much daylight is left, or when the sun returns — from your watch's own sunrise and sunset, and, where it has a place, a calculation for what those don't give: tomorrow's sunrise, twilight, the golden hour.
 
-Five settings
+Settings
 Accent colour, ring orientation, golden hour, the energy curve, the date — plain lists, changeable in Garmin Connect or right on the watch (Customize, next to Apply), defaults work if you never touch them.
 
 One face, every screen
-Fits round and rectangular watches alike, full detail down to the smallest, and on the Instinct E and Instinct 3 Solar it is black and white with the ring as a small 24-hour dial in the round window. It dims to a quiet time, number and sun line when the screen sleeps.
+Fits round and rectangular watches alike. It dims to a quiet time, number and sun line when the screen sleeps.
 
 Your place stays on your watch
 The face reads your last known location (rounded to about 11 km), your recent Body Battery, and the watch's own sun data — nothing leaves the watch. No internet, no account, no analytics, no ads.
@@ -44,13 +50,13 @@ Support and answers: https://verden.watch/two-suns/support/
 The form reads it from the package; if a field asks, type:
 
 ```text
-1.0.1
+1.1.0
 ```
 
 ## What's new
 
 ```text
-Small refinement to the Body Battery level indicator.
+The app is now called Two Suns Pro on the watch. Nothing changes in how it works. A lighter Two Suns, with the sun ring and your Body Battery number, is also available.
 ```
 
 ## Hero Image (optional, 1440×720, under 2048 KB)
@@ -118,7 +124,7 @@ Leave blank.
 
 ## Monetization
 
-**No** (same wording reading as Days To Go: Yes only if the app asks for payment to enable features, or for tips or donations; it does neither). Paid through the store, USD 1.99, confirmed ([`NOTES.md`](NOTES.md)).
+**No** (same wording reading as Days To Go: Yes only if the app asks for payment to enable features, or for tips or donations; it does neither). Paid through the store; the price tier is the owner's call (documented USD 1.99, the store showed $2.25 on 2026-10-01, ROADMAP 2.5; [`NOTES.md`](NOTES.md)).
 
 ## iOS / Android Companion App URL / Additional Hardware Requirements (optional)
 

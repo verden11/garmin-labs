@@ -22,7 +22,7 @@ Get HeroFace Pro: <PRO STORE URL: owner fills in once the Pro listing is live>
 The time first, today's goals right under it. Three bars, a ring for the whole day, a streak worth keeping — or your HeroSet reps and rank, if you have it.
 
 The time owns the screen
-The time is the largest thing on the face, at the largest size your watch can draw. Under it, today's three goals as bars: steps, intensity minutes and floors. The ring around the bezel is the whole day at once, and it fills green when all three are met. On Instinct, in black and white, the ring is a gauge in the round window (no battery line there).
+The time is the largest thing on the face, at the largest size your watch can draw. Under it, today's three goals as bars: steps, intensity minutes and floors. The ring around the bezel is the whole day at once, and it fills green when all three are met.
 
 Only what your watch measures
 No watch has every sensor. Without a barometer there are no floors. Each bar falls back to the next thing your watch really measures, and anything it cannot know is left out — no empty bars, no invented numbers.

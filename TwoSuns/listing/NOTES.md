@@ -92,23 +92,19 @@ None exist. See [`screenshots.md`](screenshots.md).
 
 ## Previous What's New blocks
 
-None (1.0.0 is the first).
+- **1.0.1 (prepared, not submitted; ROADMAP 4.1 is the owner's call):** `Small refinement to the Body Battery level indicator.` Use it with the 1.0.1 package if the owner uploads 1.0.1 before 1.1.0.
+- **1.0.0:** blank (initial release).
 
-## Pro 1.1.0: draft What's New and edits (UNRELEASED, proposed under ADR-020 (Free + Pro ladder), nothing uploaded)
+## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, proposed under ADR-020 (Free + Pro ladder), nothing uploaded; moved from a draft here, 2026-10-04)
 
-Not in `paste.md` on purpose: that file is the paste-ready copy of the prepared 1.0.1, and nothing for 1.1.0 is approved. On upload (status.md gate F9), move the then-current What's New block here to history and paste these. Names, the price and the sibling URL are the owner's decisions; the strings below are the plan's placeholders.
+`paste.md` is the 1.1.0 text. Names, the price and the sibling URL are the owner's decisions; the strings are the plan's placeholders.
 
 - **Title**: `Two Suns Pro` (placeholder; the owner decides and may add device or feature tokens within the 50 characters).
-- **Description line 1** (new): `Also available: Two Suns, a lighter version: <FREE STORE URL: owner fills in once that listing is live>` (no "free" wording in the paid listing: release contract). The rest of the description is unchanged: it already describes only what Pro has (the curve, the place-based sun, golden hour, the date, ring orientation, six accents). Add the Free sibling in a "More from Verden" block only if the owner wants it.
-- **Version**: `1.1.0`.
-- **What's new** (draft):
-
-```text
-The app is now called Two Suns Pro on the watch. Nothing changes in how it works. A lighter Two Suns, with the sun ring and your Body Battery number, is also available.
-```
-
-- No device sentence in the Pro text. The plan's "the free version also runs on more watches" is **to verify** (SDK `Monetization/App_Sales` and the store form's own device lists after approval) before any such claim, and it would name the free app, which the paid listing may not.
-- **To verify, existing Pro text (not edited):** `README.md` line 42, "full detail down to the smallest", is a fit-test claim (simulator, Pro build, English) that the release contract does not list as allowed; decide before the 1.0.1 or 1.1.0 submission whether to keep it.
+- **Line 1:** `Also available: Two Suns, a lighter version: <URL>` (no "free" wording in the paid listing: release contract). The description otherwise describes only what Pro has (the curve, the place-based sun, golden hour, the date, ring orientation, six accents).
+- **Edits against the release contract:** "Five settings" became "Settings" (the 1.1.0 build also has Weather and Battery switches, so a count would be false); "full detail down to the smallest" was dropped (a fit-test claim the contract does not list); the Instinct sentence is out of the text until the store lists those watches (kept in `meta.yaml` `held_back_text`).
+- **Not described, on purpose:** the weather row (needs the wrist check, status F12, and the contract's wording rule: Garmin's cached weather, never "live" or "forecast accuracy") and the watch battery row (ADR-023, simulator only). Add a sentence after F12 passes; the owner decides.
+- **Version** `1.1.0`; the What's New is the rename line.
+- No device sentence in the Pro text (it would name the free app, which the paid listing may not).
 - The price is **not** in this file. Re-pricing an approved app removes it for re-review (SDK `Monetization/App_Sales`); the store shows $2.25 against the documented $1.99 (plan WP5 step 1), and the owner decides whether and when.
 - The Pro privacy wording is unchanged (the place, `Positioning`, Body Battery history); the Free listing's differs (`../listing-free/NOTES.md`).
-
+- "More from Verden" is left out: it lists only live free siblings, none live today.

@@ -48,4 +48,16 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 
 ## What's new: history
 
-**1.0.0:** `First release.`
+- **1.0.1:** `- Installed HeroSet while HeroFace was on your watch? The face now picks it up within a minute, without switching faces.` / `- Fahrenheit temperatures are now rounded instead of cut off: 21 °C shows as 70 °F, not 69.` / `- The "HeroSet" mode setting is gone. It did the same as Auto, which stays the default; if you had picked it, your face looks the same.` / `- Reliability improvements.`
+- **1.0.0:** `First release.`
+
+## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, proposed under ADR-001 (Free + Pro ladder), nothing uploaded; 2026-10-04)
+
+`paste.md` is the 1.1.0 text. Names, the price and the sibling URL are the owner's decisions; the strings are the plan's placeholders.
+
+- **Title** `HeroFace Pro` (OWNER decides; plan WP6 step 5 renames it inside the pending listing-repair submission, so it costs no extra review).
+- **Line 1:** `Also available: HeroFace, a lighter version: <URL>`. The paid listing never says "free". The rest is the 1.0.1 text, which already describes only what Pro has (the metric per bar, seconds, the temperature, three accents).
+- **Instinct:** the sentence about the Instinct ring gauge is out of the paste text until the upload is approved and the store lists those watches (`meta.yaml` `held_back_text`; ADR-002 (Instinct family)).
+- **Version** `1.1.0`; the What's New is the rename line, naming the sibling without "free".
+- No device sentence, no watch count (release contract). The price is not in the text.
+- "More from Verden" is left out: it lists only live free siblings, none live today.

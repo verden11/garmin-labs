@@ -31,7 +31,7 @@ Whole calendar days
 The count is whole days on your calendar: tomorrow is 1 day, the day itself says TODAY, and afterwards it counts the days since. A date that does not exist, like 30 February, is never shown as a wrong number.
 
 One design, every screen
-Round and rectangular watches alike, full detail down to the smallest, dimming to a quiet number and clock when the screen sleeps. On Instinct, in black and white, the ring becomes a gauge in the round window.
+Round and rectangular watches alike, full detail down to the smallest, dimming to a quiet number and clock when the screen sleeps.
 
 Days To Go Pro adds
 An event with a time of day: its last 24 hours turn into hours and minutes.
@@ -54,7 +54,7 @@ The form reads it from the package; if a field asks, type:
 ## What's new
 
 ```text
-First release of the free Days To Go: a big day count, your own date and name, six accent colours, days or weeks. Works on the Instinct family too, in black and white (the accent colour does not apply there).
+First release of the free Days To Go: a big day count, your own date and name, six accent colours, days or weeks.
 ```
 
 ## Hero Image (optional, 1440×720, under 2048 KB)

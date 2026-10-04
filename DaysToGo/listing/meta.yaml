@@ -32,4 +32,6 @@ site:
   landing: https://verden.watch/days-to-go/
   support: https://verden.watch/days-to-go/support/
   privacy: https://verden.watch/days-to-go/privacy/
+held_back_text:   # Instinct wording kept OUT of paste.md until the upload is approved and the store lists those watches; add it then
+  - "On Instinct, in black and white, the ring becomes a gauge in the round window.  (description, after \"One design, every screen\")"
 open_items: "2.3 2.5 3.1 3.4 3.5 3.6 11.1"   # ids in ROADMAP.md

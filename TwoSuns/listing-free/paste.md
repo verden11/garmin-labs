@@ -18,7 +18,6 @@ English only until the owner decides on translations (see [`NOTES.md`](NOTES.md)
 
 ```text
 Looking for more? Get Two Suns Pro: <PRO STORE URL: owner fills in once the Pro listing is live>
-Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for. (Owner: verify against the store form's device lists before pasting.)
 
 A watch face for the sun's day: the time, a 24-hour ring for the light, and your Body Battery number.
 
@@ -38,7 +37,7 @@ One setting
 Accent colour, six to choose from, in Garmin Connect or right on the watch (Customize, next to Apply). The defaults work if you never touch it.
 
 One face, every screen
-Fits round and rectangular watches alike, and on the Instinct E and Instinct 3 Solar it is black and white with the ring as a small 24-hour dial in the round window. It dims to a quiet time, number and sun line when the screen sleeps.
+Fits round and rectangular watches alike. It dims to a quiet time, number and sun line when the screen sleeps.
 
 If this face works for you, a rating in the store helps other people find it.
 
@@ -46,6 +45,14 @@ Nothing leaves your watch
 This free version reads only your watch's own sunrise, sunset and Body Battery numbers. No location, no account, no internet, no analytics, no ads. It stores no place and no history; the only thing it saves is your accent colour setting.
 
 Support and answers: https://verden.watch/two-suns/support/
+```
+
+## Device sentence (OWNER: not in the description above)
+
+Add it as line 2 of the description **only after** you have read both listings' real device lists in the store form (SDK `Monetization/App_Sales`), and with no watch name or count (release contract):
+
+```text
+Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for.
 ```
 
 ## Version

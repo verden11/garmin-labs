@@ -2,21 +2,27 @@
 
 Paste blocks only, in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); why each answer is what it is, and history, in [`NOTES.md`](NOTES.md).
 
+**Do not paste a block while a `<` placeholder remains in it** (the sibling store URL is owner-supplied). **This file is the 1.1.0 text** (the Pro rename); the submitted 1.0.1 What's New is in [`NOTES.md`](NOTES.md). This listing never uses the word "free" (it is paid; store review guideline 4d).
+
 ## Title (max 50)
 
+**OWNER decides** the name. Plan WP6 step 5: rename the paid listing "HeroFace Pro" **inside the pending listing-repair submission**, keeping the device tokens that title carries (the live title is just "HeroFace"):
+
 ```text
-HeroFace
+HeroFace Pro
 ```
 
 ## Description (max 4000, one box per language)
 
-Languages are added one at a time: pick a language, press **Add**, fill Title + Description. Only English is drafted; see [`NOTES.md`](NOTES.md) for the other languages.
+Languages are added one at a time: pick a language, press **Add**, fill Title + Description. Only English is drafted; see [`NOTES.md`](NOTES.md) for the other languages. Line 1 is the sibling's store URL; replace the placeholder with the real URL once that listing is live.
 
 ```text
+Also available: HeroFace, a lighter version: <HEROFACE STORE URL: owner fills in once that listing is live>
+
 The time first, today's goals right under it. Three bars you choose, a ring for the whole day, a streak worth keeping — or your HeroSet reps and rank, if you have it.
 
 The time owns the screen
-The time is the largest thing on the face, at the largest size your watch can draw. Under it, today's three goals as bars: steps, intensity minutes and floors, or whichever three you pick. The ring around the bezel is the whole day at once, and it fills green when all three are met. On Instinct, in black and white, the ring is a gauge in the round window (no battery line, temperature or seconds there).
+The time is the largest thing on the face, at the largest size your watch can draw. Under it, today's three goals as bars: steps, intensity minutes and floors, or whichever three you pick. The ring around the bezel is the whole day at once, and it fills green when all three are met.
 
 Three bars, your choice
 Each bar can show steps, calories, intensity minutes, distance, floors or the move bar. Pick your accent colour, show or hide seconds, show or hide the temperature — all from Garmin Connect.
@@ -44,16 +50,13 @@ Support and answers: https://verden.watch/heroface/support/
 The form reads it from the package; if a field asks, type:
 
 ```text
-1.0.1
+1.1.0
 ```
 
 ## What's new
 
 ```text
-- Installed HeroSet while HeroFace was on your watch? The face now picks it up within a minute, without switching faces.
-- Fahrenheit temperatures are now rounded instead of cut off: 21 °C shows as 70 °F, not 69.
-- The "HeroSet" mode setting is gone. It did the same as Auto, which stays the default; if you had picked it, your face looks the same.
-- Reliability improvements.
+The app is now called HeroFace Pro on the watch. Nothing changes in how it works. Also available: HeroFace, a lighter version with three fixed goal bars and your HeroSet mode.
 ```
 
 ## Hero Image (optional, 1440×720, under 2048 KB)

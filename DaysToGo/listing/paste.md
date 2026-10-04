@@ -2,17 +2,23 @@
 
 Paste blocks only, in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); why each answer is what it is, and history, in [`NOTES.md`](NOTES.md).
 
+**Do not paste a block while a `<` placeholder remains in it** (the sibling store URL is owner-supplied). **This file is the 1.1.0 text** (the Pro rename); the submitted 1.0.1 What's New is in [`NOTES.md`](NOTES.md). This listing never uses the word "free" (it is paid; release contract, store review guideline 4d).
+
 ## Title (max 50)
 
+**OWNER decides** the name (the plan's proposal below, which keeps search words; "Days To Go Pro" alone is the short alternative):
+
 ```text
-Days To Go
+Days To Go Pro: Countdown, Hours, Footer
 ```
 
 ## Description (max 4000, one box per language)
 
-Languages are added one at a time: pick a language, press **Add**, fill Title + Description. Only English is drafted; see [`NOTES.md`](NOTES.md).
+Languages are added one at a time: pick a language, press **Add**, fill Title + Description. Only English is drafted; see [`NOTES.md`](NOTES.md). Line 1 is the sibling's store URL (the Days To Go listing); replace the placeholder with the real URL once it is live.
 
 ```text
+Also available: Days To Go (<DAYS TO GO STORE URL: owner fills in once that listing is live>)
+
 A countdown watch face: one big number for the days left until your date.
 
 One number
@@ -25,7 +31,7 @@ Whole calendar days
 The count is whole days on your calendar: tomorrow is 1 day, the day itself says TODAY, and afterwards it counts the days since. A date that does not exist, like 30 February, is never shown as a wrong number.
 
 One design, every screen
-Round and rectangular watches alike, full detail down to the smallest, dimming to a quiet number and clock when the screen sleeps. On Instinct, in black and white, the ring becomes a gauge in the round window.
+Round and rectangular watches alike, full detail down to the smallest, dimming to a quiet number and clock when the screen sleeps.
 
 Nothing leaves your watch
 No permissions, no account, no internet, no analytics, no ads.
@@ -38,13 +44,13 @@ Support and answers: https://verden.watch/days-to-go/support/
 The form reads it from the package; if a field asks, type:
 
 ```text
-1.0.1
+1.1.0
 ```
 
 ## What's new
 
 ```text
-Long event names on small screens now end in "..." instead of being cut off without a marker.
+The app is now called Days To Go Pro on the watch. Nothing changes in how it works. Also available: Days To Go, with the core countdown.
 ```
 
 ## Hero Image (optional, 1440×720, under 2048 KB)
