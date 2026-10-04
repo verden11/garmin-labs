@@ -27,10 +27,10 @@ Beside them: `screenshots.md` (how the images are made), `screens/`, `src/` (gen
 
 ## 2. The field that carries the website link
 
-**Additional Hardware Requirements (Optional)** is a free-text field. The owner's choice (2026-10-02, after seeing other Connect IQ apps do it) is to use it for the site link. It is not a documented Garmin rule, so the text must stay true: it says no extra hardware is needed. Paste:
+**Additional Hardware Requirements (Optional)** is used for the site link (owner's choice, 2026-10-02, after seeing other Connect IQ apps do it). The store API names the field `hardwareProductUrl` and HeroSet's live value is the bare URL, so **paste the URL only, no sentence** (Garmin research 2026-10-04; the earlier "No additional hardware needed. Help, privacy and more apps: ..." sentence is retired). Garmin does not document this use. Paste:
 
 ```text
-No additional hardware needed. Help, privacy and more apps: https://verden.watch/<slug>/
+https://verden.watch/<slug>/
 ```
 
 - One URL, the app's hub page; the page carries support, privacy and the other apps. Free listings use the same hub page until the site has Free pages (WP8). DayArc keeps two slugs: `day-arc` and `day-arc-pro`.
@@ -54,7 +54,9 @@ No additional hardware needed. Help, privacy and more apps: https://verden.watch
 
 1. **Line 1:** `Also available: <Name>, a lighter version: <STORE URL: owner fills in once that listing is live>`. **The Pro listing never uses the word "free"** (it is paid; store review guideline 4d; each release contract repeats it). So not "Try free first", not "the free version", not "no free tier".
 2. Pro's promise, what it adds (the same words as the Free listing's "Pro adds"), no device list, no watch count.
-3. Review sentence (optional), permissions in plain words, More from Verden (free siblings only), support line.
+3. Review sentence (optional), permissions in plain words.
+4. **Refund line (paid listings only, guideline 4d):** `<Name> Pro is a paid app. Refunds follow the Connect IQ Store return window.` (the app's own name, never the word "free", no price number, no hours: Garmin's full return-policy text is unpublished). The Free listing has none.
+5. More from Verden (free siblings only), support line.
 
 ### Both
 
@@ -67,17 +69,17 @@ No additional hardware needed. Help, privacy and more apps: https://verden.watch
 
 Not a form field, so never a block in `paste.md` and never inside the description. It lives in `meta.yaml` `held_back_text`. Add it to the description only after the real Compatible Devices lists of both listings are visible in the store form, with no watch name and no count:
 
-- Free: `<Name> Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for.`
+- Free: `<Name> Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for.` Where the Free reach is a genuine plus (HeroFace and Days To Go: 37 products off Garmin's paid list, 4 Instinct products, 11 more sold to no paid app), the named form is `<Name> Pro is sold only on watches Garmin lists for paid apps; this version also installs on some watches Pro cannot be bought for, including the Instinct 2, 2S, 2X and Descent G1.` Where it is not (Two Suns, DayArc: at most 1 product), drop the sentence. Held back either way until the Free listing's own device list shows it.
 - Pro: `Pro is sold only on watches Garmin lists for paid apps; <Name>, the lighter version, can also be installed on some watches Pro cannot be bought for.` (no "free")
 
 ## 4. Instinct and other device-reach text
 
-Wording about a device family (the Instinct family and similar) stays **out of the live-listing text** until the upload that adds it is approved and the store actually lists those watches. The sentence is kept in `meta.yaml` under `held_back_text` (each item says where it goes), so adding it later is a paste. The package may already contain those products; the claim waits for the store's list.
+**A paid listing names only what Garmin's paid-app list sells it on:** Instinct 2, 2S, 2X and Descent G1 are not on that list, so a paid listing (HeroSet, HeroFace Pro, Days To Go Pro) never names them; Instinct E (40 and 45 mm) and Instinct 3 Solar are on it (research 2026-10-04, ROADMAP 10.15). Wording about a device family (the Instinct family and similar) stays **out of the live-listing text** until the upload that adds it is approved and the store actually lists those watches. The sentence is kept in `meta.yaml` under `held_back_text` (each item says where it goes), so adding it later is a paste. The package may already contain those products; the claim waits for the store's list.
 
 ## 5. Per-listing checklist (an agent drafts, the owner pastes)
 
 1. Both listings of a twin exist in the same shape: `paste.md`, `meta.yaml`, `NOTES.md`, `screenshots.md`.
-2. Line 1 of the description is the sibling URL; the Hardware block carries the site link; the support line is last.
+2. Line 1 of the description is the sibling URL; the Hardware block carries the bare site URL; a paid listing has the refund line; the support line is last.
 3. Search the Pro `paste.md` for "free" (only the instruction text outside the blocks may contain it).
 4. Search every block for `<`; each one is an owner-filled placeholder named in `NOTES.md`.
 5. `meta.yaml`: `next.version`, `package.file`, `package.products`, `package.exported`, `held_back_text`, `open_items`.
