@@ -22,7 +22,7 @@ One build for all of them: rows are stacked from measured font heights, so there
 
 By screen: 51 AMOLED and 18 MIP products; 66 round and 3 rectangular. Checked by script on 2026-09-26 against the installed SDK's device files (`Devices/<id>/compiler.json` and `simulator.json`): every product's screen width and display type match this table, the shape counts are 66 round and 3 rectangle, and the watch-face memory limit is 131,072 bytes (128 KB) on all 69. The list in this table equals the `<iq:product>` lines of `manifest.xml`.
 
-The fēnix 9 family, FR70 and FR170 (API 6.0) are in by API level; the SDK's device lists omit them (documentation lag, not evidence the APIs are missing), so their first run is a risk: verify on a real watch or say so on the listing.
+The fēnix 9 family, FR70 and FR170 (API 6.0) are in by API level; the SDK's device lists omit them (documentation lag, not evidence the APIs are missing), so their first run is a risk: verify on a real watch before any claim (listing text never names watch models; the store's device tab is the claim).
 
 ## Rectangular AMOLED
 
@@ -92,7 +92,7 @@ The Instinct Pro face at **77% of the simulator's budget (13.9 kB free) is the t
 
 ## Paid distribution
 
-A paid app (Pro) is sold only on the SDK's App_Sales product list (lowest tier CIQ 3.4) and in its country list, so the store's list will be shorter than this manifest. **No watch count goes in the listing.**
+A paid app (Pro) is sold only on the SDK's App_Sales product list (lowest tier CIQ 3.4) and in its country list, so the store's list will be shorter than this manifest. **No watch count and no watch model name goes in the listing; the store's device tab is the claim.**
 
 ## Paid vs free reach (2026-10-04)
 

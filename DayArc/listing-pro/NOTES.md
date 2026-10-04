@@ -8,8 +8,7 @@
    rather than let a reviewer assume the usual rule applies.
 3. **Category/data-collection/email.** Same as DayArc's listing — one product family, one set of
    defaults.
-4. **Monetization.** Written as prose, not just "Paid," because the no-flip decision is unusual
-   enough for this studio to state explicitly in the field itself, not only in `NOTES.md`.
+4. **Monetization.** `paste.md` carries only "Paid: Yes, price tier USD 2.50". The block used to be prose, because the no-flip decision is unusual for this studio: "Paid: Yes, price tier USD 2.50 (the form's own selection, set in the dashboard; ADR-018 (price: the $2.50 tier)), one-time, no subscription. No price number goes in the description text." The description still says "one purchase, no subscription".
 
 ## Settings, and what the store form needs (ADR-014, 2026-09-28)
 
@@ -32,13 +31,13 @@ Same open items as `../listing/NOTES.md`: the launcher icons inside the app (ROA
 
 ## Sibling line, review request, More from Verden (ROADMAP 1.8, 2026-10-04)
 
-The device sentence and the Instinct wording are in `meta.yaml` `held_back_text`, not in `paste.md` (not form fields). The owner decisions before pasting: the placeholder store URLs, and "chosen in the Garmin Connect app" (unverified until a store install, status gate 5).
+Listing text carries no device sentence and no watch model name (owner, 2026-10-04); the former `meta.yaml` `held_back_text` is deleted. The owner decisions before pasting are in `meta.yaml` `owner_approvals`: the placeholder store URLs, and "chosen in the Garmin Connect app" (unverified until a store install, status gate 5).
 
 - **Line 1** is `Also available: DayArc, the lighter version with one reading per window: <URL>`, a placeholder until the DayArc listing is live. The paid listing never says "free": the old "no free tier ... a separate free listing" wording was removed (it was also false once the sibling is free).
-- **Refund line (ROADMAP 10.16):** the description carries "DayArc Pro is a paid app. Refunds follow the Connect IQ Store return window." (review guideline 4d). It points at Garmin's window and does not restate the hours (the full return-policy text is unpublished; the 48-hour figure is about when funds are captured). No price number. The Free DayArc listing has none.
+- **Refund wording:** no refund or return wording appears in listing text (owner decision, 2026-10-04). No price number.
 - **Additional Hardware Requirements (ROADMAP 10.16):** paste the bare URL `https://verden.watch/day-arc-pro/` only (API field `hardwareProductUrl`; the old "No additional hardware needed..." sentence is retired); the Free listing pastes `https://verden.watch/day-arc/`.
-- **Device claims (ROADMAP 10.15), verified 2026-10-04:** the manifests carry no Instinct watch except the Instinct E 40/45 mm and Instinct 3 Solar (plus the AMOLED Instinct 3 and Crossover AMOLED products, which are not part of the Instinct 2 family); Instinct 2, 2S, 2X and Descent G1 are not in DayArc, so nothing needs removing from the paid text. The Free twin has no Free-only Instinct reach either, so the held-back device sentence is optional (see `../docs/release-contract.md` "Paid vs free reach").
-- Everything else as in `../listing/NOTES.md`: review request (owner may cut), "More from Verden" with free siblings only (all placeholders today), the device sentence in `meta.yaml` `held_back_text`, no Instinct wording until the store lists it.
+- **Device claims (ROADMAP 10.15), verified 2026-10-04:** the manifests carry no Instinct watch except the Instinct E 40/45 mm and Instinct 3 Solar (plus the AMOLED Instinct 3 and Crossover AMOLED products, which are not part of the Instinct 2 family); Instinct 2, 2S, 2X and Descent G1 are not in DayArc, so nothing needs removing from the paid text. The Free twin has no Free-only Instinct reach either (see `../docs/release-contract.md` "Paid vs free reach"). Listing text names no watch model (owner, 2026-10-04).
+- Everything else as in `../listing/NOTES.md`: review request (owner may cut), "More from Verden" with free siblings only (all placeholders today), no device sentence and no Instinct wording.
 - `meta.yaml` site URLs corrected to the Pro slug (`/day-arc-pro/`), matching the paste block.
 
 ## Store images (2026-10-04; the owner approves the looks before any upload)
@@ -51,3 +50,11 @@ How they are made: [`screenshots.md`](screenshots.md). Why they are what they ar
 - **The mark and the PRO tag** are proposals for the owner, as in `../listing/NOTES.md`: the same arc as DayArc, a white PRO tag inside the arc on the cover and icons and beside the name on the hero.
 - **Claims check** against `../docs/release-contract.md`: no count of fields, no "insights" or coaching wording, nothing on what a reading means, no price, no "free", no data leaving the watch.
 - The old six pictures were replaced by this set; they predated the 2026-10-04 grid and icon changes (ADR-016, ADR-017).
+
+## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
+
+- **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`. Claims are checked against [`../docs/release-contract.md`](../docs/release-contract.md). This listing never uses the word "free" (it is paid; store review guideline 4d).
+- **Description:** line 1 needs the DayArc listing live (placeholder `<DAYARC STORE URL>`); under "More from Verden" keep only the free faces that are live and delete the other lines. The description's hard line breaks were joined into paragraphs (the store keeps every line break). The refund sentence ("DayArc Pro is a paid app. Refunds follow the Connect IQ Store return window.") is removed.
+- **What's New:** blank, initial release. **Category:** Utility (alternative: Health & Fitness). **Collects user data:** No; nothing leaves the watch: no network code, no `Communications` permission, no location.
+- **Images:** the owner approves the looks first (`meta.yaml` `owner_approvals`); at most 5 screens; all five are the simulator's own captures at native pixels with a 24-hour clock; the values (weather, sun times, heart rate, Body Battery, stress and the rest) are the simulator's canned or random ones, not readings; the night window is left out on purpose. Captions and devices are in `meta.yaml` `assets.screens`. Before uploading screens 2 to 4 the owner decides on the flame cell (0) and the midday calendar cell ("00:00"), simulator limits, see [`screenshots.md`](screenshots.md).
+- **Form fields not in paste.md:** the file never carried Subcategory, ANT+ profiles, regional limits, Preview Video, Source Code URL, Review Notification or App Migration, and does not now; the template's answers for them (`../../reports/listing-template.md`) are No / No / none / blank / Yes / No, to be read against the real form at submission. The Email Address and Hardware blocks now follow the form order (Hardware last).

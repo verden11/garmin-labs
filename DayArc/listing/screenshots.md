@@ -42,7 +42,7 @@ Limits checked with `ls -l` after each render: cover 500x500 under 300 KB; hero 
 
 - Shot 4 is an accent choice made by editing the default in the private build (what the phone setting would write); it shows the result, not how it is changed. The listing says the colour is chosen in the Garmin Connect app, which is unverified until a store install (`../docs/status.md` gate 5): the picture claims nothing about the route.
 - The Instinct frame is a simulator picture. The Instinct bezel hides the square's corners on a real watch (visible circle about 98 px radius, ADR-015); the file is the whole 166 px display, as Garmin's own tool saves it.
-- Device wording (Instinct) stays out of the description until the store lists those watches (`meta.yaml` `held_back_text`).
+- Listing text never names a watch model (owner, 2026-10-04): the description says nothing about Instinct; the store's device tab is the claim.
 
 ## Not for the store, for the owner's look check (status.md gate 4)
 

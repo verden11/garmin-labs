@@ -12,7 +12,7 @@ What the listing, the store page and the site may claim. The checkable form of t
 | Shows your last 24 hours of Body Battery as a curve | `SensorHistory` history read on the FR965 and compared with Garmin's own graph (plan phase 9); the simulator's history is synthetic | **Not allowed yet.** Logic tested in the simulator only |
 | Shows Body Battery as Garmin reports it, with no advice | Code and strings: no verdict words, no per-level colour ([ADR-008](decisions.md#adr-008-no-verdicts-on-body-battery)) | Allowed as a description of design (code and strings, not a device check) |
 | Says what is missing instead of showing a blank | Simulator tests for every sky and Body Battery state; the "?" fallback if reading throws | Allowed as a description of design, simulator only ("shows a message when it has no sun data"); not "never blank" until seen on a watch |
-| 15 languages on the watch | Manifest language list; strings written and parity-checked | Allowed only as "15 languages, 14 machine-drafted"; no language has been fit-tested or read by a native speaker |
+| 15 languages on the watch | Manifest language list; strings written and parity-checked | A fact for docs only: **listing text and What's New name no language and give no count** (owner, 2026-10-04; at most "Multi-language support: it follows your watch's language."). Stated in docs as "15 languages, 14 machine-drafted"; no language has been fit-tested or read by a native speaker |
 | Paid, one purchase | Price decision ([ADR-026](decisions.md#adr-026-price-the-250-tier-for-every-paid-app), price: the $2.50 tier for every paid app, which supersedes ADR-002's USD 1.99); the store form; no price number in listing text | Allowed at submission |
 
 ## Forbidden
@@ -29,11 +29,11 @@ What the listing, the store page and the site may claim. The checkable form of t
 - Translated store copy that no native speaker has read.
 - A claim about the look, a screenshot, or "designed for" a watch before the owner has approved the look and supplied the images.
 
-## Paid vs free reach and the refund line (2026-10-04)
+## Paid vs free reach (2026-10-04)
 
-**Devices.** Garmin sells paid apps only on the products of its App Sales list. Two Suns 1.0.0 is listed on 68 of its 69 products (D2 Air X10, on the list but sold to no paid app, is the one gap). The Instinct E 40/45 mm and Instinct 3 Solar added in 1.1.0 are on the list (the 1.1.0 manifest has 72 products), and **Pro names no other Instinct watch**: Instinct 2, 2S, 2X and Descent G1, which are not on the list, are not in Two Suns at all. So nothing in the Pro text needs removing, and the Free twin has almost no extra reach (1 product), which is why its held-back device sentence is optional ([`compatibility.md`](compatibility.md) "Paid vs free reach").
+**Devices.** Garmin sells paid apps only on the products of its App Sales list. Two Suns 1.0.0 is listed on 68 of its 69 products (D2 Air X10, on the list but sold to no paid app, is the one gap). The Instinct E 40/45 mm and Instinct 3 Solar added in 1.1.0 are on the list (the 1.1.0 manifest has 72 products), and the Instinct 2, 2S, 2X and Descent G1, which are not on the list, are not in Two Suns at all. The Free twin has almost no extra reach (1 product) ([`compatibility.md`](compatibility.md) "Paid vs free reach"). **Listing text never names watch models, in either listing; the store's device tab is the claim** (owner, 2026-10-04).
 
-**Refund line.** The Pro description ends with "Two Suns Pro is a paid app. Refunds follow the Connect IQ Store return window." (guideline 4d). It does not restate the hours (Garmin's full return-policy text is not published on a page we could read; its one stated figure is the 48-hour window before funds are captured). The Free description has no refund line. The Pro listing still never uses the word "free".
+**Listing text.** No refund or return wording appears in listing text (owner decision, 2026-10-04). The Pro listing still never uses the word "free".
 
 ## Free and Pro listings (ADR-020 (Free + Pro ladder), accepted 2026-10-04)
 
@@ -43,6 +43,6 @@ What the listing, the store page and the site may claim. The checkable form of t
 - **Weather row (Pro only, ADR-022, unreleased):** allowed once a wrist check has run: "shows the current conditions and feels-like temperature from your watch's own weather, and the conditions ahead to sunset". Always "Garmin's cached weather" or "your watch's weather"; never "live", "accurate", "real-time" or "forecast accuracy", and no claim about how many hours ahead (the hourly list's length is unverified). Free's listing never mentions weather. Privacy: the face reads the forecast the watch already holds and sends nothing; the site's privacy page does not say this yet (status F12).
 - "Free" wording is allowed **only** in the Free listing (which is $0). The Pro listing keeps the existing rule: no "free" wording while the price is paid.
 - Each listing names the other tier's store URL on its first line; the URL is a placeholder until both are live. No download, rating or review number about either.
-- The device sentence says only what Garmin's store shows after approval. Before approval the Free draft carries "Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for", marked **to verify** (SDK `Monetization/App_Sales` and the store form) before it is pasted, with no watch names or count. The paid listing carries no device sentence and no "free" wording (its sibling line reads "Also available: Two Suns, a lighter version: <URL>").
+- Neither listing carries a device sentence or a watch model name (owner, 2026-10-04): the store's device tab, taken from each build, is the claim, and there is no watch count. The paid listing carries no "free" wording (its sibling line reads "Also available: Two Suns, a lighter version: <URL>").
 - Free's description says nothing is locked or unlockable inside Free (there are no locked items); never "upgrade" wording inside the app or in the Free description's first lines beyond the sibling line.
 - "More from Verden" links only live **free** siblings.

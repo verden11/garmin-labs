@@ -48,7 +48,7 @@ Limits checked with `ls -l` after each render: cover under 300 KB; hero under 20
 
 - Shot 4 is an accent choice made by editing the default in the private build; the picture shows the result, not how it is changed (the route is unverified until a store install, `../docs/status.md` gate 5).
 - The Instinct frame is the whole 166 px display as the simulator saves it; the real bezel hides the square's corners (ADR-015).
-- Device wording (Instinct) stays out of the description until the store lists those watches (`meta.yaml` `held_back_text`).
+- Listing text never names a watch model (owner, 2026-10-04): the description says nothing about Instinct; the store's device tab is the claim.
 
 ## Not for the store, for the owner's look check (status.md gate 4)
 

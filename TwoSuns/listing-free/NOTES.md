@@ -31,13 +31,13 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 | Dims to a quiet time, number and sun line when the screen sleeps | The always-on frame (AMOLED); **no ghosting or battery claim**, forbidden until measured |
 | Fits round and rectangular watches alike | Screen-fit tests on every size (simulator, 2026-09-27, Pro build); the Free build's fit run is still to do. "Full detail down to the smallest" was dropped from this draft; the same phrase in `../listing/paste.md` line 42 is **to verify** (noted in `../listing/NOTES.md`, not edited) |
 | "This free version reads only your watch's own sunrise, sunset and Body Battery numbers. No location, no account, no internet, no analytics, no ads. It stores no place and no history; the only thing it saves is your accent colour setting." | The Free manifest has `ComplicationSubscriber` alone, no network code, no place and no `Application.Storage` call compiled in (`tools/check_free_package.sh`, the compiler); the accent colour is a Properties value. "No analytics, no ads" are the words the Pro listing already uses |
-| The device sentence | Says only that Pro is sold on Garmin's paid-app list and that this version can also be installed on some watches Pro cannot be bought for. **Not in the paste text**: it is in `meta.yaml` `held_back_text`. **To verify** against the SDK's `Monetization/App_Sales` list and the store form's device lists after approval; the draft marks it for the owner. **No watch names or count** (the contract forbids "works on X" for a watch only the simulator has seen) |
+| Device claims | **No device sentence and no watch model name in listing text** (owner, 2026-10-04): the store's device tab is the claim. The former `meta.yaml` `held_back_text` sentences are deleted (their old wording: "Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for", and the Instinct dial sentence for "One face, every screen"). No watch count (the contract forbids "works on X" for a watch only the simulator has seen) |
 
 Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any watch count, download, rating or review number, "works without GPS or your phone" (not run), accuracy of the sun times or of Body Battery, rivals by name.
 
 ## Instinct
 
-The Instinct wording is out of the paste text until the upload is approved and the store lists those watches; the sentence is kept in `meta.yaml` (`held_back_text`).
+The description and What's New say nothing about Instinct or any other model; ADR-024 and the compatibility doc keep the facts.
 
 ## Description rules
 
@@ -51,15 +51,27 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 | Collects user data | No: Free reads no location and keeps no place; nothing leaves the watch |
 | Monetization | No: Free asks no payment and unlocks nothing in-app (Pro is a separate app). The form's wording decides at submission |
 | App Migration | No: a new app id, not a newly compatible device on an existing app |
-| What's new | Blank, this app's rule for an initial release (`../listing/NOTES.md`); a draft line is in the README |
+| What's new | Blank, this app's rule for an initial release (`../listing/NOTES.md`: the form has no "first release" field and the text reads as noise); an optional draft line is in `meta.yaml` `owner_approvals` |
 | Price | $0 (free). The Free listing is the only listing where "free" wording is allowed (release contract) |
 | Additional Hardware Requirements | Paste the bare URL `https://verden.watch/two-suns/` only (API field `hardwareProductUrl`; the old sentence is retired, ROADMAP 10.16) |
-| Refund line | None: a free app has nothing to refund |
-| Device sentence (ROADMAP 10.15) | Two Suns has almost no Free-only reach: every one of its 72 products except D2 Air X10 is on Garmin's paid list (the Instinct E and 3 Solar included), and D2 Air X10 is one of the 11 products no paid app is sold on. The held-back sentence is therefore not a genuine plus; the owner may drop it rather than paste it ([`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach") |
+| Refund wording | No refund or return wording appears in listing text (owner decision, 2026-10-04). |
+| Device reach (ROADMAP 10.15) | Two Suns has almost no Free-only reach: every one of its 72 products except D2 Air X10 is on Garmin's paid list (the Instinct E and 3 Solar included), and D2 Air X10 is one of the 11 products no paid app is sold on ([`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"). No device sentence goes into the listing either way |
 
 ## After approval (plan WP5, WP9)
 
-1. Read the Free listing's real compatible-device list and replace the device sentence with a more specific one only if the list shows those watches.
+1. Read the Free listing's real compatible-device list and record it in `../docs/compatibility.md` (no device sentence goes into listing text).
 2. Put the live Free URL on the first line of the Pro listing ("Also available: Two Suns, a lighter version: <URL>"; the paid listing must not say "free") and the live Pro URL here.
 3. Record both app ids and the approval dates for the gates G1 to G4 in the ladder plan; do not turn download buckets into revenue.
 4. Send nothing to Garmin about twins until the owner decides (the email is the owner's).
+
+## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
+
+- **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`.
+- **Title:** "Two Suns" is the plan placeholder; the owner decides, and searches the store by eye for a collision first.
+- **Description:** line 1 needs the real Two Suns Pro URL once Pro is live (placeholder `<PRO STORE URL>`). English only until the owner decides on translations.
+- **Version:** the form reads it from the package; if a field asks, type it. **What's New:** blank, per this app's rule for an initial release; the optional draft line is in `meta.yaml` `owner_approvals`.
+- **Collects user data:** No; Free reads no location and keeps no place; nothing leaves the watch. The privacy-policy URL field is conditional on Yes, so it may not appear.
+- **Category:** Utility (alternative: Health & Fitness, as for Pro). **Subcategory:** whatever the Category choice offers. **Preview Video:** none (YouTube or Vimeo only). **App Migration:** No; a new app, not an update.
+- **Monetization:** No: the Free app asks for no payment and unlocks nothing. Read the form's own wording at submission.
+- **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04).
+- **Images:** the owner approves the looks first; five images from the Free build, simulator only with canned data (sun times and the Body Battery number are set for the picture, never a reading); hero 242 KB (no curve, no date, nothing from Pro), cover 78 KB (the plain ring, no golden arcs, no pill; Pro's cover has both). Captions and devices are in `meta.yaml` `assets.screens`; details and commands in [`screenshots.md`](screenshots.md). Do not describe the black-and-white shot as a supported-device claim.
