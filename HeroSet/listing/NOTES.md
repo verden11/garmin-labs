@@ -33,6 +33,9 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 | Email | The dedicated support address, also on the site's support and privacy pages. |
 | App Migration | No: support is an explicit list of products (80 live, 87 from 1.3.0; [`../docs/compatibility.md`](../docs/compatibility.md), [ADR-034](../docs/decisions.md#adr-034)/[035](../docs/decisions.md#adr-035)/[037](../docs/decisions.md#adr-037)/[038](../docs/decisions.md#adr-038)/[048](../docs/decisions.md#adr-048)); don't let the store add untested devices. |
 | Monetization | Paid through the store. |
+| Refund line | One sentence at the end of the description: "HeroSet is a paid app. Refunds follow the Connect IQ Store return window." Review guideline 4d asks developers to say what the refund position is. The earlier rule "do not restate Garmin's window" still holds for the number of hours (Garmin's full return-policy text is unpublished; its 48-hour figure is about when funds are captured), so the line points at the store's window and says nothing more (research 2026-10-04, ROADMAP 10.16). No price number. |
+| Additional Hardware Requirements | Paste the bare URL `https://verden.watch/heroset/` only. The API field is `hardwareProductUrl`; the live value is already the bare URL. The old sentence ("No additional hardware needed. Help, privacy and more apps: ...") is retired (ROADMAP 10.16). |
+| Device claims | The package has 87 products, but Garmin's paid-app list excludes Instinct 2, 2S, 2X and Descent G1, so the paid listing is not sold on them and the text never names them (guideline 4b; ROADMAP 10.15). Named: Instinct E (40 and 45 mm), Instinct 3 Solar (on Garmin's paid-app list). The live 1.3.0 description and What's New still name the four: the description is edited in the dashboard with the 1.3.1 upload ([`../docs/status.md`](../docs/status.md) G). |
 
 ## Image sources
 
@@ -48,9 +51,9 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 
 ## What's New: history and copy rules
 
-Copy rules: the glance is "on watches with Connect IQ 4.0 or later" (66 of 87 products, 63 of 80 before the Instinct E and Instinct 3 Solar; the Instinct 2 family has none; never "all watches", never "reminder"/"alert", [ADR-051](../docs/decisions.md#adr-051)); any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
+Copy rules: name only Instinct E (40 and 45 mm) and Instinct 3 Solar, never Instinct 2, 2S, 2X or Descent G1 (not sold on a paid app, [`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"); the glance is "on watches with Connect IQ 4.0 or later" (66 of 87 products, 63 of 80 before the Instinct E and Instinct 3 Solar; the Instinct 2 family has none; never "all watches", never "reminder"/"alert", [ADR-051](../docs/decisions.md#adr-051)); any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
 
-**1.3.0** (live since 2026-10-03)
+**1.3.0** (live since 2026-10-03; its first bullet names Instinct 2, 2S, 2X and Descent G1, which the store does not sell this paid app on: see Device claims above, history kept as submitted)
 
 ```text
 - Now on the Instinct family: Instinct 2, 2S, 2X, Instinct E and Instinct 3 Solar, and Descent G1. The black-and-white screen shows your XP ring in the small round window at the top right.

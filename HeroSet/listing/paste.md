@@ -21,12 +21,14 @@ HeroSet - Bodyweight Rep Counter
 - Set your own daily goal on the watch: 10 to 500 reps, no phone needed.
 - Live heart rate and a calorie estimate during each set.
 - A glance on watches with Connect IQ 4.0 or later: see today's progress and your streak from your glance list without opening the app.
-- Also on the black-and-white Instinct 2, 2S, 2X, Instinct E and Instinct 3 Solar, and Descent G1.
+- Also on the black-and-white Instinct E (40 and 45 mm) and Instinct 3 Solar.
 - In 15 languages, including German, French, Spanish, Italian, Polish and Ukrainian.
 
 Everything stays on your watch. HeroSet has no network access, records no activity and sends nothing to Garmin Connect. The store lists "Communication & Data Transmission" because HeroSet hands today's progress to our HeroFace watch face on the same watch; nothing is sent anywhere.
 
 Good to know: counting depends on how you wear the watch and how you move, so the number can be off. Calories are the change in Garmin's own daily total, an estimate. Not a medical device.
+
+HeroSet is a paid app. Refunds follow the Connect IQ Store return window.
 ```
 
 ## App Version (max 20)
@@ -38,7 +40,7 @@ Good to know: counting depends on how you wear the watch and how you move, so th
 ## What's New (max 4000)
 
 ```text
-- Instinct watches: text near the corners of the screen is no longer cut off by the bezel, so START: MENU and the finished-day message show whole.
+- Instinct E and Instinct 3 Solar: text near the corners of the screen is no longer cut off by the bezel, so START: MENU and the finished-day message show whole.
 - Instinct E and Instinct 3 Solar: the glance now sits beside the round window instead of under it, and its bars show empty and full in black and white.
 ```
 
@@ -119,10 +121,8 @@ Leave blank.
 
 ## Companion App URL / Additional Hardware Requirements
 
-Use it as a link to the website: many Connect IQ apps do (owner, 2026-10-02), the field is optional free text, and
-the page has the support and privacy pages and the other apps. Garmin does not document this use, so keep the text true
-(it states that no extra hardware is needed). Paste:
+Paste the **bare URL only**, nothing else: the store's API names this field `hardwareProductUrl`, and this listing's live value is already the bare URL (owner, 2026-10-02: used as the link to the website; Garmin's research 2026-10-04, [`reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md)). Paste:
 
 ```text
-No additional hardware needed. Help, privacy and more apps: https://verden.watch/heroset/
+https://verden.watch/heroset/
 ```

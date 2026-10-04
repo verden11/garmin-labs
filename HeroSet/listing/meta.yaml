@@ -15,7 +15,7 @@ next:
   version: "1.3.1"
   status: prepared   # drafted | prepared | uploaded | in-review | live
   uploaded: null
-  summary: "the three fixes since 1.3.0 (Instinct bezel corners, START: MENU hint, glance bars outlined on a 1-bit display) and the glance laid out left of the round window on Instinct E and 3 Solar (blind, simulator only, ADR-055); the version number is the owner's call (App Version is free text)"
+  summary: "the description and What's New no longer name Instinct 2, 2S, 2X or Descent G1 (not on Garmin's paid-app list, ROADMAP 10.15), one refund line (10.16), the three fixes since 1.3.0 (Instinct bezel corners, START: MENU hint, glance bars outlined on a 1-bit display) and the glance laid out left of the round window on Instinct E and 3 Solar (blind, simulator only, ADR-055); the version number is the owner's call (App Version is free text)"
 package:
   file: dist/HeroSet-store-1.3.1.iq
   products: 87   # <iq:product> lines in the manifest; the export has 134 part numbers (device variants), not a product count
