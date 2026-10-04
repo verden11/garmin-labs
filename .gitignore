@@ -7,3 +7,6 @@
 device-test/
 
 .claude/worktrees/
+
+# personal notes, never tracked
+/todo.md
