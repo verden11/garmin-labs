@@ -73,8 +73,8 @@ Fixes and polish.
 - [ ] 1.15 `[agent]` DayArc: compile sweep, `tools/check_package.sh --build`, reviewer re-run (closes 1.3).
 - [ ] 5.8 `[agent]` HeroFace: change the Magenta accent colour so it passes 3:1 against the track (keep the id and name; check against the face's reserved roles in `research_notes/Free and Pro ladder/accent_roster.md`); verify in the simulator. (Decided 5.3.)
 - [ ] 9.11 `[agent]` HeroSet glance on Instinct E / 3 Solar: lay it out around the round window with `getSubscreen()` (blind; the simulator draws it under the window), keep `tools/glance-scope-check.sh` green; a wrist check follows (9.6). (Decided 9.3.)
-- [ ] 10.8 `[agent]` HeroSet: seeding reps through `store.add` at launch crashed the app from the glance in the simulator (found 2026-10-04 while scripting screenshots); find out whether this is only the test harness or a real glance-process bug.
-- [ ] 10.9 `[agent]` Days To Go: the Instinct 3 Solar still cuts a 12-character event name (smallest font already), and the `venusq2` rectangle drops name and bottom line on a long stack; decide a fix or document it.
+- [ ] 10.11 `[agent]` HeroSet: seeding reps through `store.add` at launch crashed the app from the glance in the simulator (found 2026-10-04 while scripting screenshots); find out whether this is only the test harness or a real glance-process bug.
+- [ ] 10.12 `[agent]` Days To Go: the Instinct 3 Solar still cuts a 12-character event name (smallest font already), and the `venusq2` rectangle drops name and bottom line on a long stack; decide a fix or document it.
 
 Packages, listings, site (prepare so each upload is a paste).
 - [ ] 2.4 `[agent]` Flip the Proposed ADRs to Active (DaysToGo 014/015, TwoSuns 020/021/024/025, HeroFace 001/002, DayArc 015), mark ADR-002s superseded, write the 2026-10-04 approval dates, drop the day-45 reminders (memory notes and `site/CLAUDE.md` if it has one). After the design agents finish (they edit the same files).
