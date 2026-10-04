@@ -1,7 +1,5 @@
 # Two Suns (Free) — store listing (paste)
 
-Fill every <...> before pasting.
-
 ## Title
 
 ```text
@@ -11,7 +9,7 @@ Two Suns
 ## Description
 
 ```text
-Looking for more? Get Two Suns Pro: <PRO STORE URL>
+Looking for more? Get Two Suns Pro: https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
 
 A watch face for the sun's day: the time, a 24-hour ring for the light, and your Body Battery number.
 

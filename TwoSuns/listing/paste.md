@@ -1,7 +1,5 @@
 # Two Suns Pro — store listing (paste)
 
-Fill every <...> before pasting.
-
 ## Title
 
 ```text
@@ -11,7 +9,7 @@ Two Suns Pro
 ## Description
 
 ```text
-Also available: Two Suns, a lighter version: <TWO SUNS STORE URL>
+Also available: Two Suns, a lighter version: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca
 
 A watch face for the sun's day and your Body Battery: the time, a 24-hour ring for the light, and a curve of your last 24 hours.
 
