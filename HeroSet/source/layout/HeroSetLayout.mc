@@ -21,7 +21,12 @@ class HeroSetLayout {
     // The bezel hides the corners of a semi-octagon display: what shows is the square cut by a circle about 98 px
     // in radius (measured off the alpha mask of the SDK's device images, 96 to 100 px on all seven Instinct
     // products), so a row near a corner is narrower than the display (ADR-055).
-    static const SEMI_OCTAGON_VISIBLE_RADIUS = 96;
+    static const SEMI_OCTAGON_VISIBLE_RADIUS = 98;
+    // A font's box carries padding above the capitals and below the baseline (our text is capitals and digits), so the
+    // ink of a row is the box less about a quarter of the short inset at each end (4 px on 176 px); the circle is cut
+    // against the ink, or the 105 px "START: MENU" would be shortened on a bottom row about 100 px wide although it
+    // shows whole.
+    private static const INK_TRIM_DIVISOR = 4;
 
     private var _width;
     private var _height;
@@ -207,7 +212,7 @@ class HeroSetLayout {
     // (e.g. contentRadius inside the dashboard ring).
     function leftInsetWithin(radius as Lang.Number, y as Lang.Number, height as Lang.Number) as Lang.Number {
         if (!_round) {
-            var visible = _semiOctagon ? _centerX - HeroSetLayout.chordHalfWidth(SEMI_OCTAGON_VISIBLE_RADIUS, farthestDy(y, height)) : 0;
+            var visible = _semiOctagon ? _centerX - HeroSetLayout.chordHalfWidth(SEMI_OCTAGON_VISIBLE_RADIUS, farthestInkDy(y, height)) : 0;
             return visible > sideInset() ? visible : sideInset();
         }
         return _centerX - HeroSetLayout.chordHalfWidth(radius, farthestDy(y, height));
@@ -217,7 +222,7 @@ class HeroSetLayout {
         if (!_round) {
             var window = _subscreen;
             var edge = window != null && besideWindow(y) ? window.x - windowClearance() : _width - sideInset();
-            var visible = _semiOctagon ? _centerX + HeroSetLayout.chordHalfWidth(SEMI_OCTAGON_VISIBLE_RADIUS, farthestDy(y, height)) : _width;
+            var visible = _semiOctagon ? _centerX + HeroSetLayout.chordHalfWidth(SEMI_OCTAGON_VISIBLE_RADIUS, farthestInkDy(y, height)) : _width;
             return visible < edge ? visible : edge;
         }
         return _centerX + HeroSetLayout.chordHalfWidth(radius, farthestDy(y, height));
@@ -246,6 +251,16 @@ class HeroSetLayout {
 
     // Of the row's top edge (y) and bottom edge (y + height), the one
     // farther from the circle's vertical center gives the narrower chord.
+    static function inkTrim(width as Lang.Number, height as Lang.Number) as Lang.Number {
+        return (width < height ? width : height) / 10 / INK_TRIM_DIVISOR;
+    }
+
+    // The same, for the ink of the row rather than its font box (see INK_TRIM_DIVISOR).
+    private function farthestInkDy(y as Lang.Number, height as Lang.Number) as Lang.Number {
+        var trim = inkTrim(_width, _height);
+        return farthestDy(y + trim, height - 2 * trim);
+    }
+
     private function farthestDy(y as Lang.Number, height as Lang.Number) as Lang.Number {
         var dyTop = y - _radius;
         var dyBottom = y + height - _radius;

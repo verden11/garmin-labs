@@ -65,7 +65,9 @@ class HeroSetScreenFitHarness {
             var box = boxes[i] as Lang.Array;
             for (var k = 0; k < 4; k++) {
                 var dx = (box[0] as Lang.Number) + (k % 2 == 0 ? 0 : box[2] as Lang.Number) - settings.screenWidth / 2;
-                var dy = (box[1] as Lang.Number) + (k < 2 ? 0 : box[3] as Lang.Number) - settings.screenHeight / 2;
+                // the ink of capitals sits inside the font box (HeroSetLayout.INK_TRIM_DIVISOR)
+                var trim = HeroSetLayout.inkTrim(settings.screenWidth, settings.screenHeight);
+                var dy = (box[1] as Lang.Number) + (k < 2 ? trim : (box[3] as Lang.Number) - trim) - settings.screenHeight / 2;
                 if (dx * dx + dy * dy > radius * radius) {
                     problems.add(name + " corner: '" + box[4] + "' y=" + box[1]);
                     break;
