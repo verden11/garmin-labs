@@ -10,7 +10,7 @@ store:
 live:
   version: 1.0.0
   since: 2026-09-28
-  note: approved 2026-09-28 (late afternoon); the store shows $2.25 against $1.99 documented (read the dashboard tier)
+  note: approved 2026-09-28 (late afternoon); the store shows $2.25 against $1.99 documented; the 1.1.0 upload sets the $2.50 tier (ADR-026)
 next:
   version: "1.1.0"
   status: drafted   # drafted | prepared | uploaded | in-review | live
@@ -22,7 +22,7 @@ package:
   exported: 2026-10-04
   check: "tools/check_free_package.sh: OK (Positioning and SensorHistory declared, keys Accent Orientation Golden Curve Date Weather Battery)"
   note: "export: monkeyc -e -r -f monkey.jungle; dist/TwoSuns-1.0.1-prepared.iq is the separate 1.0.1 package (ROADMAP 4.1); built in the verden-ciq-build container; same bytes as dist/TwoSunsPro.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
-price: paid, USD 1.99 documented (the store shows $2.25), ADR-002 (superseded 2026-10-04 by the Free + Pro ladder, ADR-020; the day-45 review is retired)
+price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; the store shows $2.25 until then), no number in listing text; ADR-026 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-020 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   cover: cover-500.png

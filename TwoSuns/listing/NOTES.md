@@ -18,7 +18,7 @@ Written 2026-09-26 (plan phase 8); text finalised 2026-09-27 (name, category, pr
 |---|---|---|---|
 | 1 | **Name** | **Decided 2026-09-27: "Two Suns"** (ADR-010). No trademark search done | "Body Battery" is Garmin's trademark and stays out of the name, icon and description headers. A future rename would touch: README Title and description, `../resources/strings/strings.xml` (`AppName`) and its 14 translations, `site/src/apps/two-suns/facts.ts` (`appName`, the one constant), `site/src/apps/two-suns/app.ts` (title, summary use it), the token name "Two Suns Coral" (twosuns-coral) and its line in `site/DESIGN.md`, the Two Suns row in `site/CLAUDE.md`, the "Two Suns specifics" section of `site/README.md`, and the docs in `../docs/` and `../CHANGELOG.md`. The slug `two-suns` and the URLs `/two-suns/...` **never change once published** (store listings link them) |
 | 2 | **Category** | **Decided 2026-09-27: Utility** | Spec D13's alternative, Health & Fitness, was not taken: the copy describes and never claims, so either would have been honest, but Utility fits a sun-and-light face better |
-| 3 | **Price wording** | Price decided: paid, USD 1.99, Garmin's first paid price step (owner, confirmed 2026-09-27, spec D3). Wording open | The description carries no price sentence (Days To Go's does not). Add one only if you want it. Never write "free" while paid; disclose any limited-time free period (review guideline 4d). The refund position is Garmin's return window: do not restate it. Price is set at submission; re-pricing an approved app removes it for re-review. Price review 45 days after approval (write "Price review due <date>" into `../CLAUDE.md` and memory the day approval arrives). Read the form's own Monetization wording at submission |
+| 3 | **Price wording** | Price decided 2026-10-04: the $2.50 tier (ADR-026, price: the $2.50 tier for every paid app; first confirmed at USD 1.99 on 2026-09-27, spec D3, price superseded). Wording open | The description carries no price sentence (Days To Go's does not). Add one only if you want it. Never write "free" while paid; disclose any limited-time free period (review guideline 4d). The refund position is Garmin's return window: do not restate it. No price number in any listing text. Re-pricing an approved app can remove it for re-review, so the tier is set with the 1.1.0 version upload (re-reviewed anyway; ROADMAP 2.1 unsent). No day-45 review (retired, ADR-020). Read the form's own Monetization wording at submission |
 | 4 | **Launcher icon** | Placeholder SVG (generic, 65×65) | Make a real one. Never use "Body Battery" or a Garmin mark in it. The exporter and the compiler print icon-scaling notices until then |
 | 5 | **Screenshots, cover, hero, device icons** | **Two real screens, cover and hero exist (2026-09-27)**, device icons don't | See [`screenshots.md`](screenshots.md). Cover/hero mark still a draft, not owner-approved — same status as the launcher icon placeholder |
 | 6 | **The Positioning permission** | **Decided 2026-09-27: kept, confirmed on-device.** No longer provisional (ADR-005, `../device-test/LocationProbe-RESULTS.md`) | The description's permissions paragraph already names it; no change needed unless a later run (M3/M4, not yet done) reverses ADR-005 — see "If Positioning is dropped" below |
@@ -66,7 +66,7 @@ Spec D7: if the on-watch probe without Positioning still gets a location from an
 | Category | Owner decision 2 |
 | Collects user data | Owner decision 10 (marked OWNER in the README) |
 | Monetization | No: the app does not ask for payment to enable features or for tips. Paid through the store as HeroFace, HeroSet and Days To Go are |
-| Price | Owner decision 3 |
+| Price | Owner decision 3; the $2.50 tier since 2026-10-04 (ADR-026), in the form only |
 | Email | The studio inbox, `hello@verden.watch` |
 
 ## Languages
@@ -79,7 +79,7 @@ Export overreports device count vs. the manifest — full investigation in [`../
 
 ## Site pages
 
-`site/src/apps/two-suns/` (landing, support, privacy) staged in the same session; deploy is the owner's (`npm run deploy` in `site/`). Store URL is unset: the pages say "Coming soon to the Connect IQ Store". After approval: set `storeUrl` in `app.ts`, add the "Price review due" line (spec D3), update this folder and the root README. Landing and store copy must agree with this listing and the release contract.
+`site/src/apps/two-suns/` (landing, support, privacy) staged in the same session; deploy is the owner's (`npm run deploy` in `site/`). Store URL is unset: the pages say "Coming soon to the Connect IQ Store". After approval: set `storeUrl` in `app.ts`, update this folder and the root README. Landing and store copy must agree with this listing and the release contract.
 
 - The landing page shows a **drawing** of the face (`FacePreview.tsx`, SVG primitives, example numbers 10:42, 64, "8:41 of daylight"), captioned "A drawing of the face by day, with example numbers. Not a screenshot." It is a schematic of the layout in the code, not an approved look. Delete it and use `Screens` with real captures when they exist.
 - The shared JSON-LD in `src/entry-server.tsx` gives every app `applicationCategory: HealthApplication`. That is site-wide, unchanged here, but it reads as a health label on this app's page. Make the category per-app (`App` type change) or neutral before deploy.
@@ -97,7 +97,7 @@ None exist. See [`screenshots.md`](screenshots.md).
 
 ## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, accepted 2026-10-04 under ADR-020 (Free + Pro ladder), nothing uploaded; moved from a draft here, 2026-10-04)
 
-`paste.md` is the 1.1.0 text. Names, the price and the sibling URL are the owner's decisions; the strings are the plan's placeholders.
+`paste.md` is the 1.1.0 text. Names are confirmed (2026-10-04); the sibling URL is the owner's; the price is the $2.50 tier (ADR-026), set in the form.
 
 - **Title**: `Two Suns Pro` (placeholder; the owner decides and may add device or feature tokens within the 50 characters).
 - **Line 1:** `Also available: Two Suns, a lighter version: <URL>` (no "free" wording in the paid listing: release contract). The description otherwise describes only what Pro has (the curve, the place-based sun, golden hour, the date, ring orientation, six accents).
@@ -105,6 +105,6 @@ None exist. See [`screenshots.md`](screenshots.md).
 - **Not described, on purpose:** the weather row (needs the wrist check, status F12, and the contract's wording rule: Garmin's cached weather, never "live" or "forecast accuracy") and the watch battery row (ADR-023, simulator only). Add a sentence after F12 passes; the owner decides.
 - **Version** `1.1.0`; the What's New is the rename line.
 - No device sentence in the Pro text (it would name the free app, which the paid listing may not).
-- The price is **not** in this file. Re-pricing an approved app removes it for re-review (SDK `Monetization/App_Sales`); the store shows $2.25 against the documented $1.99 (plan WP5 step 1), and the owner decides whether and when.
+- The price is **not** in this file (ADR-026: the $2.50 tier, set in the form with the 1.1.0 upload; the store showed $2.25 against the documented $1.99). Re-pricing an approved app can remove it for re-review (SDK `Monetization/App_Sales`); shipping it with the version upload covers that.
 - The Pro privacy wording is unchanged (the place, `Positioning`, Body Battery history); the Free listing's differs (`../listing-free/NOTES.md`).
 - "More from Verden" is left out: it lists only live free siblings, none live today.

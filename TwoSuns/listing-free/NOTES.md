@@ -10,7 +10,7 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 | On-watch app name | "Two Suns" (`../resources-free/strings/strings.xml`) |
 | Pro's name and title | "Two Suns Pro" (placeholder; the Pro title is not drafted here) |
 | Pro's store URL (line 1) | `<PRO STORE URL ...>`: needs Pro live (or upload Pro first); at submission the line must be the real URL, not a placeholder |
-| Pro's price | Today $1.99 documented, $2.25 shown in the store (plan WP5 step 1); the owner picks the tier at the Pro upload. **The listing never states a price** |
+| Pro's price | The $2.50 tier (ADR-026, price: the $2.50 tier for every paid app), set in the form with the 1.1.0 upload (documented $1.99, $2.25 shown in the store until then). **The listing never states a price** |
 | Icon and cover | Not made; look and identity are the owner's |
 | Whether the date row and ring orientation are Pro only | The plan puts both in Pro; Free is a thinner face without them. The draft does not mention them (the release contract: the Free listing never names Pro-only features) |
 | The empty Body Battery state (ADR-021, Body Battery in Free) | `--` and a hollow pill (the existing display). The alternative is a worded value ("No data"), which needs 15 languages of machine-drafted text |

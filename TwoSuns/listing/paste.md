@@ -124,7 +124,7 @@ Leave blank.
 
 ## Monetization
 
-**No** (same wording reading as Days To Go: Yes only if the app asks for payment to enable features, or for tips or donations; it does neither). Paid through the store; the price tier is the owner's call (documented USD 1.99, the store showed $2.25 on 2026-10-01, ROADMAP 2.5; [`NOTES.md`](NOTES.md)).
+**No** (same wording reading as Days To Go: Yes only if the app asks for payment to enable features, or for tips or donations; it does neither). Paid through the store; the price tier is the $2.50 tier (owner, 2026-10-04, ADR-026 (price: the $2.50 tier for every paid app); set in the form with the 1.1.0 upload, replacing the $2.25 the store showed; [`NOTES.md`](NOTES.md)).
 
 ## iOS / Android Companion App URL / Additional Hardware Requirements (optional)
 

@@ -13,7 +13,7 @@ What the listing, the store page and the site may claim. The checkable form of t
 | Shows Body Battery as Garmin reports it, with no advice | Code and strings: no verdict words, no per-level colour ([ADR-008](decisions.md#adr-008-no-verdicts-on-body-battery)) | Allowed as a description of design (code and strings, not a device check) |
 | Says what is missing instead of showing a blank | Simulator tests for every sky and Body Battery state; the "?" fallback if reading throws | Allowed as a description of design, simulator only ("shows a message when it has no sun data"); not "never blank" until seen on a watch |
 | 15 languages on the watch | Manifest language list; strings written and parity-checked | Allowed only as "15 languages, 14 machine-drafted"; no language has been fit-tested or read by a native speaker |
-| Paid, one purchase | Price decision ([ADR-002](decisions.md#adr-002-price)); the store form | Allowed at submission |
+| Paid, one purchase | Price decision ([ADR-026](decisions.md#adr-026-price-the-250-tier-for-every-paid-app), price: the $2.50 tier for every paid app, which supersedes ADR-002's USD 1.99); the store form; no price number in listing text | Allowed at submission |
 
 ## Forbidden
 

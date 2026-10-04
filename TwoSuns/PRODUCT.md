@@ -45,7 +45,7 @@ Not a dashboard with a sun slot and a Body Battery slot: one face built around t
 
 - Connect IQ watch face, `minApiLevel` 4.2.0, one build, 69 products, no bitmaps. Permissions `SensorHistory`, `ComplicationSubscriber`, `Positioning` (provisional, [ADR-005](docs/decisions.md#adr-005-location-order-and-the-positioning-permission)).
 - No network, no `Background`, `Communications` or `UserProfile`.
-- Price: paid, lowest tier, same rules as Days To Go ([`docs/decisions.md`](docs/decisions.md) ADR-002). Price review due: not set until approval.
+- Price: paid, the $2.50 tier of Garmin's price points for Two Suns Pro (set in the upload form with 1.1.0; [`docs/decisions.md`](docs/decisions.md) ADR-026, price: the $2.50 tier for every paid app, which supersedes the lowest tier of ADR-002); Two Suns (Free) is free; no price number in listing or site text. No day-45 review (retired, ADR-020).
 - Languages: English plus 14 machine-drafted translations, not read by native speakers and not fit-tested.
 
 ## Non-goals (v1)

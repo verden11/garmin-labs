@@ -7,7 +7,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | ADR | Decision | Status |
 |---|---|---|
 | 001 | Concept: the sky's day and your energy on one dial; the time is the hero | Active (look **not approved**) |
-| 002 | Price: paid, USD 1.99, the same tier as Days To Go | **Superseded** 2026-10-04 by 020 (the Free + Pro ladder; the owner retired the day-45 review) |
+| 002 | Price: paid, USD 1.99, the same tier as Days To Go | **Superseded** 2026-10-04 by 020 (the Free + Pro ladder; the owner retired the day-45 review) and, for the price, by 026 (price: the $2.50 tier for every paid app) |
 | 003 | Sunrise and sunset from Complications; `Weather.getSunrise` is a cross-check and tier B fallback only | Active |
 | 004 | Own NOAA calculation for everything Garmin does not give; tomorrow's sunrise keeps Garmin's offset | Active |
 | 005 | Location order and the Positioning permission (confirmed, 2026-09-27); `Position.getInfo` isolated | Active |
@@ -29,6 +29,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 021 | Body Battery in Free: Garmin's own number only; no history, no stale state, `--` when there is none | Active (accepted 2026-10-04 with 020; the owner decided Free keeps `--`) |
 | 023 | Watch battery row (Pro, setting `Battery`), Body Battery bolt gauge (replaces the pill), next-day arrow (replaces the chevron) | **Proposed**, built, UNRELEASED: owner chose bolt gauge and the rest 2026-10-03; simulator only |
 | 022 | Weather row in Pro: now icon and feels-like number coloured, three mono ahead icons, tomorrow after sunset; overrides the weather non-goal | **Proposed**, built, UNRELEASED: owner chose the direction and approved the mockup 2026-10-03; simulator only |
+| 026 | Price: the $2.50 tier for every paid app (supersedes the price of 002) | Active (accepted 2026-10-04; ships with the 1.1.0 upload) |
 
 ## ADR-022: Weather row in Pro
 
@@ -95,7 +96,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 ## ADR-002: Price
 
-**Status: Superseded 2026-10-04 by ADR-020 (the Free + Pro ladder).** The owner approved the ladder on 2026-10-04 and retired the day-45 review below: the paid app is never flipped to free, the Free twin replaces that idea. The price (USD 1.99 documented) stands until the owner sets the Pro price. The text below is the history.
+**Status: Superseded 2026-10-04 by ADR-020 (the Free + Pro ladder).** The owner approved the ladder on 2026-10-04 and retired the day-45 review below: the paid app is never flipped to free, the Free twin replaces that idea. The price (USD 1.99 documented, $2.25 shown in the store) is **Superseded by [ADR-026](#adr-026-price-the-250-tier-for-every-paid-app) (price: the $2.50 tier for every paid app)**. The text below is the history.
 
 **Decision.** Paid, USD 1.99 at first submission (owner, confirmed 2026-09-27) — Garmin's first paid price step; a lower figure the owner initially named (USD 1.90) turned out not to be an offered price, since Garmin does not allow custom prices, only fixed steps. This lands on the same tier as Days To Go, which the owner had originally wanted to avoid, but is the nearest real option. The review cadence follows Days To Go's rules ([`../../DaysToGo/docs/decisions.md`](../../DaysToGo/docs/decisions.md) ADR-002): one review 45 days after store approval, and the success test at day 60 ([`spec.md`](spec.md) "Success and stop test"). Days To Go's proposed flip rule (fewer than 5 sales in 45 days and a download bucket of 10 or lower) is the working proposal here too; the owner has not confirmed it for this app.
 **Why.** Owner choice, 2026-09-26 ("Paid like Days To Go"). Risk on record: about 75 paid Body Battery or sun faces, 2 of them at 1,000+ downloads. **Night & Day** (50,000 downloads) lists free and unlocks on the developer's own site; its 1-star reviews are about that. Do not copy it. Garmin's app trials do not work for watch faces, so there is no native trial.
@@ -331,3 +332,17 @@ Also corrected the code comments' claim that a pixel stays lit for "3 minutes"/"
 **Why.** There is room, and the number is the one thing Free has besides the time and the ring. No new field.
 
 **Consequences.** Unit suite Pro 154 / Free 67 (146 / 60 on an Instinct) pass on fr965, fr255s, epix2, venusq2, instincte40mm, instinct3solar45mm after the change; screenshots of Free on the FR965, FR255S, Instinct E 40 mm and Instinct 3 Solar looked at. Not seen on a wrist.
+
+## ADR-026: Price: the $2.50 tier for every paid app
+
+**Status: Accepted 2026-10-04 (owner, chat).** Supersedes the price of ADR-002 (paid, USD 1.99 documented; the store showed $2.25, a different real tier) and resolves the "Pro price tier" left open by ADR-020 (the Free + Pro ladder).
+
+**Decision.** Two Suns Pro (the paid app, the live app id) moves to the **USD 2.50 tier** of Garmin's price points (US $2.49, eurozone 2,99 EUR; measured table in `../../research_notes/Free and Pro ladder/garmin_rules.md`, source https://developer.garmin.com/connect-iq/monetization/price-points/). Every paid app in the studio (HeroSet, HeroFace Pro, Days To Go Pro, Two Suns Pro, DayArc Pro) takes the same tier. Two Suns (Free) stays free. The owner sets the tier in the upload form; this also replaces the $2.25 tier the store shows today, which no document of ours had chosen.
+
+**Why.** Room for later discounts or a rise: Garmin's tiers are $2.00, then every $0.25, so one fixed tier per app left no step down. The tier converts to a different number in each store, so no number is stated where a reader sees it.
+
+**No price number on the site or in listing text.** Neither listing's Description or What's New, nor the pages under `site/src/apps/two-suns/`, state a price.
+
+**Open risk.** Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`); how it treats a repricing to a higher tier is not confirmed. Ship the change together with the 1.1.0 version upload (Pro), which is re-reviewed anyway. The Garmin email ([`../../ROADMAP.md`](../../ROADMAP.md) 2.1) is still unsent.
+
+**Reversed by.** The owner.

@@ -23,7 +23,7 @@ built in the `verden-ciq-build` container (`docker/run.sh`), checked with the pr
 
 ## Never decide alone
 
-The store name; the price and its wording; the visual identity and the launcher icon; the `Positioning` permission; any upload to the Connect IQ store; any phone or watch test; a site deploy; shipping machine translations no native speaker has read; tier B; any claim the release contract forbids. On 2026-09-26 the owner said to proceed with the implementation without further permission questions and the reversible defaults were taken ([`decisions.md`](decisions.md)); that does not cover this list.
+The store name; the price wording (the tier itself is decided: $2.50, ADR-026); the visual identity and the launcher icon; the `Positioning` permission; any upload to the Connect IQ store; any phone or watch test; a site deploy; shipping machine translations no native speaker has read; tier B; any claim the release contract forbids. On 2026-09-26 the owner said to proceed with the implementation without further permission questions and the reversible defaults were taken ([`decisions.md`](decisions.md)); that does not cover this list.
 
 ## Ready to submit when ALL of these are true
 
@@ -41,7 +41,7 @@ The store name; the price and its wording; the visual identity and the launcher 
 | 10 | Real assets | Launcher icon (the current one is a generic placeholder), cover 500×500, hero 1440×720 (optional), screenshots **taken by the owner** on a real watch or the simulator; paths filled in `listing/paste.md`, `listing/screenshots.md` written | **Partly done, 2026-09-27.** Two real FR965 screens, a cover and a hero exist and are wired into `listing/paste.md` (`listing/screenshots.md`). Still open: launcher icon (generic placeholder) and formal owner look-approval of the cover/hero mark |
 | 11 | Listing written and checked | `listing/paste.md` in form order, every sentence checked against [`release-contract.md`](release-contract.md); the description says what is shown, never what it means for health; "Body Battery" only descriptively | **Text finalised, 2026-09-27.** Every OWNER field resolved (name, category, price, collects-user-data), images now filled too. Only the launcher icon and formal look sign-off remain |
 | 12 | Site live | The pages under `site/src/apps/two-suns/` (landing, support, privacy) built and deployed by the owner (`cd ../site && npm run build && npm run deploy`); `/two-suns/support/` and `/two-suns/privacy/` open without login. The privacy page says what is read (Body Battery history, Garmin's own sunrise and sunset, a location rounded to 0.1 degree that stays on the watch), and matches the manifest | **Deferred (owner, 2026-09-27): deploy once all changes are finalised.** The owner pushes to git and deploys, not this session |
-| 13 | Price confirmed | Paid, USD 1.99 — Garmin's first paid price step (custom prices are not offered; same tier as Days To Go) (owner, confirmed 2026-09-27); the flip rule confirmed for this app | Decided; confirm at submit |
+| 13 | Price confirmed | Paid, the $2.50 tier (US $2.49, eurozone 2,99 EUR), ADR-026 (price: the $2.50 tier for every paid app), set in the form with 1.1.0 (owner, 2026-10-04); it was USD 1.99, Garmin's first paid price step, confirmed 2026-09-27 (ADR-002, price superseded; the store showed $2.25); the flip rule is retired (ADR-020) | Decided 2026-10-04; set at upload |
 | 14 | Baseline recorded | Download buckets, review counts and ratings of HeroSet, HeroFace and Days To Go on the submission day, plus their store links, in `CHANGELOG.md` or the memory file | **Open** |
 | 15 | Tests green | `tools/run_tests.sh fr965`, `fenix7` and `venu3` print `PASSED (passed=124, failed=0, errors=0)`, `tools/fit_all.sh` reports no failures, `python3 tools/gen_settings.py --check` and `python3 tools/check_strings.py` pass, zero build warnings, all on the commit you submit | **Partly re-confirmed 2026-09-27**: `gen_settings.py --check` and `check_strings.py` both OK, compile clean (`-w --typecheck 3`) after the `watch-design-reviewer` fixes (2 new tests, 124 total). The full `run_tests.sh`/`fit_all.sh` pass predates those fixes (122 of 122, same day) — re-run once the simulator is free, before submit |
 
@@ -50,7 +50,7 @@ The store name; the price and its wording; the visual identity and the launcher 
 - **Earliest sensible day:** the day after gate 6 (the wear day) with gates 1 to 5 and 7 to 12 done. Nothing else is time-based: there is no launch date to hit.
 - **Do not** publish a build that gates 3, 5 and 6 did not use. Export the package from the commit you wore.
 - **Review takes about 72 hours** (HeroFace notes); a rejection names its reasons. Advice, not evidence: submit early in the week.
-- **Price is set at submission.** Changing it later takes the app out of the store for re-review (SDK `Monetization/App_Sales`), so settle gate 13 first.
+- **Price is set in the upload form** (Pro: the $2.50 tier, ADR-026). Changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`; unconfirmed for a higher tier, ROADMAP 2.1), so the repricing ships together with the 1.1.0 version upload, which is re-reviewed anyway.
 - A paid app is sold only on Garmin's own list of watches and countries, so the store's device list will be shorter than the manifest's 69. Never quote a watch count.
 
 ## Store form answers
@@ -59,7 +59,7 @@ Each field's text is in [`../listing/paste.md`](../listing/paste.md), in form or
 
 - **Name:** the owner's decision (gate 1). "Body Battery" never in it.
 - **Category:** Health & Fitness or Utility, the owner's choice at listing time (spec D13).
-- **Price:** paid, lowest tier; the merchant flow, the same as Days To Go.
+- **Price:** paid, the $2.50 tier (ADR-026); the merchant flow, the same as Days To Go.
 - **Permissions and privacy:** `SensorHistory`, `ComplicationSubscriber`, and `Positioning` only if gate 2 keeps it. Location: used to compute sun times, rounded to 0.1 degree, stays on the watch. No network. No medical claims.
 - **Support and privacy URLs:** `https://verden.watch/two-suns/support/` and `/two-suns/privacy/` once deployed. **Never change or remove a published URL.**
 - **Languages:** per gate 9.
@@ -69,7 +69,7 @@ Each field's text is in [`../listing/paste.md`](../listing/paste.md), in form or
 
 1. `cd TwoSuns && monkeyc -e -r -f monkey.jungle -o dist/TwoSuns-1.0.1.iq -y ~/.garmin-connectiq/keys/developer_key` (**for a 1.0.x, from commit `807977d`, the last one before the ladder work**: this tree builds Pro as "Two Suns Pro". `dist/TwoSuns.iq` today is the already-prepared 1.0.1 and is never overwritten; the ladder's packages are `dist/TwoSunsFree.iq` and `dist/TwoSunsPro.iq`, the Pro one to be renamed with its version at upload)
 2. Open https://apps.garmin.com/developer/upload, attach `dist/TwoSuns-1.0.1.iq` (or the prepared `dist/TwoSuns.iq` if the owner chooses it).
-3. Paste each field from `listing/paste.md`, in form order. Add the price in the merchant flow.
+3. Paste each field from `listing/paste.md`, in form order. Add the price in the merchant flow (the $2.50 tier, ADR-026).
 4. Add the images from gate 10.
 5. Same day, update `CHANGELOG.md` (the version being submitted, upload date, user-facing changes, ADRs) and check that `listing/paste.md` has the matching What's New block and version number.
 6. Do not commit `dist/*.iq` or any key file.
@@ -85,11 +85,11 @@ Each field's text is in [`../listing/paste.md`](../listing/paste.md), in form or
 
 ## Free + Pro pair (approved by the owner 2026-10-04, UNRELEASED: ADR-020 (Free + Pro ladder))
 
-Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP5); the owner approved the ladder on 2026-10-04 (OD1, OD2: the day-45 review is retired, ADR-002 Superseded); names, the Pro price tier and every upload are still open, and the live paid app is unchanged until then. The prepared 1.0.1 is **not** held back by this work and is not part of it (plan WP5 step 7); the owner submits it or not. No store-package quirk beyond the known "89 devices" oddity is recorded; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
+Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP5); the owner approved the ladder on 2026-10-04 (OD1, OD2: the day-45 review is retired, ADR-002 Superseded); names are confirmed (2026-10-04), the Pro price is the $2.50 tier (ADR-026) and every upload is still open, and the live paid app is unchanged until then. The prepared 1.0.1 is **not** held back by this work and is not part of it (plan WP5 step 7); the owner submits it or not. No store-package quirk beyond the known "89 devices" oddity is recorded; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
 
 | # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
 |---|---|---|
-| F1 | Owner signs off OD1 (the ladder), OD2 (retire the day-45 flip rule), OD3 (names), OD4 (Pro price tier; the store shows $2.25 against the documented $1.99, plan WP5 step 1). ADR-020 (Free + Pro ladder) is Active and the flip rule of ADR-002 (price) Superseded | **Ladder and OD2 done 2026-10-04**; names and the price tier are F2 and the owner's |
+| F1 | Owner signs off OD1 (the ladder), OD2 (retire the day-45 flip rule), OD3 (names), OD4 (Pro price tier (decided 2026-10-04: the $2.50 tier, ADR-026); the store showed $2.25 against the documented $1.99, plan WP5 step 1). ADR-020 (Free + Pro ladder) is Active and the flip rule of ADR-002 (price) Superseded | **Ladder, OD2, names and the price tier done 2026-10-04** (price: the $2.50 tier, ADR-026); set at upload |
 | F2 | Store names and titles chosen and searched in the store by eye (plan placeholders: app name "Two Suns" / "Two Suns Pro"). The name is also the on-watch AppName: change `resources-free/strings` and `resources-pro/strings` only | **Open** (owner) |
 | F3 | Owner decides the tier of the date row and the ring orientation (plan WP5 puts both in Pro; Free is thinner without them), whether Free keeps civil twilight (needs a place, so no), and the wording of a missing Body Battery number (ADR-021, Body Battery in Free: `--` and a hollow pill, or a word) | **Decided 2026-10-04: Free keeps `--`; date row and ring orientation stay in Free** (owner) |
 | F4 | Launcher icon for each tier (the file is still the placeholder; Free and Pro may differ) | **Open** (owner) |
@@ -106,7 +106,7 @@ Nothing in this block is done unless it says so; nothing is uploaded. Builds aga
 
 1. `cd TwoSuns && tools/check_free_package.sh --build` (or export `monkeyc -e -r -f monkey.free.jungle -o dist/TwoSunsFree.iq -y ~/.garmin-connectiq/keys/developer_key`), then open https://apps.garmin.com/developer/upload, attach `dist/TwoSunsFree.iq` (a **new** app: the form reads the new app id from the package).
 2. Paste each field from [`../listing-free/paste.md`](../listing-free/paste.md) in form order. Category Utility. Monetization: the free listing asks no payment (confirm the form's wording at submission). Replace the placeholder Pro store URL on line 1 with the real one once Pro 1.1.0 is live, or upload Pro first.
-3. Same day: upload `dist/TwoSunsPro.iq` to the existing app id as 1.1.0 (Pro's price is changed only by the owner, in the same step they choose; re-pricing an approved app removes it for re-review).
+3. Same day: upload `dist/TwoSunsPro.iq` to the existing app id as 1.1.0 (set Pro's price tier to $2.50 in the form, ADR-026; re-pricing an approved app can remove it for re-review, so do it in this same version upload).
 4. Update `CHANGELOG.md` (drop UNRELEASED, add upload dates), the What's New blocks, record both app ids for the measurement plan (WP9), and the review-day dates for gates G1 to G4 in the ladder plan.
 5. Do not commit `dist/*.iq` or any key file.
 
