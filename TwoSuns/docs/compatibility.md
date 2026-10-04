@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-09-27. The 69 products that can run a watch face at Connect IQ 4.2 or newer in SDK 9.2.0 (`deviceGroup` in the SDK's `Devices/*/compiler.json`), less three Instinct products (below). Permissions `SensorHistory`, `ComplicationSubscriber` and `Positioning` (confirmed, not provisional — [ADR-005](decisions.md#adr-005-location-order-and-the-positioning-permission)) are declared on all of them. **Everything below is simulator evidence except the sunrise/sunset and Positioning device checks (`../device-test/`); nothing else has run on a wrist.**
+Status: 2026-10-04. The 69 products that can run a watch face at Connect IQ 4.2 or newer in SDK 9.2.0 (`deviceGroup` in the SDK's `Devices/*/compiler.json`), less three Instinct products (below). Permissions `SensorHistory`, `ComplicationSubscriber` and `Positioning` (confirmed, not provisional — [ADR-005](decisions.md#adr-005-location-order-and-the-positioning-permission)) are declared on all of them. **Everything below is simulator evidence except the sunrise/sunset and Positioning device checks (`../device-test/`); nothing else has run on a wrist.**
 
 ## Supported products
 
@@ -28,9 +28,19 @@ The fēnix 9 family, FR70 and FR170 (API 6.0) are in by API level; the SDK's dev
 
 `venusq2` and `venusq2m` (320 × 360) and `venux1` (448 × 486). The face keeps its round design: the ring is a circle the size of the shorter side, centred, with black bars above and below. Text is checked against the round chord, which is stricter than a rectangle needs. **Not looked at by eye; the look on a rectangle is not approved.** `venusq2` has been through the fit test; `venux1` has not been run at all.
 
+## Instinct E and Instinct 3 Solar (added 2026-10-04, ADR-024, proposed, simulator only)
+
+`instincte40mm` (166 x 166, window 52 px), `instincte45mm` and `instinct3solar45mm` (176 x 176, window 62 px) join both manifests: **72 products**. CIQ 6.0 (Complications, `SensorHistory`, `Weather` all there), 1-bit (palette `000000`/`FFFFFF` only), **watch-face memory 65,536 B** (the other 69 have at least 128 KB).
+
+- **What shows.** The bezel hides the corners: the visible area is the square cut by a circle about 98 px in radius. `TwoSunsLayout` clips rows to it; the screen-fit test fails any text box outside it or under the window (`collectWindowAndCorners`).
+- **As built.** The sky ring is a 24-hour dial in the window; time and date left of it; weather row (Pro), Body Battery and the sun line below. **No watch battery row, no golden hour, no Accent setting** (an Instinct Free has no settings at all).
+- **Memory (normal run, `-r` like the store export, simulator):** **Pro 45.8 kB and Free 25.9 kB used of the 59.8 kB the simulator reports** (the status bar after the face drew, `instincte40mm` and `instincte45mm` alike, 2026-10-04): Pro uses about 77% of the budget, so it has the least headroom of any face on these watches. The on-watch Customize menu, a longer weather list and a refreshed Body Battery history were not exercised, so the peak is not measured: **a real-watch memory check is needed before an upload.**
+- **Tests, 2026-10-04, container simulator:** Pro 146/146 on `instincte40mm`, `instincte45mm`, `instinct3solar45mm`; Free 60/60 on `instincte40mm`, `instincte45mm`; round and rectangular controls Pro 154/154 on `fr965`, `fr255s`, `venusq2`, Free 67/67 on `fr965`. Per-language screen fit (15 languages) passes on `instincte40mm` and `instincte45mm` (Pro) and `instincte40mm` (Free; `tools/fit_languages.sh`). Compile sweep, both jungles, every product: 72/72 pass on each (`tools/compile_sweep.sh`). `tools/check_free_package.sh --build`: OK (93 part numbers; Free has no settings file on the Instinct parts, Pro no Accent or Golden there).
+- **Not proven:** anything on a watch (real bezel margins, contrast, the location and Weather behaviour on an Instinct E / 3 Solar, the on-watch Customize menu).
+
 ## Excluded, and why
 
-- **Instinct 3 Solar 45 mm, Instinct E 40 mm and 45 mm**: semi-octagon, 64 KB watch-face memory, monochrome. Days To Go excluded Instinct for the same reason. (The Instinct 3 AMOLED 45 and 50 mm and the Instinct Crossover AMOLED are in the table above.)
+- **The Instinct 2 family and Descent G1** (CIQ 3.4, no Complications) and `instinctcrossover` (analog hands). Instinct 3 Solar 45 mm and Instinct E 40 / 45 mm were excluded by ADR-009 and are now included (below, ADR-024). (The Instinct 3 AMOLED 45 and 50 mm and the Instinct Crossover AMOLED are in the table above.)
 - **Every product below API 4.2** (no `Complications`): see the tier plan.
 - **The fēnix 5 Plus family** has no Body Battery in the SDK's lists and is out permanently.
 

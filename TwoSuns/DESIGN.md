@@ -133,3 +133,7 @@ If reading the sources throws, the face draws a single "?" so it is never blank.
 ## Constraints
 
 Primitives and system fonts only, no bitmaps (the launcher icon aside). Every colour in the 64-colour palette. The launcher icon (`resources/drawables/launcher_icon.svg`, 65 by 65: a grey ring, an amber arc and a white dot on black — drawn before the default accent changed; the icon does not follow the accent setting) is a generic **placeholder, not approved**; the real icon is the owner's and must not contain "Body Battery".
+
+## Instinct E and Instinct 3 Solar (1-bit, a round window top right; ADR-024, proposed, simulator only, look not approved)
+
+Black and white only: every colour role is white. **The sky ring becomes a 24-hour dial in the round window**, the same shapes in miniature: a hairline circle is the night, the daylight still to come is the thick arc, daylight gone and twilight are hairlines over it, ticks mark sunrise and sunset, the sun is a solid dot while it is up and an outline when it is not. The time and the date share the band left of the window; the weather row (Pro), the Body Battery bolt and value (with the curve in Pro) and the sun line sit below it. No watch battery row, no golden hour, no accent. What shows is the square cut by a circle about 98 px in radius (the bezel hides the corners), so rows are clipped to a 97 px circle against their ink.

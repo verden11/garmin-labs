@@ -14,17 +14,20 @@ class TwoSunsRing {
 
     static function draw(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState) as Void {
         var plan = TwoSunsRingPlan.build(state.sky, state.nowMinute, state.goldenArc);
-        var cx = layout.centerX();
-        var cy = layout.centerY();
+        var cx = layout.ringCenterX();
+        var cy = layout.ringCenterY();
         var radius = layout.ringRadius();
         if (dc has :setAntiAlias) {
             dc.setAntiAlias(true);
         }
-        dc.setPenWidth(layout.ringWidth());
+        // On a 1-bit display there is no dim: the night track is a hairline, the daylight still to come is the thick arc,
+        // and what is gone or twilight is a hairline over it (ADR-024).
+        dc.setPenWidth(TwoSunsPalette.MONO ? 1 : layout.ringWidth());
         dc.setColor(TwoSunsPalette.NIGHT, Graphics.COLOR_TRANSPARENT);
         dc.drawCircle(cx, cy, radius);
         for (var i = 0; i < plan.arcs.size(); i++) {
             var arc = plan.arcs[i];
+            dc.setPenWidth(TwoSunsPalette.MONO && (arc.kind == TwoSunsConfig.RING_TWILIGHT || arc.kind == TwoSunsConfig.RING_DAY_GONE) ? 1 : layout.ringWidth());
             dc.setColor(colorFor(arc.kind, state.accent), Graphics.COLOR_TRANSPARENT);
             drawArc(dc, cx, cy, radius, arc, state.orientation);
         }
@@ -69,7 +72,7 @@ class TwoSunsRing {
     // The point on a circle of `radius` at a minute of the ring.
     private static function pointAt(layout as TwoSunsLayout, radius as Number, minute as Number, orientation as Number) as Array<Number> {
         var angle = TwoSunsRingPlan.angleFor(minute, orientation) * Math.PI / TwoSunsConfig.DEGREES_PER_HALF_TURN;
-        return [layout.centerX() + (radius * Math.cos(angle)).toNumber(), layout.centerY() - (radius * Math.sin(angle)).toNumber()] as Array<Number>;
+        return [layout.ringCenterX() + (radius * Math.cos(angle)).toNumber(), layout.ringCenterY() - (radius * Math.sin(angle)).toNumber()] as Array<Number>;
     }
 
     private static function drawTick(dc as Graphics.Dc, layout as TwoSunsLayout, minute as Number, orientation as Number) as Void {

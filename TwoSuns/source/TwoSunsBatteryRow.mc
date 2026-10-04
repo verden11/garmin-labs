@@ -49,6 +49,9 @@ class TwoSunsBatteryRow {
 
     // Whether the row's ink fits the round chord at that height and the display.
     static function fits(dc as Graphics.Dc, layout as TwoSunsLayout, top as Number, percent as Number) as Boolean {
+        if (layout.subscreen() != null) {
+            return false;   // no strip above the stack beside the Instinct's window (ADR-024)
+        }
         var ink = dc.getFontHeight(font()) * INK_PERCENT / TwoSunsConfig.PERCENT;
         var y = top + (dc.getFontHeight(font()) - ink) / 2;
         var radius = layout.contentRadius();

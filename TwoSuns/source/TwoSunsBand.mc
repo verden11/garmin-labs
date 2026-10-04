@@ -31,7 +31,7 @@ class TwoSunsBand {
         curveWidth = curveWidth > cap ? cap : curveWidth;
         band.hasCurve = wantCurve && curveWidth >= layout.capFor(TwoSunsConfig.CURVE_MIN_WIDTH_PERMILLE);
         var total = band.hasCurve ? fixed + gap + curveWidth : fixed;
-        var left = layout.centerX() - total / 2;
+        var left = layout.rowCenterX(bandTop, bandHeight) - total / 2;
         left = left < chordLeft ? chordLeft : left;
         band.glyphLeft = left;
         band.glyphTop = bandTop + (bandHeight - band.glyphHeight) / 2;

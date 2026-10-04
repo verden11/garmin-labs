@@ -1,4 +1,6 @@
 import Toybox.Lang;
+import Toybox.System;
+import Toybox.WatchUi;
 
 // The widest states the face can show, shared by the screen-fit test and the layout report. A class,
 // because the runner treats every (:test) function as a test case.
@@ -162,6 +164,7 @@ class TwoSunsTestStates {
         if (boxes.size() != expected) {
             problems.add("state " + name + " drew " + boxes.size() + " text rows, expected " + expected);
         }
+        collectWindowAndCorners(name, boxes, problems);
         for (var i = 0; i < boxes.size(); i++) {
             for (var j = i + 1; j < boxes.size(); j++) {
                 var a = boxes[i];
@@ -181,5 +184,38 @@ class TwoSunsTestStates {
             return 2 + (frame.showLine ? 1 : 0);
         }
         return 3 + (frame.showDate ? 1 : 0) + (frame.showLine ? 1 : 0) + (frame.showCurve ? 1 : 0) + frame.weatherBoxCount + (frame.showBattery ? 1 : 0);
+    }
+
+    // The Instinct (ADR-024): no text box may sit under the round window, and none may reach outside the circle the bezel
+    // leaves visible (about 98 px in radius). Boxes include font padding, so this is stricter than the ink (a quarter of the
+    // short inset is cut off each end, as TwoSunsLayout does); a simulator screenshot decides a disputed case.
+    static function collectWindowAndCorners(name as String, boxes as Array<Array>, problems as Array<String>) as Void {
+        var settings = System.getDeviceSettings();
+        if (settings.screenShape != System.SCREEN_SHAPE_SEMI_OCTAGON || !(WatchUi has :getSubscreen)) {
+            return;
+        }
+        var window = WatchUi.getSubscreen();
+        var trim = (settings.screenWidth < settings.screenHeight ? settings.screenWidth : settings.screenHeight) / 40;
+        var radius = TwoSunsLayout.VISIBLE_RADIUS_PX;
+        for (var i = 0; i < boxes.size(); i++) {
+            var box = boxes[i] as Array;
+            if (window != null) {
+                var wx = window.x as Number;
+                var wy = window.y as Number;
+                var clear = (box[0] as Number) + (box[2] as Number) <= wx || (box[1] as Number) >= wy + (window.height as Number)
+                    || (box[1] as Number) + (box[3] as Number) <= wy;
+                if (!clear) {
+                    problems.add("state " + name + " window overlap: '" + (box[4] as String) + "'");
+                }
+            }
+            for (var k = 0; k < 4; k++) {
+                var dx = (box[0] as Number) + (k % 2 == 0 ? 0 : box[2] as Number) - settings.screenWidth / 2;
+                var dy = (box[1] as Number) + (k < 2 ? trim : (box[3] as Number) - trim) - settings.screenHeight / 2;
+                if (dx * dx + dy * dy > radius * radius) {
+                    problems.add("state " + name + " corner: '" + (box[4] as String) + "'");
+                    break;
+                }
+            }
+        }
     }
 }

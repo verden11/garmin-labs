@@ -47,7 +47,7 @@ function goodSettingsPassThrough(logger as Test.Logger) as Boolean {
 // The palette has one colour for each offered accent, in the same order as the settings list
 // (tools/gen_settings.py ACCENTS): sky, mint, autumn, violet, pink, winter. Sky is the default (index 0):
 // blue carries no "status" meaning, unlike the old amber default.
-(:test)
+(:test, :color)
 function accentsAreInTheSettingsOrder(logger as Test.Logger) as Boolean {
     Test.assertEqual(TwoSunsPalette.ACCENTS.size(), TwoSunsConfig.ACCENT_COUNT);
     var expected = [0x55AAFF, 0x55FFAA, 0xFFAA00, 0xAA55FF, 0xFF55AA, 0xFFFFFF] as Array<Number>;
@@ -122,7 +122,9 @@ function customizeMenuHasEveryProSetting(logger as Test.Logger) as Boolean {
     var ids = [TwoSunsSettingsMenu.ITEM_ACCENT, TwoSunsSettingsMenu.ITEM_ORIENTATION, TwoSunsSettingsMenu.ITEM_GOLDEN, TwoSunsSettingsMenu.ITEM_CURVE,
                TwoSunsSettingsMenu.ITEM_DATE, TwoSunsSettingsMenu.ITEM_WEATHER, TwoSunsSettingsMenu.ITEM_BATTERY] as Array<Symbol>;
     for (var i = 0; i < ids.size(); i++) {
-        Test.assertMessage(menu.findItemById(ids[i]) >= 0, "Customize lacks item " + i);
+        // The Instinct's 1-bit display shows neither an accent nor the golden hour, so those two are not offered (ADR-024).
+        var colourOnly = ids[i] == TwoSunsSettingsMenu.ITEM_ACCENT || ids[i] == TwoSunsSettingsMenu.ITEM_GOLDEN;
+        Test.assertMessage((menu.findItemById(ids[i]) >= 0) == !(TwoSunsPalette.MONO && colourOnly), "Customize item " + i);
     }
     return true;
 }

@@ -53,6 +53,9 @@ function everyStateFitsThisDisplay(logger as Test.Logger) as Boolean {
 function alwaysOnFrameFitsAtEveryDrift(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
+    if (layout.subscreen() != null) {
+        return true;   // the always-on frame is drawn on burn-in (AMOLED) screens only; an Instinct is MIP (ADR-024)
+    }
     var problems = [] as Array<String>;
     TwoSunsDraw.misfits = [] as Array<String>;
     try {
@@ -216,7 +219,11 @@ function weatherRowStepsDownBeforeTheDateDrops(logger as Test.Logger) as Boolean
 function weatherRowFormFollowsTheScreen(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true), TwoSunsTestStates.widestDay());
-    var frame = new TwoSunsFrame(dc, new TwoSunsLayout(dc), state, false);
+    var layout = new TwoSunsLayout(dc);
+    var frame = new TwoSunsFrame(dc, layout, state, false);
+    if (layout.subscreen() != null) {
+        return true;   // the Instinct stacks beside and below its window, not by the round chord (ADR-024)
+    }
     if (dc.getWidth() <= 218) {
         Test.assertEqual(frame.weatherMode, TwoSunsConfig.WEATHER_ROW_COMPACT);
         Test.assert(frame.showDate);

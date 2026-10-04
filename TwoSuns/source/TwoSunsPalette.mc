@@ -2,7 +2,10 @@ import Toybox.Lang;
 
 // Every value is in Garmin's 64-colour palette (channels 00/55/AA/FF), so MIP
 // screens render it exactly. State is never colour alone: a word carries it too.
+(:color)
 class TwoSunsPalette {
+    // True where nothing may lean on grey or hue (the 1-bit Instinct, ADR-024).
+    static const MONO = false;
     static const BACKGROUND = 0x000000;
     static const TEXT = 0xFFFFFF;
     static const MUTED = 0xAAAAAA;
@@ -57,4 +60,36 @@ class TwoSunsPalette {
     // The energy curve. Fresh: a white line over a fill that is 3:1 against black. Stale: both muted.
     static const CURVE_FILL = 0x5555AA;
     static const CURVE_FILL_STALE = 0x555555;
+}
+
+// The Instinct's twin (ADR-024): a 1-bit display shows black and white only, and how it would round any other value is
+// unspecified, so every role is white on black. What colour says elsewhere, shape says here: the daylight still to come is
+// a thick arc, the part gone and twilight are hairlines, the sun is a solid dot while it is up and an outline when it is
+// not, the Body Battery bolt is an outline filled to its level. Same class name and roles; the jungles pick one by the
+// `color`/`mono` annotations. The Accent and Golden-hour settings have no effect and are not offered.
+(:mono)
+class TwoSunsPalette {
+    static const MONO = true;
+    static const BACKGROUND = 0x000000;
+    static const TEXT = 0xFFFFFF;
+    static const MUTED = 0xFFFFFF;
+    static const TRACK = 0xFFFFFF;
+    static const SLEEP_TEXT = 0xFFFFFF;
+    static const ACCENTS = [0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF] as Array<Number>;
+    static const NIGHT = 0xFFFFFF;
+    static const TWILIGHT = 0xFFFFFF;
+    static const GOLDEN = 0xFFFFFF;
+    static const WEATHER_SUN = 0xFFFFFF;
+    static const WEATHER_RAIN = 0xFFFFFF;
+    static const WEATHER_NUMBER = 0xFFFFFF;
+    static const CURVE_FILL = 0xFFFFFF;
+    static const CURVE_FILL_STALE = 0xFFFFFF;
+
+    static function accent(index as Number) as Number {
+        return TEXT;
+    }
+
+    static function dim(color as Number) as Number {
+        return TEXT;
+    }
 }

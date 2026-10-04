@@ -3,8 +3,8 @@
 # and properties (Accent only). The shared resources/ has NO settings files, so two never overlap.
 project.manifest = manifest.free.xml
 base.sourcePath = source
-base.resourcePath = resources;resources-free
-base.excludeAnnotations = pro
+base.resourcePath = resources;resources-free;resources-accent-free
+base.excludeAnnotations = pro;mono
 # AppName is the one string that differs by tier, and a language does NOT inherit the default's strings
 # (the compiler warns "String id 'AppName' undefined for language ..."). So each language also searches the tier
 # folder; AppName is defined only there, never in resources/ or resources-<lang>/, so no language can override it.
@@ -22,3 +22,13 @@ base.lang.spa = $(base.lang.spa);resources-free
 base.lang.swe = $(base.lang.swe);resources-free
 base.lang.tur = $(base.lang.tur);resources-free
 base.lang.ukr = $(base.lang.ukr);resources-free
+
+# The Instinct E and 3 Solar (docs/decisions.md ADR-024): the black-and-white palette (`color` excluded) and no Accent or
+# Golden settings file (their folders are left out of the resourcePath: a 1-bit display shows neither). A per-product
+# excludeAnnotations REPLACES the base list, so the tier's own exclude is restated.
+instincte40mm.excludeAnnotations = pro;color
+instincte40mm.resourcePath = resources;resources-free
+instincte45mm.excludeAnnotations = pro;color
+instincte45mm.resourcePath = resources;resources-free
+instinct3solar45mm.excludeAnnotations = pro;color
+instinct3solar45mm.resourcePath = resources;resources-free

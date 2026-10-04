@@ -248,7 +248,7 @@ function weatherHourLabels(logger as Test.Logger) as Boolean {
 }
 
 // No accent may be, or dim to, a weather hue: the weather icons must never read as the accent.
-(:test, :pro)
+(:test, :color, :pro)
 function noAccentIsAWeatherHue(logger as Test.Logger) as Boolean {
     var hues = [TwoSunsPalette.WEATHER_SUN, TwoSunsPalette.WEATHER_RAIN] as Array<Number>;
     for (var i = 0; i < TwoSunsPalette.ACCENTS.size(); i++) {

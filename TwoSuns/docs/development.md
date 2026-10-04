@@ -142,3 +142,7 @@ Found while building; each cost time.
 ## Device testing
 
 The simulator proves geometry, fonts and logic. It cannot prove always-on behaviour, battery cost, MIP daylight contrast, real location or real Body Battery data. It has no GPS position, canned weather and Complication sun values (a sunset earlier than the sunrise), and a synthetic Body Battery history (480 samples a minute apart, oldest first, mostly dated in the future). The owner's tests are in the git-ignored `../device-test/`: `LocationProbe-P.prg` and `LocationProbe-N.prg` ran on the FR965 2026-09-27 (M1, M2 only; results in `LocationProbe-RESULTS.md`; M3/M4 left for later). `TwoSuns-CHECKLIST.md` (the phase 9 wear checklist, for the face itself) is not written yet. Follow the owner's habit: dev build only, all-day wear, no swaps.
+
+## Screenshots (Instinct and any layout change)
+
+The unit suite measures numbers; it cannot see the bezel. For every layout change, photograph what the simulator draws (the face on its device skin, with the real fonts and the real bezel mask): `../docker/shot.sh TwoSuns monkey.jungle instincte45mm` writes `bin/shot-<device>-face.png` (the display, 3x). The Instinct's visible area is a circle about 98 px in radius, which a 176 x 176 square test misses (HeroSet ADR-055, amended 2026-10-03). `FAKETIME="2026-10-04 10:09:00"` sets the simulator's clock.

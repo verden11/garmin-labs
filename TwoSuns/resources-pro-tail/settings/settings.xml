@@ -1,0 +1,27 @@
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <setting propertyKey="@Properties.Curve" title="@Strings.setting_curve">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.off</listEntry>
+            <listEntry value="1">@Strings.on</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Date" title="@Strings.setting_date">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.off</listEntry>
+            <listEntry value="1">@Strings.on</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Weather" title="@Strings.setting_weather">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.off</listEntry>
+            <listEntry value="1">@Strings.on</listEntry>
+        </settingConfig>
+    </setting>
+    <setting propertyKey="@Properties.Battery" title="@Strings.setting_battery">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.off</listEntry>
+            <listEntry value="1">@Strings.on</listEntry>
+        </settingConfig>
+    </setting>
+</settings>
