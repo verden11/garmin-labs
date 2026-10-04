@@ -50,7 +50,7 @@ Definition of done for any Free build:
 - [ ] `monkeyc -w --typecheck 3` clean for both jungles on `fr965` and one small round, one rectangular product where the project has one.
 - [ ] Full compile sweep on every manifest product, both jungles.
 - [ ] Project tests pass on both jungles; add tests for the accent table. Add a check on the **compiled** Free package (not the source file) that it contains none of the Pro setting keys: see the WP4 step 0 spike for how to read what the compiler emitted.
-- [ ] Package both: `monkeyc -e -r -f <jungle> -o dist/<Name>[Pro].iq -y $KEY` (see the project's `publish-checklist.md` for its known store-package quirk).
+- [ ] Package both: `monkeyc -e -r -f <jungle> -o dist/<Name>[Pro].iq -y $KEY` (see the project's `docs/status.md` for its known store-package quirk).
 - [ ] Docs updated (spec, DESIGN if visual, ADR, compatibility, CHANGELOG, both listings, site).
 - [ ] Owner-only items listed, not done.
 
@@ -171,7 +171,7 @@ Depends on: the other session's uncommitted work being committed or handed over.
 7. Site: `day-arc` and `day-arc-pro` pages exist as two slugs. Keep both; add cross-links. Do not merge slugs (published URLs).
 8. Submission is the owner's. Upload order: Free first, Pro the same day.
 
-Done when: the DayArc `publish-checklist.md` gates are green or explicitly open with an owner name, and G-measurement (WP9) has both app ids.
+Done when: the DayArc `docs/status.md` gates are green or explicitly open with an owner name, and G-measurement (WP9) has both app ids.
 
 ### WP4. DaysToGo Free, the retrofit pilot (≈10 h agent + Garmin review cycles)
 

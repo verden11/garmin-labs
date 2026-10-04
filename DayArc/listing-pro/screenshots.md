@@ -26,7 +26,7 @@ halfway through each window.
 Confirm before capturing that the grid shows 3+ rows on FR965 (rows now size per row and drop from
 the bottom; the last narrow row may not draw — `DayArcGrid`).
 
-## Not for the store, for the owner's look check (publish-checklist gate 4)
+## Not for the store, for the owner's look check (status.md gate 4)
 
 Midday on **approachs50** (smallest round; expect fewer rows — proves the grid degrades by row
 count, not overlap) and on **venusq2** (rectangular). Keep them out of the listing.

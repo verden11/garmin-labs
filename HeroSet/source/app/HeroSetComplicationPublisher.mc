@@ -34,7 +34,7 @@ class HeroSetComplicationPublisher {
     }
 
     // "v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay|goal"
-    // (HeroFace docs/plan.md). The day keys let a subscriber tell today's
+    // (HeroFace docs/archive/plan.md). The day keys let a subscriber tell today's
     // counts from yesterday's, because this only publishes while the app
     // runs. Field order never changes; new fields go on the end — `goal`
     // was appended without bumping VERSION, because a version a face does

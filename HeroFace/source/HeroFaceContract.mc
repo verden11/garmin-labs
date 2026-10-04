@@ -1,6 +1,6 @@
 import Toybox.Lang;
 
-// Parses HeroSet's complication value (HeroSet ADR-044, docs/plan.md):
+// Parses HeroSet's complication value (HeroSet ADR-044, docs/archive/plan.md):
 // "v|dayKey|push|sit|squat|rank|rankPct|streak|lastDoneDay|goal", day keys
 // as YYYYMMDD, every field a non-negative integer. HeroSet only publishes while it runs, so the day keys decide
 // what is still true today.
