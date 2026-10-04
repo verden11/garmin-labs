@@ -16,6 +16,7 @@ class DayArcSizing {
         var value = hero.hasKey(:value) ? hero.get(:value) : null;
         return {
             :date => date instanceof String ? wider(dc, date, DayArcConfig.WORST_DATE, text) : null,
+            :liveDate => date instanceof String ? date : null,   // what DayArcStackFit asks the corner fields about (the sized :date is the worst case)
             :label => hero.get(:label),
             :value => wider(dc, value instanceof String ? value : worstValue, worstValue, DayArcLayout.HERO_FONTS[0]),
             :sub => sub instanceof String ? wider(dc, sub, worstSub(window), text) : null,
@@ -31,6 +32,27 @@ class DayArcSizing {
             && coveredBy(dc, sized.get(:label), hero.get(:label), text)
             && coveredBy(dc, sized.get(:value), hero.get(:value), DayArcLayout.HERO_FONTS[0])
             && coveredBy(dc, sized.get(:sub), hero.hasKey(:sub) ? hero.get(:sub) : null, text);
+    }
+
+    // Pro's grid: the plan checked its grid rows against the cell values of the moment it was made, so a value that later
+    // grows wider (steps 999 -> 1000) must replan, or the grid drops a row the plan reserved room for and leaves a gap
+    // (1.17, FR255S). A calendar title (:flex) is exempt: it may end in "..." whatever its width. One-way: a narrower value
+    // keeps the plan, so tiers do not flicker.
+    static function cellsCovered(dc as Graphics.Dc, planned as Array<Dictionary>, hero as Dictionary) as Boolean {
+        var live = hero.get(:cells);
+        if (!(live instanceof Array)) {
+            return true;
+        }
+        var cells = live as Array<Dictionary>;
+        for (var i = 0; i < cells.size(); i++) {
+            if (cells[i].hasKey(:flex)) {
+                continue;
+            }
+            if (i >= planned.size() || dc.getTextWidthInPixels(cells[i].get(:value) as String, DayArcLayout.CELL_FONT) > dc.getTextWidthInPixels(planned[i].get(:value) as String, DayArcLayout.CELL_FONT)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     private static function coveredBy(dc as Graphics.Dc, planned as Object or Null, live as Object or Null, font as Graphics.FontDefinition) as Boolean {

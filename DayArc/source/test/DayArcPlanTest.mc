@@ -64,6 +64,28 @@ function planCacheRebuildsOnLiveChanges(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// Pro's grid values are part of the plan too (1.17): a value that grows wider (steps 999 -> 1000) replans, a narrower one or a
+// wider calendar title (:flex) keeps the plan.
+(:test)
+function planCacheReplansWhenAGridValueGetsWider(logger as Test.Logger) as Boolean {
+    var dc = dayArcTestDc();
+    var layout = new DayArcLayout(dc);
+    var cache = new DayArcPlanCache();
+    var window = DayArcConfig.WINDOW_EVENING;
+    var first = cache.get(dc, layout, window, dayArcCellsHero(window, "99", "x"));
+    Test.assertMessage(cache.get(dc, layout, window, dayArcCellsHero(window, "9", "x")) == first, "a narrower grid value keeps the plan");
+    Test.assertMessage(cache.get(dc, layout, window, dayArcCellsHero(window, "99", "a much longer calendar title")) == first, "a calendar title never replans");
+    Test.assertMessage(cache.get(dc, layout, window, dayArcCellsHero(window, "99999", "x")) != first, "a wider grid value must replan");
+    return true;
+}
+
+(:debug)
+function dayArcCellsHero(window as Number, steps as String, title as String) as Dictionary {
+    var hero = dayArcLiveHero(window, "Mon 28", "44 of 100");
+    hero.put(:cells, [{:label => null, :value => steps}, {:label => null, :value => title, :flex => true}] as Array<Dictionary>);
+    return hero;
+}
+
 // A plan that fits nowhere (a 40x40 Dc, far too small for any font tier) is still safe to draw: no
 // row whose bottom crosses the usable bottom survives, and drawing throws nothing.
 (:test)

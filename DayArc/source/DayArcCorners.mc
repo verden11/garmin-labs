@@ -13,9 +13,26 @@ class DayArcCorners {
         return cells;
     }
 
+    (:simple)
+    static function rest(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, date as String or Null, cells as Array<Dictionary>) as Array<Dictionary> {
+        return cells;
+    }
+
     // Draws the corner fields and returns the cells that still belong in the grid, in order.
     (:pro)
     static function draw(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, date as String or Null, cells as Array<Dictionary>) as Array<Dictionary> {
+        return place(dc, layout, plan, date, cells, true);
+    }
+
+    // The same answer without drawing: DayArcStackFit checks the grid rows against the cells the grid will really get, not
+    // against every cell (the corner fields leave it), or a row the plan reserved fails at draw time and leaves a gap.
+    (:pro)
+    static function rest(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, date as String or Null, cells as Array<Dictionary>) as Array<Dictionary> {
+        return place(dc, layout, plan, date, cells, false);
+    }
+
+    (:pro)
+    private static function place(dc as Graphics.Dc, layout as DayArcLayout, plan as DayArcStack, date as String or Null, cells as Array<Dictionary>, paint as Boolean) as Array<Dictionary> {
         var y = plan.ys[DayArcStack.ROW_DATE];
         if (y < 0 || date == null || layout.subscreen() != null) {
             return cells;   // no corner pills beside the Instinct's window: the date row is a narrow band (ADR-015)
@@ -37,7 +54,9 @@ class DayArcCorners {
                 continue;
             }
             var x = placed == 0 ? layout.centerX() - half : layout.centerX() + half - width;
-            DayArcGrid.drawNatural(dc, layout, cell, x, y, height);
+            if (paint) {
+                DayArcGrid.drawNatural(dc, layout, cell, x, y, height);
+            }
             placed++;
         }
         return rest;

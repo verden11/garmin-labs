@@ -44,9 +44,15 @@ class DayArcStackFit {
     }
 
     // Pro: the grid block must still be able to draw the rows this rung reserved, each by its own
-    // chord. A rung that trimmed the grid away has nothing to check.
+    // chord, for the cells the grid really gets (the corner fields beside the date leave it). A rung that
+    // trimmed the grid away has nothing to check.
     static function gridFits(plan as DayArcStack, dc as Graphics.Dc) as Boolean {
-        return !plan.pro || plan.gridTop() < 0 || DayArcGrid.rowsFit(dc, plan.layout, plan.cells, plan.gridTop(), plan.gridRows);
+        if (!plan.pro || plan.gridTop() < 0) {
+            return true;
+        }
+        var date = plan.strings.get(:liveDate);
+        var cells = DayArcCorners.rest(dc, plan.layout, plan, date instanceof String ? date : null, plan.cells);
+        return DayArcGrid.rowsFit(dc, plan.layout, cells, plan.gridTop(), plan.gridRows);
     }
 
     private static function neededWidth(plan as DayArcStack, dc as Graphics.Dc, row as Number) as Number {

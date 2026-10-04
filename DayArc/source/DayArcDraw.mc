@@ -56,7 +56,9 @@ class DayArcDraw {
         var label = hero.get(:label);
         if (labelY >= 0 && label instanceof String) {
             var width = plan.rowWidth(labelY, plan.hs[DayArcStack.ROW_LABEL]);
-            DayArcText.drawCentered(dc, layout.rowCenterX(labelY, plan.hs[DayArcStack.ROW_LABEL]), labelY, plan.textFont, label, width, DayArcPalette.MUTED);
+            // The label names the hero, so it is the brighter small line (the date is muted) and sits closer to its number than
+            // to the date: drawn down into the empty headroom above the digits (reviewer pass seven).
+            DayArcText.drawCentered(dc, layout.rowCenterX(labelY, plan.hs[DayArcStack.ROW_LABEL]), labelY + labelNudge(dc, plan), plan.textFont, label, width, DayArcPalette.TEXT);
         }
         if (plan.ys[DayArcStack.ROW_HERO] >= 0) {
             drawHeroGroup(dc, layout, plan, hero, accent);
@@ -77,6 +79,17 @@ class DayArcDraw {
                 DayArcText.drawCentered(dc, layout.rowCenterX(y, lineHeight), y, plan.textFont, lines[i], plan.rowWidth(y, lineHeight), DayArcPalette.MUTED);
             }
         }
+    }
+
+    // Half the empty headroom above the hero's digits (a number font's box carries about a quarter of its height above them,
+    // DIGIT_HEIGHT_PERMILLE); 0 on a 1-bit watch, where the box is tested tight against the bezel circle.
+    private static function labelNudge(dc as Graphics.Dc, plan as DayArcStack) as Number {
+        if (DayArcPalette.MONO || plan.ys[DayArcStack.ROW_HERO] < 0) {
+            return 0;
+        }
+        var ink = DayArcText.inkHeight(dc, plan.heroFont);
+        var headroom = (plan.hs[DayArcStack.ROW_HERO] + ink) / 2 - ink * DayArcConfig.DIGIT_HEIGHT_PERMILLE / 1000;
+        return headroom > 0 ? headroom / 2 : 0;
     }
 
     // Icon beside the hero value, both the window's accent, centred together as one group
@@ -130,7 +143,7 @@ class DayArcDraw {
         var startDeg = GAUGE_BOTTOM_DEGREES - span;
         // 1-bit: the track is a hairline (every role is white there, so a full-pen track hid the fill share).
         dc.setPenWidth(DayArcPalette.MONO ? 1 : pen);
-        dc.setColor(DayArcPalette.MUTED, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(DayArcPalette.ARC_TRACK, Graphics.COLOR_TRANSPARENT);   // the same track grey as the arc and the pills
         dc.drawArc(centreX, centreY, radius, Graphics.ARC_COUNTER_CLOCKWISE, startDeg, GAUGE_BOTTOM_DEGREES + span);
         dc.setPenWidth(1);
         if (!DayArcPalette.MONO) {

@@ -154,7 +154,8 @@ class DayArcStack {
     private function attempt(rung as Number, lines as Number, noGrid as Boolean) as Boolean {
         var t = DayArcConfig.STACK_LEVELS[rung];
         level = rung;
-        clockFont = DayArcLayout.CLOCK_FONTS[t[DayArcConfig.LEVEL_CLOCK]];
+        // On a 1-bit watch the clock starts one tier down: with no hue the biggest digits read first, and they must be the hero's.
+        clockFont = DayArcLayout.CLOCK_FONTS[DayArcText.max(t[DayArcConfig.LEVEL_CLOCK], DayArcPalette.MONO ? 1 : 0)];
         heroFont = DayArcLayout.HERO_FONTS[t[DayArcConfig.LEVEL_HERO]];
         smallIcon = t[DayArcConfig.LEVEL_HERO] != 0;
         iconWidth = _iconSizes[smallIcon ? 2 : 0];
@@ -183,7 +184,33 @@ class DayArcStack {
             place(start);
         }
         fits = start + total <= limit && DayArcStackFit.allRowsFit(self, dc()) && DayArcStackFit.gridFits(self, dc());
+        if (fits && pro && hs[ROW_GRID] > 0 && layout.subscreen() == null) {
+            clearClock(limit - start - total);
+        }
         return fits;
+    }
+
+    // Pro's corner pills sit in the date row, right under the clock: where the planned stack leaves spare height, widen the
+    // clock-to-date gap by up to one row gap (reviewer pass seven: the FR965 morning pills were 5 px under the digits).
+    // Taken back if the lower rows then no longer fit their chords. With no spare height (the FR965 morning), and no label
+    // row between the date and the hero, the date row alone moves down into the empty headroom above the hero's digits.
+    private function clearClock(spare as Number) as Void {
+        var wanted = layout.rowGap();
+        var extra = DayArcText.max(0, DayArcText.min(spare, wanted));
+        shiftFrom(ROW_DATE, ROW_COUNT, extra);
+        var date = ys[ROW_LABEL] < 0 ? DayArcText.min(wanted - extra, gap) : 0;
+        shiftFrom(ROW_DATE, ROW_LABEL, date);
+        if (!(DayArcStackFit.allRowsFit(self, dc()) && DayArcStackFit.gridFits(self, dc()))) {
+            shiftFrom(ROW_DATE, ROW_LABEL, -date);
+            shiftFrom(ROW_DATE, ROW_COUNT, -extra);
+        }
+    }
+
+    // Moves rows [from, to) down by dy (rows that are absent stay absent).
+    private function shiftFrom(from as Number, to as Number, dy as Number) as Void {
+        for (var i = from; i < to; i++) {
+            ys[i] = ys[i] >= 0 ? ys[i] + dy : -1;
+        }
     }
 
     private function measure(trim as Number, dropLabel as Boolean) as Void {

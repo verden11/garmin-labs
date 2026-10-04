@@ -26,7 +26,7 @@ class DayArcPlanCache {
     function get(dc as Graphics.Dc, layout as DayArcLayout, window as Number, hero as Dictionary) as DayArcStack {
         var key = keyFor(window, hero);
         var plan = _plan;
-        if (plan == null || key != _key || !DayArcSizing.covers(dc, plan.strings, hero)) {
+        if (plan == null || key != _key || !DayArcSizing.covers(dc, plan.strings, hero) || !DayArcSizing.cellsCovered(dc, plan.cells, hero)) {
             plan = DayArcStack.plan(dc, layout, window, hero);
             _plan = plan;
             _key = key;
