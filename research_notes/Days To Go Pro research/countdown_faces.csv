@@ -1,0 +1,104 @@
+id,name,price,payment,kind,downloads_bucket,reviews,rating,last_changed,version,device_types,permissions,genuine,note
+183a7d45-c05e-4964-ba16-8f238eab2ba6,Countdown!,free,free,generic (your own date),100000,205,4.1,2019-10-10,2.5.0,119,,y,
+ddf4eaf4-2bb0-44c8-9250-17bb2c208ed0,New Year Countdown,free,free,fixed/seasonal/sport event,50000,76,3.5,2023-12-28,1.3.0,169,Positioning;SensorHistory;UserProfile,y,
+23bae5fc-da90-48d1-b254-404a5d727f1a,time2race... Countdown to race day!,free,free,fixed/seasonal/sport event,10000,78,4.1,2020-03-06,1.5.9E,57,SensorHistory;UserProfile,y,
+1d146c60-afb0-47ff-b76e-49b619e75de3,"Watchface with altitude, moon, sun & countdown",free,free,generic (your own date),10000,36,4.2,2018-11-13,Nov 2018 3,52,Positioning;Background;SensorHistory;UserProfile;Ant;Communications;Sensor,y,
+d44a137e-7a1e-4b67-9aa6-133d48db745c,Event Countdown,free,free,generic (your own date),10000,32,4.4,2026-03-14,1.1.3,184,Positioning;SensorHistory;UserProfile,y,
+a7b82a44-8701-4299-aae7-58a67a9485a6,Formula 1 - F1 -2026 Season (animated+countdown),free,free+external-unlock,fixed/seasonal/sport event,1000,23,4.7,2026-08-28,2.5,63,Positioning;SensorHistory,y,
+7a9ea440-3e9c-4f0a-9e9d-5822f5091020,Manjianghong,free,free+external-unlock,generic (your own date),1000,16,4.3,2024-03-07,8.1.1,143,Background;SensorHistory;UserProfile;Communications;Sensor,,configurable fields face
+a3edf6d6-4b5a-402f-810b-7918bb3f229a,Countdown,free,free,generic (your own date),1000,11,4.0,2016-10-19,1.0-upd5,41,,y,
+cc1c484b-6ea9-4d50-aa12-5677d6222bad,Countdown - Watch & Track events,free,free,generic (your own date),1000,11,5.0,2026-08-25,1.0.2,174,Background;Communications;ComplicationSubscriber,y,
+e691b253-54a1-421a-abfa-26442d54293a,Garmin Run Indonesia 2023,free,free,fixed/seasonal/sport event,1000,9,4.9,2024-02-27,1.1.5,169,Positioning;SensorHistory;UserProfile,y,
+bd56fe27-f309-4d9d-a2df-e73905d5bf0f,Garmin Run JAPAN 2023,free,free,fixed/seasonal/sport event,1000,7,4.9,2024-02-27,1.1.1,169,Positioning;SensorHistory;UserProfile,y,
+72e4de60-7856-473d-a871-a5eac5fb2039,Inspire Fitness,free,free,generic (your own date),1000,7,4.4,2021-08-13,0.1.0,156,Background;SensorHistory;Sensor,,team fitness face with a small event feature
+1da098aa-d7f2-475e-942c-e0a271996669,WC26 Live — Scores & Countdown,free,free,fixed/seasonal/sport event,1000,6,4.0,2026-08-25,1.0.4,72,Background;Communications,y,
+860b336a-d7d9-4342-a328-95382591cce1,Garmin Health Summit 2023,free,free,generic (your own date),1000,6,3.8,2023-11-15,1.0,110,UserProfile,,event face for one conference
+4438a8e5-c57a-4662-a081-f71739af2ae0,Garmin Run Thailand 2023,free,free,fixed/seasonal/sport event,1000,5,5.0,2024-02-27,1.1.1,171,Positioning;SensorHistory;UserProfile,y,
+be02504c-adbf-4953-a887-394c7ca7208b,Garmin Run Vietnam 2023,free,free,fixed/seasonal/sport event,1000,4,5.0,2024-02-27,1.1.1,169,Positioning;SensorHistory;UserProfile,y,
+708db8fb-ee6d-4fe9-8c16-306a1a56903b,Garmin Health Summit 2024,free,free,generic (your own date),1000,4,5.0,2024-08-06,1.0.0,55,Positioning;SensorHistory;UserProfile,,event face for one conference
+8ce448f2-2fe2-40f3-90e9-ef4a570e9bba,Merry Christmas,free,free+external-unlock,fixed/seasonal/sport event,1000,3,4.7,2023-11-15,1.0.4,170,Background;Communications,y,
+8c850bed-afcb-4df1-9cbe-9f9d15fe0c33,Grinch Christmas Countdown,free,free+external-unlock,fixed/seasonal/sport event,1000,2,4.0,2021-11-14,1.0.0,130,Background;Communications,y,
+61c21376-05f8-4f94-a0ca-b0a767109838,Garmin Run Asia Series 2023 - Malaysia,free,free,fixed/seasonal/sport event,1000,2,5.0,2024-02-27,1.0.1,171,Positioning;SensorHistory;UserProfile,y,
+ba08b240-0cf1-4a5a-a684-5cf9a0a96e88,Fragile Winter,free,free+external-unlock,fixed/seasonal/sport event,1000,2,4.0,2023-11-15,1.0.4,170,Background;Communications,y,
+c76afbbc-cf1d-428f-a549-9c6e31249784,UTVV Race Countdown,free,free,fixed/seasonal/sport event,1000,1,5.0,2026-08-25,v1,252,Positioning;Background;SensorHistory;UserProfile;Ant;Communications;ComplicationSubscriber;PushNotification;BluetoothLowEnergy;Notifications;Sensor,y,
+7581bc34-6435-42ed-9947-ad180ec3f564,Walking Limit,free,free,generic (your own date),1000,1,5.0,2016-12-09,1.2.0-upd,13,,,"step-limit countdown, not a date"
+b2c6459d-268f-4c4a-beed-963684eb43f0,F1 2026 Drivers AMOLED,"3,49€",store-paid,fixed/seasonal/sport event,100,8,4.9,2026-08-30,1.3.0,32,Positioning;Background;UserProfile;Communications;ComplicationSubscriber,y,
+3935f106-9768-471e-9138-7d61f0a57ad6,Halloween Countdown,free,free+external-unlock,fixed/seasonal/sport event,100,7,4.9,2026-09-14,1.0.3,82,Positioning;Background;SensorHistory;UserProfile;Communications,y,
+e16a5606-024a-48c0-a9df-73a5d0c642af,DualTime Temp CountDown Schiefersoft Watchface,free,free,generic (your own date),100,6,4.3,2026-08-28,10,51,,,dual-time/temperature face with a countdown mode
+305d8af0-7243-4954-ada2-b8c36fa2a432,Top 4 Golf Tournament Countdown Watch Face 2027,free,free,fixed/seasonal/sport event,100,4,3.3,2026-09-23,3.0,41,,y,
+6067b302-9ab1-462c-ba3e-e54148218b1c,Countdown,free,free+external-unlock,generic (your own date),100,2,4.5,2026-08-28,3.5.3,121,Background;SensorHistory;Communications;ComplicationSubscriber,y,
+35c20b78-8075-4cda-9974-764e84b4d956,Christmas Countdown,free,free+external-unlock,fixed/seasonal/sport event,100,2,5.0,2026-08-28,1.0.0,40,Background;SensorHistory;Communications,y,
+0732cff9-9c12-4d66-aad3-1a5c6f36940d,Cradle Countdown,free,free,generic (your own date),100,2,4.0,2019-03-27,1.0.3,19,,y,
+86da9943-3394-4cfd-bd39-fef9ff7247b7,Christmas Countdown Watchface Garmin,free,free+external-unlock,fixed/seasonal/sport event,100,2,3.0,2026-08-27,2,75,Positioning;Background;SensorHistory;Communications;Sensor,y,
+6bf9e3d1-02b1-46b0-a2f4-5136879e7784,Countdown to Christmas - santa,free,free+external-unlock,fixed/seasonal/sport event,100,2,5.0,2026-08-28,4.1.2,200,Positioning;Background;Communications,y,
+b028837b-71d0-4945-ac60-dcfb034aa619,IM Arizona Countdown Watch Face,free,free,generic (your own date),100,2,5.0,2018-01-30,3.000,4,,y,
+dd7da13d-a357-4b3d-aff7-c0864215d233,Welcome winter,free,free+external-unlock,fixed/seasonal/sport event,100,2,3.5,2023-11-15,1.0.3,170,Background;Communications,y,
+7898a960-c28c-4197-b35c-5f51fe11cd58,Christmas Countdown - Merry,free,free+external-unlock,fixed/seasonal/sport event,100,1,5.0,2026-08-28,4.1.2,200,Positioning;Background;Communications,y,
+d7939f39-2e0c-4ede-a224-77a26ed81aa5,Countdown Watch Face,free,free,generic (your own date),100,1,5.0,2022-04-04,1.1.4,111,,y,
+450e52ab-54e8-4b44-80ff-6ea01e3bf248,Tiberias Marathon Countdown,free,free,fixed/seasonal/sport event,100,1,5.0,2019-04-01,2 - with 920,69,UserProfile,y,
+876dc9ee-3a53-4c23-a7f4-c5f1fb7002da,Countdown to Christmas - Tree,free,free+external-unlock,fixed/seasonal/sport event,100,1,5.0,2025-11-04,4.1.2,197,Positioning;Background;Communications,y,
+72b525a9-f622-45dd-b742-5420a357acd7,Countdown to Christmas - Reindeer,free,free+external-unlock,fixed/seasonal/sport event,100,1,4.0,2025-11-04,4.5.0,197,Positioning;Background;Communications,y,
+c73019ee-ecfb-4b6c-9ae6-f948f8f1e7ac,TransPortugal Race countdown Watch Face,free,free,fixed/seasonal/sport event,100,1,5.0,2016-10-19,1.0.0-upd5,41,,y,
+97178191-b637-46ec-a0dd-87be1e00560e,Winter peace,free,free+external-unlock,fixed/seasonal/sport event,100,1,5.0,2023-11-15,1.0.4,170,Background;Communications,y,
+54a29f76-8385-4868-bf84-3ac842d5fc10,Christmas Nutcracker,free,free+external-unlock,fixed/seasonal/sport event,100,1,5.0,2023-12-01,1.0.0,169,Background;Communications,y,
+02fee081-e79d-4c92-a119-867cf08e10af,NY Countdown,free,free+external-unlock,generic (your own date),100,0,0,2025-06-04,99.00.05,130,Positioning;Background;Communications,y,
+7efad45d-19f3-4131-a7f9-ac9fb10dd627,Göteborgsvarvet Countdown,free,free,fixed/seasonal/sport event,100,0,0,2022-07-24,1.2.0,73,,y,
+a94e7101-1e82-4e87-b602-6cab6b9534b7,Underlord countdown,free,free,generic (your own date),100,0,0,2019-02-25,1.0.2,20,,y,
+e4279883-8ed2-4017-a697-ccedfc6f4330,New Year Countdown,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2026-08-28,1.0.0,71,Positioning;Background;SensorHistory;UserProfile;Communications,y,
+ab6777bd-8a64-48de-ace3-eb97cf939161,Vasaloppet 2018 Countdown,free,free,fixed/seasonal/sport event,100,0,0,2018-12-05,VasaloppetCountdown ,37,,y,
+dbeeec57-f3ab-442d-bd5d-1ca3c4e2ed8a,Xmas Countdown - shooting Star,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2026-08-28,99.0.4,198,Positioning;Background;Communications;ComplicationSubscriber,y,
+64971e2d-949e-4869-9450-55a2e149a081,Christmas Countdown - Santa's hat,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2025-12-09,4.2.0,198,Positioning;Background;Communications,y,
+afe5b76d-6801-45f7-aad3-b8759a73b44d,Christmas Countdown - Sleigh 2,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2026-08-28,4.5.0,200,Positioning;Background;Communications,y,
+fa6b3dc2-884f-41c0-98e9-fc3ff587279b,Countdown to Christmas - Moon,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2025-11-06,4.1.2,197,Positioning;Background;Communications,y,
+42bb7e8c-4e4e-4ec7-8216-5ae4dbd17728,Countdown to Christmas - Sleigh,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2026-08-28,4.1.1,200,Positioning;Background;Communications,y,
+a050bf4d-9347-4d36-8ed8-8e44cd663be4,Tel Aviv Marathon Countdown,free,free,fixed/seasonal/sport event,100,0,0,2019-03-08,1,34,,y,
+04bc90a3-2553-4c44-b424-ae69a214860c,Countdown to Lunar / Chinese New Year,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2022-02-01,2.0.0,119,Background;Communications,y,
+540a36b3-aa03-4b7e-a4bf-33edba33c10e,Peakflow Mono,free,free,generic (your own date),100,0,0,2026-09-25,1.0.0,145,Positioning;Background;SensorHistory;Communications;ComplicationSubscriber,,"bus/rain countdown, not a date"
+13255cd6-0e71-4c8a-bd8e-394a8138ebaf,Israman Eilat 2019,free,free,fixed/seasonal/sport event,100,0,0,2019-04-01,1,70,UserProfile,y,
+fb5c89e5-1283-4fa0-af42-b2992f50c653,Days till Christmas,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2023-11-15,1.0.3,170,Background;Communications,y,
+57994567-f40a-49ff-8f21-5ca56db89410,TMV Digital Event,free,free,generic (your own date),100,0,0,2019-04-22,1.0.1,8,Positioning;Background;SensorHistory;Sensor,,dashboard face with an event line
+c3d388c2-fc54-4e10-86ee-50da0109e51d,Winter Snowflakes AOD,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2023-11-15,1.0.4,170,Background;Communications,y,
+4507109b-7b6f-438b-801d-003b0fcb8ff5,Pure winter,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2023-11-15,1.0.3,170,Background;Communications,y,
+01371bc6-f9f2-49d7-ac68-aa127ff83475,Icy Blur,free,free+external-unlock,generic (your own date),100,0,0,2023-11-15,1.0.3,170,Background;Communications,y,
+faea94ae-f7f1-46f5-bb98-a9e4ba95537b,Christmas Mistletoe,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2023-11-22,1.0.0,169,Background;Communications,y,
+8edd2b6d-36bb-4b5f-8285-37dd1211f8ba,Love for snow,free,free+external-unlock,fixed/seasonal/sport event,100,0,0,2023-11-20,1.0.0,169,Background;Communications,y,
+faa7ef01-4bc7-4d44-861e-9742de38bcdb,NINJA Israel,free,free,fixed/seasonal/sport event,10,2,3.0,2019-07-15,1.2.0,61,,y,
+89c4f91d-c9cb-49c0-a8e0-0364d2e51d7c,Göteborgsvarvet 2025 Countdown,free,free,fixed/seasonal/sport event,10,1,5.0,2026-08-28,2.1,136,,y,
+fd24eb49-f37e-4488-8401-20f41932b799,Custom countdown,free,free+external-unlock,generic (your own date),10,1,5.0,2026-08-25,1.0.1,84,Positioning;Background;SensorHistory;UserProfile;Communications,y,
+65f02b33-9a39-4531-a3bd-69eadd438184,Xmas Countdown,free,free+external-unlock,fixed/seasonal/sport event,10,1,3.0,2025-06-04,99.00.05,130,Positioning;Background;Communications,y,
+8ed9e864-2e88-4a37-b247-c57d8617da01,Days Until Christmas ⭐,free,free,fixed/seasonal/sport event,10,1,5.0,2026-08-25,1.0.2,84,Positioning;SensorHistory;UserProfile,y,
+666b4262-022d-4fd8-8dc5-56c0517095cf,Family Calendar,free,free+external-unlock,generic (your own date),10,1,5.0,2026-08-24,1.0.1,84,Background;Communications,,family calendar face
+5b3d2e30-d669-4d66-a97e-d427fbdd45f8,Christmas Wonder,free,free+external-unlock,fixed/seasonal/sport event,10,1,1.0,2023-12-08,1.0.0,169,Background;Communications,y,
+f42095cf-45ce-4e86-874f-26993b478f6a,Countdown,free,free,generic (your own date),10,0,0,2026-08-24,1.0.0,45,SensorHistory;UserProfile,y,
+4e1d9352-3364-495c-af12-7382a56a9745,VO₂ Countdown,free,free,generic (your own date),10,0,0,2026-08-08,1.2,5,SensorHistory;UserProfile,,"VO2 countdown, not a date"
+7f9aedbf-e473-4af2-8fdc-410f66747003,Gold Countdown,"2,99€",store-paid,generic (your own date),10,0,0,2026-08-25,1.0.0,75,,,"title only: description is a digital face (steps, calories, battery, AOD), no event"
+ca12176e-b074-4bde-91bc-9ee827c72559,Countdown Sparkle,free,free+external-unlock,generic (your own date),10,0,0,2026-08-27,3.5.2,121,Background;SensorHistory;Communications;ComplicationSubscriber,y,
+60f1489a-7554-4624-a030-2970c402a0ed,Countdown Hourglass,free,free+external-unlock,generic (your own date),10,0,0,2025-01-11,1.0.0,150,Background;Communications,y,
+96352958-6b15-4439-9be2-0f5938d44740,Timetable-Countdown,free,free,generic (your own date),10,0,0,2020-09-02,0.1.1,2,SensorHistory,y,
+df1e14d1-340c-453d-893a-22e25f449854,Xmas Countdown Clouds,free,free+external-unlock,fixed/seasonal/sport event,10,0,0,2026-08-28,99.0.4,200,Positioning;Background;SensorHistory;Communications,y,
+b9f352d9-11db-426d-8ac5-6f269aa4b5df,Christmas Countdown - Reef,free,free+external-unlock,fixed/seasonal/sport event,10,0,0,2026-08-28,4.2.0,199,Positioning;Background;Communications,y,
+ee8bb6f7-80a8-4ca2-988d-f4b492720c89,Jerusalem Marathon Countdown,free,free,fixed/seasonal/sport event,10,0,0,2019-03-08,1,34,,y,
+2829a86d-715a-48bf-bdf6-e8cd6250df12,Grande Traversee — Race Countdown,free,free,fixed/seasonal/sport event,10,0,0,2026-08-24,v2.0,96,UserProfile,y,
+c7c53cc9-fced-46db-9d0f-043bc17e4a1e,Xmas Countdown - santa's sack,free,free+external-unlock,fixed/seasonal/sport event,10,0,0,2026-08-28,99.0.4,198,Positioning;Background;Communications;ComplicationSubscriber,y,
+682149b4-2b66-4192-aab8-201dbcbe19a3,Xmas Countdown - snowy cottage,free,free+external-unlock,fixed/seasonal/sport event,10,0,0,2026-08-28,99.0.4,198,Positioning;Background;Communications;ComplicationSubscriber,y,
+3223a628-7a6a-4433-aaa8-32f19fd41a83,Countdown to Christmas - snowman,free,free+external-unlock,fixed/seasonal/sport event,10,0,0,2026-08-28,4.1.1,200,Positioning;Background;Communications,y,
+c46d49a5-40e4-439c-956a-8b3f4f872c07,Top 5 Cycling Tournament Countdown,free,free,fixed/seasonal/sport event,10,0,0,2026-07-26,2.0,38,,,tournament calendar
+654e6baa-02e1-4f64-922f-ab872e00372f,Giro d'Italia Countdown Watch Face,free,free,fixed/seasonal/sport event,10,0,0,2026-10-04,2.0,66,SensorHistory;ComplicationSubscriber,y,
+7f1afcd3-6da3-4dbd-af8a-a68627e5b4fa,Dawn Patrol,free,free,generic (your own date),10,0,0,2026-08-24,1.0.0,45,Positioning;SensorHistory;UserProfile,,not a countdown
+631a8769-e7c5-4119-8d2c-0ba325f3e428,Water Log,free,free,generic (your own date),10,0,0,2026-08-24,1.0.0,45,Positioning;SensorHistory;UserProfile,,not a countdown
+1df5912f-9b0e-4ac1-bff7-bea2b3d7a9fc,Days Left - Battery Watch Face,free,free+external-unlock,generic (your own date),10,0,0,2026-10-03,1.2.10,117,Background;SensorHistory;Communications,,battery-days face
+63b6b457-bbf9-4bc0-aabb-5bc62f1db1b2,Cap – Countdown to Your Day,"2,49€",store-paid,generic (your own date),1,2,5.0,2026-08-27,1.0.0,58,,y,
+3b081066-9d16-40d0-b824-194ea154a2bc,Race Countdown Watch,"2,69€",store-paid,fixed/seasonal/sport event,1,1,5.0,2026-08-25,1.0.0,87,Background;SensorHistory;UserProfile;Communications;ComplicationSubscriber,y,
+7d4cc38d-d3b7-4abc-9c41-83cc39fae0dd,World Cup 2026 Kick off Countdown,"2,99€",store-paid,fixed/seasonal/sport event,1,1,5.0,2026-08-25,1.3.0,42,Background;SensorHistory;Communications;ComplicationSubscriber,y,
+3fb056a0-22eb-4b6a-b170-ef932827d568,Countdown,"2,49€",store-paid,generic (your own date),1,0,0,2026-07-02,1.0,19,,y,
+6d07c3f6-84f3-4929-98bf-ad622c8206e9,Countdown,"2,99€",store-paid,generic (your own date),1,0,0,2026-08-27,1,75,,,"title only: description is 'Digital watchface with AOD', no event"
+7c809fbb-251f-4798-81e5-3e28f9890fa6,Countdown Set,free,free,generic (your own date),1,0,0,2026-08-24,1.0.0,45,Positioning;SensorHistory;UserProfile,,"four T-minus rows (sunset, steps, battery)"
+9bc26cf2-b8d0-4a9d-9283-8582ad77f5d7,Blue Countdown,"2,99€",store-paid,generic (your own date),1,0,0,2026-08-25,1.0.0,75,,,"title only: description is a digital face with a seconds ring, no event"
+b00ab88c-5506-4042-9a61-c58768a3b96a,Christmas Countdown,free,free,fixed/seasonal/sport event,1,0,0,2023-11-05,1.0,1,,y,
+0d46ce2d-8a94-4a02-ad30-c711f1f6e135,HY-BRO Race Countdown,free,free,fixed/seasonal/sport event,1,0,0,2026-10-03,1.1,5,SensorHistory;UserProfile;ComplicationSubscriber,y,
+71e23bce-2c16-4671-a22e-d8f4a74a1e4c,Race Day — Marathon Countdown,free,free+external-unlock,fixed/seasonal/sport event,1,0,0,2026-09-29,1.0.3,17,UserProfile;ComplicationSubscriber,y,
+9c2151c9-d99d-4ce9-b9b5-2d1e51567114,⭐New Year Countdown,free,free,fixed/seasonal/sport event,1,0,0,2026-08-25,1.0.2,84,Positioning;SensorHistory;UserProfile,y,
+f7199461-ec71-4def-841e-9c1e0ffaa8cd,Race Day Watch Face - Race Countdown,free,free+external-unlock,fixed/seasonal/sport event,1,0,0,2026-10-03,1.1.5,117,Background;Communications;ComplicationSubscriber,y,
+f0dbbb7c-8a3a-4175-92b5-37128c78ece7,Gameday,free,free,generic (your own date),1,0,0,2026-08-24,1.0.0,45,SensorHistory;UserProfile,,not a countdown
+42c51fb7-ee0a-4996-b2ac-df477f254af6,RocketTime,"2,49€",store-paid,generic (your own date),1,0,0,2026-08-24,0.5,7,Background;Communications,y,
+95adf037-3bf8-423c-b939-e9921da1b4d4,Days To Go,"2,49€",store-paid,generic (your own date),0,0,0,2026-09-26,1.0.1,199,,,our own listing (excluded from the rival counts)

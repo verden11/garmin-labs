@@ -1,0 +1,28 @@
+store_id_prefix,face,review_month,stars,app_version,quote_max_15_words,theme
+cc1c484b,Countdown - Watch & Track events,2026-07,5,1.0.2,the time countdown in minutes/hours is not accurate,timed event accuracy
+cc1c484b,Countdown - Watch & Track events,2026-07,5,1.0.2,I wish you could enter the time of the event (including time zones),timed event time zone
+ddf4eaf4,New Year Countdown,2022-12,1,1.2.6,"It's counting down to 12:01 which is, unfortunately, a deal breaker.",timed event accuracy
+ddf4eaf4,New Year Countdown,2022-12,3,1.2.6,"I would prefer to have more options, like hours until then.",timed event / hours
+d44a137e,Event Countdown,2022-01,3,1.0.2,"When I enter the date of tomorrow, it counts two days.",count correctness
+23bae5fc,time2race,2018-10,3,(2026-09-26 pull),add another countdown type? Only hours?,timed event / hours
+cc1c484b,Countdown - Watch & Track events,2026-08,5,1.0.2,would prefer it to say 337 days for example instead of the months,display unit
+d44a137e,Event Countdown,2023-08,3,1.1.0,countdown doesn't allow me to go past 753 weeks.,long horizon
+d44a137e,Event Countdown,2024-03,3,1.1.2,I just want a simple countdown face.,less on the face
+d44a137e,Event Countdown,2023-12,4,1.1.1,Any chance of getting an option to leave the data fields empty.,less on the face
+183a7d45,Countdown!,2024-03,3,2.5.0,"I wish I could replace or delete things like bluetooth connection, notifications",less on the face
+d44a137e,Event Countdown,2026-01,5,1.1.2,shows all the fields I need,data beside the count (praise)
+d44a137e,Event Countdown,2025-07,5,1.1.2,All the data I need on face for daily wearing.,data beside the count (praise)
+ddf4eaf4,New Year Countdown,2025-12,4,1.3.0,only a scant few data options available.,more data
+a7b82a44,Formula 1 2026 Season,2026-01,5,1.8,would be good to have the battery bar on the screen somewhere,more data
+b2c6459d,F1 2026 Drivers AMOLED (paid),2026-08,5,1.1.0,it desperately needs additional display options,more options (paid face)
+a7b82a44,Formula 1 2026 Season,2026-03,5,2.3,Got the paid version right away as support!,paying as support
+ddf4eaf4,New Year Countdown,2022-12,2,1.2.6,Can't change the background colour. Settings does not show up.,colour
+ddf4eaf4,New Year Countdown,2025-12,4,1.3.0,Need an option to add the date to the watchface please,date on face
+183a7d45,Countdown!,2026-10,5,2.5.0,Too bad it doesn't work with fenix 8 watches,device coverage
+ddf4eaf4,New Year Countdown,2024-12,4,1.3.0,it doesn't work on F8 (MIP and Amoled).,device coverage
+a7b82a44,Formula 1 2026 Season,2026-08,1,2.5,not working great with fenix 8,device coverage
+d44a137e,Event Countdown,2026-04,5,1.1.3,Now can work for my MK3i 43mm,device coverage (praise for adding)
+183a7d45,Countdown!,2023-08,2,2.5.0,Nao consigo mudar a data do evento (Portuguese: cannot change the event date),date entry
+183a7d45,Countdown!,2022-08,3,2.5.0,Others are right- tap all over the blank white space below,date entry
+d44a137e,Event Countdown,2024-12,5,1.1.2,keeps me motivated and up to date on my marathon date,praise: runners
+a7b82a44,Formula 1 2026 Season,2026-08,1,2.5,swedish word lika a a o not working in the name of the day,non-English characters
