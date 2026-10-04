@@ -43,13 +43,13 @@ class TwoSunsTestStates {
         return state;
     }
 
-    // The widest day row: a three-digit Fahrenheit number and three ahead cells with two-digit hours.
+    // The widest day row: a three-digit Fahrenheit number and three ahead cells with two-digit 12 hour labels.
     static function widestDay() as TwoSunsWeather {
         var weather = new TwoSunsWeather();
         weather.leadKind = TwoSunsConfig.WEATHER_PARTLY;
         weather.leadText = "104" + TwoSunsConfig.DEGREE_CODE.toChar().toString();
         weather.aheadKinds = [TwoSunsConfig.WEATHER_RAIN, TwoSunsConfig.WEATHER_STORM, TwoSunsConfig.WEATHER_SNOW] as Array<Number>;
-        weather.aheadLabels = ["12", "12", "12"] as Array<String>;
+        weather.aheadLabels = ["12p", "12p", "12p"] as Array<String>;
         return weather;
     }
 

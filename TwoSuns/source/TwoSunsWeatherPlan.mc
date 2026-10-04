@@ -96,7 +96,8 @@ class TwoSunsWeatherPlan {
         }
     }
 
-    // The local hour of a clock minute (it may be negative or past midnight), no leading zero, no am or pm.
+    // The local hour of a clock minute (it may be negative or past midnight), no leading zero. On a 12 hour clock it
+    // carries "a" or "p", as Garmin's own hourly view does (10a, 3p), so a late hour is not read as a morning one.
     static function hourText(minute as Number, is24Hour as Boolean) as String {
         var wrapped = ((minute % TwoSunsConfig.MINUTES_PER_DAY) + TwoSunsConfig.MINUTES_PER_DAY) % TwoSunsConfig.MINUTES_PER_DAY;
         var hour = wrapped / TwoSunsConfig.MINUTES_PER_HOUR;
@@ -104,7 +105,7 @@ class TwoSunsWeatherPlan {
             return hour.toString();
         }
         var hours = hour % TwoSunsConfig.HOURS_PER_HALF_DAY;
-        return (hours == 0 ? TwoSunsConfig.HOURS_PER_HALF_DAY : hours).toString();
+        return (hours == 0 ? TwoSunsConfig.HOURS_PER_HALF_DAY : hours).toString() + (hour < TwoSunsConfig.HOURS_PER_HALF_DAY ? "a" : "p");
     }
 
     // A whole degree with the degree sign, in the watch's unit (Garmin gives Celsius); empty when there is no number.
