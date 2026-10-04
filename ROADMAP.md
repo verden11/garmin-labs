@@ -53,6 +53,7 @@ People.
 - [ ] 5.1 `[you]` Read the 30-day exposure result on the HeroFace listing; decide go (about 2026-10-25).
 - [ ] 10.3 `[you]` Delete the pre-rewrite git backup tag `backup/main-2026-10-04` (and `archive/upbeat-davinci-pre-rebase` if you do not want it) once you are happy with the new history.
 - [ ] 10.4 `[you]` Commit the `watch-design-kit` knowledge files (`~/dev/watch-design-kit`: another session also has staged edits there).
+- [ ] 10.14 `[you]` **OrbStack or Docker Desktop for the simulator containers?** OrbStack ran everything as before (`docker/README.md` "OrbStack"; 6 suites in 103 s, VM memory on demand) but needs a paid Pro licence (USD 8 per user per month) for commercial use after its 30-day trial, installed 2026-10-04. Decide before ~2026-11-03; either way quit the engine you do not use.
 
 ## 3. Agent can do now (no input needed)
 
