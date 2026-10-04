@@ -1,6 +1,6 @@
 # Screenshots and store images
 
-Status: 2026-09-21. Everything below is captured and lives in `listing/`.
+Status: 2026-09-21; the cover, hero and both device icons were re-rendered 2026-10-04 from `src/*.html` after the pixel-grid launcher icon (ROADMAP 11.1; not yet uploaded, ROADMAP 10.5). Everything below is captured and lives in `listing/`.
 The always-on shot was **deferred to a post-launch listing update** (user call,
 2026-09-21) — it needs a human at the simulator GUI, and the five screens here
 satisfy the store requirement without it.

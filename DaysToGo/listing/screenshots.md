@@ -1,6 +1,6 @@
 # Screenshots and store images
 
-Status: 2026-09-27.
+Status: 2026-09-27; `hero-1440x720.png` re-rendered 2026-10-04 (the ring arc in the small mark was off by 4.4 units; ROADMAP 11.1, not yet uploaded, ROADMAP 10.5).
 
 ## What exists
 
