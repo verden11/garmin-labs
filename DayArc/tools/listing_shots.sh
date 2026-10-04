@@ -6,6 +6,16 @@
 DENSITY=${1:?simple|pro}
 if [ "$DENSITY" = pro ]; then JUNGLE=monkey.pro.jungle; OUT=/work/listing-pro/screens; else JUNGLE=monkey.simple.jungle; OUT=/work/listing/screens; fi
 DAY="2026-10-04"
+ONLY=${2:-}   # optional: space-separated file names to shoot again, e.g. "2-midday.png 3-evening.png" (default: all five)
+
+# Pro only, in the PRIVATE copy (the repo's source/ is untouched): the simulator cannot set calories (read-only cell, the flame
+# shows 0 beside thousands of steps) and its canned calendar event is "00:00" with no title. Both are stubbed for the picture
+# with plausible values: 1,240 calories and an event "Standup". Not readings; the face's code is otherwise as built.
+stub_pro_values() {
+  sed -i '/static function complicationNumber(type as Complications.Type) as Number or Null {/a\        if (type == Complications.COMPLICATION_TYPE_CALORIES) { return 1240; }' source/DayArcSources.mc
+  sed -i '/static function complicationString(type as Complications.Type) as String or Null {/a\        if (type == Complications.COMPLICATION_TYPE_CALENDAR_EVENTS) { return "Standup"; }' source/DayArcSources.mc
+  grep -c "1240\|Standup" source/DayArcSources.mc
+}
 
 # Settings > Set Position (the dialog takes "latitude, longitude"). The simulator's default is Olathe, Kansas, whose sun times
 # (12:17 / 23:59, in the simulator's UTC) read as nonsense beside a 07:17 clock in the Pro morning grid; London's read 06:05 / 17:33.
@@ -18,13 +28,15 @@ sim_position() {
 set_accent() { sed -i "s|<property id=\"Accent\" type=\"number\">[0-9]*</property>|<property id=\"Accent\" type=\"number\">$1</property>|" resources/settings/properties.xml; }
 
 scene() {   # scene <file> <device> <HH:MM> [steps so far today] [accent 0-6] [position]
+  [ -n "$ONLY" ] && [[ " $ONLY " != *" $1 "* ]] && return 0
   set_accent "${5:-0}"
   sim_boot "$DAY $3:00"; sim_load $JUNGLE "$2"; sim_24h; sleep 5
   [ -n "${6:-}" ] && sim_position "$6"
-  [ "$DENSITY" = pro ] && { sim_activity goal=10000 steps=${4:-8420} moderate=18 floors=7; sleep 70; }   # the Calories cell of the dialog is read-only (a watch would show some; the flame cell reads 0)
+  [ "$DENSITY" = pro ] && { sim_activity goal=10000 steps=${4:-8420} moderate=18 floors=7; sleep 70; }   # the dialog's Calories cell is read-only: calories come from stub_pro_values
   sim_save "$OUT/$1"
 }
 LONDON="51.5074, -0.1278"
+[ "$DENSITY" = pro ] && stub_pro_values
 if [ "$DENSITY" = pro ]; then
   scene 1-morning.png fr965 07:15 842 0 "$LONDON"   # early in the day: a three-digit step count fits the narrow bottom pill
   scene 2-midday.png fr965 13:15 5310
