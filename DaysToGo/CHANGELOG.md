@@ -35,12 +35,12 @@ Everything below is **UNRELEASED**: built 2026-10-01 against the Free + Pro plan
 
 ### Days To Go Pro 1.1.0 — UNRELEASED, an update of the existing paid app id, not uploaded
 
-- The paid app is renamed on the watch to "Days To Go Pro" (placeholder name; the owner decides it and the price). Behaviour, settings, ids and defaults are the same as 1.0.1: `resources-pro/settings` is byte-identical to the old shared settings.
+- The paid app is renamed on the watch to "Days To Go Pro" (confirmed name; the owner sets the tier in the upload form). Behaviour, settings, ids and defaults are the same as 1.0.1: `resources-pro/settings` is byte-identical to the old shared settings.
 - **Instinct family, added 2026-10-03** (127 products; ADR-015, accepted 2026-10-04, simulator only), as in the Free entry above; Pro on an Instinct has no footer (battery or steps) and no Accent setting.
 - Rectangles (Venu Sq 2 and Sq 2 Music): as in the Free entry above (a named event keeps its name; the bottom line can still be dropped there).
 - On-watch "Set date" picker: as in the Free entry above (short month words, smaller label font on small screens, "Every year" on two lines).
 - No new feature. The plan's other Pro additions (accent ids 6 to 11, a new layout choice) are **deferred**, not built; the Pro headline question is open (Pro is thin: timed events and the battery or steps line).
 - Launcher icon redrawn on the pixel grid (whole-number vertices; same look, crisper edges; no What's New line needed).
 - Build change: Pro is now `monkey.jungle` with `resources;resources-pro` and `(:free)` code excluded; `beta.jungle` follows it.
-- ADRs: 014 (Free + Pro ladder, accepted 2026-10-04). ADR-002 (price, day-45 review) is Superseded: the flip rule is retired, the owner sets the Pro price.
+- ADRs: 014 (Free + Pro ladder, accepted 2026-10-04). ADR-002 (price, day-45 review) is Superseded: the flip rule is retired. 017 (price: the $2.50 tier for every paid app, accepted 2026-10-04): Pro moves to the $2.50 tier with the 1.1.0 upload; no price number in listing text.
 - Evidence: as above. The 50 Pro tests (the 43 existing, one of them now Pro-only, plus 7 new) PASSED in the simulator on fr965, fr55 and venusq2 and the same ten-device fit run passes (2026-10-01); nothing on a wrist.

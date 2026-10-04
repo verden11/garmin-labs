@@ -43,7 +43,7 @@ Gates still required (the owner may waive any of them too, but they are cheap): 
 | 7 | Real assets | Launcher icon, cover 500×500, hero 1440×720 (optional), one device's screenshots, device icons (optional); paths filled in `listing/paste.md` and `listing/screenshots.md` written | **Partly done**: one screenshot (`listing/screens/1-countdown.png`) and a cover (`cover-500.png`) exist; the real launcher icon is still the placeholder; hero and device icons optional |
 | 8 | Languages decided | Ship English only, or English plus the 14 machine-drafted on-watch languages; a native speaker has read any language you ship as store copy | **Open** |
 | 9 | Site live | `cd ../site && npm run build && npm run deploy`; then `/days-to-go/support/` and `/days-to-go/privacy/` open without login. Reviewers and users open them | **Done 2026-09-26**: `/days-to-go/`, `/support/` and `/privacy/` return 200 on verden.watch (checked after the owner's deploy). The landing page's store button says "Coming soon" until `storeUrl` is set |
-| 10 | Price confirmed | Paid, the lowest tier (USD 2.00, shown as $1.99 in the US, same as HeroFace and HeroSet), (ADR-002). The risk is on record: 15 paid countdown faces all at 10 downloads or fewer | Decided; confirm at submit |
+| 10 | Price confirmed | Pro: paid, the $2.50 tier (US $2.49, eurozone 2,99 EUR), ADR-017 (price: the $2.50 tier for every paid app), set in the upload form with 1.1.0; it was the lowest tier (USD 2.00, $1.99 US) at first submission (ADR-002, price superseded). Free is free. No price number in listing or site text. The risk is on record: 15 paid countdown faces all at 10 downloads or fewer | Decided 2026-10-04; set at upload |
 | 11 | Baseline recorded | Download buckets, review counts and ratings of HeroSet and HeroFace on the submission day, plus their store links, written in `CHANGELOG.md` or the memory file | **Open** |
 | 12 | Tests green | `tools/fit_all.sh` and `tools/run_tests.sh fr965` pass on the commit you submit | Last sweep: 42 tests, ten sizes, fenix6pro, venu2s and the two rectangles (simulator) |
 
@@ -52,14 +52,14 @@ Gates still required (the owner may waive any of them too, but they are cheap): 
 - **Earliest sensible day:** the day after gate 5 (the wear day) and gates 1, 2, 4, 6 to 9 are done. Nothing else is time-based: there is no launch date to hit.
 - **Do not** publish a build that gates 2 to 5 did not use. Export the package from the commit you wore.
 - **Review takes about 72 hours** (HeroFace notes); a rejection names its reasons. Advice, not evidence: submit early in the week so any rejection lands on working days.
-- **Price is set at submission.** Changing it later takes the app out of the store for re-review (SDK `Monetization/App_Sales`), so settle gate 10 first.
+- **Price is set in the upload form** (Pro: the $2.50 tier, ADR-017). Changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`; Garmin's handling of a repricing is unconfirmed, ROADMAP 2.1), so the repricing ships together with the 1.1.0 version upload, which is re-reviewed anyway.
 - A paid app is sold only on Garmin's own list of watches and countries, so the store's device list will be shorter than the manifest's 120. Never quote a watch count.
 
 ## Submit (one sitting, about 30 minutes)
 
 1. `cd DaysToGo && monkeyc -e -r -f monkey.jungle -o dist/DaysToGoPro.iq -y ~/.garmin-connectiq/keys/developer_key` (the paid app, the live app id; `dist/DaysToGoFree.iq` is the **Free** package, and `dist/DaysToGo-1.0.1-submitted.iq` is the 1.0.1 package as submitted)
 2. Open https://apps.garmin.com/developer/upload, attach `dist/DaysToGoPro.iq`.
-3. Paste each field from [`../listing/paste.md`](../listing/paste.md), in form order. Category: Utility. Add the price in the merchant flow.
+3. Paste each field from [`../listing/paste.md`](../listing/paste.md), in form order. Category: Utility. Add the price in the merchant flow (the $2.50 tier, ADR-017).
 4. Add the images from gate 7.
 5. Same day, update `CHANGELOG.md` (version 1.0.0, upload date, user-facing changes, ADRs) and check that `listing/paste.md` has the What's New block and the version.
 6. Do not commit `dist/*.iq` or any key file.
@@ -74,11 +74,11 @@ Gates still required (the owner may waive any of them too, but they are cheap): 
 
 ## Free + Pro pair (approved by the owner 2026-10-04, UNRELEASED: ADR-014 (Free + Pro ladder))
 
-Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP4); the owner approved the ladder on 2026-10-04 (OD1, OD2: the day-45 flip rule is retired, ADR-002 Superseded); names, the Pro price and every upload are still open, and the live paid app is unchanged until then. No store-package quirk is recorded anywhere in this project's docs; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
+Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP4); the owner approved the ladder on 2026-10-04 (OD1, OD2: the day-45 flip rule is retired, ADR-002 Superseded); names are confirmed (2026-10-04), the Pro price is the $2.50 tier (ADR-017) and every upload is still open, and the live paid app is unchanged until then. No store-package quirk is recorded anywhere in this project's docs; the Free and Pro exports below are plain `monkeyc -e -r` and were checked with `tools/check_free_package.sh`.
 
 | # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
 |---|---|---|
-| F1 | Owner signs off OD1 (the ladder), OD2 (retire the day-45 flip rule), OD3 (names), OD4 (Pro price). ADR-014 (Free + Pro ladder) is Active and ADR-002's flip rule Superseded | **Ladder and OD2 done 2026-10-04**; names and the price are F2 and the owner's |
+| F1 | Owner signs off OD1 (the ladder), OD2 (retire the day-45 flip rule), OD3 (names), OD4 (Pro price). ADR-014 (Free + Pro ladder) is Active and ADR-002's flip rule Superseded | **Ladder, OD2, names and the price tier done 2026-10-04** (ADR-017); set at upload |
 | F2 | Store names and titles chosen and searched in the store by eye (plan placeholders: app name "Days To Go" / "Days To Go Pro"; proposed titles "Days To Go: Countdown to a Date" / "Days To Go Pro: Countdown, Hours, Footer"). Name is also the on-watch AppName: change `resources-free/strings` and `resources-pro/strings` only | **Open** (owner) |
 | F3 | Pro headline decided: what a buyer pays for beyond timed events and the battery or steps line. No research was run; if none, say Pro is thin | **Open** (owner / watch-pm) |
 | F4 | Launcher icon for each tier (the file is still the placeholder; Free and Pro may differ) | **Open** (owner) |
@@ -94,7 +94,7 @@ Nothing in this block is done unless it says so; nothing is uploaded. Builds aga
 
 1. `cd DaysToGo && tools/check_free_package.sh --build` (or export `monkeyc -e -r -f monkey.free.jungle -o dist/DaysToGoFree.iq -y ~/.garmin-connectiq/keys/developer_key`), then open https://apps.garmin.com/developer/upload, attach `dist/DaysToGoFree.iq` (a **new** app: the form reads the new app id from the package).
 2. Paste each field from [`../listing-free/paste.md`](../listing-free/paste.md) in form order. Category Utility. Monetization: the free listing asks no payment (confirm the form's wording at submission). Replace the placeholder Pro store URL on line 1 with the real one once Pro 1.1.0 is live, or upload Pro first.
-3. Same day: upload `dist/DaysToGoPro.iq` to the existing app id as 1.1.0 (Pro's price is changed only by the owner, in the same step they choose; re-pricing an approved app removes it for re-review).
+3. Same day: upload `dist/DaysToGoPro.iq` to the existing app id as 1.1.0 (set Pro's price tier to $2.50 in the form, ADR-017; re-pricing an approved app can remove it for re-review, so do it in this same version upload).
 4. Update `CHANGELOG.md` (drop UNRELEASED, add upload dates), the What's New blocks, record both app ids for the measurement plan (WP9), and the review-day dates for gates G1 to G4 in the ladder plan.
 5. Do not commit `dist/*.iq` or any key file.
 

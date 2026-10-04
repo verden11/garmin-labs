@@ -32,8 +32,8 @@ The full runbook, with the order, the timing and what to do after approval, is [
 |---|---|
 | Category | Utility: it is a utility face; Simple is the alternative |
 | Collects user data | Nothing leaves the watch; no permissions |
-| Monetization | No. The form's own wording: Yes only if the app asks for payment to enable features, or for tips or donations; Days To Go does neither. HeroFace was submitted the same way and is paid through the store. (HeroSet's README records `Paid: Yes, USD 2.00` for what may be a different step of the form: read the form's wording at submission.) |
-| Price | Paid, the lowest tier: USD 2.00, shown as $1.99 in the US, the same tier as HeroFace and HeroSet (owner decision, ADR-002). The form has no price field of its own in HeroFace's notes; if a merchant step appears choose "Yes, through Garmin CIQ merchant account". The offered watch list and countries shrink to Garmin's lists. Price is set at submission; re-pricing an approved app removes it for re-review (SDK `Monetization/App_Sales`). Price review 45 days after approval |
+| Monetization | No. The form's own wording: Yes only if the app asks for payment to enable features, or for tips or donations; Days To Go does neither. HeroFace was submitted the same way and is paid through the store. (HeroSet's `listing/paste.md` records `Paid: Yes, price tier USD 2.50` for what may be a different step of the form: read the form's wording at submission.) |
+| Price | Paid, the $2.50 tier (US $2.49, eurozone 2,99 EUR), the same tier as every paid app of the studio (owner decision 2026-10-04, ADR-017 (price: the $2.50 tier for every paid app); first submitted at the lowest tier, USD 2.00 / $1.99 US, ADR-002 price superseded). Set with the 1.1.0 upload. The form has no price field of its own in HeroFace's notes; if a merchant step appears choose "Yes, through Garmin CIQ merchant account". The offered watch list and countries shrink to Garmin's lists. Re-pricing an approved app can remove it for re-review (SDK `Monetization/App_Sales`; unconfirmed for a higher tier, ROADMAP 2.1), so it ships with the 1.1.0 version upload. No price number in the listing text. No day-45 review (retired, ADR-014) |
 
 ## Languages
 
@@ -50,12 +50,12 @@ One 454 × 454 FR965 simulator screenshot and a 500 × 500 cover exist; see [`sc
 
 ## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, accepted 2026-10-04 under ADR-014 (Free + Pro ladder), nothing uploaded; moved from a draft here, 2026-10-04)
 
-`paste.md` is the 1.1.0 text. Names, the price and the sibling URL are the owner's decisions; the strings are the plan's placeholders.
+`paste.md` is the 1.1.0 text. Names are confirmed (2026-10-04); the sibling URL is the owner's; the price is the $2.50 tier (ADR-017), set in the form.
 
 - **Title** (plan proposal, OWNER decides): `Days To Go Pro: Countdown, Hours, Footer`.
 - **Line 1:** `Also available: Days To Go (<URL>)`. The paid listing must not use the word "free" (release contract; store review guideline 4d), so the plan's "Try free first" wording is deliberately not used. The rest of the description is the 1.0.1 text: it already describes only what Pro has (timed events, the battery or steps line, six accents).
 - **Instinct:** the sentence about the Instinct ring gauge is out of the paste text until the upload is approved and the store lists those watches; it is kept in `meta.yaml` (`held_back_text`).
 - **Version** `1.1.0`; the What's New is the rename line, naming the sibling without "free".
 - Device note (plan WP4 step 6): not in the text. Add one only after the other listing's real device list is visible, with no "free" wording and no watch names or count.
-- The price is **not** in this file. Re-pricing an approved app removes it for re-review (SDK `Monetization/App_Sales`); the owner decides whether and when.
+- The price is **not** in this file (ADR-017: the $2.50 tier, set in the form with the 1.1.0 upload). Re-pricing an approved app can remove it for re-review (SDK `Monetization/App_Sales`); shipping it with the version upload covers that.
 - "More from Verden" is left out: it lists only live free siblings, none live today.

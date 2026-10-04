@@ -22,7 +22,7 @@ package:
   exported: 2026-10-04
   check: "tools/check_free_package.sh: OK (Hour, Footer and the name 'Days To Go Pro' found in every .prg)"
   note: "export: monkeyc -e -r -f monkey.jungle; dist/DaysToGo-1.0.1-submitted.iq is the paid 1.0.1 as submitted; built in the verden-ciq-build container; same bytes as dist/DaysToGoPro.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
-price: paid, USD 2.00 (USD 1.99 in the US), ADR-002 (superseded 2026-10-04 by the Free + Pro ladder, ADR-014; the day-45 review is retired)
+price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-017 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-014 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   cover: cover-500.png (a direct face render, already uploaded with 1.0.1)

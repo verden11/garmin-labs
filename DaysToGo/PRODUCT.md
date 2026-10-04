@@ -30,7 +30,7 @@ Countdown-first, not a dashboard with a countdown slot. No permissions, nothing 
 
 - Connect IQ watch face, `minApiLevel` 3.0.0, one build, 120 products (117 round plus 3 rectangular AMOLED), no bitmaps. Smallest memory budget 96 KB.
 - No network, no permissions, no `Storage`.
-- Price: paid, lowest tier .99 (the day-45 flip review of [`docs/decisions.md`](docs/decisions.md) ADR-002 was retired 2026-10-04 by the Free + Pro ladder, ADR-014).
+- Price: paid, the $2.50 tier of Garmin's price points for Days To Go Pro (set in the upload form with 1.1.0; live at the lowest tier until then; [ADR-017](docs/decisions.md#adr-017), price: the $2.50 tier for every paid app); Days To Go (Free) is free; no price number in listing or site text (the day-45 flip review of [`docs/decisions.md`](docs/decisions.md) ADR-002 was retired 2026-10-04 by the Free + Pro ladder, ADR-014).
 - Languages: English plus 14 machine-drafted translations, not yet read by native speakers.
 
 ## Brand Commitments

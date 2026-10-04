@@ -5,7 +5,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | ADR | Decision | Status |
 |---|---|---|
 | 001 | Any event, countdown-first | Active |
-| 002 | Price: paid $1.99 first, one review at approval + 45 days | **Superseded** 2026-10-04 by 014 (the Free + Pro ladder; the owner retired the day-45 flip rule) |
+| 002 | Price: paid $1.99 first, one review at approval + 45 days | **Superseded** 2026-10-04 by 014 (the Free + Pro ladder; the owner retired the day-45 flip rule) and, for the price, by 017 (price: the $2.50 tier for every paid app) |
 | 003 | List settings, never `date` or `numeric` | Active |
 | 004 | Calendar-day arithmetic, no `Time.Moment` maths | Active |
 | 005 | On-watch date picker | **Open**: gated by the owner's device test (plan phase 3) |
@@ -19,6 +19,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 013 | Ring beyond a year is the grey track only | Active |
 | 014 | Free + Pro ladder: a Free twin beside the paid app, which becomes Days To Go Pro | Active (accepted 2026-10-04: the owner approved the ladder) |
 | 015 | Instinct family: window gauge, black and white, no accent | Active (accepted 2026-10-04; simulator only) |
+| 017 | Price: the $2.50 tier for every paid app | Active (accepted 2026-10-04; ships with the 1.1.0 upload) |
 
 ## ADR-001: Any event, countdown-first
 
@@ -28,7 +29,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 ## ADR-002: Price
 
-**Status: Superseded 2026-10-04 by ADR-014 (the Free + Pro ladder).** The owner approved the ladder on 2026-10-04 and retired the day-45 flip rule below: the paid app is never flipped to free, the Free twin replaces that idea. The first-submission price (paid, the lowest tier) stands until the owner sets the Pro price. The text below is the history.
+**Status: Superseded 2026-10-04 by ADR-014 (the Free + Pro ladder).** The owner approved the ladder on 2026-10-04 and retired the day-45 flip rule below: the paid app is never flipped to free, the Free twin replaces that idea. The first-submission price (paid, the lowest tier) was the live price until the next upload; **the price is Superseded by [ADR-017](#adr-017) (price: the $2.50 tier for every paid app)**. The text below is the history.
 
 **Decision.** Paid, the lowest tier (USD 2.00, shown as $1.99 in the US, the same tier as HeroFace and HeroSet), at first submission. One review 45 days after store approval on whether to flip to free, once, never back. Proposed rule (owner to confirm): fewer than 5 sales in 45 days and a download bucket of 10 or lower.
 **Why.** Owner's choice (2026-09-26) after the weekly free/paid idea was advised against: Garmin documents only free→paid (removal and re-review, buyers locked out), and the store's rules require disclosing a limited-time free period. Risk on record: 15 paid countdown faces, all at 10 downloads or fewer; free leaders 10,000 to 100,000. A free flip may also send traffic to the owner's other paid apps: a hypothesis to measure, not a promise.
@@ -144,6 +145,20 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Consequences.** `DaysToGoFrame.footerWithDate`, `nameFonts`; `DaysToGoView.dateCandidates`; test `bottomLineIsDrawnNotSilentlyDropped` (round, 218 px and up). The Instinct has no bottom line (ADR-015). The middle dot renders in the FR965 simulator font; not seen on a wrist.
 
 **Amended 2026-10-04 (ROADMAP 10.12; the owner asked for the open cases to be fixed or documented).** (3) **Rectangles get a taller stack.** On a 320 x 360 rectangle (`venusq2`, `venusq2m`) the smallest font is 39 px tall, as on a round watch, but the ring is only 320 px, so the stack of rows ran out of height: with a name the hero fell below its smallest font and the name, then the bottom line, were dropped. `DaysToGoLayout` now spans 90 % of the content radius on a rectangle (`RECTANGLE_SPAN_PERMILLE`) instead of 80 %; every text is still measured against the round chord, so none touches the ring. Result on `venusq2` with a 12-character name, a date and the bottom line on: the name shows again and the hero keeps its largest font; the date steps down to its shorter wording ("Dec 19" instead of "Sat Dec 19") because the bottom row's chord is narrower; **the bottom line is still dropped** ("Dec 19 · 50%" does not fit that chord). Round and Instinct products are unchanged by construction (the span applies only to `SCREEN_SHAPE_RECTANGLE`); `venux1`, the other rectangle, passed the suite too. (4) **Not fixable: the Instinct 3 Solar and the Instinct 2 (both 176 px, both screenshotted) still cut a 12-character name** ("Anna and T..."; the Instinct E 45 mm has the same screen size but was not screenshotted). Tried: the name wrapped onto two lines at a space beside the window. It does not fit: the 23 px smallest font makes two lines 46 px, the hero then starts at y 92 instead of 72 and the band left for it (about 22 px) is under the hero's smallest font, so something must go, and the only rows left are the caption ("DAYS") and the date, which the product promises. A cut name stays; the code was not kept. The Instinct E 40 mm (166 px) and wider chords show 12 characters whole.
+
+## ADR-017: Price: the $2.50 tier for every paid app
+
+**Status: Accepted 2026-10-04 (owner, chat).** Supersedes the price of [ADR-002](#adr-002-price) (paid at the lowest tier, USD 2.00 / $1.99 US); ADR-002's day-45 review was already retired by ADR-014 (the Free + Pro ladder).
+
+**Decision.** Days To Go Pro (the paid app, the live app id) moves to the **USD 2.50 tier** of Garmin's price points (US $2.49, eurozone 2,99 EUR; measured table in `../../research_notes/Free and Pro ladder/garmin_rules.md`, source https://developer.garmin.com/connect-iq/monetization/price-points/). Every paid app in the studio (HeroSet, HeroFace Pro, Days To Go Pro, Two Suns Pro, DayArc Pro) takes the same tier. Days To Go (Free) stays free. The owner sets the tier in the upload form.
+
+**Why.** Room for later discounts or a rise: Garmin's tiers are $2.00, then every $0.25, so the lowest tier left no step down. The tier converts to a different number in each store, so no number is stated where a reader sees it.
+
+**No price number on the site or in listing text.** Neither listing's Description or What's New, nor the pages under `site/src/apps/days-to-go/`, state a price.
+
+**Open risk.** Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`); how it treats a repricing to a higher tier is not confirmed. Ship the change together with the 1.1.0 version upload (Pro), which is re-reviewed anyway. The Garmin email ([`../../ROADMAP.md`](../../ROADMAP.md) 2.1) is still unsent.
+
+**Reversed by.** The owner.
 
 ## Reference code
 

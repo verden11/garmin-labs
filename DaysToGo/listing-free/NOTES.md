@@ -10,7 +10,7 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 | On-watch app name | "Days To Go" (`../resources-free/strings/strings.xml`) |
 | Pro's name and title | "Days To Go Pro" / "Days To Go Pro: Countdown, Hours, Footer" (plan proposal) |
 | Pro's store URL (line 1) | `<PRO STORE URL ...>`: needs Pro live (or upload Pro first); the line must be the real URL, not a placeholder, at submission |
-| Pro's price | Plan proposes the $3.00 tier (US $2.99); today it is $1.99. **The listing never states a price** |
+| Pro's price | The $2.50 tier (ADR-017, price: the $2.50 tier for every paid app), set in the form with the 1.1.0 upload; today it is the lowest tier. **The listing never states a price** |
 | Icon and cover | Not made; look and identity are the owner's |
 | Translations | English only; any translation is machine-drafted and needs the owner's OK and a native read (`../listing/NOTES.md` "Languages") |
 | Upload order | Free (new app) first, Pro 1.1.0 the same day |
@@ -30,7 +30,7 @@ What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is 
 | No permissions, no account, no internet | Empty permission list in `manifest.free.xml`; no network code (the contract's "no permissions; nothing leaves your watch" row; "no analytics, no ads" are the same words the live Pro listing already uses) |
 | Pro's two additions | Exactly what `(:pro)` compiles in: the `Hour` setting (timed events, H:MM in the last 24 h) and the `Footer` setting (battery or steps). Nothing else is claimed; accent ids 6 to 11 and a new layout are deferred, not built |
 | The device sentence | **Not in the paste-ready text.** It is a to-verify note (below): no device claim goes in until the store shows the Free listing's real device list |
-| The review request | **Not in the paste-ready text.** The plan's WP10 skeleton has a one-sentence review request, but the release contract does not list it as an allowed claim; the owner decides whether to add one (for example "If this face works for you, a rating in the store helps other people find it.") |
+| The review request | **In the Free description** (owner, 2026-10-04): "If this face works for you, a rating in the store helps other people find it." (DayArc's wording; it asks and claims nothing, `../docs/release-contract.md`). Free listing only. |
 
 Not claimed anywhere: battery figures, always-on ghosting, MIP contrast, any watch count, download, rating or review number, "the only countdown with no permissions", "works on every watch", rivals by name, "set it on your watch" (the beta round trip T4 is still open, `../docs/status.md`).
 

@@ -2,7 +2,7 @@
 
 Paste blocks only, in the order of the upload form (https://apps.garmin.com/developer/upload; two steps: attach the `.iq`, then the details). One block = one field: copy the block, paste it. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); why each answer is what it is, and history, in [`NOTES.md`](NOTES.md).
 
-**Do not paste a block while a `<` placeholder remains in it** (store URLs and the price are owner-supplied). Check each block for a `<` before pasting.
+**Do not paste a block while a `<` placeholder remains in it** (store URLs are owner-supplied). Check each block for a `<` before pasting.
 
 ## Title (max 50)
 
@@ -36,6 +36,8 @@ Round and rectangular watches alike, full detail down to the smallest, dimming t
 Days To Go Pro adds
 An event with a time of day: its last 24 hours turn into hours and minutes.
 An optional bottom line that shows your battery or your step count.
+
+If this face works for you, a rating in the store helps other people find it.
 
 Nothing leaves your watch
 No permissions, no account, no internet, no analytics, no ads.

@@ -19,7 +19,7 @@ No permissions, nothing leaves the watch.
 | # | Decision | Status | Why |
 |---|---|---|---|
 | D1 | **Any event**, not race-only | Owner, 2026-09-26 | Biggest audience; runners are still the visible core (rival reviews) and are served by the timed-event and weeks options |
-| D2 | **Price: paid $1.99 first; ~~one review at day 45 after approval on whether to flip to free (once, never back)~~ superseded 2026-10-04: the flip rule is retired by the Free + Pro ladder (D12, ADR-014)** | **Owner, 2026-09-26; flip rule retired 2026-10-04** | Owner's choice of option 1 after the weekly free/paid idea was advised against (see "Price"). A free flip may also send traffic to the owner's other paid apps: a hypothesis to measure, not a promise. The build is identical either way |
+| D2 | **Price: paid $1.99 first (the price is now the $2.50 tier, D13, ADR-017); ~~one review at day 45 after approval on whether to flip to free (once, never back)~~ superseded 2026-10-04: the flip rule is retired by the Free + Pro ladder (D12, ADR-014)** | **Owner, 2026-09-26; flip rule retired 2026-10-04** | Owner's choice of option 1 after the weekly free/paid idea was advised against (see "Price"). A free flip may also send traffic to the owner's other paid apps: a hypothesis to measure, not a promise. The build is identical either way |
 | D3 | **Name: Days To Go** | **Owner confirmed, 2026-09-26** (store search by eye and trademark search still to do) | Zero exact or containing collisions in the store search; matches how people say it. See `research_notes/.../naming_and_listing.md` |
 | D4 | **Settings: lists, never `date` or `numeric`** | Decided (evidence) | Both failed in rivals; see "Setting the date" |
 | D5 | **A second way in: set the date on the watch** (`getSettingsView` + Picker) | Decided, gated by the phase 3 device test | Removes the phone from the critical path; keep only if it does not destroy phone-set values. Documented for 94 of the 117 products; the older CIQ 3.x products and the newest have the phone only |
@@ -29,11 +29,12 @@ No permissions, nothing leaves the watch.
 | D9 | **Languages: English + HeroFace's 14 translations** | Recommended | Few strings; Russian, Greek and Chinese are owner-level additions |
 | D10 | **No code sharing with HeroFace** (copy the few files, no Barrel) | Decided | A Barrel pays off at the third shared face, not the second |
 | D11 | **Date style setting** (Automatic, Day first, Month first) | **Owner confirmed, 2026-09-26** | The system gives no date-order preference; words avoid ambiguity, the setting fixes the order |
-| D12 | **Free + Pro pair**: the paid app becomes Days To Go Pro (1.1.0), a Free twin is added (1.0.0), one codebase, split at compile time (ADR-014 (Free + Pro ladder)) | **Approved by the owner 2026-10-04; names, prices and uploads are still the owner's** (UNRELEASED) | See "Free and Pro" below. ADR-014 (Free + Pro ladder) superseded D2's day-45 flip rule on 2026-10-04 |
+| D12 | **Free + Pro pair**: the paid app becomes Days To Go Pro (1.1.0), a Free twin is added (1.0.0), one codebase, split at compile time (ADR-014 (Free + Pro ladder)) | **Approved by the owner 2026-10-04; names confirmed, Pro at the $2.50 tier (D13); uploads are still the owner's** (UNRELEASED) | See "Free and Pro" below. ADR-014 (Free + Pro ladder) superseded D2's day-45 flip rule on 2026-10-04 |
+| D13 | **Price: Days To Go Pro at the $2.50 tier** of Garmin's price points; Free is free; no price number in listing or site text (ADR-017 (price: the $2.50 tier for every paid app)) | **Owner, 2026-10-04** | Room for later discounts or a rise; supersedes D2's price. Set in the upload form with the 1.1.0 upload |
 
 ### Free and Pro
 
-Status: **Approved by the owner 2026-10-04, UNRELEASED, simulator only; nothing built here is uploaded.** Strategy and evidence: `../../reports/Free and Pro ladder.md`; the build plan is WP4 in `../../reports/Free and Pro ladder execution plan.md`. The decision record is ADR-014 (Free + Pro ladder) in [`decisions.md`](decisions.md). Names ("Days To Go" and "Days To Go Pro") are the plan's **placeholders**; the owner decides them, the prices and the store titles.
+Status: **Approved by the owner 2026-10-04, UNRELEASED, simulator only; nothing built here is uploaded.** Strategy and evidence: `../../reports/Free and Pro ladder.md`; the build plan is WP4 in `../../reports/Free and Pro ladder execution plan.md`. The decision record is ADR-014 (Free + Pro ladder) in [`decisions.md`](decisions.md). Names ("Days To Go" and "Days To Go Pro") are confirmed (owner, 2026-10-04); the price is the $2.50 tier (ADR-017); the store titles stay the owner's.
 
 | | **Free** (new app id, $0) | **Pro** (the existing paid app id) |
 |---|---|---|
@@ -56,7 +57,9 @@ Rules: Free ships the whole promise (the count, the date, the always-on frame). 
 
 ### Price
 
-The owner chose paid ($1.99) on 2026-09-26. That stands. The research adds a risk the owner should see once, before submission:
+**Update 2026-10-04 (D13, ADR-017: price: the $2.50 tier for every paid app):** Days To Go Pro moves to the $2.50 tier of Garmin's price points (US $2.49, eurozone 2,99 EUR) with the 1.1.0 upload, for room to discount or raise later. No price number appears on the site or in listing text. The text in this section is the 2026-09-26 position at $1.99, kept as history.
+
+The owner chose paid ($1.99) on 2026-09-26. The research adds a risk the owner should see once, before submission:
 
 - **Measured:** 15 paid countdown listings, all at download bucket 10 or lower; the four free leaders sit at 10,000 to 100,000. Free faces out-reach paid ones by a median of 10× across the store (`reports/Selling HeroSet and HeroFace.md`). Weak evidence about a *good* paid face (most of the 15 look like recent, single-purpose uploads), strong evidence that no paid countdown face has broken out.
 - **Constraints of paid:** sold only on the SDK's App_Sales product list (lowest tier CIQ 3.4) and in its country list; Garmin keeps 15%; the existing merchant account is reused (`Selling HeroSet and HeroFace.md` puts break-even at about 48 sales a year across paid listings at the $100 annual fee; at $1.99 a sale nets about $1.69).

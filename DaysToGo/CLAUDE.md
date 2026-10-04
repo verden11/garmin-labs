@@ -2,12 +2,12 @@
 
 Garmin watch face (Connect IQ, Monkey C) from studio Verden. One job: how many
 days until a date, and the date is always right. 127 products (117 round, 3 rectangular AMOLED, 7 semi-octagon Instinct, ADR-015 (Instinct family), accepted 2026-10-04, simulator only),
-`minApiLevel` 3.0.0, no permissions. Paid, USD 1.99 first. Approved 2026-09-28 (late afternoon, owner). The day-45 price-flip review of ADR-002 is retired:
+`minApiLevel` 3.0.0, no permissions. Paid: first submitted at USD 1.99, then the $2.50 tier for Days To Go Pro ([ADR-017](docs/decisions.md#adr-017), price: the $2.50 tier for every paid app; set in the upload form with 1.1.0; no price number in listing or site text). Approved 2026-09-28 (late afternoon, owner). The day-45 price-flip review of ADR-002 is retired:
 the owner approved the Free + Pro ladder on 2026-10-04 (ADR-014), and the paid app is never flipped to free.
 
 **Free + Pro (approved by the owner 2026-10-04, UNRELEASED, ADR-014 "Free + Pro ladder", which supersedes ADR-002's price and day-45 review):** the live paid app
 (`manifest.xml`, `monkey.jungle`) becomes **Days To Go Pro** 1.1.0; a new **Free** twin (`manifest.free.xml`, `monkey.free.jungle`, own app id, 1.0.0) is built beside it from the
-same source, split at compile time with `(:pro)` / `(:free)`. Free: Event, Name, Month, Day, Year, Unit, Date style, Accent (ids 0 to 5). Pro adds Hour (timed events) and Footer (battery or steps). Names, prices, icon, uploads are the owner's.
+same source, split at compile time with `(:pro)` / `(:free)`. Free: Event, Name, Month, Day, Year, Unit, Date style, Accent (ids 0 to 5). Pro adds Hour (timed events) and Footer (battery or steps). Names (confirmed 2026-10-04: "Days To Go" free, "Days To Go Pro"), icon, uploads are the owner's; Free is free.
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (the product and its rules),
 [`docs/status.md`](docs/status.md) (state, gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md)), [`docs/archive/plan.md`](docs/archive/plan.md) (what is built and what is left, with the owner-only steps),
