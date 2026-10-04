@@ -32,7 +32,7 @@ Uploads. You said you will re-upload every app and face when ready; the packages
 - [ ] 5.6 `[you]` Upload HeroFace Free + Pro (rename the paid listing "HeroFace Pro" inside the pending listing-repair submission).
 - [ ] 6.6 `[you]` Paste the hardware-field link (text in each `*/listing*/paste.md`) into the four live listings: HeroSet, HeroFace, Days To Go, Two Suns. Check whether the dashboard lets you edit the field without a new version, and note the answer in `research_notes/Free and Pro ladder/garmin_rules.md`.
 - [ ] 2.7 `[you]` When you upload each paid app's next version, set its price to the $2.50 tier in the form (HeroSet 1.3.1, Two Suns Pro, Days To Go Pro, HeroFace Pro, DayArc Pro). Garmin may re-review a repriced approved app; a version upload is already re-reviewed, so do both together. Two Suns' store tier ($2.25 shown) is corrected by this.
-- [ ] 2.1 `[you]` Send the Garmin email (`research_notes/Free and Pro ladder/garmin_questions.md`: does repricing remove an approved app; do twins count as duplicates). Add: why 14 of HeroSet's 80 products and 48 of HeroFace's 117 are not listed.
+- [x] ~~2.1~~ `[agent]` The Garmin email is cancelled (owner, 2026-10-04: will not email Garmin). Instead the agent re-reads Garmin's published policies and design guidelines (repricing, twin listings, why devices are missing from a listing): `reports/Garmin policies and design guidelines.md`. *Running.*
 
 Assets (agent renders, you approve and upload).
 - [ ] 1.5 `[you]` Launcher icons, covers and hero images for DayArc, DayArc Pro, Days To Go Free/Pro, Two Suns Free/Pro, HeroFace Free/Pro (placeholders now), then 9.7.
