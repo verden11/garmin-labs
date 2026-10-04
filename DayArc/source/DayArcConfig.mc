@@ -86,9 +86,13 @@ class DayArcConfig {
     static const LEVEL_DROP_LABEL = 4;
     static const LEVEL_GRID_ROWS = 5;
     static const LEVEL_TRIM = 6;
-    // Pro, ADR-016: when no rung fits with the grid, the rungs before this index are tried again WITHOUT it (drawn like
-    // Simple, at Simple's own tiers) before any TRIM rung throws the date, label and sub line away.
-    static const STACK_FIRST_TRIM = 9;
+    // Pro, ADR-016 and ADR-017: the rungs before STACK_FIRST_DROP_LABEL keep the hero label. Pro tries them with the grid, then
+    // WITHOUT it (drawn like Simple, at Simple's own tiers), and only then the rungs that drop the label to buy grid room:
+    // the label is the hero's name (on a 1-bit Instinct the only thing, besides the icon, that says what the number is),
+    // so a grid row never costs it. Those rungs and the TRIM rungs (from STACK_FIRST_TRIM: drop the date, label, grid and
+    // second sub line) are the fallbacks for a screen where nothing else fits.
+    static const STACK_FIRST_DROP_LABEL = 8;
+    static const STACK_FIRST_TRIM = 10;
     static const STACK_LEVELS = [
         [0, 0, 0, 1, 0, GRID_ROWS, TRIM_NONE], [0, 0, 0, 2, 0, GRID_ROWS, TRIM_NONE],
         [1, 0, 0, 2, 0, GRID_ROWS, TRIM_NONE], [1, 0, 1, 2, 0, GRID_ROWS, TRIM_NONE],
