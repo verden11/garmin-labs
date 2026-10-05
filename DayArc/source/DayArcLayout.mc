@@ -6,11 +6,10 @@ import Toybox.WatchUi;
 
 // Geometry, measured once per display, off the shorter screen side (TwoSuns's own proven pattern,
 // reused: `contentRadius`/chord-inset math validated across all 69 products in that project's fit
-// sweep). A ROUND product (66 of the 69) is chord-fitted against the inscribed circle. A
-// rectangular one (Venu Sq 2/Sq 2 Music, Venu X1) has no bezel to clip against, so its rows get the
-// full screen width and the screen's own bottom edge; only the window-progress arc stays on the
-// inscribed circle. (Corrected 2026-09-28: the earlier "same round-centred content on rectangles"
-// convention left Venu Sq 2 a 204px chord and no font tier that fit — DayArcStackTest.)
+// sweep). A ROUND product is chord-fitted against the inscribed circle. A rectangular one (Venu Sq 2/
+// Sq 2 Music, Venu X1) has its own square design since ADR-019: rows fit the box inside a rounded-
+// rectangle track (DayArcRect), the gauge is straight, the grid rows sit level.
+// (2026-09-28: the inscribed circle on a rectangle left Venu Sq 2 a 204px chord and no tier that fit.)
 class DayArcLayout {
     private static const PERMILLE = 1000;
     static const CLOCK_MAX_PERMILLE = 200;
@@ -58,6 +57,7 @@ class DayArcLayout {
     private var _d as Number;
     private var _radius as Number;
     private var _round as Boolean;
+    private var _rect as Boolean;
     private var _subscreen as Graphics.BoundingBox?;
     // The Instinct window's box as plain numbers (BoundingBox fields are nullable); unused elsewhere.
     private var _windowX as Number = 0;
@@ -72,6 +72,7 @@ class DayArcLayout {
         _radius = _d / 2;
         var shape = System.getDeviceSettings().screenShape;
         _round = shape == System.SCREEN_SHAPE_ROUND;
+        _rect = shape == System.SCREEN_SHAPE_RECTANGLE;
         // Asked of semi-octagon screens only (the Instinct's round window, ADR-015), so no round or rectangular
         // product's geometry can depend on it.
         _subscreen = shape == System.SCREEN_SHAPE_SEMI_OCTAGON && (WatchUi has :getSubscreen) ? WatchUi.getSubscreen() : null;
@@ -133,6 +134,11 @@ class DayArcLayout {
         }
         var span = instinctSpan(y, boxHeight);
         return (span[0] + span[1]) / 2;
+    }
+
+    // Venu Sq 2 / Sq 2 Music / Venu X1: the square design (DayArcRect, ADR-019).
+    function isRectangle() as Boolean {
+        return _rect;
     }
 
     function centerX() as Number {
@@ -197,6 +203,9 @@ class DayArcLayout {
             var span = instinctSpan(y, boxHeight);
             return span[1] - span[0];
         }
+        if (_rect) {
+            return DayArcRect.rowWidth(self, y, boxHeight);
+        }
         if (!_round) {
             return _width - 2 * permille(SIDE_MARGIN_PERMILLE);
         }
@@ -232,6 +241,9 @@ class DayArcLayout {
     }
 
     function topMargin() as Number {
+        if (_rect) {
+            return DayArcRect.innerInset(self);
+        }
         return circleTop() + permille(TOP_MARGIN_PERMILLE);
     }
 
@@ -240,7 +252,7 @@ class DayArcLayout {
     }
 
     function gridBottom() as Number {
-        return _height - permille(BOTTOM_MARGIN_PERMILLE);
+        return _rect ? _height - DayArcRect.innerInset(self) : _height - permille(BOTTOM_MARGIN_PERMILLE);
     }
 
     // One grid row's column width, from THIS row's own chord (not the narrowest row's): rows near
@@ -285,8 +297,11 @@ class DayArcLayout {
         return (half * half + sag * sag) / (2 * sag);
     }
 
-    // How far a point `dx` from the centre line sits ABOVE the curve's lowest point.
+    // How far a point `dx` from the centre line sits ABOVE the curve's lowest point (0 on a rectangle: no curve).
     function curveLift(dx as Number) as Number {
+        if (_rect) {
+            return 0;
+        }
         var radius = gaugeRadius();
         var across = dx.abs();
         if (across >= radius) {

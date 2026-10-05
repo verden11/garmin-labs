@@ -155,7 +155,10 @@ class DayArcStack {
         var t = DayArcConfig.STACK_LEVELS[rung];
         level = rung;
         // On a 1-bit watch the clock starts one tier down: with no hue the biggest digits read first, and they must be the hero's.
-        clockFont = DayArcLayout.CLOCK_FONTS[DayArcText.max(t[DayArcConfig.LEVEL_CLOCK], DayArcPalette.MONO ? 1 : 0)];
+        // On a rectangle too (ADR-019, reviewer): the square's extra height went to the clock first, and on the Venu X1 a grey
+        // "20:02" ended up 0.9 of the hero's height and twice its width. Not at night, where the time is the read.
+        var floor = DayArcPalette.MONO || (layout.isRectangle() && _window != DayArcConfig.WINDOW_NIGHT) ? 1 : 0;
+        clockFont = DayArcLayout.CLOCK_FONTS[DayArcText.max(t[DayArcConfig.LEVEL_CLOCK], floor)];
         heroFont = DayArcLayout.HERO_FONTS[t[DayArcConfig.LEVEL_HERO]];
         smallIcon = t[DayArcConfig.LEVEL_HERO] != 0;
         iconWidth = _iconSizes[smallIcon ? 2 : 0];

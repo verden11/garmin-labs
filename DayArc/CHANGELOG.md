@@ -4,6 +4,14 @@ One entry per Connect IQ Store publication, newest first, either listing (noted 
 store's "What's New" text for each version is in that listing's `listing/paste.md` or
 `listing-pro/paste.md`.
 
+## Unreleased
+
+- **Square design on the rectangular watches (Venu Sq 2, Venu Sq 2 Music, Venu X1), both listings (ADR-019, 2026-10-05,
+  simulator only, awaiting the owner's look at the screenshots):** the window-progress arc follows the screen as the top of a
+  rounded-rectangle track, the Stress and Body Battery gauge is a straight bar, and the time, date and readings use the room
+  inside the track. On the Venu Sq 2, DayArc Pro's morning now shows "Feels like" and a row of fields together. Round watches
+  and the Instinct are unchanged.
+
 ## 1.0.0, both listings: uploaded and approved by Garmin 2026-10-05 (first publication)
 
 - DayArc (free): https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193

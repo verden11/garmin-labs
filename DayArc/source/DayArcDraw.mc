@@ -126,6 +126,10 @@ class DayArcDraw {
     // Since E1 (2026-10-01) the gauge is a shallow smile: an arc of the layout's gauge circle (the
     // same curve the grid rows lift onto), round-capped with filled circles (drawArc ends are butt).
     private static function drawGauge(dc as Graphics.Dc, layout as DayArcLayout, top as Number, value as Number, max as Number, accent as Number) as Void {
+        if (layout.isRectangle()) {
+            DayArcRect.drawGauge(dc, layout, top, value, max, accent);   // a straight pill bar on a square (ADR-019)
+            return;
+        }
         var pen = layout.gaugeHeight();
         var radius = layout.gaugeRadius();
         // The visual side padding, capped by the real chord so it never clips a bezel on a small round

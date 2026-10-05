@@ -58,7 +58,8 @@ class DayArcArc {
     // rowMaxWidth for an ACTIVE-window row (night and the idle frame have no arc and use the plain
     // layout.rowMaxWidth): a row whose top is above the arc's tips is fitted against clearRadius().
     static function rowMaxWidth(layout as DayArcLayout, y as Number, boxHeight as Number) as Number {
-        if (layout.subscreen() != null || y >= lowestY(layout)) {
+        // A rectangle's rows already fit the box inside its track (DayArcRect.rowWidth), at every y.
+        if (layout.subscreen() != null || layout.isRectangle() || y >= lowestY(layout)) {
             return layout.rowMaxWidth(y, boxHeight);
         }
         return layout.rowMaxWidthIn(clearRadius(layout), y, boxHeight);
@@ -68,6 +69,10 @@ class DayArcArc {
         var window = layout.windowRing();
         if (window != null) {
             drawWindow(dc, window, accent, fraction);
+            return;
+        }
+        if (layout.isRectangle()) {
+            DayArcRect.drawArc(dc, layout, accent, fraction);
             return;
         }
         var start = startDegrees();
