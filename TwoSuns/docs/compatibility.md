@@ -26,7 +26,12 @@ The fēnix 9 family, FR70 and FR170 (API 6.0) are in by API level; the SDK's dev
 
 ## Rectangular AMOLED
 
-`venusq2` and `venusq2m` (320 × 360) and `venux1` (448 × 486). The face keeps its round design: the ring is a circle the size of the shorter side, centred, with black bars above and below. Text is checked against the round chord, which is stricter than a rectangle needs. **Not looked at by eye; the look on a rectangle is not approved.** `venusq2` has been through the fit test; `venux1` has not been run at all.
+`venusq2` and `venusq2m` (320 × 360) and `venux1` (448 × 486). **Since 2026-10-05 a square form (ADR-028, the rectangle track, proposed; simulator only; look approval open):** the sky ring is a rounded-rectangle track along the glass, the rows are measured against the rounded box inside it, and the time takes the largest font the box still holds (`../DESIGN.md` "Rectangle"). Before that the face kept its round design centred (screenshots `../../device-test/rect-review/before/`).
+
+- Glass corners, measured off the alpha mask of the SDK's device images: about 10 px on `venusq2` (`venusq2.png`), 68 px on `venux1` (`device.png`). The track's centreline corner is 48 px and 67 px (150 permille of D), inset 7 px and 9 px; `trackStaysOnTheDisplay` checks its outer edge against those glass corners every 5 minutes of the day.
+- Tests 2026-10-05/06, container simulator: Pro and Free full suites pass on `venusq2` and `venux1` (counts in `development.md`), including `everyStateFitsThisDisplay` and `alwaysOnFrameFitsAtEveryDrift`. `venusq2m` is compile-only (same screen as `venusq2`).
+- Seen in screenshots (simulator, canned sun times, curve and weather): morning, day, evening, night and always-on, both tiers, both sizes (`../../device-test/rect-review/after/`). With the weather row on, `venusq2` has no room for the watch battery row (as on the 360 px round screens); `venux1` shows every Pro row.
+- **Not seen:** any rectangle on a wrist.
 
 ## Instinct E and Instinct 3 Solar (added 2026-10-04, ADR-024, accepted 2026-10-04, simulator only)
 

@@ -28,7 +28,8 @@ class TwoSunsBand {
         var fixed = band.glyphWidth + gap + valueWidth;
         var curveWidth = chordWidth - fixed - gap;
         var cap = layout.capFor(TwoSunsConfig.CURVE_MAX_WIDTH_PERMILLE);
-        curveWidth = curveWidth > cap ? cap : curveWidth;
+        // On a rectangle the band spans the inner box, side to side (ADR-028): the bolt at its left edge, the curve to its right.
+        curveWidth = curveWidth > cap && layout.track() == null ? cap : curveWidth;
         band.hasCurve = wantCurve && curveWidth >= layout.capFor(TwoSunsConfig.CURVE_MIN_WIDTH_PERMILLE);
         var total = band.hasCurve ? fixed + gap + curveWidth : fixed;
         var left = layout.rowCenterX(bandTop, bandHeight) - total / 2;
