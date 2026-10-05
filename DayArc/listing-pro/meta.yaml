@@ -42,5 +42,4 @@ site:
 owner_approvals:   # what only the owner may settle before paste.md is used
   # Approved by the owner 2026-10-05 (chat): the updated face design (bolt hero icon, grey Pro grid icons), the recaptured
   # watch-framed screens, the listing text as drafted (keeping "Chosen in the Garmin Connect app"), and the upload order (ROADMAP 1.9); the cover, hero and icons ("Icons OK", same evening).
-  - "Line 1 needs the DayArc store URL: create both listings first, then paste. 'More from Verden' holds the three Free listings (filled 2026-10-05; the links work once Garmin approves them, ROADMAP 7.12): drop any line whose listing is not live at upload."
 open_items: "1.1 1.4 1.5 1.7 1.8 1.9"   # ids in ROADMAP.md

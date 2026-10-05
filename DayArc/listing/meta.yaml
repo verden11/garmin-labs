@@ -6,7 +6,7 @@ tier: free
 app_id: 56a7298c-dcbf-41ff-b013-9a073a59d2dd
 store:
   listing_url: null
-  developer_url: null
+  developer_url: https://apps-developer.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193   # owner, 2026-10-05; store page https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193 (live once Garmin approves)
 live:
   version: null
   since: null

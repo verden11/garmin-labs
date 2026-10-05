@@ -11,7 +11,7 @@ DayArc Pro
 ## Description
 
 ```text
-Also available: DayArc, the lighter version with one reading per window: <DAYARC STORE URL>
+Also available: DayArc, the lighter version with one reading per window: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 
 DayArc Pro changes what it shows through the day, on a fixed schedule. One setting: an accent colour, chosen in the Garmin Connect app — or leave it on Auto, where each time of day has its own colour.
 
