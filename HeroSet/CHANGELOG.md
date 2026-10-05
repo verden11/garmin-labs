@@ -12,6 +12,7 @@ Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.21 to 13.23; 
 - **Set screen: calories read `--` until the estimate reaches 1**, not `CAL 0` in a set's first seconds.
 - **Instinct dashboard: no `STREAK 0`.** At zero the streak row is left out beside the window (the round dashboard keeps `NO STREAK YET`).
 - Listing shots 2, 3 and 5 and the hero re-framed.
+- **Three rectangular watches added: Venu Sq 2, Venu Sq 2 Music, Venu X1** (touch-first, glance and HeroFace complication; 90 products; [ADR-058](docs/decisions.md#adr-058), rectangular watches). Rows use the full width; the dashboard's XP ring sits on the inscribed circle and its content fits inside it. Tests 116 (store 103), PASSED on venusq2, venusq2m, venux1 in both builds; simulator only, look awaiting the owner.
 
 ## 1.3.1 — uploaded 2026-10-04 by the owner, in review (fixes and the Instinct glance layout)
 

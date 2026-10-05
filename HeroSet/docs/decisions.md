@@ -60,6 +60,7 @@ If only read five: **[ADR-002](#adr-002)** (XP can't be farmed), **[ADR-018](#ad
 | 054 | Connect sync shelved: Connect's UI never renders developer lap/session fields; two device bugs found (stray recording on exit, discard still lapping) | Active, amends 043 |
 | 055 | Instinct family (semi-octagon, 1-bit, subscreen window): keep-out layout, black-and-white palette, XP gauge in the window; Instinct 2 / 2S / 2X, Descent G1, Instinct E, Instinct 3 Solar | **Proposed**, simulator evidence only, look approved 2026-10-03 |
 | 056 | Price: the $2.50 tier for every paid app (supersedes the price of 039) | Accepted 2026-10-04; ships with the next version upload |
+| 058 | Rectangular touch-first watches (Venu Sq 2, Sq 2 Music, X1); dashboard content fits the ring's circle | Proposed 2026-10-05; simulator only, look not yet approved |
 
 ---
 
@@ -478,3 +479,14 @@ All are at or above `minApiLevel` 3.4.0 (`instinct2`/`2s`/`crossover` list CIQ 3
 **Open risk.** Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`); how it treats a repricing to a higher tier is not confirmed. Ship the change together with the next version upload (1.3.1), which is re-reviewed anyway, so there is one review, not two. The Garmin email on repricing was cancelled (owner, 2026-10-04, [`../../ROADMAP.md`](../../ROADMAP.md) 2.1); the agent re-reads Garmin's published policies instead (`../../reports/Garmin policies and design guidelines.md`, running), so the risk stays open until that report answers it.
 
 **Reversed by.** The owner. The price part of ADR-039 (USD 2.00, no trial wording on price) is Superseded; its product list and no-trial decision stand.
+
+### <a id="adr-058"></a>ADR-058: Rectangular touch-first watches: Venu Sq 2, Sq 2 Music, Venu X1
+**Status: Proposed 2026-10-05 (agent; simulator only, the screen looks await the owner's approval).**
+
+**Decision.** Add `venusq2`, `venusq2m` (320x360) and `venux1` (448x486) to both manifests, with the complications resource in both jungles (CIQ 5.0 / 6.0.2, so they publish the complication of [ADR-044](#adr-044) (the private HeroFace complication) and show the glance of [ADR-051](#adr-051) (the read-only glance)). They are touch-first (`enter`, `esc`, plus `menu` on the Sq 2; no UP/DOWN), so the swipe input of [ADR-048](#adr-048) (touch-first watches) applies unchanged. All three are on Garmin's paid-app product list: the live paid Two Suns 1.0.0 listing, whose manifest has them, is offered on every manifest product but D2 Air X10 (`../../research_notes/Free and Pro ladder/garmin_rules.md` section 3), and the name match in `reach_by_product.md` found "the 3 rectangular DaysToGo products are all on the list".
+
+**Layout.** A rectangle has no bezel, so every row fitted against the display keeps the square path that already existed in `HeroSetLayout`: full width less the safe inset. Its one circle is the dashboard's XP ring, drawn on the inscribed circle about the screen's center as on a round watch; content inside the ring (rank, XP line, mission bars, streak: everything fitted against `contentRadius()`) now takes that circle's chord, with dy measured from `centerY()` (equal to the radius on every round and square product, so no other product's geometry moves), and the rank row starts `circleTop()` lower (0 elsewhere). Before this the ring crossed the mission labels and bars on both rectangles (simulator screenshots, 2026-10-05). Same idea as DayArc's rectangle rule (rows full width, only the progress arc on the inscribed circle); no code shared.
+
+**Evidence.** Simulator only (container): dev and store suites, `everyScreenFitsThisDisplay` included, on all three and on fr965, fr255s, venu3, instincte40mm; `HeroSetGlanceFitTest` carries the two new glance areas (254x114, 314x150); screenshots of the glance, dashboard, menu, set, review, end menu, save toast and goal picker on venusq2 and venux1, and fr965 for regression. No rectangle has been on a wrist.
+
+**Open.** The owner approves the look; after the next upload, the store's device tab confirms the three are sold.

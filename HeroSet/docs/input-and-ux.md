@@ -42,7 +42,7 @@ No calibration step. Every workout set saved through the picker (START at Finish
 
 ## Touch-first watches ([ADR-048](decisions.md#adr-048))
 
-Venu 2/3/4, vívoactive 5/6, Approach S50/S70, D2 Air X10 have START and BACK but no UP/DOWN.
+Venu 2/3/4, vívoactive 5/6, Approach S50/S70, D2 Air X10 and the rectangular Venu Sq 2 / X1 ([ADR-058](decisions.md#adr-058)) have START and BACK but no UP/DOWN. On the rectangles the dashboard's XP ring is a circle in the middle of the screen and its content sits inside it; every other screen uses the full width.
 - **Swipe up/down** does what UP/DOWN do: swipe up raises the picker value (+1 rep, +10 goal), swipe down lowers it; in the validation log swipe up is next page. Hints read `SWIPE: ADJUST` / `SWIPE: PAGE` (`HeroSetInput.touchFirst()`: no UP key).
 - **Tap** opens the menu from the dashboard and selects menu items, as native menus do. On the workout and both pickers a tap does nothing: Finish and Save are the START button only.
 - **Swipe right from the edge** is Back: mid-set it opens the `N reps` menu (Resume returns to counting).

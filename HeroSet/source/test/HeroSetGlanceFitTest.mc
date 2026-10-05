@@ -3,7 +3,7 @@ import Toybox.Lang;
 import Toybox.System;
 import Toybox.Test;
 
-// Glance content areas of the 66 products that can show one (simulator.json
+// Glance content areas of the 69 products that can show one (simulator.json
 // `glance.contentArea`, SDK 9.2.0), as [screen width, area width, area height].
 // The simulator can't be asked for a glance's size at run time, so each run
 // checks the rows for the screen width it runs on, with that product's own
@@ -47,7 +47,10 @@ class HeroSetGlanceAreas {
         [454, 312, 103],
         [454, 318, 150],
         [454, 349, 130],
-        [466, 359, 130]
+        [466, 359, 130],
+        // Rectangles (ADR-058): venusq2 / venusq2m, venux1.
+        [320, 254, 114],
+        [448, 314, 150]
     ] as Lang.Array<Lang.Array<Lang.Number>>;
 
     // The widest states the glance ever draws: goal 500 and a streak the

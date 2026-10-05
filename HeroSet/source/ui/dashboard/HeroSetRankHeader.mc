@@ -12,8 +12,9 @@ class HeroSetRankHeader {
         drawRing(dc, layout, state);
         // First row starts where every other screen's first band does, pushed
         // down by the ring's width so the ring and rank never crowd each other.
-        // The window's ring is out of the text's way, so no push there.
-        var top = layout.shortInset() + (layout.subscreen() == null ? layout.ringWidth() : 0);
+        // The window's ring is out of the text's way, so no push there. On a
+        // rectangle the ring starts circleTop() down (ADR-058).
+        var top = layout.circleTop() + layout.shortInset() + (layout.subscreen() == null ? layout.ringWidth() : 0);
         var text = HeroSetText.format(Rez.Strings.dashboard_rank, [state.rank]);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
         var font = HeroSetDraw.largestFont(dc, layout, layout.contentRadius(), 0, top, text, fonts);

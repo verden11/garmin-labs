@@ -1,6 +1,6 @@
 # Development
 
-App: Watch App · Products: 80, listed in [`compatibility.md`](compatibility.md) · Min API: 3.4.0 · Monkey C.
+App: Watch App · Products: 90, listed in [`compatibility.md`](compatibility.md) · Min API: 3.4.0 · Monkey C.
 
 ## Setup
 

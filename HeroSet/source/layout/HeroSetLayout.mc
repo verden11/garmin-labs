@@ -10,6 +10,10 @@ import Toybox.WatchUi;
 // inset than the center row; square displays degrade to a constant inset.
 // Semi-octagon displays (Instinct, ADR-055) take the square path plus a window
 // they must stay clear of: a round subscreen cut into the top-right corner.
+// Rectangles (Venu Sq 2, Venu X1, ADR-058) have no bezel: rows fitted against
+// the display take the full width less the safe inset. Their one circle is the
+// dashboard's XP ring, on the inscribed circle about the screen's center, so
+// content fitted inside the ring (a radius below the display's) takes its chord.
 class HeroSetLayout {
 
     // Dashboard XP ring (ADR-031), in Dc.drawArc degrees (0 = 3 o'clock,
@@ -34,6 +38,7 @@ class HeroSetLayout {
     private var _radius;
     private var _round;
     private var _semiOctagon;
+    private var _rectangle;
     private var _subscreen as Graphics.BoundingBox?;
 
     function initialize(dc as Graphics.Dc) {
@@ -44,6 +49,7 @@ class HeroSetLayout {
         var shape = System.getDeviceSettings().screenShape;
         _round = shape == System.SCREEN_SHAPE_ROUND;
         _semiOctagon = shape == System.SCREEN_SHAPE_SEMI_OCTAGON;
+        _rectangle = shape == System.SCREEN_SHAPE_RECTANGLE;
         // Asked of semi-octagon screens only, so no round product's geometry
         // can depend on it.
         _subscreen = _semiOctagon && (WatchUi has :getSubscreen) ? WatchUi.getSubscreen() : null;
@@ -208,10 +214,22 @@ class HeroSetLayout {
         return rightInsetWithin(_radius, y, height);
     }
 
+    // Round screens fit every row to a circle; a rectangle only the rows inside
+    // the dashboard ring (ADR-058).
+    private function chordFitted(radius as Lang.Number) as Lang.Boolean {
+        return _round || (_rectangle && radius < _radius);
+    }
+
+    // How far the ring's circle starts below the top edge: 0 except on a
+    // rectangle taller than wide, so the header can start under the ring.
+    function circleTop() as Lang.Number {
+        return centerY() - _radius;
+    }
+
     // Same chord as leftInset/rightInset, against a smaller concentric circle
     // (e.g. contentRadius inside the dashboard ring).
     function leftInsetWithin(radius as Lang.Number, y as Lang.Number, height as Lang.Number) as Lang.Number {
-        if (!_round) {
+        if (!chordFitted(radius)) {
             var visible = _semiOctagon ? _centerX - HeroSetLayout.chordHalfWidth(SEMI_OCTAGON_VISIBLE_RADIUS, farthestInkDy(y, height)) : 0;
             return visible > sideInset() ? visible : sideInset();
         }
@@ -219,7 +237,7 @@ class HeroSetLayout {
     }
 
     function rightInsetWithin(radius as Lang.Number, y as Lang.Number, height as Lang.Number) as Lang.Number {
-        if (!_round) {
+        if (!chordFitted(radius)) {
             var window = _subscreen;
             var edge = window != null && besideWindow(y) ? window.x - windowClearance() : _width - sideInset();
             var visible = _semiOctagon ? _centerX + HeroSetLayout.chordHalfWidth(SEMI_OCTAGON_VISIBLE_RADIUS, farthestInkDy(y, height)) : _width;
@@ -261,9 +279,11 @@ class HeroSetLayout {
         return farthestDy(y + trim, height - 2 * trim);
     }
 
+    // A rectangle's ring circle is centered on the taller side: dy is taken from
+    // the screen's center (equal to the radius on round and square screens).
     private function farthestDy(y as Lang.Number, height as Lang.Number) as Lang.Number {
-        var dyTop = y - _radius;
-        var dyBottom = y + height - _radius;
+        var dyTop = y - centerY();
+        var dyBottom = y + height - centerY();
         return dyTop.abs() > dyBottom.abs() ? dyTop : dyBottom;
     }
 

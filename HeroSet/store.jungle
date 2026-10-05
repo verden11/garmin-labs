@@ -76,6 +76,10 @@ d2airx10.resourcePath = $(d2airx10.resourcePath);resources-complications
 approachs50.resourcePath = $(approachs50.resourcePath);resources-complications
 approachs7042mm.resourcePath = $(approachs7042mm.resourcePath);resources-complications
 approachs7047mm.resourcePath = $(approachs7047mm.resourcePath);resources-complications
+# Rectangular touch-first watches, CIQ 5.0 / 6.0 (ADR-058).
+venusq2.resourcePath = $(venusq2.resourcePath);resources-complications
+venusq2m.resourcePath = $(venusq2m.resourcePath);resources-complications
+venux1.resourcePath = $(venux1.resourcePath);resources-complications
 # Instinct E / Instinct 3 Solar are CIQ 6.0: complications resource too.
 instincte40mm.resourcePath = $(instincte40mm.resourcePath);resources-complications
 instincte45mm.resourcePath = $(instincte45mm.resourcePath);resources-complications
