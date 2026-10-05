@@ -71,7 +71,7 @@ function heroFaceLayoutReport(logger as Test.Logger) as Boolean {
     HeroFaceDraw.boxes = [] as Array<Array>;
     logger.debug(settings.screenWidth + "x" + settings.screenHeight
         + " ring r=" + layout.ringRadius() + " w=" + layout.ringWidth()
-        + " date=" + layout.topRowTop + " time=" + layout.timeTop
+        + " date=" + layout.topRowTop + " time=" + layout.timeTop + " timeWithSeconds=" + layout.secondsTimeTop
         + " underTime=" + layout.underTimeTop + " missions=" + layout.missionTop
         + " footer=" + layout.footerTop + " column=" + layout.columnWidth);
     var top = layout.topRowTop;
@@ -83,6 +83,12 @@ function heroFaceLayoutReport(logger as Test.Logger) as Boolean {
         widths += "'" + samples[i] + "'=" + dc.getTextWidthInPixels(samples[i], Graphics.FONT_XTINY) + " ";
     }
     logger.debug("top row room=" + room + "  " + widths);
+    // The number fonts as this device has them (box height, ascent, descent, widest time), for picking the time's size.
+    var numbers = [Graphics.FONT_NUMBER_MILD, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_THAI_HOT] as Array<Graphics.FontDefinition>;
+    for (var i = 0; i < numbers.size(); i++) {
+        logger.debug("number font " + i + " h=" + dc.getFontHeight(numbers[i]) + " ascent=" + Graphics.getFontAscent(numbers[i])
+            + " descent=" + Graphics.getFontDescent(numbers[i]) + " '00:00'=" + dc.getTextWidthInPixels("00:00", numbers[i]));
+    }
     var boxes = HeroFaceDraw.boxes as Array<Array>;
     for (var i = 0; i < boxes.size(); i++) {
         var b = boxes[i];
@@ -229,6 +235,7 @@ function rowsBesideAWindowStayClearOfIt(logger as Test.Logger) as Boolean {
 
 // On a rectangle the ring is an open-bottom rounded rectangle (ADR-005): its band stays on the display, an empty share
 // fills nothing, any progress fills a pixel, a full share fills the whole path and more progress never fills less.
+// Its corners clear the glass evenly, and the time keeps its largest size while no seconds are drawn.
 // Every other product keeps its circle or its window gauge.
 (:test)
 function rectangleRingStaysOnTheDisplay(logger as Test.Logger) as Boolean {
@@ -238,23 +245,29 @@ function rectangleRingStaysOnTheDisplay(logger as Test.Logger) as Boolean {
         ? Graphics.createBufferedBitmap(size).get() as Graphics.BufferedBitmap
         : new Graphics.BufferedBitmap(size);
     var layout = new HeroFaceLayout(bitmap.getDc());
-    if (!layout.rectangle()) {
+    var frame = layout.frame();
+    if (frame == null) {
         Test.assert(settings.screenShape != System.SCREEN_SHAPE_RECTANGLE);
         return true;
     }
-    var b = layout.frameBox();
+    var b = frame.box();
     var half = layout.ringWidth() / 2 + 1;
     Test.assert(b[0] - half >= 0 && b[1] - half >= 0 && b[2] + half <= settings.screenWidth && b[3] + b[4] + half <= settings.screenHeight);
     Test.assert(b[3] > b[1] + b[4] && b[2] - b[0] > 2 * b[4]);
-    Test.assertEqual(layout.frameFillFor(0), 0);
-    Test.assert(layout.frameFillFor(1) >= 1);
-    Test.assertEqual(layout.frameFillFor(1000), layout.frameLength());
-    Test.assertEqual(layout.frameFillFor(1500), layout.frameLength());
+    Test.assertEqual(frame.fillFor(0), 0);
+    Test.assert(frame.fillFor(1) >= 1);
+    Test.assertEqual(frame.fillFor(1000), frame.length());
+    Test.assertEqual(frame.fillFor(1500), frame.length());
     var last = 0;
     for (var p = 0; p <= 1000; p += 50) {
-        Test.assert(layout.frameFillFor(p) >= last);
-        last = layout.frameFillFor(p);
+        Test.assert(frame.fillFor(p) >= last);
+        last = frame.fillFor(p);
     }
-    logger.debug("frame " + b + " length=" + layout.frameLength());
+    // Each corner is centred 1.5 insets in (near-concentric with the Venu X1's glass), and the time is never smaller
+    // with seconds off than with them on.
+    Test.assertEqual(b[0] + b[4], layout.shortInset() * 3 / 2);
+    Test.assert(HeroFaceFrame.inkHeight(layout.timeFont) >= HeroFaceFrame.inkHeight(layout.secondsTimeFont));
+    logger.debug("frame " + b + " length=" + frame.length() + " time ink=" + HeroFaceFrame.inkHeight(layout.timeFont)
+        + " with seconds=" + HeroFaceFrame.inkHeight(layout.secondsTimeFont));
     return true;
 }

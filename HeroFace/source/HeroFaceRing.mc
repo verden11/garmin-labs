@@ -17,11 +17,12 @@ class HeroFaceRing {
             return;
         }
         dc.setPenWidth(layout.ringWidth());
-        if (layout.rectangle()) {
-            frame(dc, layout, HeroFacePalette.TRACK, layout.frameLength());
-            var fill = layout.frameFillFor(permille);
+        var box = layout.frame();
+        if (box != null) {
+            frame(dc, layout, box, HeroFacePalette.TRACK, box.length());
+            var fill = box.fillFor(permille);
             if (fill > 0) {
-                frame(dc, layout, color, fill);
+                frame(dc, layout, box, color, fill);
             }
             dc.setPenWidth(1);
             return;
@@ -43,11 +44,11 @@ class HeroFaceRing {
     // The rectangle's form of the ring (ADR-005): the first `length` px of an open-bottom rounded rectangle, up the
     // left side from its lower end, over the top, down the right side, so it fills clockwise like the round ring and
     // leaves the bottom edge to the footer. Straight runs are filled boxes (no pen caps to seam), corners are arcs.
-    private static function frame(dc as Graphics.Dc, layout as HeroFaceLayout, color as Number, length as Number) as Void {
+    private static function frame(dc as Graphics.Dc, layout as HeroFaceLayout, box as HeroFaceFrame, color as Number, length as Number) as Void {
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
-        var b = layout.frameBox();
+        var b = box.box();
         var w = layout.ringWidth();
-        var arcLength = HeroFaceLayout.quarterArc(b[4]);
+        var arcLength = HeroFaceFrame.quarterArc(b[4]);
         var side = b[3] - b[1] - b[4];
         var top = b[2] - b[0] - 2 * b[4];
         var run = length < side ? length : side;

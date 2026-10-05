@@ -8,13 +8,24 @@ class HeroFaceClock {
     // Returns the seconds' box [x, y, width, height] for partial updates, or
     // null when no seconds are drawn.
     static function draw(dc as Graphics.Dc, layout as HeroFaceLayout, state as HeroFaceState) as Array<Number>? {
-        var font = layout.timeFont;
+        var seconds = state.seconds;
+        // A rectangle keeps the seconds' width free beside a smaller time only while they are drawn (HeroFaceFrame).
+        var font = seconds != null ? layout.secondsTimeFont : layout.timeFont;
         var empty = underTimeEmpty(layout, state);
-        var top = empty ? layout.timeTop + (dc.getFontHeight(Graphics.FONT_XTINY) + layout.stackGap()) / 2 : layout.timeTop;
+        var top = seconds != null ? layout.secondsTimeTop : layout.timeTop;
+        top = empty ? top + (dc.getFontHeight(Graphics.FONT_XTINY) + layout.stackGap()) / 2 : top;
         dc.setColor(HeroFacePalette.TEXT, Graphics.COLOR_TRANSPARENT);
         var center = layout.rowCenterX(top, dc.getFontHeight(font));
-        HeroFaceDraw.text(dc, layout, center, top, font, state.time, Graphics.TEXT_JUSTIFY_CENTER);
-        var seconds = state.seconds;
+        if (layout.rectangle()) {
+            // Placed by its digits' ink (HeroFaceFrame): the font box's empty headroom and descent may reach into the
+            // rows around it, so the ink is what is checked for fit and overlap.
+            dc.drawText(center, top, font, state.time, Graphics.TEXT_JUSTIFY_CENTER);
+            var ink = HeroFaceFrame.inkHeight(font);
+            var width = dc.getTextWidthInPixels(state.time, font);
+            HeroFaceDraw.box(layout, center - width / 2, top + Graphics.getFontAscent(font) - ink, width, ink, state.time);
+        } else {
+            HeroFaceDraw.text(dc, layout, center, top, font, state.time, Graphics.TEXT_JUSTIFY_CENTER);
+        }
         if (seconds == null) {
             return null;
         }
