@@ -38,6 +38,9 @@ function batteryRowIsNotInTheAlwaysOnFrame(logger as Test.Logger) as Boolean {
 function batteryRowDoesNotMoveTheStack(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
+    if (layout.track() != null) {
+        return true;   // a rectangle's time grows into the room the row would take when Battery is off (ADR-028)
+    }
     var with = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true);
     var without = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true);
     without.watchBattery = null;

@@ -24,8 +24,8 @@ monkeyc -d fr965 -f monkey.jungle -o bin/TwoSuns.prg -y $KEY -w --typecheck 3   
 monkeyc -d fr965 -f monkey.free.jungle -o bin/TwoSunsFree.prg -y $KEY -w --typecheck 3  # Free
 monkeydo bin/TwoSuns.prg fr965                  # with the simulator running
 
-tools/run_tests.sh fr965                        # Pro: 154 tests; prints PASSED (…)
-tools/run_tests.sh fr965 monkey.free.jungle     # Free: 67 tests (compiled, not yet run)
+tools/run_tests.sh fr965                        # Pro: 159 tests; prints PASSED (…)
+tools/run_tests.sh fr965 monkey.free.jungle     # Free: 71 tests
 tools/run_tests.sh fr965 monkey.jungle everyStateFitsThisDisplay
 tools/fit_all.sh [jungle]                       # screen fit on ten devices, one per size but Venu X1
 tools/compile_sweep.sh                          # compile every product, both jungles, no simulator
@@ -69,7 +69,7 @@ source/
   TwoSunsRingPlan / Ring / RingArc  sky ring: plan (pure) and drawing
   TwoSunsCurvePlan / Curve / Band   Body Battery band: plan (pure) and drawing
   TwoSunsLayout/Rows/Frame/Draw/Sleep/Palette/Config/Text/DateText/Settings
-  test/                             unit and screen-fit tests (Pro 154, Free 67)
+  test/                             unit and screen-fit tests (Pro 159, Free 71)
 resources/  resources-<lang>/       shared strings and drawables (English + 14 machine-drafted); NO settings, NO AppName
 resources-free/  resources-pro/     AppName ("Two Suns" / "Two Suns Pro"), the settings and properties of each tier
 manifest.xml, monkey.jungle              Pro (the live app id)

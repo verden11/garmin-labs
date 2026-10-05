@@ -107,6 +107,7 @@ class TwoSunsConfig {
     static const RING_GOLDEN = 4;
     // The 24 hour ring: noon at the top by default (docs/spec.md D1).
     static const NOON_MINUTE = 720;
+    static const WIDEST_TIME = "00:00";      // a rectangle's time font is chosen on this width, not the minute's (ADR-028)
     static const DEGREES_TOP = 90;           // Garmin arcs: 0 is 3 o'clock, counter-clockwise, so the top is 90
     static const DEGREES_FULL_TURN = 360;
     static const MINUTES_PER_DEGREE_RING = 4;   // 1440 minutes round 360 degrees
