@@ -15,7 +15,7 @@ next:
   version: "1.0.0"
   status: drafted   # drafted | prepared | uploaded | in-review | live
   uploaded: null
-  summary: text drafted, not finalised; the owner_approvals below are undecided; 72 products with the Instinct E and 3 Solar (ADR-015)
+  summary: text drafted, not finalised; text, screens and upload order approved by the owner 2026-10-05; the owner_approvals below are still open; 72 products with the Instinct E and 3 Solar (ADR-015)
 package:
   file: dist/DayArc-1.0.0.iq
   products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
@@ -40,8 +40,8 @@ site:
   support: https://verden.watch/day-arc/support/
   privacy: https://verden.watch/day-arc/privacy/
 owner_approvals:   # what only the owner may settle before paste.md is used
-  - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
+  # Approved by the owner 2026-10-05 (chat): the updated face design (bolt hero icon, grey Pro grid icons), the recaptured
+  # watch-framed screens, the listing text as drafted (keeping "Chosen in the Garmin Connect app"), and the upload order (ROADMAP 1.9).
   - "Line 1 needs the DayArc Pro store URL: create both listings first, then paste. 'More from Verden' holds the three Free listings (filled 2026-10-05; the links work once Garmin approves them, ROADMAP 7.12): drop any line whose listing is not live at upload."
-  - "'Chosen in the Garmin Connect app' is unverified until a store install (docs/status.md gate 5): keep it firm or soften it."
   - "The looks of the hero (proposal: the arc mark, three windows, no price, no claim beyond what each window shows), the cover (the arc mark and the name on an indigo ground, not black; Pro tells itself apart with a white PRO tag), the device icons and the five screens (simulator captures with canned values, not readings; the night window is left out on purpose)."
 open_items: "1.1 1.4 1.5 1.7 1.8 1.9"   # ids in ROADMAP.md
