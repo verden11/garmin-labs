@@ -1,4 +1,4 @@
-// The name is a WORKING NAME (owner has not confirmed it; store-collision and general web checked,
+// The name is confirmed (owner, 2026-10-04) and live in the store since 2026-10-05 (store-collision and general web checked,
 // no registered-trademark search — DayArc/docs/decisions.md ADR-012).
 export const appName = 'DayArc Pro'
 

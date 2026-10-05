@@ -2,12 +2,12 @@
 
 > **Open items live only in the root [`ROADMAP.md`](../../ROADMAP.md).** This file keeps where things stand, the evidence, the release gates and the upload steps. Listing text and metadata: [`../listing/paste.md`](../listing/paste.md) and [`../listing/meta.yaml`](../listing/meta.yaml). Claims: [`release-contract.md`](release-contract.md). Build history: [`archive/plan.md`](archive/plan.md).
 
-**Where things stand, 2026-10-05.** Never submitted. Built and simulator tested for both densities, 72 products (69 plus the Instinct E and 3 Solar, ADR-015); the real-device evidence so far is the owner's FR965 photo of 2026-09-28 and a first look at the Pro build 2026-10-03. The final builds (after the 2026-10-05 review fixes) are on the owner's FR965 since 2026-10-05 for the all-day wear check (ROADMAP 1.1). Open work: ROADMAP 1.1, 1.5, 1.9, 1.10.
+**Where things stand, 2026-10-05: LIVE.** DayArc and DayArc Pro 1.0.0 were uploaded and approved by Garmin on 2026-10-05 (https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193, https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe). Before that: Built and simulator tested for both densities, 72 products (69 plus the Instinct E and 3 Solar, ADR-015); the real-device evidence so far is the owner's FR965 photo of 2026-09-28 and a first look at the Pro build 2026-10-03. The final builds (after the 2026-10-05 review fixes) are on the owner's FR965 since 2026-10-05 for the all-day wear check (ROADMAP 1.1). Open work: ROADMAP 1.1, 1.5, 1.9, 1.10.
 
 Owner's runbook, both listings. Status of the build itself: [`archive/plan.md`](archive/plan.md) "Implementation
 status". What may be claimed: [`release-contract.md`](release-contract.md).
 
-## Ready to upload (prepared 2026-10-04, final build 2026-10-05 evening, NOT uploaded)
+## Uploaded and approved 2026-10-05 (the steps below are kept for the next version)
 
 **Tonight's steps (owner, 2026-10-05), in this order:**
 1. Developer dashboard: create the **DayArc** app (upload `dist/DayArc-1.0.0.iq`), fill everything from `../listing/paste.md` except line 1 of the description, save as draft. Copy its store URL.

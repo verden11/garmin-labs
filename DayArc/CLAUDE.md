@@ -59,9 +59,7 @@ The evidence is in [`../reports/DayArc v1 scope and plan.md`](../reports/archive
 
 ## Open owner decisions
 
-Not decided, and not to be decided alone: both launcher icons/covers/heroes (placeholders now), both listings'
-remaining `owner_approvals` (`listing*/meta.yaml`), translation reads, the site pages, both store submissions, whether to
-run a real trademark search. Decided: the names DayArc / DayArc Pro (2026-10-04), the placeholder night window stays (time and date only, ADR-010, ROADMAP 1.7), the Instinct Pro behaviour as built (ROADMAP 1.18), two-listing architecture (ADR-003), fixed-clock windows
+**Live since 2026-10-05** (DayArc https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193, DayArc Pro https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe; icons, covers, heroes, listing text and screens approved by the owner that day). Still the owner's: translation reads, every future upload, whether to run a real trademark search. Decided: the names DayArc / DayArc Pro (2026-10-04), the placeholder night window stays (time and date only, ADR-010, ROADMAP 1.7), the Instinct Pro behaviour as built (ROADMAP 1.18), two-listing architecture (ADR-003), fixed-clock windows
 (ADR-004), pricing (ADR-007; its price part superseded by ADR-018), Simple's calendar exclusion (ADR-008), Pro's density target (ADR-009).
 **The look is owner-approved for direction and now built** (ADR-013, 2026-09-28: per-window/per-icon
 colour, real icons, always-visible date, window-progress arc; amended 2026-10-05: a bolt for Body Battery, grey grid icons). Simulator-tested, both jungles

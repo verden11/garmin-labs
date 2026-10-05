@@ -4,9 +4,15 @@ One entry per Connect IQ Store publication, newest first, either listing (noted 
 store's "What's New" text for each version is in that listing's `listing/paste.md` or
 `listing-pro/paste.md`.
 
-**There has been no store publication.** Nothing is submitted, no version number is confirmed.
+## 1.0.0, both listings: uploaded and approved by Garmin 2026-10-05 (first publication)
 
-## Unreleased / 1.0.0 in preparation (both listings)
+- DayArc (free): https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+- DayArc Pro (paid, the $2.50 tier): https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe
+- Packages `dist/DayArc-1.0.0.iq` and `dist/DayArcPro-1.0.0.iq`, 72 products (93 part numbers) each, exported 2026-10-05 evening
+  from the final code below. Evidence: simulator (the QA pass, `../reports/QA/Simulator QA 2026-10-05.md`) and the owner's
+  FR965 photos of the morning, midday and evening windows (the night window and the final build not yet on a wrist).
+
+What went into 1.0.0:
 
 - **2026-10-05, owner's picks on the photos (ROADMAP 13.28, 13.29):** the morning reads "Feels like" above the temperature;
   its icon is the current condition (clear, partly cloudy, cloudy, rain, snow), none when there is no weather.

@@ -5,7 +5,7 @@ import { Support } from './Support.tsx'
 import { Privacy } from './Privacy.tsx'
 import { appName } from './facts.ts'
 
-// No storeUrl until the store approves the app: the page then says "Coming soon".
+// Approved by Garmin, store page supplied by the owner 2026-10-05.
 // The slug is published in store listings and never changes, even if the name does.
 // A separate listing from DayArc: its own app id, its own slug (DayArc/docs/decisions.md ADR-003).
 export const dayArcPro: App = {
@@ -17,6 +17,7 @@ export const dayArcPro: App = {
   color: '#2a9fb0',
   onColor: '#ffffff',
   storeName: 'Connect IQ Store',
+  storeUrl: 'https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe',
   ogImage: '/day-arc-pro/watch/midday.png',
   Mark: DayArcProMark,
   Landing,
