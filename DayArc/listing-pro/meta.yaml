@@ -6,7 +6,7 @@ tier: pro
 app_id: cc86c6b6-9a5c-4908-9056-165ff4b81982
 store:
   listing_url: null
-  developer_url: null
+  developer_url: https://apps-developer.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe   # owner, 2026-10-05; store page https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe (live once Garmin approves)
 live:
   version: null
   since: null
