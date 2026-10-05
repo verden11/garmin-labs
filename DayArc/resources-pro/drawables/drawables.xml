@@ -1,5 +1,5 @@
 <drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
-    <bitmap id="LauncherIcon" filename="launcher_icon_pro.svg" dithering="none" />
+    <bitmap id="LauncherIcon" filename="launcher_icon_pro.png" dithering="none" />
     <!-- Grid icons (ADR-013, Pro only): each a permanent hue by icon TYPE, never by value —
          extends ADR-006's no-verdict rule one level down. Source: Tabler Icons (MIT), see
          icons/THIRD_PARTY_LICENSES.md. -->

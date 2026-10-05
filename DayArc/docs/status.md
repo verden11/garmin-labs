@@ -7,7 +7,16 @@
 Owner's runbook, both listings. Status of the build itself: [`archive/plan.md`](archive/plan.md) "Implementation
 status". What may be claimed: [`release-contract.md`](release-contract.md).
 
-## Ready to upload (prepared 2026-10-04, NOT uploaded)
+## Ready to upload (prepared 2026-10-04, final build 2026-10-05 evening, NOT uploaded)
+
+**Tonight's steps (owner, 2026-10-05), in this order:**
+1. Developer dashboard: create the **DayArc** app (upload `dist/DayArc-1.0.0.iq`), fill everything from `../listing/paste.md` except line 1 of the description, save as draft. Copy its store URL.
+2. Create **DayArc Pro** (upload `dist/DayArcPro-1.0.0.iq`), fill from `../listing-pro/paste.md`, line 1 = DayArc's URL; Monetization: paid, the **$2.50 tier**. Save. Copy its URL.
+3. Back in DayArc: line 1 = `Get DayArc Pro: <DayArc Pro URL>`. Submit DayArc, then DayArc Pro the same evening.
+4. Images for both: `cover-500.png`, `hero-1440x720.png`, `icon-64-128.png`, `icon-24-128.png`, and the five **`screens-framed/`** files listed in each `paste.md` (approved 2026-10-05).
+5. Tell the agent the two store URLs: the site's `storeUrl`s and the "More from Verden" lines follow (ROADMAP 1.10).
+
+
 
 Both listings, same day: DayArc (free) first, DayArc Pro second. Text: `../listing/paste.md`, `../listing-pro/paste.md` (line 1's sibling store URL and the `owner_approvals` in `../listing*/meta.yaml` first); metadata `../listing*/meta.yaml`.
 

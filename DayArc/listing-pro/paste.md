@@ -1,6 +1,6 @@
 # DayArc Pro — store listing (paste)
 
-Fill every <...> before pasting.
+Fill every <...> before pasting. Upload the framed screens (`screens-framed/`, owner-approved 2026-10-05), not the raw `screens/`.
 
 ## Title
 
@@ -73,11 +73,11 @@ Whatever the Category choice offers.
 
 ## Screen Images
 
-1. `screens/1-morning.png`
-2. `screens/2-midday.png`
-3. `screens/3-evening.png`
-4. `screens/4-accent-blue.png`
-5. `screens/5-instinct-evening.png`
+1. `screens-framed/1-morning.png`
+2. `screens-framed/2-midday.png`
+3. `screens-framed/3-evening.png`
+4. `screens-framed/4-accent-blue.png`
+5. `screens-framed/5-instinct-evening.png`
 
 ## Device icons
 
