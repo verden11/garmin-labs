@@ -342,7 +342,7 @@ touch-dependent.
   isn't tracked during activity, but the SDK gives a watch face no way to confirm *that's* the
   cause of any given null, so the copy doesn't claim it.
 - Body Battery null → "Body Battery unavailable" (no full stop, matching `strings.xml`).
-- Calendar null (Pro) → "No upcoming event" — same reasoning: could mean no sync or no event, the
+- Calendar null (Pro) → "None" (was "No upcoming event", which the pill cut to "No up..." on the owner's FR965, 2026-10-05) — same reasoning: could mean no sync or no event, the
   copy claims neither.
 - Every Pro grid cell: label plus "--" — a labelled "--" is itself the plain-English statement
   ("Steps --"), no separate sentence needed for a secondary cell (only the hero read gets a full

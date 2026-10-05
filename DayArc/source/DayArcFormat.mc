@@ -38,15 +38,15 @@ class DayArcFormat {
     // Shared by the main clock (DayArcView) and any other time-of-day read (e.g. Pro's sunrise/
     // sunset grid cells, DayArcFields) — both must respect the device's 12/24-hour setting the same
     // way, not reimplement it twice with one of the two forgetting (code review, 2026-09-28).
+    // 24 h keeps the leading zero (07:05); 12 h drops it (7:05), as Garmin's own faces and the studio's other faces do. A
+    // zero-padded 12 h hour read as the wrong half of the day on the wrist: the 18:54 sunset showed as "06:54", before the
+    // 07:32 sunrise, and 13:02 as "01:02" (owner's FR965 photos, 2026-10-05).
     static function clockTime(hour as Number, minute as Number, is24Hour as Boolean) as String {
-        var h = hour;
-        if (!is24Hour) {
-            h = hour % 12;
-            if (h == 0) {
-                h = 12;
-            }
+        if (is24Hour) {
+            return hour.format("%02d") + ":" + minute.format("%02d");
         }
-        return h.format("%02d") + ":" + minute.format("%02d");
+        var h = hour % 12;
+        return (h == 0 ? 12 : h) + ":" + minute.format("%02d");
     }
 
     static function count(value as Number or Null) as String {

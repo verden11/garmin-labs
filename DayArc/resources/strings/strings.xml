@@ -16,7 +16,7 @@
     <string id="midday_stress_label">Stress</string>
     <string id="midday_stress_unavailable">Stress unavailable right now</string>
     <string id="midday_calendar_label">Next</string>
-    <string id="midday_calendar_none">No upcoming event</string>
+    <string id="midday_calendar_none">None</string>
 
     <!-- Evening hero: Body Battery, number only, no mood word. -->
     <string id="evening_battery_label">Body Battery</string>

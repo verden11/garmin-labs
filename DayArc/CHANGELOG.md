@@ -8,6 +8,7 @@ store's "What's New" text for each version is in that listing's `listing/paste.m
 
 ## Unreleased / 1.0.0 in preparation (both listings)
 
+- **2026-10-05, from the owner's FR965 photos (simulator-tested):** in 12-hour mode the hour has no leading zero (`1:02`, sunset `6:54`; it read `01:02` and `06:54`, the wrong half of the day); an empty calendar reads "None" (was cut to "No up...").
 - **2026-10-05, design critique (owner: "do your picks"; ROADMAP 13.19, 13.20; simulator only):** the evening hero icon is a
   bolt (the battery shell read as a second battery beside Pro's watch-battery pill); Pro's grid icons are all muted grey (the
   per-type rainbow competed with the hero), and intensity is a pulse line. ADR-013 amendment. Both listing sets recaptured.

@@ -27,7 +27,7 @@ export function Support() {
         The grid shows only as many fields as measurably fit your watch's screen — the smallest screens in the supported
         set show fewer than the largest. A field your watch doesn't support at all shows as "--", not blank.
       </p>
-      <h3>The calendar field says "No upcoming event".</h3>
+      <h3>The calendar field says "None".</h3>
       <p>This can mean either your watch has no calendar sync enabled, or you simply have nothing upcoming — the watch doesn't tell {appName} which.</p>
       <h3>How is this different from DayArc?</h3>
       <p>Same four time windows, same fixed schedule, same no-verdict wording on stress and Body Battery. {appName} adds a denser field grid under each window's main reading, and is a one-time paid listing with no free tier.</p>

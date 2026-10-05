@@ -28,7 +28,7 @@ Every listing sentence gets checked against this file before it ships.
 - A sleep coach, sleep recommendation, or anything framed as personalized guidance — the SDK
   exposes a backward-looking sleep score at most, and this face doesn't use it at all (v1 cut).
 - That the calendar field distinguishes "no sync enabled" from "no upcoming event" — it can't; copy
-  says only "No upcoming event."
+  says only "None" (beside the calendar icon; was "No upcoming event" until 2026-10-05).
 - Accuracy or device reach wider than what real testing (fit sweep, not just compile) has confirmed.
 - Data leaving the watch — it doesn't; no network, no `Communications`, no `Background`.
 - That the accent colour can be changed **on the watch itself** (Customize next to Apply) — the menu

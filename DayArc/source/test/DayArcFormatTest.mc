@@ -30,7 +30,7 @@ function clockTimeRespectsBothHourFormats(logger as Test.Logger) as Boolean {
     Test.assertEqual(DayArcFormat.clockTime(13, 5, true), "13:05");
     Test.assertEqual(DayArcFormat.clockTime(0, 5, false), "12:05");
     Test.assertEqual(DayArcFormat.clockTime(12, 0, false), "12:00");
-    Test.assertEqual(DayArcFormat.clockTime(13, 5, false), "01:05");
+    Test.assertEqual(DayArcFormat.clockTime(13, 5, false), "1:05");
     Test.assertEqual(DayArcFormat.clockTime(23, 59, false), "11:59");
     return true;
 }
