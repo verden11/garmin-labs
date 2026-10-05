@@ -1,5 +1,7 @@
 # HeroFace (Free): screenshots and store images
 
+**Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh HeroFace bash /ciq-docker/frame_listing.sh listing-free`.
+
 Status 2026-10-04: **a full set rendered from the current Free build (`monkey.free.jungle`), simulator only.** **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.** Five screen images in `screens/`, `cover-500.png`, `hero-1440x720.png`, `icon-24-128.png`, `icon-64-128.png`, and the sources in `src/`. The Free build has no temperature, no seconds, three fixed goal bars (Auto), the accent colour and HeroSet mode, and the pictures show only that. The Pro twin's set is made the same way: [`../listing/screenshots.md`](../listing/screenshots.md) (the shared method is explained there too). Earlier versions are in git history.
 
 ## The five screen images (upload order)

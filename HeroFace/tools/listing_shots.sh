@@ -34,20 +34,20 @@ DONE="10000 10400 24 12 $H $H $H $H $H 3000 3000"     # every goal met
 
 # Upload order, both tiers: 1 everyday, 2 the tier's own screen, 3 goals met, 4 HeroSet mode, 5 Instinct.
 # Round, FR965 (454 px)
-scene 1-everyday.png fr965 $PART
+scene 1-everyday.png $([ "$TIER" = pro ] && echo fr965 || echo fr265) $PART   # a different watch per picture (framed, docker/frame_listing.sh)
 if [ "$TIER" = pro ]; then
   # what Pro adds: a metric per bar (move bar, steps, intensity minutes), seconds beside the time, the pale magenta accent
   set_prop Accent 2; set_prop Seconds true; set_prop Slot1 6; set_prop Slot2 1; set_prop Slot3 3
-  scene 2-your-bars.png fr965 $PART
+  scene 2-your-bars.png fenix8pro47mm $PART
   set_prop Accent 0; set_prop Seconds false; set_prop Slot1 0; set_prop Slot2 0; set_prop Slot3 0
 else
   # Free: the accent colour; magenta is only used by the hero (src/hero-magenta.png)
-  set_prop Accent 1; scene 2-accent-cyan.png fr965 $PART
+  set_prop Accent 1; scene 2-accent-cyan.png venu441mm $PART
   set_prop Accent 2; scene /work/listing-free/src/hero-magenta.png fr965 $PART
   set_prop Accent 0
 fi
-scene 3-goals-met.png fr965 $DONE
-heroset_on 60 45 28 2 40 3; scene 4-heroset.png fr965 $PART; heroset_off
+scene 3-goals-met.png $([ "$TIER" = pro ] && echo fr970 || echo epix2pro47mm) $DONE
+heroset_on 60 45 28 2 40 3; scene 4-heroset.png $([ "$TIER" = pro ] && echo venu3 || echo fenix847mm) $PART; heroset_off
 
 # the Instinct family (1-bit: no accent; the ring is a gauge in the round window); Pro is sold for the Instinct E and 3 only
 scene "$OUT/native/5-instincte40mm-166.png" instincte40mm $DONE   # then src/instinct-up.html makes screens/5-instinct-e40.png (x3, nearest-neighbour)

@@ -1,5 +1,7 @@
 # DayArc — store images
 
+**Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh DayArc bash /ciq-docker/frame_listing.sh listing`.
+
 Status 2026-10-04: the five screens, the cover, the hero and both device icons are rendered from the current build. **Looks not yet approved by the owner** (ROADMAP 1.5, 9.7); nothing is uploaded. Never use the site's SVG drawing (`site/src/apps/day-arc/FacePreview.tsx`) or the Design-canvas mockup as a store image: both are schematics, not the face (`../docs/release-contract.md`). Simulator values (weather, stress, Body Battery) are canned or random: no image claims a real reading.
 
 ## Upload set (in order)

@@ -1,5 +1,7 @@
 # Two Suns (Free): screenshots and store images
 
+**Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh TwoSuns bash /ciq-docker/frame_listing.sh listing-free`.
+
 Status 2026-10-04. Everything here is **simulator only** (the container's simulator, native pixels), rendered from the **Free build** (`monkey.free.jungle`), so no shot can show a Pro-only thing (no curve, no date row, no twilight, no golden hour, no weather or battery row). Nothing is a wrist photo. **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.** The Pro screens, cover and hero must not be reused here.
 
 ## What the pictures are, honestly

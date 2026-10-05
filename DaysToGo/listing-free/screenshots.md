@@ -1,5 +1,7 @@
 # Free listing: screenshots and store images
 
+**Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh DaysToGo bash /ciq-docker/frame_listing.sh listing-free`.
+
 Status: 2026-10-04. The whole set was rendered today from the **current Free build** (after the on-watch date picker, the rectangle layout and the bottom-line changes of the same day). **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.** Earlier versions are in git history. Simulator only, no wrist photo: simulator passing is not device proof, and the clock in the pictures is canned.
 
 ## The set (upload order)

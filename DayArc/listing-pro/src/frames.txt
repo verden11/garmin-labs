@@ -1,0 +1,6 @@
+# Which watch frames each upload image (docker/frame_listing.sh): <upload name> <device> [scale% or -] [source]. The device must be the one the screen was captured on (tools/listing_shots.sh).
+1-morning.png fenix847mm
+2-midday.png fr970
+3-evening.png fenix8pro47mm
+4-accent-blue.png fr965
+5-instinct-evening.png instincte40mm

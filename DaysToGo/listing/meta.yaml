@@ -29,11 +29,11 @@ assets:
   cover: cover-500.png (500x500, 17 KB; mark + name + PRO badge on a mint #55FFAA ground, 2026-10-04, ROADMAP 10.25)
   hero: hero-1440x720.png (1440x720, 156 KB; mint ground, three black watch screens (to the minute, weeks, the other side of the world), line "Count down to the minute, in the time zone it starts in.")
   screens:   # upload order, 5 at most, each under 150 KB; simulator captures (canned data)
-    - {file: screens/1-to-the-minute.png, caption: "Pro's headline, to the minute in the zone the event starts in: a 20:15 start at UTC+2 seen from a UTC clock at 10:09, 8h 06m, battery on the date row", device: fr965, px: 454, kb: 20}
-    - {file: screens/2-weeks-steps.png, caption: "Weeks and days to a named event, step count on the date row", device: fr965, px: 454, kb: 17}
-    - {file: screens/3-other-time-zone.png, caption: "The other side of the world: a 09:30 start in UTC+9 the next day is 14h 21m away on a UTC clock, pink accent, battery on the date row", device: fr965, px: 454, kb: 18}
-    - {file: screens/4-rectangle.png, caption: "The same face on a rectangular screen, hours state, amber accent", device: venusq2, px: "320x360", kb: 4}
-    - {file: screens/5-instinct.png, caption: "Black and white, the ring is a gauge in the round window, hours state", device: instincte40mm, px: 498, kb: 3, instinct: true}   # 166 px native capture enlarged x3 without smoothing; the native capture is not kept
+    - {file: screens-framed/1-to-the-minute.png, caption: "Pro's headline, to the minute in the zone the event starts in: a 20:15 start at UTC+2 seen from a UTC clock at 10:09, 8h 06m, battery on the date row", device: venu441mm, px: 720, kb: 75, framed: true}
+    - {file: screens-framed/2-weeks-steps.png, caption: "Weeks and days to a named event, step count on the date row", device: fenix847mm, px: 720, kb: 129, framed: true}
+    - {file: screens-framed/3-other-time-zone.png, caption: "The other side of the world: a 09:30 start in UTC+9 the next day is 14h 21m away on a UTC clock, pink accent, battery on the date row", device: fr970, px: 720, kb: 103, framed: true}
+    - {file: screens-framed/4-rectangle.png, caption: "The same face on a rectangular screen, hours state, amber accent", device: venusq2, px: 720, kb: 93, framed: true}
+    - {file: screens-framed/5-instinct.png, caption: "Black and white, the ring is a gauge in the round window, hours state", device: instincte40mm, px: 720, kb: 104, instinct: true, framed: true}   # 166 px native capture enlarged x3 without smoothing; the native capture is not kept
   icons: [icon-64-128.png, icon-24-128.png]   # 128x128, mark + PRO badge; proposals, the real launcher icon is ROADMAP 3.3
   screenshots_doc: screenshots.md
 site:

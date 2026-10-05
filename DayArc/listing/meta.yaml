@@ -29,11 +29,11 @@ assets:
   hero: hero-1440x720.png     # 1440x720, under 2048 KB; indigo ground; src/hero.html; look not yet approved
   icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; src/icon.html + src/quantize64.py; look not yet approved
   screens:                    # upload order; 2026-10-04 simulator captures at native pixels, 24-hour clock, canned values; each under 150 KB
-    - {file: screens/1-morning.png, caption: "Morning, weather (feels-like, high/low, rain, UV)", device: fr965, px: 454}
-    - {file: screens/2-midday.png, caption: "Midday, a stress reading as a number and a plain gauge", device: fr965, px: 454}
-    - {file: screens/3-evening.png, caption: "Evening, the Body Battery reading the same way", device: fr965, px: 454}
-    - {file: screens/4-accent-purple.png, caption: "The one setting, the accent colour (here purple at midday)", device: fr965, px: 454}
-    - {file: screens/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window", device: instincte40mm, px: 166, instinct: true}
+    - {file: screens-framed/1-morning.png, caption: "Morning, weather (feels-like, high/low, rain, UV)", device: venu3, px: 720, kb: 68, framed: true}
+    - {file: screens-framed/2-midday.png, caption: "Midday, a stress reading as a number and a plain gauge", device: fr265, px: 720, kb: 106, framed: true}
+    - {file: screens-framed/3-evening.png, caption: "Evening, the Body Battery reading the same way", device: venu441mm, px: 720, kb: 73, framed: true}
+    - {file: screens-framed/4-accent-purple.png, caption: "The one setting, the accent colour (here purple at midday)", device: epix2pro47mm, px: 720, kb: 140, framed: true}
+    - {file: screens-framed/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window", device: instincte40mm, px: 720, kb: 104, instinct: true, framed: true}
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/day-arc/

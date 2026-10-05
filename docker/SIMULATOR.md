@@ -84,3 +84,19 @@ the ones marked *checked* were run on Two Suns and worked. Greyed items depend o
 | Settings | Force onHide / onShow, **Trigger App Settings**, Trigger Goal | lifecycle, the **phone settings change** path (onSettingsChanged), goal-reached events |
 | Simulation | Activity Data, Activity Monitoring (`sim_activity`), **Time Simulation**, Background Events, Push Notification, Phone App Message, Complications | live HR, steps/goals, fast-forwarding the clock (midnight flips, window changes), background and complication events |
 | Glance | an app with a glance opens on the glance list on glance devices | *checked earlier:* HeroSet's glance (`HeroSet/tools/drive_screens.sh`, step `0b-glance`). Settings > Glance Launch Mode is greyed for a face |
+
+### Recipes built on these (2026-10-05)
+
+- **Watch-framed listing images (chassis and part of the strap), any device, no simulator:** `docker/frame_shot.sh <device> <screen.png> <out.png> [scale%]`
+  pastes a native screenshot under the device's own skin (`/root/.Garmin/ConnectIQ/Devices/<dev>/simulator.json`: `image`, and
+  `display.location` for where the screen goes; the skin's display area is transparent), keys the skin's white background out,
+  and centres the display in a 720x720 PNG8 (90 to 110 KB, under the store's 150 KB). Round watches are scaled to show a 454 px
+  display; small ones (Instinct, 218 px) 1.6x. Per listing, `docker/frame_listing.sh <listing dir>` reads `src/frames.txt`
+  (`<upload name> <device> [scale|-] [source]`; an Instinct's source is its native capture in `screens/native/`) and writes
+  `screens-framed/` plus `bin/framed-preview-<listing>.png`. The device in `frames.txt` must be the one `listing_shots.sh` captured on.
+  Good-looking skins (all five projects' manifests): fr965 (yellow strap), fenix847mm, fenix8pro47mm (titanium), epix2pro47mm,
+  fr970, fr265, venu3, venu441mm (lilac strap, silver), vivoactive6 (navy); Instinct E 40/45 mm; venusq2 (rectangle); fr255s (small).
+- **Edge states of a face:** `docker/capture.sh <project> /ciq-docker/edge_states.sh <jungle> <device> ["YYYY-MM-DD HH:MM:SS"] [tag]`
+  saves awake, always-on, always-on a minute later (the drift) and the 24-hour burn-in verdict to `<project>/bin/edge/`. A scenario
+  can live in `docker/` (an absolute `/ciq-docker/...` path) and be shared by every project.
+- Several containers can capture at once (each has its own Xvfb and simulator): eight ran in parallel on 2026-10-05.

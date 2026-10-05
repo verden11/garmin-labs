@@ -29,11 +29,11 @@ assets:
   hero: hero-1440x720.png     # 1440x720, under 2048 KB; indigo ground; src/hero.html; look not yet approved
   icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; src/icon.html + src/quantize64.py; look not yet approved
   screens:                    # upload order; 2026-10-04 simulator captures at native pixels, 24-hour clock, canned or random values; each under 150 KB
-    - {file: screens/1-morning.png, caption: "Morning, weather with sunrise/sunset, battery, heart rate, steps and floors around it", device: fr965, px: 454}
-    - {file: screens/2-midday.png, caption: "Midday, a stress reading with the calendar, intensity minutes, steps, calories, heart rate and floors around it", device: fr965, px: 454}
-    - {file: screens/3-evening.png, caption: "Evening, Body Battery with recovery time, respiration, steps, pulse ox, heart rate and calories around it", device: fr965, px: 454}
-    - {file: screens/4-accent-blue.png, caption: "The one setting, the accent colour (here blue in the evening)", device: fr965, px: 454}
-    - {file: screens/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window, one row of readings under it", device: instincte40mm, px: 166, instinct: true}
+    - {file: screens-framed/1-morning.png, caption: "Morning, weather with sunrise/sunset, battery, heart rate, steps and floors around it", device: fenix847mm, px: 720, kb: 129, framed: true}
+    - {file: screens-framed/2-midday.png, caption: "Midday, a stress reading with the calendar, intensity minutes, steps, calories, heart rate and floors around it", device: fr970, px: 720, kb: 99, framed: true}
+    - {file: screens-framed/3-evening.png, caption: "Evening, Body Battery with recovery time, respiration, steps, pulse ox, heart rate and calories around it", device: fenix8pro47mm, px: 720, kb: 128, framed: true}
+    - {file: screens-framed/4-accent-blue.png, caption: "The one setting, the accent colour (here blue in the evening)", device: fr965, px: 720, kb: 93, framed: true}
+    - {file: screens-framed/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window, one row of readings under it", device: instincte40mm, px: 720, kb: 108, instinct: true, framed: true}
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/day-arc-pro/

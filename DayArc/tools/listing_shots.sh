@@ -31,7 +31,10 @@ set_accent() { sed -i "s|<property id=\"Accent\" type=\"number\">[0-9]*</propert
 scene() {   # scene <file> <device> <HH:MM> [steps so far today] [accent 0-6] [position]
   [ -n "$ONLY" ] && [[ " $ONLY " != *" $1 "* ]] && return 0
   set_accent "${5:-0}"
-  sim_boot "$DAY $3:00"; sim_load $JUNGLE "$2"; sim_24h; sleep 5
+  # the simulator keeps an app's settings (APP.SET) between loads, so a changed Accent default would be ignored (2026-10-05:
+  # Pro's 4-accent-blue came out in the evening's Auto pink)
+  sim_boot "$DAY $3:00"; rm -f /tmp/com.garmin.connectiq/GARMIN/APPS/SETTINGS/*.SET /tmp/app-settings.json
+  sim_load $JUNGLE "$2"; sim_24h; sleep 5
   [ -n "${6:-}" ] && sim_position "$6"
   [ "$DENSITY" = pro ] && { sim_activity goal=10000 steps=${4:-8420} moderate=18 floors=7; sleep 70; }   # the dialog's Calories cell is read-only: calories come from stub_pro_values
   sim_save "$OUT/$1"
@@ -39,15 +42,15 @@ scene() {   # scene <file> <device> <HH:MM> [steps so far today] [accent 0-6] [p
 LONDON="51.5074, -0.1278"
 [ "$DENSITY" = pro ] && stub_pro_values
 if [ "$DENSITY" = pro ]; then
-  scene 1-morning.png fr965 07:15 842 0 "$LONDON"   # early in the day: a three-digit step count fits the narrow bottom pill
-  scene 2-midday.png fr965 13:15 5310
-  scene 3-evening.png fr965 20:00 8420
+  scene 1-morning.png fenix847mm 07:15 842 0 "$LONDON"   # early in the day: a three-digit step count fits the narrow bottom pill
+  scene 2-midday.png fr970 13:15 5310
+  scene 3-evening.png fenix8pro47mm 20:00 8420
   scene 4-accent-blue.png fr965 20:00 8420 5
 else
-  scene 1-morning.png fr965 07:15
-  scene 2-midday.png fr965 13:15
-  scene 3-evening.png fr965 20:00
-  scene 4-accent-purple.png fr965 13:15 0 6
+  scene 1-morning.png venu3 07:15
+  scene 2-midday.png fr265 13:15
+  scene 3-evening.png venu441mm 20:00
+  scene 4-accent-purple.png epix2pro47mm 13:15 0 6
 fi
 # the Instinct E 40 mm (black and white; the arc is a gauge in the round window; no Accent there)
 scene 5-instinct-evening.png instincte40mm 20:00 8420

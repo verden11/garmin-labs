@@ -51,14 +51,14 @@ else
   ALL="1-day 2-evening 3-accent-pink 4-instinct-e45 5-small-fr255s"
 fi
 for w in ${*:-$ALL}; do case $TIER-$w in
-  pro-1-day)           shot 1-day.png fr965 10:09 0;;
-  pro-2-golden-hour)   shot 2-golden-hour.png fr965 16:50 3 1;;
-  pro-3-evening)       shot 3-evening.png fr965 20:40 1;;
+  pro-1-day)           shot 1-day.png fenix8pro47mm 10:09 0;;
+  pro-2-golden-hour)   shot 2-golden-hour.png epix2pro47mm 16:50 3 1;;
+  pro-3-evening)       shot 3-evening.png venu3 20:40 1;;
   pro-4-instinct-e45)  shot 4-instinct-e45.png instincte45mm 10:09 0;;
   pro-5-small-fr255s)  shot 5-small-fr255s.png fr255s 10:09 4;;
-  free-1-day)          shot 1-day.png fr965 10:09 0;;
-  free-2-evening)      shot 2-evening.png fr965 20:40 1;;
-  free-3-accent-pink)  shot 3-accent-pink.png fr965 13:20 4;;
+  free-1-day)          shot 1-day.png venu441mm 10:09 0;;
+  free-2-evening)      shot 2-evening.png fenix847mm 20:40 1;;
+  free-3-accent-pink)  shot 3-accent-pink.png fr970 13:20 4;;
   free-4-instinct-e45) shot 4-instinct-e45.png instincte45mm 10:09 0;;
   free-5-small-fr255s) shot 5-small-fr255s.png fr255s 10:09 3;;
   *) echo "unknown $TIER-$w" >&2;;

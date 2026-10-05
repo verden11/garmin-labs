@@ -26,23 +26,23 @@ shot() {       # shot <file> <device>; ONLY="1-to-the-minute.png 3-other-time-zo
 mkdir -p "$OUT/native"
 if [ "$TIER" = free ]; then
   # 1. days, a named event, amber accent
-  event "Wedding" 3 14 2027 0 0 0 1; shot 1-days-amber.png fr965
+  event "Wedding" 3 14 2027 0 0 0 1; shot 1-days-amber.png venu3
   # 2. weeks and days, sky accent
-  event "70.3" 11 18 2026 1 0 0 2; shot 2-weeks-sky.png fr965
+  event "70.3" 11 18 2026 1 0 0 2; shot 2-weeks-sky.png fr265
   # 3. the day itself, pink accent
-  event "Birthday" 10 4 2026 0 0 0 3; shot 3-today-pink.png fr965
+  event "Birthday" 10 4 2026 0 0 0 3; shot 3-today-pink.png epix2pro47mm
   # 4. a rectangular screen (Venu Sq 2), violet accent
   event "Race" 11 18 2026 0 0 0 4; shot 4-rectangle.png venusq2
   # 5. the Instinct family: black and white, the ring is a gauge in the round window (instinct2; Free may use any Instinct)
   event "Race" 11 18 2026 0 0 0 0; shot native/5-instinct2-176.png instinct2
 else
   # 1. to the minute, in the zone it starts in: 20:15 at UTC+2 is 18:15 on the watch's UTC clock, so 8:06 from 10:09 (Hour 21 = 20:00, Minute 15, zone 57); battery on the date row, mint accent
-  event "Race" 10 4 2026 0 21 1 0 15 57; shot 1-to-the-minute.png fr965
+  event "Race" 10 4 2026 0 21 1 0 15 57; shot 1-to-the-minute.png venu441mm
   # 2. weeks and days with the steps on the date row, sky accent (the activity data is set by hand: canned, not a real reading)
   event "70.3" 11 18 2026 1 0 2 2
-  if [ -z "${ONLY:-}" ] || [[ " $ONLY " == *" 2-weeks-steps.png "* ]]; then fresh; sim_load $JUNGLE fr965; sim_activity steps=6420; sleep 70; sim_save "$OUT/2-weeks-steps.png"; fi
+  if [ -z "${ONLY:-}" ] || [[ " $ONLY " == *" 2-weeks-steps.png "* ]]; then fresh; sim_load $JUNGLE fenix847mm; sim_activity steps=6420; sleep 70; sim_save "$OUT/2-weeks-steps.png"; fi
   # 3. the other side of the world: 09:30 on 5 Oct in Tokyo (UTC+9) is 00:30 UTC, so 14:21 from 10:09 on the watch's clock (Hour 10 = 09:00, Minute 30, zone 85); pink accent
-  event "Launch" 10 5 2026 0 10 1 3 30 85; shot 3-other-time-zone.png fr965
+  event "Launch" 10 5 2026 0 10 1 3 30 85; shot 3-other-time-zone.png fr970
   # 4. a rectangular screen (Venu Sq 2): hours, amber accent (the bottom line is not drawn on the rectangle)
   event "Flight" 10 4 2026 0 19 1 1; shot 4-rectangle.png venusq2
   # 5. the Instinct family on a watch Garmin lists for paid apps (Instinct E 40 mm; the Instinct 2 family and Descent G1 are not on that list): hours

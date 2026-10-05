@@ -1,5 +1,7 @@
 # Pro listing: screenshots and store images
 
+**Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh DaysToGo bash /ciq-docker/frame_listing.sh listing`.
+
 Status: 2026-10-04. The whole set was re-rendered today from the **current Pro build** (after the on-watch date picker, the rectangle layout and the bottom-line changes of the same day). **Text uploaded with Pro 1.1.0 on 2026-10-04 (in Garmin review); whether these images replaced the live ones is ROADMAP 10.5.** Superseded files are in git history. Simulator only, no wrist photo: simulator passing is not device proof, and the clock, battery and steps in the pictures are canned, never a claim about real readings.
 
 ## The set (upload order)

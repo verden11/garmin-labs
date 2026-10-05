@@ -1,5 +1,7 @@
 # HeroFace Pro: screenshots and store images
 
+**Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh HeroFace bash /ciq-docker/frame_listing.sh listing`.
+
 Status 2026-10-04: **a full set rendered from the current Pro build (`monkey.jungle`), simulator only.** **Text uploaded with Pro 1.1.0 on 2026-10-04 (in Garmin review); whether these images replaced the live ones is ROADMAP 10.5.** Everything the store form takes is in this folder: five screen images in `screens/`, `cover-500.png`, `hero-1440x720.png`, `icon-24-128.png`, `icon-64-128.png`. The superseded set is in git history. The Free twin's set is in [`../listing-free/screenshots.md`](../listing-free/screenshots.md); the two are made the same way.
 
 ## The five screen images (upload order)
