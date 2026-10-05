@@ -43,7 +43,7 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 - **Hero** (`hero-1440x720.png`): the framed screens 1, 2 and 5 (two Forerunner 965, one Instinct E 45 mm), strap ends faded, on the flat amber ground (287 KB). Source `src/hero.html`.
 - **Cover** (`cover-500-designed.png`, 500×500, flat amber, 12 KB): source `src/cover.html`.
 - **Device icons:** the launcher icon's shield (current pixel-grid shape) on black, `src/icon.html`; the 64-colour one is the same render snapped by `src/quantize64.py`.
-- All three, and the icons, are rendered by `../tools/render_listing.sh`; the screens by `../tools/drive_screens.sh` + `../tools/frame_all.sh` ([`screenshots.md`](screenshots.md)). The shield was redrawn on 2026-10-04 to match the launcher icon (it had the heavier pre-pixel-grid shape): a look change for the owner to approve.
+- All three, and the icons, are rendered by `../tools/render_listing.sh`; the screens by `../tools/drive_screens.sh` + `docker/frame_listing.sh` (`src/frames.txt`) ([`screenshots.md`](screenshots.md)). The shield was redrawn on 2026-10-04 to match the launcher icon (it had the heavier pre-pixel-grid shape): a look change for the owner to approve.
 
 ## What's New: history and copy rules
 

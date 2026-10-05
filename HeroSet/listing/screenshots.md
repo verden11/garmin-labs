@@ -4,12 +4,14 @@ Status 2026-10-04 (screen 2 and the hero retaken later the same day with a heart
 
 ## The set
 
+**2026-10-05: a different watch per image (owner), framed by the shared `docker/frame_listing.sh`** from the display captures in `listing/screens/` (copied from `bin/drive-<device>-<step>.png`) and `listing/src/frames.txt`. Captured with `drive_screens.sh` on fr970 (`... home`), epix2pro47mm (`... all`, step `5b-up`) and fr265 (`100,100,100 ... home`); screen 2 is the fr965 `act` run and 5 the instincte45mm one. On the Epix Pro the review's `+24` stays in `FONT_LARGE` (no number font fits that band there). A fenix847mm run stayed on the glance (the first START did not open the app) and was not used.
+
 | # | File | Device | State | Seed (push-ups, sit-ups, squats) |
 |---|---|---|---|---|
-| 1 | `screens-framed/1-dashboard.png` | fr965 | the home screen, rank 1, three bars, `NO STREAK YET` | 60, 45, 30 |
+| 1 | `screens-framed/1-dashboard.png` | fr970 | the home screen, rank 1, three bars, `NO STREAK YET` | 60, 45, 30 |
 | 2 | `screens-framed/2-counting.png` | fr965 | push-ups set, 23 counted, `TODAY 83/100`, `00:28 HR 123 CAL --` (see below) | 60, 45, 30 |
-| 3 | `screens-framed/3-review.png` | fr965 | review: `DETECTED 23`, adjusted with UP to `+24`, `TODAY 84/100` | 60, 45, 30 |
-| 4 | `screens-framed/4-complete.png` | fr965 | `DAILY MISSION COMPLETE`, rank 2, `1 DAY STREAK` | 100, 100, 100 |
+| 3 | `screens-framed/3-review.png` | epix2pro47mm | review: `DETECTED 23`, adjusted with UP to `+24`, `TODAY 84/100` | 60, 45, 30 |
+| 4 | `screens-framed/4-complete.png` | fr265 | `DAILY MISSION COMPLETE`, rank 2, `1 DAY STREAK` | 100, 100, 100 |
 | 5 | `screens-framed/5-instinct.png` | **instincte45mm** | the same dashboard in black and white, XP ring in the round window | 60, 45, 30 |
 
 Why these: the owner's story (2026-10-04): the one-glance home screen, counting a set, review and adjust, saved or complete, plus an Instinct. 4 is the complete state, not the `+N SAVED` one (the hero used that before; complete is the reward and the streak starts). The Instinct is the **Instinct E 45 mm**: the Instinct 2 family and Descent G1 are not on Garmin's paid-app product list, so the paid listing is not sold there and no caption names them. Of the three paid Instinct products, the E 45 mm had the boldest text and the most room (E 40 mm and 3 Solar were looked at too). Not used: the menu, the saved screen, a touch watch (the 5-image cap).
@@ -30,13 +32,13 @@ Shot 2 (retaken 2026-10-04): the heart rate is from the simulator's own activity
 
    Each step writes `HeroSet/bin/drive-<device>-<step>.png` (the display) and `...-window.png` (the whole window; added to `drive_screens.sh` on 2026-10-04). Copy the window files used into `listing/src/window/` under the names in the table (`fr965-1-dashboard.png`, `fr965-2-counting.png`, `fr965-3-review.png`, `fr965-4-complete.png`, `instincte45mm-5-dashboard.png`); those are the sources of the framed images. `ONLY=home` stops after the home screen.
 
-2. **Frame** (ImageMagick, in the container's shots image): crop the skin out of the window, key the white background to transparent (flood fill from the corners, fuzz 6%), place on a 720x720 canvas centred on the display, 256 colours. Round watches 100%; the Instinct skin is small, so it is enlarged 160% (Lanczos, so its display is a little soft; native pixels are in `bin/drive-*.png`).
+2. **Frame**: copy the display captures used into `listing/screens/` under the upload names, list the watch for each in `listing/src/frames.txt`, then
 
    ```sh
-   CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh HeroSet bash tools/frame_all.sh
+   CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh HeroSet bash /ciq-docker/frame_listing.sh listing
    ```
 
-   It writes `listing/screens-framed/*.png`, `bin/preview.png` (the five on a dark card to judge the keyed edges) and prints `OVER 150 KB` for any file over the cap. The single-file tool is `tools/frame_shots.sh <device> <window.png> <out.png> [scale] [skin-width]`.
+   It pastes each capture under its watch's own simulator skin (`docker/frame_shot.sh`; no window capture needed any more), writes `listing/screens-framed/*.png` and `bin/framed-preview-listing.png`, and fails on a file over 150 KB. (Until 2026-10-04 this was `tools/frame_all.sh` cropping whole-window captures; replaced 2026-10-05, in git history.)
 
 ## Hero, cover, icons
 
@@ -52,7 +54,7 @@ HeroSet/tools/render_listing.sh
 
 ## Limits checked (2026-10-04)
 
-`stat` on the files, each under Garmin's cap: screens 90 to 113 KB (cap 150), cover 12 KB (cap 300), hero 287 KB (cap 2048); icons 1 and 2 KB; all pixel sizes read from the files (`file`, `identify`): 720x720 x5, 500x500, 1440x720, 128x128 x2. `frame_all.sh` also fails loudly on a screen over 150 KB.
+`stat` on the files, each under Garmin's cap: screens 92 to 145 KB (cap 150; re-framed 2026-10-05), cover 12 KB (cap 300), hero 287 KB (cap 2048); icons 1 and 2 KB; all pixel sizes read from the files (`file`, `identify`): 720x720 x5, 500x500, 1440x720, 128x128 x2. `docker/frame_listing.sh` also fails loudly on a screen over 150 KB.
 
 ## Honesty rules
 

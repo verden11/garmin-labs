@@ -1,4 +1,4 @@
-# Look-only Instinct captures (display only, no skin). SUPERSEDED for the store images by tools/drive_screens.sh + tools/frame_all.sh
+# Look-only Instinct captures (display only, no skin). SUPERSEDED for the store images by tools/drive_screens.sh + docker/frame_listing.sh
 # (listing/screenshots.md); it writes to listing/screens/, which is no longer a listing folder.
 # Native simulator pixels. The day's reps are put in through the app's own HeroSetStore.add, exactly as a saved set would:
 # the private project copy is patched to call it once at start (the repo is not touched).

@@ -1,0 +1,6 @@
+# Which watch frames each upload image (docker/frame_listing.sh): <upload name> <device> [scale% or -] [source]. screens/ holds the display captures of tools/drive_screens.sh (bin/drive-<device>-<step>.png), copied by hand.
+1-dashboard.png fr970
+2-counting.png fr965
+3-review.png epix2pro47mm
+4-complete.png fr265
+5-instinct.png instincte45mm
