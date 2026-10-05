@@ -40,6 +40,7 @@ site:
   support: https://verden.watch/day-arc-pro/support/
   privacy: https://verden.watch/day-arc-pro/privacy/
 owner_approvals:   # what only the owner may settle before paste.md is used
+  - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "Line 1 needs the DayArc store URL: create both listings first, then paste. 'More from Verden' holds the three Free listings (filled 2026-10-05; the links work once Garmin approves them, ROADMAP 7.12): drop any line whose listing is not live at upload."
   - "'Chosen in the Garmin Connect app' is unverified until a store install (docs/status.md gate 5): keep it firm or soften it."
   - "The looks of the hero (proposal: the arc mark with a white PRO tag, three windows with their grids, no price, no claim beyond what each window shows), the cover (the arc mark and the name on an indigo ground, not black, with a white PRO tag in the arc), the device icons and the five screens (simulator captures with canned or random values, not readings; the night window is left out on purpose)."

@@ -28,14 +28,21 @@ Every changed listing image set was recaptured (both tiers where both changed) a
 
 ## Checks run
 
-- Unit suites in the container simulator after every change, on 5 to 8 devices per project including an Instinct and a small round watch; all PASSED at the end.
+- Unit suites in the container simulator after each project's changes, on 5 to 8 devices per project including an Instinct and a small round watch; all PASSED. Exception: Two Suns' last change (the `units.xml` copies per language) was checked by the full compile sweep only, not a test re-run.
 - Full compile sweeps, both tiers: Days To Go 127/127, HeroFace 124/124, Two Suns 72/72, DayArc 72/72. HeroSet: store build tests 103 PASSED.
+
+## Follow-ups done at the end
+
+- **DayArc packages re-exported** (`dist/DayArc-1.0.0.iq`, `dist/DayArcPro-1.0.0.iq`; 93/93 devices, `check_package.sh` OK), so its first upload matches the new images. The other four `dist/` folders still hold the versions in review: re-export before each next upload.
+- **Image sets vs. versions:** every recaptured set shows the next version. ROADMAP 7.2 and 10.5 and each listing's `meta.yaml` `owner_approvals` now say so; for anything uploaded sooner use the set from the commit before the 13.x change (HeroSet: `git show cfb9c33^:HeroSet/listing/screens-framed/<file>`).
+- **Site sweep:** besides Two Suns (13.18), HeroFace, HeroSet and DayArc site pages show the old look: ROADMAP 13.24 (not edited; a push deploys).
+- Stale screenshot captions corrected in `screenshots.md` / `meta.yaml` (Days To Go hours, Two Suns daylight and bolt, HeroFace MOVE and Instinct labels, HeroSet calories).
 
 ## Open for the owner
 
 - **13.5** Days To Go time-zone list: city hints (parked by the owner for later).
 - **13.7** The `h`/`m` letters (Days To Go Pro, Two Suns) are English on every watch; "m" can read as metres. Keep, use "min", or translate.
-- **13.18** Two Suns site pages still say "8:41 of daylight" and draw a filled curve; a site push deploys, so it waits for the OK.
+- **13.18, 13.24** Site pages (Two Suns, HeroFace, HeroSet, DayArc) show the old look or wording; a site push deploys, so they wait for the OK, best after the uploads.
 - **Uploads:** every change ships only with each app's next version (Days To Go both tiers, HeroFace both, Two Suns both, DayArc first submission, HeroSet 1.3.2). New listing images go up with them (10.5).
 - **Looks:** the owner approves looks before upload: review `*/listing*/screens*/` for each project.
 - **DayArc wear check (1.1)** was running today on the FR965 with the builds from before these changes (sideloaded in the morning).

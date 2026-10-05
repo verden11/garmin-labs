@@ -41,6 +41,7 @@ site:
   support: https://verden.watch/two-suns/support/
   privacy: https://verden.watch/two-suns/privacy/
 owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
+  - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
   - "The 24-hour curve sentence and pictures went up with 1.1.0; whether the release contract allows it before the wrist check is ROADMAP 4.5."
 open_items: "4.2 4.5 7.12 10.29"   # ids in ROADMAP.md

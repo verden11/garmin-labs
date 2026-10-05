@@ -29,9 +29,9 @@ assets:
   cover: cover-500.png (500x500, 17 KB; mark + name + PRO badge on a mint #55FFAA ground, 2026-10-04, ROADMAP 10.25)
   hero: hero-1440x720.png (1440x720, 156 KB; mint ground, three black watch screens (to the minute, weeks, the other side of the world), line "Count down to the minute, in the time zone it starts in.")
   screens:   # upload order, 5 at most, each under 150 KB; simulator captures (canned data)
-    - {file: screens/1-to-the-minute.png, caption: "Pro's headline, to the minute in the zone the event starts in: a 20:15 start at UTC+2 seen from a UTC clock at 10:09, 8:06 HOURS, battery on the date row", device: fr965, px: 454, kb: 20}
+    - {file: screens/1-to-the-minute.png, caption: "Pro's headline, to the minute in the zone the event starts in: a 20:15 start at UTC+2 seen from a UTC clock at 10:09, 8h 06m, battery on the date row", device: fr965, px: 454, kb: 20}
     - {file: screens/2-weeks-steps.png, caption: "Weeks and days to a named event, step count on the date row", device: fr965, px: 454, kb: 17}
-    - {file: screens/3-other-time-zone.png, caption: "The other side of the world: a 09:30 start in UTC+9 the next day is 14:21 HOURS away on a UTC clock, pink accent, battery on the date row", device: fr965, px: 454, kb: 18}
+    - {file: screens/3-other-time-zone.png, caption: "The other side of the world: a 09:30 start in UTC+9 the next day is 14h 21m away on a UTC clock, pink accent, battery on the date row", device: fr965, px: 454, kb: 18}
     - {file: screens/4-rectangle.png, caption: "The same face on a rectangular screen, hours state, amber accent", device: venusq2, px: "320x360", kb: 4}
     - {file: screens/5-instinct.png, caption: "Black and white, the ring is a gauge in the round window, hours state", device: instincte40mm, px: 498, kb: 3, instinct: true}   # 166 px native capture enlarged x3 without smoothing; the native capture is not kept
   icons: [icon-64-128.png, icon-24-128.png]   # 128x128, mark + PRO badge; proposals, the real launcher icon is ROADMAP 3.3
@@ -41,6 +41,7 @@ site:
   support: https://verden.watch/days-to-go/support/
   privacy: https://verden.watch/days-to-go/privacy/
 owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
+  - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
   - "Native read of the machine-drafted translations of the three new phone strings (Minute, Event time zone, My watch time zone; 14 languages, resources-pro-<lang>/): ROADMAP 7.10. The 'To the minute' claims wait on the wrist checks W1 to W6 in docs/status.md (ROADMAP 3.1)."
 open_items: "3.1 3.12 7.10 7.12"   # ids in ROADMAP.md

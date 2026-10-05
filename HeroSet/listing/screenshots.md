@@ -7,7 +7,7 @@ Status 2026-10-04 (screen 2 and the hero retaken later the same day with a heart
 | # | File | Device | State | Seed (push-ups, sit-ups, squats) |
 |---|---|---|---|---|
 | 1 | `screens-framed/1-dashboard.png` | fr965 | the home screen, rank 1, three bars, `NO STREAK YET` | 60, 45, 30 |
-| 2 | `screens-framed/2-counting.png` | fr965 | push-ups set, 23 counted, `TODAY 83/100`, `00:28 HR 145 CAL 0` (see below) | 60, 45, 30 |
+| 2 | `screens-framed/2-counting.png` | fr965 | push-ups set, 23 counted, `TODAY 83/100`, `00:28 HR 123 CAL --` (see below) | 60, 45, 30 |
 | 3 | `screens-framed/3-review.png` | fr965 | review: `DETECTED 23`, adjusted with UP to `+24`, `TODAY 84/100` | 60, 45, 30 |
 | 4 | `screens-framed/4-complete.png` | fr965 | `DAILY MISSION COMPLETE`, rank 2, `1 DAY STREAK` | 100, 100, 100 |
 | 5 | `screens-framed/5-instinct.png` | **instincte45mm** | the same dashboard in black and white, XP ring in the round window | 60, 45, 30 |

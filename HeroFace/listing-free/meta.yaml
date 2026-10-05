@@ -40,5 +40,6 @@ site:
   landing: https://verden.watch/heroface/
   support: https://verden.watch/heroface/support/
   privacy: https://verden.watch/heroface/privacy/
-owner_approvals: []   # settled by the owner's upload of 2026-10-04 (text, title and images)
+owner_approvals:   # text, title and the uploaded images settled by the owner's upload of 2026-10-04; still open:
+  - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
 open_items: "5.5 6.1 7.12"   # ids in ROADMAP.md
