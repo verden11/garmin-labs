@@ -42,8 +42,16 @@ Se adapta por igual a relojes redondos y rectangulares. Cuando la pantalla se ap
 Tu lugar se queda en tu reloj
 La esfera lee tu última ubicación conocida (redondeada a unos 11 km), tu Body Battery reciente y los datos del sol del propio reloj; nada sale del reloj. Sin internet, sin cuenta, sin analíticas, sin anuncios.
 
+Más de Verden
+DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 Ayuda y respuestas: https://verden.watch/two-suns/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the Spanish block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
 ## Chinese, Simplified (简体中文)
 
@@ -81,5 +89,13 @@ Two Suns Pro
 你的位置留在手表上
 表盘读取你最后已知的位置（四舍五入到约 11 公里）、你最近的身体电量以及手表自身的太阳数据——任何内容都不会离开手表。不联网，无需账户，无分析，无广告。
 
+Verden 的更多作品
+DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 帮助与解答：https://verden.watch/two-suns/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the Chinese block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12). Use a full-width colon (`：`) in these lines.
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`

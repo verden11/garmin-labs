@@ -42,8 +42,16 @@ En relojes con Connect IQ 4.2 o posterior, si tienes HeroSet (la app diaria de f
 Nada sale de tu reloj
 Sin cuenta, sin internet, sin analíticas, sin anuncios. La tienda indica "Communication & Data Transmission" porque HeroFace puede leer el progreso de HeroSet en el mismo reloj; no se envía nada a ningún sitio.
 
+Más de Verden
+DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 Ayuda y respuestas: https://verden.watch/heroface/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the Spanish block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
 
 ## Chinese, Simplified (简体中文)
 
@@ -81,5 +89,13 @@ HeroFace Pro
 数据不会离开你的手表
 无需账户，不联网，无分析，无广告。商店列出“Communication & Data Transmission”，是因为 HeroFace 可以读取同一块手表上 HeroSet 的进度；不会向任何地方发送任何内容。
 
+Verden 的更多作品
+DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 帮助与解答：https://verden.watch/heroface/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the Chinese block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12). Use a full-width colon (`：`) in these lines.
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`

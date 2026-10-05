@@ -20,6 +20,8 @@ Consigue Days To Go Pro: https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9
 
 Una esfera de cuenta atrás: un número grande con los días que faltan para tu fecha.
 
+Nada está bloqueado: sin prueba, sin código que introducir, nada que comprar en el reloj.
+
 Un solo número
 Los días que faltan son lo más grande de la pantalla, al mayor tamaño que tu reloj puede dibujar. La hora encima, la fecha debajo. Un anillo fino alrededor del bisel se vacía durante el último año y se llena el mismo día. Sin pasos, sin frecuencia cardiaca, sin tiempo.
 
@@ -41,8 +43,16 @@ Si esta esfera te resulta útil, una valoración en la tienda ayuda a que otras 
 Nada sale de tu reloj
 Sin permisos, sin cuenta, sin internet, sin analíticas, sin anuncios.
 
+Más de Verden
+DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 Ayuda y respuestas: https://verden.watch/days-to-go/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the Spanish block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+>
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
 ## Chinese, Simplified (简体中文)
 
@@ -58,6 +68,8 @@ Days To Go：日期倒计时
 获取 Days To Go Pro：https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4
 
 一款倒计时表盘：用一个大数字显示距离你的日期还剩多少天。
+
+没有任何锁定内容：没有试用期，无需输入代码，也无需在手表上购买任何东西。
 
 一个数字
 剩余天数是屏幕上最大的内容，以手表能显示的最大字号呈现。上方是时间，下方是日期。表圈上的细环在最后一年里逐渐变空，并在当天填满。没有步数，没有心率，没有天气。
@@ -80,5 +92,13 @@ Days To Go Pro 增加
 数据不会离开你的手表
 无需权限，无需账户，不联网，无分析，无广告。
 
+Verden 的更多作品
+DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 帮助与解答：https://verden.watch/days-to-go/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the Chinese block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12). Use a full-width colon (`：`) in these lines.
+>
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
