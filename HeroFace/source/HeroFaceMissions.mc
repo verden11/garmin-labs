@@ -26,7 +26,8 @@ class HeroFaceMissions {
         }
         if (value.length() > 0) {
             dc.setColor(metric.isAlert() ? HeroFacePalette.ALERT : HeroFacePalette.TEXT, Graphics.COLOR_TRANSPARENT);
-            HeroFaceDraw.text(dc, layout, center, top, Graphics.FONT_XTINY, value, Graphics.TEXT_JUSTIFY_CENTER);
+            var valueWidth = dc.getTextWidthInPixels(value, Graphics.FONT_XTINY);
+            HeroFaceDraw.text(dc, layout, inside(dc, layout, center - valueWidth / 2, valueWidth, top), top, Graphics.FONT_XTINY, value, Graphics.TEXT_JUSTIFY_LEFT);
         }
         var barTop = top + line + gap;
         if (metric.hasBar()) {
@@ -74,7 +75,7 @@ class HeroFaceMissions {
             }
             textWidth = dc.getTextWidthInPixels(label, Graphics.FONT_XTINY);
         }
-        var left = center - (textWidth + check) / 2;
+        var left = inside(dc, layout, center - (textWidth + check) / 2, textWidth + check, top);
         dc.setColor(done ? HeroFacePalette.DONE : HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);
         if (reversed) {
             var line = dc.getFontHeight(Graphics.FONT_XTINY);
@@ -91,6 +92,18 @@ class HeroFaceMissions {
         } else {
             HeroFaceDraw.text(dc, layout, left + check, top, Graphics.FONT_XTINY, label, Graphics.TEXT_JUSTIFY_LEFT);
         }
+    }
+
+    // A label wider than its outer column slides inward to stay inside the rectangle's frame (on a round watch the
+    // chord below the content radius already leaves it room). Long translations on a Venu Sq, ROADMAP 13.36.
+    private static function inside(dc as Graphics.Dc, layout as HeroFaceLayout, left as Number, width as Number, top as Number) as Number {
+        if (!layout.rectangle()) {
+            return left;
+        }
+        var line = dc.getFontHeight(Graphics.FONT_XTINY);
+        var min = layout.leftInset(top, line);
+        var max = layout.rightInset(top, line) - width;
+        return left < min ? min : (left > max ? max : left);
     }
 
     // Check mark sized off the label font, plus a gap before the label.
