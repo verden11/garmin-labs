@@ -23,6 +23,7 @@ and Pro says so in its own body.
 | 015 | Instinct E and Instinct 3 Solar: window gauge, black and white, no accent | Accepted 2026-10-04 — simulator only |
 | 016 | Grid cells whole or not at all, Pro without a grid before trimming, half-size Instinct hero icons, icon level with the digits | Accepted 2026-10-04 (owner's standing authorisation) — simulator only |
 | 017 | Hero icons follow the screen (two sizes per screen), a line-icon weather glyph, the hero label before a grid row | Accepted 2026-10-04 (owner's standing authorisation) — simulator only |
+| 019 | Rectangles get a square design: a track that follows the glass, a straight gauge | Accepted 2026-10-05 — simulator only, screenshots for the owner's approval |
 
 ## ADR-001: Device set / API floor
 
@@ -591,3 +592,38 @@ a SECOND setting is a new ADR, and this one's persistence evidence should be in 
 **Open risk:** DayArc Pro is not yet submitted, so it is priced at its first upload and the re-review risk below does not apply to it today. If the price is ever changed after approval: Garmin documents that changing the price of an approved app can take it out of the store for re-review (SDK `Monetization/App_Sales`), and how it treats a repricing to a higher tier is not confirmed. The Garmin email on repricing was cancelled (owner, 2026-10-04, ROADMAP 2.1); the agent re-reads Garmin's published policies instead (`../../reports/Garmin policies and design guidelines.md`, running). Ship any later repricing together with a version upload, which is re-reviewed anyway.
 
 **Reversed by:** The owner.
+
+## ADR-019: Rectangles get a square design: a track that follows the glass, a straight gauge
+
+**Status:** Accepted 2026-10-05 (owner: square watches use square designs; build first, then the owner approves the real
+simulator screenshots before any upload). Simulator only. **Supersedes, on Venu Sq 2, Venu Sq 2 Music and Venu X1 only, the
+rectangle part of ADR-001's 2026-09-28 amendment (device set: full-width rows, the arc on the inscribed circle) and the curve of
+ADR-013 amendment 2 (icon system: the "E1" smile gauge and the lifted grid).** Round and Instinct products are unchanged.
+
+**Context:** On the three rectangles the window-progress arc was a circular arc over the top and the gauge a smile at the
+bottom: a round design dropped into a square (before: `../../device-test/rect-review/before/`). The studio's rule for
+rectangles: a ring or arc follows the screen as a rounded-rectangle track, inset like the round one, the same stroke, a corner
+that clears the glass; progress runs clockwise and a share is the same share of the path's length.
+
+**Decision (DESIGN.md "Rectangle"):**
+- `DayArcRect` (new, rectangle only): the track's centreline is inset by what the round arc's is (`DayArcArc.radius`), the same
+  pen, corner radius 0.12 of the short side, clear of the Venu X1's measured glass corner (a 66 px circle fits the skin's alpha).
+  The window arc is its upper part, from the left side over the top to the right side, the round arc's share
+  (`ARC_SPAN_DEGREES` of 360) of the path, filled clockwise from the left in the window's accent.
+- Every row fits the inner box (track inner edge plus the arc's clearance, concentric rounded corners): `DayArcLayout.rowMaxWidth`,
+  `topMargin` and `gridBottom` route there, so the planner (`DayArcStack`), the corner pills and the grid use it unchanged.
+- The gauge is a straight pill bar centred in the round gauge's row height; grid rows have no lift. Per-window colours
+  (ADR-013 (icon system and per-window colour)), no verdicts (ADR-006 (single-hue gauge)) and the Accent (ADR-014 (one Accent
+  colour list)) are unchanged.
+
+**Evidence (simulator only):** `DayArcRectTest` (the track's outer edge stays 2 px inside the glass circle along both corners,
+the window is the round arc's share of the path, every planned row and the gauge bar sit inside the inner box);
+`DayArcStackTest` on venusq2 and venux1, both jungles; it now plans the morning with its "Feels like" label (it had planned
+the morning unlabelled, stale since the label came in, ROADMAP 13.28). Screenshots of every window, both tiers, both sizes, and
+always-on: `../../device-test/rect-review/after/`.
+
+**Consequences:** On the Venu Sq 2 Pro the morning keeps "Feels like" and a grid row (ROADMAP 13.30's trade no longer happens
+there). No wrist has seen this; the Venu Sq 2's skin shows a glass corner of about 8 px, so its 38 px track corner is a
+proportion, not a measured fit.
+
+**Reversed by:** The owner, on the screenshots or a wrist.

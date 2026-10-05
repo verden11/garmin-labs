@@ -78,9 +78,9 @@ setting (ADR-003). No other setting is to be added under this one.
 
 `minApiLevel="4.2.0"`, TwoSuns ADR-009's 69-product set, reused verbatim (ADR-001). Round products
 (66 of the 69) are chord-fitted against the inscribed circle. The three rectangular AMOLED products
-(Venu Sq 2, Venu Sq 2 Music, Venu X1) use the full screen width and the screen's own bottom edge —
-they have no bezel to clip against; only the window-progress arc stays on the inscribed circle
-(ADR-001, amended 2026-09-28). Every window's stack — clock, date, hero, gauge, sub line(s) and, in
+(Venu Sq 2, Venu Sq 2 Music, Venu X1) have their own square design (ADR-019, 2026-10-05): the
+window-progress arc is the upper part of a rounded-rectangle track that follows the glass, the gauge is
+a straight bar, and every row fits the box inside that track (`DESIGN.md` "Rectangle"). Every window's stack — clock, date, hero, gauge, sub line(s) and, in
 Pro, the grid — is planned as a whole against the real display (`DayArcStack`), stepping fonts down
 only as needed; on the smallest screens Pro reserves fewer grid rows (`DESIGN.md` "Layout").
 

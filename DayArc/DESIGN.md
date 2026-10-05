@@ -61,7 +61,8 @@ edge — a rectangle has no round bezel, but **its display's corner radius is no
 measured, not read from the SDK device definition), so rows reaching ~19px above the bottom edge
 with Pro's grid icons near x=6 are unverified against rounded corners: an open item for a look on a
 Venu Sq 2 / Venu X1 (ADR-001, amended — the earlier "same round-centred content on rectangles"
-left Venu Sq 2 a 204px chord and no tier that fit).
+left Venu Sq 2 a 204px chord and no tier that fit). **Since ADR-019 (2026-10-05) a rectangle has its own square design**
+(section "Rectangle"): rows fit a rounded inner box measured against the glass, not the full width.
 
 **How the stack is fitted** (`DayArcStack`, `DayArcConfig.STACK_LEVELS`):
 - A measured dry run of every row — clock, date, hero label, hero icon+value, gauge, sub line(s)
@@ -178,7 +179,7 @@ approved as direction; the idle frame's own existing philosophy is "fewest lit p
 copy of the active frame, so a new always-on element was rejected rather than added by default. Flag
 to the owner if this should be revisited.
 
-**Decided 2026-09-28, replacing an earlier implementation-time decision:** on a rectangular product
+**Superseded on the three rectangles by ADR-019 (2026-10-05), see "Rectangle" below; kept for the record.** **Decided 2026-09-28, replacing an earlier implementation-time decision:** on a rectangular product
 (Venu Sq 2, Venu Sq 2 Music, Venu X1) rows use the full screen width and the screen's own bottom
 edge, while the window-progress arc stays on the inscribed circle (the arc is a circle arc; the
 stack simply starts below it, `DayArcLayout.topMargin`). The first build drew rectangles as the
@@ -390,6 +391,41 @@ clipped, side text truncated by the round mask) before it ever reached Monkey C.
 stays open until one exists — a mockup is not device proof, same rule as everywhere else here.
 `watch-design-reviewer` has not yet re-run against the built version of this direction; do that
 before calling it `disposition: ship`.
+
+## Rectangle (Venu Sq 2, Venu Sq 2 Music, Venu X1; ADR-019, built 2026-10-05, simulator only)
+
+A square watch gets a square design, not the round one dropped in (owner, 2026-10-05; the studio rule for rectangles). It
+**supersedes, on these three products only, the "Decided 2026-09-28" paragraph above** (rows at the full screen width, the arc
+on the inscribed circle). Every meaning and colour stays: the per-window hues (ADR-013 (icon system and per-window colour)), no
+verdicts (ADR-006 (single-hue gauge)), the Accent setting (ADR-014 (one Accent colour list)). Round and Instinct products do not
+change (every branch is `DayArcLayout.isRectangle()`).
+
+- **The track follows the glass.** A rounded rectangle whose centreline is inset from the screen edge exactly as the round arc's
+  is from the bezel (`DayArcRect.inset` = the bezel margin plus half the pen; 8 px on the Sq 2, 12 px on the X1), the same stroke
+  (`DayArcArc.penWidth`, 5 / 8 px), corner radius 0.12 of the short side (38 / 53 px on the centreline). The Venu X1's glass
+  corner, measured off the SDK skin's alpha, is a superellipse that a 66 px circle fits from row 8 down; the 53 px track corner
+  is concentric with it and keeps about 9 px of black outside the stroke all round the corner. The Sq 2 skin's glass corner is
+  about 8 px, so its 38 px corner is the same proportion, not a fit. HeroFace's rectangle frame was the precedent (idea copied,
+  no code linked).
+- **The window-progress arc is the upper part of that track**: from the left side, over both top corners, down the right side,
+  the same share of the path's length as the round arc's 140 of 360 degrees (`DayArcRect.segments`: on the Sq 2 65 px down each
+  side, the tips at y 111; on the X1 84 px, tips at y 149). Track in `ARC_TRACK` grey, filled clockwise from the left tip in the
+  window's accent; a share of the window is the same share of the path. Night has none, as on round.
+- **The hero gauge is a straight pill bar** (no curve on a square): the track grey bar with round ends, the accent fill from
+  the left, the round gauge's width (`gaugeMaxWidth`) capped by the inner box. The row keeps the round gauge's height (the
+  smile's depth included) and the bar sits in its middle, so the bar has as much air above it as below and a plan budgets the
+  same row on every shape. Pro's grid rows sit level (no lift onto a curve).
+- **The content uses the square.** Every row (clock, date, label, hero, sub line, the corner pills beside the date, the grid
+  pills) fits the **inner box**: the track's inner edge plus the arc's own clearance (`DayArcArc` 15 permille), with corners
+  rounded concentrically with the track's (`DayArcRect.rowWidth`; 14 px in and a 32 px corner on the Sq 2, 22 px and 43 px on the
+  X1), and another 15 permille off the straight sides (19 / 28 px in): Pro's corner pills sit beside the side runs, and a grey
+  pill outline at the arc's clearance alone read as touching the grey track (first Venu X1 screenshot). The stack starts at the inner box's top and ends at its bottom, which buys the planner about 25 px of height over the
+  old inscribed-circle margins; `DayArcStack`'s dry run then picks the tiers, as everywhere.
+- **What it buys (worst-case strings, `DayArcStackTest`, simulator only).** Venu Sq 2 Pro: midday and evening move from the
+  MILD hero with one grid row to MEDIUM with two; the morning keeps "Feels like" **and** a grid row (ROADMAP 13.30: the
+  square layout gives room for both). Venu Sq 2 Simple: midday and evening HOT. Venu X1: HOT in every window of both tiers,
+  Pro with two grid rows.
+- Always-on: unchanged (the time only, drifting), fitted to the inner box.
 
 ## Instinct E and Instinct 3 Solar (1-bit, a round window top right; ADR-015, accepted 2026-10-04, simulator only)
 
