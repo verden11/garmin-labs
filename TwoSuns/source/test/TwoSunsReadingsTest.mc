@@ -37,10 +37,10 @@ function clockTextWraps(logger as Test.Logger) as Boolean {
 
 (:test)
 function durationText(logger as Test.Logger) as Boolean {
-    Test.assertEqual(TwoSunsReadings.durationText(222), "3:42");
-    Test.assertEqual(TwoSunsReadings.durationText(0), "0:00");
-    Test.assertEqual(TwoSunsReadings.durationText(59), "0:59");
-    Test.assertEqual(TwoSunsReadings.durationText(64), "1:04");
+    Test.assertEqual(TwoSunsReadings.durationText(222), "3h 42m");
+    Test.assertEqual(TwoSunsReadings.durationText(0), "0m");
+    Test.assertEqual(TwoSunsReadings.durationText(59), "59m");
+    Test.assertEqual(TwoSunsReadings.durationText(64), "1h 04m");
     return true;
 }
 
@@ -48,7 +48,7 @@ function durationText(logger as Test.Logger) as Boolean {
 function skyLineDay(logger as Test.Logger) as Boolean {
     var sky = readingsSky(TwoSunsConfig.SKY_DAY);
     sky.lightLeft = 222;
-    Test.assertEqual(TwoSunsReadings.skyLine(sky, true), "3:42 of daylight");
+    Test.assertEqual(TwoSunsReadings.skyLine(sky, true), "3h 42m of daylight");
     sky.lightLeft = null;
     Test.assertEqual(TwoSunsReadings.skyLine(sky, true), "Sun is up");
     return true;
@@ -181,7 +181,7 @@ function buildCarriesTheRest(logger as Test.Logger) as Boolean {
 function skyLineShortWordings(logger as Test.Logger) as Boolean {
     var day = readingsSky(TwoSunsConfig.SKY_DAY);
     day.lightLeft = 222;
-    Test.assertEqual(TwoSunsReadings.skyText(day, true, 1), "3:42 light");
+    Test.assertEqual(TwoSunsReadings.skyText(day, true, 1), "3h 42m light");
     var before = readingsSky(TwoSunsConfig.SKY_BEFORE_SUNRISE);
     before.nextRise = 6 * 60 + 41;
     Test.assertEqual(TwoSunsReadings.skyText(before, true, 1), "Rise 06:41");
@@ -210,8 +210,8 @@ function stateListsSentencesLongestFirst(logger as Test.Logger) as Boolean {
     var state = TwoSunsReadings.build(new TwoSunsSettings({} as Dictionary), new TwoSunsLocalTime(2026, 9, 27, 900, 60, 0), true, day,
                                       null, null, ["Sun 27 Sep"] as Array<String>);
     Test.assertEqual(state.skyLines.size(), 2);
-    Test.assertEqual(state.skyLines[0], "3:42 of daylight");
-    Test.assertEqual(state.skyLines[1], "3:42 light");
+    Test.assertEqual(state.skyLines[0], "3h 42m of daylight");
+    Test.assertEqual(state.skyLines[1], "3h 42m light");
     var same = TwoSunsReadings.build(new TwoSunsSettings({} as Dictionary), new TwoSunsLocalTime(2026, 9, 27, 900, 60, 0),
                                      true, readingsSky(TwoSunsConfig.SKY_NO_PLACE), null, null, ["Sun 27 Sep"] as Array<String>);
     Test.assertEqual(same.skyLines.size(), 1);

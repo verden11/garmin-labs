@@ -1,0 +1,5 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- "3h 42m of daylight": the English letters for now, not a translation (ROADMAP 13.7). Here so the compiler finds the id in this language. -->
+    <string id="unit_hours">h</string>
+    <string id="unit_minutes">m</string>
+</strings>

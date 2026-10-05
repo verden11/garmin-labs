@@ -65,9 +65,16 @@ class TwoSunsReadings {
         return (hours == 0 ? TwoSunsConfig.HOURS_PER_HALF_DAY : hours) + ":" + minute;
     }
 
-    // Minutes of daylight as H:MM (3:42), never a clock time.
+    // Minutes of daylight as "3h 42m", or "41m" under an hour: "3:42" read as a clock time (design critique
+    // 2026-10-05, ROADMAP 13.17). The letters are resources/strings/units.xml, English for now (ROADMAP 13.7).
     static function durationText(minutes as Number) as String {
-        return (minutes / TwoSunsConfig.MINUTES_PER_HOUR) + ":" + (minutes % TwoSunsConfig.MINUTES_PER_HOUR).format("%02d");
+        var hours = minutes / TwoSunsConfig.MINUTES_PER_HOUR;
+        var rest = minutes % TwoSunsConfig.MINUTES_PER_HOUR;
+        var m = TwoSunsText.get(Rez.Strings.unit_minutes);
+        if (hours == 0) {
+            return rest + m;
+        }
+        return hours + TwoSunsText.get(Rez.Strings.unit_hours) + " " + rest.format("%02d") + m;
     }
 
     // The one sentence at the bottom (docs/spec.md "What the face shows"). Every failure has words, not a blank.

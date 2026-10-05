@@ -56,9 +56,6 @@ class TwoSunsPalette {
     static const WEATHER_RAIN = 0x00AAFF;
     static const WEATHER_NUMBER = WEATHER_SUN;
 
-    // The energy curve. Fresh: a white line over a fill that is 3:1 against black. Stale: both muted.
-    static const CURVE_FILL = 0x5555AA;
-    static const CURVE_FILL_STALE = 0x555555;
 }
 
 // The Instinct's twin (ADR-024): a 1-bit display shows black and white only, and how it would round any other value is
@@ -81,8 +78,6 @@ class TwoSunsPalette {
     static const WEATHER_SUN = 0xFFFFFF;
     static const WEATHER_RAIN = 0xFFFFFF;
     static const WEATHER_NUMBER = 0xFFFFFF;
-    static const CURVE_FILL = 0xFFFFFF;
-    static const CURVE_FILL_STALE = 0xFFFFFF;
 
     static function accent(index as Number) as Number {
         return TEXT;

@@ -13,8 +13,8 @@ function badSettingsFallBackToDefaults(logger as Test.Logger) as Boolean {
     Test.assert(!s.golden);
     Test.assert(s.curve);
     Test.assert(s.date);
-    Test.assert(s.weather);
-    Test.assert(s.battery);
+    Test.assert(!s.weather);
+    Test.assert(!s.battery);
     return true;
 }
 
@@ -26,8 +26,8 @@ function missingSettingsFallBackToDefaults(logger as Test.Logger) as Boolean {
     Test.assert(!s.golden);
     Test.assert(s.curve);
     Test.assert(s.date);
-    Test.assert(s.weather);
-    Test.assert(s.battery);
+    Test.assert(!s.weather);
+    Test.assert(!s.battery);
     return true;
 }
 

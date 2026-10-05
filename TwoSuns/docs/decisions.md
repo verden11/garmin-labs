@@ -87,6 +87,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Evidence.** `twoSunsLayoutReport` boxes and 154 Pro / 67 Free tests (four new, `TwoSunsBatteryRowTest`) in the simulator; the mockup screenshots. Not seen: any pixel of the build, the bolt at 11 px wide on the 218 px screen, the battery row against the ring on a wrist.
 **Reversed by.** The owner not reading the bolt as energy on the wrist (back to the pill or the ring); the battery row crowding the ring on a real screen; Garmin giving a face a way to draw its own icons.
 
+**Amendment 2026-10-05 (owner, design critique, ROADMAP 13.13 and 13.16; simulator only).** The bolt is solid in the current battery colour, no longer a gauge: half grey, half colour read as "broken", and the number beside it already gives the level. Hollow when stale or empty, unchanged. The watch battery row (and the weather row, ADR-022) are Off by default for new installs, so the first face matches the listing; wearers who switched them on keep their setting.
+
 ## ADR-001: Concept
 
 **Decision.** One face answers one question: how much light, and how much energy, do I have left today? A 24-hour ring around the bezel is the sky's sun, a 24-hour curve under the time is the watch's Body Battery, and one sentence at the bottom says how much daylight is left or when the sun returns. The time is the hero.

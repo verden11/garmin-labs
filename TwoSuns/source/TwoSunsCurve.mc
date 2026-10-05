@@ -1,8 +1,9 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 
-// Draws the energy curve and the level pill from their plans. Fresh: a white line over a fill, the
-// newest point a solid dot in the accent. Stale (newest sample over an hour old): everything muted and the
+// Draws the energy curve and the Body Battery glyph from their plans. Fresh: a white line with no fill (the fill was
+// the night ring's #5555AA and read as part of the sky; design critique 2026-10-05, ROADMAP 13.15), the newest point a
+// solid dot in the accent. Stale (newest sample over an hour old): everything muted and the
 // dot an outline, so staleness is a shape as well as a colour.
 class TwoSunsCurve {
 
@@ -13,13 +14,6 @@ class TwoSunsCurve {
         var dot = layout.dotRadius();
         var plan = TwoSunsCurvePlan.build(curve, band.curveLeft + dot, band.curveTop + dot,
                                           band.curveWidth - 2 * dot, band.curveHeight - 2 * dot);
-        dc.setColor(stale ? TwoSunsPalette.CURVE_FILL_STALE : TwoSunsPalette.CURVE_FILL, Graphics.COLOR_TRANSPARENT);
-        for (var i = 0; i < plan.xs.size(); i++) {
-            var y = plan.ys[i];
-            if (y != null) {
-                dc.fillRectangle(plan.xs[i], y, plan.cellWidth(i), plan.bottom - y + 1);
-            }
-        }
         dc.setPenWidth(layout.pen());
         dc.setColor(stale ? TwoSunsPalette.MUTED : TwoSunsPalette.TEXT, Graphics.COLOR_TRANSPARENT);
         for (var i = 0; i < plan.xs.size() - 1; i++) {
@@ -54,10 +48,10 @@ class TwoSunsCurve {
         }
     }
 
-    // The Body Battery glyph: a bolt gauge (docs/decisions.md ADR-023, replacing the level pill of ADR-017, which beside
-    // the watch battery row read as a second battery). A dim bolt, filled from the bottom to the level in the accent
-    // (a clip over the lower part of the box, so the fill follows the bolt's own edges). Hollow (a muted outline, no fill)
-    // when there is no number or it is stale. Its points are thousandths of the glyph height; the box is 0.6 as wide as tall.
+    // The Body Battery glyph: a bolt (docs/decisions.md ADR-023, replacing the level pill of ADR-017, which beside the
+    // watch battery row read as a second battery). Solid in the current battery colour since 2026-10-05 (ROADMAP 13.16:
+    // the half-grey gauge read as "broken", and the number beside it already says the level). Hollow (a muted outline,
+    // no fill) when there is no number or it is stale. Its points are thousandths of the glyph height; the box is 0.6 as wide as tall.
     private static const BOLT = [[470, 0], [10, 580], [270, 580], [90, 1000], [590, 380], [330, 380]] as Array<Array<Number>>;
 
     static function drawGlyph(dc as Graphics.Dc, layout as TwoSunsLayout, band as TwoSunsBand, level as Number or Null,
@@ -77,14 +71,7 @@ class TwoSunsCurve {
             dc.setPenWidth(1);
             return;
         }
-        dc.setColor(TwoSunsPalette.TRACK, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
         dc.fillPolygon(points);
-        var filled = band.glyphHeight * level / TwoSunsConfig.BATTERY_MAX;
-        if (filled > 0) {
-            dc.setClip(band.glyphLeft, band.glyphTop + band.glyphHeight - filled, band.glyphWidth, filled);
-            dc.setColor(accent, Graphics.COLOR_TRANSPARENT);
-            dc.fillPolygon(points);
-            dc.clearClip();
-        }
     }
 }

@@ -4,7 +4,7 @@ import Toybox.Lang;
 // The weather row's sizes and drawing (docs/decisions.md ADR-022, Weather row in Pro). Two forms: the full row
 // is a lead cell (the condition icon and the feels-like temperature; or the next day's weekday, icon, high and
 // low) and up to three ahead cells (an icon over its hour); the compact row is one line the height of the
-// smallest label font, with no hour labels, for a screen too short for the full one. The lead icon is coloured
+// smallest label font, the lead cell only (no hour labels, so no ahead cells), for a screen too short for the full one. The lead icon is coloured
 // and bigger than the ahead icons, its number is one fixed hue, everything else is mono. Cells are measured
 // against the round chord: the next day's low goes first when the row is wide, then ahead cells, and a lead that
 // does not fit makes the frame drop the row.
@@ -38,9 +38,15 @@ class TwoSunsWeatherRow {
     }
 
     // How many ahead cells fit the chord at this row, or -1 when the lead cell alone does not. The low goes before any cell.
+    // The compact row has no hour labels, so it draws no ahead cells: three icons with no hours said nothing (design
+    // critique 2026-10-05, ROADMAP 13.14). It is the lead alone, or no row.
     static function aheadThatFit(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, top as Number) as Number {
         var room = roomAt(dc, layout, mode, top);
-        var count = weather.aheadKinds.size();
+        var compact = mode == TwoSunsConfig.WEATHER_ROW_COMPACT;
+        if (compact && !weather.hasLead()) {
+            return -1;
+        }
+        var count = compact ? 0 : weather.aheadKinds.size();
         while (count >= 0) {
             if (totalWidth(dc, layout, weather, mode, count, lowKept(dc, layout, weather, mode, top, count)) <= room) {
                 return count;

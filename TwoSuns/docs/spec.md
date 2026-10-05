@@ -40,7 +40,7 @@ Status: **Approved by the owner 2026-10-04 (ADR-020, ADR-021), uploaded 2026-10-
 | Version | 1.0.0 | 1.1.0 |
 | Permissions | **`ComplicationSubscriber` only** | `ComplicationSubscriber`, `SensorHistory`, `Positioning` (Free's are always a subset of Pro's) |
 | The time, the 24-hour ring from Garmin's own sunrise and sunset, ticks, sun marker, daylight to come and gone | yes | yes |
-| The sun sentence from Garmin's pair ("3:42 of daylight", "Sunrise 06:41", "Sunrise ~06:41" after sunset, "Sun is up", "No sun data") | yes | yes, plus the calculated ones below |
+| The sun sentence from Garmin's pair ("3h 42m of daylight", "Sunrise 06:41", "Sunrise ~06:41" after sunset, "Sun is up", "No sun data") | yes | yes, plus the calculated ones below |
 | Body Battery: Garmin's number in a level pill; `--` and a hollow pill when there is none | yes (ADR-021, Body Battery in Free) | yes |
 | 24-hour energy curve, the stale state (`SensorHistory`) | no | yes |
 | Remembered place, our own calculation: tomorrow's sunrise, civil twilight arcs, "Sun stays up/down today", "No sunrise tomorrow", "No place yet" | no (never says "No place yet": Garmin's null pair is "No sun data") | yes |
@@ -68,7 +68,7 @@ Ring: 24 hours of local clock time, noon at the top by default, clockwise. Botto
 
 | State | When | Ring | Bottom line |
 |---|---|---|---|
-| Day | now between sunrise and sunset | daylight lit; the part already gone dimmer; solid sun marker at now | `H:MM` of light left (e.g. "3:42 of daylight") |
+| Day | now between sunrise and sunset | daylight lit; the part already gone dimmer; solid sun marker at now | hours and minutes of light left (e.g. "3h 42m of daylight", "41m of daylight" under an hour; ROADMAP 13.17) |
 | Day, sunset unknown | a transition day: sunrise known, sunset null and no calculation | daylight from sunrise to the edge of the day | "Sun is up" |
 | Before sunrise | now < sunrise | full night dim; sunrise tick; outline marker | "Sunrise 06:41" |
 | After sunset | now ≥ sunset | as above | "Sunrise 06:41" (tomorrow's: D6) |
@@ -81,7 +81,7 @@ Ring: 24 hours of local clock time, noon at the top by default, clockwise. Botto
 | No place yet (**Pro only**; Free says "No sun data") | `Complications` exist, both values null and no location | ring plain, no sun marker | "No place yet" |
 | No sun data | `Complications` unavailable and no location | as above | "No sun data" |
 
-Free draws only the rows not marked Pro only; the ring has no twilight arc in Free (it needs the calculation). The sentences have shorter wordings for a narrow row ("3:42 light", "Rise 06:41", "Set 20:52", "Sun stays up", "No sunrise", "No sunset"); the layout takes the longest that fits (ADR-014, three wordings for the sun sentence). Times follow the system's 12/24 h: 24 h keeps the leading zero (06:41), 12 h drops it (6:41) and shows no AM or PM. The date line is words in the watch's language, never numbers; month first only for English with statute units, otherwise day first.
+Free draws only the rows not marked Pro only; the ring has no twilight arc in Free (it needs the calculation). The sentences have shorter wordings for a narrow row ("3h 42m light", "Rise 06:41", "Set 20:52", "Sun stays up", "No sunrise", "No sunset"); the layout takes the longest that fits (ADR-014, three wordings for the sun sentence). Times follow the system's 12/24 h: 24 h keeps the leading zero (06:41), 12 h drops it (6:41) and shows no AM or PM. The date line is words in the watch's language, never numbers; month first only for English with statute units, otherwise day first.
 
 Body Battery under the time:
 
@@ -99,7 +99,7 @@ The face never shows the words good, low, rest, tired or any face/emoji for Body
 
 ### Watch battery row and Body Battery glyph (ADR-023, proposed until the wrist check, built, uploaded in Pro 1.1.0 2026-10-04)
 
-Pro: a muted row above the stack with the watch's charge (classic battery glyph and a whole percent), setting `Battery` (On by default), drawn only where the round chord has room (not on small screens), never moving another row. Both tiers: the Body Battery glyph is a bolt gauge (dim bolt filled from the bottom to the level; hollow when stale or missing), replacing the level pill. The weather row's next-day marker is an arrow.
+Pro: a muted row above the stack with the watch's charge (classic battery glyph and a whole percent), setting `Battery` (Off by default since 2026-10-05, ROADMAP 13.13), drawn only where the round chord has room (not on small screens), never moving another row. Both tiers: the Body Battery glyph is a bolt gauge (dim bolt filled from the bottom to the level; hollow when stale or missing), replacing the level pill. The weather row's next-day marker is an arrow.
 
 ### Weather row (Pro, ADR-022, proposed until the wrist check, built, uploaded in Pro 1.1.0 2026-10-04)
 

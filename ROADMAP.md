@@ -27,12 +27,18 @@ Do not keep open checkboxes anywhere else. Status 2026-10-05.
 - [x] 13.4 `[you]` Days To Go Pro: footer `50%` / `6.4K` has no icon, so it reads as nothing. Option: a small battery or steps glyph from primitives. About 2 h; a look change. **Decided 2026-10-05: built** (drawn battery outline and footprints). Look at the new shots before the next upload: `DaysToGo/listing*/screens/`.
 - [ ] 13.5 `[you]` Days To Go Pro: Event time zone is a 216-entry `UTC±hh:mm` list; a wrong pick is silently an hour off (spec rule 6). Option: city hints on common offsets (`UTC+01:00 (Paris, Lagos)`). About half a day plus strings and the listing.
 - [x] 13.6 `[you]` Days To Go: the accent arc shows time left (drains); most rings show progress (fill). Keep, or invert to fill toward the day (reopens the `DESIGN.md` direction). Agent: keep, decide after 13.1. **Decided 2026-10-05: keep.**
-- [ ] 13.7 `[you]` Days To Go Pro: the `8h 06m` letters are English on every watch (`resources-pro/strings/units.xml`; languages fall back to it). "m" can read as metres. Options: keep; "min"; or a `resources-pro-<lang>/strings/units.xml` per language (translations are yours).
+- [ ] 13.7 `[you]` Days To Go Pro: the `8h 06m` letters are English on every watch (`resources-pro/strings/units.xml`; languages fall back to it). "m" can read as metres. Options: keep; "min"; or a `resources-pro-<lang>/strings/units.xml` per language (translations are yours). Same question for Two Suns' "3h 42m of daylight" (`TwoSuns/resources/strings/units.xml`, 13.17).
 - [x] 13.8 `[you]` HeroFace Pro: the temperature jumped from the centre of the row under the time to its right edge when a streak showed, and the streak hugged the left. **Decided 2026-10-05 (owner: "do your picks"): built** as one centred group.
 - [x] 13.9 `[you]` HeroFace Free: an empty band between the time and the missions (no temperature in Free, no streak on day 1). **Decided 2026-10-05: built** (the time moves down half a row when that row is empty).
 - [x] 13.10 `[you]` HeroFace: MOVE read `OK` / `GO`. **Decided 2026-10-05: built** (no value while quiet, red GO on alert). `value_move_ok` is now unused in 15 languages (left in place).
 - [x] 13.11 `[you]` HeroFace: clipped labels `INT`, `FLR`, `STEP`, `CAL`. **Decided 2026-10-05: built** as drawn icons (footprints, flame, bolt, stairs). Look at `HeroFace/listing*/screens/` before the next upload; distance, MOVE and HeroSet's PUSH/SIT/SQT keep words (an exercise icon at that size would not read).
 - [x] 13.12 `[you]` HeroFace Pro store hero: its centre watch showed `OK MOVE`. **Resolved by 13.10** (the same scene now shows the bar alone); hero re-rendered.
+- [x] 13.13 `[you]` Two Suns Pro: the weather and watch battery rows were On by default, but every listing shot has them Off, so buyers got a busier face than advertised. **Decided 2026-10-05 (owner: "do your picks"): Off by default** (new installs; ADR-023 amendment).
+- [x] 13.14 `[you]` Two Suns Pro: on short screens the compact weather row showed three identical icons with no hours. **Built 2026-10-05:** the compact row is the current conditions only.
+- [x] 13.15 `[you]` Two Suns Pro: the energy curve's fill was the night ring's `#5555AA`. **Built 2026-10-05:** line only, no fill.
+- [x] 13.16 `[you]` Two Suns: the half-grey bolt gauge read as broken. **Built 2026-10-05:** solid bolt (Two Suns ADR-023 (watch battery row, bolt) amendment).
+- [x] 13.17 `[you]` Two Suns: "3:42 of daylight" read as a clock time. **Built 2026-10-05:** "3h 42m of daylight" (letters English for now, 13.7).
+- [ ] 13.18 `[you]` Site, Two Suns: `site/src/apps/two-suns/` (Landing, Support, FacePreview) still says "8:41 of daylight" and draws a filled curve. Update with the next Two Suns upload; a push deploys the site, so it waits for your OK.
 
 ## 2. Your hands (a watch, the store dashboard, a person)
 

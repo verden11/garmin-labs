@@ -3,7 +3,7 @@ import Toybox.Lang;
 
 // What the wearer chose, validated. Every value is clamped to something the face can draw, so a
 // missing key, a wrong type from an old phone app or a list value nobody offers still gives a
-// correct face (never a crash). Pro defaults: sky, noon at the top, golden hour off, curve on, date on, weather on, watch battery on.
+// correct face (never a crash). Pro defaults: sky, noon at the top, golden hour off, curve on, date on, weather off, watch battery off (both off since 2026-10-05, ROADMAP 13.13).
 //
 // Free build (docs/decisions.md ADR-020, Free + Pro ladder): only Accent is a setting. The other four fields keep the
 // values they are declared with, which are exactly what Free draws (noon at the top, no golden arc, no curve, no date
@@ -29,8 +29,9 @@ class TwoSunsSettings {
         golden = within(values, TwoSunsConfig.KEY_GOLDEN, TwoSunsConfig.ON, TwoSunsConfig.OFF) == TwoSunsConfig.ON;
         curve = within(values, TwoSunsConfig.KEY_CURVE, TwoSunsConfig.ON, TwoSunsConfig.ON) == TwoSunsConfig.ON;
         date = within(values, TwoSunsConfig.KEY_DATE, TwoSunsConfig.ON, TwoSunsConfig.ON) == TwoSunsConfig.ON;
-        weather = within(values, TwoSunsConfig.KEY_WEATHER, TwoSunsConfig.ON, TwoSunsConfig.ON) == TwoSunsConfig.ON;
-        battery = within(values, TwoSunsConfig.KEY_BATTERY, TwoSunsConfig.ON, TwoSunsConfig.ON) == TwoSunsConfig.ON;
+        // Off by default (owner, 2026-10-05, ROADMAP 13.13): the face a buyer first sees is the one the listing shows.
+        weather = within(values, TwoSunsConfig.KEY_WEATHER, TwoSunsConfig.ON, TwoSunsConfig.OFF) == TwoSunsConfig.ON;
+        battery = within(values, TwoSunsConfig.KEY_BATTERY, TwoSunsConfig.ON, TwoSunsConfig.OFF) == TwoSunsConfig.ON;
     }
 
     (:free)

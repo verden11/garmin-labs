@@ -38,8 +38,8 @@ SETTINGS = [
     ("Golden", "setting_golden", 0, [(0, "off"), (1, "on")]),
     ("Curve", "setting_curve", 1, [(0, "off"), (1, "on")]),
     ("Date", "setting_date", 1, [(0, "off"), (1, "on")]),
-    ("Weather", "setting_weather", 1, [(0, "off"), (1, "on")]),
-    ("Battery", "setting_battery", 1, [(0, "off"), (1, "on")]),
+    ("Weather", "setting_weather", 0, [(0, "off"), (1, "on")]),
+    ("Battery", "setting_battery", 0, [(0, "off"), (1, "on")]),
 ]
 
 

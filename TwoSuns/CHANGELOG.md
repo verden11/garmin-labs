@@ -3,6 +3,17 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/paste.md`](listing/paste.md).
 
+## Unreleased (next upload of both)
+
+Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.13 to 13.17; simulator only, nothing on a wrist):
+
+- **Pro: the weather row and the watch battery row are Off by default** for new installs, so the first face is the one the listing shows (each is one switch; a wearer who switched one on keeps it).
+- **Pro: on a screen too short for the full weather row, the compact row shows the current conditions only** (it showed three ahead icons with no hours).
+- **Pro: the energy curve is a white line with no fill** (the `#5555AA` fill was the night ring's colour).
+- **Both: the Body Battery bolt is solid** in the battery colour, not a half-grey gauge (Two Suns ADR-023 (watch battery row, bolt) amendment in `docs/decisions.md`).
+- **Both: daylight reads "3h 42m of daylight"** ("41m" under an hour), not "3:42", which read as a clock time. The letters are English for now (ROADMAP 13.7).
+- Both listing sets recaptured.
+
 ## 1.1.0 (Two Suns Pro) and Two Suns Free 1.0.0 — uploaded 2026-10-04 by the owner, in review
 
 Both packages were uploaded on 2026-10-04 and are pending Garmin's review; 1.0.0 stays live until Pro 1.1.0 is approved. Built 2026-10-01 to 2026-10-04 against the Free + Pro plan, **approved by the owner 2026-10-04** ([`docs/decisions.md`](docs/decisions.md) ADR-020 (Free + Pro ladder) and ADR-021 (Body Battery in Free), both Active), simulator-grade evidence only. The prepared 1.0.1 below was folded into Pro 1.1.0 and is not uploaded on its own; its package (`TwoSuns-1.0.1-prepared.iq`) is untouched.
