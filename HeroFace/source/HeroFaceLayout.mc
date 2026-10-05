@@ -8,6 +8,7 @@ import Toybox.WatchUi;
 // follow HeroSetLayout (inset = a tenth of the screen) so the ring, bars and
 // labels match HeroSet's dashboard. Rows are stacked from the bottom up and
 // the time gets whatever height is left, so it is always the largest thing.
+// On a rectangle the rows take the width inside the frame, as DayArc's layout does on the same watches (ADR-005).
 class HeroFaceLayout {
 
     // Same arc as HeroSet's XP ring: from lower left clockwise over the top,
@@ -242,7 +243,7 @@ class HeroFaceLayout {
     }
 
     // Venu Sq / Sq 2 / X1 (ADR-005): the ring is a rounded rectangle along the screen's edges instead of a circle, and
-    // rows use the whole width inside it (the full-width-rows idea is DayArc's, credited, not linked).
+    // rows use the whole width inside it.
     function rectangle() as Boolean {
         return !_round && _subscreen == null;
     }
