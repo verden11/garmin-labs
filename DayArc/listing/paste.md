@@ -27,9 +27,9 @@ If this face works for you, a rating in the store helps other people find it.
 DayArc reads data your watch already has. Nothing is sent anywhere, no location, no network.
 
 More from Verden
-Days To Go: <DAYS TO GO STORE URL>
-Two Suns: <TWO SUNS STORE URL>
-HeroFace: <HEROFACE STORE URL>
+Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9
+Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca
+HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d
 
 Support and answers: https://verden.watch/day-arc/support/
 ```

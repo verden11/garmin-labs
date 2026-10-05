@@ -50,24 +50,23 @@ The evidence is in [`../reports/DayArc v1 scope and plan.md`](../reports/archive
   products, both jungles: `tools/compile_sweep.sh` (no simulator needed).
 - **One real-device photo, nothing else** (owner's FR965, evening window, 2026-09-28: it showed the
   sub line as "4...", the arc crowding the clock corners and a top-heavy stack — all fixed in
-  `DayArcStack`/`DayArcArc`, ADR-013's amendment, and not yet re-checked on the wrist). Otherwise
-  everything is simulator-only: compile sweep (69/69 both
-  densities) plus render/test exercise on 4 spot-check devices (fr965, approachs50, venusq2,
-  venux1), widened 2026-10-04 (72/72 compile sweep, unit suite on 13 devices). Simulator screenshots of
+  `DayArcStack`/`DayArcArc`, ADR-013's amendment; the final builds are on the owner's FR965 since 2026-10-05 for the
+  wear check, ROADMAP 1.1). Otherwise everything is simulator-only: compile sweep 72/72 both
+  densities, unit suites on 13 devices (2026-10-04) and Simple 23/23, Pro 26/26 on 5 devices after
+  the 2026-10-05 review fixes. Simulator screenshots of
   every window exist since 2026-10-03 (`../docker/capture.sh DayArc tools/window_shots.sh ...`, untracked
   `bin/shots/`); none is a device photo.
 
 ## Open owner decisions
 
-Not decided, and not to be decided alone: both launcher icons/covers/heroes (placeholders now), the
-night-window default (ADR-010 — time+date only, a plan default, not confirmed), both listings'
-OWNER listing fields, languages beyond English, the site pages, both store submissions, whether to
-run a real trademark search. Decided: two-listing architecture (ADR-003), fixed-clock windows
+Not decided, and not to be decided alone: both launcher icons/covers/heroes (placeholders now), both listings'
+remaining `owner_approvals` (`listing*/meta.yaml`), translation reads, the site pages, both store submissions, whether to
+run a real trademark search. Decided: the names DayArc / DayArc Pro (2026-10-04), the placeholder night window stays (time and date only, ADR-010, ROADMAP 1.7), the Instinct Pro behaviour as built (ROADMAP 1.18), two-listing architecture (ADR-003), fixed-clock windows
 (ADR-004), pricing (ADR-007; its price part superseded by ADR-018), Simple's calendar exclusion (ADR-008), Pro's density target (ADR-009).
 **The look is owner-approved for direction and now built** (ADR-013, 2026-09-28: per-window/per-icon
 colour, real icons, always-visible date, window-progress arc). Simulator-tested, both jungles
-(unit suites on 13 devices, the five reviewed with screenshots: fr965, fr255s, epix2, instincte40mm, instinct3solar45mm; seven
-design-review passes, the last in ADR-017); no real-device evidence — a mockup or a simulator pass is not device proof.
+(unit suites on 13 devices, the five reviewed with screenshots: fr965, fr255s, epix2, instincte40mm, instinct3solar45mm; nine
+design-review passes, recorded in ADR-017); no real-device evidence yet — a mockup or a simulator pass is not device proof.
 
 Price: Simple free forever (nothing to flip). Pro is paid at the $2.50 tier (ADR-018, price: the $2.50 tier for every paid app, which supersedes the price of ADR-007; set in the upload form, no price number in listing or site text), never flips to free — no price
 review date to set.

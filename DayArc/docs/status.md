@@ -2,28 +2,28 @@
 
 > **Open items live only in the root [`ROADMAP.md`](../../ROADMAP.md).** This file keeps where things stand, the evidence, the release gates and the upload steps. Listing text and metadata: [`../listing/paste.md`](../listing/paste.md) and [`../listing/meta.yaml`](../listing/meta.yaml). Claims: [`release-contract.md`](release-contract.md). Build history: [`archive/plan.md`](archive/plan.md).
 
-**Where things stand, 2026-10-04.** Never submitted. Built and simulator tested for both densities, 72 products (69 plus the Instinct E and 3 Solar, ADR-015); the only real-device evidence is the owner's FR965 photo of 2026-09-28 and a first look at the Pro build 2026-10-03. Open work: ROADMAP M1, 9.x.
+**Where things stand, 2026-10-05.** Never submitted. Built and simulator tested for both densities, 72 products (69 plus the Instinct E and 3 Solar, ADR-015); the real-device evidence so far is the owner's FR965 photo of 2026-09-28 and a first look at the Pro build 2026-10-03. The final builds (after the 2026-10-05 review fixes) are on the owner's FR965 since 2026-10-05 for the all-day wear check (ROADMAP 1.1). Open work: ROADMAP 1.1, 1.5, 1.9, 1.10.
 
 Owner's runbook, both listings. Status of the build itself: [`archive/plan.md`](archive/plan.md) "Implementation
 status". What may be claimed: [`release-contract.md`](release-contract.md).
 
 ## Ready to upload (prepared 2026-10-04, NOT uploaded)
 
-Both listings, same day: DayArc (free) first, DayArc Pro second. Text: `../listing/paste.md`, `../listing-pro/paste.md` (store URL placeholders and the OWNER items in `../listing*/NOTES.md` first); metadata `../listing*/meta.yaml`.
+Both listings, same day: DayArc (free) first, DayArc Pro second. Text: `../listing/paste.md`, `../listing-pro/paste.md` (line 1's sibling store URL and the `owner_approvals` in `../listing*/meta.yaml` first); metadata `../listing*/meta.yaml`.
 
 | File (absolute path) | Products | Check |
 |---|---|---|
 | `/Users/mbp/dev/garmin/DayArc/dist/DayArc-1.0.0.iq` | 72 | `tools/check_package.sh`: OK (Instinct parts have no settings file, 89 others have Accent) |
 | `/Users/mbp/dev/garmin/DayArc/dist/DayArcPro-1.0.0.iq` | 72 | same script: OK |
 
-**Re-exported 2026-10-05 from commit 4915c61 (the code is that of a64233e; later commits are tests, docs and listing images), after the seventh and ninth design-review passes changed the code (ADR-017: label, gauge track, corner-pill clearance, Pro grid planned against four digits, 1-bit clock one tier down); `dist/` holds only the packages to upload (older exports deleted 2026-10-05).** Built in the `verden-ciq-build` container (`docker/run.sh`: `monkeyc -e -r -w`, "93 OUT OF 93 DEVICES BUILT" for each), checked with `tools/check_package.sh dist/DayArc-1.0.0.iq dist/DayArcPro-1.0.0.iq`: OK, 93 part numbers each, 4 Instinct parts without a settings file, 89 with Accent. Simulator and compile only, **nothing on a wrist**: unit suites Simple 23/23 and Pro 26/26 on fr965, fr255s, epix2, instincte40mm, instinct3solar45mm; compile sweep 72/72 both jungles. The files are in the main checkout's git-ignored `dist/`; the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The five listing screens of both listings and both heroes were re-taken from this build (the same day; a heart-rate stub was added to Pro's, `listing-pro/screenshots.md`). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP.
+**Re-exported 2026-10-05 from commit 4915c61 (the code is that of a64233e; later commits are tests, docs and listing images), after the seventh and ninth design-review passes changed the code (ADR-017: label, gauge track, corner-pill clearance, Pro grid planned against four digits, 1-bit clock one tier down); `dist/` holds only the packages to upload (older exports deleted 2026-10-05).** Built in the `verden-ciq-build` container (`docker/run.sh`: `monkeyc -e -r -w`, "93 OUT OF 93 DEVICES BUILT" for each), checked with `tools/check_package.sh dist/DayArc-1.0.0.iq dist/DayArcPro-1.0.0.iq`: OK, 93 part numbers each, 4 Instinct parts without a settings file, 89 with Accent. Simulator and compile only, **nothing on a wrist**: unit suites Simple 23/23 and Pro 26/26 on fr965, fr255s, epix2, instincte40mm, instinct3solar45mm; compile sweep 72/72 both jungles. The files are in the main checkout's git-ignored `dist/`. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). The five listing screens of both listings and both heroes were re-taken from this build (the same day; a heart-rate stub was added to Pro's, `listing-pro/screenshots.md`).
 
 ## Never decide alone
 
 The price wording (the tier itself is decided: $2.50, ADR-018); the visual identity and both launcher icons (the store names are confirmed, 2026-10-04); any
 permission with a privacy cost; any upload to the Connect IQ store; any phone or watch test; a site
-deploy; shipping unreviewed machine translations; the night-window default (ADR-010, currently a
-placeholder pending owner confirmation).
+deploy; shipping unreviewed machine translations; changing the night-window default (ADR-010; the owner kept the
+placeholder night window, 2026-10-04, ROADMAP 1.7).
 
 ## Ready to submit when ALL of these are true (both listings, unless noted)
 
