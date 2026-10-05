@@ -1,6 +1,6 @@
 # Days To Go (Free) listing: notes
 
-What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Status 2026-10-01: **draft, UNRELEASED, simulator only, nothing uploaded**; built against the Free + Pro plan (WP4 step 6 and the WP10 description skeleton, `../../reports/Free and Pro ladder execution plan.md`). Decision record: ADR-014 (Free + Pro ladder, proposed) in [`../docs/decisions.md`](../docs/decisions.md). Claims are checked against [`../docs/release-contract.md`](../docs/release-contract.md), which now has a "Free and Pro listings" section.
+What sits behind [`paste.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Status 2026-10-05: **uploaded by the owner 2026-10-04 as a new app, in Garmin review** (the text below is the dated record of how it was drafted); built against the Free + Pro plan (WP4 step 6 and the WP10 description skeleton, `../../reports/Free and Pro ladder execution plan.md`). Decision record: ADR-014 (Free + Pro ladder, accepted 2026-10-04) in [`../docs/decisions.md`](../docs/decisions.md). Claims are checked against [`../docs/release-contract.md`](../docs/release-contract.md), which now has a "Free and Pro listings" section.
 
 ## Owner decisions (not made here)
 
@@ -84,7 +84,7 @@ A complete set from the current Free build: five screens (days with a name, week
 
 - **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`.
 - **Title:** "Days To Go: Countdown to a Date" is the plan's proposal; the owner decides, and searches the store by eye for a collision first.
-- **Description:** line 1 needs the real Days To Go Pro URL once Pro is live (placeholder `<PRO STORE URL>`). English only until the owner decides on translations. Check each block for a `<` before pasting.
+- **Description:** line 1 holds the sibling's store URL (filled 2026-10-04; the link works once Garmin approves that listing). English only until the owner decides on translations. Check each block for a `<` before pasting.
 - **Version:** the form reads it from the package; if a field asks, type it.
 - **Images:** the owner approves the looks first (`meta.yaml` `owner_approvals`); simulator captures of the Free build, 2026-10-04 (canned clock; not real readings), so no Pro-only thing can appear. The Instinct picture is the Instinct 2 (Free may show any Instinct); the simulator image is 176 px and `screens/5-instinct.png` is it enlarged x3 without smoothing (native in `screens/native/`); upload it only with the package that adds the Instinct products (1.0.0). Captions and devices are in `meta.yaml` `assets.screens`.
 - **Category:** Utility (alternative: Simple). **Subcategory:** whatever the Category choice offers. **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Preview Video:** none (YouTube or Vimeo only). **App Migration:** No; a new app, not an update.

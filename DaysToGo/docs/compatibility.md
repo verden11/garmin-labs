@@ -33,7 +33,7 @@ The face keeps its round design: the ring is a circle the size of the shorter si
 
 `AppBase.getSettingsView` (on-watch "Set date") is listed in the SDK for 94 of the 117 products by name match. The 23 not listed are the D2 Charlie/Delta family, Descent Mk1, the vívoactive 3 family, FR645/935, fēnix Chronos, Approach S62 (older CIQ 3.x), and the newest (fēnix 9 family, FR70, FR170). On those the phone is the only way to set the date. The listing and support page must not promise the watch route on every watch, and the FR965 test (plan phase 3, T4) says nothing about the others.
 
-## Free and Pro builds (ADR-014 (Free + Pro ladder), accepted 2026-10-04, UNRELEASED)
+## Free and Pro builds (ADR-014 (Free + Pro ladder), accepted and uploaded 2026-10-04)
 
 Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle`) and **Free** (`manifest.free.xml`, new app id, `monkey.free.jungle`). Both list the **same 120 products**, `minApiLevel` 3.0.0, the same 15 languages and an empty permission list; `tools/compile_sweep.sh` refuses to run if the two manifests' product lists differ. Free's permissions are a subset of Pro's, never more.
 
@@ -54,7 +54,7 @@ Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle
 
 Tests after the change: the full suite PASSED on both jungles on `fr965`, `fr255s`, `epix2`, `venusq2`, `venux1`, `instinct2`, `instincte40mm`, `instinct3solar45mm`: Pro 52 (50 on an Instinct), Free 53 (51 on an Instinct). Simulator only; nothing on a wrist.
 
-## To the minute (ADR-018, 2026-10-04, UNRELEASED, simulator only)
+## To the minute (ADR-018, built and uploaded in Pro 1.1.0 2026-10-04, simulator only)
 
 Pro's headline: Minute and Event time zone (phone settings), the countdown to the instant in the event's zone. Container simulator, SDK 9.2.0, English strings, the tree at commit `a6c7a35`. **Not device proof: nothing ran on a wrist, and the real time-zone and DST behaviour of a watch is unmeasured.**
 

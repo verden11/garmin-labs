@@ -1,6 +1,6 @@
 # Days To Go listing — notes
 
-What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Release history: [`../CHANGELOG.md`](../CHANGELOG.md). Claims and gates: [`../docs/release-contract.md`](../docs/release-contract.md).
+What sits behind [`paste.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Release history: [`../CHANGELOG.md`](../CHANGELOG.md). Claims and gates: [`../docs/release-contract.md`](../docs/release-contract.md).
 
 ## Before you submit (owner)
 
@@ -57,7 +57,7 @@ English plus 14 (dan, deu, dut, fin, fre, ita, lit, nob, pol, por, spa, swe, tur
 - **1.0.1:** `Long event names on small screens now end in "..." instead of being cut off without a marker.`
 - **1.0.0:** `First release.`
 
-## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, accepted 2026-10-04 under ADR-014 (Free + Pro ladder), nothing uploaded; moved from a draft here, 2026-10-04)
+## Pro 1.1.0: what `paste.md` now holds (uploaded 2026-10-04, accepted under ADR-014 (Free + Pro ladder); moved from a draft here, 2026-10-04)
 
 `paste.md` is the 1.1.0 text. Names are confirmed (2026-10-04); the sibling URL is the owner's; the price is the $2.50 tier (ADR-017), set in the form.
 
@@ -73,7 +73,7 @@ English plus 14 (dan, deu, dut, fin, fre, ita, lit, nob, pol, por, spa, swe, tur
 
 - **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`.
 - **Title:** "Days To Go Pro: Countdown to the Minute" (the 2026-10-04 title for the headline; the plan's "Countdown, Hours, Footer" is stale); "Days To Go Pro" alone is the short alternative. The owner decides.
-- **Description:** line 1 needs the real Days To Go (Free) store URL once that listing is live (placeholder `<DAYS TO GO STORE URL>`). Languages are added one at a time (pick a language, press Add, fill Title + Description); only English is drafted, see "Languages" above. The description never uses the word "free" (it is paid; release contract, store review guideline 4d). The refund sentence ("Days To Go Pro is a paid app. Refunds follow the Connect IQ Store return window.") is removed.
+- **Description:** line 1 holds the sibling's store URL (filled 2026-10-04; the link works once Garmin approves that listing). Languages are added one at a time (pick a language, press Add, fill Title + Description); only English is drafted, see "Languages" above. The description never uses the word "free" (it is paid; release contract, store review guideline 4d). The refund sentence ("Days To Go Pro is a paid app. Refunds follow the Connect IQ Store return window.") is removed.
 - **Version:** the form reads it from the package; if a field asks, type it. paste.md is the 1.1.0 text (the Pro rename); the submitted 1.0.1 What's New is in "Previous What's New blocks" above.
 - **Category:** Utility (alternative: Simple). **Subcategory:** whatever the Category choice offers. **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Preview Video:** none (YouTube or Vimeo only).
 - **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04).

@@ -21,11 +21,11 @@ package:
   products: 127   # <iq:product> lines in the manifest; the export has 210 part numbers (device variants), not a product count
   exported: 2026-10-04   # re-export with To the minute (ADR-018), from the tree at commit a6c7a35 (no code change after it)
   check: "tools/check_free_package.sh with explicit file args (Free after ADR-018, this Pro): OK both. Pro: keys Hour, Minute, EventZone, Footer in every settings file and every .prg, name 'Days To Go Pro' found; translated Minute/zone titles present (checked deu, ukr). Free: settings byte-identical to the uploaded 1.0.0 export (210 of 210), no Hour/Minute/EventZone/Footer, no 'Pro'"
-  note: "export: monkeyc -e -r -f monkey.jungle in verden-ciq-build:9.2.0 via docker/run.sh; 8.8 MB (the old export was 7.5 MB: the Minute and zone labels and titles in 15 languages across 210 parts); dist/DaysToGo-1.0.1-submitted.iq is the paid 1.0.1 as submitted; the file is in the main checkout's git-ignored dist/ and the same bytes in the build worktree's dist/"
+  note: "export: monkeyc -e -r -f monkey.jungle in verden-ciq-build:9.2.0 via docker/run.sh; 8.8 MB (the old export was 7.5 MB: the Minute and zone labels and titles in 15 languages across 210 parts); the file is in the git-ignored dist/"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-017 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-014 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  status: rendered 2026-10-04 from the current Pro build; proposals, the owner approves the looks; nothing uploaded
+  status: rendered 2026-10-04 from the uploaded build; uploaded with it 2026-10-04
   cover: cover-500.png (500x500, 17 KB; mark + name + PRO badge on a mint #55FFAA ground, 2026-10-04, ROADMAP 10.25)
   hero: hero-1440x720.png (1440x720, 156 KB; mint ground, three black watch screens (to the minute, weeks, the other side of the world), line "Count down to the minute, in the time zone it starts in.")
   screens:   # upload order, 5 at most, each under 150 KB; simulator captures (canned data)
@@ -40,10 +40,6 @@ site:
   landing: https://verden.watch/days-to-go/
   support: https://verden.watch/days-to-go/support/
   privacy: https://verden.watch/days-to-go/privacy/
-owner_approvals:   # what only the owner may settle before paste.md is used
-  - "Title: 'Days To Go Pro: Countdown to the Minute' (39 characters; the old 'Countdown, Hours, Footer' went stale with the headline, ADR-018); 'Days To Go Pro' alone is the short alternative, 'Days To Go Pro: Countdown, Minute, Hours' keeps Hours as a search word."
-  - "Line 1 of the description needs the Days To Go (Free) store URL, once that listing is live."
-  - "The looks of all images before upload: hero (studio wordmark and three Pro screens, no price number, nothing about the other tier), cover (the studio mark, the name and a small amber PRO badge, now on a mint ground instead of black: Garmin brand page, ROADMAP 10.25), device icons (the same mark plus the PRO badge; the real launcher icon is ROADMAP 3.3), five screens. All rendered 2026-10-04 from the current Pro build."
-  - "Machine-drafted translations of the three new phone strings (Minute, Event time zone, My watch time zone; 14 languages): the owner reads or accepts them (resources-pro-<lang>/). The 'To the minute' description paragraph says the wearer picks the UTC offset and that the face does not adjust for daylight saving; the wrist checks W1 to W6 in docs/status.md come before the claim goes live."
-  - "Upload condition: screens/5-instinct.png only with the package that adds the Instinct products (1.1.0)."
-open_items: "2.3 2.5 3.1 3.4 3.5 3.6 11.1"   # ids in ROADMAP.md
+owner_approvals:   # settled by the owner's upload of 2026-10-04 (text, title and images); what is still open:
+  - "Native read of the machine-drafted translations of the three new phone strings (Minute, Event time zone, My watch time zone; 14 languages, resources-pro-<lang>/): ROADMAP 7.10. The 'To the minute' claims wait on the wrist checks W1 to W6 in docs/status.md (ROADMAP 3.1)."
+open_items: "3.1 3.12 7.10 7.12"   # ids in ROADMAP.md

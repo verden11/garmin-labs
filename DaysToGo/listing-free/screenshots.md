@@ -1,6 +1,6 @@
 # Free listing: screenshots and store images
 
-Status: 2026-10-04. The whole set was rendered today from the **current Free build** (after the on-watch date picker, the rectangle layout and the bottom-line changes of the same day). **Proposals: the owner approves every look before upload; nothing is uploaded.** Earlier versions are in git history. Simulator only, no wrist photo: simulator passing is not device proof, and the clock in the pictures is canned.
+Status: 2026-10-04. The whole set was rendered today from the **current Free build** (after the on-watch date picker, the rectangle layout and the bottom-line changes of the same day). **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.** Earlier versions are in git history. Simulator only, no wrist photo: simulator passing is not device proof, and the clock in the pictures is canned.
 
 ## The set (upload order)
 

@@ -1,6 +1,6 @@
 # Pro listing: screenshots and store images
 
-Status: 2026-10-04. The whole set was re-rendered today from the **current Pro build** (after the on-watch date picker, the rectangle layout and the bottom-line changes of the same day). **Proposals: the owner approves every look before upload; nothing is uploaded.** Superseded files are in git history. Simulator only, no wrist photo: simulator passing is not device proof, and the clock, battery and steps in the pictures are canned, never a claim about real readings.
+Status: 2026-10-04. The whole set was re-rendered today from the **current Pro build** (after the on-watch date picker, the rectangle layout and the bottom-line changes of the same day). **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.** Superseded files are in git history. Simulator only, no wrist photo: simulator passing is not device proof, and the clock, battery and steps in the pictures are canned, never a claim about real readings.
 
 ## The set (upload order)
 
