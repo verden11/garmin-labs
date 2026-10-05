@@ -111,6 +111,7 @@ class HeroSetView extends WatchUi.View {
         var color = HeroSetPalette.MUTED;
         // The Instinct's bezel leaves the bottom row about 100 px (ADR-055): the long wordings fall back to a short one
         // instead of being cut mid-word ("DONE" is already translated for the mission rows; the warning keeps its "!").
+        // A rectangle's bottom row is cut by the XP track's rounded corners the same way (ADR-057).
         var shorter = null;
         if (state.storageWarning) {
             text = _warning;
@@ -121,7 +122,10 @@ class HeroSetView extends WatchUi.View {
             color = HeroSetPalette.DONE;
             shorter = HeroSetText.load(Rez.Strings.menu_sublabel_done);
         }
-        if (shorter != null && layout.subscreen() != null) {
+        var track = layout.track();
+        if (shorter != null && track != null && dc.getTextWidthInPixels(text, Graphics.FONT_XTINY) > track.innerWidth(y, dc.getFontHeight(Graphics.FONT_XTINY))) {
+            text = shorter;
+        } else if (shorter != null && layout.subscreen() != null) {
             text = HeroSetDraw.firstFitting(dc, layout, layout.displayRadius(), 0, y, Graphics.FONT_XTINY, [text, shorter] as Lang.Array<Lang.String>);
         }
         dc.setColor(color, HeroSetPalette.BACKGROUND);

@@ -18,6 +18,11 @@ class HeroSetRankHeader {
         var top = track != null ? track.contentTop() : layout.shortInset() + (layout.subscreen() == null ? layout.ringWidth() : 0);
         var text = HeroSetText.format(Rez.Strings.dashboard_rank, [state.rank]);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
+        if (track != null) {
+            // The rectangle's box has room above the rows that the round
+            // ring's top chord does not: the rank takes it, the first read.
+            fonts = [Graphics.FONT_MEDIUM, Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
+        }
         var font = HeroSetDraw.largestFont(dc, layout, layout.contentRadius(), 0, top, text, fonts);
         dc.setColor(HeroSetPalette.GOLD, HeroSetPalette.BACKGROUND);
         HeroSetDraw.centered(dc, layout, top, font, text);

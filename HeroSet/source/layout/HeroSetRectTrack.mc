@@ -57,9 +57,25 @@ class HeroSetRectTrack {
     // Left edge of the inner box for a row `height` px tall at y: the constant
     // edge, or further in where the row reaches into a rounded corner (top and
     // bottom: the track is closed, and the X1's glass is rounded at the bottom).
+    // Cut against the ink of the row, not its font box (HeroSetLayout.inkTrim),
+    // or a bottom row that shows whole would be shortened.
     function inset(y as Lang.Number, height as Lang.Number) as Lang.Number {
-        var edge = contentTop();
-        var radius = _corner - _pad;
+        return insetWith(_pad, y, height);
+    }
+
+    // Width a row may take inside the track's inner edge, with no breathing
+    // room: for the footer, whose long wording otherwise gives way in the
+    // bottom corners although it shows clear of the track.
+    function innerWidth(y as Lang.Number, height as Lang.Number) as Lang.Number {
+        return _width - 2 * insetWith(_stroke - _stroke / 2, y, height);
+    }
+
+    private function insetWith(pad as Lang.Number, y as Lang.Number, height as Lang.Number) as Lang.Number {
+        var trim = HeroSetLayout.inkTrim(_width, _height);
+        y += trim;
+        height -= 2 * trim;
+        var edge = _edge + pad;
+        var radius = _corner - pad;
         var dyTop = edge + radius - y;
         var dyBottom = y + height - (_height - edge - radius);
         var dy = dyTop > dyBottom ? dyTop : dyBottom;

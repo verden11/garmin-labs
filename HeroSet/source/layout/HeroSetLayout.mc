@@ -147,9 +147,11 @@ class HeroSetLayout {
     }
 
     // Top-left y of a centered content band (band 0 = first row under the
-    // top inset); bands step by one inset plus a fifth.
+    // top inset); bands step by one inset plus a fifth. A rectangle's top
+    // edge is as wide as its middle, so its first band starts at the side
+    // inset instead (ADR-057).
     function bandTop(band as Lang.Number) as Lang.Number {
-        return shortInset() + (shortInset() + shortInset() / 5) * band;
+        return (_rectangle ? sideInset() : shortInset()) + (shortInset() + shortInset() / 5) * band;
     }
 
     // Total horizontal breathing room kept between centered text and the
