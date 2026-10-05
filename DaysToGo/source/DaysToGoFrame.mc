@@ -20,6 +20,7 @@ class DaysToGoFrame {
     var footerWithDate as Boolean = false;
     // The name steps down a font before it is cut short with "...".
     var nameFonts as Array<Graphics.FontDefinition>;
+    private var _sleeping as Boolean = false;
 
     // `sleeping` keeps only the time and the hero (always-on).
     function initialize(dc as Graphics.Dc, layout as DaysToGoLayout, state as DaysToGoState, sleeping as Boolean) {
@@ -40,6 +41,7 @@ class DaysToGoFrame {
         var hasCaption = !sleeping && state.captionLines.size() > 0;
         var heroFonts = DaysToGoLayout.heroFonts(state.heroIsWord, sleeping);
         var minHero = dc.getFontHeight(heroFonts[heroFonts.size() - 1]);
+        _sleeping = sleeping;
         rows = plan(dc, layout, hasCaption);
         while (rows.heroHeight < minHero && (showFooter || showName || showDate)) {
             if (showFooter && showDate && !footerWithDate) {
@@ -62,6 +64,7 @@ class DaysToGoFrame {
             showName ? dc.getFontHeight(nameFont) : 0,
             hasCaption ? dc.getFontHeight(captionFont) : 0,
             showDate ? dc.getFontHeight(smallFont) : 0,
-            showFooter && !footerWithDate ? dc.getFontHeight(smallFont) : 0);
+            showFooter && !footerWithDate ? dc.getFontHeight(smallFont) : 0,
+            _sleeping);
     }
 }

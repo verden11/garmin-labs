@@ -161,8 +161,11 @@ class DaysToGoLayout {
     // Stacks the rows top to bottom inside the ring: time, name, hero, caption,
     // date, footer. Each argument is that row's height, 0 when the row is
     // absent. The hero takes everything between the name and the caption.
-    function rows(timeH as Number, nameH as Number, captionH as Number, dateH as Number, footerH as Number) as DaysToGoRows {
-        var span = contentRadius() * (_rectangle ? RECTANGLE_SPAN_PERMILLE : SPAN_PERMILLE) / DaysToGoConfig.PERMILLE;
+    // Asleep (time and hero only, fitted to a circle smaller by the drift step) a rectangle keeps the round span: its
+    // taller one put the time where that circle's chord is too narrow, and the time was cut to "1" (2026-10-05).
+    function rows(timeH as Number, nameH as Number, captionH as Number, dateH as Number, footerH as Number,
+                  sleeping as Boolean) as DaysToGoRows {
+        var span = contentRadius() * (_rectangle && !sleeping ? RECTANGLE_SPAN_PERMILLE : SPAN_PERMILLE) / DaysToGoConfig.PERMILLE;
         var gap = _d * GAP_PERMILLE / DaysToGoConfig.PERMILLE;
         var rows = new DaysToGoRows();
         // Beside the Instinct window the stack runs the screen's height, top to a bottom margin, and the hero starts

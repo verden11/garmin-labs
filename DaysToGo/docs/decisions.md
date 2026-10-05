@@ -9,7 +9,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 003 | List settings, never `date` or `numeric` | Active |
 | 004 | Calendar-day arithmetic, no `Time.Moment` maths | Active; **Amended** 2026-10-04 by 018 (a Pro timed event also has an instant in its own zone; the count is unchanged) |
 | 005 | On-watch date picker | **Open**: gated by the owner's device test (plan phase 3) |
-| 006 | Device set: 117 round products (CIQ 3.0+) plus 3 rectangular AMOLED | Active |
+| 006 | Device set: 117 round products (CIQ 3.0+) plus 5 rectangular (amended 2026-10-05: Venu Sq, Sq Music) | Active |
 | 007 | Always-on is hero and time on a shifting grid | Active |
 | 008 | Name **Days To Go**, site slug `days-to-go` | Active |
 | 009 | 29 Feb every year counts to 28 Feb in common years | Active |
@@ -61,6 +61,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 **Decision.** HeroFace's 117 round products (CIQ 3.0+) plus Venu Sq 2, Venu Sq 2 Music and Venu X1 (rectangular AMOLED, CIQ 5+), one build, no bitmaps, no per-device resources. On the rectangles the face keeps its round design: the ring is a circle the size of the shorter side, centred, with black bars above and below. Added 2026-09-26 at the owner's request as the cheap widening; the round-chord text checks are stricter than a rectangle needs, so nothing overflows. Instinct (semi-octagon, monochrome, 64 KB) is a later pass with its own layout; pre-CIQ-3 watches are not worth it (no Menu2 or settings screen, and paid apps are sold only on CIQ 3.4+).
 **Why.** Same evidence base and test method as HeroFace; smallest memory budget 96 KB, and the measured build is far under it.
+
+**Amended 2026-10-05 (agent, on request; simulator only).** The first-generation **Venu Sq and Venu Sq Music** (`venusq`, `venusqm`: 240 x 240 LCD, CIQ 3.3.6, 96 KB and 512 KB watch-face memory) join both manifests: 129 products. No reason against them was on record; they take the rectangle path unchanged. They are **not on Garmin's paid list** (App Sales page, read 2026-10-05; CIQ 3.3 is under the 3.4 floor), so, as with the Instinct 2 family (ROADMAP 10.15), Pro carries them in its package but only Free reaches them, and no listing text names them. Evidence: `compatibility.md` "Venu Sq and Venu Sq Music".
 
 ## ADR-007: Always-on
 
@@ -151,6 +153,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Consequences.** `DaysToGoFrame.footerWithDate`, `nameFonts`; `DaysToGoView.dateCandidates`; test `bottomLineIsDrawnNotSilentlyDropped` (round, 218 px and up). The Instinct has no bottom line (ADR-015). The middle dot renders in the FR965 simulator font; not seen on a wrist.
 
 **Amended 2026-10-04 (ROADMAP 10.12; the owner asked for the open cases to be fixed or documented).** (3) **Rectangles get a taller stack.** On a 320 x 360 rectangle (`venusq2`, `venusq2m`) the smallest font is 39 px tall, as on a round watch, but the ring is only 320 px, so the stack of rows ran out of height: with a name the hero fell below its smallest font and the name, then the bottom line, were dropped. `DaysToGoLayout` now spans 90 % of the content radius on a rectangle (`RECTANGLE_SPAN_PERMILLE`) instead of 80 %; every text is still measured against the round chord, so none touches the ring. Result on `venusq2` with a 12-character name, a date and the bottom line on: the name shows again and the hero keeps its largest font; the date steps down to its shorter wording ("Dec 19" instead of "Sat Dec 19") because the bottom row's chord is narrower; **the bottom line is still dropped** ("Dec 19 · 50%" does not fit that chord). Round and Instinct products are unchanged by construction (the span applies only to `SCREEN_SHAPE_RECTANGLE`); `venux1`, the other rectangle, passed the suite too. (4) **Not fixable: the Instinct 3 Solar and the Instinct 2 (both 176 px, both screenshotted) still cut a 12-character name** ("Anna and T..."; the Instinct E 45 mm has the same screen size but was not screenshotted). Tried: the name wrapped onto two lines at a space beside the window. It does not fit: the 23 px smallest font makes two lines 46 px, the hero then starts at y 92 instead of 72 and the band left for it (about 22 px) is under the hero's smallest font, so something must go, and the only rows left are the caption ("DAYS") and the date, which the product promises. A cut name stays; the code was not kept. The Instinct E 40 mm (166 px) and wider chords show 12 characters whole.
+
+**Amended 2026-10-05 (found while adding the Venu Sq; simulator only).** (5) **The always-on frame keeps the round span on rectangles.** Asleep, the time is fitted to a circle smaller by the drift step; with (3)'s 90 % span the time row sat where that circle's chord is narrower than the time, so it was cut ("1" instead of "10:10") on the top and middle drift rows of the rectangles: measured on `venusq` and on the live `venusq2` (and so `venusq2m`, the same screen); `venux1` was not measured before the fix. `DaysToGoLayout.rows` now takes `sleeping` and uses the 80 % span then (the frame is only the time and the hero); the awake face is unchanged. `alwaysOnFrameFitsAtEveryDrift` now fails when the time is not drawn whole.
 
 ## ADR-017: Price: the $2.50 tier for every paid app
 

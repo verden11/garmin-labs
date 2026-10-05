@@ -87,6 +87,15 @@ function alwaysOnFrameFitsAtEveryDrift(logger as Test.Logger) as Boolean {
                 DaysToGoDraw.boxes = [] as Array<Array>;
                 DaysToGoSleep.draw(dc, layout, states[i], minute);
                 DaysToGoTestStates.collect("sleep " + i + "/" + minute, states[i], problems);
+                // The time is drawn whole, never cut to fit (it was cut to "1" on a 240 px rectangle, 2026-10-05).
+                var whole = false;
+                var boxes = DaysToGoDraw.boxes as Array<Array>;
+                for (var b = 0; b < boxes.size(); b++) {
+                    whole = whole || (boxes[b][4] as String).equals(states[i].time);
+                }
+                if (!whole) {
+                    problems.add("sleep " + i + "/" + minute + ": time '" + states[i].time + "' not drawn whole");
+                }
             }
         }
     } finally {

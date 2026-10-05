@@ -63,7 +63,7 @@ Each row takes the largest font up to a height cap; the hero takes the rest. On 
 
 ## Always-on (AMOLED)
 
-Hero and time only, `#555555`, the block stepping across a 3 × 3 grid (steps of 3.5% of the screen, about 16 px on 454, more than a digit stroke) once a minute; the hero is two sizes smaller than awake (starts at FONT_NUMBER_MEDIUM). No ring, name, date or caption. MIP watches keep the full face.
+Hero and time only, `#555555`, the block stepping across a 3 × 3 grid (steps of 3.5% of the screen, about 16 px on 454, more than a digit stroke) once a minute; the hero is two sizes smaller than awake (starts at FONT_NUMBER_MEDIUM). No ring, name, date or caption. MIP watches keep the full face. The block uses the 0.8 span on every product, rectangles too (awake, a rectangle uses 0.9; asleep that cut the time, ADR-016 (bottom line and name step-down), amendment 5, 2026-10-05).
 
 ## On-watch date picker (Customize, "Set date")
 

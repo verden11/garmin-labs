@@ -15,7 +15,7 @@
 #         string "Days To Go Pro" (positive controls: they prove the Free checks can see what they look for);
 #         AppName is "Days To Go Pro" in every language.
 #   Both: the app ids are the expected, different ones; no permissions; the part numbers equal the SDK's part
-#         numbers for the manifest's 127 product ids (one SDK part number may be absent, reported, not failed).
+#         numbers for the manifest's 129 product ids (one SDK part number may be absent, reported, not failed).
 # NOT proven: that the Hour/Footer display strings (setting_hour, footer_*, h0-h23) are absent. (The Minute and zone strings are in Pro-only folders, ADR-018, so they are absent: no Pro word, no key.) They live in the
 # shared strings and still ship, unreferenced, in Free. Nor does it prove behaviour on a watch.
 set -u
@@ -110,8 +110,8 @@ def check(root, tier, app_name, keys, app_id, instinct):
 def check_part_numbers(root, tier):
     """Part numbers in the package must be the SDK's part numbers for the manifest's product ids."""
     ids = re.findall(r'<iq:product id="([^"]+)"', open("manifest.xml").read())
-    if len(ids) != 127:
-        fail(f"manifest.xml lists {len(ids)} product ids, expected 127")
+    if len(ids) != 129:
+        fail(f"manifest.xml lists {len(ids)} product ids, expected 129")
     expected = set()
     for pid in ids:
         path = os.path.join(devices, pid, "compiler.json")
@@ -123,7 +123,7 @@ def check_part_numbers(root, tier):
     if not got <= expected:
         fail(f"{tier}: part numbers not in the manifest's products: {sorted(got - expected)[:5]}")
     if expected - got:
-        print(f"note: {tier} lacks {len(expected - got)} of the SDK's {len(expected)} part numbers for the 127 products: {sorted(expected - got)}")
+        print(f"note: {tier} lacks {len(expected - got)} of the SDK's {len(expected)} part numbers for the 129 products: {sorted(expected - got)}")
 
 instinct = instinct_parts(devices)
 if not instinct:
