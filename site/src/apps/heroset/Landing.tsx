@@ -85,7 +85,7 @@ export function Landing() {
 
       <Watches
         title="Works on most Garmin watches."
-        lede={`${instinctLive ? 'Round-screen watches, AMOLED and memory-in-pixel, plus the black-and-white Instinct 2, E and 3 Solar, ' : 'Round-screen watches, AMOLED and memory-in-pixel, '}with five buttons or a touchscreen. Tested on a Forerunner 965; every other model passes each screen check in Garmin’s simulator. The ${heroset.storeName} shows whether your exact model is listed. Don’t see yours? Email ${studio.email} with your model.`}
+        lede={`${instinctLive ? 'Round-screen watches, AMOLED and memory-in-pixel, plus the black-and-white Instinct, ' : 'Round-screen watches, AMOLED and memory-in-pixel, '}with five buttons or a touchscreen. Tested on a Forerunner 965; every other model passes each screen check in Garmin’s simulator. The ${heroset.storeName} shows whether your exact model is listed, and sells HeroSet only on Garmin’s paid-app list. Don’t see yours? Email ${studio.email} with your model.`}
         families={watchFamilies}
         languages={languages}
       />

@@ -3,21 +3,23 @@ import type { Screenshot } from '../types.ts'
 // HeroSet's Instinct support (ADR-055) is merged but not uploaded to the store yet.
 // Flip this to true in the commit that follows the approved Instinct upload
 // (HeroSet docs/status.md F), so the site never claims a watch the store does not list.
-export const instinctLive = false
+export const instinctLive = true   // HeroSet 1.3.0 (Instinct) live since 2026-10-03 (ROADMAP 10.6)
 
-// Mirrors HeroSet docs/compatibility.md; update both together.
+// Generated from the manifests by site/scripts/watch-families.py (HeroSet/manifest-store.xml); re-run it when the products change. The store's
+// device tab is the final word: a paid app is sold only on Garmin's paid-app list.
+export const watchCount = 87
 export const watchFamilies: [string, string][] = [
-  ['Forerunner', '70, 165, 170, 255, 265, 570, 945 LTE, 955, 965, 970'],
-  ['fēnix', '6, 6 Pro, 7, 7 Pro, 8, 8 Pro, 9, 9 Pro, E'],
+  ['Forerunner', '70, 165, 170, 255, 255s, 265, 265s, 570, 945 LTE, 955, 965, 970'],
+  ['fēnix', '6, 6 Pro, 6S, 6S Pro, 6X Pro, 7, 7 Pro, 7S, 7S Pro, 7X, 7X Pro, 8, 8 Pro, 8 Solar, 9, 9 Pro, 9 Pro Solar, E'],
   ['epix', 'Gen 2, Pro (Gen 2)'],
-  ['Enduro', 'Enduro, Enduro 3'],
+  ['Enduro', '3, Enduro'],
   ['MARQ', 'Gen 1, Gen 2'],
-  ['D2', 'Mach, Air X10'],
-  ['Descent', instinctLive ? 'G1, G2, MK2, MK2S, MK3' : 'MK2, MK2S, MK3, G2'],
   ['Venu', '2, 2 Plus, 2S, 3, 3S, 4'],
   ['vívoactive', '5, 6'],
+  ['Instinct', '2, 2S, 2X Solar, 3 Solar, E'],
+  ['Descent', 'G1, G2, Mk2, Mk2 S, Mk3, Mk3i'],
+  ['D2', 'Air X10, Mach 1, Mach 2, Mach 2 Pro'],
   ['Approach', 'S50, S70'],
-  ...(instinctLive ? [['Instinct', '2, 2S, 2X, E, 3 Solar'] as [string, string]] : []),
 ]
 
 // HeroSet 1.2.0 (the glance) was approved by Garmin (owner, 2026-10-01); the support FAQ now describes it.

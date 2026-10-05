@@ -1,6 +1,6 @@
 import { dayArcPro } from './app.ts'
-import { windows } from './facts.ts'
-import { CallToAction, HeroActions, Screens, WatchShot } from '../../components/AppSections.tsx'
+import { windows, watchCount, watchFamilies, languages } from './facts.ts'
+import { CallToAction, HeroActions, Screens, WatchShot, Watches } from '../../components/AppSections.tsx'
 import { appUrl } from '../../urls.ts'
 
 // The watch each window's capture was taken on (listing_shots.sh; night from docker/edge_states.sh), for the alt text.
@@ -63,6 +63,13 @@ export function Landing() {
       </section>
 
       <Screens app={dayArcPro} screens={shots} />
+
+      <Watches
+        title={`${watchCount} Garmin watches.`}
+        lede={`Round and rectangular screens, AMOLED and memory-in-pixel, and the black-and-white Instinct. Tested on a Forerunner 965; every screen size passes each screen check in Garmin’s simulator. The ${dayArcPro.storeName} shows whether your exact model is listed, and sells it only on Garmin's paid-app list.`}
+        families={watchFamilies}
+        languages={languages}
+      />
 
       <CallToAction app={dayArcPro} title="See more, in the same glance." />
     </>

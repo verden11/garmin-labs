@@ -1,6 +1,6 @@
 import { daysToGo } from './app.ts'
-import { languages, screens } from './facts.ts'
-import { CallToAction, HeroActions, Screens, WatchShot } from '../../components/AppSections.tsx'
+import { languages, screens, watchCount, watchFamilies } from './facts.ts'
+import { CallToAction, HeroActions, Screens, WatchShot, Watches } from '../../components/AppSections.tsx'
 import { appUrl } from '../../urls.ts'
 
 const rows = [
@@ -63,6 +63,13 @@ export function Landing() {
       </section>
 
       <Screens app={daysToGo} screens={screens} />
+
+      <Watches
+        title={`${watchCount} Garmin watches.`}
+        lede={`Round and rectangular screens, AMOLED and memory-in-pixel, and the black-and-white Instinct. Tested on a Forerunner 965; every screen size passes each screen check in Garmin’s simulator. The ${daysToGo.storeName} shows whether your exact model is listed, and sells the Pro version only on Garmin's paid-app list.`}
+        families={watchFamilies}
+        languages={languages}
+      />
 
       <CallToAction app={daysToGo} title="Count down to the day." />
     </>

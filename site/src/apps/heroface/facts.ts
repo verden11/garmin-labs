@@ -1,20 +1,20 @@
 import type { Screenshot } from '../types.ts'
 
-// Mirrors HeroFace docs/compatibility.md; update both together.
-export const watchCount = 117
+// Generated from the manifests by site/scripts/watch-families.py (HeroFace Free and Pro manifests); re-run it when the products change. The store's
+// device tab is the final word: a paid app is sold only on Garmin's paid-app list.
+export const watchCount = 124
 export const watchFamilies: [string, string][] = [
-  ['fēnix', '5, 5 Plus, 6, 6 Pro, 7, 7 Pro, 8, 8 Solar, 9, 9 Pro, E, Chronos'],
-  ['Forerunner', '55, 70, 165, 170, 245, 255, 265, 570, 645, 745, 935, 945, 955, 965, 970'],
-  ['MARQ', 'Gen 1, Gen 2'],
-  ['Venu', 'Venu, 2, 2S, 2 Plus, 3, 3S, 4'],
-  ['D2', 'Air, Air X10, Charlie, Delta, Mach'],
-  ['vívoactive', '3, 4, 4S, 5, 6'],
-  ['Descent', 'MK1, MK2, MK2S, MK3, G2'],
+  ['Forerunner', '55, 70, 165, 170, 245, 255, 255s, 265, 265s, 570, 645, 745, 935, 945, 945 LTE, 955, 965, 970'],
+  ['fēnix', '5, 5 Plus, 5S, 5S Plus, 5X, 5X Plus, 6, 6 Pro, 6S, 6S Pro, 6X Pro, 7, 7 Pro, 7S, 7S Pro, 7X, 7X Pro, 8, 8 Pro, 8 Solar, 9, 9 Pro, 9 Pro Solar, Chronos, E'],
   ['epix', 'Gen 2, Pro (Gen 2)'],
+  ['Enduro', '3, Enduro'],
+  ['MARQ', 'Gen 1, Gen 2'],
+  ['Venu', '2, 2 Plus, 2S, 3, 3S, 4, Mercedes-Benz Collection, Venu'],
+  ['vívoactive', '3, 3 LTE, 3 Mercedes-Benz Collection, 4, 4S, 5, 6'],
+  ['Instinct', '2, 2S, 2X Solar, 3 AMOLED, 3 Solar, Crossover AMOLED, E'],
+  ['Descent', 'G1, G2, Mk1, Mk2, Mk2 S, Mk3, Mk3i'],
+  ['D2', 'Air, Air X10, Charlie, Delta, Delta PX, Delta S, Mach 1, Mach 2, Mach 2 Pro'],
   ['Approach', 'S50, S62, S70'],
-  ['Instinct', '3 AMOLED, Crossover AMOLED'],
-  ['Enduro', 'Enduro, Enduro 3'],
-  ['Legacy', 'Hero (Captain Marvel, First Avenger), Saga (Darth Vader, Rey)'],
 ]
 
 // Watches that can also show HeroSet reps: Connect IQ 4.2 and newer.
