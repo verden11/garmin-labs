@@ -107,3 +107,8 @@ the ones marked *checked* were run on Two Suns and worked. Greyed items depend o
   (the first START did not open the app); fr970, fr265, epix2pro47mm, fr965 and instincte45mm work. (4) The heat-map verdict box
   reads black with `xwd`; `import -window root -crop` works. (5) Always-on burn-in, measured: Days To Go 0.84%, Two Suns 1.09%,
   HeroFace 1.23%, DayArc 2.52% peak luminance on fr965 (limit 10%).
+- **QA captures:** `docker/capture.sh <project> /ciq-docker/qa_shots.sh <jungle> <device> <tag> <HH:MM>...` (fresh simulator per time,
+  default settings, native capture plus the window with its memory readout). **Environment variables do not reach a scenario**
+  (`capture.sh` passes none): options go in the arguments (a tag starting with `h24` selects 24-hour). Memory: the status bar
+  of a 1280x1024 root capture sits at y 489 (`convert ... -crop 120x22+180+489`); use `FLAGS="-r -w" docker/shot.sh` for a
+  store-like build (debug builds read about 6 kB higher). The full QA procedure: `reports/QA/Simulator QA 2026-10-05.md`.
