@@ -20,10 +20,10 @@ Consigue Days To Go Pro: https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9
 
 Una esfera de cuenta atrás: un número grande con los días que faltan para tu fecha.
 
-Nada está bloqueado: sin prueba, sin código que introducir, nada que comprar en el reloj.
+Nada está bloqueado: sin periodo de prueba, sin código que introducir, nada que comprar en el reloj.
 
 Un solo número
-Los días que faltan son lo más grande de la pantalla, al mayor tamaño que tu reloj puede dibujar. La hora encima, la fecha debajo. Un anillo fino alrededor del bisel se vacía durante el último año y se llena el mismo día. Sin pasos, sin frecuencia cardiaca, sin tiempo.
+Los días que faltan son lo más grande de la pantalla, al mayor tamaño que tu reloj puede dibujar. La hora encima, la fecha debajo. Un anillo fino alrededor del bisel se vacía durante el último año y se llena el mismo día. Sin pasos, sin frecuencia cardiaca, sin meteorología.
 
 Cualquier fecha, tu propio evento
 Un cumpleaños, un aniversario, una carrera, un viaje: cualquier fecha, con tu propio nombre para ella (hasta 16 caracteres), seis colores de acento y una cuenta en días o en semanas y días. Por defecto, Año Nuevo, así que nunca está vacía; "Cada año" hace que un cumpleaños o un aniversario se renueve solo.

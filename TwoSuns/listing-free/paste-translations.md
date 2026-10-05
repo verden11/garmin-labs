@@ -21,10 +21,10 @@ Two Suns
 
 Una esfera para el día del sol: la hora, un anillo de 24 horas para la luz y tu número de Body Battery.
 
-Nada está bloqueado: sin prueba, sin código que introducir, nada que comprar en el reloj.
+Nada está bloqueado: sin periodo de prueba, sin código que introducir, nada que comprar en el reloj.
 
 La hora
-Lo más grande de la pantalla. Sin pasos, sin frecuencia cardiaca, sin tiempo, sin consejos.
+Lo más grande de la pantalla. Sin pasos, sin frecuencia cardiaca, sin meteorología, sin consejos.
 
 Un anillo para el sol
 Un anillo fino alrededor del bisel son las 24 horas de tu día, con el mediodía arriba. La noche es tenue, la luz del día se ilumina con tu color de acento y se atenúa cuando ya ha pasado. Unas marcas señalan la salida y la puesta del sol; un marcador indica dónde está el sol ahora, relleno mientras está sobre el horizonte.

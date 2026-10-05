@@ -24,7 +24,7 @@ Flexiones, abdominales y sentadillas en una sola app: 100 de cada al día, o tu 
 - Después de cada serie, revisa la cuenta y ajústala antes de guardarla. Solo el botón START guarda, así que un toque accidental no puede hacerlo.
 - HeroSet aprende de las cuentas que guardas, así que el conteo se adapta a tu forma de moverte.
 - Gana XP por cada repetición, hasta 100 por ejercicio al día, sube de rango y mantén viva tu racha. El rango refleja las repeticiones que haces, no el objetivo que eliges.
-- Fija tu propio objetivo diario en el reloj: de 10 a 500 repeticiones, sin necesidad de teléfono.
+- Fija tu propio objetivo diario en el reloj: de 10 a 500 repeticiones.
 - Frecuencia cardiaca en directo y una estimación de calorías durante cada serie.
 - Un glance en relojes con Connect IQ 4.0 o posterior: consulta el progreso de hoy y tu racha desde tu lista de glances sin abrir la app.
 - También en pantallas en blanco y negro, con tu anillo de XP en la pequeña ventana redonda.
@@ -38,7 +38,7 @@ Más de Verden
 DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 ```
 
-> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the Spanish block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, written in the Days To Go and Two Suns release contracts), so today it names DayArc alone. Add each line below to the Spanish block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
 >
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
@@ -62,7 +62,7 @@ HeroSet - 自重训练计数器
 - 每组结束后，可在保存前检查并调整次数。只有 START 键会保存，误触不会保存。
 - HeroSet 会从你保存的次数中学习，让计数适应你的动作方式。
 - 每做一次都能获得 XP（每项运动每天最多计 100 次），提升等级，保持连续纪录。等级反映你实际完成的次数，而不是你设定的目标。
-- 在手表上设定你自己的每日目标：10 到 500 次，无需手机。
+- 在手表上设定你自己的每日目标：10 到 500 次。
 - 每组训练时显示实时心率和卡路里估算。
 - 在 Connect IQ 4.0 及以上的手表上提供概览（glance）：无需打开应用，即可在概览列表中查看今天的进度和连续纪录。
 - 同样支持黑白屏幕，XP 圆环显示在小圆形窗口中。
@@ -76,7 +76,7 @@ Verden 的更多作品
 DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 ```
 
-> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the Chinese block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12). Use a full-width colon (`：`) in these lines.
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, written in the Days To Go and Two Suns release contracts), so today it names DayArc alone. Add each line below to the Chinese block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12). Use a full-width colon (`：`) in these lines.
 >
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`

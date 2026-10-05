@@ -20,7 +20,7 @@ Consigue DayArc Pro: https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914
 
 DayArc cambia lo que muestra a lo largo del día, con un horario fijo. Un solo ajuste: un color de acento, que eliges en la app Garmin Connect, o déjalo en Automático y cada momento del día tendrá su propio color.
 
-Nada está bloqueado: sin prueba, sin código que introducir, nada que comprar en el reloj.
+Nada está bloqueado: sin periodo de prueba, sin código que introducir, nada que comprar en el reloj.
 
 Mañana: sensación térmica, máxima y mínima del día y probabilidad de lluvia, para saber qué ponerte.
 Mediodía: tu nivel de estrés, como un número y un indicador sencillo, nunca un estado de ánimo ni un juicio.

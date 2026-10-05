@@ -20,7 +20,7 @@ Consigue HeroFace Pro: https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-8237
 
 Primero la hora, justo debajo los objetivos de hoy. Tres barras, un anillo para todo el día, una racha que vale la pena mantener, o tus repeticiones y tu rango de HeroSet, si lo tienes.
 
-Nada está bloqueado: sin prueba, sin código que introducir, nada que comprar en el reloj.
+Nada está bloqueado: sin periodo de prueba, sin código que introducir, nada que comprar en el reloj.
 
 La hora manda en la pantalla
 La hora es lo más grande de la esfera, al mayor tamaño que tu reloj puede dibujar. Debajo, los tres objetivos de hoy como barras: pasos, minutos de intensidad y pisos. El anillo alrededor del bisel es todo el día de un vistazo, y se llena de verde cuando cumples los tres.
@@ -54,7 +54,7 @@ DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 Ayuda y respuestas: https://verden.watch/heroface/support/
 ```
 
-> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the Spanish block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, written in the Days To Go and Two Suns release contracts), so today it names DayArc alone. Add each line below to the Spanish block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
 >
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
@@ -108,7 +108,7 @@ DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 帮助与解答：https://verden.watch/heroface/support/
 ```
 
-> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the Chinese block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12). Use a full-width colon (`：`) in these lines.
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, written in the Days To Go and Two Suns release contracts), so today it names DayArc alone. Add each line below to the Chinese block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12). Use a full-width colon (`：`) in these lines.
 >
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`

@@ -16,7 +16,7 @@ Push-ups, sit-ups and squats in one app: 100 of each a day, or your own goal fro
 - After every set, check the count and adjust it before it's saved. Only the START button saves, so a stray tap can't.
 - HeroSet learns from the counts you save, so counting adapts to how you move.
 - Earn XP for every rep up to 100 per exercise a day, climb ranks and keep your streak alive. Rank reflects the reps you do, not the goal you pick.
-- Set your own daily goal on the watch: 10 to 500 reps, no phone needed.
+- Set your own daily goal on the watch: 10 to 500 reps.
 - Live heart rate and a calorie estimate during each set.
 - A glance on watches with Connect IQ 4.0 or later: see today's progress and your streak from your glance list without opening the app.
 - Also on black-and-white screens, with your XP ring in the small round window.
@@ -30,7 +30,7 @@ More from Verden
 DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 ```
 
-> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the description block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, written in the Days To Go and Two Suns release contracts), so today it names DayArc alone. Add each line below to the description block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
 >
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
