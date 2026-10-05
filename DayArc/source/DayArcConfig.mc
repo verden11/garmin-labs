@@ -17,6 +17,14 @@ class DayArcConfig {
     static const WINDOW_EVENING = 2;
     static const WINDOW_NIGHT = 3;
 
+    // The morning icon is the current condition (ROADMAP 13.29), folded onto five glyphs; NONE draws no icon, never a guess.
+    static const WEATHER_NONE = -1;
+    static const WEATHER_CLEAR = 0;
+    static const WEATHER_PARTLY = 1;
+    static const WEATHER_CLOUDY = 2;
+    static const WEATHER_RAIN = 3;
+    static const WEATHER_SNOW = 4;
+
     // Stress and Body Battery are both a single-hue gauge fill, no threshold tier (ADR-006): an
     // earlier version dimmed stress above 25, which is exactly Garmin's own official "rest"/
     // "draining" band boundary (knowledge/health-science.md) — re-encoding a documented verdict

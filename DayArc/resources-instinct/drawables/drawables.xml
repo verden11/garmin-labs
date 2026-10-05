@@ -20,6 +20,30 @@
     <bitmap id="IconHeroBatteryGreen" filename="icons/hero_battery_compact.svg" dithering="none" />
     <bitmap id="IconHeroBatteryBlue" filename="icons/hero_battery_compact.svg" dithering="none" />
     <bitmap id="IconHeroBatteryPurple" filename="icons/hero_battery_compact.svg" dithering="none" />
+    <bitmap id="IconHeroClearCyan" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroClearAmber" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroClearRose" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroClearGreen" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroClearBlue" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroClearPurple" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyCyan" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyAmber" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyRose" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyGreen" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyBlue" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyPurple" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroRainCyan" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroRainAmber" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroRainRose" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroRainGreen" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroRainBlue" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroRainPurple" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSnowCyan" filename="icons/hero_snow_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSnowAmber" filename="icons/hero_snow_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSnowRose" filename="icons/hero_snow_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSnowGreen" filename="icons/hero_snow_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSnowBlue" filename="icons/hero_snow_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSnowPurple" filename="icons/hero_snow_compact.svg" dithering="none" />
     <bitmap id="IconHeroSmallWeatherCyan" filename="icons/hero_weather_compact.svg" dithering="none" />
     <bitmap id="IconHeroSmallWeatherAmber" filename="icons/hero_weather_compact.svg" dithering="none" />
     <bitmap id="IconHeroSmallWeatherRose" filename="icons/hero_weather_compact.svg" dithering="none" />
@@ -38,4 +62,28 @@
     <bitmap id="IconHeroSmallBatteryGreen" filename="icons/hero_battery_compact.svg" dithering="none" />
     <bitmap id="IconHeroSmallBatteryBlue" filename="icons/hero_battery_compact.svg" dithering="none" />
     <bitmap id="IconHeroSmallBatteryPurple" filename="icons/hero_battery_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallClearCyan" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallClearAmber" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallClearRose" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallClearGreen" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallClearBlue" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallClearPurple" filename="icons/hero_clear_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallCloudyCyan" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallCloudyAmber" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallCloudyRose" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallCloudyGreen" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallCloudyBlue" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallCloudyPurple" filename="icons/hero_cloudy_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallRainCyan" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallRainAmber" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallRainRose" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallRainGreen" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallRainBlue" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallRainPurple" filename="icons/hero_rain_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallSnowCyan" filename="icons/hero_snow_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallSnowAmber" filename="icons/hero_snow_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallSnowRose" filename="icons/hero_snow_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallSnowGreen" filename="icons/hero_snow_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallSnowBlue" filename="icons/hero_snow_compact.svg" dithering="none" />
+    <bitmap id="IconHeroSmallSnowPurple" filename="icons/hero_snow_compact.svg" dithering="none" />
 </drawables>

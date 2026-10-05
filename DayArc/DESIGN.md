@@ -118,7 +118,8 @@ Top to bottom, every window but night:
    No setting to hide it — ADR-014's one setting is a colour only; this is a content change, not a
    new toggle. Pro's morning grid has no separate date cell (it would show the date twice).
 3. Hero label (**white**, small; the date, clock and sub line stay muted: reviewer pass seven, ADR-017 — the label names the number, so it is the brighter small line, and on a colour screen it is drawn down into the empty headroom above the hero's digits so it sits nearer its number than the date; not on the 1-bit Instinct, where every role is white and the boxes are tested tight against the bezel circle) — omitted when the read itself is the label (morning's temperature has
-   none; midday/evening name the metric).
+   none; midday/evening name the metric). **Since 2026-10-05 the morning has one too, "Feels like"** (owner, ROADMAP 13.28:
+   an unlabelled feels-like 9° under "H 16 / L 13" read as wrong on the wrist); none when there is no weather.
 4. **Hero icon + hero value**, side by side as one centred group (ADR-013) — a single line-icon
    (Tabler Icons, recoloured) beside the number, both the same accent hue as the window. The value
    stays the largest single element on screen in Simple, and the largest and first-drawn element in
@@ -230,6 +231,11 @@ with a stroke-only outline (stairs, steps, thermometer, run, refresh, breath, ba
 highlight in the mockup either and keep none built.
 
 **Two different colour rules, on purpose (ADR-013):**
+- **Morning icon = the current condition (2026-10-05, owner, ROADMAP 13.29; `DayArcWeatherKind`):** Garmin's condition code
+  folded onto five generated glyphs (clear; partly cloudy, the old window glyph; cloudy, also fog and haze; rain, also storms;
+  snow, also sleet and hail), all in the same box, so the planner's measured size holds. **No icon** when there is no weather
+  or the condition has no glyph (windy, unknown): the fixed sun-behind-cloud had shown on a rainy day and beside "Weather
+  unavailable". Midday and evening keep their window glyph, which the paragraph below still describes.
 - **Hero icon** (weather condition, stress wave, battery shell): single hue, tied to that window's
   own accent — or, if the wearer picked one (ADR-014), that one hue in every non-night window. Colour
   still marks "the hero," nothing else, and is constant whatever the reading. The icon always shows,

@@ -19,7 +19,7 @@ next:
 package:
   file: dist/DayArcPro-1.0.0.iq
   products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
-  exported: 2026-10-05   # re-export from commit 4915c61 (code of a64233e), after the design-review fixes of ADR-017
+  exported: 2026-10-05   # re-exported again that evening (Feels like label, condition icons, 12-hour fix); earlier: re-export from commit 4915c61 (code of a64233e), after the design-review fixes of ADR-017
   check: "tools/check_package.sh: OK (Instinct parts carry no settings file, the other 89 have Accent)"
   note: "export: CIQ_IMAGE=verden-ciq-build:9.2.0 docker/run.sh DayArc monkeyc -e -r -w -f monkey.pro.jungle; built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form; ADR-018); no number in text

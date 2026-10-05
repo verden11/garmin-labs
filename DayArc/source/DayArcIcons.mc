@@ -35,6 +35,36 @@ class DayArcIcons {
         return null; // night: no hero, no icon
     }
 
+    // The morning icon for the current condition (ROADMAP 13.29), in this window's hue for `choice`; null for WEATHER_NONE
+    // (no icon, never a guess). The glyphs share the partly-cloudy one's box, so the planner's measured size holds for all.
+    static function weatherFor(kind as Number, choice as Number, small as Boolean) as ResourceId or Null {
+        var set = weatherSet(kind, small);
+        return set == null ? null : set[DayArcPalette.hueIndex(DayArcConfig.WINDOW_MORNING, choice)];
+    }
+
+    private static function weatherSet(kind as Number, small as Boolean) as Array<ResourceId> or Null {
+        if (kind == DayArcConfig.WEATHER_PARTLY) {
+            return small ? smallWeather() : largeWeather();
+        }
+        if (kind == DayArcConfig.WEATHER_CLEAR) {
+            return small ? [Rez.Drawables.IconHeroSmallClearCyan, Rez.Drawables.IconHeroSmallClearAmber, Rez.Drawables.IconHeroSmallClearRose, Rez.Drawables.IconHeroSmallClearGreen, Rez.Drawables.IconHeroSmallClearBlue, Rez.Drawables.IconHeroSmallClearPurple] as Array<ResourceId>
+                : [Rez.Drawables.IconHeroClearCyan, Rez.Drawables.IconHeroClearAmber, Rez.Drawables.IconHeroClearRose, Rez.Drawables.IconHeroClearGreen, Rez.Drawables.IconHeroClearBlue, Rez.Drawables.IconHeroClearPurple] as Array<ResourceId>;
+        }
+        if (kind == DayArcConfig.WEATHER_CLOUDY) {
+            return small ? [Rez.Drawables.IconHeroSmallCloudyCyan, Rez.Drawables.IconHeroSmallCloudyAmber, Rez.Drawables.IconHeroSmallCloudyRose, Rez.Drawables.IconHeroSmallCloudyGreen, Rez.Drawables.IconHeroSmallCloudyBlue, Rez.Drawables.IconHeroSmallCloudyPurple] as Array<ResourceId>
+                : [Rez.Drawables.IconHeroCloudyCyan, Rez.Drawables.IconHeroCloudyAmber, Rez.Drawables.IconHeroCloudyRose, Rez.Drawables.IconHeroCloudyGreen, Rez.Drawables.IconHeroCloudyBlue, Rez.Drawables.IconHeroCloudyPurple] as Array<ResourceId>;
+        }
+        if (kind == DayArcConfig.WEATHER_RAIN) {
+            return small ? [Rez.Drawables.IconHeroSmallRainCyan, Rez.Drawables.IconHeroSmallRainAmber, Rez.Drawables.IconHeroSmallRainRose, Rez.Drawables.IconHeroSmallRainGreen, Rez.Drawables.IconHeroSmallRainBlue, Rez.Drawables.IconHeroSmallRainPurple] as Array<ResourceId>
+                : [Rez.Drawables.IconHeroRainCyan, Rez.Drawables.IconHeroRainAmber, Rez.Drawables.IconHeroRainRose, Rez.Drawables.IconHeroRainGreen, Rez.Drawables.IconHeroRainBlue, Rez.Drawables.IconHeroRainPurple] as Array<ResourceId>;
+        }
+        if (kind == DayArcConfig.WEATHER_SNOW) {
+            return small ? [Rez.Drawables.IconHeroSmallSnowCyan, Rez.Drawables.IconHeroSmallSnowAmber, Rez.Drawables.IconHeroSmallSnowRose, Rez.Drawables.IconHeroSmallSnowGreen, Rez.Drawables.IconHeroSmallSnowBlue, Rez.Drawables.IconHeroSmallSnowPurple] as Array<ResourceId>
+                : [Rez.Drawables.IconHeroSnowCyan, Rez.Drawables.IconHeroSnowAmber, Rez.Drawables.IconHeroSnowRose, Rez.Drawables.IconHeroSnowGreen, Rez.Drawables.IconHeroSnowBlue, Rez.Drawables.IconHeroSnowPurple] as Array<ResourceId>;
+        }
+        return null;
+    }
+
     private static function largeWeather() as Array<ResourceId> {
         return [Rez.Drawables.IconHeroWeatherCyan, Rez.Drawables.IconHeroWeatherAmber, Rez.Drawables.IconHeroWeatherRose,
                 Rez.Drawables.IconHeroWeatherGreen, Rez.Drawables.IconHeroWeatherBlue, Rez.Drawables.IconHeroWeatherPurple] as Array<ResourceId>;

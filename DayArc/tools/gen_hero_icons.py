@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generates DayArc's hero icon bitmap resources: 3 icons x 6 accent hues, in a LARGE and a SMALL size per screen (ADR-014, ADR-017).
+"""Generates DayArc's hero icon bitmap resources: 7 icons (the three windows' glyphs plus four more weather conditions) x 6 accent hues, in a LARGE and a SMALL size per screen (ADR-014, ADR-017).
 
 Why sizes: a hero icon is a fixed-pixel bitmap (plain dc.drawBitmap, no tint, no scaling), so one size cannot suit a 218 px
 and a 454 px screen, nor the hero number's three font tiers (HOT, MEDIUM, MILD: on an FR965 the digits are 87, 73 and 58 px
@@ -27,7 +27,7 @@ import re
 
 HUES = {"cyan": "#55FFFF", "amber": "#FFAA00", "rose": "#FF55AA",
         "green": "#55FF55", "blue": "#55AAFF", "purple": "#AA55FF"}
-ICONS = ["weather", "stress", "battery"]
+ICONS = ["weather", "stress", "battery", "clear", "cloudy", "rain", "snow"]   # "weather" is partly cloudy (ROADMAP 13.29)
 # height -> folder ("resources" is what every screen without a family line gets)
 LARGE = {42: "resources-hero-L42", 48: "resources-hero-L48", 54: "resources-hero-L54", 72: "resources", 78: "resources-hero-L78",
          90: "resources-hero-L90"}
@@ -101,8 +101,8 @@ def arc_flags(c, p, q):
     return 1 if (b - a) % (2 * math.pi) > math.pi else 0
 
 
-def cloud_path(h, t):
-    """The cloud's centre line: a flat bottom and three lobes (left, middle, right), as one closed path."""
+def cloud_path(h, t, dx=0):
+    """The cloud's centre line: a flat bottom and three lobes (left, middle, right), as one closed path; `dx` moves it right."""
     bottom = h - t / 2
     rl, rm, rr = round(0.19 * h), round(0.25 * h), round(0.16 * h)
     left = (t / 2 + rl, bottom - rl, rl)
@@ -110,10 +110,10 @@ def cloud_path(h, t):
     mid = (round(0.52 * h), round(0.36 * h) + t / 2 + rm, rm)
     p_rm = upper(circle_hits(right, mid))
     p_ml = upper(circle_hits(mid, left))
-    parts = [f"M{n(left[0])} {n(bottom)}", f"H{n(right[0])}",
-             f"A{n(rr)} {n(rr)} 0 {arc_flags(right, (right[0], bottom), p_rm)} 0 {n(p_rm[0])} {n(p_rm[1])}",
-             f"A{n(rm)} {n(rm)} 0 {arc_flags(mid, p_rm, p_ml)} 0 {n(p_ml[0])} {n(p_ml[1])}",
-             f"A{n(rl)} {n(rl)} 0 {arc_flags(left, p_ml, (left[0], bottom))} 0 {n(left[0])} {n(bottom)}Z"]
+    parts = [f"M{n(left[0] + dx)} {n(bottom)}", f"H{n(right[0] + dx)}",
+             f"A{n(rr)} {n(rr)} 0 {arc_flags(right, (right[0], bottom), p_rm)} 0 {n(p_rm[0] + dx)} {n(p_rm[1])}",
+             f"A{n(rm)} {n(rm)} 0 {arc_flags(mid, p_rm, p_ml)} 0 {n(p_ml[0] + dx)} {n(p_ml[1])}",
+             f"A{n(rl)} {n(rl)} 0 {arc_flags(left, p_ml, (left[0], bottom))} 0 {n(left[0] + dx)} {n(bottom)}Z"]
     return " ".join(parts)
 
 
@@ -139,6 +139,60 @@ def weather(height, hue):
     return svg(w, h, body)
 
 
+# ---------------------------------------------------------------- the current condition (2026-10-05, owner, ROADMAP 13.29)
+# The morning icon follows Garmin's condition code (DayArcWeatherKind): "weather" above is partly cloudy; these four are
+# clear, cloudy, rain and snow, in the same 1.25h x h box so the planner's measured size never changes.
+def clear(height, hue):
+    h = height
+    w = round(1.25 * h)
+    t = stroke(height)
+    cx, cy, r = w / 2, h / 2, round(0.24 * h)
+    body = f'<circle cx="{n(cx)}" cy="{n(cy)}" r="{r}" fill="{hue}" />\n'
+    inner, outer = r + t, min(r + t + max(2, round(0.13 * h)), h / 2 - t / 2)
+    for ang in (range(0, 360, 45) if h >= 36 else range(0, 360, 90)):
+        c, sn = math.cos(math.radians(ang)), -math.sin(math.radians(ang))
+        body += (f'<path d="M{n(cx + inner * c)} {n(cy + inner * sn)}L{n(cx + outer * c)} {n(cy + outer * sn)}" '
+                 f'stroke="{hue}" stroke-width="{t}" stroke-linecap="round" fill="none" />\n')
+    return svg(w, h, body)
+
+
+def cloudy(height, hue):
+    h = height
+    w = round(1.25 * h)
+    t = stroke(height)
+    path = cloud_path(h, t, dx=round((w - 0.95 * h) / 2))
+    return svg(w, h, f'<path d="{path}" fill="{BLACK}" stroke="{hue}" stroke-width="{t}" stroke-linejoin="round" />\n')
+
+
+def under_cloud(height, hue, mark):
+    """A smaller cloud in the top of the box with three marks under it (rain: slanted strokes; snow: dots)."""
+    h = height
+    w = round(1.25 * h)
+    ch = round((0.72 if mark == "rain" else 0.78) * h)   # rain needs room for its strokes
+    t = stroke(ch)                       # the stroke of a cloud this size, so the smaller cloud does not close up
+    d = max(2, round(0.8 * t))          # the marks a little lighter than the cloud
+    path = cloud_path(ch, t, dx=round((w - 0.95 * ch) / 2))
+    body = f'<path d="{path}" fill="{BLACK}" stroke="{hue}" stroke-width="{t}" stroke-linejoin="round" />\n'
+    top, bottom = ch + max(2, round((0.08 if mark == "rain" else 0.06) * h)), h - d / 2
+    for i in (-1, 0, 1):
+        x = w / 2 + i * round(0.24 * h)
+        if mark == "rain":
+            lean = round(0.06 * h)
+            body += (f'<path d="M{n(x + lean)} {n(top + d / 2)}L{n(x - lean)} {n(bottom)}" stroke="{hue}" stroke-width="{d}" '
+                     f'stroke-linecap="round" fill="none" />\n')
+        else:
+            body += f'<circle cx="{n(x)}" cy="{n((top + bottom) / 2)}" r="{max(1, d)}" fill="{hue}" />\n'
+    return svg(w, h, body)
+
+
+def rain(height, hue):
+    return under_cloud(height, hue, "rain")
+
+
+def snow(height, hue):
+    return under_cloud(height, hue, "snow")
+
+
 # ---------------------------------------------------------------- battery: a bolt (the Body Battery hero icon)
 # Was a battery shell with a heartbeat line; beside Pro's watch-battery pill that read as a second battery, the problem
 # Two Suns fixed with a bolt (its ADR-023). Design critique 2026-10-05, ROADMAP 13.19. The id stays IconHeroBattery*.
@@ -154,7 +208,7 @@ def battery(size, hue):
     return svg(w, size, body)
 
 
-MAKERS = {"weather": weather, "stress": stress, "battery": battery}
+MAKERS = {"weather": weather, "stress": stress, "battery": battery, "clear": clear, "cloudy": cloudy, "rain": rain, "snow": snow}
 XML_HEAD = ('<drawables xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
             'xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">\n')
 
@@ -203,6 +257,8 @@ def write_instinct():
     """The 1-bit Instinct: one white size (30x24 / 24x24 / 36x24) for both slots (ADR-016); the weather glyph and the bolt are drawn here."""
     write(os.path.join(ROOT, "resources-instinct", "drawables", "icons", "hero_weather_compact.svg"), weather(24, "#FFFFFF"))
     write(os.path.join(ROOT, "resources-instinct", "drawables", "icons", "hero_battery_compact.svg"), battery(24, "#FFFFFF"))
+    for icon in ("clear", "cloudy", "rain", "snow"):
+        write(os.path.join(ROOT, "resources-instinct", "drawables", "icons", f"hero_{icon}_compact.svg"), MAKERS[icon](24, "#FFFFFF"))
     compact = lambda icon: f"icons/hero_{icon}_compact.svg"
     note = ("    <!-- The Instinct E and 3 Solar only (ADR-016): the hero icons at about half the size, one white file per window for\n"
             "         both slots. The display is 1-bit (the Accent setting is off there, so only the Auto hue is ever drawn), but\n"

@@ -427,6 +427,11 @@ the Instinct; the ids stay `IconHeroBattery*`. (2) **Pro's grid icons are all mu
 that competed with the one coloured hero read. The intensity grid icon is a pulse line (`grid_pulse.svg`), so the bolt means
 Body Battery only. Reversed by the owner (restore the per-type hues from git history).
 
+**Amendment 2026-10-05, from the owner's wrist photos (ROADMAP 13.28, 13.29; simulator only):** the morning hero is labelled
+"Feels like", and its icon is the current condition (five glyphs from `tools/gen_hero_icons.py`, `DayArcWeatherKind`), not
+the window's fixed sun-behind-cloud; no icon when there is no weather or no glyph for the condition. Midday and evening keep
+the window glyph. Reversed by the owner.
+
 ## ADR-014: One wearer setting — Accent colour (partly reverses ADR-011)
 
 **Status:** Active. Built 2026-09-28; simulator-tested only — it has never been changed in the

@@ -27,8 +27,8 @@ class DayArcFields {
     }
 
     // Date is shown in every window now, not just night (ADR-013; was night-only before). The hero
-    // icon is the window's identity marker, not a data-presence indicator, so it is set here for
-    // every active window whatever the reading — and in the wearer's chosen accent (ADR-014), read
+    // icon is the window's identity marker (the morning's is the current condition since 2026-10-05, ROADMAP 13.29, and absent
+    // when there is no weather), set here for every active window whatever the reading — and in the wearer's chosen accent (ADR-014), read
     // fresh on every gather, never cached.
     private static function heroFor(window as Number, sources as DayArcSources, epoch as Number) as Dictionary {
         var dateText = DayArcSources.complicationString(Complications.COMPLICATION_TYPE_WEEKDAY_MONTHDAY);
@@ -43,10 +43,14 @@ class DayArcFields {
         // WINDOW_NIGHT: no data block, time + date only (ADR-010) — an empty hero, so no icon.
         hero.put(:dateText, dateText);
         var choice = DayArcSettings.accentChoice();
-        var icon = DayArcIcons.heroFor(window, choice);
+        // The morning icon is the current condition (ROADMAP 13.29, 2026-10-05: the fixed sun-behind-cloud showed on rainy days
+        // and beside "Weather unavailable"); the other windows keep their window glyph.
+        var morning = window == DayArcConfig.WINDOW_MORNING;
+        var kind = hero.hasKey(:weatherKind) ? hero.get(:weatherKind) as Number : DayArcConfig.WEATHER_NONE;
+        var icon = morning ? DayArcIcons.weatherFor(kind, choice, false) : DayArcIcons.heroFor(window, choice);
         if (icon != null) {
             hero.put(:icon, icon);                                    // beside the HOT number tier
-            hero.put(:iconSmall, DayArcIcons.heroSmallFor(window, choice)); // beside MEDIUM and MILD (ADR-017)
+            hero.put(:iconSmall, morning ? DayArcIcons.weatherFor(kind, choice, true) : DayArcIcons.heroSmallFor(window, choice)); // ADR-017
         }
         return hero;
     }
@@ -71,10 +75,13 @@ class DayArcFields {
         if (uv != null) {
             sub += (sub.length() > 0 ? "  " : "") + Lang.format(WatchUi.loadResource(Rez.Strings.morning_uv) as String, [Math.round(uv).toNumber()]);
         }
+        // Labelled like the other windows' readings: an unlabelled feels-like 9 under "H 16 / L 13" read as wrong on the
+        // wrist (owner's photo, 2026-10-05, ROADMAP 13.28).
         return {
-            :label => null,
+            :label => WatchUi.loadResource(Rez.Strings.morning_feels_label) as String,
             :value => DayArcFormat.temperature(feelsLike),
             :sub => sub.length() > 0 ? sub : null,
+            :weatherKind => DayArcWeatherKind.kind(conditions.condition),
         } as Dictionary;
     }
 

@@ -18,4 +18,28 @@
     <bitmap id="IconHeroBatteryGreen" filename="icons/hero_battery_green.svg" dithering="none" />
     <bitmap id="IconHeroBatteryBlue" filename="icons/hero_battery_blue.svg" dithering="none" />
     <bitmap id="IconHeroBatteryPurple" filename="icons/hero_battery_purple.svg" dithering="none" />
+    <bitmap id="IconHeroClearCyan" filename="icons/hero_clear_cyan.svg" dithering="none" />
+    <bitmap id="IconHeroClearAmber" filename="icons/hero_clear_amber.svg" dithering="none" />
+    <bitmap id="IconHeroClearRose" filename="icons/hero_clear_rose.svg" dithering="none" />
+    <bitmap id="IconHeroClearGreen" filename="icons/hero_clear_green.svg" dithering="none" />
+    <bitmap id="IconHeroClearBlue" filename="icons/hero_clear_blue.svg" dithering="none" />
+    <bitmap id="IconHeroClearPurple" filename="icons/hero_clear_purple.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyCyan" filename="icons/hero_cloudy_cyan.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyAmber" filename="icons/hero_cloudy_amber.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyRose" filename="icons/hero_cloudy_rose.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyGreen" filename="icons/hero_cloudy_green.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyBlue" filename="icons/hero_cloudy_blue.svg" dithering="none" />
+    <bitmap id="IconHeroCloudyPurple" filename="icons/hero_cloudy_purple.svg" dithering="none" />
+    <bitmap id="IconHeroRainCyan" filename="icons/hero_rain_cyan.svg" dithering="none" />
+    <bitmap id="IconHeroRainAmber" filename="icons/hero_rain_amber.svg" dithering="none" />
+    <bitmap id="IconHeroRainRose" filename="icons/hero_rain_rose.svg" dithering="none" />
+    <bitmap id="IconHeroRainGreen" filename="icons/hero_rain_green.svg" dithering="none" />
+    <bitmap id="IconHeroRainBlue" filename="icons/hero_rain_blue.svg" dithering="none" />
+    <bitmap id="IconHeroRainPurple" filename="icons/hero_rain_purple.svg" dithering="none" />
+    <bitmap id="IconHeroSnowCyan" filename="icons/hero_snow_cyan.svg" dithering="none" />
+    <bitmap id="IconHeroSnowAmber" filename="icons/hero_snow_amber.svg" dithering="none" />
+    <bitmap id="IconHeroSnowRose" filename="icons/hero_snow_rose.svg" dithering="none" />
+    <bitmap id="IconHeroSnowGreen" filename="icons/hero_snow_green.svg" dithering="none" />
+    <bitmap id="IconHeroSnowBlue" filename="icons/hero_snow_blue.svg" dithering="none" />
+    <bitmap id="IconHeroSnowPurple" filename="icons/hero_snow_purple.svg" dithering="none" />
 </drawables>
