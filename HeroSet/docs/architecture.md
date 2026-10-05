@@ -152,7 +152,7 @@ Workout 1 Hz timer → requestUpdate (HR / calories / elapsed)
 
 START (Finish) → pop workout → push picker(seed = detected)       [depth 1]
 Picker save → Store.add(exercise, delta)
-  → ensureCurrentDay → clamp ≥ 0 → awardXpFor (ratchet) → updateCompletion (sets or undoes today, ADR-058)
+  → ensureCurrentDay → clamp ≥ 0 → awardXpFor (ratchet) → updateCompletion (sets, or undoes today on a count save, ADR-058)
   → logValidationTrial (workout-seeded only) → HeroSetSaveFeedback
 
 Connect Sync on (ADR-043):

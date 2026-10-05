@@ -102,9 +102,9 @@ function aCorrectionBackOverTheGoalCompletesTodayAgain(logger as Test.Logger) as
     return true;
 }
 
-// Undoing today steps back to yesterday's run, which survives midnight and a
-// restart (a fresh store on the same storage), and is never touched by a
-// correction on a day that has not completed.
+// Yesterday's completion is never touched by a correction on a new day that
+// has not completed; undoing today steps back to yesterday's run, which a
+// restart (a fresh store on the same storage) reads the same.
 (:test)
 function undoingTodayKeepsYesterdaysStreak(logger as Test.Logger) as Lang.Boolean {
     var storage = new HeroSetTestStorage();

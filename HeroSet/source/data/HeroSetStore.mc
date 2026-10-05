@@ -100,7 +100,7 @@ class HeroSetStore {
         }
         _set(key, next);
         awardXpFor(exercise, previous, next);
-        updateCompletion();
+        updateCompletion(true);
     }
 
     // XP on the NET gain in stored progress, capped at a fixed number of
@@ -183,10 +183,13 @@ class HeroSetStore {
 
     // Lowering the goal below today's counts has to finish the day right
     // away, so the streak doesn't wait for the next rep to be logged.
+    // Raising it never takes a finished day back (ADR-045, ADR-058): the
+    // picker is also how tomorrow's goal is set, so an evening raise must not
+    // cost today's streak.
     function setGoal(goal as Lang.Number) as Void {
         _writeFailed = false;
         _set(GOAL_KEY, HeroSetRules.clampGoal(goal));
-        updateCompletion();
+        updateCompletion(false);
     }
 
     function isSyncEnabled() as Lang.Boolean {
@@ -197,17 +200,21 @@ class HeroSetStore {
         _set(SYNC_ENABLED_KEY, enabled);
     }
 
-    // Completion follows today's counts both ways: a correction or a raised
-    // goal that takes today back under the goal undoes today's completion
-    // (ADR-058). XP is untouched either way (ADR-002).
-    private function updateCompletion() as Void {
+    // A count correction that takes a finished today back under the goal
+    // undoes today's completion (ADR-058); XP is untouched either way
+    // (ADR-002). `complete` is read first: it runs ensureCurrentDay, so a
+    // midnight in between cannot pair new-day counts with the old day.
+    // The completion day is written before the streak, so a failed write
+    // can leave the streak off by one but never repeat the step.
+    private function updateCompletion(mayUndo as Lang.Boolean) as Void {
+        var complete = isDailyMissionComplete();
         var today = _clock.todayKey();
         var lastDay = asNumberOrNull(_storage.getValue(LAST_COMPLETION_KEY));
-        var complete = isDailyMissionComplete();
         if (complete && lastDay != today) {
-            _set(STREAK_KEY, HeroSetRules.nextStreak(lastDay, today, readNumber(STREAK_KEY)));
+            var streak = HeroSetRules.nextStreak(lastDay, today, readNumber(STREAK_KEY));
             _set(LAST_COMPLETION_KEY, today);
-        } else if (!complete && lastDay == today) {
+            _set(STREAK_KEY, streak);
+        } else if (mayUndo && !complete && lastDay == today) {
             undoCompletion(today);
         }
     }
@@ -220,11 +227,11 @@ class HeroSetStore {
     private function undoCompletion(today as Lang.Number) as Void {
         var previous = readNumber(STREAK_KEY) - 1;
         if (previous > 0) {
-            _set(STREAK_KEY, previous);
             _set(LAST_COMPLETION_KEY, HeroSetCalendar.previousDayKey(today));
+            _set(STREAK_KEY, previous);
         } else {
-            _set(STREAK_KEY, 0);
             _set(LAST_COMPLETION_KEY, NO_COMPLETION_DAY);
+            _set(STREAK_KEY, 0);
         }
     }
 
