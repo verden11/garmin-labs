@@ -65,7 +65,7 @@ function everyHeroIconLoadsAtExpectedSize(logger as Test.Logger) as Boolean {
                 var icon = WatchUi.loadResource(id as ResourceId) as WatchUi.BitmapResource;
                 var size = icon.getWidth() + "x" + icon.getHeight();
                 if (instinct) {
-                    var widths = [30, 24, 36] as Array<Number>;
+                    var widths = [30, 24, 15] as Array<Number>;   // evening: the Body Battery bolt since 2026-10-05 (ROADMAP 13.19)
                     Test.assertMessage(icon.getWidth() == widths[w] and icon.getHeight() == 24, "window " + windows[w] + " is " + size);
                 } else if (choice == 0) {
                     dayArcCheckHeroIconSize(logger, windows[w], slot, size, icon.getHeight(), digits);
@@ -97,7 +97,7 @@ function dayArcCheckHeroIconSize(logger as Test.Logger, window as Number, slot a
 (:test, :pro)
 function gridIconResourcesLoadAtExpectedSize(logger as Test.Logger) as Boolean {
     var ids = [
-        Rez.Drawables.IconGridCalendar, Rez.Drawables.IconGridHeart, Rez.Drawables.IconGridBolt,
+        Rez.Drawables.IconGridCalendar, Rez.Drawables.IconGridHeart, Rez.Drawables.IconGridPulse,
         Rez.Drawables.IconGridStairs, Rez.Drawables.IconGridSteps, Rez.Drawables.IconGridFlame,
         Rez.Drawables.IconGridBell, Rez.Drawables.IconGridThermometer, Rez.Drawables.IconGridRun,
         Rez.Drawables.IconGridBike, Rez.Drawables.IconGridRefresh, Rez.Drawables.IconGridBreath,

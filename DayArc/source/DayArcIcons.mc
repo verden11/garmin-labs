@@ -70,7 +70,7 @@ class DayArcIcons {
     (:pro)
     static const GRID_HEART = 1;
     (:pro)
-    static const GRID_BOLT = 2;
+    static const GRID_PULSE = 2;
     (:pro)
     static const GRID_STAIRS = 3;
     (:pro)
@@ -104,7 +104,7 @@ class DayArcIcons {
     static function gridFor(iconId as Number) as ResourceId {
         if (iconId == GRID_CALENDAR) { return Rez.Drawables.IconGridCalendar; }
         if (iconId == GRID_HEART) { return Rez.Drawables.IconGridHeart; }
-        if (iconId == GRID_BOLT) { return Rez.Drawables.IconGridBolt; }
+        if (iconId == GRID_PULSE) { return Rez.Drawables.IconGridPulse; }
         if (iconId == GRID_STAIRS) { return Rez.Drawables.IconGridStairs; }
         if (iconId == GRID_STEPS) { return Rez.Drawables.IconGridSteps; }
         if (iconId == GRID_FLAME) { return Rez.Drawables.IconGridFlame; }

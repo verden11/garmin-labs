@@ -64,7 +64,7 @@ remaining `owner_approvals` (`listing*/meta.yaml`), translation reads, the site 
 run a real trademark search. Decided: the names DayArc / DayArc Pro (2026-10-04), the placeholder night window stays (time and date only, ADR-010, ROADMAP 1.7), the Instinct Pro behaviour as built (ROADMAP 1.18), two-listing architecture (ADR-003), fixed-clock windows
 (ADR-004), pricing (ADR-007; its price part superseded by ADR-018), Simple's calendar exclusion (ADR-008), Pro's density target (ADR-009).
 **The look is owner-approved for direction and now built** (ADR-013, 2026-09-28: per-window/per-icon
-colour, real icons, always-visible date, window-progress arc). Simulator-tested, both jungles
+colour, real icons, always-visible date, window-progress arc; amended 2026-10-05: a bolt for Body Battery, grey grid icons). Simulator-tested, both jungles
 (unit suites on 13 devices, the five reviewed with screenshots: fr965, fr255s, epix2, instincte40mm, instinct3solar45mm; nine
 design-review passes, recorded in ADR-017); no real-device evidence yet — a mockup or a simulator pass is not device proof.
 

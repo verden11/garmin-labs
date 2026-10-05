@@ -31,7 +31,7 @@ Do not keep open checkboxes anywhere else. Status 2026-10-05.
 - [x] 13.8 `[you]` HeroFace Pro: the temperature jumped from the centre of the row under the time to its right edge when a streak showed, and the streak hugged the left. **Decided 2026-10-05 (owner: "do your picks"): built** as one centred group.
 - [x] 13.9 `[you]` HeroFace Free: an empty band between the time and the missions (no temperature in Free, no streak on day 1). **Decided 2026-10-05: built** (the time moves down half a row when that row is empty).
 - [x] 13.10 `[you]` HeroFace: MOVE read `OK` / `GO`. **Decided 2026-10-05: built** (no value while quiet, red GO on alert). `value_move_ok` is now unused in 15 languages (left in place).
-- [x] 13.11 `[you]` HeroFace: clipped labels `INT`, `FLR`, `STEP`, `CAL`. **Decided 2026-10-05: built** as drawn icons (footprints, flame, bolt, stairs). Look at `HeroFace/listing*/screens/` before the next upload; distance, MOVE and HeroSet's PUSH/SIT/SQT keep words (an exercise icon at that size would not read).
+- [x] 13.11 `[you]` HeroFace: clipped labels `INT`, `FLR`, `STEP`, `CAL`. **Decided 2026-10-05: built** as drawn icons (footprints, flame, pulse line, stairs; the bolt is kept for Body Battery, 13.19). Look at `HeroFace/listing*/screens/` before the next upload; distance, MOVE and HeroSet's PUSH/SIT/SQT keep words (an exercise icon at that size would not read).
 - [x] 13.12 `[you]` HeroFace Pro store hero: its centre watch showed `OK MOVE`. **Resolved by 13.10** (the same scene now shows the bar alone); hero re-rendered.
 - [x] 13.13 `[you]` Two Suns Pro: the weather and watch battery rows were On by default, but every listing shot has them Off, so buyers got a busier face than advertised. **Decided 2026-10-05 (owner: "do your picks"): Off by default** (new installs; ADR-023 amendment).
 - [x] 13.14 `[you]` Two Suns Pro: on short screens the compact weather row showed three identical icons with no hours. **Built 2026-10-05:** the compact row is the current conditions only.
@@ -39,6 +39,8 @@ Do not keep open checkboxes anywhere else. Status 2026-10-05.
 - [x] 13.16 `[you]` Two Suns: the half-grey bolt gauge read as broken. **Built 2026-10-05:** solid bolt (Two Suns ADR-023 (watch battery row, bolt) amendment).
 - [x] 13.17 `[you]` Two Suns: "3:42 of daylight" read as a clock time. **Built 2026-10-05:** "3h 42m of daylight" (letters English for now, 13.7).
 - [ ] 13.18 `[you]` Site, Two Suns: `site/src/apps/two-suns/` (Landing, Support, FacePreview) still says "8:41 of daylight" and draws a filled curve. Update with the next Two Suns upload; a push deploys the site, so it waits for your OK.
+- [x] 13.19 `[you]` DayArc: the evening hero's battery shell read as a second battery beside Pro's watch-battery pill. **Decided 2026-10-05 (owner: "do your picks"): built** as a bolt (as Two Suns). Intensity icons became a pulse line in DayArc's grid and HeroFace, so the bolt means Body Battery across the studio.
+- [x] 13.20 `[you]` DayArc Pro: the grid icons' per-type rainbow competed with the hero. **Built 2026-10-05:** all grid icons muted grey (DayArc ADR-013 (icon system) amendment). Judge both on the wrist with 1.1.
 
 ## 2. Your hands (a watch, the store dashboard, a person)
 

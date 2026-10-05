@@ -5,7 +5,7 @@
          icons/THIRD_PARTY_LICENSES.md. -->
     <bitmap id="IconGridCalendar" filename="icons/grid_calendar.svg" dithering="none" />
     <bitmap id="IconGridHeart" filename="icons/grid_heart.svg" dithering="none" />
-    <bitmap id="IconGridBolt" filename="icons/grid_bolt.svg" dithering="none" />
+    <bitmap id="IconGridPulse" filename="icons/grid_pulse.svg" dithering="none" />
     <bitmap id="IconGridStairs" filename="icons/grid_stairs.svg" dithering="none" />
     <bitmap id="IconGridSteps" filename="icons/grid_steps.svg" dithering="none" />
     <bitmap id="IconGridFlame" filename="icons/grid_flame.svg" dithering="none" />

@@ -19,7 +19,7 @@ type:
   cell: FONT_XTINY (Pro's grid, fixed — a grid row that itself picked a larger font per-cell would misalign the two columns)
 icons:
   source: Tabler Icons (MIT license), github.com/tabler/tabler-icons — real paths adapted, not drawn from scratch (ADR-013)
-  hero: one glyph per window (weather condition, stress wave, battery shell), single-hue, tied to that window's own accent — colour still marks "the hero," nothing else
+  hero: one glyph per window (weather condition, stress wave, a Body Battery bolt since 2026-10-05 (was a battery shell; ROADMAP 13.19)), single-hue, tied to that window's own accent — colour still marks "the hero," nothing else
   grid (Pro only): 14 glyphs, each a fixed hue by icon TYPE forever (heart always red, flame always orange...), never by the value shown — see ADR-013
   date: shown every window now, not just night (ADR-013)
 ---
@@ -239,7 +239,11 @@ highlight in the mockup either and keep none built.
   (one fill/stroke colour each, no highlight; stress is Tabler's wave scaled to the set, weather and battery are
   drawn in the generator, ADR-017) and chosen at draw time; Auto maps each window onto its own hue's file. The set
   follows the screen (see "Hero icon size" below).
-- **Pro grid icons:** each of the 14 glyphs has its own **permanent** hue by icon type — a heart is
+- **Pro grid icons, as built since 2026-10-05 (owner, design critique, ROADMAP 13.20; ADR-013 amendment): every grid icon is
+  muted `#AAAAAA`**, so the hero is the only coloured read on the face; the rainbow of type hues below competed with it. The
+  intensity icon is a pulse line, not a bolt (the bolt is the Body Battery hero, as in Two Suns). The table below is the
+  superseded per-type palette, kept for history.
+- **Pro grid icons (superseded 2026-10-05):** each of the 14 glyphs has its own **permanent** hue by icon type — a heart is
   always `#FF5555` whether HR reads 60 or 160. This is *not* a second verdict system: colour is keyed
   to icon **type**, never to the **value** shown, exactly the same distinction ADR-006 already draws
   for the gauges. All 14 are 64-colour-safe (each channel 0x00/0x55/0xAA/0xFF):

@@ -8,6 +8,10 @@ store's "What's New" text for each version is in that listing's `listing/paste.m
 
 ## Unreleased / 1.0.0 in preparation (both listings)
 
+- **2026-10-05, design critique (owner: "do your picks"; ROADMAP 13.19, 13.20; simulator only):** the evening hero icon is a
+  bolt (the battery shell read as a second battery beside Pro's watch-battery pill); Pro's grid icons are all muted grey (the
+  per-type rainbow competed with the hero), and intensity is a pulse line. ADR-013 amendment. Both listing sets recaptured.
+
 Built 2026-09-28 in three passes the same day: an initial plain-text/single-accent build, ADR-013's
 icon/colour redesign, then a layout rework and an accent-colour setting after the owner's first
 on-wrist photo (ADR-013 amendment, ADR-014). Evidence: simulator-only — compile sweep (both

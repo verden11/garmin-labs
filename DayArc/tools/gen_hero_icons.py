@@ -15,8 +15,8 @@ Height = the digits (0.72 x the HOT font's box, DayArcConfig.DIGIT_HEIGHT_PERMIL
 Pixel grid (ADR-013 amendment 4, kept): every SVG is drawn in PIXEL coordinates (viewBox = width x height, so the SDK's
 rasteriser never resamples), every stroke is a whole number of pixels, straight edges sit on pixel boundaries (an odd
 stroke is centred on a half pixel), circles have whole radii. The stress wave is Tabler's path scaled to the height and
-cropped to its ink (a curve is anti-aliased either way); the weather glyph and the battery are drawn here. The 1-bit Instinct
-(`resources-instinct/`) has one white size for both slots; only its weather glyph is generated, the other two are hand-made.
+cropped to its ink (a curve is anti-aliased either way); the weather glyph and the Body Battery bolt are drawn here. The 1-bit Instinct
+(`resources-instinct/`) has one white size for both slots; its weather glyph and bolt are generated, the stress one is hand-made.
 
 Run from DayArc/: python3 tools/gen_hero_icons.py            (needs nothing but the standard library)
 Hue values must match DayArcPalette.ACCENTS (all 64-colour-safe). Colour is the only thing a hue changes.
@@ -139,23 +139,19 @@ def weather(height, hue):
     return svg(w, h, body)
 
 
-# ---------------------------------------------------------------- battery: Tabler's shell with a heartbeat line, no level
+# ---------------------------------------------------------------- battery: a bolt (the Body Battery hero icon)
+# Was a battery shell with a heartbeat line; beside Pro's watch-battery pill that read as a second battery, the problem
+# Two Suns fixed with a bolt (its ADR-023). Design critique 2026-10-05, ROADMAP 13.19. The id stays IconHeroBattery*.
+BOLT = [(470, 0), (10, 580), (270, 580), (90, 1000), (590, 380), (330, 380)]   # thousandths of the height; 0.6 as wide
+
+
 def battery(size, hue):
-    w = round(1.25 * size)
-    h = 2 * round(0.4375 * size)          # body height, even
-    t = stroke(size) + 1
-    pulse = max(2, stroke(size) - 1)
-    nub_w = t
-    body_w = w - nub_w
-    ro = round(0.29 * h)
-    f = h / 42
-    pts = [(12, 21), (19, 21), (24, 14), (32, 28), (37, 21), (44, 21)]
-    r = body_w / 54
-    poly = " ".join(f"{n(px * r)} {n(h / 2 + (py - 21) * f)}" for px, py in pts)
-    body = (f'<rect x="{n(t / 2)}" y="{n(t / 2)}" width="{n(body_w - t)}" height="{n(h - t)}" rx="{n(ro - t / 2)}" fill="none" stroke="{hue}" stroke-width="{t}" />\n'
-            f'<rect x="{body_w}" y="{n(h / 2 - round(0.14 * h))}" width="{nub_w}" height="{2 * round(0.14 * h)}" fill="{hue}" />\n'
-            f'<polyline points="{poly}" fill="none" stroke="{hue}" stroke-width="{pulse}" stroke-linecap="round" stroke-linejoin="round" />\n')
-    return svg(w, h, body)
+    t = stroke(size)
+    w = math.ceil(0.6 * size)
+    inner_w, inner_h = w - t, size - t        # the stroke's centre line stays inside the box
+    pts = " ".join(f"{n(t / 2 + x / 600 * inner_w)} {n(t / 2 + y / 1000 * inner_h)}" for x, y in BOLT)
+    body = f'<polygon points="{pts}" fill="none" stroke="{hue}" stroke-width="{t}" stroke-linejoin="round" />\n'
+    return svg(w, size, body)
 
 
 MAKERS = {"weather": weather, "stress": stress, "battery": battery}
@@ -204,8 +200,9 @@ def write_default_xml():
 
 
 def write_instinct():
-    """The 1-bit Instinct: one white size (30x24 / 24x24 / 36x24) for both slots (ADR-016); only the weather glyph is drawn here."""
+    """The 1-bit Instinct: one white size (30x24 / 24x24 / 36x24) for both slots (ADR-016); the weather glyph and the bolt are drawn here."""
     write(os.path.join(ROOT, "resources-instinct", "drawables", "icons", "hero_weather_compact.svg"), weather(24, "#FFFFFF"))
+    write(os.path.join(ROOT, "resources-instinct", "drawables", "icons", "hero_battery_compact.svg"), battery(24, "#FFFFFF"))
     compact = lambda icon: f"icons/hero_{icon}_compact.svg"
     note = ("    <!-- The Instinct E and 3 Solar only (ADR-016): the hero icons at about half the size, one white file per window for\n"
             "         both slots. The display is 1-bit (the Accent setting is off there, so only the Auto hue is ever drawn), but\n"

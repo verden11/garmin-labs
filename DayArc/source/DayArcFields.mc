@@ -146,7 +146,7 @@ class DayArcFields {
         return [
             calendar,
             iconOnlyCell(DayArcIcons.GRID_HEART, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_HEART_RATE))),
-            iconCell(Rez.Strings.label_intensity_minutes, DayArcIcons.GRID_BOLT, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_INTENSITY_MINUTES))),
+            iconCell(Rez.Strings.label_intensity_minutes, DayArcIcons.GRID_PULSE, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_INTENSITY_MINUTES))),
             iconOnlyCell(DayArcIcons.GRID_STAIRS, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_FLOORS_CLIMBED))),
             iconOnlyCell(DayArcIcons.GRID_STEPS, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_STEPS))),
             iconOnlyCell(DayArcIcons.GRID_FLAME, DayArcFormat.count(DayArcSources.complicationNumber(Complications.COMPLICATION_TYPE_CALORIES))),
