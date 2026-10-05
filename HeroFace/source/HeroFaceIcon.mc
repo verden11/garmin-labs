@@ -1,8 +1,8 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 
-// Mission icons drawn from primitives in place of a clipped word: footprints for steps, a flame for calories, a bolt
-// for intensity minutes, stairs for floors (design critique 2026-10-05, ROADMAP 13.11: "INT" and "FLR" were the words
+// Mission icons drawn from primitives in place of a clipped word: footprints for steps, a flame for calories, a
+// pulse line for intensity minutes, stairs for floors (design critique 2026-10-05, ROADMAP 13.11: "INT" and "FLR" were the words
 // that fit a third of the screen). Distance (KM/MI), MOVE and HeroSet's three exercises keep their words.
 class HeroFaceIcon {
 
@@ -17,7 +17,7 @@ class HeroFaceIcon {
     }
 
     static function width(kind as Number, s as Number) as Number {
-        return kind == HeroFaceConfig.STEPS || kind == HeroFaceConfig.FLOORS ? s : s * 3 / 4;
+        return kind == HeroFaceConfig.CALORIES ? s * 3 / 4 : s;
     }
 
     // Draws the icon with its box's top-left at (x, top), in the colour already set.
@@ -31,8 +31,11 @@ class HeroFaceIcon {
             var w = s * 3 / 4;
             dc.fillPolygon(points(x, top, w, s, [[50, 0], [92, 52], [86, 82], [50, 100], [14, 82], [8, 52], [32, 30], [40, 52]]));
         } else if (kind == HeroFaceConfig.INTENSITY) {
-            var w = s * 3 / 4;
-            dc.fillPolygon(points(x, top, w, s, [[62, 0], [8, 58], [44, 58], [32, 100], [92, 40], [56, 40], [74, 0]]));
+            // A pulse line, not a bolt: across the studio the bolt means Body Battery (Two Suns, DayArc; ROADMAP 13.19).
+            var p = points(x, top, s, s, [[0, 55], [28, 55], [42, 10], [62, 95], [76, 55], [100, 55]]);
+            for (var i = 0; i < p.size() - 1; i++) {
+                dc.drawLine(p[i][0], p[i][1], p[i + 1][0], p[i + 1][1]);
+            }
         } else {
             // Three steps rising to the right, drawn as one stroke.
             var step = s / 3;

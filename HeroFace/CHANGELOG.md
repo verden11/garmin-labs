@@ -9,7 +9,7 @@ Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.8 to 13.12; s
 
 - **The streak and the temperature are one centred group** under the time, so the temperature no longer jumps from the row's centre to its right edge when a streak shows (Pro), and the streak is no longer pinned left.
 - **No empty band under the time:** when that row has nothing (no streak yet, no temperature), the time moves down half a row (Free's first days).
-- **Icons instead of clipped words:** footprints, flame, bolt and stairs replace `STEP`, `CAL`, `INT`, `FLR` (drawn, so nothing to translate). Distance, MOVE and HeroSet's exercises keep their words.
+- **Icons instead of clipped words:** footprints, flame, a pulse line and stairs replace `STEP`, `CAL`, `INT`, `FLR` (drawn, so nothing to translate). Distance, MOVE and HeroSet's exercises keep their words.
 - **MOVE shows no value until it alerts:** `OK` is gone; the alert stays the red word GO.
 - Both listing sets recaptured.
 
