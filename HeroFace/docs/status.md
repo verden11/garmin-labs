@@ -2,7 +2,7 @@
 
 > **Open items live only in the root [`ROADMAP.md`](../../ROADMAP.md).** This file keeps where things stand, the evidence, the release gates and the upload steps. Listing text and metadata: [`../listing/paste.md`](../listing/paste.md) and [`../listing/meta.yaml`](../listing/meta.yaml). Claims: [`release-contract.md`](release-contract.md). Build history: [`archive/plan.md`](archive/plan.md).
 
-**Where things stand, 2026-10-05.** Live: **1.0.1** (since 2026-09-24, 117 round products). **Uploaded by the owner 2026-10-04, in Garmin review:** HeroFace Free 1.0.0 (new app) and HeroFace Pro 1.1.0 (the paid app renamed, the $2.50 tier), both with the Instinct family (ADR-002), 124 products, simulator only. Open work: ROADMAP 5.1, 5.5, 7.12, 10.31.
+**Where things stand, 2026-10-05.** Live: **1.0.1** (since 2026-09-24, 117 round products). **Uploaded by the owner 2026-10-04, in Garmin review:** HeroFace Free 1.0.0 (new app) and HeroFace Pro 1.1.0 (the paid app renamed, the $2.50 tier), both with the Instinct family (ADR-002), 124 products, simulator only. Open work: ROADMAP 5.1, 5.5, 7.12, 10.31. **Added 2026-10-05, not uploaded:** the 5 rectangular Venu Sq / Sq 2 / X1 products (129 in both manifests; the ring as a frame, ADR-005, proposed; simulator only; the look needs the owner's approval before the next upload; `compatibility.md` "Rectangle family").
 
 Status: 2026-10-05 (upload state; the Free + Pro block dated 2026-10-01 to 04; the rest as of 2026-09-26). (open items moved to the root ROADMAP.md, 2026-10-04) History: [`../CHANGELOG.md`](../CHANGELOG.md), `git log`.
 

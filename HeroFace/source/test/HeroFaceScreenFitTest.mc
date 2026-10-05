@@ -226,3 +226,35 @@ function rowsBesideAWindowStayClearOfIt(logger as Test.Logger) as Boolean {
     Test.assert(layout.belowWindow(0) >= (window == null ? 0 : (window.y as Number) + (window.height as Number)));
     return true;
 }
+
+// On a rectangle the ring is an open-bottom rounded rectangle (ADR-005): its band stays on the display, an empty share
+// fills nothing, any progress fills a pixel, a full share fills the whole path and more progress never fills less.
+// Every other product keeps its circle or its window gauge.
+(:test)
+function rectangleRingStaysOnTheDisplay(logger as Test.Logger) as Boolean {
+    var settings = System.getDeviceSettings();
+    var size = {:width => settings.screenWidth, :height => settings.screenHeight};
+    var bitmap = (Graphics has :createBufferedBitmap)
+        ? Graphics.createBufferedBitmap(size).get() as Graphics.BufferedBitmap
+        : new Graphics.BufferedBitmap(size);
+    var layout = new HeroFaceLayout(bitmap.getDc());
+    if (!layout.rectangle()) {
+        Test.assert(settings.screenShape != System.SCREEN_SHAPE_RECTANGLE);
+        return true;
+    }
+    var b = layout.frameBox();
+    var half = layout.ringWidth() / 2 + 1;
+    Test.assert(b[0] - half >= 0 && b[1] - half >= 0 && b[2] + half <= settings.screenWidth && b[3] + b[4] + half <= settings.screenHeight);
+    Test.assert(b[3] > b[1] + b[4] && b[2] - b[0] > 2 * b[4]);
+    Test.assertEqual(layout.frameFillFor(0), 0);
+    Test.assert(layout.frameFillFor(1) >= 1);
+    Test.assertEqual(layout.frameFillFor(1000), layout.frameLength());
+    Test.assertEqual(layout.frameFillFor(1500), layout.frameLength());
+    var last = 0;
+    for (var p = 0; p <= 1000; p += 50) {
+        Test.assert(layout.frameFillFor(p) >= last);
+        last = layout.frameFillFor(p);
+    }
+    logger.debug("frame " + b + " length=" + layout.frameLength());
+    return true;
+}
