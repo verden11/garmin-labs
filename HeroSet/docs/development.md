@@ -34,7 +34,7 @@ Launch language list identical in both manifests: `eng`, `deu`, `fre`, `spa`, `i
 
 After string change: compare every qualified file's IDs and placeholders with `resources/strings/strings.xml`, then run the screen-fit suite in every language on the narrowest screens: `tools/fit-sweep.sh venu2s fr265s` (overlays each language's strings in a throwaway jungle, since the simulator has no CLI language switch; [ADR-049](decisions.md#adr-049)). `tools/fit-sweep.sh -l eng <product>…` checks products in English. `FIT_LINES=40` prints every problem line per run (default 3). Simulator evidence no replace real-device font and layout checks.
 
-## Unit tests (118 tests; 105 in store build)
+## Unit tests (122 tests; 109 in store build)
 
 ```bash
 monkeyc -t -d fr965 -f monkey.jungle -o bin/HeroSet-tests.prg -y /path/to/developer_key

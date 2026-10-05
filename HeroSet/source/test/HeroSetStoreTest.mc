@@ -111,6 +111,20 @@ function loweringTheGoalCompletesTodayImmediately(logger as Test.Logger) as Lang
     return true;
 }
 
+// The same rule as a correction (ADR-058): completion follows today's counts
+// against today's goal, whichever of the two moved.
+(:test)
+function raisingTheGoalAboveTodayUndoesTheCompletion(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    completeAll(store);
+    store.setGoal(store.getGoal() + HeroSetConfig.MISSION_GOAL_STEP);
+    Test.assert(!store.isDailyMissionComplete());
+    Test.assertEqual(store.getStreak(), 0);
+    store.setGoal(store.getGoal() - HeroSetConfig.MISSION_GOAL_STEP);
+    Test.assertEqual(store.getStreak(), 1);
+    return true;
+}
+
 (:test)
 function addAwardsXpOnNetStoredDelta(logger as Test.Logger) as Lang.Boolean {
     var store = storeWith(20260911);

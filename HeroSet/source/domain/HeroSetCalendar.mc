@@ -43,6 +43,19 @@ class HeroSetCalendar {
         return today == lastYear * 10000 + (lastMonth + 1) * 100 + 1;
     }
 
+    // The calendar day before `day`, the inverse of isConsecutiveDate.
+    static function previousDayKey(day as Lang.Number) as Lang.Number {
+        var year = day / 10000;
+        var month = (day % 10000) / 100;
+        if (day % 100 > 1) {
+            return day - 1;
+        }
+        if (month == 1) {
+            return fieldKey(year - 1, 12, 31);
+        }
+        return fieldKey(year, month - 1, daysInMonth(year, month - 1));
+    }
+
     static function daysInMonth(year as Lang.Number, month as Lang.Number) as Lang.Number {
         if (month == 2) {
             var leap = (year % 4 == 0 && year % 100 != 0) || year % 400 == 0;
