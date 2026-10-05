@@ -80,6 +80,9 @@ approachs7047mm.resourcePath = $(approachs7047mm.resourcePath);resources-complic
 instincte40mm.resourcePath = $(instincte40mm.resourcePath);resources-complications
 instincte45mm.resourcePath = $(instincte45mm.resourcePath);resources-complications
 instinct3solar45mm.resourcePath = $(instinct3solar45mm.resourcePath);resources-complications
+# Instinct 3 AMOLED: round colour AMOLED, CIQ 6.0; no mono line (ADR-055).
+instinct3amoled45mm.resourcePath = $(instinct3amoled45mm.resourcePath);resources-complications
+instinct3amoled50mm.resourcePath = $(instinct3amoled50mm.resourcePath);resources-complications
 # Black-and-white semi-octagon watches (ADR-055).
 instinct2.excludeAnnotations = $(exclude);color
 instinct2s.excludeAnnotations = $(exclude);color

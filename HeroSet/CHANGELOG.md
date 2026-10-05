@@ -12,6 +12,8 @@ Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.21 to 13.23; 
 - **Set screen: calories read `--` until the estimate reaches 1**, not `CAL 0` in a set's first seconds.
 - **Instinct dashboard: no `STREAK 0`.** At zero the streak row is left out beside the window (the round dashboard keeps `NO STREAK YET`).
 - Listing shots 2, 3 and 5 and the hero re-framed.
+- **Two more watches: Instinct 3 AMOLED 45 mm and 50 mm** (`instinct3amoled45mm`, `instinct3amoled50mm`), as plain round colour products, glance included; 89 products in both manifests. Both are on Garmin's paid-app list. No app code changed ([ADR-055](docs/decisions.md#adr-055) (Instinct family), amended 2026-10-05). Container simulator, 2026-10-05: dev 116/116 and store 103/103 on both and on fr965; fit sweep eng, ita, por, ukr, dut, lit PASSED on the 45 mm; screens looked at on both. Nothing on a wrist.
+- **Instinct Crossover AMOLED left out:** in its simulator the parked analog hands cover the middle of every screen (the rep number included); it needs its own layout first ([`docs/compatibility.md`](docs/compatibility.md) wave 7).
 
 ## 1.3.1 — uploaded 2026-10-04 by the owner, in review (fixes and the Instinct glance layout)
 
