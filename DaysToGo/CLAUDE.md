@@ -1,7 +1,7 @@
 # Days To Go — CLAUDE.md
 
 Garmin watch face (Connect IQ, Monkey C) from studio Verden. One job: how many
-days until a date, and the date is always right. 127 products (117 round, 3 rectangular AMOLED, 7 semi-octagon Instinct, ADR-015 (Instinct family), accepted 2026-10-04, simulator only),
+days until a date, and the date is always right. 129 products (117 round, 5 rectangular: 3 AMOLED and the first-generation Venu Sq and Sq Music, LCD, added 2026-10-05; 7 semi-octagon Instinct, ADR-015 (Instinct family), accepted 2026-10-04; simulator only),
 `minApiLevel` 3.0.0, no permissions. Paid: first submitted at USD 1.99, then the $2.50 tier for Days To Go Pro ([ADR-017](docs/decisions.md#adr-017), price: the $2.50 tier for every paid app; set in the upload form with 1.1.0; no price number in listing or site text). Approved 2026-09-28 (late afternoon, owner). The day-45 price-flip review of ADR-002 is retired:
 the owner approved the Free + Pro ladder on 2026-10-04 (ADR-014), and the paid app is never flipped to free.
 
@@ -20,7 +20,7 @@ The evidence is in [`../reports/Countdown face research.md`](../reports/Countdow
 - Settings are **lists**, never `type="date"` or `numeric` min/max (both failed in rival faces).
   `tools/gen_settings.py [free|pro]` writes `resources-free/settings/*` and `resources-pro/settings/*` (**no settings file in the shared `resources/`**) and `resources/strings/generated.xml`.
   `AppName` lives only in `resources-free/strings` and `resources-pro/strings`, never in `resources/` or a `resources-<lang>/` (it would override the tier name on a non-English watch); each jungle appends its tier folder to every `base.lang.<l>`.
-  The date can also be set **on the watch** (`getSettingsView`, Menu2 + Picker; 94 of the 117 round products; not checked for the 3 rectangles).
+  The date can also be set **on the watch** (`getSettingsView`, Menu2 + Picker; 94 of the 117 round products; not checked for the 5 rectangles).
 - The count is integer calendar-day arithmetic (`DaysToGoCalendar.dayNumber`); never `Time.Moment` maths.
   It flips at local midnight. See `docs/spec.md` "Rules the count follows".
 - Properties only (no `Storage`), no permissions, nothing leaves the watch.
@@ -55,6 +55,6 @@ Same as HeroFace ([`../HeroFace/CLAUDE.md`](../HeroFace/CLAUDE.md)), which this 
 - New layout or string → run the screen-fit test for each screen size and update `docs/compatibility.md`.
 - User-facing claims live in the listing and `../site/src/apps/days-to-go/`; change both together, never change a published URL.
 - Every store publication gets a `CHANGELOG.md` entry and a What's New block in `listing/paste.md`.
-- Test count appears in `README.md` and here: **Pro 68, Free 57** on round and rectangular products (52 shared + 15 Pro-only / + 4 Free-only, + the Instinct layout test), **Pro 66, Free 55** on an Instinct (the colour-only accent tests drop, a mono one joins), simulator tests PASSED 2026-10-04 (2026-10-05: Pro on fr965, fr55, fenix5s, fr255s, epix2, venusq2, instincte40mm, instinct2s and Free on fr965 after ROADMAP 13.1 to 13.4) (fr965, fr255s, epix2, venusq2, fr55, fenix5s, instincte40mm, instinct3solar45mm, instinct2, instinct2s; no wrist); update both.
+- Test count appears in `README.md` and here: **Pro 68, Free 57** on round and rectangular products (52 shared + 15 Pro-only / + 4 Free-only, + the Instinct layout test), **Pro 66, Free 55** on an Instinct (the colour-only accent tests drop, a mono one joins), simulator tests PASSED 2026-10-04 (2026-10-05: Pro on fr965, fr55, fenix5s, fr255s, epix2, venusq2, instincte40mm, instinct2s and Free on fr965 after ROADMAP 13.1 to 13.4; after the Venu Sq and the always-on fix, both tiers on venusq, venusqm, venusq2, venux1, fr965, fr55, epix2, fr265s) (fr965, fr255s, epix2, venusq2, fr55, fenix5s, instincte40mm, instinct3solar45mm, instinct2, instinct2s; no wrist); update both.
 - **Instinct family (ADR-015, accepted 2026-10-04; 7 products, 1-bit, a round window top right):** `DaysToGoPalette` is two classes, `(:color)` and `(:mono)`, chosen by the jungles (`base.excludeAnnotations = <tier>;mono`, and per Instinct product `<product>.excludeAnnotations = <tier>;color` — a per-product line **replaces** the base list, so restate the tier's own). The Accent setting is its own file (`resources-accent-<tier>/settings/accent.xml`, from `tools/gen_settings.py`) and the Instinct `resourcePath` leaves that folder out. The visible area is a circle about 98 px in radius (`DaysToGoLayout.VISIBLE_RADIUS_PX`), not the whole square: **screenshot the simulator for every layout change** (`docs/development.md` "Screenshots").
 - A new language: its line in **both** manifests and **both** jungles; its folder must not define `AppName` (`python3 tools/check_strings.py`).

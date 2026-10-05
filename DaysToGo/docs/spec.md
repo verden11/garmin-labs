@@ -24,7 +24,7 @@ No permissions, nothing leaves the watch.
 | D4 | **Settings: lists, never `date` or `numeric`** | Decided (evidence) | Both failed in rivals; see "Setting the date" |
 | D5 | **A second way in: set the date on the watch** (`getSettingsView` + Picker) | Decided, gated by the phase 3 device test | Removes the phone from the critical path; keep only if it does not destroy phone-set values. Documented for 94 of the 117 products; the older CIQ 3.x products and the newest have the phone only |
 | D6 | **Calendar-day arithmetic**, no `Time.Moment` maths | Decided (verified) | Rival bugs are all calendar bugs; unit tests pass in the simulator (43 tests; the counting rules on fr965, fenix6pro and venu2s, screen fit on ten sizes) |
-| D7 | **Devices: the 117 round products HeroFace supports** (CIQ 3.0+), plus 3 rectangular AMOLED products (Venu Sq 2, Sq 2 Music, Venu X1) added 2026-09-26 | Recommended | Same evidence base and test method; if paid, the store itself restricts sales to its own list |
+| D7 | **Devices: the 117 round products HeroFace supports** (CIQ 3.0+), plus 3 rectangular AMOLED products (Venu Sq 2, Sq 2 Music, Venu X1) added 2026-09-26, and the first-generation Venu Sq and Sq Music (LCD, CIQ 3.3.6; not on the paid list, Free-only reach) added 2026-10-05 | Recommended | Same evidence base and test method; if paid, the store itself restricts sales to its own list |
 | D8 | **Category: Utility** | Recommended | It is a utility face; Simple is the alternative |
 | D9 | **Languages: English + HeroFace's 14 translations** | Recommended | Few strings; Russian, Greek and Chinese are owner-level additions |
 | D10 | **No code sharing with HeroFace** (copy the few files, no Barrel) | Decided | A Barrel pays off at the third shared face, not the second |
@@ -147,7 +147,7 @@ These are starting proportions, not a mock-up; the mock-up comes from the design
 
 ## Devices and memory
 
-- 117 round products (HeroFace's `manifest.xml`) plus 3 rectangular ones (round design, centred), `minApiLevel` 3.0.0, one build, no bitmaps. Smallest watch-face memory 96 KB.
+- 117 round products (HeroFace's `manifest.xml`) plus 5 rectangular ones (round design, centred) and 7 Instinct products, `minApiLevel` 3.0.0, one build, no bitmaps. Smallest watch-face memory 96 KB.
 - Measured, finished face, simulator normal run, 2026-09-26: **28% of 110 KB on fēnix 6 Pro, 33% of 94 KB on FR55**. Simulator only.
 - Not in v1: Instinct (semi-octagon, 64 KB, monochrome). A later face-shape pass, like HeroFace's phase 4.
 - Paid only: sold on the SDK's App_Sales product list (lowest tier CIQ 3.4) and in its country list.

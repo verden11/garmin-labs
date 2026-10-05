@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-10-03. HeroFace's 117 products, plus 3 rectangular ones below: every round watch-face product at Connect IQ 3.0 or newer in SDK 9.2.0 (the list was made and checked for HeroFace, `../../HeroFace/docs/compatibility.md`). No permissions, so no product is excluded for a permission. **Everything below is simulator evidence; nothing has run on a wrist.**
+Status: 2026-10-05. HeroFace's 117 products, plus 5 rectangular ones and the 7 Instinct products below (129): every round watch-face product at Connect IQ 3.0 or newer in SDK 9.2.0 (the list was made and checked for HeroFace, `../../HeroFace/docs/compatibility.md`). No permissions, so no product is excluded for a permission. **Everything below is simulator evidence; nothing has run on a wrist.**
 
 ## Supported products
 
@@ -29,13 +29,28 @@ and system fonts.
 
 The face keeps its round design: the ring is a circle the size of the shorter side, centred, with black bars above and below. Text is checked against the round chord, which is stricter than a rectangle needs. All three are CIQ 5+ with 128 KB watch-face memory. Simulator only; the look on a rectangle is **not approved by the owner**. The settings-screen list in the SDK was not checked for these three.
 
+### Venu Sq and Venu Sq Music (added 2026-10-05, simulator only)
+
+| Screen | Products | `manifest` ids |
+|---|---|---|
+| 240 × 240 LCD | 2 | `venusq`, `venusqm` |
+
+The first-generation Venu Sq: a square **LCD** (not AMOLED), 16-bit colour, CIQ 3.3.6 (some part numbers 3.3.1), launcher icon 36 px. Watch-face memory from the SDK's `compiler.json`: **`venusq` 98,304 B (the 96 KB class), `venusqm` 524,288 B**. Nothing on record excluded them; ADR-006 (device set) simply added the three CIQ 5+ rectangles in 2026-09. They take the existing rectangle path (`SCREEN_SHAPE_RECTANGLE`, no per-device resources, no jungle lines): on a square screen the ring fills the screen edge to edge, as on a round watch, with no bars. **Not on Garmin's paid list** ("Paid vs free reach" below): only Days To Go (Free) reaches them.
+
+- **Tests (container simulator, SDK 9.2.0):** full suite Pro 68/68 and Free 57/57 on `venusq` and on `venusqm`; `everyStateFitsThisDisplay` passes on both jungles on each.
+- **Memory** (`FLAGS="-r -w" docker/shot.sh`, the status bar after the face drew, default New Year state): `venusq` Pro **35.4 / 91.8 kB (39%)**, Free **32.5 / 91.8 kB (35%)**. Higher than `fr55` (31.5 / 28.7 kB) but about 56 kB of headroom. `venusqm` not read (5x the budget).
+- **Looked at** (screenshots, `venusq`, 10:09 on 2026-10-04): the default face (both tiers); a 12-character name "Anna and Tom" with the date (both) and with Pro's battery and steps lines; Pro's last-24-hours `7h 51m` with the battery line; always-on. On 240 × 240 **nothing is dropped**: name, hero, DAYS, `→ Sat Dec 19` and the bottom line all show (unlike `venusq2`, ROADMAP 10.12: its 320 px circle is narrower against its 39 px rows). The hero steps down a size when the bottom line is on.
+- **Found and fixed: the always-on time was cut to "1" on the rectangles** (`venusq`, and also the live `venusq2`, so `venusq2m` with the same screen; `venux1` not measured before the fix). The rectangle's taller stack (ADR-016 (bottom line and name step-down), amendment (3), 90 % of the content radius; amendment (5) is this fix) put the time row where the always-on circle (smaller by the drift step) is too narrow, so `DaysToGoDraw.line` truncated it on the top and middle rows of the drift grid. The always-on frame now plans with the round span on every product (time and hero only, so it needs no extra height); the awake face is unchanged. `alwaysOnFrameFitsAtEveryDrift` now also fails if the time is not drawn whole: it failed on `venusq` and `venusq2` before the fix (114 misses each) and passes after on `venusq`, `venusq2`, `venux1`, `fr965`. Screenshots after the fix: `10:10` whole on `venusq` (both tiers) and `venusq2`.
+- **Always-on in the simulator is the AMOLED frame** (dim time and hero, drifting): the `venusq` simulator reports burn-in protection although the watch is LCD. On a real Venu Sq the face may instead stay the full face when asleep (the MIP rule, `DaysToGoView`); which one it shows is for a wrist.
+- **Not proven:** anything on a wrist; LCD daylight contrast; the on-watch "Customize" route on CIQ 3.3 (not checked in the SDK's list).
+
 ## The watch's own settings screen
 
 `AppBase.getSettingsView` (on-watch "Set date") is listed in the SDK for 94 of the 117 products by name match. The 23 not listed are the D2 Charlie/Delta family, Descent Mk1, the vívoactive 3 family, FR645/935, fēnix Chronos, Approach S62 (older CIQ 3.x), and the newest (fēnix 9 family, FR70, FR170). On those the phone is the only way to set the date. The listing and support page must not promise the watch route on every watch, and the FR965 test (plan phase 3, T4) says nothing about the others.
 
 ## Free and Pro builds (ADR-014 (Free + Pro ladder), accepted and uploaded 2026-10-04)
 
-Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle`) and **Free** (`manifest.free.xml`, new app id, `monkey.free.jungle`). Both list the **same 120 products**, `minApiLevel` 3.0.0, the same 15 languages and an empty permission list; `tools/compile_sweep.sh` refuses to run if the two manifests' product lists differ. Free's permissions are a subset of Pro's, never more.
+Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle`) and **Free** (`manifest.free.xml`, new app id, `monkey.free.jungle`). Both list the **same products** (120 at the time; 129 since 2026-10-05), `minApiLevel` 3.0.0, the same 15 languages and an empty permission list; `tools/compile_sweep.sh` refuses to run if the two manifests' product lists differ. Free's permissions are a subset of Pro's, never more.
 
 - **Why a Free twin matters here:** a paid app is sold only on Garmin's own list, so the paid listing can never reach some of the 120 products; a free app is not held to that list (plan WP4: 33 more products; the Free listing's real device list is only known after approval, so no count goes in any listing).
 - Compile evidence, 2026-10-01 (compile only, simulator not used, SDK 9.2.0): both jungles, normal and test builds, `-w --typecheck 3`, zero warnings on `fr965` and `venux1`; on `fr55` and `venusq2` only the known launcher-icon size notice (the placeholder icon, unchanged from before this work). The whole-manifest sweep is `tools/compile_sweep.sh`.
@@ -144,6 +159,8 @@ A paid app (Pro) is sold only on the SDK's App_Sales product list (lowest tier C
 ### Paid vs free reach (2026-10-04)
 
 Measured on the live 1.0.1 listing, by store part number against the manifest: **72 of 120 products are listed; 48 are not = 37 off the paid list (the Free-only reach: Forerunner 55, 245, 645, 745, 935, 945 and 945 LTE, vívoactive 3 and 4 families, fēnix 5 family, fēnix 6S, Enduro, D2 Charlie/Delta, Descent Mk1, Approach S62 and others) + 11 on the list but sold to no paid app** (MARQ Gen 1 x8, Descent Mk2/Mk2i, Mk2 S, D2 Air X10; Garmin does not say why). Of the 7 Instinct products added in 1.1.0, **Instinct E 40/45 mm and Instinct 3 Solar are on the paid list (3); Instinct 2, 2S, 2X and Descent G1 are not (4)**. So Days To Go Pro 1.1.0 can be sold on about 75 of 127 products, and only the Free twin reaches the other 52 (41 off the list + the 11 unsold). Both packages still carry all 127. Listing text never names watch models, in either listing; the store's device tab is the claim (owner, 2026-10-04; [`release-contract.md`](release-contract.md)). Sources: [`../../reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md) section 3, `research_notes/Free and Pro ladder/garmin_rules.md` "Re-read 2026-10-04".
+
+**Venu Sq and Venu Sq Music (2026-10-05):** **not on the paid list.** Garmin's App Sales page (`developer.garmin.com/connect-iq/articles/monetization/App_Sales.html`, read 2026-10-05) lists Venu Sq 2 and Sq 2 Music (API 5.0) but no first-generation Venu Sq, and their CIQ 3.3.6 is below the lowest paid tier (3.4); `research_notes/Verden research distilled/opportunities.md` row 8 already said "not Venu Sq 1". Following the Instinct 2 precedent (ROADMAP 10.15): both packages carry them, only the Free twin reaches them, no listing text names them. So Pro can be sold on about 75 of 129 products and only Free reaches the other 54 (43 off the list + the 11 unsold). Not yet read off a store device list (they ship with the next upload).
 
 ### Eight-colour Forerunner 55 (2026-10-04)
 

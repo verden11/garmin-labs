@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<!-- Days To Go. Products: HeroFace's 117 round watch-face products at Connect IQ 3.0+ in SDK 9.2.0, plus the 3 rectangular AMOLED ones (Venu Sq 2, Sq 2 Music, Venu X1); docs/compatibility.md. App id never changes. This is the Pro build (Days To Go Pro): paid; manifest.free.xml is the Free twin (docs/decisions.md ADR-014 (Free + Pro ladder)). No permissions on purpose (docs/decisions.md, ADR-010). -->
+<!-- Days To Go. Products: HeroFace's 117 round watch-face products at Connect IQ 3.0+ in SDK 9.2.0, plus 5 rectangular ones (Venu Sq 2, Sq 2 Music, Venu X1; Venu Sq and Sq Music, added 2026-10-05), and the 7 Instinct products; docs/compatibility.md. App id never changes. This is the Pro build (Days To Go Pro): paid; manifest.free.xml is the Free twin (docs/decisions.md ADR-014 (Free + Pro ladder)). No permissions on purpose (docs/decisions.md, ADR-010). -->
 <iq:manifest version="3" xmlns:iq="http://www.garmin.com/xml/connectiq">
   <iq:application id="45fad8be-72b0-4c4b-8b8e-58d9924d622c" type="watchface" name="@Strings.AppName" entry="DaysToGoApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="3.0.0">
     <iq:products>
@@ -119,6 +119,8 @@
       <iq:product id="instincte40mm"/>
       <iq:product id="instincte45mm"/>
       <iq:product id="instinct3solar45mm"/>
+      <iq:product id="venusq"/>
+      <iq:product id="venusqm"/>
       <iq:product id="venusq2"/>
       <iq:product id="venusq2m"/>
       <iq:product id="venux1"/>
