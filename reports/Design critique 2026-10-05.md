@@ -45,6 +45,19 @@ Every changed listing image set was recaptured (both tiers where both changed) a
 - **Glance:** already simulated (HeroSet opens on its glance on glance devices; `drive_screens.sh` step `0b-glance`).
 - Also there and unused so far: language switch, Set Weather / Position / Battery Status / Phone Notifications, Time Simulation (fast-forward), Trigger App Settings (the phone-settings path), Edit Persistent Storage, View Memory. Watchface Diagnostics was greyed.
 
+## Watch-framed listing images (evening)
+
+- Owner asked for HeroSet-style images (chassis and part of the strap) in every listing, ideally a different watch per image. Done for all 9 listings (45 images): each scene is now captured on its own watch (Fenix 8, Fenix 8 Pro, Epix Pro, FR970, FR965, FR265, Venu 3, Venu 4 41 mm; Instinct E, Venu Sq 2, FR255S kept) and framed by the new shared `docker/frame_shot.sh` / `docker/frame_listing.sh` (the device's own simulator skin, no window capture; 720x720, all under 150 KB). `meta.yaml` points at `screens-framed/`; heroes re-rendered. HeroSet's old window-crop pipeline was replaced. Commits `a033d80`, `f20730b`.
+- Found on the way: DayArc's shot script kept stale simulator settings (the Pro "accent blue" shot was pink); fixed, as HeroFace's earlier.
+
+## Edge-state pass (evening; simulator only)
+
+- **Burn-in (24-hour heat-map simulation, always-on):** all pass; Days To Go 0.84%, Two Suns 1.09%, HeroFace 1.23%, DayArc 2.52% peak luminance (Garmin's limit 10%).
+- **Always-on looks:** three different greys across the studio: Days To Go and HeroFace `#555555` (2.8:1, under the house 3:1 bar), Two Suns `#5C5C5C` (its ADR-027), DayArc the full muted `#AAAAAA` (brightest, hence its higher luminance). Decision for the owner.
+- **First run:** Days To Go counts down to its default event (Jan 1 2027) until set; HeroFace shows zeros and empty bars; HeroSet's glance says `NO STREAK YET`; all read fine.
+- **DayArc Pro:** the next-calendar-event pill reads `00:00` in the simulator with no event (Garmin's complication string, passed through): check on the wrist (1.1).
+- **Not covered yet:** low battery, missing weather / Body Battery on screen, other languages on screen (unit fit tests cover them), the Fenix 8 glance path in HeroSet's driver.
+
 ## Open for the owner
 
 - **13.5** Days To Go time-zone list: city hints (parked by the owner for later).
