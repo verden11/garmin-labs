@@ -19,9 +19,9 @@ next:
 package:
   file: dist/DayArc-1.0.0.iq
   products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
-  exported: 2026-10-04   # re-export 'b' from commit 40bb0a0, after the last code change; the unsuffixed 2026-10-04 file is stale
+  exported: 2026-10-05   # re-export from commit 8564d00 (code of a4a116d), after the design-review fixes of ADR-017; the 2026-10-04 files are in dist-old/*-before-review7.iq
   check: "tools/check_package.sh: OK (Instinct parts carry no settings file, the other 89 have Accent)"
-  note: "export: docker/run.sh DayArc monkeyc -e -r -f monkey.simple.jungle -w; built in the verden-ciq-build container; same bytes as dist/DayArcSimple.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
+  note: "export: CIQ_IMAGE=verden-ciq-build:9.2.0 docker/run.sh DayArc monkeyc -e -r -w -f monkey.simple.jungle; built in the verden-ciq-build container; same bytes as dist/DayArc-1.0.0.iq in the build worktree; the older exports are in dist-old/"
 price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
