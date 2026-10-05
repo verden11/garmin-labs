@@ -92,7 +92,7 @@ Evidence is in ADR-055 (simulator only). `instinct2`, `instinct2s` and `instinct
 
 ### Wave 7 (unreleased) — touch-first rectangles ([ADR-058](decisions.md#adr-058))
 
-AMOLED, touch-first like wave 5 (START, BACK, touchscreen; the Sq 2 also has a MENU key), CIQ 5.0 / 6.0.2, 768 KB, glance (64 KB) and the HeroFace complication. No bezel: rows take the full width less the safe inset; the dashboard's XP ring sits on the inscribed circle and the dashboard content fits inside it. All three are on Garmin's paid-app list (the paid Two Suns 1.0.0 listing is offered on them). Simulator only: suites in both jungles and screenshots of every screen on `venusq2` and `venux1`; look not yet approved by the owner.
+AMOLED, touch-first like wave 5 (START, BACK, touchscreen; the Sq 2 also has a MENU key), CIQ 5.0 / 6.0.2, 768 KB, glance (64 KB) and the HeroFace complication. No bezel: rows take the full width less the safe inset; the dashboard's XP ring sits on the inscribed circle and the dashboard content fits inside it. All three are on Garmin's paid-app list (the paid Two Suns 1.0.0 listing is offered on them). Simulator only: suites in both jungles, the 15-language fit sweep on `venusq2` and `venux1`, and screenshots of every screen on `venusq2` and `venux1`; look not yet approved by the owner.
 
 | Family | Products (`manifest` id) | Screen | Glance area |
 |---|---|---|---|

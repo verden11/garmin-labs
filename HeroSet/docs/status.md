@@ -4,7 +4,7 @@
 
 **Where things stand, 2026-10-04.** Live: **1.3.0** (uploaded by the owner 2026-10-03: the Instinct family, 87 products; exported before the bezel-corner, `START: MENU` and glance-bar fixes). **1.3.1 uploaded by the owner 2026-10-04, in review** (those three fixes and the glance laid out left of the Instinct E / 3 Solar round window, blind; `dist/HeroSet-1.3.1.iq`, 87 products; set on the USD 2.50 tier, ADR-056 (the $2.50 tier)); the approval date is not yet known. Tests 116 dev / 103 store (2026-10-04, simulator). Device evidence is the FR965 only; every Instinct result is simulator only. Open work: ROADMAP M7, 9.6.
 
-**Unreleased, 2026-10-05: three rectangles** (`venusq2`, `venusq2m`, `venux1`, [ADR-058](decisions.md#adr-058) (rectangular watches)), 90 products in both manifests. All three are on Garmin's paid-app list. Evidence, simulator only (container): dev and store suites PASSED on the three and on fr965, fr255s, venu3, instincte40mm; screenshots of every screen on venusq2, venux1 and fr965 looked at. Gate before the next upload: the owner approves the rectangle look.
+**Unreleased, 2026-10-05: three rectangles** (`venusq2`, `venusq2m`, `venux1`, [ADR-058](decisions.md#adr-058) (rectangular watches)), 90 products in both manifests. All three are on Garmin's paid-app list. Evidence, simulator only (container): dev and store suites PASSED on the three and on fr965, fr255s, venu3, instincte40mm; 15-language fit sweep PASSED on venusq2 and venux1; screenshots of every screen on venusq2, venux1 and fr965 looked at. Gate before the next upload: the owner approves the rectangle look.
 
 Status: 2026-10-05. (open items moved to the root ROADMAP.md, 2026-10-04) History: [`../CHANGELOG.md`](../CHANGELOG.md), ADRs, `git log`.
 
