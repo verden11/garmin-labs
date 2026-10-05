@@ -29,12 +29,12 @@ export const languages = [
   'Norsk bokmål', 'Polski', 'Português', 'Suomi', 'Svenska', 'Türkçe', 'Українська',
 ]
 
-// Simulator captures of the store build (HeroSet ADR-039). Drop files in
-// public/heroset/screens/ and set src; empty slots render as pending.
-// Store-listing set: HeroSet/listing/screens; framed marketing set: HeroSet/listing/framed.
+// Simulator captures of the store build (HeroSet ADR-039), each framed in the watch it ran on: the store listing's set
+// (HeroSet/listing/screens-framed, docker/frame_listing.sh), resized to 560 px in public/heroset/watch/.
 export const screens: Screenshot[] = [
-  { label: 'Dashboard', src: '/heroset/screens/dashboard.png' },
-  { label: 'Counting', src: '/heroset/screens/counting.png' },
-  { label: 'Review', src: '/heroset/screens/review.png' },
-  { label: 'Saved', src: '/heroset/screens/saved.png' },
+  { label: 'Dashboard', src: '/heroset/watch/dashboard.png', watch: 'Forerunner 970' },
+  { label: 'Counting', src: '/heroset/watch/counting.png', watch: 'Forerunner 965' },
+  { label: 'Review', src: '/heroset/watch/review.png', watch: 'epix Pro' },
+  { label: 'Complete', src: '/heroset/watch/complete.png', watch: 'Forerunner 265' },
+  { label: 'Instinct', src: '/heroset/watch/instinct.png', watch: 'Instinct E' },
 ]

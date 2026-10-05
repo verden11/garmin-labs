@@ -20,6 +20,7 @@ export const twoSuns: App = {
   onColor: '#240a10',
   storeName: 'Connect IQ Store',
   storeUrl: 'https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b',
+  ogImage: '/two-suns/watch/day.png',
   Mark: TwoSunsMark,
   Landing,
   Support,

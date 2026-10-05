@@ -15,9 +15,10 @@ export function Support() {
       <h2>The settings</h2>
       <p>
         In the Garmin Connect app, open your watch, then Connect IQ Apps → Watch Faces → {appName} → Settings. There are
-        five, all plain lists: <em>Accent colour</em> (sky, mint, autumn, violet, pink, winter), <em>Ring orientation</em>{' '}
+        seven in Two Suns Pro, all plain lists: <em>Accent colour</em> (sky, mint, autumn, violet, pink, winter), <em>Ring orientation</em>{' '}
         (noon at the top, or midnight at the top), <em>Golden hour</em> (off, or on), <em>Energy curve</em> (the Body
-        Battery curve, on or off) and <em>Date</em> (on or off). The face works with the defaults if you change nothing.
+        Battery curve, on or off), <em>Date</em> (on or off), <em>Weather</em> and <em>Watch battery</em> (both off unless
+        you switch them on). Two Suns, the free face, has the accent colour only. The face works with the defaults if you change nothing.
       </p>
       <Note>
         If the phone app will not save your settings, try Garmin Express on a computer, or reinstall the face and try
@@ -26,7 +27,7 @@ export function Support() {
 
       <h2>What the bottom line says</h2>
       <p>
-        By day it says how much daylight is left (“8:41 of daylight”). Before sunrise and after sunset it says when the sun
+        By day it says how much daylight is left (“8h 41m of daylight”). Before sunrise and after sunset it says when the sun
         comes up (“Sunrise 06:41”). A “~” (“Sunrise ~06:41”) means the time is today’s, used as an estimate for tomorrow
         because the watch does not know where you are. In midnight sun and polar night it says “Sun stays up today” or “Sun
         stays down today”. On small screens the sentence gets shorter (“Rise 06:41”).

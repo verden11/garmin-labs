@@ -1,9 +1,15 @@
-import { FacePreview } from './FacePreview.tsx'
 import { dayArc } from './app.ts'
 import { windows } from './facts.ts'
-import type { Win } from '../day-arc/FaceDrawing.tsx'
-import { CallToAction, HeroActions } from '../../components/AppSections.tsx'
+import { CallToAction, HeroActions, Screens, WatchShot } from '../../components/AppSections.tsx'
 import { appUrl } from '../../urls.ts'
+
+// The watch each window's capture was taken on (listing_shots.sh; night from docker/edge_states.sh), for the alt text.
+const WINDOW_WATCH: Record<string, string> = { morning: 'Venu 3', midday: 'Forerunner 265', evening: 'Venu 4', night: 'Forerunner 965' }
+
+const shots = [
+  { label: 'Accent colour', src: '/day-arc/watch/accent.png', watch: 'epix Pro' },
+  { label: 'Instinct', src: '/day-arc/watch/instinct.png', watch: 'Instinct E' },
+]
 
 export function Landing() {
   return (
@@ -16,8 +22,8 @@ export function Landing() {
             <HeroActions app={dayArc} />
           </div>
           <div className="hero__reps">
-            <FacePreview size={340} />
-            <p>A drawing of the face at midday, with example numbers. Not a screenshot; real captures come with the store listing.</p>
+            <WatchShot src="/day-arc/watch/midday.png" alt="DayArc at midday on a Forerunner 265: the time, the date and the stress reading with its gauge" />
+            <p>A simulator capture at midday, with example numbers.</p>
           </div>
         </div>
       </section>
@@ -28,7 +34,7 @@ export function Landing() {
         <ol className="course">
           {windows.map(([title, time, text]) => (
             <li key={title} className="course__stop">
-              <span className="course__keys"><FacePreview size={200} win={title.toLowerCase() as Win} /></span>
+              <span className="course__keys"><WatchShot src={`/day-arc/watch/${title.toLowerCase()}.png`} alt={`DayArc in the ${title.toLowerCase()} window on a ${WINDOW_WATCH[title.toLowerCase()]}`} /></span>
               <h3>{title} · {time}</h3>
               <p>{text}</p>
             </li>
@@ -55,6 +61,8 @@ export function Landing() {
         </dl>
         <p><a href={appUrl(dayArc.slug, 'privacy')}>Read the privacy policy</a></p>
       </section>
+
+      <Screens app={dayArc} screens={shots} />
 
       <CallToAction app={dayArc} title="See what's next, without checking." />
     </>

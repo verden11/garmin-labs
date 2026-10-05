@@ -286,8 +286,10 @@ img { max-width: 100%; height: auto; display: block; }
 
 .screens { list-style: none; margin: 0; padding: 0; display: grid; gap: var(--space-3); grid-template-columns: repeat(var(--cols, 4), minmax(0, 1fr)); }
 .screens li { display: grid; gap: var(--space-2); justify-items: center; }
-.screens img, .screens__pending { width: 100%; aspect-ratio: 1; border-radius: 50%; }
-.screens img { background: #000; }
+.screens img { width: 100%; height: auto; }   /* watch-framed captures: transparent around the watch, no crop */
+.screens__pending { width: 100%; aspect-ratio: 1; border-radius: 50%; }
+.watch-shot { display: block; width: min(100%, 26rem); height: auto; }
+.course__keys .watch-shot { width: min(100%, 12rem); }
 .screens__pending {
   display: grid; place-items: center; text-align: center; padding: 20%;
   border: 2px dashed var(--rule); color: var(--ink-2); font-size: 0.85rem;

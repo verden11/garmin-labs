@@ -1,14 +1,13 @@
-import { FacePreview } from './FacePreview.tsx'
 import { twoSuns } from './app.ts'
-import { languages } from './facts.ts'
-import { CallToAction, HeroActions } from '../../components/AppSections.tsx'
+import { languages, screens } from './facts.ts'
+import { CallToAction, HeroActions, Screens, WatchShot } from '../../components/AppSections.tsx'
 import { appUrl } from '../../urls.ts'
 
 const rows = [
   { title: 'The time comes first', text: 'The time is the biggest thing on the screen, in a large size that scales to your screen. A thin ring runs around the bezel.' },
   { title: 'A ring for the sun', text: 'The ring is the 24 hours of your day, noon at the top or midnight at the top. Night is dim, daylight is lit, and a marker sits where the sun is now: solid while it is up, an outline while it is not.' },
   { title: 'Your Body Battery, as a curve', text: 'Under the time, the last 24 hours of your Garmin Body Battery, with the current point marked and its number beside it. It is Garmin’s estimate, shown as Garmin reports it.' },
-  { title: 'One line for the sun', text: 'How much daylight is left, or when the sun comes back: “8:41 of daylight”, “Sunrise 06:41”. Tomorrow’s sunrise after dark.' },
+  { title: 'One line for the sun', text: 'How much daylight is left, or when the sun comes back: “8h 41m of daylight”, “Sunrise 06:41”. Tomorrow’s sunrise after dark.' },
 ]
 
 export function Landing() {
@@ -22,15 +21,15 @@ export function Landing() {
             <HeroActions app={twoSuns} />
           </div>
           <div className="hero__reps">
-            <FacePreview size={260} />
-            <p>A drawing of the face by day, with example numbers. Not a screenshot.</p>
+            <WatchShot src="/two-suns/watch/day.png" alt="Two Suns on a fēnix 8 Pro: the 24-hour sun ring, the time, Body Battery 59 with its curve, 7h 22m of daylight" />
+            <p>A simulator capture with example numbers.</p>
           </div>
         </div>
       </section>
 
       <section className="wrap band" aria-labelledby="read-title">
         <h2 id="read-title" className="band__title">Two things, one glance.</h2>
-        <p className="band__lede">The sky’s day and your Body Battery, It shows no steps, no heart rate, no weather and no advice.</p>
+        <p className="band__lede">The sky’s day and your Body Battery. It shows no steps, no heart rate and no advice; Two Suns Pro can add a weather row and a watch battery row, off unless you switch them on.</p>
         <ol className="course">
           {rows.map((row) => (
             <li key={row.title} className="course__stop">
@@ -63,6 +62,8 @@ export function Landing() {
         </dl>
         <p><a href={appUrl(twoSuns.slug, 'privacy')}>Read the privacy policy</a></p>
       </section>
+
+      <Screens app={twoSuns} screens={screens} />
 
       <CallToAction app={twoSuns} title="See how much day is left." />
     </>

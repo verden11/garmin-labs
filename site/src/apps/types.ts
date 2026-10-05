@@ -4,8 +4,10 @@ export type Screenshot = {
   label: string
   // Path under public/. Missing = render a labelled placeholder slot.
   src?: string
-  // Pixel size of the file at `src`; 454 (the simulator capture) when omitted.
+  // Pixel size of the file at `src`; 560 (a watch-framed capture, public/<slug>/watch/) when omitted.
   size?: number
+  // The watch it is shown on, for the alt text ("Forerunner 965").
+  watch?: string
 }
 
 export type App = {

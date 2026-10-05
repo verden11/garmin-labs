@@ -17,6 +17,7 @@ export const dayArcPro: App = {
   color: '#2a9fb0',
   onColor: '#ffffff',
   storeName: 'Connect IQ Store',
+  ogImage: '/day-arc-pro/watch/midday.png',
   Mark: DayArcProMark,
   Landing,
   Support,

@@ -1,7 +1,6 @@
-import { FacePreview } from './FacePreview.tsx'
 import { daysToGo } from './app.ts'
-import { languages } from './facts.ts'
-import { CallToAction, HeroActions } from '../../components/AppSections.tsx'
+import { languages, screens } from './facts.ts'
+import { CallToAction, HeroActions, Screens, WatchShot } from '../../components/AppSections.tsx'
 import { appUrl } from '../../urls.ts'
 
 const rows = [
@@ -22,7 +21,7 @@ export function Landing() {
             <HeroActions app={daysToGo} />
           </div>
           <div className="hero__reps">
-            <FacePreview size={260} />
+            <WatchShot src="/days-to-go/watch/days.png" alt="Days To Go on a Venu 3: 161 days to a wedding, the date of the day under the count" />
           </div>
         </div>
       </section>
@@ -62,6 +61,8 @@ export function Landing() {
         </dl>
         <p><a href={appUrl(daysToGo.slug, 'privacy')}>Read the privacy policy</a></p>
       </section>
+
+      <Screens app={daysToGo} screens={screens} />
 
       <CallToAction app={daysToGo} title="Count down to the day." />
     </>

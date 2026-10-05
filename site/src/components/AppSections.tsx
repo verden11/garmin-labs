@@ -29,13 +29,19 @@ export function Screens({ app, screens }: { app: App; screens: Screenshot[] }) {
       <ul className="screens" style={{ '--cols': shown.length } as CSSProperties}>
         {shown.map((shot) => (
           <li key={shot.label}>
-            <img src={shot.src} alt={`${app.name} ${shot.label.toLowerCase()} screen`} width={shot.size ?? 454} height={shot.size ?? 454} loading="lazy" />
+            <img src={shot.src} alt={`${app.name} ${shot.label.toLowerCase()} screen${shot.watch ? ` on a ${shot.watch}` : ''}`} width={shot.size ?? 560} height={shot.size ?? 560} loading="lazy" />
             <span className="screens__label">{shot.label}</span>
           </li>
         ))}
       </ul>
     </section>
   )
+}
+
+// A simulator capture of the face framed in a real watch (its own simulator skin: chassis and part of the strap), the same
+// images as the store listings (docker/frame_listing.sh), at 560 px under public/<slug>/watch/. Not lazy: it is used above the fold.
+export function WatchShot({ src, alt, className }: { src: string; alt: string; className?: string }) {
+  return <img className={`watch-shot${className ? ` ${className}` : ''}`} src={src} alt={alt} width={560} height={560} />
 }
 
 export function Watches({ title, lede, families, languages }: { title: string; lede: string; families: [string, string][]; languages: string[] }) {

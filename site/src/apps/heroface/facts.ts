@@ -25,12 +25,13 @@ export const languages = [
   'Norsk bokmål', 'Polski', 'Português', 'Suomi', 'Svenska', 'Türkçe', 'Українська',
 ]
 
-// Captures of the real face: the first two from the simulator, the HeroSet one
-// from an FR965, because the link needs HeroSet running to publish. Empty slots
-// render as pending. See HeroFace listing/screenshots.md.
+// Simulator captures of the Pro build, each framed in the watch it ran on: the store listing's set
+// (HeroFace/listing/screens-framed, docker/frame_listing.sh), resized to 560 px in public/heroface/watch/. The HeroSet one
+// uses a canned HeroSet value (the simulator runs one app at a time; HeroFace listing/screenshots.md).
 export const screens: Screenshot[] = [
-  { label: 'Everyday', src: '/heroface/screens/everyday.png', size: 240 },
-  { label: 'Goals met', src: '/heroface/screens/goals-met.png', size: 240 },
-  { label: 'With HeroSet', src: '/heroface/screens/heroset.png' },
-  { label: 'Always on' },
+  { label: 'Everyday', src: '/heroface/watch/everyday.png', watch: 'Forerunner 965' },
+  { label: 'Your bars', src: '/heroface/watch/your-bars.png', watch: 'fēnix 8 Pro' },
+  { label: 'Goals met', src: '/heroface/watch/goals-met.png', watch: 'Forerunner 970' },
+  { label: 'With HeroSet', src: '/heroface/watch/heroset.png', watch: 'Venu 3' },
+  { label: 'Instinct', src: '/heroface/watch/instinct.png', watch: 'Instinct E' },
 ]

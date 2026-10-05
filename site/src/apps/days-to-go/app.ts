@@ -15,6 +15,7 @@ export const daysToGo: App = {
   onColor: '#04140c',
   storeName: 'Connect IQ Store',
   storeUrl: 'https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4',
+  ogImage: '/days-to-go/watch/days.png',
   Mark: DaysToGoMark,
   Landing,
   Support,
