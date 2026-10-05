@@ -69,8 +69,10 @@ class HeroFaceMissions {
             textWidth = HeroFaceIcon.width(metric.kind, HeroFaceIcon.size());
         } else {
             label = HeroFaceDraw.firstWithin(dc, width - check - 2 * pad, Graphics.FONT_XTINY, HeroFaceText.labels(metric.kind));
-            if (layout.subscreen() != null) {
+            if (layout.subscreen() != null || layout.rectangle()) {
                 // The Instinct's columns are about 40 px: a long translation is cut with a "." rather than reaching the next one.
+                // On a rectangle the outer columns slide inside the frame (`inside`), so a label wider than its column would
+                // reach the middle one instead (Lithuanian "ATSISP" with the done check in 90 px on a Venu Sq 2).
                 label = HeroFaceDraw.truncated(dc, label, Graphics.FONT_XTINY, width - check - 2 * pad);
             }
             textWidth = dc.getTextWidthInPixels(label, Graphics.FONT_XTINY);
