@@ -17,7 +17,7 @@ on a wrist, and nothing reaches users until the owner uploads the next version o
 | Two Suns | Energy curve is a line (its fill was the night ring's colour); solid bolt (half-grey gauge read as broken); `7h 22m of daylight` not `7:22` | 13.15–13.17 | `ac96202` |
 | DayArc | Body Battery hero icon is a bolt (battery shell read as a second battery); Pro grid icons all muted grey (rainbow competed with the hero) | 13.19, 13.20 | `8e316d4` |
 | Studio | The bolt means Body Battery everywhere; intensity minutes are a pulse line (HeroFace, DayArc) | 13.19 | `2ce547b`, `8e316d4` |
-| HeroSet | Review screen: `+24` (what START saves) is the big number; `CAL --` until 1, not `CAL 0`; Instinct: no `STREAK 0` row on day one | 13.21–13.23 | (this commit) |
+| HeroSet | Review screen: `+24` (what START saves) is the big number; `CAL --` until 1, not `CAL 0`; Instinct: no `STREAK 0` row on day one | 13.21–13.23 | `cfb9c33` |
 
 Every changed listing image set was recaptured (both tiers where both changed) and its store hero re-rendered.
 
