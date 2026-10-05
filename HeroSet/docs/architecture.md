@@ -1,6 +1,6 @@
 # HeroSet Architecture
 
-Target: 82 round watches (80 live + 2 Instinct 3 AMOLED unreleased) plus 7 Instinct 1-bit ([ADR-055](decisions.md#adr-055)), AMOLED and MIP, five-button and touch-first ([ADR-048](decisions.md#adr-048)), FR965 first ([`compatibility.md`](compatibility.md)), Connect IQ 3.4.0 ([ADR-038](decisions.md#adr-038)), Monkey C. How app built today: structure, layers, module duties, style, navigation, known debt. **Why** live in [`decisions.md`](decisions.md) (ADR-NNN refs below point there). Related: [`input-and-ux.md`](input-and-ux.md) (what user see), [`testing-plan.md`](testing-plan.md).
+Target: 82 round watches (80 live + 2 Instinct 3 AMOLED unreleased) plus 7 Instinct 1-bit ([ADR-055](decisions.md#adr-055)) and three touch-first rectangles ([ADR-057](decisions.md#adr-057)), AMOLED and MIP, five-button and touch-first ([ADR-048](decisions.md#adr-048)), FR965 first ([`compatibility.md`](compatibility.md)), Connect IQ 3.4.0 ([ADR-038](decisions.md#adr-038)), Monkey C. How app built today: structure, layers, module duties, style, navigation, known debt. **Why** live in [`decisions.md`](decisions.md) (ADR-NNN refs below point there). Related: [`input-and-ux.md`](input-and-ux.md) (what user see), [`testing-plan.md`](testing-plan.md).
 
 ## 1. Guiding principles
 
@@ -203,6 +203,7 @@ Every fixed pop count rely on Workout/Picker sitting at depth 1 ([ADR-024](decis
 | Item | Why it's not fixed yet | Fix when |
 |---|---|---|
 | `HeroSetStore.mc` is ~340 lines (budget 250); `HeroSetStoreTest.mc` 377 lines | Guards user data; bad split corrupts installs ([ADR-020](decisions.md#adr-020)) | With device upgrade check (gate 4) |
+| `HeroSetLayout.mc` is ~300 lines (budget 250) | Round, semi-octagon window and rectangle ring geometry share the same inset functions ([ADR-055](decisions.md#adr-055), [ADR-057](decisions.md#adr-057)) | When a fourth screen shape arrives: split the window geometry out |
 | Rep detector and learning constants are tuned on synthetic fixtures, not watch recordings ([ADR-032](decisions.md#adr-032)/[040](decisions.md#adr-040)) | No way yet to pull raw sensor data off watch | When gate 2 trials show misses; record traces with dev build if needed |
 | Connect Sync (one activity per workout, [ADR-043](decisions.md#adr-043)) unverified on device | Dev build only until FR965 acceptance ([`connect-sync-plan.md`](archive/connect-sync-plan.md) device acceptance) | Before sync goes into the store build |
 | Validation log also records in store build (only viewer hidden) | Harmless 30-entry buffer, disclosed in HeroSet privacy page (`../site`); could now be gated with annotation like sync ([ADR-033](decisions.md#adr-033)) | If it ever holds anything sensitive |

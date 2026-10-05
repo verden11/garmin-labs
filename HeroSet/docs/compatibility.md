@@ -4,7 +4,7 @@ Status: 2026-10-05. Decision records: [ADR-034](decisions.md#adr-034)/[035](deci
 
 ## Supported products
 
-89 products in both manifests: 82 round, plus seven Instinct products in wave 6 (live since 1.3.0). The round ones are 80 in five waves (live) and the two Instinct 3 AMOLED of wave 7 (added 2026-10-05, unreleased; the live package has 87). Every round one: round screen, Connect IQ 3.4+ (`minApiLevel`), accelerometer (app samples 25 Hz), optical HR. Waves 1–4 have the five-button layout (START, BACK, UP, DOWN, LIGHT); wave 5 is touch-first (START, BACK, touchscreen), where swipes replace UP/DOWN ([ADR-048](decisions.md#adr-048)). Layout proportional, every text row measured ([ADR-006](decisions.md#adr-006), [ADR-018](decisions.md#adr-018)) — no per-device resources exist.
+92 products in both manifests: 82 round, seven Instinct products in wave 6 (live since 1.3.0), and three rectangles (wave 7b, unreleased). The round ones are 80 in five waves (live) and the two Instinct 3 AMOLED of wave 7 (added 2026-10-05, unreleased; the live package has 87). Every round one: round screen, Connect IQ 3.4+ (`minApiLevel`), accelerometer (app samples 25 Hz), optical HR. Waves 1–4 have the five-button layout (START, BACK, UP, DOWN, LIGHT); wave 5 is touch-first (START, BACK, touchscreen), where swipes replace UP/DOWN ([ADR-048](decisions.md#adr-048)). Layout proportional, every text row measured ([ADR-006](decisions.md#adr-006), [ADR-018](decisions.md#adr-018)) — no per-device resources exist.
 
 ### Wave 1 — round AMOLED ([ADR-034](decisions.md#adr-034))
 
@@ -105,6 +105,15 @@ Plain round AMOLED products to the app: five buttons (`enter, up, menu, down, es
 
 **Instinct Crossover AMOLED is left out (2026-10-05), not for store reasons.** Its simulator draws the analog hands parked at 9:15, a horizontal bar across the middle of the display, over the app: it covers the SIT-UPS row on the dashboard and the big rep number on the set and review screens (`bin/drive-instinctcrossoveramoled-1-dashboard-window.png`, `-3-counting-window.png`, `-5-review-window.png`, taken with the product added; the dev and store suites passed on it, 116/103, because they do not model the hands). Whether a real Crossover parks its hands there while an app runs is unverified. Adding it needs a hands-aware layout and the owner's look approval (ADR-055 amendment 2026-10-05).
 
+### Wave 7b (unreleased, added 2026-10-05) — touch-first rectangles ([ADR-057](decisions.md#adr-057))
+
+AMOLED, touch-first like wave 5 (START, BACK, touchscreen; the Sq 2 also has a MENU key), CIQ 5.0 / 6.0.2, 768 KB, glance (64 KB) and the HeroFace complication. No bezel: rows take the full width less the safe inset; the dashboard's XP ring sits on the inscribed circle and the dashboard content fits inside it. All three are on Garmin's paid-app list (the paid Two Suns 1.0.0 listing is offered on them). Simulator only: suites in both jungles, the 15-language fit sweep on `venusq2` and `venux1`, and screenshots of every screen on `venusq2` and `venux1`; look not yet approved by the owner.
+
+| Family | Products (`manifest` id) | Screen | Glance area |
+|---|---|---|---|
+| Venu Sq 2 / Sq 2 Music | `venusq2`, `venusq2m` | 320 x 360 | 254 x 114 |
+| Venu X1 | `venux1` | 448 x 486 | 314 x 150 |
+
 `fenix6`, `fenix6s`, `enduro` cap watch apps at 128 KB — smallest supported memory. Measured in simulator (store build): dashboard ~52 KB, workout ~54 KB used, ~73 KB free.
 
 **Evidence per product:** store build compiles, and `everyScreenFitsThisDisplay` passes in that device simulator: renders every screen in widest state with device real fonts, fails on text outside round display, overlapping text, or screen that drew fewer rows than it promises. Full suite run on FR965 plus size and screen-type representatives (`fr265s`, `fenix7`, `fenix7x`, `fr255s`, `fenix9prosolar51mm`, `fenix9pro51mm`) and on every wave 4 and wave 5 product.
@@ -113,7 +122,7 @@ Plain round AMOLED products to the app: five buttons (`enter, up, menu, down, es
 
 ## App glance ([ADR-051](decisions.md#adr-051))
 
-A watch-app glance needs Connect IQ 4.0, so the glance list entry exists on **63 of the 80 live round products** (65 of 82 with wave 7's two Instinct 3 AMOLED, 320x99 and 346x106; 68 of 89 counting the Instinct E and 3 Solar): every product at CIQ 5.0 or newer, all with a 64 KB glance limit and live updates (device data, SDK 9.2.0). The other **17 get no glance** (the build is unchanged; the compiler, with `-w`, prints "The (:glance) annotation will be ignored"): fēnix 6 / 6S / 6 Pro / 6S Pro / 6X Pro, MARQ Gen 1 (8 products), Descent Mk2 / Mk2S, Forerunner 945 LTE, Enduro Gen 1 (Enduro 3 has it). Glance content areas run from 140×79 (`fr255s`) and 151×63 (fēnix 7S) to 359×130 (fēnix 9 Pro 51 mm); `HeroSetGlanceFitTest` carries all 34 distinct round areas (plus the two Instinct ones). Simulator only: no glance has run on a watch, the FR965's included. Never claim a glance on all 80 watches.
+A watch-app glance needs Connect IQ 4.0, so the glance list entry exists on **63 of the 80 live round products** (65 of 82 with wave 7's two Instinct 3 AMOLED, 320x99 and 346x106; 68 of 89 counting the Instinct E and 3 Solar; 71 of 92 with wave 7b's rectangles, 254x114 and 314x150): every product at CIQ 5.0 or newer, all with a 64 KB glance limit and live updates (device data, SDK 9.2.0). The other **17 get no glance** (the build is unchanged; the compiler, with `-w`, prints "The (:glance) annotation will be ignored"): fēnix 6 / 6S / 6 Pro / 6S Pro / 6X Pro, MARQ Gen 1 (8 products), Descent Mk2 / Mk2S, Forerunner 945 LTE, Enduro Gen 1 (Enduro 3 has it). Glance content areas run from 140×79 (`fr255s`) and 151×63 (fēnix 7S) to 359×130 (fēnix 9 Pro 51 mm); `HeroSetGlanceFitTest` carries all 34 distinct round areas (plus the two Instinct and two rectangle ones). Simulator only: no glance has run on a watch, the FR965's included. Never claim a glance on all 80 watches.
 
 ## Not yet supported, and why
 
@@ -121,7 +130,6 @@ A watch-app glance needs Connect IQ 4.0, so the glance list entry exists on **63
 |---|---|---|
 | Touch-first below Connect IQ 3.4 | `venu`, `venud`, `d2air`, `vivoactive4`, `vivoactive4s` | Below `minApiLevel` ([ADR-038](decisions.md#adr-038)) |
 | Instinct Crossover | `instinctcrossover` (MIP), `instinctcrossoveramoled` (round AMOLED, on the paid list) | Analog hands over the display: in the Crossover AMOLED simulator they cover the middle row and the rep number (wave 7 above); needs a hands-aware layout. See [ADR-055](decisions.md#adr-055) |
-| Square / rectangle | `venusq2`, `venux1` | Layout square path untested, these touch-first too |
 | Below Connect IQ 3.4 | fēnix 5 / 5 Plus, Forerunner 245/645/745/935/945, D2 Charlie/Delta, Descent MK1, vívoactive 3/4 | Below `minApiLevel`. `WatchUi.showToast` (save confirmation) is 3.4+, and fēnix 5 Plus fails screen fit (older, larger system fonts). FR945/745/245M pass the suite in simulator with a `has :showToast` guard — candidate wave, needs another save confirmation ([ADR-038](decisions.md#adr-038)) |
 | Forerunner 55 | `fr55` | 208 px screen: dashboard rows overlap (fails `everyScreenFitsThisDisplay`) |
 

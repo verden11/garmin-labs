@@ -10,7 +10,8 @@ simulator-checked only — AMOLED (Forerunner 70/165/170/265/570/970, epix Gen 2
 and Pro, fēnix 8/9 AMOLED, fēnix E, MARQ Gen 2, D2 Mach, Descent MK3/G2) and
 MIP (fēnix 6/7/8 Solar/9 Pro Solar, MARQ Gen 1, Forerunner 255/945 LTE/955,
 Enduro and Enduro 3, Descent MK2) plus 13 touch-first watches (Venu 2/3/4,
-vívoactive 5/6, Approach S50/S70, D2 Air X10), Connect IQ 3.4+:
+vívoactive 5/6, Approach S50/S70, D2 Air X10), the Instinct family and, not
+yet released, the rectangular Venu Sq 2 / Sq 2 Music / X1, Connect IQ 3.4+:
 [`docs/compatibility.md`](docs/compatibility.md).
 
 Live as a paid app on the Connect IQ Store.
@@ -72,7 +73,7 @@ Full index: [`docs/README.md`](docs/README.md). Contributor house rules
 ## Project layout
 
 ```text
-manifest.xml       dev build: app id, 89 products, Sensor + Fit + FitContributor
+manifest.xml       dev build: app id, 92 products, Sensor + Fit + FitContributor
 manifest-store.xml release build: same app id, Sensor permission only
 monkey.jungle      dev build
 store.jungle       release build (manifest-store.xml, resources-store/ overlay)
