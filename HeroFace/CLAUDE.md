@@ -43,7 +43,7 @@ Names, icons, uploads are the owner's (the on-watch names "HeroFace" and "HeroFa
   Trust the printed `PASSED (…)` line, not the exit code. A hung run means the
   simulator needs restarting.
 - Compile every product, both jungles, no simulator: `tools/compile_sweep.sh`. Prove the packages: `tools/check_free_package.sh [--build]` (Free has no Slot/Seconds/Weather key and no "Pro" word; Pro has them).
-  Store packages: Free `dist/HeroFaceFree.iq`, Pro `dist/HeroFacePro.iq` (`dist/old/` holds the earlier packages).
+  Store packages: Free `dist/HeroFaceFree.iq`, Pro `dist/HeroFacePro.iq`.
 - Screen check per size: `tools/run_tests.sh <device> <jungle> everyStateFitsThisDisplay`.
   `heroFaceLayoutReport` prints every row's box, which is how layout is read
   without a screenshot.

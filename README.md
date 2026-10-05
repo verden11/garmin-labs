@@ -6,11 +6,11 @@ that serves all of their public pages.
 
 | Folder | What | Status |
 |---|---|---|
-| [`HeroSet/`](HeroSet) | Watch app — daily push-ups, sit-ups, squats with automatic rep counting, XP, rank and streak. 87 products (80 live + the Instinct family). | 1.2.0 live; 1.3.0 prepared |
-| [`HeroFace/`](HeroFace) | Watch face — time-first, in HeroSet's visual language. Works standalone; richer with HeroSet installed. 117 round products live; 124 with the Instinct family. | 1.0.1 live; Free + Pro unreleased |
-| [`DaysToGo/`](DaysToGo) | Watch face — days until a date, one big number, counted in whole calendar days. 117 round + 3 rectangular + 7 Instinct products (127). | Approved 2026-09-28; Free + Pro unreleased |
-| [`TwoSuns/`](TwoSuns) | Watch face — the time, a 24-hour sun ring and the day's Body Battery as a curve; "Two Suns". 72 products (66 round + 3 rectangular + 3 Instinct). | Approved 2026-09-28; Free + Pro unreleased |
-| [`DayArc/`](DayArc) | Watch face pair — content changes on a fixed clock through the day (weather/stress/Body Battery/night); "DayArc" (free) one reading per window, "DayArc Pro" (paid, the $2.50 tier) a denser field grid per window. One codebase, two listings. 69 products (66 round + 3 rectangular). | Built, simulator-only apart from one owner wrist photo (2026-09-28: three layout defects, since fixed, not yet re-checked on the wrist); one setting (Accent colour) — not submitted |
+| [`HeroSet/`](HeroSet) | Watch app — daily push-ups, sit-ups, squats with automatic rep counting, XP, rank and streak. 87 products (80 live + the Instinct family). | 1.3.0 live; 1.3.1 in Garmin review (uploaded 2026-10-04) |
+| [`HeroFace/`](HeroFace) | Watch face — time-first, in HeroSet's visual language. Works standalone; richer with HeroSet installed. 117 round products live; 124 with the Instinct family. | 1.0.1 live; Pro 1.1.0 and the new Free in Garmin review (uploaded 2026-10-04) |
+| [`DaysToGo/`](DaysToGo) | Watch face — days until a date, one big number, counted in whole calendar days. 117 round + 3 rectangular + 7 Instinct products (127). | Live (approved 2026-09-28); Pro 1.1.0 and the new Free in Garmin review (uploaded 2026-10-04) |
+| [`TwoSuns/`](TwoSuns) | Watch face — the time, a 24-hour sun ring and the day's Body Battery as a curve; "Two Suns". 72 products (66 round + 3 rectangular + 3 Instinct). | 1.0.0 live; Pro 1.1.0 and the new Free in Garmin review (uploaded 2026-10-04) |
+| [`DayArc/`](DayArc) | Watch face pair — content changes on a fixed clock through the day (weather/stress/Body Battery/night); "DayArc" (free) one reading per window, "DayArc Pro" (paid, the $2.50 tier) a denser field grid per window. One codebase, two listings. 72 products (66 round + 3 rectangular + Instinct E 40/45 mm and 3 Solar). | Built and simulator-checked; wrist check on the FR965 from 2026-10-05; one setting (Accent colour); not submitted |
 | [`site/`](site) | The public site: studio home plus landing, support and privacy pages per app. Live at **https://verden.watch/** | Live |
 
 Each folder is built and released independently. They share this repo so
@@ -81,6 +81,6 @@ The Connect IQ signing key lives outside this repo at
 
 ## Hosting
 
-Firebase Hosting (project `verden-watch-87da4`) serves `site/dist`; deploy with
-`npm run deploy` inside `site/`.
+Firebase Hosting (project `verden-watch-87da4`) serves `site/dist`. A push to `main` that touches `site/**`
+deploys it (GitHub Action); `npm run deploy` inside `site/` is the manual fallback.
 Details in [`site/CLAUDE.md`](site/CLAUDE.md).

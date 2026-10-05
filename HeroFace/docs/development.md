@@ -27,8 +27,8 @@ tools/check_free_package.sh [--build]          # prove the packages' contents (b
 python3 tools/check_strings.py                 # translation parity and the AppName rules
 ```
 
-`dist/old/` holds the earlier packages (`HeroFace.iq`, `HeroFace-next.iq`); nothing was at `dist/HeroFace.iq` when the ladder work started, and the new names
-are `dist/HeroFaceFree.iq` and `dist/HeroFacePro.iq`, so neither collides with the `../dist/HeroFace.iq` that `listing/paste.md` still names for 1.0.1.
+`dist/` holds only the packages to upload, named with tier and version (`HeroFaceFree-1.0.0.iq`, `HeroFacePro-1.1.0.iq`); older exports
+were deleted 2026-10-05 (rebuild from git if ever needed).
 Both jungles set `base.sourcePath = source` on purpose: without it the build also compiles anything under `docs/`.
 
 Trust the printed `PASSED (…)` line, not the exit code. A run that hangs means

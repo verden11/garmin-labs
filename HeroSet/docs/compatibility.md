@@ -1,10 +1,10 @@
 # Compatibility
 
-Status: 2026-10-04. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
+Status: 2026-10-05. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
 
 ## Supported products
 
-80 products in both manifests on `main`, five waves; the `heroset-instinct2` branch adds seven Instinct products (87). Every one: round screen, Connect IQ 3.4+ (`minApiLevel`), accelerometer (app samples 25 Hz), optical HR. Waves 1–4 have the five-button layout (START, BACK, UP, DOWN, LIGHT); wave 5 is touch-first (START, BACK, touchscreen), where swipes replace UP/DOWN ([ADR-048](decisions.md#adr-048)). Layout proportional, every text row measured ([ADR-006](decisions.md#adr-006), [ADR-018](decisions.md#adr-018)) — no per-device resources exist.
+87 products in both manifests: 80 round in five waves, plus seven Instinct products in wave 6 (live since 1.3.0). Every round one: round screen, Connect IQ 3.4+ (`minApiLevel`), accelerometer (app samples 25 Hz), optical HR. Waves 1–4 have the five-button layout (START, BACK, UP, DOWN, LIGHT); wave 5 is touch-first (START, BACK, touchscreen), where swipes replace UP/DOWN ([ADR-048](decisions.md#adr-048)). Layout proportional, every text row measured ([ADR-006](decisions.md#adr-006), [ADR-018](decisions.md#adr-018)) — no per-device resources exist.
 
 ### Wave 1 — round AMOLED ([ADR-034](decisions.md#adr-034))
 
@@ -74,9 +74,9 @@ No UP/DOWN keys: swipe up/down adjusts, `SWIPE:` hints, START (physical) finishe
 | D2 Air X10 | `d2airx10` | 416 px |
 | Approach S50 / S70 | `approachs50`, `approachs7042mm`, `approachs7047mm` | 390 / 390 / 454 px |
 
-### Wave 6 (merged to main 2026-10-03, not uploaded) — Instinct 2 family, 1-bit semi-octagon ([ADR-055](decisions.md#adr-055))
+### Wave 6 (merged to main 2026-10-03, live as 1.3.0) — Instinct 2 family, 1-bit semi-octagon ([ADR-055](decisions.md#adr-055))
 
-**Uploaded as 1.3.0 by the owner 2026-10-03 (1.3.1, prepared, carries the bezel-corner and glance fixes); look approved by the owner 2026-10-03, simulator evidence only (no watch available).** In both manifests on `main` (merged 2026-10-03). Black-and-white display, round subscreen window top right (the layout keeps out of it and uses it as the XP gauge), five buttons, Connect IQ 3.4 (no glance; the CIQ 6 products Instinct E and Instinct 3 Solar do get one: glance closure 2,112 B data + 3,241 B code, against their 32 KB limit, and their glance areas 164x61 / 154x61 are in `HeroSetGlanceFitTest`; the simulator draws that glance under the round window, so 1.3.1 lays it out left of the window with `getSubscreen()`, blind: ADR-055 amended 2026-10-04), 98,304 B of watch-app memory: measured peak 53,216 B in the simulator (store build, `-r`).
+**Uploaded as 1.3.0 by the owner 2026-10-03 (1.3.1, uploaded 2026-10-04 and in review, carries the bezel-corner and glance fixes); look approved by the owner 2026-10-03, simulator evidence only (no watch available).** In both manifests on `main` (merged 2026-10-03). Black-and-white display, round subscreen window top right (the layout keeps out of it and uses it as the XP gauge), five buttons, Connect IQ 3.4 (no glance; the CIQ 6 products Instinct E and Instinct 3 Solar do get one: glance closure 2,112 B data + 3,241 B code, against their 32 KB limit, and their glance areas 164x61 / 154x61 are in `HeroSetGlanceFitTest`; the simulator draws that glance under the round window, so 1.3.1 lays it out left of the window with `getSubscreen()`, blind: ADR-055 amended 2026-10-04), 98,304 B of watch-app memory: measured peak 53,216 B in the simulator (store build, `-r`).
 
 | Family | Products (`manifest` id) | Screen | Window |
 |---|---|---|---|
@@ -105,7 +105,7 @@ A watch-app glance needs Connect IQ 4.0, so the glance list entry exists on **63
 | Group | Examples | What's missing |
 |---|---|---|
 | Touch-first below Connect IQ 3.4 | `venu`, `venud`, `d2air`, `vivoactive4`, `vivoactive4s` | Below `minApiLevel` ([ADR-038](decisions.md#adr-038)) |
-| Instinct, not in the proposed wave 6 | `instinctcrossover` (analog hands over the display, unmodelled), `instinct3amoled45mm`/`50mm` (round AMOLED with a 98 px subscreen), `instinctcrossoveramoled` (round, no subscreen in the simulator) | See [ADR-055](decisions.md#adr-055). Instinct E and Instinct 3 Solar give watch apps 128 KB (more room than the 98,304 B of the Instinct 2 family) |
+| Instinct, not in wave 6 | `instinctcrossover` (analog hands over the display, unmodelled), `instinct3amoled45mm`/`50mm` (round AMOLED with a 98 px subscreen), `instinctcrossoveramoled` (round, no subscreen in the simulator) | See [ADR-055](decisions.md#adr-055). Instinct E and Instinct 3 Solar give watch apps 128 KB (more room than the 98,304 B of the Instinct 2 family) |
 | Square / rectangle | `venusq2`, `venux1` | Layout square path untested, these touch-first too |
 | Below Connect IQ 3.4 | fēnix 5 / 5 Plus, Forerunner 245/645/745/935/945, D2 Charlie/Delta, Descent MK1, vívoactive 3/4 | Below `minApiLevel`. `WatchUi.showToast` (save confirmation) is 3.4+, and fēnix 5 Plus fails screen fit (older, larger system fonts). FR945/745/245M pass the suite in simulator with a `has :showToast` guard — candidate wave, needs another save confirmation ([ADR-038](decisions.md#adr-038)) |
 | Forerunner 55 | `fr55` | 208 px screen: dashboard rows overlap (fails `everyScreenFitsThisDisplay`) |

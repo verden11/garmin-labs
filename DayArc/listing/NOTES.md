@@ -71,7 +71,7 @@ How they are made: [`screenshots.md`](screenshots.md). Why they are what they ar
 
 ## Light-ground cover and hero (ROADMAP 10.25, owner decision 2026-10-04)
 
-Garmin's brand page says "Do not choose black or transparent backgrounds"; the old cover and hero were black with a navy glow (kept as `old/cover-500-dark.png`, `old/hero-1440x720-dark.png`). New ground: indigo gradient `#4B3BC4` to `#2A2582` on cover and hero, the same in both tiers so the pair reads as one family; Free is the plain mark, Pro has the white PRO tag (as before). The hero keeps the black watch screens, on the indigo.
+Garmin's brand page says "Do not choose black or transparent backgrounds"; the old cover and hero were black with a navy glow. New ground: indigo gradient `#4B3BC4` to `#2A2582` on cover and hero, the same in both tiers so the pair reads as one family; Free is the plain mark, Pro has the white PRO tag (as before). The hero keeps the black watch screens, on the indigo.
 
 Looked at three-plus variants at 500 px and at 100 px:
 - **Cream `#FFF4E0` (rejected).** Cyan has about 1.2:1 contrast on cream, so the middle arc segment and the "r" of the name wash out; the white dot has to turn dark, which changes the mark. It was the weakest at thumbnail size.

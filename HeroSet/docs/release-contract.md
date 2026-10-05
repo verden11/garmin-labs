@@ -1,6 +1,6 @@
 # Release contract
 
-Status: 2026-10-04 (1.3.0, the Instinct family, live since the owner's 2026-10-03 upload; 1.3.1 prepared, not uploaded). What the **store build** (`store.jungle`, [ADR-033](decisions.md#adr-033)) may honestly claim. Check before any user-facing copy (site, listing, What's New).
+Status: 2026-10-05 (1.3.0, the Instinct family, live since the owner's 2026-10-03 upload; 1.3.1 uploaded 2026-10-04, in Garmin review). What the **store build** (`store.jungle`, [ADR-033](decisions.md#adr-033)) may honestly claim. Check before any user-facing copy (site, listing, What's New).
 
 | Capability | Status | Evidence / limit |
 |---|---|---|

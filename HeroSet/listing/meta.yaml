@@ -21,10 +21,10 @@ package:
   products: 87   # <iq:product> lines in the manifest; the export has 134 part numbers (device variants), not a product count
   exported: 2026-10-04
   check: "no check script exists; unpack check by hand (bsdtar): app id 568d5c9b-eb10-4678-bf28-0080c3efbbc1 (same as manifest-store.xml), permissions Sensor and ComplicationPublisher only, 134 part numbers, 134 .prg"
-  note: "export: monkeyc -e -r -f store.jungle; built in the verden-ciq-build container; the older exports are in dist-old/ (the ones in dist-old/old/ are DO NOT UPLOAD; dist-old/HeroSet-store-2026-10-04.iq is the 1.3.0 re-export, which has the bezel fixes but not the glance layout)"
+  note: "export: monkeyc -e -r -f store.jungle; built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form with the 1.3.1 upload, submitted 2026-10-04; live until Garmin approves at the USD 2.00 tier), no number in listing text, no trial; ADR-056 (the $2.50 tier), ADR-039 (no trial)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
-assets:   # all re-rendered 2026-10-04 from the 1.3.1 store build; cover and hero (amber) uploaded to the live listing by the owner 2026-10-04 (looks approved by that); superseded files are in old/
+assets:   # all re-rendered 2026-10-04 from the 1.3.1 store build; cover and hero (amber) uploaded to the live listing by the owner 2026-10-04 (looks approved by that)
   rendered: 2026-10-04
   cover: {file: cover-500-designed.png, px: 500x500, kb: 12, cap_kb: 300, ground: "amber #FFAA00, flat"}
   hero: {file: hero-1440x720.png, px: 1440x720, kb: 287, cap_kb: 2048, ground: "amber #FFAA00, flat"}
@@ -36,14 +36,14 @@ assets:   # all re-rendered 2026-10-04 from the 1.3.1 store build; cover and her
     - {file: screens-framed/4-complete.png, caption: "Daily mission complete, all three done, streak started", device: fr965, kb: 92}
     - {file: screens-framed/5-instinct.png, caption: "The Instinct one: the same dashboard in black and white", device: instincte45mm, kb: 113, instinct: true}
   screenshots_doc: screenshots.md
-  note: "Screen 2 (and the hero that shows it) retaken 2026-10-04 with the simulator's activity data running: HR 145, CAL 0 (the simulation gives no calories). All chassis + strap simulator captures of the store build (real, no mockups, ADR-039); the earlier set (1-dashboard ... 5-complete, the spares) is in old/. The store takes no caption field: the captions are for the owner and the site. The hero shows an Instinct E 45 mm beside two Forerunner 965 screens."
+  note: "Screen 2 (and the hero that shows it) retaken 2026-10-04 with the simulator's activity data running: HR 145, CAL 0 (the simulation gives no calories). All chassis + strap simulator captures of the store build (real, no mockups, ADR-039). The store takes no caption field: the captions are for the owner and the site. The hero shows an Instinct E 45 mm beside two Forerunner 965 screens."
 site:
   landing: https://verden.watch/heroset/
   support: https://verden.watch/heroset/support/
   privacy: https://verden.watch/heroset/privacy/
 owner_approvals:   # what only the owner may settle before paste.md is used
-  - "Hero image look (it shows an Instinct E 45 mm beside two Forerunner 965 screens; see screenshots.md), now on a flat amber ground (ROADMAP 10.25; the dark one is in old/)."
-  - "Cover image look: flat amber ground with a navy shield outline and plate and a blue 'Set' (ROADMAP 10.25, Garmin's no-black-background rule; dark cover in old/, rejected variants in NOTES.md), the shield is the launcher icon's current shape; and the two device icons (unchanged, black)."
+  - "Hero image look (it shows an Instinct E 45 mm beside two Forerunner 965 screens; see screenshots.md), now on a flat amber ground (ROADMAP 10.25)."
+  - "Cover image look: flat amber ground with a navy shield outline and plate and a blue 'Set' (ROADMAP 10.25, Garmin's no-black-background rule; rejected variants in NOTES.md), the shield is the launcher icon's current shape; and the two device icons (unchanged, black)."
   - "The look of the five screen images (re-rendered 2026-10-04 from the 1.3.1 store build; how in screenshots.md)."
   - "Description line 'Also on black-and-white screens' and both What's New bullets: written by screen type with no watch model name (owner rule 2026-10-04); confirm the wording before upload."
 open_items: "7.2 7.8 9.3"   # ids in ROADMAP.md

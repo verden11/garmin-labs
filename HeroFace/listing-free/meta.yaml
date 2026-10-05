@@ -21,13 +21,13 @@ package:
   products: 124   # <iq:product> lines in the manifest; the export has 207 part numbers (device variants), not a product count
   exported: 2026-10-04   # re-export 'b' from commit 99f2dc0, after the last code change; the unsuffixed 2026-10-04 file is stale
   check: "tools/check_free_package.sh: OK (keys Mode and Accent only, no Slot/Seconds/Weather, no 'Pro')"
-  note: "export: monkeyc -e -r -f monkey.free.jungle -w --typecheck 3; built in the verden-ciq-build container; same bytes as dist/HeroFaceFree.iq in the build worktree; the older exports in dist/ and dist/old/ are untouched"
+  note: "export: monkeyc -e -r -f monkey.free.jungle -w --typecheck 3; built in the verden-ciq-build container; same bytes as dist/HeroFaceFree.iq in the build worktree"
 price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  status: rendered 2026-10-04, owner look-approval pending, not uploaded   # old/ holds the earlier simulator batch
-  cover: cover-500.png            # 500x500, 12 KB, the plain mark on sky blue #1F7AFF (Pro: royal blue + PRO pill); dark version in old/
-  hero: hero-1440x720.png         # 1440x720, 247 KB, three accents on sky blue; dark version in old/
+  status: rendered 2026-10-04, owner look-approval pending, not uploaded
+  cover: cover-500.png            # 500x500, 12 KB, the plain mark on sky blue #1F7AFF (Pro: royal blue + PRO pill)
+  hero: hero-1440x720.png         # 1440x720, 247 KB, three accents on sky blue
   screens:                        # simulator, Free build, upload order; each under 150 KB
     - {file: screens/1-everyday.png, caption: "The time, three goal bars, the ring", device: fr965, px: 454}
     - {file: screens/2-accent-cyan.png, caption: "Your accent colour, here Cyan", device: fr965, px: 454}
