@@ -184,6 +184,7 @@ Screen-fit test (`tools/fit_all.sh`, simulator only): renders the widest states 
 | 466 px AMOLED | `fenix9pro51mm` | pass |
 | 320 × 360 AMOLED (rectangle) | `venusq2`, `venusq2m` | pass |
 | 448 × 486 AMOLED (rectangle) | `venux1` | pass |
+| 240 × 240 LCD (square rectangle, added 2026-10-05) | `venusq`, `venusqm` | pass (both jungles, 2026-10-05) |
 
 Each run is 43 tests (the sweep of 2026-09-26 ran 42; the truncation test was added after), 2026-09-26, SDK 9.2.0 simulator. Not proven by these runs: legibility, MIP contrast, the always-on lit-pixel share (owner's heat map), other languages (the tests run in English; switch the simulator language and re-run `everyStateFitsThisDisplay` for German, Dutch, Finnish, Lithuanian, Ukrainian).
 
