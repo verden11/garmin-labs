@@ -1,6 +1,6 @@
 # Two Suns listing — notes
 
-What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Claims and gates: [`../docs/spec.md`](../docs/spec.md) ("Claims that may be made") and [`../docs/release-contract.md`](../docs/release-contract.md). Release history: [`../CHANGELOG.md`](../CHANGELOG.md) (an entry is due with every store publication: version, upload date, user-facing changes, ADRs; the previous What's New block then moves here, and the App Version field is bumped).
+What sits behind [`paste.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Claims and gates: [`../docs/spec.md`](../docs/spec.md) ("Claims that may be made") and [`../docs/release-contract.md`](../docs/release-contract.md). Release history: [`../CHANGELOG.md`](../CHANGELOG.md) (an entry is due with every store publication: version, upload date, user-facing changes, ADRs; the previous What's New block then moves here, and the App Version field is bumped).
 
 Written 2026-09-26 (plan phase 8); text finalised 2026-09-27 (name, category, price, "collects user data" all confirmed by the owner; see the table below). **No screenshot of the face exists** (the environment that wrote this cannot capture the simulator; the owner will supply images later). Two device checks have run on the owner's FR965 (sunrise/sunset match, Positioning); nothing else has run on a watch. The site pages are written and build in a scratch copy; they are not deployed.
 
@@ -97,7 +97,7 @@ Export overreports device count vs. the manifest — full investigation in [`../
 - **1.0.1 (prepared, not submitted; ROADMAP 4.1 is the owner's call):** `Small refinement to the Body Battery level indicator.` Use it with the 1.0.1 package if the owner uploads 1.0.1 before 1.1.0.
 - **1.0.0:** blank (initial release).
 
-## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, accepted 2026-10-04 under ADR-020 (Free + Pro ladder), nothing uploaded; moved from a draft here, 2026-10-04)
+## Pro 1.1.0: what `paste.md` now holds (uploaded 2026-10-04, accepted under ADR-020 (Free + Pro ladder); moved from a draft here, 2026-10-04)
 
 `paste.md` is the 1.1.0 text. Names are confirmed (2026-10-04); the sibling URL is the owner's; the price is the $2.50 tier (ADR-026), set in the form.
 
@@ -115,7 +115,7 @@ Export overreports device count vs. the manifest — full investigation in [`../
 
 - **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`.
 - **Title:** "Two Suns Pro" is a placeholder the owner decides; device or feature tokens may be added within 50 characters.
-- **Description:** line 1 needs the real Two Suns (Free) store URL once that listing is live (placeholder `<TWO SUNS STORE URL>`). Languages are added one at a time (pick a language, press Add, fill Title + Description); only English is drafted, see "Languages" above. The description never uses the word "free" (it is paid; release contract, store review guideline 4d). The refund sentence ("Two Suns Pro is a paid app. Refunds follow the Connect IQ Store return window.") is removed.
+- **Description:** line 1 holds the sibling's store URL (filled 2026-10-04; the link works once Garmin approves that listing). Languages are added one at a time (pick a language, press Add, fill Title + Description); only English is drafted, see "Languages" above. The description never uses the word "free" (it is paid; release contract, store review guideline 4d). The refund sentence ("Two Suns Pro is a paid app. Refunds follow the Connect IQ Store return window.") is removed.
 - **Version:** the form reads it from the package; if a field asks, type it. paste.md is the 1.1.0 text (the Pro rename); the prepared 1.0.1 What's New is in "Previous What's New blocks" above.
 - **Collects user data:** No (owner, confirmed 2026-09-27). Nothing leaves the watch: no network code, no Communications permission. The face reads a location on the watch and keeps a rounded place there, never sent: see owner decision 10 above. The privacy-policy URL field is conditional on Yes, so it may not appear; the policy is https://verden.watch/two-suns/privacy/ regardless.
 - **Category:** Utility (alternative: Health & Fitness). **Subcategory:** whatever the Category choice offers. **Preview Video:** none (YouTube or Vimeo only).

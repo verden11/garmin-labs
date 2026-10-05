@@ -1,6 +1,6 @@
 # Two Suns: spec
 
-Status: 2026-09-27. **Submitted to the Connect IQ Store, pending review** (https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b, live once approved). Plan phases 2 to 6 are done and pass in the simulator (124 tests); spot-checks have run on the owner's FR965 (sunrise/sunset match, Positioning, on-watch Customize — ADR-005, ADR-019), but no full wear day yet, and the look has not had a formal approval pass beyond the owner's own submission call. The location probes have run (M1, M2 only; ADR-005): Positioning is confirmed, not provisional. "Two Suns" is confirmed (ADR-010, 2026-09-27); no trademark search done. Folder `TwoSuns/`, code prefix `TwoSuns`. A Connect IQ watch face, independent of HeroSet, HeroFace and Days To Go: own look, own app id, no complication publishing. Where this spec and the build differ, see "Built vs specified" at the end; the reasons are in [`decisions.md`](decisions.md). **2026-10-01: a Free twin and Pro 1.1.0 are built, proposed and UNRELEASED (simulator only, nothing uploaded): see "Free and Pro" below and ADR-020 (Free + Pro ladder). Everything else in this spec describes the Pro build (the live app id) unless it says Free.**
+Status: 2026-10-05. **Live since 2026-09-28** (https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b); Pro 1.1.0 and the Free twin uploaded 2026-10-04, in review. As of 2026-09-27: Plan phases 2 to 6 are done and pass in the simulator (124 tests); spot-checks have run on the owner's FR965 (sunrise/sunset match, Positioning, on-watch Customize — ADR-005, ADR-019), but no full wear day yet, and the look has not had a formal approval pass beyond the owner's own submission call. The location probes have run (M1, M2 only; ADR-005): Positioning is confirmed, not provisional. "Two Suns" is confirmed (ADR-010, 2026-09-27); no trademark search done. Folder `TwoSuns/`, code prefix `TwoSuns`. A Connect IQ watch face, independent of HeroSet, HeroFace and Days To Go: own look, own app id, no complication publishing. Where this spec and the build differ, see "Built vs specified" at the end; the reasons are in [`decisions.md`](decisions.md). **2026-10-04: a Free twin and Pro 1.1.0 were built (2026-10-01), approved and uploaded (in Garmin review, simulator only): see "Free and Pro" below and ADR-020 (Free + Pro ladder). Everything else in this spec describes the Pro build (the live app id) unless it says Free.**
 
 Sources: [`reports/Body Battery and sun face research.md`](../../reports/Body%20Battery%20and%20sun%20face%20research.md) and the notes in `research_notes/Body Battery and sun face research/` (start with `platform.md`). The build order and state are in [`archive/plan.md`](archive/plan.md); each decision below has an ADR in [`decisions.md`](decisions.md).
 
@@ -26,12 +26,12 @@ A watch face that answers one question at a glance: **how much light, and how mu
 | D12 | **Languages: English + Days To Go's 14** | Built; machine-drafted, no native reader; **never fit-tested in translation** | Few strings; same caveat as Days To Go |
 | D13 | **Category:** Health & Fitness or Utility | **Owner to choose** at listing time | Body Battery audience browses Health & Fitness; sun users Utility/Outdoor |
 | D14 | **Own Monkey C code; copy the calendar, layout and sleep patterns from Days To Go, no Barrel** | Built | Same reason as Days To Go D10 |
-| D15 | **Free + Pro pair**: the paid app becomes Two Suns Pro (1.1.0), a Free twin is added (1.0.0), one codebase, split at compile time (ADR-020, Free + Pro ladder); Free's Body Battery is Garmin's own number only (ADR-021, Body Battery in Free) | **Approved by the owner 2026-10-04; names confirmed, Pro at the $2.50 tier (D16); uploads are still the owner's** (UNRELEASED) | See "Free and Pro" below. ADR-020 superseded D3's day-45 review on 2026-10-04 |
+| D15 | **Free + Pro pair**: the paid app becomes Two Suns Pro (1.1.0), a Free twin is added (1.0.0), one codebase, split at compile time (ADR-020, Free + Pro ladder); Free's Body Battery is Garmin's own number only (ADR-021, Body Battery in Free) | **Approved by the owner 2026-10-04; names confirmed, Pro at the $2.50 tier (D16); both uploaded by the owner 2026-10-04, in Garmin review** | See "Free and Pro" below. ADR-020 superseded D3's day-45 review on 2026-10-04 |
 | D16 | **Price: Two Suns Pro at the $2.50 tier** of Garmin's price points; Free is free; no price number in listing or site text (ADR-026 (price: the $2.50 tier for every paid app)) | **Owner, 2026-10-04** | Room for later discounts or a rise; supersedes D3's price (the store showed $2.25, the documented $1.99). Set in the upload form with the 1.1.0 upload |
 
 ### Free and Pro
 
-Status: **Approved by the owner 2026-10-04 (ADR-020, ADR-021), UNRELEASED, simulator only; nothing built here is uploaded.** Strategy and evidence: `../../reports/Free and Pro ladder.md`; the build plan is WP5 in `../../reports/Free and Pro ladder execution plan.md`. The decision records are ADR-020 (Free + Pro ladder) and ADR-021 (Body Battery in Free) in [`decisions.md`](decisions.md). Names ("Two Suns" and "Two Suns Pro") are confirmed (owner, 2026-10-04); the price is the $2.50 tier (ADR-026); the store titles stay the owner's.
+Status: **Approved by the owner 2026-10-04 (ADR-020, ADR-021), uploaded 2026-10-04 (in Garmin review), simulator only.** Strategy and evidence: `../../reports/Free and Pro ladder.md`; the build plan is WP5 in `../../reports/Free and Pro ladder execution plan.md`. The decision records are ADR-020 (Free + Pro ladder) and ADR-021 (Body Battery in Free) in [`decisions.md`](decisions.md). Names ("Two Suns" and "Two Suns Pro") are confirmed (owner, 2026-10-04); the price is the $2.50 tier (ADR-026); the store titles stay the owner's.
 
 | | **Free** (new app id, $0) | **Pro** (the existing paid app id) |
 |---|---|---|
@@ -97,11 +97,11 @@ Body Battery under the time:
 
 The face never shows the words good, low, rest, tired or any face/emoji for Body Battery.
 
-### Watch battery row and Body Battery glyph (ADR-023, proposed, built, UNRELEASED)
+### Watch battery row and Body Battery glyph (ADR-023, proposed until the wrist check, built, uploaded in Pro 1.1.0 2026-10-04)
 
 Pro: a muted row above the stack with the watch's charge (classic battery glyph and a whole percent), setting `Battery` (On by default), drawn only where the round chord has room (not on small screens), never moving another row. Both tiers: the Body Battery glyph is a bolt gauge (dim bolt filled from the bottom to the level; hollow when stale or missing), replacing the level pill. The weather row's next-day marker is an arrow.
 
-### Weather row (Pro, ADR-022, proposed, built, UNRELEASED)
+### Weather row (Pro, ADR-022, proposed until the wrist check, built, uploaded in Pro 1.1.0 2026-10-04)
 
 A row between the time and the Body Battery band: while the sun is up, the observed condition icon (fixed hue per icon type, larger than the others) and the **feels-like** number (Celsius from Garmin, shown in the watch's unit, one hue whatever the condition), then up to three mono condition icons from the hourly forecast at even steps to sunset with the hour under each; before sunrise and after sunset, the next daylight day (a chevron and weekday after sunset only, condition, high and low, and the hours the hourly list reaches; the low goes first on a wide row). Pro only, setting `Weather`. Data from `Toybox.Weather` (no permission), cached 5 minutes; a reading older than 3 hours, an hourly entry whose hour has ended, a condition with no icon, and a missing daily entry are left out, never guessed. Full detail, the fit table and the order of giving way: ADR-022. Simulator only (canned weather); the 12-entry hourly list starting at the current hour was seen once on the FR965 (probe log line, 2026-10-03) and matches the forum.
 
@@ -141,7 +141,7 @@ All lists (Properties only for settings; `Application.Storage` only for the reme
 
 Time format follows the system's 12/24 h. No numeric fields. Settings reach the watch from Garmin Connect, or on-watch via `getSettingsView` (Customize, next to Apply in the watch-face picker; ADR-019) — both write the same Properties, last write wins. **The face works with all defaults if neither round trip ever runs** (the Days To Go lesson).
 
-## Design brief (as built; the owner has not approved the look)
+## Design brief (as built; shipped by the owner with 1.0.0)
 
 The visual system as built is in [`../DESIGN.md`](../DESIGN.md). **The look, the rectangles and the launcher icon are not approved**; no screenshot of the face exists (this environment cannot capture the simulator). Decided by the build, not by the owner: the colours, the row drop order. The glyph shape (2026-09-27) was the owner's call, on the real-device photo.
 

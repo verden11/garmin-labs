@@ -1,6 +1,6 @@
 # Two Suns Pro: screenshots and store images
 
-Status 2026-10-04. Everything here is **simulator only** (the container's simulator, native pixels), rendered from the **current Pro build** (`monkey.jungle`). Nothing is a wrist photo. **The owner has not approved the looks yet** (screens, cover, hero, icons); upload waits for that (ROADMAP 1.5, 9.7, 10.5).
+Status 2026-10-04. Everything here is **simulator only** (the container's simulator, native pixels), rendered from the **current Pro build** (`monkey.jungle`). Nothing is a wrist photo. **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.**
 
 ## What the pictures are, honestly
 
@@ -31,7 +31,7 @@ The Instinct family has no accent or golden-hour setting (ADR-024), so shot 4 sh
 
 Sources in `src/` (HTML, studio look, the face's own ring as the mark; the Pro mark adds the golden-hour arcs and a **PRO** pill, the Free mark has neither, so the pair is told apart the same way in cover, hero and icons: the pill is a **proposal for the owner**):
 
-**Light/coloured ground (2026-10-04, ROADMAP 10.25; the owner has not approved the look).** Garmin's brand page says "Do not choose black or transparent backgrounds", so the cover and hero are re-rendered on a **violet ground, `#AA55FF`** (the Violet accent of the sun-ring palette, so Pro is the violet one and the Free listing is the sky-blue one). The mark keeps the face's own ring: daylight white, night in a deep indigo (`#2B1370`), the two golden-hour arcs in `#FF5500`, ticks and the sun in navy `#0B1530`; the name is navy with "Suns" white; the **PRO** pill is `#FF5500` with navy text and is larger than before so it still reads at 100 px (checked at 100 px). The hero keeps the real watch screens (black faces on the violet ground). The device icons stay as they are: the guidance sentence is about the cover, and the icon is a small black-ground mark with no text. rejected variants are in `NOTES.md`. Sizes: cover 13 KB, hero 151 KB.
+**Light/coloured ground (2026-10-04, ROADMAP 10.25).** Garmin's brand page says "Do not choose black or transparent backgrounds", so the cover and hero are re-rendered on a **violet ground, `#AA55FF`** (the Violet accent of the sun-ring palette, so Pro is the violet one and the Free listing is the sky-blue one). The mark keeps the face's own ring: daylight white, night in a deep indigo (`#2B1370`), the two golden-hour arcs in `#FF5500`, ticks and the sun in navy `#0B1530`; the name is navy with "Suns" white; the **PRO** pill is `#FF5500` with navy text and is larger than before so it still reads at 100 px (checked at 100 px). The hero keeps the real watch screens (black faces on the violet ground). The device icons stay as they are: the guidance sentence is about the cover, and the icon is a small black-ground mark with no text. rejected variants are in `NOTES.md`. Sizes: cover 13 KB, hero 151 KB.
 
 | File | Size | Source |
 |---|---|---|

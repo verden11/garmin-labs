@@ -35,7 +35,7 @@ Package `dist/TwoSunsFree-1.0.0.iq` (72 products, 93 device variants). App id `9
 - ADRs: 020 (Free + Pro ladder), 021 (Body Battery in Free), 025 (Free Body Battery number larger), all accepted 2026-10-04.
 - Evidence (simulator and compile only): Free 67 tests on the ten `fit_all.sh` devices; whole-manifest compile sweep 69 of 69 products per jungle (before the Instinct products were added; the Instinct fit runs are in `docs/compatibility.md`); `tools/check_free_package.sh` passes on the exported package (permission `ComplicationSubscriber` only, only the `Accent` key, no "Pro" anywhere). Nothing has run on a wrist.
 
-## 1.0.1 — prepared 2026-09-28, not yet submitted
+## 1.0.1 — prepared 2026-09-28, never submitted on its own: folded into Pro 1.1.0 (owner, 2026-10-04)
 
 Owner is holding submission until 1.0.0's review concludes. Built on top of 1.0.0, no other
 changes. Evidence: simulator only — compiled and the full 124-test suite re-run on `fr965`,

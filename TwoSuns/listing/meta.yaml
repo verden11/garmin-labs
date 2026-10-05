@@ -21,10 +21,10 @@ package:
   products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
   exported: 2026-10-04   # re-exported after the always-on text colour change (ADR-027, ROADMAP 10.26)
   check: "tools/check_free_package.sh: OK (Positioning and SensorHistory declared, keys Accent Orientation Golden Curve Date Weather Battery)"
-  note: "export: monkeyc -e -r -f monkey.jungle; dist/TwoSuns-1.0.1-prepared.iq is the separate 1.0.1 package (ROADMAP 4.1); built in the verden-ciq-build container; same bytes as dist/TwoSunsPro.iq in the build worktree"
+  note: "export: monkeyc -e -r -f monkey.jungle; dist/TwoSuns-1.0.1-prepared.iq is the separate 1.0.1 package (ROADMAP 4.1); built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload, submitted 2026-10-04; the store shows $2.25 until Garmin approves), no number in listing text; ADR-026 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-020 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
-assets:   # all rendered 2026-10-04 from the current Pro build in the simulator (canned data); the owner has NOT approved the looks (ROADMAP 1.5, 9.7)
+assets:   # all rendered 2026-10-04 from the current Pro build in the simulator (canned data); uploaded with the build 2026-10-04
   cover: cover-500.png            # 500x500, 13 KB; violet ground (light/coloured, ROADMAP 10.25, 2026-10-04)
   hero: hero-1440x720.png         # 1440x720, 151 KB; violet ground
   icon_64: icon-64-128.png        # 128x128, 1 KB
@@ -40,9 +40,6 @@ site:
   landing: https://verden.watch/two-suns/
   support: https://verden.watch/two-suns/support/
   privacy: https://verden.watch/two-suns/privacy/
-owner_approvals:   # what only the owner may settle before paste.md is used
-  - "Title: 'Two Suns Pro' is a placeholder; device or feature tokens may be added within 50 characters."
-  - "Line 1 of the description needs the Two Suns (Free) store URL, once that listing is live."
-  - "The looks of the hero (rendered 2026-10-04 from the current Pro build in the simulator, canned data), the cover (the PRO pill and the golden arcs are a proposal for telling this listing from its lighter sibling), the device icons and the five screens (all simulator only with canned data: sun times, curve and number are set for the picture, never a reading; the weather row and the watch battery row are switched off in them; details in screenshots.md)."
-  - "Price tier USD 2.50 (owner, 2026-10-04, ADR-026), set in the form with the 1.1.0 upload, replacing the $2.25 the store showed."
-open_items: "2.3 4.2 4.3 9.2"   # ids in ROADMAP.md
+owner_approvals:   # settled by the owner's upload of 2026-10-04 (text, title and images); what is still open:
+  - "The 24-hour curve sentence and pictures went up with 1.1.0; whether the release contract allows it before the wrist check is ROADMAP 4.5."
+open_items: "4.2 4.5 7.12 10.29"   # ids in ROADMAP.md

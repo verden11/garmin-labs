@@ -21,10 +21,10 @@ package:
   products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
   exported: 2026-10-04   # re-exported after the always-on text colour change (ADR-027, ROADMAP 10.26)
   check: "tools/check_free_package.sh: OK (permission ComplicationSubscriber only, key Accent only, no 'Pro' anywhere)"
-  note: "export: monkeyc -e -r -f monkey.free.jungle; built in the verden-ciq-build container; same bytes as dist/TwoSunsFree.iq in the build worktree"
+  note: "export: monkeyc -e -r -f monkey.free.jungle; built in the verden-ciq-build container"
 price: free (uploaded as a free app 2026-10-04)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
-assets:   # all rendered 2026-10-04 from the Free build in the simulator (canned data); the owner has NOT approved the looks (ROADMAP 1.5, 9.7)
+assets:   # all rendered 2026-10-04 from the Free build in the simulator (canned data); uploaded with the build 2026-10-04
   cover: cover-500.png            # 500x500, 12 KB; sky-blue ground (light/coloured, ROADMAP 10.25, 2026-10-04)
   hero: hero-1440x720.png         # 1440x720, 145 KB; sky-blue ground
   icon_64: icon-64-128.png        # 128x128, 1 KB
@@ -40,9 +40,5 @@ site:
   landing: https://verden.watch/two-suns/
   support: https://verden.watch/two-suns/support/
   privacy: https://verden.watch/two-suns/privacy/
-owner_approvals:   # what only the owner may settle before paste.md is used
-  - "Title: 'Two Suns' is the plan placeholder; search the store by eye for a collision first."
-  - "Line 1 of the description needs the Two Suns Pro store URL, once Pro is live."
-  - "The looks of the hero (rendered 2026-10-04 from the Free build in the simulator, canned data; it shows no curve, no date and nothing from Pro), the cover (the plain ring, no golden arcs, no pill), the device icons and the five screens (simulator only with canned data: sun times and the Body Battery number are set for the picture, never a reading; details in screenshots.md)."
-  - "What's New is blank, per this app's rule for an initial release. If a line is preferred, a draft: 'First release of the free Two Suns: the time, a 24-hour sun ring, your Body Battery number and an accent colour.'"
-open_items: "2.3 4.3"   # ids in ROADMAP.md
+owner_approvals: []   # settled by the owner's upload of 2026-10-04 (text, title and images)
+open_items: "4.2 6.1 7.12 10.29"   # ids in ROADMAP.md

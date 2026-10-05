@@ -55,7 +55,7 @@ The fēnix 9 family, FR70 and FR170 (API 6.0) are in by API level; the SDK's dev
 
 Counts are from `research_notes/Body Battery and sun face research/platform.md` §7 (API levels from the SDK, 2026-09-26). The SDK's supported-device lists for the three APIs, matched by name, show the fēnix 9 family, FR70 and FR170 as supporting none; that is documentation lag.
 
-## Free and Pro builds (ADR-020 (Free + Pro ladder), accepted 2026-10-04, UNRELEASED)
+## Free and Pro builds (ADR-020 (Free + Pro ladder), accepted and uploaded 2026-10-04)
 
 Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle`) and **Free** (`manifest.free.xml`, new app id, `monkey.free.jungle`). Both list the **same 69 products**, `minApiLevel` 4.2.0 and the same 15 languages; `tools/compile_sweep.sh` refuses to run if the two manifests' product lists differ. **Permissions differ, and Free's are a subset of Pro's**: Free declares `ComplicationSubscriber` only; Pro declares `ComplicationSubscriber`, `SensorHistory` and `Positioning` (the sentence at the top of this file describes Pro).
 

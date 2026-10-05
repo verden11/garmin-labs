@@ -51,7 +51,7 @@ components:
 
 # Design
 
-The visual system **as built** (2026-09-26). **The owner has not approved the look**, the rectangular screens have not been looked at by eye, the launcher icon is a placeholder, and **no screenshot of the face exists** (this environment cannot capture the simulator). Everything here is read from the code and the simulator's layout report; nothing has been seen on a watch. The owner may replace the direction with a design-tool mock-up ([`docs/archive/plan.md`](docs/archive/plan.md) phase 4 gate); then this file and the spec change.
+The visual system **as built** (2026-09-26; the owner shipped it as 1.0.0, uploaded 2026-09-27). Noted then: the rectangular screens have not been looked at by eye, the launcher icon is a placeholder, and **no screenshot of the face exists** (this environment cannot capture the simulator). Everything here is read from the code and the simulator's layout report; nothing has been seen on a watch. The owner may replace the direction with a design-tool mock-up ([`docs/archive/plan.md`](docs/archive/plan.md) phase 4 gate); then this file and the spec change.
 
 ## Direction
 
@@ -109,17 +109,17 @@ Accents (default first) and their "gone" form: sky `#55AAFF` 8.6 : 1 → `#55AAA
 
 Always-on text is `#5C5C5C`, 3.1:1 (was `#555555` 2.8:1, then `#5555AA` 3.3:1 from 2026-09-27; now a grey, ADR-027 (always-on text is a dim grey), `docs/decisions.md`). Stale curve fill stays `#555555`, 2.8:1 (awake-only, carried by shape too); still worth a look-approval check in daylight on a MIP watch. `TwoSunsPalette.TRACK` (`#555555`) is defined but no code draws it.
 
-## Accent ids, and the Free build (ADR-020, accepted 2026-10-04, UNRELEASED)
+## Accent ids, and the Free build (ADR-020, accepted and uploaded 2026-10-04)
 
 Accent ids are **append-only**: a shipped id never changes its colour (`shippedAccentIdsKeepTheirColours`), an unknown or out-of-range id draws the default (id 0). Both tiers offer ids 0 to 5, the shipped list: 0 sky `#55AAFF` (default), 1 mint `#55FFAA`, 2 autumn `#FFAA00`, 3 violet `#AA55FF`, 4 pink `#FF55AA`, 5 winter `#FFFFFF`. The plan's ids 6 to 11 are **deferred, not built**; when they land they are Pro only and appended: 6 cyan `#00FFFF`, 7 lime `#55FF55`, 8 yellow `#FFFF55`, 9 magenta `#FF55FF`; orange and coral are **not admitted** for this face (golden hour is `#FF5500`, and no accent or dimmed accent may equal it: `noAccentIsTheGoldenHourColour`). Amber, orange, coral and red are never the default on a Body Battery face (ADR-017, ring, curve and glyph encodings, the amber-read-as-"low" lesson). The accent tests check every channel is 00/55/AA/FF and the accent and its dimmed form are at least 3:1 on black.
 
 The Free build draws the same face with fewer parts: no curve, no date row, no twilight or golden-hour arc, noon at the top; the time, the level pill with Garmin's number (or `--` and a hollow pill), the ring from Garmin's own sunrise and sunset, and the sun sentence. Because the date row and the curve are absent the rows re-stack from the same measured fonts (ADR-016, rows follow font heights), so the time and the band sit differently from Pro's default. **No mockup, screenshot or look approval exists for that layout**; nothing was redesigned. Free has no stale state: the pill is hollow only for `--` (ADR-021, Body Battery in Free).
 
-## Weather row (Pro, ADR-022, proposed, BUILT and UNRELEASED; the owner approved the mockup 2026-10-03; never seen on a screen)
+## Weather row (Pro, ADR-022, proposed until the wrist check, built, uploaded in Pro 1.1.0 2026-10-04; the owner approved the mockup 2026-10-03; never seen on a screen)
 
 A row between the time and the Body Battery band: **now** = a condition icon (1.4 times an ahead icon) in one fixed hue per icon type (sun and bolt `#FFFF55`, cloud and snow `#FFFFFF`, rain `#00AAFF`) and the feels-like number in one hue whatever the condition (`#FFFF55`); **ahead** = up to three mono `#AAAAAA` icons, hour under each, even steps to sunset; after sunset the next daylight day (chevron and weekday, icon, high and low; the low goes first on a wide row), before sunrise the same without the label. One-line compact form on screens too short (the 218 px products, by the simulator's fonts), then gone. Order of giving way: compact, date, curve, weather row, sun line. Icons are primitives (`TwoSunsWeatherIcons`), seven kinds. Not drawn always-on. Mockup: `docs/archive/weather-mockup.html`. Reserved: no accent may equal a weather hue (`noAccentIsAWeatherHue`). The built row has no screenshot: only `twoSunsLayoutReport` boxes. **The time moves 37 px (454 px) when the row appears or disappears** (setting off, data aged out after 3 hours, no data, no daily entry after sunset); a failed read keeps the last good data so a flaky read does not cause it. Design review: ADR-022.
 
-## Watch battery row (Pro, ADR-023, proposed, BUILT and UNRELEASED; never seen on a screen)
+## Watch battery row (Pro, ADR-023, proposed until the wrist check, built, uploaded in Pro 1.1.0 2026-10-04; never seen on a screen)
 
 One muted `#AAAAAA` row above the first row of the stack: a classic battery (outline, nub, fill) and the whole percent, centred. It lives in the strip between the stack and the ring, so it never moves another row, and it is drawn only where its ink fits the round chord (drawn on 280, 390, 416, 454 and 466 px screens, not on 360 px, by the simulator's fonts). Setting `Battery`, On by default. No charging mark, no low colour. Not drawn always-on. The next-day marker in the weather row is an arrow (shaft and filled head, muted), not a character.
 

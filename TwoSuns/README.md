@@ -10,7 +10,7 @@ glance. Every failure has a sentence, not a blank. Nothing leaves the watch.
 
 **"Two Suns" is confirmed** (ADR-010, 2026-09-27); no trademark search done.
 
-Two builds from one source (UNRELEASED, ladder approved by the owner 2026-10-04, `docs/decisions.md` ADR-020 (Free + Pro ladder)): **Two Suns** (Free, `monkey.free.jungle`: the time, the sun ring from Garmin's own sunrise and sunset, Garmin's Body Battery number, an accent colour; permission `ComplicationSubscriber` only, no location) and **Two Suns Pro** (the paid app, `monkey.jungle`: adds the 24-hour energy curve, the place-based sun, golden hour, ring orientation and the date row). Everything below describes Pro unless it says Free.
+Two builds from one source (uploaded 2026-10-04, in Garmin review; ladder approved by the owner 2026-10-04, `docs/decisions.md` ADR-020 (Free + Pro ladder)): **Two Suns** (Free, `monkey.free.jungle`: the time, the sun ring from Garmin's own sunrise and sunset, Garmin's Body Battery number, an accent colour; permission `ComplicationSubscriber` only, no location) and **Two Suns Pro** (the paid app, `monkey.jungle`: adds the 24-hour energy curve, the place-based sun, golden hour, ring orientation and the date row). Everything below describes Pro unless it says Free.
 
 72 products at Connect IQ 4.2 and up (66 round, 3 rectangular AMOLED, 3 Instinct with a round window, black and white: ADR-024, accepted 2026-10-04, simulator only): [`docs/compatibility.md`](docs/compatibility.md).
 Status: **submitted 2026-09-27, pending review.** Built and simulator-tested, spot-checked on a real FR965, no full wear day yet. Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
@@ -78,5 +78,5 @@ tools/                              run_tests.sh, fit_all.sh, fit_products.sh, f
                                     check_free_package.sh, gen_settings.py, gen_sun_tests.py, check_strings.py
 docs/                               spec, plan, decisions, compatibility, development, release contract, publish checklist
 listing/                            store form copy, Pro (the live listing): listing/paste.md, listing/NOTES.md
-listing-free/                       store form copy, Free (a draft; nothing uploaded)
+listing-free/                       store form copy, Free (uploaded 2026-10-04)
 ```

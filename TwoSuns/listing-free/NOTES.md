@@ -1,6 +1,6 @@
 # Two Suns (Free) listing: notes
 
-What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Status 2026-10-01: **draft, UNRELEASED, simulator only, nothing uploaded**; built against the Free + Pro plan (WP5 and the WP10 description skeleton, `../../reports/Free and Pro ladder execution plan.md`). Decision records: ADR-020 (Free + Pro ladder, proposed) and ADR-021 (Body Battery in Free, proposed) in [`../docs/decisions.md`](../docs/decisions.md). Claims are checked against [`../docs/release-contract.md`](../docs/release-contract.md), which has a "Free and Pro listings" section.
+What sits behind [`paste.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Status 2026-10-05: **uploaded by the owner 2026-10-04 as a new app, in Garmin review** (the text below is the dated record of how it was drafted); built against the Free + Pro plan (WP5 and the WP10 description skeleton, `../../reports/Free and Pro ladder execution plan.md`). Decision records: ADR-020 (Free + Pro ladder, accepted 2026-10-04) and ADR-021 (Body Battery in Free, accepted 2026-10-04) in [`../docs/decisions.md`](../docs/decisions.md). Claims are checked against [`../docs/release-contract.md`](../docs/release-contract.md), which has a "Free and Pro listings" section.
 
 ## Owner decisions (not made here)
 
@@ -68,7 +68,7 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 
 - **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`.
 - **Title:** "Two Suns" is the plan placeholder; the owner decides, and searches the store by eye for a collision first.
-- **Description:** line 1 needs the real Two Suns Pro URL once Pro is live (placeholder `<PRO STORE URL>`). English only until the owner decides on translations.
+- **Description:** line 1 holds the sibling's store URL (filled 2026-10-04; the link works once Garmin approves that listing). English only until the owner decides on translations.
 - **Version:** the form reads it from the package; if a field asks, type it. **What's New:** blank, per this app's rule for an initial release; the optional draft line is in `meta.yaml` `owner_approvals`.
 - **Collects user data:** No; Free reads no location and keeps no place; nothing leaves the watch. The privacy-policy URL field is conditional on Yes, so it may not appear.
 - **Category:** Utility (alternative: Health & Fitness, as for Pro). **Subcategory:** whatever the Category choice offers. **Preview Video:** none (YouTube or Vimeo only). **App Migration:** No; a new app, not an update.
