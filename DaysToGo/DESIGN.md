@@ -47,7 +47,7 @@ components:
 
 ## Direction
 
-**One number.** Black ground. The day count is the largest thing on the screen, white, in the largest system numeric font that fits the height left over. A thin ring around the bezel drains clockwise from the top as the date approaches (square root of the share of the next 365 days still to go, so the last days stay visible) and is full, in the accent, on the day. More than a year out it is the grey track only, so a full accent ring can only mean the day itself. State is never colour alone: the words TODAY, HOURS, DAYS SINCE carry it.
+**One number.** Black ground. The day count is the largest thing on the screen, white, in the largest system numeric font that fits the height left over. A thin ring around the bezel drains clockwise from the top as the date approaches (square root of the share of the next 365 days still to go, so the last days stay visible) and is full, in the accent, on the day. More than a year out it is the grey track only. As built it is also full at exactly 365 days (the square root of 365/365), and a Pro timed event restarts it near full when its last 24 hours begin (the hours state is the share of 24 hours, so 1 day at 5% jumps to about 100%); whether to change either is the owner's call (ROADMAP 13.1). State is never colour alone: the words TODAY, HOURS, DAYS SINCE carry it.
 
 ## Timed events, to the minute (Pro, ADR-018)
 
