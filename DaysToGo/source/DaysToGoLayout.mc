@@ -54,6 +54,11 @@ class DaysToGoLayout {
         return sleeping ? SLEEP_HERO_FONTS : HERO_NUMBER_FONTS;
     }
 
+    // Pro's "8h 06m" (DaysToGoHoursHero): the letters are at most this share of the digits' font height, and
+    // their box is lifted by this share of it so they sit on the digits' baseline (tuned on screenshots, 2026-10-05).
+    static const HOURS_UNIT_MAX_PERMILLE = 450;
+    static const HOURS_UNIT_LIFT_PERMILLE = 130;
+
     static const NAME_FONTS = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     static const CAPTION_FONTS = [Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     static const SMALL_FONTS = [Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;

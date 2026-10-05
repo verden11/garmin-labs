@@ -5,6 +5,7 @@ class DaysToGoState {
     var phase as Number = DaysToGoConfig.PHASE_UPCOMING;
     var hero as String = "";
     var heroIsWord as Boolean = false;   // TODAY / SET A DATE: needs a letter font, not a number font
+    var heroIsHours as Boolean = false;  // Pro's last 24 hours: hero "H:MM" is drawn "8h 06m" (DaysToGoHoursHero)
     var captionLines as Array<String> = [] as Array<String>;   // longest first
     var name as String = "";
     var dateLines as Array<String> = [] as Array<String>;      // longest first

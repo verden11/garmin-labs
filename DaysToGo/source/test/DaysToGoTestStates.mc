@@ -22,6 +22,7 @@ class DaysToGoTestStates {
         states.add(withFooter(upcoming(365, 0, "Race"), "100%"));
         states.add(withFooter(upcoming(12775, 0, "WWWWWWWWWWWWWWWW"), "99.9K"));
         states.add(other(DaysToGoConfig.PHASE_HOURS, 0, 86399, "WWWWWWWWWWWWWWWW"));
+        states.add(withFooter(other(DaysToGoConfig.PHASE_HOURS, 0, 86399, "WWWWWWWWWWWWWWWW"), "99.9K"));
         states.add(other(DaysToGoConfig.PHASE_TODAY, 0, 0, "WWWWWWWWWWWWWWWW"));
         states.add(other(DaysToGoConfig.PHASE_PAST, 99999, 0, "WWWWWWWWWWWWWWWW"));
         states.add(other(DaysToGoConfig.PHASE_INVALID, 0, 0, "WWWWWWWWWWWWWWWW"));

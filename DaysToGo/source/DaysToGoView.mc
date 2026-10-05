@@ -58,8 +58,7 @@ class DaysToGoView extends WatchUi.WatchFace {
             DaysToGoDraw.line(dc, layout, radius, rows.nameTop, dc.getFontHeight(frame.nameFont), frame.nameFonts, [state.name] as Array<String>, 0);
         }
         dc.setColor(state.phase == DaysToGoConfig.PHASE_TODAY ? state.accent : DaysToGoPalette.TEXT, Graphics.COLOR_TRANSPARENT);
-        DaysToGoDraw.line(dc, layout, radius, rows.heroTop, rows.heroHeight,
-                          DaysToGoLayout.heroFonts(state.heroIsWord, false), [state.hero] as Array<String>, 0);
+        drawHero(dc, layout, radius, rows.heroTop, rows.heroHeight, state, false, 0);
         if (state.captionLines.size() > 0) {
             drawRow(dc, layout, radius, rows.captionTop, frame.captionFont, state.captionLines, DaysToGoPalette.MUTED);
         }
@@ -69,6 +68,17 @@ class DaysToGoView extends WatchUi.WatchFace {
         var footer = state.footer;
         if (frame.showFooter && !frame.footerWithDate && footer != null) {
             drawRow(dc, layout, radius, rows.footerTop, frame.smallFont, [footer] as Array<String>, DaysToGoPalette.MUTED);
+        }
+    }
+
+    // Shared with DaysToGoSleep: the hours hero carries its unit letters, every other hero is one string.
+    static function drawHero(dc as Graphics.Dc, layout as DaysToGoLayout, radius as Number, top as Number, height as Number,
+                             state as DaysToGoState, sleeping as Boolean, dx as Number) as Void {
+        var fonts = DaysToGoLayout.heroFonts(state.heroIsWord, sleeping);
+        if (state.heroIsHours) {
+            DaysToGoHoursHero.draw(dc, layout, radius, top, height, fonts, state.hero, dx);
+        } else {
+            DaysToGoDraw.line(dc, layout, radius, top, height, fonts, [state.hero] as Array<String>, dx);
         }
     }
 

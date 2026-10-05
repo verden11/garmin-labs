@@ -270,7 +270,7 @@ function minuteAndZoneReachTheFace(logger as Test.Logger) as Boolean {
     var r = DaysToGoCountdown.resolve(event, new DaysToGoLocalTime(2026, 12, 25, seconds(9, 39, 0), 3600));
     var state = DaysToGoReadings.build(s, r, 2026, false);
     Test.assertEqual(state.hero, "7:51");
-    Test.assertEqual(state.captionLines[0], "HOURS");
+    Test.assert(state.heroIsHours);   // drawn "7h 51m", no HOURS caption (ROADMAP 13.2)
     return true;
 }
 

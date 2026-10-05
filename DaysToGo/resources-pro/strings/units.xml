@@ -1,0 +1,8 @@
+<strings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+
+    <!-- The unit letters of Pro's last-24-hours hero, "8h 06m" (ROADMAP 13.2). English only for now: every language falls back to these,
+         so a resources-pro-<lang>/strings/units.xml would override them (whether to translate them, or use "min", is ROADMAP 13.7).
+         Kept out of strings.xml so tools/check_strings.py does not require them in every language. -->
+    <string id="unit_hours">h</string>
+    <string id="unit_minutes">m</string>
+</strings>

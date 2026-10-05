@@ -84,7 +84,9 @@ function hoursShowsHMM(logger as Test.Logger) as Boolean {
     Test.assertEqual(DaysToGoReadings.hoursText(1), "0:01");
     Test.assertEqual(DaysToGoReadings.hoursText(86399), "24:00");
     var state = DaysToGoReadings.build(settingsFor(0, ""), resultOf(DaysToGoConfig.PHASE_HOURS, 0, 43200), 2026, false);
-    Test.assertEqual(state.captionLines[0], "HOURS");
+    // "8h 06m" carries its own units: no HOURS caption (ROADMAP 13.2).
+    Test.assert(state.heroIsHours);
+    Test.assertEqual(state.captionLines.size(), 0);
     Test.assertEqual(state.ringPermille, 37);   // sqrt(12 h / 365 days): the same scale as the days
     return true;
 }

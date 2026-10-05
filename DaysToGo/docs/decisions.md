@@ -201,6 +201,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 **Reversed by.** The owner. A new ADR would supersede this one; the keys `Minute` and `EventZone` stay in the Pro properties file forever once shipped.
 
+**Amendment 2026-10-05 (owner, ROADMAP 13.2; simulator only): the last 24 hours read `8h 06m`, not `8:06` over HOURS.** `8:06` under the time read as a second clock. The hero's digits stay in the number font and the unit letters ("h", "m": `resources-pro/strings/units.xml`, English only for now, ROADMAP 13.7) are drawn in a letter font on the digits' baseline (`DaysToGoHoursHero`; `Graphics.getFontAscent` where the API has it, else `DaysToGoLayout.HOURS_UNIT_LIFT_PERMILLE`). The HOURS caption is gone, so the hero gets that row's height; always-on draws the same group, dim. The count, the rounding and the zone rules are unchanged. Reversed by the owner (restore the caption and draw the hero as one string).
+
 ## Reference code
 
 `docs/reference/` (the verified first draft of the logic, the on-watch picker and the tools) was superseded by `source/` and `tools/`, then deleted; its history is in the research notes.

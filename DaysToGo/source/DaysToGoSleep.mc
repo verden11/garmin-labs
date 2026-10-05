@@ -19,8 +19,7 @@ class DaysToGoSleep {
         var frame = new DaysToGoFrame(dc, layout, state, true);
         var rows = frame.rows;
         dc.setColor(DaysToGoPalette.SLEEP_TEXT, Graphics.COLOR_TRANSPARENT);
-        DaysToGoDraw.line(dc, layout, radius, rows.heroTop + dy, rows.heroHeight,
-                          DaysToGoLayout.heroFonts(state.heroIsWord, true), [state.hero] as Array<String>, dx);
+        DaysToGoView.drawHero(dc, layout, radius, rows.heroTop + dy, rows.heroHeight, state, true, dx);
         DaysToGoDraw.line(dc, layout, radius, rows.timeTop + dy, dc.getFontHeight(frame.timeFont),
                           [frame.timeFont] as Array<Graphics.FontDefinition>, [state.time] as Array<String>, dx);
     }

@@ -37,8 +37,9 @@ class DaysToGoReadings {
         if (result.phase == DaysToGoConfig.PHASE_UPCOMING) {
             fillUpcoming(state, result.days, settings.unit == DaysToGoConfig.UNIT_WEEKS);
         } else if (result.phase == DaysToGoConfig.PHASE_HOURS) {
+            // No HOURS caption: the hero carries its units ("8h 06m", ROADMAP 13.2).
             state.hero = hoursText(result.seconds);
-            state.captionLines = [DaysToGoText.get(Rez.Strings.cap_hours)] as Array<String>;
+            state.heroIsHours = true;
             state.ringPermille = ringPermilleForSeconds(result.seconds);
         } else if (result.phase == DaysToGoConfig.PHASE_TODAY) {
             state.hero = DaysToGoText.get(Rez.Strings.cap_today);
