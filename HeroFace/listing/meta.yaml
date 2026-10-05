@@ -25,7 +25,7 @@ package:
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload, 2026-10-04, confirm it shows after approval; live at the USD 2.00 tier until then), no number in listing text; ADR-004 (the $2.50 tier for every paid app)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  status: rendered 2026-10-04 from the uploaded build; uploaded with it 2026-10-04
+  status: rendered 2026-10-04 from the uploaded build; whether they replaced the live images is ROADMAP 10.5
   cover: cover-500.png            # 500x500, 16 KB; royal blue #0A55D6, the mark with a white PRO pill
   hero: hero-1440x720.png         # 1440x720, 280 KB; royal blue
   screens:                        # simulator, Pro build, upload order; each under 150 KB
@@ -40,5 +40,6 @@ site:
   landing: https://verden.watch/heroface/
   support: https://verden.watch/heroface/support/
   privacy: https://verden.watch/heroface/privacy/
-owner_approvals: []   # settled by the owner's upload of 2026-10-04 (text, title and images)
+owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
+  - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
 open_items: "5.1 5.5 7.10 7.12 10.31"   # ids in ROADMAP.md

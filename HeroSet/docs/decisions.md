@@ -411,8 +411,8 @@ Neither bug was investigated further (not worth root-causing a design whose main
 
 **Consequences.** [ADR-043](#adr-043) is shelved, not superseded — the dev-build code stays as-is (still `(:sync)`-scoped, still excluded from `store.jungle`), nothing to revert. Resuming this feature later means solving the actual product question first (own exercise log inside HeroSet, since Connect can't show it: a "Health & Fitness" positioning built around it, not "Health & Fitness *and syncs to Connect*"), not re-running the same acceptance checklist expecting a different render result. `docs/connect-sync-plan.md` and `docs/status.md`'s 1.3.0 backlog item both note this.
 
-### <a id="adr-055"></a>ADR-055: Instinct family: semi-octagon, 1-bit, subscreen window. **Accepted** (shipped in 1.3.0, uploaded 2026-10-03; still no device evidence)
-Written 2026-10-01 on branch `heroset-instinct2` (numbered 056 first, renumbered 055 on 2026-10-03: nothing used 055). *Original status note (2026-10-03), kept: nothing has run on a watch; the look was approved by the owner on 2026-10-03 and simulator evidence was accepted as enough because no watch is available.*
+### <a id="adr-055"></a>ADR-055: Instinct family: semi-octagon, 1-bit, subscreen window. **Proposed** (shipped in 1.3.0, uploaded 2026-10-03; stays Proposed until an Instinct wrist check, ROADMAP 9.6)
+Written 2026-10-01 on branch `heroset-instinct2` (numbered 056 first, renumbered 055 on 2026-10-03: nothing used 055). **Not accepted: nothing has run on a watch; the look was approved by the owner on 2026-10-03 and simulator evidence was accepted as enough to ship because no watch is available.**
 
 **Context.** Wave 2-5 products are all round or touch-first. The Instinct family is the next obvious ask ([`compatibility.md`](compatibility.md)): a 1-bit memory-in-pixel display (palette `000000`/`FFFFFF` only), a semi-octagon outline, five buttons, and a round **subscreen window** cut into the top-right corner of the display. `HeroSetLayout` treats every non-round screen as a plain square with a full inset on each side, and the dashboard stacks one more row than 156-176 px of height has.
 

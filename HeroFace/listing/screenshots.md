@@ -1,6 +1,6 @@
 # HeroFace Pro: screenshots and store images
 
-Status 2026-10-04: **a full set rendered from the current Pro build (`monkey.jungle`), simulator only.** **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.** Everything the store form takes is in this folder: five screen images in `screens/`, `cover-500.png`, `hero-1440x720.png`, `icon-24-128.png`, `icon-64-128.png`. The superseded set is in git history. The Free twin's set is in [`../listing-free/screenshots.md`](../listing-free/screenshots.md); the two are made the same way.
+Status 2026-10-04: **a full set rendered from the current Pro build (`monkey.jungle`), simulator only.** **Text uploaded with Pro 1.1.0 on 2026-10-04 (in Garmin review); whether these images replaced the live ones is ROADMAP 10.5.** Everything the store form takes is in this folder: five screen images in `screens/`, `cover-500.png`, `hero-1440x720.png`, `icon-24-128.png`, `icon-64-128.png`. The superseded set is in git history. The Free twin's set is in [`../listing-free/screenshots.md`](../listing-free/screenshots.md); the two are made the same way.
 
 ## The five screen images (upload order)
 

@@ -1,6 +1,6 @@
 # Two Suns Pro: screenshots and store images
 
-Status 2026-10-04. Everything here is **simulator only** (the container's simulator, native pixels), rendered from the **current Pro build** (`monkey.jungle`). Nothing is a wrist photo. **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.**
+Status 2026-10-04. Everything here is **simulator only** (the container's simulator, native pixels), rendered from the **current Pro build** (`monkey.jungle`). Nothing is a wrist photo. **Text uploaded with Pro 1.1.0 on 2026-10-04 (in Garmin review); whether these images replaced the live ones is ROADMAP 10.5.**
 
 ## What the pictures are, honestly
 

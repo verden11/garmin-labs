@@ -24,7 +24,7 @@ package:
   note: "export: monkeyc -e -r -f monkey.jungle; dist/TwoSuns-1.0.1-prepared.iq is the separate 1.0.1 package (ROADMAP 4.1); built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload, submitted 2026-10-04; the store shows $2.25 until Garmin approves), no number in listing text; ADR-026 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-020 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
-assets:   # all rendered 2026-10-04 from the current Pro build in the simulator (canned data); uploaded with the build 2026-10-04
+assets:   # all rendered 2026-10-04 from the current Pro build in the simulator (canned data); whether they replaced the live images is ROADMAP 10.5
   cover: cover-500.png            # 500x500, 13 KB; violet ground (light/coloured, ROADMAP 10.25, 2026-10-04)
   hero: hero-1440x720.png         # 1440x720, 151 KB; violet ground
   icon_64: icon-64-128.png        # 128x128, 1 KB
@@ -40,6 +40,7 @@ site:
   landing: https://verden.watch/two-suns/
   support: https://verden.watch/two-suns/support/
   privacy: https://verden.watch/two-suns/privacy/
-owner_approvals:   # settled by the owner's upload of 2026-10-04 (text, title and images); what is still open:
+owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
+  - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
   - "The 24-hour curve sentence and pictures went up with 1.1.0; whether the release contract allows it before the wrist check is ROADMAP 4.5."
 open_items: "4.2 4.5 7.12 10.29"   # ids in ROADMAP.md

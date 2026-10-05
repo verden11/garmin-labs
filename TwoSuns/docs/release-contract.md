@@ -1,6 +1,6 @@
 # Release contract
 
-What the listing, the store page and the site may claim. The checkable form of the rules in [`spec.md`](spec.md) "Claims that may be made", adapted to the state on 2026-09-26: **built, simulator-tested only, nothing run on a wrist.** A claim is allowed only after the check in its row has been done and recorded. "State today" says whether that has happened.
+What the listing, the store page and the site may claim. The checkable form of the rules in [`spec.md`](spec.md) "Claims that may be made", adapted to the state on 2026-10-05: **live 1.0.0; Pro 1.1.0 and Free 1.0.0 uploaded 2026-10-04, in review; on a wrist only three FR965 spot-checks (2026-09-27) and a partial weather-row wear day (2026-10-03/04, `status.md` F12), everything else simulator only.** A claim is allowed only after the check in its row has been done and recorded. "State today" says whether that has happened.
 
 ## Allowed once the check is done
 
