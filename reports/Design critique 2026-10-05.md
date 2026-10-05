@@ -76,6 +76,8 @@ Every changed listing image set was recaptured (both tiers where both changed) a
 
 - **Simulator QA pass (owner asked, evening):** plan, results and findings in `reports/QA/Simulator QA 2026-10-05.md` (`763c7e6`): 107 captures across all five projects, 7 device types, every DayArc window and boundary, 12/24-hour, memory, burn-in, HeroSet flows, the website. Verdict: DayArc fit to submit. Fixed during it: the website's watch lists (`37f6c0e`, the owner noticed missing watches) and the QA tool's 24-hour switch. New owner question: 13.30.
 
+- **DayArc and DayArc Pro LIVE (Garmin approved both, late evening):** DayArc https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193, DayArc Pro https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe. The website links both (`dbb7d3d`, deployed and checked); docs, CHANGELOG (1.0.0, first publication) and ROADMAP (1.9, 1.10) updated.
+
 ## Open for the owner
 
 Everything that needs the owner is in ROADMAP.md section 1 or 2 (13.x, 1.1). Added this evening: 13.25 always-on grey, 13.26 site merge, 13.27 framed images, the DayArc calendar check in 1.1.
