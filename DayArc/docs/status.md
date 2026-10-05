@@ -59,14 +59,15 @@ placeholder night window, 2026-10-04, ROADMAP 1.7).
 
 ## Wrist evidence, 2026-10-05 (owner's FR965 photos, the morning build `0a48061`, before the bolt and grey icons)
 
-Seven photos, both builds, a watch set to 12-hour time:
+Nine photos, both builds, a watch set to 12-hour time:
 - **Morning window (08:21, 09:05), Simple and Pro:** draws as built. At 09:05 the weather read `9°`, `H 16 / L 13  5% rain  UV 0`; Pro's sunrise/sunset pills and two grid rows (battery 72%, heart 53, steps 717, floors 2) fit. At 08:21 the watch had no weather: `--` and "Weather unavailable", the Pro grid still drawn: **the empty state works on a watch.**
 - **Midday window (13:02, 13:03), Simple and Pro:** the stress Complication was null: `--` and "Stress unavailable right now" (fits, two lines in Simple). Pro grid: calendar, intensity 0, steps 2329, calories 41.
 - **Midday with a reading (16:39, Pro):** stress `23` with its gauge, the window arc about 95% through (09:30 to 17:00: as computed), heart 60, floors 4, steps 2818, calories 45; the clock read `04:39` (the 12-hour bug below).
+- **Evening (17:48, 17:49), Pro and Simple:** Body Battery `75` with its gauge at about 75%, the window arc about 13% into 17:00 to 23:00 (as computed); Pro's header heart 53 and steps 3490, grid recovery `0h`, respiration `--` (no reading: the empty value works), calories 54, pulse ox 94%. Morning build, so still the battery-shell icon and `05:48` (both changed since).
 - **The muted clock reads fine** in daylight and in a car (owner photos; no complaint).
 - **Fixed from these photos (2026-10-05, simulator-tested):** (1) in 12-hour mode the hour was zero-padded, so 13:02 read `01:02` and the 18:54 sunset `06:54`, before the 07:32 sunrise; now `1:02`, `6:54`, as Garmin's faces (`DayArcFormat.clockTime`). (2) With no calendar event the Pro pill cut "No upcoming event" to "No up..."; now "None". This also settles the simulator's `00:00`: on the watch an empty calendar is null, not `00:00`.
 - **Open questions for the owner (ROADMAP 13.28, 13.29):** the hero `9°` is the feels-like value, unlabelled, so it read below the day's low of 13; and the morning icon is the window's fixed sun-and-cloud, not the current condition, so it shows even when there is no weather.
-- **Not yet seen on the wrist:** the evening and night windows, and today's build (bolt icon, grey pills, these fixes).
+- **Not yet seen on the wrist:** the night window (23:00 to 05:00, time and date only), and tonight's build (bolt icon, grey pills, Feels like, condition icons, these fixes).
 
 ## What the owner must eyeball on the wrist next (first-photo fixes + the accent setting)
 
