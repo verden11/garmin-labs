@@ -13,8 +13,9 @@ ONLY=${2:-}   # optional: space-separated file names to shoot again, e.g. "2-mid
 # with plausible values: 1,240 calories and an event "Standup". Not readings; the face's code is otherwise as built.
 stub_pro_values() {
   sed -i '/static function complicationNumber(type as Complications.Type) as Number or Null {/a\        if (type == Complications.COMPLICATION_TYPE_CALORIES) { return 1240; }' source/DayArcSources.mc
+  sed -i '/static function complicationNumber(type as Complications.Type) as Number or Null {/a\        if (type == Complications.COMPLICATION_TYPE_HEART_RATE) { return 64; }' source/DayArcSources.mc
   sed -i '/static function complicationString(type as Complications.Type) as String or Null {/a\        if (type == Complications.COMPLICATION_TYPE_CALENDAR_EVENTS) { return "Standup"; }' source/DayArcSources.mc
-  grep -c "1240\|Standup" source/DayArcSources.mc
+  grep -c "1240\|Standup\|return 64" source/DayArcSources.mc
 }
 
 # Settings > Set Position (the dialog takes "latitude, longitude"). The simulator's default is Olathe, Kansas, whose sun times

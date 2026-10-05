@@ -11,7 +11,7 @@ exception is a single Accent colour list (ADR-014, owner-requested after first w
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (what it does, data sources, device reach),
 [`docs/status.md`](docs/status.md) (state, gates; open items are in the root [`ROADMAP.md`](../ROADMAP.md)), [`docs/archive/plan.md`](docs/archive/plan.md) (implementation status, what's simulator-only),
-[`docs/decisions.md`](docs/decisions.md) (17 ADRs, each with evidence and what reverses it),
+[`docs/decisions.md`](docs/decisions.md) (18 ADRs, each with evidence and what reverses it),
 [`docs/status.md`](docs/status.md) (gates before either store upload),
 [`docs/release-contract.md`](docs/release-contract.md) (what may be claimed),
 [`docs/compatibility.md`](docs/compatibility.md), [`docs/development.md`](docs/development.md).
@@ -65,9 +65,9 @@ OWNER listing fields, languages beyond English, the site pages, both store submi
 run a real trademark search. Decided: two-listing architecture (ADR-003), fixed-clock windows
 (ADR-004), pricing (ADR-007; its price part superseded by ADR-018), Simple's calendar exclusion (ADR-008), Pro's density target (ADR-009).
 **The look is owner-approved for direction and now built** (ADR-013, 2026-09-28: per-window/per-icon
-colour, real icons, always-visible date, window-progress arc). Simulator-tested,
-fr965/approachs50/venusq2/venux1, both jungles; still not shown to the owner as an actual render, and
-no real-device evidence — a mockup or a simulator pass is not device proof.
+colour, real icons, always-visible date, window-progress arc). Simulator-tested, both jungles
+(unit suites on 13 devices, the five reviewed with screenshots: fr965, fr255s, epix2, instincte40mm, instinct3solar45mm; seven
+design-review passes, the last in ADR-017); no real-device evidence — a mockup or a simulator pass is not device proof.
 
 Price: Simple free forever (nothing to flip). Pro is paid at the $2.50 tier (ADR-018, price: the $2.50 tier for every paid app, which supersedes the price of ADR-007; set in the upload form, no price number in listing or site text), never flips to free — no price
 review date to set.

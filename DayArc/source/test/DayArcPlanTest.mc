@@ -79,6 +79,45 @@ function planCacheReplansWhenAGridValueGetsWider(logger as Test.Logger) as Boole
     return true;
 }
 
+// The grid is planned for four digits (WORST_CELL_VALUE); a fifth (steps 10000) rebuilds the plan. Whether the rung moves when it
+// does is LOGGED per device (FIVEDIGITS lines, every cell at five digits: harsher than a real day, where only steps get there),
+// not asserted: on the smaller screens it does (ADR-017, reviewer pass nine); the assertion is that the plan still fits.
+(:test)
+function planAtFiveDigitsStillFits(logger as Test.Logger) as Boolean {
+    var dc = dayArcTestDc();
+    var layout = new DayArcLayout(dc);
+    var windows = [DayArcConfig.WINDOW_MORNING, DayArcConfig.WINDOW_MIDDAY, DayArcConfig.WINDOW_EVENING] as Array<Number>;
+    var moved = "";
+    for (var w = 0; w < windows.size(); w++) {
+        var four = dayArcWorstHero(2 * w, windows[w]);
+        if (!four.hasKey(:cells)) {
+            continue;   // Simple has no grid
+        }
+        var five = dayArcWorstHero(2 * w, windows[w]);
+        dayArcSetCellValues(four, DayArcConfig.WORST_CELL_VALUE);
+        dayArcSetCellValues(five, DayArcConfig.WORST_CELL_VALUE + "8");
+        var planFour = DayArcStack.plan(dc, layout, windows[w], four);
+        var planFive = DayArcStack.plan(dc, layout, windows[w], five);
+        logger.debug("FIVEDIGITS " + dc.getWidth() + "x" + dc.getHeight() + " window " + w + " level " + planFour.level + " -> " + planFive.level
+            + " gridRows " + planFour.gridRows + " -> " + planFive.gridRows);
+        if (!planFive.fits) {
+            moved += "window " + w + " does not fit at five digits (rung " + planFive.level + "). ";
+        }
+    }
+    Test.assertMessage(moved.length() == 0, moved);
+    return true;
+}
+
+(:debug)
+function dayArcSetCellValues(hero as Dictionary, value as String) as Void {
+    var cells = hero.get(:cells) as Array<Dictionary>;
+    for (var i = 0; i < cells.size(); i++) {
+        if (!cells[i].hasKey(:flex)) {
+            cells[i].put(:value, value);
+        }
+    }
+}
+
 (:debug)
 function dayArcCellsHero(window as Number, steps as String, title as String) as Dictionary {
     var hero = dayArcLiveHero(window, "Mon 28", "44 of 100");
