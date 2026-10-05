@@ -61,8 +61,26 @@ Counts at the last full run (2026-10-03/04): HeroSet dev 116 / store 103; DaysTo
 
 ### What is NOT tested automatically
 
-- **Anything on a real watch**: sensors and accelerometer rates, GPS/location, real weather and Body Battery, the phone settings round trip, battery drain, always-on / burn-in behaviour (the simulator would not enter it), contrast and legibility in daylight, the real bezel margins.
+- **Anything on a real watch**: sensors and accelerometer rates, GPS/location, real weather and Body Battery, the phone settings round trip, battery drain, contrast and legibility in daylight, the real bezel margins. (Always-on **can** be simulated, and burn-in estimated: section 3. Neither is device proof.)
 - **Memory peaks**: the unit run does not measure them; read the status bar of a `-r` shot (`FLAGS="-r -w" docker/shot.sh ...`) after the face drew. The on-watch Customize menu, pickers and long lists are not exercised that way. Two Suns Pro is at 45.8 of 59.8 kB on an Instinct.
 - **Visual quality**: no test says a screen looks right; a human looks at the screenshots.
 - **The Instinct glance placement** (the simulator draws it under the round window; HeroSet lays it out around the window blind, ADR-055 amended 2026-10-04, a wrist must confirm) and the Instinct 2 family for DayArc and Two Suns (no Complications on CIQ 3.4).
 - **Round-watch drawing diffs** after a layout change: the round paths are unchanged by construction and the round control suites pass, but no old-versus-new pixel comparison exists.
+
+## 3. The simulator's own options (mapped 2026-10-05, SDK 9.2.0, container, fr965)
+
+Menu bar: **File, Settings, Simulation, Data Fields, adb Connection, Help.** Mapped by photographing each menu with `xwd`;
+the ones marked *checked* were run on Two Suns and worked. Greyed items depend on the app type or device.
+
+| Where | Option | What it gives us |
+|---|---|---|
+| Settings > **Display Mode** | High Power / **Always-On** / Off | *checked:* the face enters always-on (onEnterSleep), dims and drifts each minute. `sim_always_on` |
+| File > **View Screen Heat Map** (Ctrl+N) | heat map, power mode, Burn-in State, Luminance Usage, **24-Hour Simulation** | *checked:* Two Suns fr965 always-on "no screen burn-in detected, Peak Luminance Usage 1.09%" (Garmin's limit is 10%). `sim_burnin_24h` |
+| File | View Watchface Diagnostics (Ctrl+W), Edit Watch Face (Ctrl+E) | greyed on the faces tried; likely the partial-update power budget and on-watch Customize. Not yet working |
+| File | View Memory (Ctrl+M), View Profiler, View HTTP Traffic, Edit Persistent Storage, Reset App Data, Reset Simulator | memory peaks, profiling, Storage edits (Two Suns' remembered place) |
+| Settings | Time Display, Units Display, Language, First Day of Week | 12/24 h, statute/metric, **language** (could replace the per-language string overlays for a real-font check) |
+| Settings | Set Weather, Set Position, Set GPS Quality, Set Battery Status, Set Phone Notifications, Set Alarm Count, Set User Profile, Set Training Status | the data states the faces show: weather rows, Two Suns' place, low battery, notification counts |
+| Settings | Sleep Mode, Do Not Disturb, Color Mode, Night Mode, Enhanced Readability Mode, Font Scale, Toggle Touch Screen, Connection Type | system states; Night Mode and Font Scale greyed on fr965 |
+| Settings | Force onHide / onShow, **Trigger App Settings**, Trigger Goal | lifecycle, the **phone settings change** path (onSettingsChanged), goal-reached events |
+| Simulation | Activity Data, Activity Monitoring (`sim_activity`), **Time Simulation**, Background Events, Push Notification, Phone App Message, Complications | live HR, steps/goals, fast-forwarding the clock (midnight flips, window changes), background and complication events |
+| Glance | an app with a glance opens on the glance list on glance devices | *checked earlier:* HeroSet's glance (`HeroSet/tools/drive_screens.sh`, step `0b-glance`). Settings > Glance Launch Mode is greyed for a face |

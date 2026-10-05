@@ -10,6 +10,8 @@
 #   sim_activity_data_start      Simulation > Activity Data > Start + play: a simulated heart rate for Sensor.getInfo() (see below)
 #   sim_24h                      Settings > Time Display > 24 Hour
 #   sim_save <file.png>          File > Save Screen Capture: the display at native pixels
+#   sim_always_on                Settings > Display Mode > Always-On: the face gets onEnterSleep (AMOLED always-on)
+#   sim_burnin_24h <file.png>    File > View Screen Heat Map (Ctrl+N) > 24-Hour Simulation; saves the verdict box
 # The GUI coordinates were read off the simulator on a 1280x1024 virtual screen; check one shot before trusting a new device.
 export DISPLAY=${DISPLAY:-:1}
 
@@ -92,4 +94,26 @@ sim_save() {
   sim_click 20 12 1; sim_click 60 38 2
   xdotool type --delay 15 "$1"; sleep 0.5; xdotool key Return; sleep 2
   [ -s "$1" ] && echo "saved $1 $(identify -format '%wx%h' "$1")" || echo "NOT SAVED $1"
+}
+
+# Settings > Display Mode > Always-On (High Power / Always-On / Off). The face gets onEnterSleep and draws its always-on frame,
+# once a minute after that (checked 2026-10-05 on Two Suns, fr965: dim text, drift between minutes). Display Mode is the
+# second-to-last full row of the tall Settings menu on a 1024 px screen (y 958); the submenu opens on its first item.
+sim_always_on() {
+  sim_click 73 12 1.5; xdotool mousemove 120 958; sleep 1.5; xdotool key Right; sleep 0.8; xdotool key Down; sleep 0.4
+  xdotool key Return; sleep 6
+}
+
+# File > View Screen Heat Map (Ctrl+N) and its 24-Hour Simulation, after sim_always_on. About 4 minutes; then a message box
+# ("24-Hour simulation finished, no screen burn-in detected / Peak Luminance Usage: 1.09%" on Two Suns) is saved as a crop
+# of the root window (xwd of that dialog reads black). The heat map window is 454 x 595, Start at (377, 497) inside it.
+sim_burnin_24h() {
+  xdotool key ctrl+n; sleep 5
+  local id X Y WIDTH HEIGHT H
+  H=$(for id in $(xdotool search --onlyvisible --name ""); do eval "$(xdotool getwindowgeometry --shell "$id" 2>/dev/null)"
+        [ "$WIDTH" = 454 ] && [ "$HEIGHT" -gt 500 ] && [ "$HEIGHT" -lt 700 ] && echo "$id"; done | head -1)
+  [ -n "$H" ] || { echo "sim_burnin_24h: heat map not found" >&2; return 1; }
+  eval "$(xdotool getwindowgeometry --shell "$H")"
+  sim_click $((X + 377)) $((Y + 497)) 2; sleep 280
+  import -window root -crop "${WIDTH}x${HEIGHT}+${X}+${Y}" "$1" && echo "saved $1"
 }

@@ -38,6 +38,13 @@ Every changed listing image set was recaptured (both tiers where both changed) a
 - **Site sweep:** besides Two Suns (13.18), HeroFace, HeroSet and DayArc site pages show the old look: ROADMAP 13.24 (not edited; a push deploys).
 - Stale screenshot captions corrected in `screenshots.md` / `meta.yaml` (Days To Go hours, Two Suns daylight and bolt, HeroFace MOVE and Instinct labels, HeroSet calories).
 
+## Simulator options mapped (afternoon)
+
+- The container simulator **can** do always-on: Settings > Display Mode > Always-On (checked on Two Suns: dim face, drift each minute). `docker/SIMULATOR.md` said it could not; corrected, with a full menu map (section 3).
+- **Burn-in check:** File > View Screen Heat Map has a 24-hour simulation. Two Suns fr965: "no screen burn-in detected, peak luminance 1.09%" (limit 10%). Helpers `sim_always_on`, `sim_burnin_24h` added to `docker/sim-gui.sh`.
+- **Glance:** already simulated (HeroSet opens on its glance on glance devices; `drive_screens.sh` step `0b-glance`).
+- Also there and unused so far: language switch, Set Weather / Position / Battery Status / Phone Notifications, Time Simulation (fast-forward), Trigger App Settings (the phone-settings path), Edit Persistent Storage, View Memory. Watchface Diagnostics was greyed.
+
 ## Open for the owner
 
 - **13.5** Days To Go time-zone list: city hints (parked by the owner for later).
