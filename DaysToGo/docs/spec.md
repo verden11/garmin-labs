@@ -83,8 +83,8 @@ The owner chose paid ($1.99) on 2026-09-26. The research adds a risk the owner s
 
 | State | When | Hero | Caption | Ring |
 |---|---|---|---|---|
-| Upcoming | days > 0 | the day count, or whole weeks | DAY / DAYS / WEEKS (+ "+ n DAYS" in weeks mode) | square root of the share of the next 365 days still to go (1 day = 5% of the ring, 30 days = 29%); more than 365 days away: grey track only; exactly 365 days is a full ring (ROADMAP 13.1) |
-| Hours (**Pro only**: Free has no timed events) | timed event, under 24 h to its instant (its time in its own zone, ADR-018) | `H:MM`, to the minute | HOURS | share of the last 24 h still to go (so it starts near full after the 5% of 1 day: ROADMAP 13.1) |
+| Upcoming | days > 0 | the day count, or whole weeks | DAY / DAYS / WEEKS (+ "+ n DAYS" in weeks mode) | square root of the share of the next 365 days still to go (1 day = 5% of the ring, 30 days = 29%); capped at 95% so only the day fills it; more than 365 days away: grey track only (ROADMAP 13.1) |
+| Hours (**Pro only**: Free has no timed events) | timed event, under 24 h to its instant (its time in its own zone, ADR-018) | `H:MM`, to the minute | HOURS | the same scale as the days, from 5% at 24 h to a sliver (ROADMAP 13.1) |
 | Today | the event's day (all-day) or its instant has arrived (then until the end of its last local day) | TODAY | | full, accent |
 | Past | after the event | days since | DAY SINCE / DAYS SINCE | empty track, muted |
 | Invalid | a saved date that does not exist (30 Feb 2026) | SET A DATE | | none |

@@ -39,7 +39,7 @@ class DaysToGoReadings {
         } else if (result.phase == DaysToGoConfig.PHASE_HOURS) {
             state.hero = hoursText(result.seconds);
             state.captionLines = [DaysToGoText.get(Rez.Strings.cap_hours)] as Array<String>;
-            state.ringPermille = result.seconds * DaysToGoConfig.PERMILLE / DaysToGoConfig.SECONDS_PER_DAY;
+            state.ringPermille = ringPermilleForSeconds(result.seconds);
         } else if (result.phase == DaysToGoConfig.PHASE_TODAY) {
             state.hero = DaysToGoText.get(Rez.Strings.cap_today);
             state.heroIsWord = true;
@@ -53,8 +53,21 @@ class DaysToGoReadings {
 
     // Square root of the share of the year left, so the last days stay visible:
     // 1 day is 5% of the ring (linear would be 0.3%, a sliver), 30 days 29%, 91 days 50%.
+    // Capped short of full, so a full ring means only the day itself (ROADMAP 13.1).
     static function ringPermilleFor(days as Number) as Number {
-        return (Math.sqrt(days.toFloat() / DaysToGoConfig.DAYS_PER_YEAR) * DaysToGoConfig.PERMILLE).toNumber();
+        return ringPermilleOfYear(days.toFloat() / DaysToGoConfig.DAYS_PER_YEAR);
+    }
+
+    // The last 24 hours on the same scale, so the ring keeps draining from the 1-day 5% instead of
+    // restarting near full; any time left keeps at least a sliver.
+    static function ringPermilleForSeconds(seconds as Number) as Number {
+        var permille = ringPermilleOfYear(seconds.toFloat() / (DaysToGoConfig.DAYS_PER_YEAR * DaysToGoConfig.SECONDS_PER_DAY));
+        return seconds > 0 && permille < 1 ? 1 : permille;
+    }
+
+    private static function ringPermilleOfYear(share as Float) as Number {
+        var permille = (Math.sqrt(share) * DaysToGoConfig.PERMILLE).toNumber();
+        return permille > DaysToGoConfig.RING_MAX_PERMILLE ? DaysToGoConfig.RING_MAX_PERMILLE : permille;
     }
 
     // Weeks mode applies from one full week on; under that the days are the honest number.

@@ -3,6 +3,10 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/paste.md`](listing/paste.md).
 
+## Unreleased (next upload of both)
+
+- **The ring has one scale (owner, 2026-10-05, ROADMAP 13.1; simulator only).** It stops at 95% until the day itself, so a full ring means only the day (it was full at exactly 365 days). In Pro, a timed event's last 24 hours stay on the days' square-root scale (5% at 24 hours, a sliver at the end) instead of restarting near full. Pro listing shots 1, 3, 4, 5 and the hero were recaptured. Tests: Pro 67, Free 56 (`hoursRingContinuesTheDays` new).
+
 ## Free 1.0.0 and Pro 1.1.0 — uploaded 2026-10-04 by the owner, in Garmin review
 
 Built 2026-10-01 against the Free + Pro plan; the owner approved the ladder 2026-10-04 (`docs/decisions.md` ADR-014 (Free + Pro ladder), Active) and uploaded both that day. Simulator-only evidence. Approval dates are recorded here when Garmin reports them.

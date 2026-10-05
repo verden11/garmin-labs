@@ -99,6 +99,8 @@ class DaysToGoConfig {
     static const HOURS_PER_HALF_DAY = 12;
     static const SECONDS_PER_MINUTE = 60;
     static const PERMILLE = 1000;
+    // The ring stops short of full until the day itself (an 18 degree gap), so a full ring means only the day.
+    static const RING_MAX_PERMILLE = 950;
     static const STEPS_SHORT_FROM = 1000;
     static const STEPS_ROUND = 500;
     static const STEPS_PER_THOUSAND = 1000.0;

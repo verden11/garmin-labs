@@ -27,7 +27,7 @@ function upcomingShowsDaysAndRing(logger as Test.Logger) as Boolean {
 function ringStaysVisibleAndShrinksMonotonically(logger as Test.Logger) as Boolean {
     Test.assert(DaysToGoReadings.ringPermilleFor(1) >= 50);
     var previous = DaysToGoReadings.ringPermilleFor(DaysToGoConfig.DAYS_PER_YEAR);
-    Test.assertEqual(previous, DaysToGoConfig.PERMILLE);
+    Test.assertEqual(previous, DaysToGoConfig.RING_MAX_PERMILLE);
     for (var days = DaysToGoConfig.DAYS_PER_YEAR - 1; days >= 1; days--) {
         var now = DaysToGoReadings.ringPermilleFor(days);
         Test.assert(now <= previous);
@@ -47,9 +47,9 @@ function oneDayUsesSingular(logger as Test.Logger) as Boolean {
 function farEventShowsTrackOnly(logger as Test.Logger) as Boolean {
     var state = DaysToGoReadings.build(settingsFor(0, ""), resultOf(DaysToGoConfig.PHASE_UPCOMING, 12775, 0), 2026, false);
     Test.assertEqual(state.ringPermille, 0);
-    // A year out to the day is still inside the window: full accent ring.
+    // A year out to the day is still inside the window, but short of full: full means only the day (ROADMAP 13.1).
     var year = DaysToGoReadings.build(settingsFor(0, ""), resultOf(DaysToGoConfig.PHASE_UPCOMING, 365, 0), 2026, false);
-    Test.assertEqual(year.ringPermille, DaysToGoConfig.PERMILLE);
+    Test.assertEqual(year.ringPermille, DaysToGoConfig.RING_MAX_PERMILLE);
     var over = DaysToGoReadings.build(settingsFor(0, ""), resultOf(DaysToGoConfig.PHASE_UPCOMING, 366, 0), 2026, false);
     Test.assertEqual(over.ringPermille, 0);
     Test.assertEqual(state.hero, "12775");
@@ -85,7 +85,23 @@ function hoursShowsHMM(logger as Test.Logger) as Boolean {
     Test.assertEqual(DaysToGoReadings.hoursText(86399), "24:00");
     var state = DaysToGoReadings.build(settingsFor(0, ""), resultOf(DaysToGoConfig.PHASE_HOURS, 0, 43200), 2026, false);
     Test.assertEqual(state.captionLines[0], "HOURS");
-    Test.assertEqual(state.ringPermille, 500);
+    Test.assertEqual(state.ringPermille, 37);   // sqrt(12 h / 365 days): the same scale as the days
+    return true;
+}
+
+// The ring keeps draining into the last 24 hours instead of restarting near full (ROADMAP 13.1).
+(:test)
+function hoursRingContinuesTheDays(logger as Test.Logger) as Boolean {
+    var oneDay = DaysToGoReadings.ringPermilleFor(1);
+    Test.assert(DaysToGoReadings.ringPermilleForSeconds(DaysToGoConfig.SECONDS_PER_DAY - 1) <= oneDay);
+    Test.assert(DaysToGoReadings.ringPermilleForSeconds(DaysToGoConfig.SECONDS_PER_DAY) == oneDay);
+    var previous = oneDay;
+    for (var seconds = DaysToGoConfig.SECONDS_PER_DAY; seconds >= 1; seconds -= 997) {
+        var now = DaysToGoReadings.ringPermilleForSeconds(seconds);
+        Test.assert(now <= previous && now >= 1);
+        previous = now;
+    }
+    Test.assertEqual(DaysToGoReadings.ringPermilleForSeconds(1), 1);
     return true;
 }
 
