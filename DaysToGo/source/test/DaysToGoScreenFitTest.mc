@@ -43,15 +43,14 @@ function everyStateFitsThisDisplay(logger as Test.Logger) as Boolean {
 }
 
 // A bottom line the owner switched on is drawn, on its own row or sharing the date's, with a named event too (the
-// busiest stack: it used to vanish on a 454 px display). Asked of round displays of 218 px and up only: the Instinct
-// has no bottom line (ADR-015), and a 320 px rectangle's circle (ADR-016, amended 2026-10-04) leaves the hero too little room for
-// the bottom line beside the name, so it gives way there.
+// busiest stack: it used to vanish on a 454 px display). Asked of round displays of 218 px and up and of the rectangles,
+// whose square stack (ADR-019) has room for it on every size: the Instinct has no bottom line (ADR-015).
 (:test)
 function bottomLineIsDrawnNotSilentlyDropped(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new DaysToGoLayout(dc);
     var view = new DaysToGoView();
-    if (System.getDeviceSettings().screenShape != System.SCREEN_SHAPE_ROUND || dc.getHeight() < 218) {
+    if (layout.track() == null && (System.getDeviceSettings().screenShape != System.SCREEN_SHAPE_ROUND || dc.getHeight() < 218)) {
         return true;
     }
     var states = [DaysToGoTestStates.withFooter(DaysToGoTestStates.upcoming(76, 0, "Anna and Tom"), "50%"),
@@ -171,3 +170,32 @@ function rowsBesideAWindowStayClearOfIt(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// The rectangle's track (ADR-019) stays on the display (its corners leave straight runs), and a share of the ring is the same share
+// of its length, drawn: what the walker draws equals the fill asked for, the day is the whole closed track, and the 95%
+// cap leaves a gap. Rectangles only.
+(:test)
+function rectangleTrackFillMatchesItsShare(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new DaysToGoLayout(dc);
+    var track = layout.track();
+    if (track == null) {
+        return true;
+    }
+    var b = track.box();
+    var half = layout.ringWidth() / 2 + 1;
+    Test.assert(b[0] - half >= 0 && b[1] - half >= 0 && b[2] + half <= dc.getWidth() && b[3] + half <= dc.getHeight());
+    Test.assert(b[4] * 2 < b[2] - b[0] && b[4] * 2 < b[3] - b[1]);
+    var length = track.length();
+    Test.assertEqual(track.fillFor(DaysToGoConfig.PERMILLE), length);
+    Test.assert((track.fillFor(500) - length / 2).abs() <= 1);
+    Test.assert(track.fillFor(950) < length && track.fillFor(950) > length * 9 / 10);
+    Test.assertEqual(track.fillFor(0), 0);
+    Test.assert(track.fillFor(1) >= layout.ringWidth());
+    var shares = [1, 125, 250, 500, 750, 950, 1000] as Array<Number>;
+    for (var i = 0; i < shares.size(); i++) {
+        var fill = track.fillFor(shares[i]);
+        Test.assertEqual(DaysToGoRing.trace(dc, track, DaysToGoPalette.TRACK, fill, layout.ringWidth()), fill);
+    }
+    logger.debug(dc.getWidth() + "x" + dc.getHeight() + " track " + b + " length " + length);
+    return true;
+}

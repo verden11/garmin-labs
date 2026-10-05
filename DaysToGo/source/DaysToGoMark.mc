@@ -42,7 +42,7 @@ class DaysToGoMark {
     private static function drawParts(dc as Graphics.Dc, layout as DaysToGoLayout, left as Number, y as Number,
                                       font as Graphics.FontDefinition, parts as Array<Object>) as Void {
         var size = sizeFor(dc, font);
-        var centerY = y + dc.getFontHeight(font) * DaysToGoLayout.MARK_CENTER_PERMILLE / DaysToGoConfig.PERMILLE;
+        var centerY = y + dc.getFontHeight(font) * DaysToGoType.MARK_CENTER_PERMILLE / DaysToGoConfig.PERMILLE;
         var x = left;
         for (var i = 0; i < parts.size(); i++) {
             if (parts[i] instanceof String) {
@@ -60,12 +60,12 @@ class DaysToGoMark {
 
     // The mark's height: a share of the row's font, the size of its capitals.
     private static function sizeFor(dc as Graphics.Dc, font as Graphics.FontDefinition) as Number {
-        var size = dc.getFontHeight(font) * DaysToGoLayout.MARK_SIZE_PERMILLE / DaysToGoConfig.PERMILLE;
-        return size < DaysToGoLayout.MARK_MIN_PX ? DaysToGoLayout.MARK_MIN_PX : size;
+        var size = dc.getFontHeight(font) * DaysToGoType.MARK_SIZE_PERMILLE / DaysToGoConfig.PERMILLE;
+        return size < DaysToGoType.MARK_MIN_PX ? DaysToGoType.MARK_MIN_PX : size;
     }
 
     private static function gap(size as Number) as Number {
-        return size * DaysToGoLayout.MARK_GAP_PERMILLE / DaysToGoConfig.PERMILLE + 1;
+        return size * DaysToGoType.MARK_GAP_PERMILLE / DaysToGoConfig.PERMILLE + 1;
     }
 
     // Ink width plus the gap after it.
@@ -75,7 +75,7 @@ class DaysToGoMark {
     }
 
     private static function drawMark(dc as Graphics.Dc, kind as Number, x as Number, cy as Number, s as Number) as Void {
-        var pen = s / DaysToGoLayout.MARK_PEN_DIVISOR;
+        var pen = s / DaysToGoType.MARK_PEN_DIVISOR;
         dc.setPenWidth(pen < 1 ? 1 : pen);
         if (kind == DaysToGoConfig.MARK_ARROW) {
             var head = s / 2;

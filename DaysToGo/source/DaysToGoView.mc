@@ -74,7 +74,7 @@ class DaysToGoView extends WatchUi.WatchFace {
     // Shared with DaysToGoSleep: the hours hero carries its unit letters, every other hero is one string.
     static function drawHero(dc as Graphics.Dc, layout as DaysToGoLayout, radius as Number, top as Number, height as Number,
                              state as DaysToGoState, sleeping as Boolean, dx as Number) as Void {
-        var fonts = DaysToGoLayout.heroFonts(state.heroIsWord, sleeping);
+        var fonts = DaysToGoType.heroFonts(state.heroIsWord, sleeping);
         if (state.heroIsHours) {
             DaysToGoHoursHero.draw(dc, layout, radius, top, height, fonts, state.hero, dx);
         } else {

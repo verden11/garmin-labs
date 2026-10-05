@@ -22,6 +22,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 016 | The bottom line shares the date row before it is dropped; a name steps down a font | Proposed (simulator only) |
 | 017 | Price: the $2.50 tier for every paid app | Active (accepted 2026-10-04; ships with the 1.1.0 upload) |
 | 018 | To the minute: Pro's Minute and Event time zone; the zone moves only HOURS and TODAY | Active, UNRELEASED (owner chose the headline 2026-10-04; simulator only; amends 004) |
+| 019 | Rectangles get a square design: a rounded-rectangle track and a stack that uses the whole box | Proposed, UNRELEASED (owner asked 2026-10-05; look approval pending on simulator screenshots; amends 006 and 016) |
 
 ## ADR-001: Any event, countdown-first
 
@@ -61,6 +62,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 **Decision.** HeroFace's 117 round products (CIQ 3.0+) plus Venu Sq 2, Venu Sq 2 Music and Venu X1 (rectangular AMOLED, CIQ 5+), one build, no bitmaps, no per-device resources. On the rectangles the face keeps its round design: the ring is a circle the size of the shorter side, centred, with black bars above and below. Added 2026-09-26 at the owner's request as the cheap widening; the round-chord text checks are stricter than a rectangle needs, so nothing overflows. Instinct (semi-octagon, monochrome, 64 KB) is a later pass with its own layout; pre-CIQ-3 watches are not worth it (no Menu2 or settings screen, and paid apps are sold only on CIQ 3.4+).
 **Why.** Same evidence base and test method as HeroFace; smallest memory budget 96 KB, and the measured build is far under it.
+
+**Amended 2026-10-05 by ADR-019 (rectangles get a square design):** the rectangles no longer keep the round design.
 
 **Amended 2026-10-05 (agent, on request; simulator only).** The first-generation **Venu Sq and Venu Sq Music** (`venusq`, `venusqm`: 240 x 240 LCD, CIQ 3.3.6, 96 KB and 512 KB watch-face memory) join both manifests: 129 products. No reason against them was on record; they take the rectangle path unchanged. They are **not on Garmin's paid list** (App Sales page, read 2026-10-05; CIQ 3.3 is under the 3.4 floor), so, as with the Instinct 2 family (ROADMAP 10.15), Pro carries them in its package but only Free reaches them, and no listing text names them. Evidence: `compatibility.md` "Venu Sq and Venu Sq Music".
 
@@ -156,6 +159,8 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 **Amended 2026-10-05 (found while adding the Venu Sq; simulator only).** (5) **The always-on frame keeps the round span on rectangles.** Asleep, the time is fitted to a circle smaller by the drift step; with (3)'s 90 % span the time row sat where that circle's chord is narrower than the time, so it was cut ("1" instead of "10:10") on the top and middle drift rows of the rectangles: measured on `venusq` and on the live `venusq2` (and so `venusq2m`, the same screen); `venux1` was not measured before the fix. `DaysToGoLayout.rows` now takes `sleeping` and uses the 80 % span then (the frame is only the time and the hero); the awake face is unchanged. `alwaysOnFrameFitsAtEveryDrift` now fails when the time is not drawn whole.
 
+**Amended 2026-10-05 by ADR-019 (rectangles get a square design).** (3) and (5) are retired: a rectangle's rows now run the box inside its rounded-rectangle track, awake and asleep, and the bottom line shows on all three rectangle sizes; `bottomLineIsDrawnNotSilentlyDropped` runs there too.
+
 ## ADR-017: Price: the $2.50 tier for every paid app
 
 **Status: Accepted 2026-10-04 (owner, chat).** Supersedes the price of [ADR-002](#adr-002-price) (paid at the lowest tier, USD 2.00 / $1.99 US); ADR-002's day-45 review was already retired by ADR-014 (the Free + Pro ladder).
@@ -210,3 +215,11 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 ## Reference code
 
 `docs/reference/` (the verified first draft of the logic, the on-watch picker and the tools) was superseded by `source/` and `tools/`, then deleted; its history is in the research notes.
+
+## ADR-019: Rectangles get a square design
+
+**Status.** Proposed, 2026-10-05, UNRELEASED, simulator only. The owner asked for real square designs on the square watches (Venu Sq, Sq Music, Sq 2, Sq 2 Music, X1) and chose "build first, then approve the real simulator screenshots before any upload". Amends ADR-006 (device set: the rectangles kept the round design, centred) and ADR-016 (bottom line and name step-down: amendments 3 and 5, the 90 % rectangle span and its always-on exception, are retired with it).
+
+**Decision.** On `SCREEN_SHAPE_RECTANGLE` the ring is a closed rounded-rectangle track along the glass edge (`DaysToGoTrack`), inset like the round ring and as wide, centreline corner radius 15 % of the shorter side (clears the Venu X1's rounded glass, about 64 px, measured off the SDK's device image). It keeps ADR-013's meaning (ring beyond a year is the grey track only) and the drain of the round ring: from top centre, clockwise, a share of the ring is the same share of the track's length, the square-root scale and the 95 % cap unchanged, closed on the day. The rows run the box inside the track, top to bottom, and are measured against it including its rounded corners; a caller's radius stands for a depth in from the edge, so the always-on frame (smaller by the drift step) shrinks the box the same way.
+**Why.** The round design inscribed in a rectangle wasted the corners and dropped Pro's bottom line on the Sq 2 (ADR-016, amendment 3); a square watch reads a square frame.
+**Consequences.** `DaysToGoTrack` (geometry), `DaysToGoRing.trace` (drawing), `DaysToGoLayout.rows` / `leftInsetWithin` / `rightInsetWithin` (rectangle branch); `RECTANGLE_SPAN_PERMILLE` removed. Typography moved to `DaysToGoType` and the round ring's degree maths to `DaysToGoRing` to keep the layout file under 250 lines (no behaviour change). Round and Instinct paths unchanged by construction (the rectangle branch is taken only when a track exists). Test `rectangleTrackFillMatchesItsShare`; `bottomLineIsDrawnNotSilentlyDropped` now also runs on the rectangles. The rectangle listing screenshot (`listing*/screens/4-rectangle.png`) shows the old design until it is re-taken.

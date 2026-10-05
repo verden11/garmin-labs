@@ -33,7 +33,8 @@ spacing:
   ring-gap: "d × 0.010"
   text-margin: "d × 0.020"
   row-gap: "d × 0.012"
-  span: "0.8 of the content radius above and below the centre"
+  span: "0.8 of the content radius above and below the centre (round)"
+  track-corner: "d × 0.150 (rectangle: the track's centreline corner radius)"
 components:
   bezel-ring-track:
     textColor: "{colors.track}"
@@ -41,6 +42,10 @@ components:
   bezel-ring-fill:
     textColor: "accent (setting)"
     height: "{spacing.ring-width}"
+  rectangle-track:
+    textColor: "{colors.track}, fill in the accent"
+    height: "{spacing.ring-width}"
+    rounded: "{spacing.track-corner}"
 ---
 
 # Design
@@ -64,6 +69,12 @@ Each row takes the largest font up to a height cap; the hero takes the rest. On 
 ## Always-on (AMOLED)
 
 Hero and time only, `#555555`, the block stepping across a 3 × 3 grid (steps of 3.5% of the screen, about 16 px on 454, more than a digit stroke) once a minute; the hero is two sizes smaller than awake (starts at FONT_NUMBER_MEDIUM). No ring, name, date or caption. MIP watches keep the full face. The block uses the 0.8 span on every product, rectangles too (awake, a rectangle uses 0.9; asleep that cut the time, ADR-016 (bottom line and name step-down), amendment 5, 2026-10-05).
+
+## Rectangle (Venu Sq, Sq 2, X1; ADR-019)
+
+A square watch gets a square face, not the round one inscribed in it (owner, 2026-10-05). **The ring follows the screen:** a closed rounded-rectangle track along the glass edge, inset from it as the round ring is inset from the bezel (gap `d × 0.010`, then the same `d × 0.025` stroke), grey, the accent fill on it. It starts at top centre and drains clockwise exactly like the round ring: a share of the ring is the same share of the track's length (straight runs plus four quarter-circle corners), the same square-root scale, the same 95% cap with its gap just left of 12 o'clock, grey only beyond a year, and the whole closed track in the accent on the day. Corner radius of the centreline `d × 0.150` (67 px on the Venu X1, 48 on Sq 2, 36 on Sq): the X1's glass is rounded about 64 px (measured off the alpha mask of the SDK's device image; Sq and Sq 2 skins show about 10 px), and the track's outer corner (72 px there) clears it at the 45° diagonal with room. Straight runs are filled boxes, corners arcs that overlap the runs by a degree so no seam shows at the joins.
+
+**The content uses the square:** the rows run the full height of the box inside the track's inner edge (less the text margin), top to bottom, not a span of a circle, and every row is measured against that box including its rounded corners (the corners share the track's centres). The hero takes the height left, in the largest system number font that fits; with a 12-character name, the date and Pro's bottom line on its own row, nothing is dropped on any of the three sizes. Always-on: the same box made smaller by the drift step, so the drifting time and hero stay inside it.
 
 ## On-watch date picker (Customize, "Set date")
 

@@ -55,7 +55,7 @@ class DaysToGoHoursHero {
             var lowest = y + height - dc.getFontHeight(unitFont);
             return top > lowest ? lowest : top;
         }
-        return y + height - dc.getFontHeight(unitFont) - height * DaysToGoLayout.HOURS_UNIT_LIFT_PERMILLE / DaysToGoConfig.PERMILLE;
+        return y + height - dc.getFontHeight(unitFont) - height * DaysToGoType.HOURS_UNIT_LIFT_PERMILLE / DaysToGoConfig.PERMILLE;
     }
 
     // Draws `str` from `x` (through DaysToGoDraw.text, so the fit test sees its box) and returns where it ends.
@@ -77,7 +77,7 @@ class DaysToGoHoursHero {
 
     // The largest letter font no taller than a share of the digits' font.
     private static function unitFontFor(dc as Graphics.Dc, heroHeight as Number) as Graphics.FontDefinition {
-        return DaysToGoDraw.fontUpTo(dc, DaysToGoLayout.HERO_WORD_FONTS, heroHeight * DaysToGoLayout.HOURS_UNIT_MAX_PERMILLE / DaysToGoConfig.PERMILLE);
+        return DaysToGoDraw.fontUpTo(dc, DaysToGoType.HERO_WORD_FONTS, heroHeight * DaysToGoType.HOURS_UNIT_MAX_PERMILLE / DaysToGoConfig.PERMILLE);
     }
 
     // Pro only: timed events are Pro (docs/decisions.md ADR-018); the letters are in resources-pro/strings/units.xml.

@@ -106,14 +106,15 @@ sim_always_on() {
 
 # File > View Screen Heat Map (Ctrl+N) and its 24-Hour Simulation, after sim_always_on. About 4 minutes; then a message box
 # ("24-Hour simulation finished, no screen burn-in detected / Peak Luminance Usage: 1.09%" on Two Suns) is saved as a crop
-# of the root window (xwd of that dialog reads black). The heat map window is 454 x 595, Start at (377, 497) inside it.
+# of the root window (xwd of that dialog reads black). The heat map window is titled "Screen Burn-In Simulation" and is as
+# wide as the device's display (454 x 595 on fr965, 448 x 627 on venux1), so it is found by title, not size (a 454 px match
+# missed every other display width, 2026-10-05); Start sits 77 px from its right edge and 98 px from its bottom on both.
 sim_burnin_24h() {
   xdotool key ctrl+n; sleep 5
-  local id X Y WIDTH HEIGHT H
-  H=$(for id in $(xdotool search --onlyvisible --name ""); do eval "$(xdotool getwindowgeometry --shell "$id" 2>/dev/null)"
-        [ "$WIDTH" = 454 ] && [ "$HEIGHT" -gt 500 ] && [ "$HEIGHT" -lt 700 ] && echo "$id"; done | head -1)
+  local X Y WIDTH HEIGHT H
+  H=$(xdotool search --onlyvisible --name "Screen Burn-In Simulation" | head -1)
   [ -n "$H" ] || { echo "sim_burnin_24h: heat map not found" >&2; return 1; }
   eval "$(xdotool getwindowgeometry --shell "$H")"
-  sim_click $((X + 377)) $((Y + 497)) 2; sleep 280
+  sim_click $((X + WIDTH - 77)) $((Y + HEIGHT - 98)) 2; sleep 280
   import -window root -crop "${WIDTH}x${HEIGHT}+${X}+${Y}" "$1" && echo "saved $1"
 }

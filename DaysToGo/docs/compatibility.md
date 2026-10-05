@@ -27,7 +27,7 @@ and system fonts.
 | 320 × 360 AMOLED | 2 | `venusq2`, `venusq2m` |
 | 448 × 486 AMOLED | 1 | `venux1` |
 
-The face keeps its round design: the ring is a circle the size of the shorter side, centred, with black bars above and below. Text is checked against the round chord, which is stricter than a rectangle needs. All three are CIQ 5+ with 128 KB watch-face memory. Simulator only; the look on a rectangle is **not approved by the owner**. The settings-screen list in the SDK was not checked for these three.
+**Square design since 2026-10-05 (ADR-019 (rectangles get a square design), unreleased):** the ring is a rounded-rectangle track along the glass edge and the rows run the box inside it; see "Rectangles: the square design" below. (Before: the round design, a circle the size of the shorter side, centred, with black bars.) All three are CIQ 5+ with 128 KB watch-face memory. Simulator only; the look on a rectangle is **not approved by the owner** (owner approves the simulator screenshots before any upload). The settings-screen list in the SDK was not checked for these three.
 
 ### Venu Sq and Venu Sq Music (added 2026-10-05, simulator only)
 
@@ -43,6 +43,20 @@ The first-generation Venu Sq: a square **LCD** (not AMOLED), 16-bit colour, CIQ 
 - **Found and fixed: the always-on time was cut to "1" on the rectangles** (`venusq`, and also the live `venusq2`, so `venusq2m` with the same screen; `venux1` not measured before the fix). The rectangle's taller stack (ADR-016 (bottom line and name step-down), amendment (3), 90 % of the content radius; amendment (5) is this fix) put the time row where the always-on circle (smaller by the drift step) is too narrow, so `DaysToGoDraw.line` truncated it on the top and middle rows of the drift grid. The always-on frame now plans with the round span on every product (time and hero only, so it needs no extra height); the awake face is unchanged. `alwaysOnFrameFitsAtEveryDrift` now also fails if the time is not drawn whole: it failed on `venusq` and `venusq2` before the fix (114 misses each) and passes after on `venusq`, `venusq2`, `venux1`, `fr965`. Screenshots after the fix: `10:10` whole on `venusq` (both tiers) and `venusq2`.
 - **Always-on in the simulator is the AMOLED frame** (dim time and hero, drifting): the `venusq` simulator reports burn-in protection although the watch is LCD. On a real Venu Sq the face may instead stay the full face when asleep (the MIP rule, `DaysToGoView`); which one it shows is for a wrist.
 - **Not proven:** anything on a wrist; LCD daylight contrast; the on-watch "Customize" route on CIQ 3.3 (not checked in the SDK's list).
+
+### Rectangles: the square design (ADR-019, 2026-10-05, simulator only)
+
+Applies to all five rectangles (`venusq`, `venusqm`, `venusq2`, `venusq2m`, `venux1`). Geometry per size (centreline inset from the glass edge, stroke, centreline corner radius, rows' depth from the edge):
+
+| Screen | Inset | Stroke | Corner | Rows' depth |
+|---|---|---|---|---|
+| 240 × 240 (`venusq`, `venusqm`) | 5 | 6 | 36 | 12 |
+| 320 × 360 (`venusq2`, `venusq2m`) | 7 | 8 | 48 | 17 |
+| 448 × 486 (`venux1`) | 9 | 11 | 67 | 22 |
+
+Glass corner, measured off the alpha mask of the SDK device images (`~/Library/Application Support/Garmin/ConnectIQ/Devices/<id>/`): about 64 px on `venux1` (rows clear of the mask from about y 60, 20 px in along the diagonal), about 10 px on `venusq` and `venusq2`. The track's outer corner on `venux1` is 72 px around the same corner region and stays inside the glass at the 45° diagonal. On a real Venu Sq 2 the glass may be rounder than its skin; a wrist settles it.
+
+The SDK skins of the rectangles show the 2026-10-05 build with nothing dropped on any size: a 16-character name, the hero, DAYS, the full date and Pro's bottom line on its own row.
 
 ## The watch's own settings screen
 
