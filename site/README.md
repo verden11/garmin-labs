@@ -14,6 +14,16 @@ npm run preview   # serve dist/
 npm run deploy    # build + firebase deploy --only hosting
 ```
 
+**No horizontal scroll on phones** (check after any layout change; it must print "no horizontal overflow"):
+
+```sh
+npm run build && (cd dist && python3 -m http.server 8765 &) && sleep 1
+node scripts/check-overflow.mjs http://127.0.0.1:8765 $(cd dist && find . -name index.html | sed 's|^\.||; s|index.html$||') /404.html   # SHOTS=<dir> also saves phone screenshots
+```
+
+It loads each page with phone emulation at 320, 360, 375 and 414 px and names any element past the right edge. (A plain
+headless `--window-size=375` screenshot is not a phone view: it lays out at about 500 px and crops.)
+
 Hosted on Firebase Hosting (project `verden-watch-87da4`, config `firebase.json`): `npm run deploy`. Serve it from the domain root (links are root-absolute). Any other static host works too: upload `dist/`. `dist/404.html` is the not-found page those hosts pick up automatically.
 
 ## Routes
