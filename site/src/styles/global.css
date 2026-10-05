@@ -162,7 +162,8 @@ img { max-width: 100%; height: auto; display: block; }
 .hero__copy { grid-column: 1 / span 5; display: grid; gap: var(--space-3); }
 .hero__reps { grid-column: 7 / -1; }
 .hero__name {
-  font-size: clamp(3.5rem, 9.5vw, 6rem); font-weight: 850; font-stretch: 125%;
+  /* min 2.75rem: at 3.5rem a one-word name ("HeroFace") was wider than a 320px phone (2026-10-05) */
+  font-size: clamp(2.75rem, 9.5vw, 6rem); font-weight: 850; font-stretch: 125%;
   letter-spacing: -0.035em; line-height: 0.9;
 }
 .hero__offer { font-size: clamp(1.15rem, 1.8vw, 1.35rem); line-height: 1.45; max-width: 30ch; font-weight: 480; }
@@ -361,6 +362,9 @@ main:has(> .close:last-child, > .program:last-child) + .site-footer { margin-top
 
 /* Responsive ------------------------------------------------------------- */
 
+/* Drawn previews carry a fixed width attribute; on a phone narrower than that they scale down, never past the page. */
+main svg[role="img"] { max-width: 100%; height: auto; }
+
 @media (max-width: 60rem) {
   .hero__inner, .truth__inner { grid-template-columns: minmax(0, 1fr); }
   .hero__copy, .hero__reps { grid-column: 1 / -1; }
@@ -371,6 +375,14 @@ main:has(> .close:last-child, > .program:last-child) + .site-footer { margin-top
   .screens { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .program__inner { grid-template-columns: clamp(6.5rem, 20vw, 15rem) 1fr; }
   .program__actions { grid-column: 1 / -1; }
+}
+
+/* Six app names no longer fit beside the wordmark: from here the bar wraps, the wordmark on its own line and the names
+   under it in as many rows as they need (no JS menu: the site ships none), each link still a 44px tap target. */
+@media (max-width: 48rem) {
+  .studio-bar__inner { flex-wrap: wrap; row-gap: 0; padding-block: var(--space-1); }
+  .studio-bar nav { flex-wrap: wrap; column-gap: var(--space-3); row-gap: 0; width: 100%; }
+  .studio-bar nav a { display: inline-flex; align-items: center; min-height: 44px; padding-block: 0; }
 }
 
 @media (max-width: 34rem) {
