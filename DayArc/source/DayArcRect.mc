@@ -10,9 +10,10 @@ import Toybox.Math;
 // gauge is a straight pill bar. Round and Instinct products never reach this class (DayArcLayout.isRectangle).
 // The corner radius idea is HeroFace's frame (copied, not linked): large enough to clear the glass, one proportion per size.
 class DayArcRect {
-    // The track's centreline corner radius, 0.12 of the short side: 53 px on the Venu X1, whose glass corner measures about
-    // 60 px off the SDK skin's alpha (a superellipse, so a concentric circle keeps ~10 px of black outside the stroke all
-    // round the corner); 38 px on the Venu Sq 2 (its skin's glass corner is ~8 px), the same proportion.
+    // The track's centreline corner radius, 0.12 of the short side: 53 px on the Venu X1, whose glass corner (a superellipse
+    // in the SDK skin's alpha) a 66 px circle fits; the track corner is nearly concentric with it and keeps about 8 px of
+    // black outside the stroke on the diagonal (DayArcRectTest asserts at least 2). 38 px on the Venu Sq 2 (its skin's glass
+    // corner is about 8 px): the same proportion, not a fit.
     private static const CORNER_PERMILLE = 120;
     private static const SEGMENTS = 5;   // left side, top-left corner, top, top-right corner, right side
     private static const DEGREES_PER_QUARTER = 90;
@@ -125,8 +126,9 @@ class DayArcRect {
         } else if (index == 4) {
             dc.fillRectangle(right - pen / 2, c + r + a, pen, b - a);
         } else {
-            var startDeg = (index == 1 ? 2 : 1) * DEGREES_PER_QUARTER - degrees(a, r);
-            var endDeg = (index == 1 ? 2 : 1) * DEGREES_PER_QUARTER - degrees(b, r);
+            var quarter = segments(layout)[index];
+            var startDeg = (index == 1 ? 2 : 1) * DEGREES_PER_QUARTER - degrees(a, quarter);
+            var endDeg = (index == 1 ? 2 : 1) * DEGREES_PER_QUARTER - degrees(b, quarter);
             if (endDeg != startDeg) {   // equal start/end draws a whole circle (SDK)
                 dc.setPenWidth(pen);
                 dc.drawArc(index == 1 ? c + r : right - r, c + r, r, Graphics.ARC_CLOCKWISE, startDeg, endDeg);
@@ -135,8 +137,10 @@ class DayArcRect {
         }
     }
 
-    private static function degrees(px as Number, r as Number) as Number {
-        return Math.round(Math.toDegrees(px.toFloat() / r)).toNumber();
+    // Px along a corner as degrees of its quarter, scaled by the corner's own (whole-px) length, so a full corner is exactly 90
+    // and meets the straight run at the tangent (rounding px / r left 89 on the Venu Sq 2: a sub-pixel notch, reviewer).
+    private static function degrees(px as Number, quarter as Number) as Number {
+        return (px * DEGREES_PER_QUARTER + quarter / 2) / quarter;
     }
 
     // The straight bar's top in a gauge row: the row keeps the round gauge's height (the smile's depth included, so a plan

@@ -577,7 +577,9 @@ a SECOND setting is a new ADR, and this one's persistence evidence should be in 
 - *Instinct clock, date and label on different centre axes* (reviewer: worse on Pro, where the hero row can also sit beside the window). Each row beside the window is centred in its own band, which the bezel circle widens lower down; one shared axis needs every row beside the window to fit the clock's narrow band, which the worst-case date string does not, so the date and label would lose a font tier or slide below the window and cost the stack height. The header (clock and date) as one unit left of the window, and the body centred on the screen, is the look of the approved mockup. Pro's hero beside the window is the price of its grid on the Instinct, whose Pro behaviour the owner decided to keep as built (ROADMAP 1.18).
 - *The 24 px Pro grid icons do not follow the screen.* Whole-pixel icons (ADR-013 amendment 4) leave 24 or 48 px; 48 would make every pill taller than the cell font and cost Pro its second row and corner pills, and 36 px puts strokes on half pixels. On the FR965 the pills read in the screenshots. DESIGN.md "Iconography" has the lever if a wrist disagrees.
 - *Instinct near-zero gauge fill is a short blob; the night block sits low on the Instinct (clock must clear the window so clock and date share one centre); pairs of unequal pills look right-shifted (they are gutter-centred, ADR-013 amendment); the Instinct Pro pill row outweighs the hero (the owner's 1.18 decision); `DIGIT_HEIGHT_PERMILLE` is an estimate (ADR-016).*
-- *Not captured:* a rendered empty/error state (the simulator's data cannot be forced to null; the strings are exercised by `liveStringsRenderWithoutTruncation`) and an AMOLED always-on frame (the simulator does not enter it). Both remain wrist/store-install checks.
+- *Not captured:* a rendered empty/error state (the simulator's data cannot be forced to null; the strings are exercised by `liveStringsRenderWithoutTruncation`) and an AMOLED always-on frame (the simulator does not enter it). Both remain wrist/store-install checks. *(2026-10-05: the
+simulator does enter always-on now, `docker/SIMULATOR.md` section 3; the rectangles' always-on frames and burn-in run are in
+ADR-019.)*
 
 ## ADR-018: Price: the $2.50 tier for every paid app
 
@@ -612,15 +614,19 @@ that clears the glass; progress runs clockwise and a share is the same share of 
   (`ARC_SPAN_DEGREES` of 360) of the path, filled clockwise from the left in the window's accent.
 - Every row fits the inner box (track inner edge plus the arc's clearance, concentric rounded corners): `DayArcLayout.rowMaxWidth`,
   `topMargin` and `gridBottom` route there, so the planner (`DayArcStack`), the corner pills and the grid use it unchanged.
-- The gauge is a straight pill bar centred in the round gauge's row height; grid rows have no lift. Per-window colours
+- The gauge is a straight pill bar centred in the round gauge's row height; grid rows have no lift.
+- The clock starts one number tier down in every active window (as on the Instinct, ADR-015 (Instinct window gauge)), so the
+  extra height goes to the hero, not the clock (reviewer: on the Venu X1 Free the clock had reached 0.9 of the hero's height). Per-window colours
   (ADR-013 (icon system and per-window colour)), no verdicts (ADR-006 (single-hue gauge)) and the Accent (ADR-014 (one Accent
   colour list)) are unchanged.
 
 **Evidence (simulator only):** `DayArcRectTest` (the track's outer edge stays 2 px inside the glass circle along both corners,
 the window is the round arc's share of the path, every planned row and the gauge bar sit inside the inner box);
 `DayArcStackTest` on venusq2 and venux1, both jungles; it now plans the morning with its "Feels like" label (it had planned
-the morning unlabelled, stale since the label came in, ROADMAP 13.28). Screenshots of every window, both tiers, both sizes, and
-always-on: `../../device-test/rect-review/after/`.
+the morning unlabelled, stale since the label came in, ROADMAP 13.28). Screenshots of every window, both tiers, both sizes, the
+track part-filled (05:20, 06:00, 08:30, 09:25) and always-on: `../../device-test/rect-review/after/` (untracked). The "before"
+set there is in 12-hour time, the "after" set in 24-hour: compare clock widths with that in mind. 24-hour burn-in simulation
+(Pro, from midday): no burn-in, peak luminance 1.94% (Venu Sq 2), 2.27% (Venu X1).
 
 **Consequences:** On the Venu Sq 2 Pro the morning keeps "Feels like" and a grid row (ROADMAP 13.30's trade no longer happens
 there). No wrist has seen this; the Venu Sq 2's skin shows a glass corner of about 8 px, so its 38 px track corner is a

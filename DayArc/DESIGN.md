@@ -404,7 +404,8 @@ change (every branch is `DayArcLayout.isRectangle()`).
   is from the bezel (`DayArcRect.inset` = the bezel margin plus half the pen; 8 px on the Sq 2, 12 px on the X1), the same stroke
   (`DayArcArc.penWidth`, 5 / 8 px), corner radius 0.12 of the short side (38 / 53 px on the centreline). The Venu X1's glass
   corner, measured off the SDK skin's alpha, is a superellipse that a 66 px circle fits from row 8 down; the 53 px track corner
-  is concentric with it and keeps about 9 px of black outside the stroke all round the corner. The Sq 2 skin's glass corner is
+  is nearly concentric with it and keeps about 8 px of black outside the stroke on the diagonal (`DayArcRectTest` asserts at
+  least 2 px all along both top corners). The Sq 2 skin's glass corner is
   about 8 px, so its 38 px corner is the same proportion, not a fit. HeroFace's rectangle frame was the precedent (idea copied,
   no code linked).
 - **The window-progress arc is the upper part of that track**: from the left side, over both top corners, down the right side,
@@ -413,19 +414,23 @@ change (every branch is `DayArcLayout.isRectangle()`).
   window's accent; a share of the window is the same share of the path. Night has none, as on round.
 - **The hero gauge is a straight pill bar** (no curve on a square): the track grey bar with round ends, the accent fill from
   the left, the round gauge's width (`gaugeMaxWidth`) capped by the inner box. The row keeps the round gauge's height (the
-  smile's depth included) and the bar sits in its middle, so the bar has as much air above it as below and a plan budgets the
-  same row on every shape. Pro's grid rows sit level (no lift onto a curve).
+  smile's depth included) and the bar sits in its middle: with only a row gap above it (the first build) the bar touched the
+  digits' baseline, so the depth stays as air, half above the bar and half below. Pro's grid rows sit level (no lift onto a curve).
 - **The content uses the square.** Every row (clock, date, label, hero, sub line, the corner pills beside the date, the grid
   pills) fits the **inner box**: the track's inner edge plus the arc's own clearance (`DayArcArc` 15 permille), with corners
   rounded concentrically with the track's (`DayArcRect.rowWidth`; 14 px in and a 32 px corner on the Sq 2, 22 px and 43 px on the
   X1), and another 15 permille off the straight sides (19 / 28 px in): Pro's corner pills sit beside the side runs, and a grey
   pill outline at the arc's clearance alone read as touching the grey track (first Venu X1 screenshot). The stack starts at the inner box's top and ends at its bottom, which buys the planner about 25 px of height over the
   old inscribed-circle margins; `DayArcStack`'s dry run then picks the tiers, as everywhere.
+- **The clock starts one tier down in every active window** (NUMBER_MILD at most, as on the 1-bit Instinct; not at night, where
+  the time is the read). Reviewer, 2026-10-05: the square's extra height went to the clock first, and on the Venu X1 Free a grey
+  "20:02" stood 0.9 of the hero's height and twice its width, against about 0.65 before. The hero keeps its tier.
 - **What it buys (worst-case strings, `DayArcStackTest`, simulator only).** Venu Sq 2 Pro: midday and evening move from the
   MILD hero with one grid row to MEDIUM with two; the morning keeps "Feels like" **and** a grid row (ROADMAP 13.30: the
   square layout gives room for both). Venu Sq 2 Simple: midday and evening HOT. Venu X1: HOT in every window of both tiers,
-  Pro with two grid rows.
-- Always-on: unchanged (the time only, drifting), fitted to the inner box.
+  Pro with two grid rows (three in the morning without weather).
+- Always-on: unchanged (the time only, drifting), fitted to the inner box. 24-hour burn-in simulation (simulator, Pro, from the
+  midday window): no burn-in, peak luminance 1.94% (Venu Sq 2) and 2.27% (Venu X1), Garmin's limit 10%.
 
 ## Instinct E and Instinct 3 Solar (1-bit, a round window top right; ADR-015, accepted 2026-10-04, simulator only)
 
