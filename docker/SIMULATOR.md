@@ -100,3 +100,10 @@ the ones marked *checked* were run on Two Suns and worked. Greyed items depend o
   saves awake, always-on, always-on a minute later (the drift) and the 24-hour burn-in verdict to `<project>/bin/edge/`. A scenario
   can live in `docker/` (an absolute `/ciq-docker/...` path) and be shared by every project.
 - Several containers can capture at once (each has its own Xvfb and simulator): eight ran in parallel on 2026-10-05.
+- **Lessons from the 2026-10-05 runs:** (1) every scenario must delete the simulator's stored app settings before each load
+  (`rm -f /tmp/com.garmin.connectiq/GARMIN/APPS/SETTINGS/*.SET /tmp/app-settings.json`), or a changed default (an accent, seconds)
+  is silently ignored: it bit HeroFace and DayArc. (2) The first `sim_save` after a boot sometimes prints `NOT SAVED`; re-take
+  that one file with the scenario's file-name argument. (3) HeroSet's `drive_screens.sh` on `fenix847mm` stayed on the glance
+  (the first START did not open the app); fr970, fr265, epix2pro47mm, fr965 and instincte45mm work. (4) The heat-map verdict box
+  reads black with `xwd`; `import -window root -crop` works. (5) Always-on burn-in, measured: Days To Go 0.84%, Two Suns 1.09%,
+  HeroFace 1.23%, DayArc 2.52% peak luminance on fr965 (limit 10%).
