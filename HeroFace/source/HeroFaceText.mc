@@ -42,7 +42,11 @@ class HeroFaceText {
         } else if (kind == HeroFaceConfig.SQUATS) {
             return [get(Rez.Strings.label_squats), get(Rez.Strings.label_squats_short)] as Array<String>;
         }
-        return [get(Rez.Strings.label_move)] as Array<String>;
+        // No short string for MOVE: a two-word translation ("RÖR DIG") falls back to its first word, which a rectangle's
+        // narrower column needs (fit sweep, Venu Sq, 2026-10-05).
+        var move = get(Rez.Strings.label_move);
+        var space = move.find(" ");
+        return (space == null ? [move] : [move, move.substring(0, space) as String]) as Array<String>;
     }
 
     // Value wordings, longest first: 12345 steps can shrink to 12.3K.
