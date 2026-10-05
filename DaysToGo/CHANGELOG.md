@@ -5,6 +5,7 @@ text for each version is in [`listing/paste.md`](listing/paste.md).
 
 ## Unreleased (next upload of both)
 
+- **Marks on the date and the bottom line (owner, 2026-10-05, ROADMAP 13.3 and 13.4; both tiers for the date, Pro for the bottom line; simulator only).** The date row is the event's date, so while the event is ahead it starts with a drawn arrow (`→ Nov 18`), none on the day or after. Pro's bottom line starts with a drawn battery or footprints, so `50%` and `6.4K` say what they are without a translated word. Drawn from primitives (`DaysToGoMark`), measured into the row; a narrow shared row drops the arrow before the bottom line. Both listing sets recaptured. Tests: Pro 68, Free 57 (`dateArrowOnlyWhileAhead` new; three new fit states).
 - **Pro: the last 24 hours read `8h 06m` (owner, 2026-10-05, ROADMAP 13.2; simulator only).** `8:06` over HOURS read as a second clock under the time. The digits keep the hero font, the letters "h" and "m" are small and on the digits' baseline, and the HOURS caption is gone (DaysToGo ADR-018 (to the minute), amendment). The letters are English for now (ROADMAP 13.7).
 - **The ring has one scale (owner, 2026-10-05, ROADMAP 13.1; simulator only).** It stops at 95% until the day itself, so a full ring means only the day (it was full at exactly 365 days). In Pro, a timed event's last 24 hours stay on the days' square-root scale (5% at 24 hours, a sliver at the end) instead of restarting near full. Pro listing shots 1, 3, 4, 5 and the hero were recaptured. Tests: Pro 67, Free 56 (`hoursRingContinuesTheDays` new).
 

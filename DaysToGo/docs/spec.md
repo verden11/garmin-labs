@@ -49,7 +49,7 @@ Status: **Approved by the owner 2026-10-04, uploaded 2026-10-04 (in Garmin revie
 | Always-on frame, ring, hero, time, name, date lines, 15 languages | yes | yes |
 | Time of day for an event (the last 24 h read as `H:MM`, the HOURS state) | no | **yes** (Hour setting) |
 | Minute (0 to 59) and Event time zone (the watch's own, or UTC-12:00 to UTC+14:00) for a timed event: count to the minute, in the zone the event starts in (ADR-018 (the event minute and zone)) | no | **yes** (Minute and EventZone settings; Pro's headline, "To the minute") |
-| Bottom line: battery or steps (Footer setting) | no | **yes** |
+| Bottom line: battery or steps (Footer setting), after a drawn battery or footprints mark (ROADMAP 13.4) | no | **yes** |
 | Accent ids 6 to 11 (cyan, lime, yellow, orange, coral, magenta) | no | **deferred**: not built; Pro-only when they come |
 | New layout choice | no | **deferred**: not built |
 | Permissions | none | none (Free's are always a subset of Pro's) |
@@ -89,7 +89,7 @@ The owner chose paid ($1.99) on 2026-09-26. The research adds a risk the owner s
 | Past | after the event | days since | DAY SINCE / DAYS SINCE | empty track, muted |
 | Invalid | a saved date that does not exist (30 Feb 2026) | SET A DATE | | none |
 
-Always: time (device 12/24 h, no seconds), event name (if any), target date small (`Fri 25 Dec 2026`, device language).
+Always: time (device 12/24 h, no seconds), event name (if any), target date small (`Fri 25 Dec 2026`, device language), after a drawn arrow while the event is ahead (it is the event's date, not today's; ROADMAP 13.3).
 Optional bottom line, off by default: battery or steps (**Pro only**). Nothing else: no weather, heart rate, notifications, Bluetooth or alarm icons.
 Why nothing else: the requests in rival reviews are "I just want a simple countdown face" (Event Countdown, Countdown!).
 

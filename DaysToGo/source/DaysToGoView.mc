@@ -63,11 +63,11 @@ class DaysToGoView extends WatchUi.WatchFace {
             drawRow(dc, layout, radius, rows.captionTop, frame.captionFont, state.captionLines, DaysToGoPalette.MUTED);
         }
         if (frame.showDate) {
-            drawRow(dc, layout, radius, rows.dateTop, frame.smallFont, dateCandidates(state, frame), DaysToGoPalette.MUTED);
+            drawMarked(dc, layout, radius, rows.dateTop, frame.smallFont, dateCandidates(state, frame));
         }
         var footer = state.footer;
         if (frame.showFooter && !frame.footerWithDate && footer != null) {
-            drawRow(dc, layout, radius, rows.footerTop, frame.smallFont, [footer] as Array<String>, DaysToGoPalette.MUTED);
+            drawMarked(dc, layout, radius, rows.footerTop, frame.smallFont, [marked(state.footerMark, footer)] as Array<Array<Object>>);
         }
     }
 
@@ -84,17 +84,36 @@ class DaysToGoView extends WatchUi.WatchFace {
 
     // The date's wordings. With the bottom line sharing the row, each one also with the footer first, then the date
     // alone, so a chord too narrow for both still keeps the date.
-    private function dateCandidates(state as DaysToGoState, frame as DaysToGoFrame) as Array<String> {
+    // Each wording is a row of parts (DaysToGoMark): the arrow, the date, then the footer's mark and value.
+    private function dateCandidates(state as DaysToGoState, frame as DaysToGoFrame) as Array<Array<Object>> {
         var footer = state.footer;
-        if (!frame.footerWithDate || footer == null) {
-            return state.dateLines;
+        var result = [] as Array<Array<Object>>;
+        if (frame.footerWithDate && footer != null) {
+            // The footer is kept before the arrow: a narrow chord first drops the arrow, then the footer.
+            var dateMarks = state.dateMark == DaysToGoConfig.MARK_NONE ? [DaysToGoConfig.MARK_NONE] : [state.dateMark, DaysToGoConfig.MARK_NONE];
+            for (var m = 0; m < dateMarks.size(); m++) {
+                for (var i = 0; i < state.dateLines.size(); i++) {
+                    var parts = marked(dateMarks[m] as Number, state.dateLines[i]);
+                    parts.add(DaysToGoConfig.FOOTER_JOIN);
+                    parts.addAll(marked(state.footerMark, footer));
+                    result.add(parts);
+                }
+            }
         }
-        var result = [] as Array<String>;
         for (var i = 0; i < state.dateLines.size(); i++) {
-            result.add(state.dateLines[i] + DaysToGoConfig.FOOTER_JOIN + footer);
+            result.add(marked(state.dateMark, state.dateLines[i]));
         }
-        result.addAll(state.dateLines);
         return result;
+    }
+
+    private function marked(mark as Number, words as String) as Array<Object> {
+        return (mark == DaysToGoConfig.MARK_NONE ? [words] : [mark, words]) as Array<Object>;
+    }
+
+    private function drawMarked(dc as Graphics.Dc, layout as DaysToGoLayout, radius as Number, top as Number,
+                                font as Graphics.FontDefinition, candidates as Array<Array<Object>>) as Void {
+        dc.setColor(DaysToGoPalette.MUTED, Graphics.COLOR_TRANSPARENT);
+        DaysToGoMark.line(dc, layout, radius, top, dc.getFontHeight(font), [font] as Array<Graphics.FontDefinition>, candidates);
     }
 
     // One row: the longest wording that fits the chord in the row's font.

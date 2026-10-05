@@ -148,3 +148,19 @@ function stepsWording(logger as Test.Logger) as Boolean {
     Test.assertEqual(DaysToGoReadings.stepsText(123456), "123K");
     return true;
 }
+
+// The date row is the event's: an arrow while it is ahead, none on the day or after (ROADMAP 13.3); the bottom line's mark
+// follows its kind (ROADMAP 13.4).
+(:test)
+function dateArrowOnlyWhileAhead(logger as Test.Logger) as Boolean {
+    var phases = [DaysToGoConfig.PHASE_UPCOMING, DaysToGoConfig.PHASE_HOURS, DaysToGoConfig.PHASE_TODAY, DaysToGoConfig.PHASE_PAST] as Array<Number>;
+    var marks = [DaysToGoConfig.MARK_ARROW, DaysToGoConfig.MARK_ARROW, DaysToGoConfig.MARK_NONE, DaysToGoConfig.MARK_NONE] as Array<Number>;
+    for (var i = 0; i < phases.size(); i++) {
+        var state = DaysToGoReadings.build(settingsFor(0, ""), resultOf(phases[i], 3, 3600), 2026, false);
+        Test.assertEqual(state.dateMark, marks[i]);
+    }
+    Test.assertEqual(DaysToGoReadings.footerMarkFor(DaysToGoConfig.FOOTER_BATTERY), DaysToGoConfig.MARK_BATTERY);
+    Test.assertEqual(DaysToGoReadings.footerMarkFor(DaysToGoConfig.FOOTER_STEPS), DaysToGoConfig.MARK_STEPS);
+    Test.assertEqual(DaysToGoReadings.footerMarkFor(DaysToGoConfig.FOOTER_NONE), DaysToGoConfig.MARK_NONE);
+    return true;
+}

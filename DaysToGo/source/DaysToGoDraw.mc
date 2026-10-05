@@ -30,6 +30,18 @@ class DaysToGoDraw {
         }
     }
 
+    // A drawn mark's box, checked and logged like text (test-only, no-op on the watch).
+    static function box(layout as DaysToGoLayout, left as Number, top as Number, width as Number, height as Number, label as String) as Void {
+        var log = misfits;
+        var drawn = boxes;
+        if (log != null && (top < 0 || top + height > layout.height() || left < layout.leftInset(top, height) || left + width > layout.rightInset(top, height))) {
+            log.add(label + " y=" + top);
+        }
+        if (drawn != null) {
+            drawn.add([left, top, width, height, label]);
+        }
+    }
+
     // The largest font (largest first) no taller than maxHeight, else the smallest.
     static function fontUpTo(dc as Graphics.Dc, fonts as Array<Graphics.FontDefinition>, maxHeight as Number) as Graphics.FontDefinition {
         for (var i = 0; i < fonts.size() - 1; i++) {

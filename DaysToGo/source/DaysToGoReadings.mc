@@ -17,6 +17,7 @@ class DaysToGoReadings {
         var state = build(settings, DaysToGoCountdown.resolve(event, now), now.year, monthFirst);
         state.time = timeText(hour, minute, device.is24Hour);
         state.footer = footerText(settings.footer);
+        state.footerMark = footerMarkFor(settings.footer);
         return state;
     }
 
@@ -34,6 +35,9 @@ class DaysToGoReadings {
         }
         state.name = settings.name;
         state.dateLines = DaysToGoDateText.forDate(result.year, result.month, result.day, currentYear, monthFirst);
+        // The date row is the event's date; while it is ahead an arrow says so (ROADMAP 13.3). On the day and after, none.
+        var ahead = result.phase == DaysToGoConfig.PHASE_UPCOMING || result.phase == DaysToGoConfig.PHASE_HOURS;
+        state.dateMark = ahead ? DaysToGoConfig.MARK_ARROW : DaysToGoConfig.MARK_NONE;
         if (result.phase == DaysToGoConfig.PHASE_UPCOMING) {
             fillUpcoming(state, result.days, settings.unit == DaysToGoConfig.UNIT_WEEKS);
         } else if (result.phase == DaysToGoConfig.PHASE_HOURS) {
@@ -105,6 +109,13 @@ class DaysToGoReadings {
         }
         var hours = hour % DaysToGoConfig.HOURS_PER_HALF_DAY;
         return (hours == 0 ? DaysToGoConfig.HOURS_PER_HALF_DAY : hours) + ":" + minute.format("%02d");
+    }
+
+    static function footerMarkFor(kind as Number) as Number {
+        if (kind == DaysToGoConfig.FOOTER_BATTERY) {
+            return DaysToGoConfig.MARK_BATTERY;
+        }
+        return kind == DaysToGoConfig.FOOTER_STEPS ? DaysToGoConfig.MARK_STEPS : DaysToGoConfig.MARK_NONE;
     }
 
     // Pro only (docs/decisions.md ADR-014 (Free + Pro ladder)); the Free build has no bottom line.

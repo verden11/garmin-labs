@@ -14,4 +14,6 @@ class DaysToGoState {
     var ringTrack as Boolean = true;
     var accent as Number = DaysToGoPalette.ACCENTS[0];
     var footer as String? = null;
+    var footerMark as Number = DaysToGoConfig.MARK_NONE;   // the battery or footprints before the bottom line
+    var dateMark as Number = DaysToGoConfig.MARK_NONE;     // an arrow while the date is ahead: it is the event's, not today's
 }

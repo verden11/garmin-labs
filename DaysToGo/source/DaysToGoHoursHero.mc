@@ -50,7 +50,10 @@ class DaysToGoHoursHero {
     private static function unitTop(dc as Graphics.Dc, y as Number, height as Number, font as Graphics.FontDefinition,
                                     unitFont as Graphics.FontDefinition) as Number {
         if (Graphics has :getFontAscent) {
-            return y + Graphics.getFontAscent(font) - Graphics.getFontAscent(unitFont);
+            // Kept inside the hero's own box: a letter font's padding below its baseline can be deeper than the digits'.
+            var top = y + Graphics.getFontAscent(font) - Graphics.getFontAscent(unitFont);
+            var lowest = y + height - dc.getFontHeight(unitFont);
+            return top > lowest ? lowest : top;
         }
         return y + height - dc.getFontHeight(unitFont) - height * DaysToGoLayout.HOURS_UNIT_LIFT_PERMILLE / DaysToGoConfig.PERMILLE;
     }

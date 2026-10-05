@@ -57,7 +57,9 @@ A Pro event with a time (Time of day, Minute) and, optionally, an Event time zon
 
 time · event name (accent, optional) · **hero** · caption · date (words) · bottom line (optional, off by default).
 
-Each row takes the largest font up to a height cap; the hero takes the rest. On a small screen optional rows first change shape and then drop: when the bottom line cannot have a row of its own it shares the date row ("Sat Dec 19 · 50%", ADR-016), then it drops, then the name, then the date, until the hero has room for its smallest font (ADR-012). A name steps down a font before it is cut short. Every text is measured against the round chord at its row; a long name shrinks and then ends in "...".
+**Marks (2026-10-05, owner, ROADMAP 13.3 and 13.4; `DaysToGoMark`, primitives in the row's colour, about 45% of its font's height):** the date row is the event's date, not today's, so while the event is ahead (days, weeks or Pro's last 24 hours) it starts with an arrow (`→ Nov 18`); on the day and after there is none. Pro's bottom line starts with a battery outline or a pair of footprints, so `50%` and `6.4K` say what they are with no word to translate. A mark is a row part like a word: it is measured into the row's width, and the fit test checks its box.
+
+Each row takes the largest font up to a height cap; the hero takes the rest. On a small screen optional rows first change shape and then drop: when the bottom line cannot have a row of its own it shares the date row ("→ Sat Dec 19 · ▭ 50%", ADR-016; a chord too narrow for that drops the arrow first, then the bottom line), then it drops, then the name, then the date, until the hero has room for its smallest font (ADR-012). A name steps down a font before it is cut short. Every text is measured against the round chord at its row; a long name shrinks and then ends in "...".
 
 ## Always-on (AMOLED)
 

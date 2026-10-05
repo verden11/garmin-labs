@@ -92,6 +92,11 @@ class DaysToGoConfig {
 
     // Between the date and the bottom line when they share a row.
     static const FOOTER_JOIN = " · ";
+    // Marks drawn before a row's words (DaysToGoMark, ROADMAP 13.3, 13.4).
+    static const MARK_NONE = 0;
+    static const MARK_ARROW = 1;
+    static const MARK_BATTERY = 2;
+    static const MARK_STEPS = 3;
 
     static const NAME_MAX_LENGTH = 16;
     static const ACCENT_COUNT = 6;
