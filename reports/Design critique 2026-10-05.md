@@ -70,6 +70,8 @@ Every changed listing image set was recaptured (both tiers where both changed) a
 
 - **Sideload builds:** all nine FR965 debug builds rebuilt from `bba7750` into `device-test/` (HeroSet dev only; no `.iq`), each loaded in the simulator (all draw). Two builds of the same project in parallel clash (DayArc Pro failed once); rebuilt one at a time.
 
+- **DayArc wrist photos (owner, 7 photos, morning build):** first real-watch evidence of the morning and midday windows, both tiers; weather and stress empty states work on the watch. Two bugs found and fixed (`5bb9557`): 12-hour time was zero-padded (sunset showed `06:54`), and the empty calendar cut to "No up...". Two questions added (13.28 feels-like label, 13.29 morning icon). DayArc packages and sideloads rebuilt.
+
 ## Open for the owner
 
 Everything that needs the owner is in ROADMAP.md section 1 or 2 (13.x, 1.1). Added this evening: 13.25 always-on grey, 13.26 site merge, 13.27 framed images, the DayArc calendar check in 1.1.
