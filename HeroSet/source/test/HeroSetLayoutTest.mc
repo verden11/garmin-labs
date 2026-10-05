@@ -109,3 +109,53 @@ function rowsBesideASubscreenWindowStayClearOfIt(logger as Test.Logger) as Lang.
     }
     return true;
 }
+
+// Rectangle XP track (ADR-057): a closed rounded rectangle from top centre,
+// clockwise. On a 320x360 display (Venu Sq 2: inset 32, stroke 5, margin 16)
+// the path is five straight runs (106 + 252 + 212 + 252 + 106) and four
+// quarter circles of radius 48 (75 px each), and a share of XP fills the same
+// share of that length.
+(:test)
+function rectTrackFillIsTheShareOfItsLength(logger as Test.Logger) as Lang.Boolean {
+    var track = new HeroSetRectTrack(320, 360, 32, 5, 16);
+    Test.assertEqual(track.quarterArc(), 75);
+    Test.assertEqual(track.length(), 928 + 4 * 75);
+    Test.assertEqual(track.fillFor(0, 300), 0);
+    Test.assertEqual(track.fillFor(5, 0), 0);
+    Test.assertEqual(track.fillFor(1, 999999), 1);
+    Test.assertEqual(track.fillFor(150, 300), track.length() / 2);
+    Test.assertEqual(track.fillFor(75, 300), track.length() / 4);
+    Test.assertEqual(track.fillFor(300, 300), track.length());
+    Test.assertEqual(track.fillFor(900, 300), track.length());
+    // Rows inside: the full inner width mid-screen, narrower in a corner.
+    Test.assertEqual(track.inset(150, 30), track.contentTop());
+    Test.assert(track.inset(track.contentTop(), 30) > track.contentTop());
+    return true;
+}
+
+// On this device: the track (stroke included) stays on the display and its
+// inner box inside the display's own insets; every other shape has no track.
+(:test)
+function rectTrackStaysOnThisDisplay(logger as Test.Logger) as Lang.Boolean {
+    var settings = System.getDeviceSettings();
+    var size = {:width => settings.screenWidth, :height => settings.screenHeight};
+    var bitmap = (Graphics has :createBufferedBitmap)
+        ? Graphics.createBufferedBitmap(size).get() as Graphics.BufferedBitmap
+        : new Graphics.BufferedBitmap(size);
+    var layout = new HeroSetLayout(bitmap.getDc());
+    var track = layout.track();
+    if (settings.screenShape != System.SCREEN_SHAPE_RECTANGLE) {
+        Test.assert(track == null);
+        return true;
+    }
+    Test.assert(track != null);
+    var t = track as HeroSetRectTrack;    var b = t.box();
+    var half = t.stroke() / 2;
+    Test.assert(b[0] - half >= 0 && b[1] - half >= 0);
+    Test.assert(b[2] - half + t.stroke() <= settings.screenWidth && b[3] - half + t.stroke() <= settings.screenHeight);
+    Test.assert(2 * b[4] < b[2] - b[0] && 2 * b[4] < b[3] - b[1]);
+    Test.assert(t.contentTop() >= layout.leftInset(layout.centerY(), 0));
+    Test.assert(t.contentBottom() > t.contentTop());
+    Test.assert(t.fillFor(1, 2) * 2 - t.length() <= 1);
+    return true;
+}

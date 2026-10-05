@@ -13,8 +13,9 @@ class HeroSetRankHeader {
         // First row starts where every other screen's first band does, pushed
         // down by the ring's width so the ring and rank never crowd each other.
         // The window's ring is out of the text's way, so no push there. On a
-        // rectangle the ring starts circleTop() down (ADR-057).
-        var top = layout.circleTop() + layout.shortInset() + (layout.subscreen() == null ? layout.ringWidth() : 0);
+        // rectangle the rows start at the top of the track's inner box (ADR-057).
+        var track = layout.track();
+        var top = track != null ? track.contentTop() : layout.shortInset() + (layout.subscreen() == null ? layout.ringWidth() : 0);
         var text = HeroSetText.format(Rez.Strings.dashboard_rank, [state.rank]);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
         var font = HeroSetDraw.largestFont(dc, layout, layout.contentRadius(), 0, top, text, fonts);
@@ -34,7 +35,18 @@ class HeroSetRankHeader {
     // Track first, then gold for the XP earned inside the current rank, so
     // the fill restarts empty at every rank-up.
     private static function drawRing(dc as Graphics.Dc, layout as HeroSetLayout, state as HeroSetDashboardState) as Void {
-        var sweep = HeroSetLayout.ringSweepFor(HeroSetRules.xpIntoRank(state.xp), HeroSetRules.rankCost(state.rank));
+        var part = HeroSetRules.xpIntoRank(state.xp);
+        var whole = HeroSetRules.rankCost(state.rank);
+        var track = layout.track();
+        if (track != null) {
+            // The rectangle's ring follows the screen, closed (ADR-057).
+            dc.setColor(HeroSetPalette.TRACK, HeroSetPalette.BACKGROUND);
+            track.draw(dc, track.length());
+            dc.setColor(HeroSetPalette.GOLD, HeroSetPalette.BACKGROUND);
+            track.draw(dc, track.fillFor(part, whole));
+            return;
+        }
+        var sweep = HeroSetLayout.ringSweepFor(part, whole);
         var window = layout.windowRing();
         if (window != null) {
             drawWindowRing(dc, window, sweep);

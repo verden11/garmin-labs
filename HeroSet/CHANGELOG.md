@@ -6,6 +6,8 @@ the ADRs named. Dates are upload dates; review status follows.
 
 ## Unreleased (1.3.2 candidate)
 
+**Square design on the rectangles** (Venu Sq 2, Sq 2 Music, X1; 2026-10-06, owner: square watches get square designs; [ADR-057](docs/decisions.md#adr-057) (rectangular watches), amended). The dashboard's XP ring is now a closed rounded-rectangle track along the screen's edges, from top centre clockwise, instead of a circle clipped by the rectangle; rank, XP line, mission rows, streak and footer fill the box inside it at full width, the rank row no longer pushed down. `RANK N` now sits wholly under the system's save toast (it was cut by the toast's edge on the Sq 2); on the Sq 2 the toast's edge still cuts the `XP TO RANK` line for its few seconds (owner decision open). Round and Instinct screens unchanged. Tests 118 (store 105): +2 for the track (length and fill share; on the display, or none off a rectangle), and the screen-fit test now fails a dashboard text crossing the track. PASSED in both builds on venusq2, venusq2m, venux1, fr965; dev on fr255s, venu3, instincte40mm, instinct3amoled45mm; 15-language fit sweep on venusq2 and venux1. Simulator only, look awaiting the owner.
+
 Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.21 to 13.23; simulator only, nothing on a wrist). Tests 116 (store 103), unchanged in count, PASSED on fr965, fr255s, venu3, instincte40mm, instinct2.
 
 - **Review screen: the amount to save is the big number.** `+24` is drawn in a number font with its sign beside it, under the small `DETECTED 23`; it was the same size as the rows around it.

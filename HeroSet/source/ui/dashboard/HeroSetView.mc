@@ -65,15 +65,20 @@ class HeroSetView extends WatchUi.View {
 
     // One y for every footer state, fitted to the widest of them, so the bars
     // above never shift when the footer text changes. It lands in the ring's
-    // bottom gap.
+    // bottom gap; on a rectangle, on the floor of the track's inner box (ADR-057).
     function footerTop(dc as Dc, layout as HeroSetLayout) as Lang.Number {
+        var track = layout.track();
+        var line = dc.getFontHeight(Graphics.FONT_XTINY);
+        if (track != null) {
+            return track.contentBottom() - line;
+        }
         var texts = [_hint, _complete, _warning] as Lang.Array<Lang.String>;
         var widest = 0;
         for (var i = 0; i < texts.size(); i++) {
             var width = dc.getTextWidthInPixels(texts[i], Graphics.FONT_XTINY);
             widest = width > widest ? width : widest;
         }
-        return layout.fitCenteredY(layout.footerRowBottom(), layout.centerY(), widest, dc.getFontHeight(Graphics.FONT_XTINY));
+        return layout.fitCenteredY(layout.footerRowBottom(), layout.centerY(), widest, line);
     }
 
     // Completing today is what extends the run, so the line turns gold the

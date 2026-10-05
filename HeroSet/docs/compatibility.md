@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-10-05. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
+Status: 2026-10-06. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
 
 ## Supported products
 
@@ -107,7 +107,7 @@ Plain round AMOLED products to the app: five buttons (`enter, up, menu, down, es
 
 ### Wave 7b (unreleased, added 2026-10-05) — touch-first rectangles ([ADR-057](decisions.md#adr-057))
 
-AMOLED, touch-first like wave 5 (START, BACK, touchscreen; the Sq 2 also has a MENU key), CIQ 5.0 / 6.0.2, 768 KB, glance (64 KB) and the HeroFace complication. No bezel: rows take the full width less the safe inset; the dashboard's XP ring sits on the inscribed circle and the dashboard content fits inside it. All three are on Garmin's paid-app list (the paid Two Suns 1.0.0 listing is offered on them). Simulator only: suites in both jungles, the 15-language fit sweep on `venusq2` and `venux1`, and screenshots of every screen on `venusq2` and `venux1`; look not yet approved by the owner.
+AMOLED, touch-first like wave 5 (START, BACK, touchscreen; the Sq 2 also has a MENU key), CIQ 5.0 / 6.0.2, 768 KB, glance (64 KB) and the HeroFace complication. No bezel: rows take the full width less half the safe inset; the dashboard's XP ring is a closed rounded-rectangle track along the screen's edges (corner radius 1.5 insets, clearing the X1's ~60 px glass corner) and the dashboard content fills its inner box (square design, ADR-057 amendment 2026-10-06). All three are on Garmin's paid-app list (the paid Two Suns 1.0.0 listing is offered on them). Simulator only: suites in both jungles, the 15-language fit sweep on `venusq2` and `venux1`, and screenshots of every screen on `venusq2` and `venux1` (2026-10-06, square design); look not yet approved by the owner.
 
 | Family | Products (`manifest` id) | Screen | Glance area |
 |---|---|---|---|

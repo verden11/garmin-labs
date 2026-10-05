@@ -44,6 +44,7 @@ function everyScreenFitsThisDisplay(logger as Test.Logger) as Lang.Boolean {
             // Beside the window a zero streak draws no row (ROADMAP 13.23: "STREAK 0" read as a failure on day one).
             var rows = dashboardRows - (new HeroSetLayout(dc).subscreen() != null && states[i].streak == 0 ? 1 : 0);
             HeroSetScreenFitHarness.collectOverlaps("dashboard", rows, problems);
+            HeroSetScreenFitHarness.collectInsideTrack(new HeroSetLayout(dc).track(), HeroSetDraw.boxes as Lang.Array<Lang.Array>, problems);
         }
         var exercises = HeroSetRules.EXERCISES;
         for (var e = 0; e < exercises.size(); e++) {
