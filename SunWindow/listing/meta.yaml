@@ -37,7 +37,7 @@ site:
 owner_approvals:   # what only the owner may settle before paste.md is used
   - "Trademark and domain check for 'Sun Window' before listing work (ADR-001)."
   - "Category Utility: confirm on the upload form (ADR-013)."
-  - "The looks of the launcher icon, cover, hero, device icons and store screens (simulator only, canned weather and a patched place; never a reading)."
+  - "The looks of the launcher icon, cover, hero, device icons and store screens (simulator only, weather and place set in the simulator; never a reading)."
   - "The final description text (drafted 2026-10-05, finalised at plan P9.4)."
   - "What's New is blank, per the studio's rule for an initial release."
 open_items: "16.x"   # ids in ROADMAP.md

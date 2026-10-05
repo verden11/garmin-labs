@@ -5,7 +5,7 @@ A Garmin app with a glance (widget-style; manifest type `watch-app`, ADR-008) th
 Name: Sun Window, slug `sun-window` (ADR-001, name and slug; trademark check before listing work).
 
 **Start here:** the task plan is [`reports/Sun Window build plan.md`](../reports/Sun%20Window%20build%20plan.md)
-(69 numbered tasks P0.1 to P12.5, each with files, inputs, done-criteria and
+(70 numbered tasks P0.1 to P12.5, each with files, inputs, done-criteria and
 owner/agent). Where things stand: [`docs/status.md`](docs/status.md).
 
 ## Layout

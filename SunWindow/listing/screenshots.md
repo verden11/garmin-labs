@@ -2,9 +2,10 @@
 
 Not taken yet (plan P9.2). Rendered by an agent in the container simulator
 (`docker/capture.sh SunWindow tools/listing_shots.sh`): fixed time, 24-hour
-clock, a patched-in place (the simulator has no GPS), native pixels, each
-under 150 KB. Simulator weather is canned: never present it as a reading.
-The owner approves the looks.
+clock, a place from the simulator's Set Position, native pixels, each under
+150 KB, then framed in a watch skin with `docker/frame_listing.sh`
+(`src/frames.txt`). Simulator weather and place are set by hand: never
+present them as a reading. The owner approves the looks.
 
 | # | State | Device | Notes |
 |---|---|---|---|

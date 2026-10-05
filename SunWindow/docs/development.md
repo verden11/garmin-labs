@@ -32,10 +32,18 @@ the in-app accent menu works there.
 
 ## Simulator and screenshots
 
-The simulator has no GPS, so screenshots of OPEN/CLOSED need a stored place
-patched in, in `getInitialView`, never `initialize` or `onStart`
-(HeroSet `docs/development.md`). Its weather is canned: never present it as
-a reading. Recipes: [`../../docker/SIMULATOR.md`](../../docker/SIMULATOR.md).
+The simulator's Settings menu has Set Position, Set GPS Quality and Set
+Weather; Simulation > Time Simulation moves the clock (midnight, DST); Force
+onHide / onShow and Trigger App Settings exercise the lifecycle and the
+settings path; File > View Memory reads peaks
+([`../../docker/SIMULATOR.md`](../../docker/SIMULATOR.md) §3). A place
+patched into `getInitialView` (never `initialize` or `onStart`, HeroSet
+`docs/development.md`) is the fallback only if Set Position does not reach
+`Position.getInfo()`. Delete the simulator's stored app settings before each
+load (§3 lesson 1). The fr965 simulator opens an app with a glance on the
+glance; Down then START opens the full view (probe
+`research_notes/Sun Window build plan/probe/tools/open_full_view.sh`).
+Simulator weather and place are set by hand: never present them as readings.
 
 ## Export
 

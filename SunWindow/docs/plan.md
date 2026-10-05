@@ -1,7 +1,7 @@
 # Sun Window — implementation plan
 
 The plan is [`../../reports/Sun Window build plan.md`](../../reports/Sun%20Window%20build%20plan.md):
-13 phases, 69 numbered tasks (P0.1 to P12.5), each with files, inputs,
+13 phases, 70 numbered tasks (P0.1 to P12.5), each with files, inputs,
 done-criteria and owner/agent. Gates and evidence: [`status.md`](status.md).
 Open items: root `ROADMAP.md` 16.x.
 
