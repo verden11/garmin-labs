@@ -58,7 +58,14 @@ Every changed listing image set was recaptured (both tiers where both changed) a
 - **DayArc Pro:** the next-calendar-event pill reads `00:00` in the simulator with no event (Garmin's complication string, passed through): check on the wrist (1.1).
 - **Not covered yet:** low battery, missing weather / Body Battery on screen, other languages on screen (unit fit tests cover them), the Fenix 8 glance path in HeroSet's driver.
 
+## Website on phones (evening)
+
+- Every page scrolled sideways on phones: the studio bar's six app names (456 px) ran past the screen below about 640 px. Fixed on branch `site-mobile-fix` (`1cda274`): the bar wraps (wordmark, then the names, 44 px tap targets, no JS), the hero name's minimum is smaller (HeroFace was wider than a 320 px phone), drawn previews scale down. `site/scripts/check-overflow.mjs` (phone emulation, 320/360/375/414 px): no overflow on all 20 pages. Not merged: merging deploys verden.watch (ROADMAP 13.26).
+
 ## Open for the owner
+
+Everything that needs the owner is in ROADMAP.md section 1 or 2 (13.x, 1.1). Added this evening: 13.25 always-on grey, 13.26 site merge, 13.27 framed images, the DayArc calendar check in 1.1.
+
 
 - **13.5** Days To Go time-zone list: city hints (parked by the owner for later).
 - **13.7** The `h`/`m` letters (Days To Go Pro, Two Suns) are English on every watch; "m" can read as metres. Keep, use "min", or translate.
