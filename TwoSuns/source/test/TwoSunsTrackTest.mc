@@ -113,8 +113,9 @@ function layoutBuildsTheTrackOnlyOnARectangle(logger as Test.Logger) as Boolean 
 (:test, :pro)
 function rectangleHidesACurveWithNoLine(logger as Test.Logger) as Boolean {
     var now = 1790000000;
-    var lone = TwoSunsBattery.build([50] as Array<Numeric or Null>, [now] as Array<Number or Null>, now);
-    var line = TwoSunsBattery.build([50, 50] as Array<Numeric or Null>, [now, now - TwoSunsConfig.BATTERY_BUCKET_SECONDS] as Array<Number or Null>, now);
+    var newest = now - TwoSunsConfig.SECONDS_PER_MINUTE;   // inside the newest bucket (a sample at `now` itself is clamped into it too)
+    var lone = TwoSunsBattery.build([50] as Array<Numeric or Null>, [newest] as Array<Number or Null>, now);
+    var line = TwoSunsBattery.build([50, 50] as Array<Numeric or Null>, [newest, newest - TwoSunsConfig.BATTERY_BUCKET_SECONDS] as Array<Number or Null>, now);
     Test.assert(!lone.hasALine());
     Test.assert(line.hasALine());
     var dc = testDc();

@@ -148,11 +148,11 @@ class TwoSunsFrame {
         }
     }
 
-    // Room the time leaves for the watch battery row above the centred stack (a strip at the top, and its twin below). Kept
-    // whether the row is on or not, so the row never moves the stack (ADR-023, Watch battery row).
+    // Room the time leaves for the watch battery row above the centred stack (a strip at the top, and its twin below), only
+    // while the Battery setting is on: with it off (the default) the time takes that room too (ADR-028, the rectangle track).
     (:pro)
     private function topReserve(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState) as Number {
-        return 2 * (rows.timeTop - TwoSunsBatteryRow.top(dc, layout, rows.timeTop));
+        return state.watchBattery == null ? 0 : 2 * (rows.timeTop - TwoSunsBatteryRow.top(dc, layout, rows.timeTop));
     }
 
     (:free)
