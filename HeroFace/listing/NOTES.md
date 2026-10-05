@@ -12,7 +12,6 @@ What sits behind [`paste.md`](paste.md), the paste-ready copy. Nothing here is p
 
 | File | What it is |
 |---|---|
-| [`descriptions.md`](descriptions.md) | The description opening in all 15 languages |
 | [`screenshots.md`](screenshots.md) | The captured set, where each came from, how to re-render the composed images |
 | `screens/`, `src/`, the PNGs | The images and their generators (adapted from HeroSet's) |
 
@@ -32,7 +31,7 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 
 - **One box per language, 4000 characters, no short/long split.** The store truncates it itself in list views, so the first sentence carries the weight a short description would.
 - **Plain text:** the store shows `**` and `>` literally and keeps every line break, so a hard-wrapped draft broke lines mid-sentence on the live page (checked 2026-09-25).
-- **Other languages:** [`descriptions.md`](descriptions.md) (their rows are the old opening; update them before pasting per-language descriptions). The open choice: paste the English description for every language, or translate it.
+- **Other languages:** the stale per-language openings (`descriptions.md`) were deleted 2026-10-05 (in git history). The open choice: paste the English description for every language, or translate it.
 - **Rules learned:** no watch count and no Forerunner 55 (Compatible Devices shows fewer products than the manifest); no "the line turns grey" (after a missed day the line disappears; it is grey only while today's goal is open).
 
 ## Why each answer

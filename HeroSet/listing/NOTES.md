@@ -39,7 +39,7 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 
 ## Image sources
 
-- **Framed** (`framed/`, 1300×1300, watch frame around the store screens): marketing extras for ads and social. Not part of the store form. Only copy of the art, no source file.
+- **Framed** marketing set (1300×1300, the 2026-09 UI): deleted 2026-10-05, in git history; re-frame from `screens-framed/` if ads need it.
 - **Hero** (`hero-1440x720.png`): the framed screens 1, 2 and 5 (two Forerunner 965, one Instinct E 45 mm), strap ends faded, on the flat amber ground (287 KB). Source `src/hero.html`.
 - **Cover** (`cover-500-designed.png`, 500×500, flat amber, 12 KB): source `src/cover.html`.
 - **Device icons:** the launcher icon's shield (current pixel-grid shape) on black, `src/icon.html`; the 64-colour one is the same render snapped by `src/quantize64.py`.

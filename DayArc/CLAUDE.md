@@ -54,8 +54,8 @@ The evidence is in [`../reports/DayArc v1 scope and plan.md`](../reports/archive
   wear check, ROADMAP 1.1). Otherwise everything is simulator-only: compile sweep 72/72 both
   densities, unit suites on 13 devices (2026-10-04) and Simple 23/23, Pro 26/26 on 5 devices after
   the 2026-10-05 review fixes. Simulator screenshots of
-  every window exist since 2026-10-03 (`../docker/capture.sh DayArc tools/window_shots.sh ...`, untracked
-  `bin/shots/`); none is a device photo.
+  every window: `../docker/capture.sh DayArc tools/window_shots.sh ...` writes them to the untracked
+  `bin/shots/` (cleared 2026-10-05; re-run to see them); none is a device photo.
 
 ## Open owner decisions
 

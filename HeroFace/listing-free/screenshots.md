@@ -14,7 +14,7 @@ All from the Free build, native simulator pixels, clock 2026-10-04 10:09. No pri
 | 4 | `screens/4-heroset.png` | `fr965`, 454 px | HeroSet mode: push-ups, sit-ups, squats, rank and streak, gold ring (the HeroSet value is canned, see below) |
 | 5 | `screens/5-instinct-e40.png` | **`instincte40mm`, 166 px native, shown x3 (the Instinct family)** | Black and white, the ring is a gauge in the round window, streak, three reversed labels for finished goals |
 
-The Instinct has no Accent setting, so the choice was only which watch and state looked best: the Instinct E 40 mm with every goal met (the finished-goal pills and the streak line, "STEPS" in full; the Instinct 2 reads "STEP"). `screens/native/5-instincte40mm-166.png` is the simulator's own 166 px capture; `screens/5-instinct-e40.png` (the one to upload, as in the Days To Go listing) is the same pixels enlarged x3 with nearest-neighbour (498 px, two colours, no smoothing) because the store shows screenshots larger than the display: `src/instinct-up.html`, rendered with the same Chrome command at `--window-size=498,498` to `screens/5-instinct-e40.png`. Use the native file if you prefer.
+The Instinct has no Accent setting, so the choice was only which watch and state looked best: the Instinct E 40 mm with every goal met (the finished-goal pills and the streak line, "STEPS" in full; the Instinct 2 reads "STEP"). `screens/5-instinct-e40.png` (the one to upload, as in the Days To Go listing) is the simulator's own 166 px capture (`tools/listing_shots.sh` writes it to `screens/native/5-instincte40mm-166.png`; not kept in git) enlarged x3 with nearest-neighbour (498 px, two colours, no smoothing) because the store shows screenshots larger than the display: `src/instinct-up.html`, rendered with the same Chrome command at `--window-size=498,498` to `screens/5-instinct-e40.png`.
 
 ## How they were made
 
@@ -25,7 +25,7 @@ cd <repo root>
 docker/capture.sh HeroFace tools/listing_shots.sh free     # writes HeroFace/listing-free/screens/1-…5-*.png and src/hero-magenta.png
 ```
 
-- **Run the accent pictures in their own container run, one file per run** (`... free 2-accent-cyan.png`, then `... free hero-magenta.png`; the extra arguments name the files to take, so any picture can be re-taken alone, which is also how a flaky "NOT SAVED" is repeated). In one long run the simulator kept the Accent value stored by the first scene, and the Cyan and Magenta scenes came out blue. The 2026-10-04 set was taken as: one full run (`4-heroset`, `1-everyday`; its accent frames and its `3-goals-met` / Instinct saves did not come out), then `2-accent-cyan`, `hero-magenta` and `3-goals-met` + the Instinct frame (`5-instincte40mm-166.png`, saved in `screens/native/`) as separate runs. Every picture was looked at.
+- **Run the accent pictures in their own container run, one file per run** (`... free 2-accent-cyan.png`, then `... free hero-magenta.png`; the extra arguments name the files to take, so any picture can be re-taken alone, which is also how a flaky "NOT SAVED" is repeated). In one long run the simulator kept the Accent value stored by the first scene, and the Cyan and Magenta scenes came out blue. The 2026-10-04 set was taken as: one full run (`4-heroset`, `1-everyday`; its accent frames and its `3-goals-met` / Instinct saves did not come out), then `2-accent-cyan`, `hero-magenta` and `3-goals-met` + the Instinct frame (`5-instincte40mm-166.png`, written to `screens/native/`, not kept) as separate runs. Every picture was looked at.
 - Built in a **private copy** of the project (the repo is never touched); the clock is the simulator's (`faketime`); activity data typed into Simulation > Activity Monitoring; each file is File > Save Screen Capture at the device's own pixel size.
 - The only setting Free has is the accent: shot 2 sets `Accent` 1 (Cyan) in the private copy's `resources-free/settings/properties.xml`; `src/hero-magenta.png` (used only in the hero) sets `Accent` 2 (the pale `#FFAAFF`).
 - **HeroSet mode (shot 4) is canned**, exactly as for Pro: the simulator never sees HeroSet's complication, so the private copy's `HeroFaceLink.mc` is patched to report linked and to parse `1|20261004|60|45|28|2|40|3|20261003|100`. The drawing after that is the real path; the numbers are made up.
@@ -63,7 +63,6 @@ Limits from [`../../reports/listing-template.md`](../../reports/listing-template
 | `screens/3-goals-met.png` | 454x454 | 15.1 KB |
 | `screens/4-heroset.png` | 454x454 | 18.5 KB |
 | `screens/5-instinct-e40.png` | 498x498 (x3 of the 166 px native) | 3.5 KB |
-| `screens/native/5-instincte40mm-166.png` | 166x166 | 1.6 KB |
 | `cover-500.png` | 500x500 | 11.7 KB |
 | `hero-1440x720.png` | 1440x720 | 247 KB |
 | `icon-24-128.png` | 128x128 | 2.4 KB |

@@ -10,3 +10,6 @@ device-test/
 
 # personal notes, never tracked
 /todo.md
+
+# re-made by tools/listing_shots.sh, not kept
+*/listing*/screens/native/

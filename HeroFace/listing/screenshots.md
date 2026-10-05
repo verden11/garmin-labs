@@ -14,7 +14,7 @@ All from the Pro build, native simulator pixels, clock 2026-10-04 10:09. No pric
 | 4 | `screens/4-heroset.png` | `fr965`, 454 px | HeroSet mode: push-ups, sit-ups, squats, rank and streak, gold ring (the HeroSet value is canned, see below) |
 | 5 | `screens/5-instinct-e40.png` | **`instincte40mm`, 166 px native, shown x3 (the Instinct family)** | Black and white, the ring is a gauge in the round window (closed here), the time and date left of it, streak, three reversed labels for finished goals |
 
-The Instinct has no Accent setting, so there is nothing to choose; the goals-met state was picked because it is the best-looking frame (the finished-goal pills and the streak line, "STEPS" in full; `instinct2` reads "STEP"). **Pro is sold for the Instinct E and Instinct 3 watches, not the Instinct 2 family** (Garmin's paid-app product list, `../../reports/Garmin policies and design guidelines.md`), so the Pro Instinct picture is an Instinct E 40 mm. `screens/native/5-instincte40mm-166.png` is the simulator's own 166 px capture; `screens/5-instinct-e40.png` (the one to upload, as in the Days To Go listing) is the same pixels enlarged x3 with nearest-neighbour (498 px, two colours, no smoothing) because the store shows screenshots larger than the display: `src/instinct-up.html`, rendered by the same Chrome command with `--window-size=498,498` and `--screenshot="$PWD/screens/5-instinct-e40.png"`. Use the native file if you prefer. `instinct3solar45mm` did not save in the scripted run (it opens on its glance), so it was not used.
+The Instinct has no Accent setting, so there is nothing to choose; the goals-met state was picked because it is the best-looking frame (the finished-goal pills and the streak line, "STEPS" in full; `instinct2` reads "STEP"). **Pro is sold for the Instinct E and Instinct 3 watches, not the Instinct 2 family** (Garmin's paid-app product list, `../../reports/Garmin policies and design guidelines.md`), so the Pro Instinct picture is an Instinct E 40 mm. `screens/5-instinct-e40.png` (the one to upload, as in the Days To Go listing) is the simulator's own 166 px capture (`tools/listing_shots.sh` writes it to `screens/native/5-instincte40mm-166.png`; not kept in git) enlarged x3 with nearest-neighbour (498 px, two colours, no smoothing) because the store shows screenshots larger than the display: `src/instinct-up.html`, rendered by the same Chrome command with `--window-size=498,498` and `--screenshot="$PWD/screens/5-instinct-e40.png"`. `instinct3solar45mm` did not save in the scripted run (it opens on its glance), so it was not used.
 
 ## How they were made
 
@@ -75,7 +75,6 @@ stat -f '%z %N' screens/*.png cover-500.png hero-1440x720.png icon-*.png        
 | `screens/3-goals-met.png` | 454x454 | 16.0 KB |
 | `screens/4-heroset.png` | 454x454 | 19.3 KB |
 | `screens/5-instinct-e40.png` | 498x498 (x3 of the 166 px native) | 3.5 KB |
-| `screens/native/5-instincte40mm-166.png` | 166x166 | 1.6 KB |
 | `cover-500.png` | 500x500 | 15.7 KB |
 | `hero-1440x720.png` | 1440x720 | 280 KB |
 | `icon-24-128.png` | 128x128 | 3.6 KB |
