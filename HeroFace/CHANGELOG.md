@@ -13,6 +13,11 @@ Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.8 to 13.12; s
 - **MOVE shows no value until it alerts:** `OK` is gone; the alert stays the red word GO.
 - Both listing sets recaptured.
 
+Rectangular watches, 2026-10-05 (ADR-005, proposed; simulator only, nothing on a wrist; the look needs the owner's approval before upload):
+
+- **Five rectangular products join both builds (129 instead of 124):** Venu Sq and Sq Music (`venusq`, `venusqm`), Venu Sq 2 and Sq 2 Music (`venusq2`, `venusq2m`), Venu X1 (`venux1`). The ring becomes a frame along the screen's edges, open at the bottom for the footer, filling clockwise from the lower left; rows use the width inside it. HeroSet mode needs Connect IQ 4.2+, so the two first-generation Venu Sq stay in Everyday mode.
+- Pro is sold only on Garmin's paid-app list: Venu Sq 2, Sq 2 Music and X1 are on it; Venu Sq and Sq Music are not, so only the Free build reaches them. No model names in listing text.
+
 ## Free 1.0.0 and Pro 1.1.0 — uploaded 2026-10-04 by the owner, in Garmin review
 
 Built 2026-10-01 against the Free + Pro plan; the owner approved the ladder on 2026-10-04 (`docs/decisions.md` ADR-001, the Free + Pro ladder, Active) and uploaded both the same day. Simulator only; nothing on a wrist. Approval dates are recorded here when Garmin reports them.

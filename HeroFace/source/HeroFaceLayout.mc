@@ -8,6 +8,7 @@ import Toybox.WatchUi;
 // follow HeroSetLayout (inset = a tenth of the screen) so the ring, bars and
 // labels match HeroSet's dashboard. Rows are stacked from the bottom up and
 // the time gets whatever height is left, so it is always the largest thing.
+// On a rectangle the rows take the width inside the frame, as DayArc's layout does on the same watches (ADR-005).
 class HeroFaceLayout {
 
     // Same arc as HeroSet's XP ring: from lower left clockwise over the top,
@@ -20,6 +21,8 @@ class HeroFaceLayout {
     private static const TIME_SAMPLE = "00:00";
     private static const WINDOW_FILL_DIVISOR = 4;
     private static const TIME_BAND_MAX_PERMILLE = 250;
+    // A quarter circle is pi/2 of its radius long.
+    private static const QUARTER_ARC_PERMILLE = 1571;
     // The bezel hides the corners of a semi-octagon display: what shows is the square cut by a circle about 98 px in radius
     // (measured off the alpha mask of the SDK's device images, 96 to 100 px on all seven Instinct products).
     static const VISIBLE_RADIUS_PX = 96;
@@ -120,10 +123,13 @@ class HeroFaceLayout {
             stackBesideWindow(dc, line, gap);
             return;
         }
-        footerTop = _height - shortInset() - line;
+        // A rectangle's top and bottom need no room for a circle's chord, and its footer sits in the frame's open
+        // bottom, so they keep half the inset: on a Venu Sq 2 the time's box (81 px at its smallest font) needs it (ADR-005).
+        var margin = rectangle() ? shortInset() / 2 : shortInset();
+        footerTop = _height - margin - line;
         missionTop = footerTop - gap * 2 - missionHeight(dc);
         underTimeTop = missionTop - gap - line;
-        topRowTop = shortInset() + ringWidth();
+        topRowTop = margin + ringWidth();
         var bandTop = topRowTop + line;
         timeFont = pickTimeFont(dc, bandTop, underTimeTop);
         timeTop = bandTop + (underTimeTop - bandTop - dc.getFontHeight(timeFont)) / 2;
@@ -171,10 +177,15 @@ class HeroFaceLayout {
     // the ring's inner circle at that height.
     private function pickTimeFont(dc as Graphics.Dc, top as Number, bottom as Number) as Graphics.FontDefinition {
         var fonts = [Graphics.FONT_NUMBER_THAI_HOT, Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM] as Array<Graphics.FontDefinition>;
+        // A rectangle's band is wide enough for the largest font with nothing beside it, which would leave Pro's seconds
+        // no room on a Venu X1: there the time also keeps room for the seconds on both sides (it stays centred, ADR-005).
+        var eights = dc.getTextWidthInPixels("88", Graphics.FONT_XTINY);
+        var zeros = dc.getTextWidthInPixels("00", Graphics.FONT_XTINY);
+        var seconds = rectangle() ? 2 * (stackGap() * 2 + (eights > zeros ? eights : zeros)) : 0;
         for (var i = 0; i < fonts.size(); i++) {
             var height = dc.getFontHeight(fonts[i]);
             var y = top + (bottom - top - height) / 2;
-            var room = rightInsetWithin(contentRadius(), y, height) - leftInsetWithin(contentRadius(), y, height);
+            var room = rightInsetWithin(contentRadius(), y, height) - leftInsetWithin(contentRadius(), y, height) - seconds;
             if (height <= bottom - top && dc.getTextWidthInPixels(TIME_SAMPLE, fonts[i]) <= room) {
                 return fonts[i];
             }
@@ -231,6 +242,58 @@ class HeroFaceLayout {
         return shortInset() / 6;
     }
 
+    // Venu Sq / Sq 2 / X1 (ADR-005): the ring is a rounded rectangle along the screen's edges instead of a circle, and
+    // rows use the whole width inside it.
+    function rectangle() as Boolean {
+        return !_round && _subscreen == null;
+    }
+
+    // A rectangle's rows fit inside the frame the way round rows fit inside the ring: half the ring width plus half the
+    // text margin in from its centreline, and inside its rounded corners (all four, because the Venu X1's glass is
+    // rounded at the bottom too, where the frame is open).
+    private function rectangleInset(y as Number, height as Number) as Number {
+        var b = frameBox();
+        var pad = ringWidth() / 2 + textMargin() / 2;
+        var edge = b[0] + pad;
+        var radius = b[4] - pad;
+        var dyTop = edge + radius - y;
+        var dyBottom = y + height - (_height - edge - radius);
+        var dy = dyTop > dyBottom ? dyTop : dyBottom;
+        return dy > 0 ? edge + radius - chordHalfWidth(radius, dy) : edge;
+    }
+
+    // The rectangle ring's centreline: [left x, top y, right x, y where the sides' straight runs end, corner radius].
+    // Inset like the round ring (a fifth of the inset); the corner radius clears the Venu X1's rounded glass (about
+    // 53 px at 448) with room to spare, and stays one proportion on every size. The bottom edge is the open gap.
+    function frameBox() as [Number, Number, Number, Number, Number] {
+        var edge = shortInset() / 5;
+        var corner = shortInset() * 3 / 2;
+        return [edge, edge, _width - edge, _height - edge - corner, corner];
+    }
+
+    // Length in px of the rectangle ring: two sides, two top corners (a quarter circle each), the top.
+    function frameLength() as Number {
+        var b = frameBox();
+        return 2 * (b[3] - b[1] - b[4]) + 2 * quarterArc(b[4]) + (b[2] - b[0] - 2 * b[4]);
+    }
+
+    static function quarterArc(radius as Number) as Number {
+        return radius * QUARTER_ARC_PERMILLE / 1000;
+    }
+
+    // Px of the rectangle ring to fill for a 0-1000 share: any progress shows a pixel, a full share the whole path.
+    function frameFillFor(permille as Number) as Number {
+        if (permille <= 0) {
+            return 0;
+        }
+        var length = frameLength();
+        if (permille >= 1000) {
+            return length;
+        }
+        var fill = length * permille / 1000;
+        return fill < 1 ? 1 : fill;
+    }
+
     // Everything inside the ring fits against this circle, so text never
     // touches the ring.
     function contentRadius() as Number {
@@ -276,14 +339,14 @@ class HeroFaceLayout {
     }
 
     // Round: the chord of a circle of `radius` at whichever edge of the row is
-    // farther from the centre. Square: a constant safe inset.
+    // farther from the centre. Rectangle: inside the frame and its rounded corners (`rectangleInset`).
     function leftInsetWithin(radius as Number, y as Number, height as Number) as Number {
         if (_subscreen != null) {
             var visible = centerX() - chordHalfWidth(VISIBLE_RADIUS_PX, farthestDy(y, height));
             return visible > sideInset() ? visible : sideInset();
         }
         if (!_round) {
-            return shortInset();
+            return rectangleInset(y, height);
         }
         return centerX() - chordHalfWidth(radius, farthestDy(y, height));
     }
@@ -297,7 +360,7 @@ class HeroFaceLayout {
             return visible < edge ? visible : edge;
         }
         if (!_round) {
-            return _width - shortInset();
+            return _width - rectangleInset(y, height);
         }
         return centerX() + chordHalfWidth(radius, farthestDy(y, height));
     }

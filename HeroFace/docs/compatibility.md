@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-10-03. 124 products (117 round + 7 Instinct, below), every round watch-face product at Connect IQ
+Status: 2026-10-05. 129 products (117 round + 7 Instinct + 5 rectangle, below), every round watch-face product at Connect IQ
 3.0 or newer in SDK 9.2.0. A watch face needs no buttons, so touch-only watches
 (Venu, vívoactive, Instinct AMOLED) are supported here. HeroSet added Venu 2/3/4,
 vívoactive 5/6, Approach S50/S70 and D2 Air X10 in its [ADR-048](../../HeroSet/docs/decisions.md#adr-048) (live in HeroSet 1.1.1); older Venu/vívoactive and Instinct are still HeroSet-less.
@@ -26,7 +26,7 @@ and system fonts.
 | 208 px MIP | 1 | `fr55` |
 ## Free and Pro builds (ADR-001, the Free + Pro ladder; approved and uploaded 2026-10-04)
 
-Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle`) and **Free** (`manifest.free.xml`, new app id, `monkey.free.jungle`). Both list the **same 117 products** (`tools/compile_sweep.sh` refuses to run if the two manifests' product lists differ), `minApiLevel` 3.0.0, the same 15 languages and the same single permission, `ComplicationSubscriber` (HeroSet mode needs it, so Free's permissions are equal to Pro's, never more).
+Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle`) and **Free** (`manifest.free.xml`, new app id, `monkey.free.jungle`). Both list the **same products** (117 at the split, 124 with the Instinct family, 129 with the rectangles) (`tools/compile_sweep.sh` refuses to run if the two manifests' product lists differ), `minApiLevel` 3.0.0, the same 15 languages and the same single permission, `ComplicationSubscriber` (HeroSet mode needs it, so Free's permissions are equal to Pro's, never more).
 
 - **Why a Free twin matters here:** a paid app is sold only on Garmin's own list, so the paid listing cannot reach every one of the 117 products; a free app is not held to that list (plan WP6: 33 more products). The Free listing's real device list is only known after approval, so no count goes in any listing.
 - **What differs on the watch:** Free has no seconds and no temperature, and its three bars are always Auto; everything else on the face is identical. The row under the time carries the streak alone in Free (it already did when the temperature was off). The HeroSet link and its field order are unchanged (HeroSet [ADR-044](../../HeroSet/docs/decisions.md#adr-044), the complication contract).
@@ -69,7 +69,6 @@ it.
 
 | Group | Examples | What's missing |
 |---|---|---|
-| Rectangle | `venusq2`, `venux1` | The row stack assumes a round chord; a rectangle wants its own proportions ([`docs/archive/plan.md`](archive/plan.md) phase 4) |
 | Semi-octagon | `instinctcrossover` | Analog hands over the display, no window in the simulator; left out as in HeroSet ADR-055. The other 7 semi-octagon products are supported (below) |
 | Below Connect IQ 3.0 | fēnix 3, FR230/235/630, vívoactive Gen 1, FR45 | No `Application.Properties`, 48–64 KB, 4-bit colour: a second render path for 15 old watches |
 
@@ -82,6 +81,20 @@ Seven semi-octagon products join both manifests (124 products): `instinct2`, `in
 - **Memory (normal run, `-r` like the store export, simulator):** 31.0 kB (Pro) and 29.8 kB (Free) used of the 59.8 kB the simulator reports, on `instinct2`; 26.8 kB and 25.8 kB on `instincte40mm` (the simulator window's status bar after the face drew, 2026-10-03). The limit is 65,536 B: about half is free. Seconds do not draw on an Instinct, so the partial-update path was not exercised there.
 - **Tests, 2026-10-03, container simulator:** Pro 21/21 on `instinct2`, `instinct2s`, `instinct2x`, `descentg1`, `instincte40mm`, `instincte45mm`, `instinct3solar45mm`; Free 21/21 on `instinct2`, `instincte40mm`; round controls Pro 25/25 on `fr965`, `fr55` and Free 25/25 on `fr965`. Per-language screen fit (15 languages) on `instinct2`, `instinct2s`, `instincte40mm`: all 15 pass on all three (`tools/fit_languages.sh <product>`; mission labels and values are cut with a "." when a translation is longer than the 40 px column). Compile sweep, both jungles, every product: 124/124 pass on both jungles (`tools/compile_sweep.sh`, `-w --typecheck 3`). `tools/check_free_package.sh --build`: OK (207 part numbers; no Accent key on the 7 Instinct parts).
 - **Not proven:** anything on a watch (real bezel margins, contrast, the HeroSet link on an Instinct E or 3 Solar, whether the on-watch Customize menu is offered).
+
+## Rectangle family (added 2026-10-05, ADR-005, proposed, simulator only)
+
+Five rectangular products join both manifests (129 products): `venusq`, `venusqm` (240 x 240 LCD, CIQ 3.3.6, watch-face memory 96 KB on `venusq`, 512 KB on `venusqm`), `venusq2`, `venusq2m` (320 x 360 AMOLED, CIQ 5.0, 128 KB) and `venux1` (448 x 486 AMOLED, CIQ 6.0.2, 128 KB, glass rounded about 53 px at the corners). Values from the SDK's `compiler.json` per device.
+
+- **As built.** The ring is a frame: an open-bottom rounded rectangle along the screen's edges, filling clockwise from the lower left; rows fit inside it and inside its rounded corners; the top and bottom margins are half an inset. See ADR-005 and `DESIGN.md` "Rectangle".
+- **Why the change was needed.** With the round code the ring sat on the inscribed circle and cut "MOVE" on `venusq2`, and the time's box (81 px at the smallest number font there) did not fit its 71 px band: `everyStateFitsThisDisplay` failed on `venusq2`. On `venux1` the wide band took a time that left Pro's seconds no room (the fit test caught a missing row), so on a rectangle the time font now keeps the seconds' width on both sides.
+- **HeroSet mode:** `Complications` is true on `venusq2`, `venusq2m`, `venux1` (CIQ 5 and 6) and false on `venusq`, `venusqm` (CIQ 3.3: Everyday mode only).
+- **Tests, 2026-10-05, container simulator:** the full suite, now with `rectangleRingStaysOnTheDisplay`, **Pro 26/26 and Free 26/26 PASSED on all five** (`venusq`, `venusqm`, `venusq2`, `venusq2m`, `venux1`). Regression, both jungles: `fr965`, `fr255s`, `fenix5s` 26/26 and `instincte40mm` 22/22. Compile sweep (`tools/compile_sweep.sh`, build container, `-w --typecheck 3`): **129 pass, 0 fail on each jungle** (launcher-icon notices only).
+- **Memory (`FLAGS="-r -w" docker/shot.sh`, the simulator window's status bar after the face drew, Seconds off):** `venusq` (96 KB class) Pro 34.5 kB and Free 33.3 kB used of 91.8 kB (38% and 36%).
+- **Always-on and burn-in (Pro, `docker/capture.sh … edge_states.sh`):** on `venusq2`, `venux1` and also `venusq` the simulator puts the face in its burn-in composition (the dim drifting time only), which drifted between minutes. The 24-hour heat-map simulation on `venux1` (its heat-map window is 448 wide, so `sim_burnin_24h`, which looks for a 454-wide window, did not find it; the same steps were run by a scratch scenario): **"no screen burn-in detected, Peak Luminance Usage: 1.11%"** (Garmin's limit 10%).
+- **Screenshots looked at (native, `bin/rect/` and `bin/edge/`, not kept in the repo):** Pro and Free everyday, every goal met, HeroSet mode (a canned HeroSet value, as in `tools/listing_shots.sh`; on `venusq` a look only, the watch cannot link), and Pro with Seconds, the temperature and Magenta, on all three sizes. The frame clears the X1's rounded glass and the Sq 2's corners, the fill runs up the left side and over the top, the seconds sit beside the time on all three, nothing is cut or overlapping. On `venux1` the time leaves a visible band above the temperature row (the time is centred in its band and the number font's box is taller than its digits), as on the round watches.
+- **Paid vs free reach.** Garmin's App Sales list (fetched 2026-10-05, https://developer.garmin.com/connect-iq/articles/monetization/App_Sales.html) has Venu Sq 2 and Sq 2 Music in the API 5.0 tier and Venu X1 in the 6.0 tier, and their part numbers (006-B4115, 006-B4116, 006-B4603) are in the live paid listings of Two Suns Pro and DayArc Pro (store API, same day). **Venu Sq and Sq Music are not on the list** (CIQ 3.3.6, below its lowest tier, API 3.4): as with the Instinct 2 family (ROADMAP 10.15), they stay in both manifests and only the Free twin reaches them. So Pro gains 3 products, Free 5. Listing text names no watch.
+- **Not proven:** anything on a watch (real glass margins, AMOLED and LCD contrast, the frame against the real bezel, battery, the HeroSet link on a Venu Sq 2 or X1).
 
 ## Measured 2026-10-04 (simulator)
 
