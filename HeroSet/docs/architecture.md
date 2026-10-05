@@ -1,6 +1,6 @@
 # HeroSet Architecture
 
-Target: 80 round watches, AMOLED and MIP, five-button and touch-first ([ADR-048](decisions.md#adr-048)), FR965 first ([`compatibility.md`](compatibility.md)), Connect IQ 3.4.0 ([ADR-038](decisions.md#adr-038)), Monkey C. How app built today: structure, layers, module duties, style, navigation, known debt. **Why** live in [`decisions.md`](decisions.md) (ADR-NNN refs below point there). Related: [`input-and-ux.md`](input-and-ux.md) (what user see), [`testing-plan.md`](testing-plan.md).
+Target: 82 round watches (80 live + 2 Instinct 3 AMOLED unreleased) plus 7 Instinct 1-bit ([ADR-055](decisions.md#adr-055)), AMOLED and MIP, five-button and touch-first ([ADR-048](decisions.md#adr-048)), FR965 first ([`compatibility.md`](compatibility.md)), Connect IQ 3.4.0 ([ADR-038](decisions.md#adr-038)), Monkey C. How app built today: structure, layers, module duties, style, navigation, known debt. **Why** live in [`decisions.md`](decisions.md) (ADR-NNN refs below point there). Related: [`input-and-ux.md`](input-and-ux.md) (what user see), [`testing-plan.md`](testing-plan.md).
 
 ## 1. Guiding principles
 
