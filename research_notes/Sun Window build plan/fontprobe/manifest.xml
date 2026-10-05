@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<!-- Throwaway font/area probe for Sun Window (plan P2.1). Simulator only. -->
+<iq:manifest version="3" xmlns:iq="http://www.garmin.com/xml/connectiq">
+  <iq:application id="a1b2c3d4-0000-4000-8000-000000000017" type="watch-app" name="@Strings.AppName" entry="FontProbeApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="5.1.0">
+    <iq:products>
+      <iq:product id="fr965"/>
+      <iq:product id="venu3"/>
+      <iq:product id="fenix7s"/>
+      <iq:product id="fr255s"/>
+      <iq:product id="venux1"/>
+      <iq:product id="instincte40mm"/>
+      <iq:product id="instincte45mm"/>
+    </iq:products>
+    <iq:permissions></iq:permissions>
+    <iq:languages><iq:language>eng</iq:language></iq:languages>
+  </iq:application>
+</iq:manifest>

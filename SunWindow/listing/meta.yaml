@@ -1,0 +1,43 @@
+# Listing metadata. The copy-and-paste text is paste.md; why each answer is what it is, and history, are in NOTES.md.
+# Dates are ISO; null = not yet, or not recorded. Update this file (not paste.md) when a version is uploaded or approved.
+app: Sun Window
+folder: SunWindow/listing
+tier: free
+app_id: null   # the manifest UUID, generated at plan task P3.1
+store:
+  listing_url: null
+  developer_url: null
+live:
+  version: null
+  since: null
+  note: nothing built or uploaded
+next:
+  version: "1.0.0"
+  status: drafted   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: first release; widget-style app with a glance (manifest watch-app, ADR-008), Free only (ADR-003)
+package:
+  file: dist/SunWindow-1.0.0.iq
+  products: null   # 66 targeted (ADR-012 keeps the three Instinct ids); counted from the manifest at P11.1
+  exported: null
+  check: null      # P11.1: permissions Positioning only; no Background/Notifications/Communications
+price: free (ADR-003)
+limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
+assets:   # none rendered yet (plan P9.1 to P9.3)
+  cover: null
+  hero: null
+  icon_64: null
+  icon_24: null
+  screens: []
+  screenshots_doc: screenshots.md
+site:
+  landing: https://verden.watch/sun-window/
+  support: https://verden.watch/sun-window/support/
+  privacy: https://verden.watch/sun-window/privacy/
+owner_approvals:   # what only the owner may settle before paste.md is used
+  - "Trademark and domain check for 'Sun Window' before listing work (ADR-001)."
+  - "Category Utility: confirm on the upload form (ADR-013)."
+  - "The looks of the launcher icon, cover, hero, device icons and store screens (simulator only, canned weather and a patched place; never a reading)."
+  - "The final description text (drafted 2026-10-05, finalised at plan P9.4)."
+  - "What's New is blank, per the studio's rule for an initial release."
+open_items: "16.x"   # ids in ROADMAP.md
