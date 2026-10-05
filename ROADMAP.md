@@ -41,6 +41,9 @@ Do not keep open checkboxes anywhere else. Status 2026-10-05.
 - [ ] 13.18 `[you]` Site, Two Suns: `site/src/apps/two-suns/` (Landing, Support, FacePreview) still says "8:41 of daylight" and draws a filled curve. Update with the next Two Suns upload; a push deploys the site, so it waits for your OK.
 - [x] 13.19 `[you]` DayArc: the evening hero's battery shell read as a second battery beside Pro's watch-battery pill. **Decided 2026-10-05 (owner: "do your picks"): built** as a bolt (as Two Suns). Intensity icons became a pulse line in DayArc's grid and HeroFace, so the bolt means Body Battery across the studio.
 - [x] 13.20 `[you]` DayArc Pro: the grid icons' per-type rainbow competed with the hero. **Built 2026-10-05:** all grid icons muted grey (DayArc ADR-013 (icon system) amendment). Judge both on the wrist with 1.1.
+- [x] 13.21 `[you]` HeroSet: the review screen's `+24` (what START saves) was the same size as `DETECTED 23` and `TODAY 84/100`. **Decided 2026-10-05 (owner: "do your picks"): built**, the big number (round screens). Ships as 1.3.2 with 13.22, 13.23.
+- [x] 13.22 `[you]` HeroSet: `CAL 0` early in a set looked broken. **Built 2026-10-05:** `--` until 1.
+- [x] 13.23 `[you]` HeroSet Instinct: `STREAK 0` on day one. **Built 2026-10-05:** no streak row at zero beside the window.
 
 ## 2. Your hands (a watch, the store dashboard, a person)
 

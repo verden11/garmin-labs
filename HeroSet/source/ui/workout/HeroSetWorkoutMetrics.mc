@@ -58,8 +58,10 @@ class HeroSetWorkoutMetrics {
         if (start == null || current == null) {
             return "--";
         }
+        // A set's first seconds round to 0 kcal, and "CAL 0" read as broken (design critique 2026-10-05, ROADMAP 13.22):
+        // "--" until the estimate reaches 1, the same mark as "no reading yet".
         var delta = current - start;
-        return (delta < 0 ? 0 : delta).toString();
+        return delta < 1 ? "--" : delta.toString();
     }
 
     private function currentDailyCalories() as Lang.Number? {

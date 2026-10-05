@@ -82,11 +82,13 @@ class HeroSetView extends WatchUi.View {
     private function drawStreak(dc as Dc, layout as HeroSetLayout, y as Lang.Number, state as HeroSetDashboardState) as Void {
         var none = HeroSetText.load(Rez.Strings.dashboard_streak_none);
         var shortText = HeroSetText.format(Rez.Strings.dashboard_streak_short, [state.streak]);
-        // "NO STREAK YET" stays unmeasured wherever it always fit; only the
-        // narrow band beside a subscreen window gets "STREAK 0" as a fallback,
-        // and a streak too long even for "STREAK 9999" there shows the bare
-        // number.
-        var candidates = state.streak > 0 ? [HeroSetText.format(Rez.Strings.dashboard_streak, [state.streak]), shortText] : (layout.subscreen() == null ? [none] : [none, shortText]);
+        // "NO STREAK YET" stays unmeasured wherever it always fit. Beside a subscreen window, where it does not fit, a zero
+        // streak draws nothing: "STREAK 0" read as a failure on day one (design critique 2026-10-05, ROADMAP 13.23). A
+        // streak too long even for "STREAK 9999" there shows the bare number.
+        if (state.streak == 0 && layout.subscreen() != null && !HeroSetDraw.fits(dc, layout, layout.contentRadius(), 0, y, none, Graphics.FONT_XTINY)) {
+            return;
+        }
+        var candidates = state.streak > 0 ? [HeroSetText.format(Rez.Strings.dashboard_streak, [state.streak]), shortText] : [none];
         if (layout.subscreen() != null && state.streak > 0) {
             candidates.add(state.streak.toString());
         }

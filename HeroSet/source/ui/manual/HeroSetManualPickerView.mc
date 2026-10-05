@@ -16,6 +16,8 @@ class HeroSetManualPickerView extends WatchUi.View {
     private var _detectedText;
     private var _trace;
     private var _saved = false;
+    // Largest first; FONT_LARGE last, the fallback that also carries the sign (HeroSetDraw.largestFontInBand returns the last).
+    private static const NUMBER_FONTS = [Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD, Graphics.FONT_LARGE] as Lang.Array<Graphics.FontDefinition>;
 
     // initialDelta seeds the picker with a workout's detected count so it
     // doubles as the post-set correction step (HeroSetWorkoutDelegate);
@@ -131,10 +133,30 @@ class HeroSetManualPickerView extends WatchUi.View {
         return y + dc.getFontHeight(Graphics.FONT_XTINY);
     }
 
+    // The delta is what START saves, so on a round screen it is the big number, like the live count on the workout screen
+    // (design critique 2026-10-05, ROADMAP 13.21): its digits in the largest number font that fits the room left above
+    // TODAY and the two hints, its sign in FONT_LARGE on the digits' baseline (number fonts have no "+"). Beside the
+    // Instinct's window it stays FONT_LARGE.
     private function drawDelta(dc as Dc, layout as HeroSetLayout, y as Lang.Number) as Lang.Number {
         dc.setColor(deltaColor(), HeroSetPalette.BACKGROUND);
-        HeroSetDraw.centered(dc, layout, y, Graphics.FONT_LARGE, HeroSetText.signed(_delta));
-        return y + dc.getFontHeight(Graphics.FONT_LARGE);
+        var text = HeroSetText.signed(_delta);
+        var hasSign = _delta != 0;
+        var digits = hasSign ? text.substring(1, text.length()) as Lang.String : text;
+        var bottom = layout.footerRowBottom() - 2 * dc.getFontHeight(Graphics.FONT_XTINY) - dc.getFontHeight(Graphics.FONT_SMALL);
+        var font = layout.subscreen() == null ? HeroSetDraw.largestFontInBand(dc, layout, y, bottom, text, NUMBER_FONTS) : Graphics.FONT_LARGE;
+        if (font == Graphics.FONT_LARGE) {
+            HeroSetDraw.centered(dc, layout, y, Graphics.FONT_LARGE, text);
+            return y + dc.getFontHeight(Graphics.FONT_LARGE);
+        }
+        var sign = hasSign ? text.substring(0, 1) as Lang.String : "";
+        var signWidth = dc.getTextWidthInPixels(sign, Graphics.FONT_LARGE);
+        var left = layout.rowCenterX(y, dc.getFontHeight(font)) - (signWidth + dc.getTextWidthInPixels(digits, font)) / 2;
+        if (hasSign) {
+            var signY = y + Graphics.getFontAscent(font) - Graphics.getFontAscent(Graphics.FONT_LARGE);
+            HeroSetDraw.text(dc, layout, left, signY, Graphics.FONT_LARGE, sign, Graphics.TEXT_JUSTIFY_LEFT);
+        }
+        HeroSetDraw.text(dc, layout, left + signWidth, y, font, digits, Graphics.TEXT_JUSTIFY_LEFT);
+        return y + dc.getFontHeight(font);
     }
 
     // What today's total becomes if this delta is saved.

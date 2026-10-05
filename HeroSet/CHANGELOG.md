@@ -4,6 +4,15 @@ One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/paste.md`](listing/paste.md); the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
+## Unreleased (1.3.2 candidate)
+
+Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.21 to 13.23; simulator only, nothing on a wrist). Tests 116 (store 103), unchanged in count, PASSED on fr965, fr255s, venu3, instincte40mm, instinct2.
+
+- **Review screen: the amount to save is the big number.** `+24` is drawn in a number font with its sign beside it, under the small `DETECTED 23`; it was the same size as the rows around it.
+- **Set screen: calories read `--` until the estimate reaches 1**, not `CAL 0` in a set's first seconds.
+- **Instinct dashboard: no `STREAK 0`.** At zero the streak row is left out beside the window (the round dashboard keeps `NO STREAK YET`).
+- Listing shots 2, 3 and 5 and the hero re-framed.
+
 ## 1.3.1 — uploaded 2026-10-04 by the owner, in review (fixes and the Instinct glance layout)
 
 Update of the live app, set on the USD 2.50 price tier in the form ([ADR-056](docs/decisions.md#adr-056), the $2.50 tier for every paid app). 1.3.0 is live until Garmin approves this (uploaded by the owner 2026-10-03, exported before the fixes below). 1.3.1 changes no product and no permission (87 products, `Sensor` + `ComplicationPublisher`).

@@ -41,7 +41,9 @@ function everyScreenFitsThisDisplay(logger as Test.Logger) as Lang.Boolean {
         for (var i = 0; i < states.size(); i++) {
             HeroSetScreenFitHarness.startScreen();
             dashboard.drawState(dc, states[i]);
-            HeroSetScreenFitHarness.collectOverlaps("dashboard", dashboardRows, problems);
+            // Beside the window a zero streak draws no row (ROADMAP 13.23: "STREAK 0" read as a failure on day one).
+            var rows = dashboardRows - (new HeroSetLayout(dc).subscreen() != null && states[i].streak == 0 ? 1 : 0);
+            HeroSetScreenFitHarness.collectOverlaps("dashboard", rows, problems);
         }
         var exercises = HeroSetRules.EXERCISES;
         for (var e = 0; e < exercises.size(); e++) {
