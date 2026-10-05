@@ -74,6 +74,8 @@ Every changed listing image set was recaptured (both tiers where both changed) a
 
 - **DayArc morning (owner's picks, `03cd700`):** "Feels like" label; the icon is now the current condition (five glyphs), none without weather. Sideloads, packages, listing shots, heroes and the website refreshed.
 
+- **Simulator QA pass (owner asked, evening):** plan, results and findings in `reports/QA/Simulator QA 2026-10-05.md` (`763c7e6`): 107 captures across all five projects, 7 device types, every DayArc window and boundary, 12/24-hour, memory, burn-in, HeroSet flows, the website. Verdict: DayArc fit to submit. Fixed during it: the website's watch lists (`37f6c0e`, the owner noticed missing watches) and the QA tool's 24-hour switch. New owner question: 13.30.
+
 ## Open for the owner
 
 Everything that needs the owner is in ROADMAP.md section 1 or 2 (13.x, 1.1). Added this evening: 13.25 always-on grey, 13.26 site merge, 13.27 framed images, the DayArc calendar check in 1.1.
