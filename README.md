@@ -44,7 +44,8 @@ DayArc/    two listings, one codebase: manifest.simple.xml/manifest.pro.xml, mon
 site/          the public website (its own README, CLAUDE.md, DESIGN.md)
 docker/        container images, test and screenshot tooling ([`docker/SIMULATOR.md`](docker/SIMULATOR.md))
 tools/         `store_poll.py`: reads our public store listings (no login) and appends a row per listing per day to `research_notes/Free and Pro ladder/poll.csv`
-               (`tools/store_poll.py`, ids in `tools/store_poll_ids.txt`; `--selftest` runs offline; downloadCount is a bucket, not revenue)
+               (`tools/store_poll.py`, ids in `tools/store_poll_ids.txt`; `--selftest` runs offline; downloadCount is a bucket, not revenue;
+               the last two columns are the listing's mostPopular rank on Instinct 3 Solar 45 mm and, free listings only, Instinct 2)
 reports/       research and review reports ([`reports/README.md`](reports/README.md)); the notes behind each in research_notes/<report title>/
 ```
 

@@ -6,7 +6,7 @@ the ADRs named. Dates are upload dates; review status follows.
 
 ## Unreleased (1.3.2 candidate)
 
-Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.21 to 13.23; simulator only, nothing on a wrist). Tests 116 (store 103), unchanged in count, PASSED on fr965, fr255s, venu3, instincte40mm, instinct2.
+Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.21 to 13.23; simulator only, nothing on a wrist). Tests 116 (store 103), unchanged in count, PASSED on fr965, fr255s, venu3, instincte40mm, instinct2. Then 118 (store 105): +2 tests that pin how a manual correction reaches the dashboard, glance, HeroFace complication, XP and streak (ROADMAP 15.6, no product change); container, fr965, dev 118/118, store 105/105.
 
 - **Review screen: the amount to save is the big number.** `+24` is drawn in a number font with its sign beside it, under the small `DETECTED 23`; it was the same size as the rows around it.
 - **Set screen: calories read `--` until the estimate reaches 1**, not `CAL 0` in a set's first seconds.
