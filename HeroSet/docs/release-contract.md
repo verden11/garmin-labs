@@ -50,3 +50,8 @@ When sync ships (v1.1 step 8), the sync, data-leaving and Training Status rows c
 ## Cross-promotion (rule copied from Days To Go and Two Suns, 2026-10-05, ROADMAP 13.32; the agent's pick on the owner's standing instruction)
 
 - "More from Verden" links only live **free** siblings, checked with `curl` (HTTP 200) before each paste; never a paid listing, never a price.
+
+## Never promise (2026-10-05, ROADMAP 15.6)
+
+- Past-day correction or a session history: HeroSet keeps day totals only, and corrects today only.
+- That sets add intensity minutes, a workout or training load: a set is not saved as an activity (the watch's own all-day heart rate may still add intensity minutes; never claim either way beyond that).

@@ -32,7 +32,7 @@ Flexiones, abdominales y sentadillas en una sola app: 100 de cada al día, o tu 
 
 Todo se queda en tu reloj. HeroSet no tiene acceso a la red, no graba ninguna actividad y no envía nada a Garmin Connect. La tienda indica "Communication & Data Transmission" porque HeroSet pasa el progreso de hoy a nuestra esfera HeroFace en el mismo reloj; no se envía nada a ningún sitio.
 
-A tener en cuenta: el conteo depende de cómo llevas el reloj y de cómo te mueves, así que el número puede no ser exacto. Las calorías son el cambio en el total diario de Garmin, una estimación. No es un dispositivo médico.
+A tener en cuenta: el conteo depende de cómo llevas el reloj y de cómo te mueves, así que el número puede no ser exacto. Las calorías son el cambio en el total diario de Garmin, una estimación. Una serie no se guarda como actividad, así que no suma minutos de intensidad por sí misma. No es un dispositivo médico.
 
 Más de Verden
 DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
@@ -70,7 +70,7 @@ HeroSet - 自重训练计数器
 
 所有数据都留在你的手表上。HeroSet 没有网络访问，不记录任何活动，也不向 Garmin Connect 发送任何内容。商店列出“Communication & Data Transmission”，是因为 HeroSet 会把今天的进度交给同一块手表上的 HeroFace 表盘；不会向任何地方发送任何内容。
 
-请注意：计数取决于你佩戴手表的方式和动作方式，因此次数可能有偏差。卡路里是 Garmin 自身每日总消耗的变化值，仅为估算。非医疗设备。
+请注意：计数取决于你佩戴手表的方式和动作方式，因此次数可能有偏差。卡路里是 Garmin 自身每日总消耗的变化值，仅为估算。每组训练不会保存为活动，因此本身不会增加强度分钟数。非医疗设备。
 
 Verden 的更多作品
 DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193

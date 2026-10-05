@@ -24,7 +24,7 @@ Push-ups, sit-ups and squats in one app: 100 of each a day, or your own goal fro
 
 Everything stays on your watch. HeroSet has no network access, records no activity and sends nothing to Garmin Connect. The store lists "Communication & Data Transmission" because HeroSet hands today's progress to our HeroFace watch face on the same watch; nothing is sent anywhere.
 
-Good to know: counting depends on how you wear the watch and how you move, so the number can be off. Calories are the change in Garmin's own daily total, an estimate. Not a medical device.
+Good to know: counting depends on how you wear the watch and how you move, so the number can be off. Calories are the change in Garmin's own daily total, an estimate. A set is not saved as an activity, so it adds no intensity minutes of its own. Not a medical device.
 
 More from Verden
 DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193

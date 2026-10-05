@@ -26,6 +26,11 @@ export function Support() {
       <h2>Common questions</h2>
       <h3>Does HeroSet add activities to Garmin Connect?</h3>
       <p>No. HeroSet records no activity and sends nothing to your phone or the internet. Your progress lives on the watch.</p>
+      <h3>Do my sets add intensity minutes?</h3>
+      <p>
+        Not through HeroSet. A set is not saved as an activity, so it adds no workout, intensity minutes or training load of its own.
+        Your watch still counts intensity minutes from your heart rate on its own, as it does all day.
+      </p>
       <h3>Are the calories exact?</h3>
       <p>No. The calorie figure is the change in Garmin’s own daily calorie total during your set, an estimate. HeroSet is not a medical device.</p>
       <h3>Can I change the daily goal?</h3>
