@@ -68,6 +68,8 @@ Every changed listing image set was recaptured (both tiers where both changed) a
 - **Website images:** owner asked to update every app page now. Every page shows real watch-framed captures (hero, an "On the wrist" strip, DayArc's four windows including a framed night capture); the hand-drawn SVG previews are deleted; Two Suns wording fixed (8h 41m, Pro's optional weather/battery rows). Live (`c72b358`), checked on phones.
 - **DayArc approvals (owner):** updated face design, the screens, the listing text as drafted, and the upload order. Left: the wear check on today's build (1.1) and the launcher icons, cover and hero (1.5).
 
+- **Sideload builds:** all nine FR965 debug builds rebuilt from `bba7750` into `device-test/` (HeroSet dev only; no `.iq`), each loaded in the simulator (all draw). Two builds of the same project in parallel clash (DayArc Pro failed once); rebuilt one at a time.
+
 ## Open for the owner
 
 Everything that needs the owner is in ROADMAP.md section 1 or 2 (13.x, 1.1). Added this evening: 13.25 always-on grey, 13.26 site merge, 13.27 framed images, the DayArc calendar check in 1.1.
