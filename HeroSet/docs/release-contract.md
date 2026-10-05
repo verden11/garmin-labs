@@ -46,3 +46,7 @@ Public copy: no "beta", say "adjust" (never "fix"/"correct"), keep the "can be o
 - That a higher daily goal earns XP or rank faster (it does not, [ADR-045](decisions.md#adr-045)).
 
 When sync ships (v1.1 step 8), the sync, data-leaving and Training Status rows change the same session.
+
+## Cross-promotion (rule copied from Days To Go and Two Suns, 2026-10-05, ROADMAP 13.32; the agent's pick on the owner's standing instruction)
+
+- "More from Verden" links only live **free** siblings, checked with `curl` (HTTP 200) before each paste; never a paid listing, never a price.
