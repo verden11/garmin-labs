@@ -2,22 +2,22 @@
 
 > **Open items live only in the root [`ROADMAP.md`](../../ROADMAP.md).** This file keeps where things stand, the evidence, the release gates and the upload steps. Listing text and metadata: [`../listing/paste.md`](../listing/paste.md) and [`../listing/meta.yaml`](../listing/meta.yaml). Claims: [`release-contract.md`](release-contract.md). Build history: [`archive/plan.md`](archive/plan.md).
 
-**Where things stand, 2026-10-04.** Live: **1.0.1** (since 2026-09-24, 117 round products). Built, unreleased and simulator only: the Free + Pro pair (ADR-001) and the Instinct family (ADR-002), 124 products. Open work: ROADMAP M5, 9.x, 11.1.
+**Where things stand, 2026-10-05.** Live: **1.0.1** (since 2026-09-24, 117 round products). **Uploaded by the owner 2026-10-04, in Garmin review:** HeroFace Free 1.0.0 (new app) and HeroFace Pro 1.1.0 (the paid app renamed, the $2.50 tier), both with the Instinct family (ADR-002), 124 products, simulator only. Open work: ROADMAP 5.1, 5.5, 7.12, 10.31.
 
-Status: 2026-10-01 (the Free + Pro pair block added; the rest as of 2026-09-26). (open items moved to the root ROADMAP.md, 2026-10-04) History: [`../CHANGELOG.md`](../CHANGELOG.md), `git log`.
+Status: 2026-10-05 (upload state; the Free + Pro block dated 2026-10-01 to 04; the rest as of 2026-09-26). (open items moved to the root ROADMAP.md, 2026-10-04) History: [`../CHANGELOG.md`](../CHANGELOG.md), `git log`.
 
 Live since 2026-09-22 (Garmin approval), **1.0.1 live since 2026-09-24**: https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116. Site pages `/heroface/`, `/heroface/support/`, `/heroface/privacy/` are live and the Get button links to the store. Anything that fails now is a code fix plus a listing update, not a withdrawal.
 
 ## Uploaded 2026-10-04 (HeroFace Free 1.0.0 new app, HeroFace Pro 1.1.0 update), in Garmin review: on approval record the dates, read both stores' device lists, set the site's Free store URL
 
-Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id, renamed inside the pending listing-repair submission, ROADMAP 5.6). Text: `../listing-free/paste.md` and `../listing/paste.md` (now the 1.1.0 text; sibling store URL placeholder); metadata `../listing*/meta.yaml`. Images re-rendered 2026-10-04 (`../listing/screenshots.md`).
+Free 1.0.0 (a new app id) and Pro 1.1.0 (the existing id, renamed, ROADMAP 5.6). Text as uploaded: `../listing-free/paste.md` and `../listing/paste.md` (sibling store URLs filled; check the live Pro text, ROADMAP 10.31); metadata `../listing*/meta.yaml`. Images re-rendered 2026-10-04 (`../listing/screenshots.md`).
 
 | File (absolute path) | Products | Check |
 |---|---|---|
 | `/Users/mbp/dev/garmin/HeroFace/dist/HeroFaceFree-1.0.0.iq` | 124 | `tools/check_free_package.sh`: OK (keys Mode and Accent only, no "Pro") |
 | `/Users/mbp/dev/garmin/HeroFace/dist/HeroFacePro-1.1.0.iq` | 124 | same script: OK (Slot1-3, Seconds, Weather, name "HeroFace Pro") |
 
-**Re-exported 2026-10-04 from commit 99f2dc0, after the last code change; `dist/` holds only the packages to upload (older exports deleted 2026-10-05).** Built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/`; the same bytes are `dist/<name>.iq` in the build worktree. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants). Names and the price tier ($2.50 for every paid app) were decided 2026-10-04; the owner's decisions (icons, uploads, translations) are still open: see ROADMAP.
+**Re-exported 2026-10-04 from commit 99f2dc0, after the last code change; `dist/` holds only the packages to upload (older exports deleted 2026-10-05).** Built in the `verden-ciq-build` container (`docker/run.sh`), checked with the project's package script without `--build`; simulator and compile only, **nothing on a wrist**. The files are in the main checkout's git-ignored `dist/`. Product counts are `<iq:product>` lines in the manifest; the export holds more part numbers (device variants).
 
 ## Checks to run (the procedures; the to-do items are in the root ROADMAP.md)
 
@@ -28,25 +28,25 @@ Order and the HeroSet half: [`../../HeroSet/docs/status.md`](../../HeroSet/docs/
 - 3. Review W14: re-capture the site screenshots at 454 px plus the always-on screen; original-Venu heat map (simulator GUI). The always-on shot also goes into the listing (decided 2026-09-21 to ship without it); the watch's own System → Screenshot may capture the awake face rather than the sleep screen (inferred, untested).
 - 4. Store device list: 69 of 117 products listed (2026-09-25). Missing: fēnix 5/5 Plus/5S/5X, fēnix 6S, fēnix Chronos, FR55, FR245/245M, FR645/645M, FR745, FR935, FR945/945 LTE, vívoactive 3/3M/3 LTE/4/4S, Venu, Venu D, D2 Air, D2 Air X10, D2 Charlie/Delta ×3, Descent MK1/MK2/MK2S, Enduro, Approach S62, MARQ Gen 1 ×8, Legacy Hero/Saga ×4. HeroSet misses the same families, so this looks store-side: same Garmin question as HeroSet A1.
 
-## Free + Pro pair (approved by the owner 2026-10-04, UNRELEASED: ADR-001, the Free + Pro ladder)
+## Free + Pro pair (approved by the owner 2026-10-04, uploaded 2026-10-04: ADR-001, the Free + Pro ladder)
 
-Nothing in this block is done unless it says so; nothing is uploaded. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP6). The plan gates WP6 on the HeroSet/HeroFace 30-day readout and G1; the owner approved the ladder on 2026-10-04 (OD1, OD2; the day-45 price-flip rule is retired), but names are confirmed (2026-10-04), the Pro price is the $2.50 tier (ADR-004, price: the $2.50 tier for every paid app) and every upload is still open, so the live paid app and its price are unchanged until they upload; the new tier is set in the upload form with that upload.
+**Both were uploaded 2026-10-04** (F2, F8, F9 done by that upload; names, title and images as in `../listing*/`). Rows marked Open below are still open. Builds against `../../reports/Free and Pro ladder execution plan.md` (WP6). The plan gates WP6 on the HeroSet/HeroFace 30-day readout and G1; the owner approved the ladder on 2026-10-04 (OD1, OD2; the day-45 price-flip rule is retired), but names are confirmed (2026-10-04), the Pro price is the $2.50 tier (ADR-004, price: the $2.50 tier for every paid app) and every upload is still open, so the live paid app and its price are unchanged until they upload; the new tier is set in the upload form with that upload.
 
 | # | Gate (Free 1.0.0 and Pro 1.1.0, upload together: Free first as a new app, Pro the same day on the existing id) | State |
 |---|---|---|
 | F1 | Owner signs off OD1 (the ladder), OD2, OD3 (names), OD4 (Pro price). ADR-001 is Active | **Ladder, names and the price tier done 2026-10-04** (price: the $2.50 tier, ADR-004); set in the form at upload |
-| F2 | Store names and titles chosen and searched by eye (placeholders: "HeroFace" / "HeroFace Pro"). The name is also the on-watch AppName: change `resources-free/strings` and `resources-pro/strings` only | **Open** (owner) |
+| F2 | Store names and titles: "HeroFace" / "HeroFace Pro" (the on-watch AppName too) | **Done 2026-10-04** (names confirmed, uploaded) |
 | F3 | Pro's headline: Pro is thin today (the metric per bar, seconds, the temperature). Decide whether to build more (accents, the alternate layout) first; Magenta's track contrast was fixed 2026-10-04 (ADR-003, `#FFAAFF`, 4.42:1) | **Open** (owner / watch-design-lead) |
 | F4 | Launcher icon per tier (still the shared placeholder) | **Open** (owner) |
 | F5 | Tests on both jungles: `tools/run_tests.sh <device> monkey.jungle` and `... monkey.free.jungle` on fr965, fr55, fenix5s and a 96 KB product; the ten-size fit run on both | **Partly done, simulator only:** 24 and 24 PASSED on fr965, fenix5s, fr55 (2026-10-01). **Done 2026-10-04 (container simulator, not device proof):** Free 25/25 PASSED on all ten sizes plus `vivoactive3`, and Free uses 29.7 kB (Pro 30.7 kB) of 91.8 kB on `fenix5s` and `vivoactive3` after the face drew (`-r` build, status bar); see `compatibility.md` "Measured 2026-10-04". **Done 2026-10-04:** the ten-size fit loop on the Pro jungle, 25/25 on 12 products (`compatibility.md`) |
 | F6 | Packages exported and checked: `tools/check_free_package.sh --build` | see CHANGELOG evidence |
 | F7 | Device check on the FR965: the Free app installs beside HeroSet and **links to HeroSet's private complication from its own app id** (same developer key); the phone shows only Missions and Accent; the Pro settings screen is unchanged; the on-watch names | **Open** (owner; never tried) |
-| F8 | `../listing-free/paste.md` filled in the store form; screenshots taken from the Free build (none exist) | **Open** |
-| F9 | Pro's `../listing/` repaired and renamed inside the pending listing-repair submission; What's New for 1.1.0; sibling Free URL on its first line | **Open** (owner) |
+| F8 | `../listing-free/paste.md` filled in the store form; screenshots from the Free build | **Done 2026-10-04** (uploaded) |
+| F9 | Pro's `../listing/` renamed; What's New for 1.1.0; sibling Free URL on its first line | **Done 2026-10-04** (uploaded; check the live sibling line, ROADMAP 10.31) |
 | F10 | Site (`../../site/src/apps/heroface/`): a Free or Pro section, per-tier wording. Do not change a published URL | **Open** (not in this folder) |
 | F11 | The exposure-test day-0 and day-30 dates recorded so the ratio stays readable (plan WP6 "Done when") | **Open** |
 
-Until F1, build any 1.0.x fix from the commit before the ladder work, not from the current working tree: this tree names the paid app "HeroFace Pro" on the watch and has restructured resources, neither of which the owner has approved for the live app.
+A fix for the live 1.0.1 before Garmin approves 1.1.0 would be built from the commit before the ladder work; after approval, fixes go on the current tree.
 
 ## Where things stand
 

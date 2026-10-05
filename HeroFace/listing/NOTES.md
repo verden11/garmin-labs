@@ -1,10 +1,10 @@
 # HeroFace listing — notes
 
-What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Paths are relative to `HeroFace/listing/`. Release history: [`../CHANGELOG.md`](../CHANGELOG.md). Claims and gates: [`../docs/status.md`](../docs/status.md).
+What sits behind [`paste.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Paths are relative to `HeroFace/listing/`. Release history: [`../CHANGELOG.md`](../CHANGELOG.md). Claims and gates: [`../docs/status.md`](../docs/status.md).
 
 **Live since 2026-09-22:** https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116. Every field is checked against what the build does ([`../docs/status.md`](../docs/status.md), "Claims allowed and forbidden"). Review takes about 72 hours; a rejection comes back with specific reasons.
 
-> **Pointer (2026-10-01):** this is the paid app's listing, unchanged. A Free twin and the Pro 1.1.0 rename are proposed and unreleased ([`../docs/decisions.md`](../docs/decisions.md) ADR-001, the Free + Pro ladder); the Free draft is [`../listing-free/paste.md`](../listing-free/paste.md). The Pro package is now `../dist/HeroFacePro.iq` (the `../dist/HeroFace.iq` named below is not in the tree).
+> **Status 2026-10-05:** this is the paid app's listing, renamed HeroFace Pro with 1.1.0 (uploaded 2026-10-04 from `../dist/HeroFacePro-1.1.0.iq`, in Garmin review; [`../docs/decisions.md`](../docs/decisions.md) ADR-001, the Free + Pro ladder). The Free twin is [`../listing-free/`](../listing-free/paste.md). Sections below are the dated record.
 
 **No Keywords field.** The upload form has no keywords/tags field; the README's Keywords section is removed (it never matched the real form). Same fix applied across all four apps' listing docs.
 
@@ -55,7 +55,7 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 - **1.0.1:** `- Installed HeroSet while HeroFace was on your watch? The face now picks it up within a minute, without switching faces.` / `- Fahrenheit temperatures are now rounded instead of cut off: 21 °C shows as 70 °F, not 69.` / `- The "HeroSet" mode setting is gone. It did the same as Auto, which stays the default; if you had picked it, your face looks the same.` / `- Reliability improvements.`
 - **1.0.0:** `First release.`
 
-## Pro 1.1.0: what `paste.md` now holds (UNRELEASED, proposed under ADR-001 (Free + Pro ladder), nothing uploaded; 2026-10-04)
+## Pro 1.1.0: what `paste.md` now holds (uploaded 2026-10-04, accepted under ADR-001 (Free + Pro ladder))
 
 `paste.md` is the 1.1.0 text. Names, the price and the sibling URL are the owner's decisions; the strings are the plan's placeholders.
 
@@ -70,7 +70,7 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 
 - **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml).
 - **Title:** "HeroFace Pro" is the owner's decision (plan WP6 step 5: rename inside the pending listing-repair submission, keeping the device tokens the title carries; the live title is just "HeroFace"): `meta.yaml` `owner_approvals`.
-- **Description:** line 1 needs the real HeroFace (Free) store URL once that listing is live (the placeholder in the block is `<HEROFACE STORE URL>`). Languages are added one at a time (pick a language, press Add, fill Title + Description); only English is drafted, see "Description rules" above. The description never uses the word "free" (it is paid; store review guideline 4d). The refund sentence ("HeroFace Pro is a paid app. Refunds follow the Connect IQ Store return window.") and the "up to a 466-pixel fēnix" wording (now "the largest 466-pixel round screens") are removed.
+- **Description:** line 1 holds the sibling's store URL (filled 2026-10-04; the link works once Garmin approves that listing). Languages are added one at a time (pick a language, press Add, fill Title + Description); only English is drafted, see "Description rules" above. The description never uses the word "free" (it is paid; store review guideline 4d). The refund sentence ("HeroFace Pro is a paid app. Refunds follow the Connect IQ Store return window.") and the "up to a 466-pixel fēnix" wording (now "the largest 466-pixel round screens") are removed.
 - **Version:** the form reads it from the package; type it only if a field asks. paste.md is the 1.1.0 text (the Pro rename); the submitted 1.0.1 What's New is in "What's new: history" above.
 - **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Subcategory:** whatever the Category choice offers. **Preview Video:** none (YouTube or Vimeo only).
 - **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04, `../../reports/Garmin policies and design guidelines.md`).

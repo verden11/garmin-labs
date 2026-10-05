@@ -9,7 +9,7 @@ you hit your step goal. On watches with Connect IQ 4.2+ and
 [HeroSet](../HeroSet) installed, the bars can switch to your push-ups, sit-ups
 and squats, with your HeroSet rank and streak.
 
-Two builds from one source (UNRELEASED, ladder approved by the owner 2026-10-04, [`docs/decisions.md`](docs/decisions.md) ADR-001, the Free + Pro ladder): **HeroFace** (Free,
+Two builds from one source (uploaded 2026-10-04, in Garmin review; ladder approved by the owner 2026-10-04, [`docs/decisions.md`](docs/decisions.md) ADR-001, the Free + Pro ladder): **HeroFace** (Free,
 `monkey.free.jungle`: everyday and HeroSet mode, accent colour) and **HeroFace Pro** (the paid app, `monkey.jungle`: adds the metric per
 bar, seconds and the temperature). The on-watch names are placeholders.
 
@@ -86,7 +86,7 @@ manifest.xml, monkey.jungle              Pro (the live app id)
 manifest.free.xml, monkey.free.jungle    Free (its own app id)
 tools/                    run_tests.sh, compile_sweep.sh, check_free_package.sh, check_strings.py
 listing/                  store form copy (Pro, the live listing)
-listing-free/             store form copy (Free, a draft; nothing uploaded)
+listing-free/             store form copy (Free, uploaded 2026-10-04)
 docs/archive/plan.md              what is built and what comes next
 docs/decisions.md         durable decisions (the Free + Pro ladder)
 PRODUCT.md                product truth

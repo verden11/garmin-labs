@@ -24,7 +24,7 @@ and system fonts.
 | 240 px MIP | 35 | `d2charlie`, `d2delta`, `d2deltapx`, `d2deltas`, `descentmk1`, `descentmk2s`, `fenix5`, `fenix5plus`, `fenix5splus`, `fenix5x`, `fenix5xplus`, `fenix6s`, `fenix6spro`, `fenix7s`, `fenix7spro`, `fr245`, `fr245m`, `fr645`, `fr645m`, `fr745`, `fr935`, `fr945`, `fr945lte`, `marqadventurer`, `marqathlete`, `marqaviator`, `marqcaptain`, `marqcommander`, `marqdriver`, `marqexpedition`, `marqgolfer`, `vivoactive3`, `vivoactive3d`, `vivoactive3m`, `vivoactive3mlte` |
 | 218 px MIP | 7 | `fenix5s`, `fenixchronos`, `fr255s`, `fr255sm`, `legacyherocaptainmarvel`, `legacysagarey`, `vivoactive4s` |
 | 208 px MIP | 1 | `fr55` |
-## Free and Pro builds (ADR-001, the Free + Pro ladder; approved 2026-10-04, UNRELEASED)
+## Free and Pro builds (ADR-001, the Free + Pro ladder; approved and uploaded 2026-10-04)
 
 Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle`) and **Free** (`manifest.free.xml`, new app id, `monkey.free.jungle`). Both list the **same 117 products** (`tools/compile_sweep.sh` refuses to run if the two manifests' product lists differ), `minApiLevel` 3.0.0, the same 15 languages and the same single permission, `ComplicationSubscriber` (HeroSet mode needs it, so Free's permissions are equal to Pro's, never more).
 

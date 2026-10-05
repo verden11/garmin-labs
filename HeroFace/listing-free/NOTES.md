@@ -1,6 +1,6 @@
 # HeroFace (Free) listing: notes
 
-What sits behind [`README.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Status 2026-10-01: **draft, UNRELEASED, simulator tests passed (24 on each jungle on fr965, fenix5s, fr55, 2026-10-01), nothing uploaded, nothing on a wrist**; built against the Free + Pro plan (WP6 and the WP10 description skeleton, `../../reports/Free and Pro ladder execution plan.md`). Decision record: ADR-001 (Free + Pro ladder, proposed) in [`../docs/decisions.md`](../docs/decisions.md). Claims are checked against "Claims allowed and forbidden" in [`../docs/status.md`](../docs/status.md) (HeroFace has no separate release-contract file).
+What sits behind [`paste.md`](paste.md), the paste-ready copy. Nothing here is pasted into the form. Status 2026-10-05: **uploaded by the owner 2026-10-04 as a new app, in Garmin review** (the text below is the dated record of how it was drafted); built against the Free + Pro plan (WP6 and the WP10 description skeleton, `../../reports/Free and Pro ladder execution plan.md`). Decision record: ADR-001 (Free + Pro ladder, accepted 2026-10-04) in [`../docs/decisions.md`](../docs/decisions.md). Claims are checked against "Claims allowed and forbidden" in [`../docs/status.md`](../docs/status.md) (HeroFace has no separate release-contract file).
 
 ## Owner decisions (not made here)
 
@@ -44,7 +44,7 @@ Garmin's paid-app list excludes the Instinct 2, 2S, 2X and Descent G1 and 37 old
 
 ## Instinct
 
-The description says nothing about Instinct or any other model; ADR-002 (Instinct family, proposed) and the compatibility doc keep the facts.
+The description says nothing about Instinct or any other model; ADR-002 (Instinct family, accepted 2026-10-04) and the compatibility doc keep the facts.
 
 ## Description rules
 
@@ -72,7 +72,7 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 ## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
 
 - **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`.
-- **Description:** line 1 needs the real HeroFace Pro URL once Pro is live (placeholder `<PRO STORE URL>`); the HeroSet sentence carries HeroSet's live store URL (from the site's `storeUrl`). English only until the owner decides on translations. Check each block for a `<` before pasting.
+- **Description:** line 1 holds the sibling's store URL (filled 2026-10-04; the link works once Garmin approves that listing); the HeroSet sentence carries HeroSet's live store URL (from the site's `storeUrl`). English only until the owner decides on translations. Check each block for a `<` before pasting.
 - **Hero, cover, icons:** the Pro listing's images carry a PRO pill, these do not; do not swap them, and do not use the Pro cover here. (The image sections of `paste.md` now list files only; captions and devices are in `meta.yaml` `assets.screens`.)
 - **Category:** Digital, as the Pro listing. **Subcategory:** whatever the Category choice offers. **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Preview Video:** none (YouTube or Vimeo only).
 - **App Migration:** No; this is a new app, not an update.
