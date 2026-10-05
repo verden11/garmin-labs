@@ -24,8 +24,10 @@ class HeroFaceMissions {
         if (layout.subscreen() != null) {
             value = HeroFaceDraw.truncated(dc, value, Graphics.FONT_XTINY, width);
         }
-        dc.setColor(metric.isAlert() ? HeroFacePalette.ALERT : HeroFacePalette.TEXT, Graphics.COLOR_TRANSPARENT);
-        HeroFaceDraw.text(dc, layout, center, top, Graphics.FONT_XTINY, value, Graphics.TEXT_JUSTIFY_CENTER);
+        if (value.length() > 0) {
+            dc.setColor(metric.isAlert() ? HeroFacePalette.ALERT : HeroFacePalette.TEXT, Graphics.COLOR_TRANSPARENT);
+            HeroFaceDraw.text(dc, layout, center, top, Graphics.FONT_XTINY, value, Graphics.TEXT_JUSTIFY_CENTER);
+        }
         var barTop = top + line + gap;
         if (metric.hasBar()) {
             drawBar(dc, left, barTop, width, layout.barHeight(), metric, accent);
@@ -59,12 +61,19 @@ class HeroFaceMissions {
         var reversed = done && HeroFacePalette.MONO;
         var check = done && !reversed ? checkWidth(dc) : 0;
         var pad = reversed ? layout.doneLabelPad() : 0;
-        var label = HeroFaceDraw.firstWithin(dc, width - check - 2 * pad, Graphics.FONT_XTINY, HeroFaceText.labels(metric.kind));
-        if (layout.subscreen() != null) {
-            // The Instinct's columns are about 40 px: a long translation is cut with a "." rather than reaching the next one.
-            label = HeroFaceDraw.truncated(dc, label, Graphics.FONT_XTINY, width - check - 2 * pad);
+        var icon = HeroFaceIcon.drawsFor(metric.kind);
+        var label = "";
+        var textWidth = 0;
+        if (icon) {
+            textWidth = HeroFaceIcon.width(metric.kind, HeroFaceIcon.size());
+        } else {
+            label = HeroFaceDraw.firstWithin(dc, width - check - 2 * pad, Graphics.FONT_XTINY, HeroFaceText.labels(metric.kind));
+            if (layout.subscreen() != null) {
+                // The Instinct's columns are about 40 px: a long translation is cut with a "." rather than reaching the next one.
+                label = HeroFaceDraw.truncated(dc, label, Graphics.FONT_XTINY, width - check - 2 * pad);
+            }
+            textWidth = dc.getTextWidthInPixels(label, Graphics.FONT_XTINY);
         }
-        var textWidth = dc.getTextWidthInPixels(label, Graphics.FONT_XTINY);
         var left = center - (textWidth + check) / 2;
         dc.setColor(done ? HeroFacePalette.DONE : HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);
         if (reversed) {
@@ -74,7 +83,14 @@ class HeroFaceMissions {
         } else if (done) {
             drawCheck(dc, left, top + Graphics.getFontAscent(Graphics.FONT_XTINY), checkWidth(dc) * 2 / 3);
         }
-        HeroFaceDraw.text(dc, layout, left + check, top, Graphics.FONT_XTINY, label, Graphics.TEXT_JUSTIFY_LEFT);
+        if (icon) {
+            // On the capital line of the word it replaces: from the font's ascent down to its baseline.
+            var baseline = top + Graphics.getFontAscent(Graphics.FONT_XTINY);
+            HeroFaceIcon.draw(dc, metric.kind, left + check, baseline - HeroFaceIcon.size(), HeroFaceIcon.size());
+            HeroFaceDraw.box(layout, left + check, baseline - HeroFaceIcon.size(), textWidth, HeroFaceIcon.size(), "icon" + metric.kind);
+        } else {
+            HeroFaceDraw.text(dc, layout, left + check, top, Graphics.FONT_XTINY, label, Graphics.TEXT_JUSTIFY_LEFT);
+        }
     }
 
     // Check mark sized off the label font, plus a gap before the label.

@@ -24,7 +24,8 @@ scene() {   # scene <file> <device> <goal> <steps> <moderate> <floors> [history:
   local file=$1 device=$2 goal=$3 steps=$4 mod=$5 floors=$6; shift 6
   [ -z "$ONLY" ] || [[ " $ONLY " == *" ${file##*/} "* ]] || return 0   # a re-run of some pictures: ... free 3-goals-met.png
   local hist=; [ $# -gt 0 ] && hist="history=$(echo "$@" | tr ' ' ',')"
-  sim_boot "$NOW"; sim_load $JUNGLE "$device"
+  # The simulator keeps an app's settings (APP.SET) between loads, so a changed default would be ignored (as in DaysToGo).
+  sim_boot "$NOW"; rm -f /tmp/com.garmin.connectiq/GARMIN/APPS/SETTINGS/*.SET /tmp/app-settings.json; sim_load $JUNGLE "$device"
   sim_activity goal=$goal steps=$steps moderate=$mod floors=$floors calories=1650 $hist
   sleep 75; case $file in /*) sim_save "$file";; *) sim_save "$OUT/$file";; esac   # an absolute file goes where it says
 }

@@ -30,6 +30,18 @@ class HeroFaceDraw {
         }
     }
 
+    // A drawn icon's box, checked and logged like a text row (test-only, no-op on the watch).
+    static function box(layout as HeroFaceLayout, left as Number, top as Number, width as Number, height as Number, label as String) as Void {
+        var log = misfits;
+        var drawn = boxes;
+        if (log != null && (top < 0 || top + height > layout.height() || left < layout.leftInset(top, height) || left + width > layout.rightInset(top, height))) {
+            log.add(label + " y=" + top);
+        }
+        if (drawn != null) {
+            drawn.add([left, top, width, height, label]);
+        }
+    }
+
     static function leftEdge(x as Number, width as Number, justify as Graphics.TextJustification) as Number {
         if (justify == Graphics.TEXT_JUSTIFY_CENTER) {
             return x - width / 2;

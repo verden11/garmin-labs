@@ -99,6 +99,9 @@ class HeroFaceLayout {
         return _subscreen != null && y < belowWindow(0);
     }
 
+    // A mission icon's height as a share of the label font's ascent (HeroFaceIcon): about its capitals' height.
+    static const ICON_SIZE_PERMILLE = 1000;
+
     // x that centres text in the usable band of this row: the screen's centre, except beside the window.
     function rowCenterX(y as Number, height as Number) as Number {
         return besideWindow(y) ? (leftInset(y, height) + rightInset(y, height)) / 2 : centerX();

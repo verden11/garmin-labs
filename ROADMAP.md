@@ -28,6 +28,11 @@ Do not keep open checkboxes anywhere else. Status 2026-10-05.
 - [ ] 13.5 `[you]` Days To Go Pro: Event time zone is a 216-entry `UTC±hh:mm` list; a wrong pick is silently an hour off (spec rule 6). Option: city hints on common offsets (`UTC+01:00 (Paris, Lagos)`). About half a day plus strings and the listing.
 - [x] 13.6 `[you]` Days To Go: the accent arc shows time left (drains); most rings show progress (fill). Keep, or invert to fill toward the day (reopens the `DESIGN.md` direction). Agent: keep, decide after 13.1. **Decided 2026-10-05: keep.**
 - [ ] 13.7 `[you]` Days To Go Pro: the `8h 06m` letters are English on every watch (`resources-pro/strings/units.xml`; languages fall back to it). "m" can read as metres. Options: keep; "min"; or a `resources-pro-<lang>/strings/units.xml` per language (translations are yours).
+- [x] 13.8 `[you]` HeroFace Pro: the temperature jumped from the centre of the row under the time to its right edge when a streak showed, and the streak hugged the left. **Decided 2026-10-05 (owner: "do your picks"): built** as one centred group.
+- [x] 13.9 `[you]` HeroFace Free: an empty band between the time and the missions (no temperature in Free, no streak on day 1). **Decided 2026-10-05: built** (the time moves down half a row when that row is empty).
+- [x] 13.10 `[you]` HeroFace: MOVE read `OK` / `GO`. **Decided 2026-10-05: built** (no value while quiet, red GO on alert). `value_move_ok` is now unused in 15 languages (left in place).
+- [x] 13.11 `[you]` HeroFace: clipped labels `INT`, `FLR`, `STEP`, `CAL`. **Decided 2026-10-05: built** as drawn icons (footprints, flame, bolt, stairs). Look at `HeroFace/listing*/screens/` before the next upload; distance, MOVE and HeroSet's PUSH/SIT/SQT keep words (an exercise icon at that size would not read).
+- [x] 13.12 `[you]` HeroFace Pro store hero: its centre watch showed `OK MOVE`. **Resolved by 13.10** (the same scene now shows the bar alone); hero re-rendered.
 
 ## 2. Your hands (a watch, the store dashboard, a person)
 

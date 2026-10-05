@@ -137,37 +137,44 @@ class HeroFaceView extends WatchUi.WatchFace {
         HeroFaceDraw.text(dc, layout, layout.rowCenterX(y, dc.getFontHeight(Graphics.FONT_XTINY)), y, Graphics.FONT_XTINY, text, Graphics.TEXT_JUSTIFY_CENTER);
     }
 
-    // The wide row under the time carries the streak and the temperature: two
-    // short items pushed to the edges, or one centred when the other is absent.
+    // The wide row under the time carries the streak and the temperature as one centred group (streak, a gap, the
+    // temperature), so the temperature stays put whether or not a streak shows (design critique 2026-10-05, ROADMAP
+    // 13.8). A group too wide takes the streak's shorter wording, then drops the temperature.
     private function drawUnderTime(dc as Graphics.Dc, layout as HeroFaceLayout, state as HeroFaceState) as Void {
         var y = layout.underTimeTop;
         var line = dc.getFontHeight(Graphics.FONT_XTINY);
-        var left = layout.leftInsetWithin(layout.contentRadius(), y, line);
-        var right = layout.rightInsetWithin(layout.contentRadius(), y, line);
+        var room = layout.rightInsetWithin(layout.contentRadius(), y, line) - layout.leftInsetWithin(layout.contentRadius(), y, line);
         // Beside the Instinct's window there is one narrow band: the streak, no temperature (ADR-002).
         var temperature = layout.subscreen() == null ? state.temperature : null;
         var streak = state.streakLines.size() > 0
             ? HeroFaceDraw.firstFitting(dc, layout, layout.contentRadius(), 0, y, Graphics.FONT_XTINY, state.streakLines)
             : null;
-        if (streak != null && temperature != null) {
-            // Both: the streak takes a shorter wording rather than crowd the
-            // temperature off its edge.
-            var room = right - left - dc.getTextWidthInPixels(temperature, Graphics.FONT_XTINY) - layout.columnGap();
-            if (dc.getTextWidthInPixels(streak, Graphics.FONT_XTINY) > room) {
-                streak = state.streakLines[state.streakLines.size() - 1];
+        if (streak != null && temperature != null && groupWidth(dc, layout, streak, temperature) > room) {
+            streak = state.streakLines[state.streakLines.size() - 1];
+            if (groupWidth(dc, layout, streak, temperature) > room) {
+                temperature = null;
             }
-            drawStreakText(dc, layout, left, y, streak, state, Graphics.TEXT_JUSTIFY_LEFT);
-            dc.setColor(HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);
-            HeroFaceDraw.text(dc, layout, right, y, Graphics.FONT_XTINY, temperature, Graphics.TEXT_JUSTIFY_RIGHT);
-        } else if (streak != null) {
-            if (layout.subscreen() != null) {
-                streak = HeroFaceDraw.truncated(dc, streak, Graphics.FONT_XTINY, layout.rightInset(y, line) - layout.leftInset(y, line));
-            }
-            drawStreakText(dc, layout, layout.rowCenterX(y, line), y, streak, state, Graphics.TEXT_JUSTIFY_CENTER);
-        } else if (temperature != null) {
-            dc.setColor(HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);
-            HeroFaceDraw.text(dc, layout, layout.centerX(), y, Graphics.FONT_XTINY, temperature, Graphics.TEXT_JUSTIFY_CENTER);
         }
+        if (streak != null && layout.subscreen() != null) {
+            streak = HeroFaceDraw.truncated(dc, streak, Graphics.FONT_XTINY, layout.rightInset(y, line) - layout.leftInset(y, line));
+        }
+        var left = layout.rowCenterX(y, line) - groupWidth(dc, layout, streak, temperature) / 2;
+        if (streak != null) {
+            drawStreakText(dc, layout, left, y, streak, state, Graphics.TEXT_JUSTIFY_LEFT);
+            left += dc.getTextWidthInPixels(streak, Graphics.FONT_XTINY) + layout.columnGap();
+        }
+        if (temperature != null) {
+            dc.setColor(HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);
+            HeroFaceDraw.text(dc, layout, left, y, Graphics.FONT_XTINY, temperature, Graphics.TEXT_JUSTIFY_LEFT);
+        }
+    }
+
+    private function groupWidth(dc as Graphics.Dc, layout as HeroFaceLayout, streak as String?, temperature as String?) as Number {
+        var width = streak != null ? dc.getTextWidthInPixels(streak, Graphics.FONT_XTINY) : 0;
+        if (temperature != null) {
+            width += dc.getTextWidthInPixels(temperature, Graphics.FONT_XTINY) + (streak != null ? layout.columnGap() : 0);
+        }
+        return width;
     }
 
     private function drawStreakText(dc as Graphics.Dc, layout as HeroFaceLayout, x as Number, y as Number, text as String, state as HeroFaceState, justify as Graphics.TextJustification) as Void {

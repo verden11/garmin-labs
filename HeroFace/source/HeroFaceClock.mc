@@ -9,9 +9,11 @@ class HeroFaceClock {
     // null when no seconds are drawn.
     static function draw(dc as Graphics.Dc, layout as HeroFaceLayout, state as HeroFaceState) as Array<Number>? {
         var font = layout.timeFont;
+        var empty = underTimeEmpty(layout, state);
+        var top = empty ? layout.timeTop + (dc.getFontHeight(Graphics.FONT_XTINY) + layout.stackGap()) / 2 : layout.timeTop;
         dc.setColor(HeroFacePalette.TEXT, Graphics.COLOR_TRANSPARENT);
-        var center = layout.rowCenterX(layout.timeTop, dc.getFontHeight(font));
-        HeroFaceDraw.text(dc, layout, center, layout.timeTop, font, state.time, Graphics.TEXT_JUSTIFY_CENTER);
+        var center = layout.rowCenterX(top, dc.getFontHeight(font));
+        HeroFaceDraw.text(dc, layout, center, top, font, state.time, Graphics.TEXT_JUSTIFY_CENTER);
         var seconds = state.seconds;
         if (seconds == null) {
             return null;
@@ -24,8 +26,8 @@ class HeroFaceClock {
         var height = dc.getFontHeight(Graphics.FONT_XTINY);
         // On the digits' baseline, but never so low that it reaches the row
         // below: on a small screen the time's box already ends close to it.
-        var y = layout.timeTop + Graphics.getFontAscent(font) - Graphics.getFontAscent(Graphics.FONT_XTINY);
-        var floor = layout.underTimeTop - layout.stackGap() - height;
+        var y = top + Graphics.getFontAscent(font) - Graphics.getFontAscent(Graphics.FONT_XTINY);
+        var floor = (empty ? layout.missionTop : layout.underTimeTop) - layout.stackGap() - height;
         if (y > floor) {
             y = floor;
         }
@@ -37,5 +39,12 @@ class HeroFaceClock {
         dc.setColor(HeroFacePalette.MUTED, Graphics.COLOR_TRANSPARENT);
         HeroFaceDraw.text(dc, layout, x, y, Graphics.FONT_XTINY, seconds, Graphics.TEXT_JUSTIFY_LEFT);
         return [x, y, width, height] as Array<Number>;
+    }
+
+    // Nothing under the time (no streak yet, no temperature: always so in Free on its first days): the time moves down
+    // half that row, so no empty band sits between it and the missions (design critique 2026-10-05, ROADMAP 13.9).
+    // Round screens only; beside the Instinct's window the time keeps its band.
+    static function underTimeEmpty(layout as HeroFaceLayout, state as HeroFaceState) as Boolean {
+        return layout.subscreen() == null && state.streakLines.size() == 0 && state.temperature == null;
     }
 }

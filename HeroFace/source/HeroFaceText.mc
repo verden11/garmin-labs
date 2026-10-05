@@ -49,7 +49,9 @@ class HeroFaceText {
     static function values(metric as HeroFaceMetric) as Array<String> {
         var value = metric.value;
         if (metric.kind == HeroFaceConfig.MOVE) {
-            return [value > 0 ? get(Rez.Strings.value_move_alert) : get(Rez.Strings.value_move_ok)] as Array<String>;
+            // Only the alert has a word (red GO): a quiet move bar has no value to read, and "OK" in a row of numbers
+            // read as a cryptic number (design critique 2026-10-05, ROADMAP 13.10).
+            return [value > 0 ? get(Rez.Strings.value_move_alert) : ""] as Array<String>;
         }
         if (metric.kind == HeroFaceConfig.DISTANCE) {
             return [(value / 10.0).format("%.1f"), (value / 10).toString()] as Array<String>;

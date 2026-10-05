@@ -3,6 +3,16 @@
 One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/paste.md`](listing/paste.md).
 
+## Unreleased (next upload of both)
+
+Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.8 to 13.12; simulator only, nothing on a wrist):
+
+- **The streak and the temperature are one centred group** under the time, so the temperature no longer jumps from the row's centre to its right edge when a streak shows (Pro), and the streak is no longer pinned left.
+- **No empty band under the time:** when that row has nothing (no streak yet, no temperature), the time moves down half a row (Free's first days).
+- **Icons instead of clipped words:** footprints, flame, bolt and stairs replace `STEP`, `CAL`, `INT`, `FLR` (drawn, so nothing to translate). Distance, MOVE and HeroSet's exercises keep their words.
+- **MOVE shows no value until it alerts:** `OK` is gone; the alert stays the red word GO.
+- Both listing sets recaptured.
+
 ## Free 1.0.0 and Pro 1.1.0 — uploaded 2026-10-04 by the owner, in Garmin review
 
 Built 2026-10-01 against the Free + Pro plan; the owner approved the ladder on 2026-10-04 (`docs/decisions.md` ADR-001, the Free + Pro ladder, Active) and uploaded both the same day. Simulator only; nothing on a wrist. Approval dates are recorded here when Garmin reports them.
