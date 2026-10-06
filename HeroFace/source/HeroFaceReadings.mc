@@ -136,12 +136,14 @@ class HeroFaceReadings {
     }
 
     // The ring is the whole day at once: the average fill of the goal-bearing
-    // missions, full only when every one is done.
+    // missions, full only when every one is done. MOVE is left out: its bar is full
+    // while you are not idle, so it read a third done at zero activity and let the
+    // ring turn green beside a MOVE that is never "done" (owner, 2026-10-06).
     static function dayScore(metrics as Array<HeroFaceMetric>) as Number {
         var sum = 0;
         var count = 0;
         for (var i = 0; i < metrics.size(); i++) {
-            if (metrics[i].hasBar()) {
+            if (metrics[i].hasBar() && metrics[i].kind != HeroFaceConfig.MOVE) {
                 sum += metrics[i].permille();
                 count++;
             }
