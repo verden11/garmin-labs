@@ -69,10 +69,15 @@ class HeroFaceMissions {
             textWidth = HeroFaceIcon.width(metric.kind, HeroFaceIcon.size());
         } else {
             label = HeroFaceDraw.firstWithin(dc, width - check - 2 * pad, Graphics.FONT_XTINY, HeroFaceText.labels(metric.kind));
+            // On a rectangle the outer columns slide inside the frame (`inside`), so a label wider than its column would
+            // reach the middle one. A done label that only fits without its check drops the check first: the green word
+            // and the full bar still say done, and the word stays readable (Lithuanian "ATSISP" in 90 px on a Venu Sq 2,
+            // where cutting it made push-ups and sit-ups both "ATS.").
+            if (layout.rectangle() && check > 0 && dc.getTextWidthInPixels(label, Graphics.FONT_XTINY) > width - check) {
+                check = 0;
+            }
             if (layout.subscreen() != null || layout.rectangle()) {
                 // The Instinct's columns are about 40 px: a long translation is cut with a "." rather than reaching the next one.
-                // On a rectangle the outer columns slide inside the frame (`inside`), so a label wider than its column would
-                // reach the middle one instead (Lithuanian "ATSISP" with the done check in 90 px on a Venu Sq 2).
                 label = HeroFaceDraw.truncated(dc, label, Graphics.FONT_XTINY, width - check - 2 * pad);
             }
             textWidth = dc.getTextWidthInPixels(label, Graphics.FONT_XTINY);
@@ -83,7 +88,7 @@ class HeroFaceMissions {
             var line = dc.getFontHeight(Graphics.FONT_XTINY);
             dc.fillRoundedRectangle(left - pad, top, textWidth + 2 * pad, line, line / 4);
             dc.setColor(HeroFacePalette.BACKGROUND, Graphics.COLOR_TRANSPARENT);
-        } else if (done) {
+        } else if (check > 0) {
             drawCheck(dc, left, top + Graphics.getFontAscent(Graphics.FONT_XTINY), checkWidth(dc) * 2 / 3);
         }
         if (icon) {
