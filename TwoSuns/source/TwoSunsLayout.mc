@@ -45,6 +45,10 @@ class TwoSunsLayout {
     static const TIME_FONTS = [Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
     // A rectangle's time may grow past its cap into what the inner box leaves (TwoSunsFrame.growTime, ADR-028).
     static const RECT_TIME_FONTS = [Graphics.FONT_NUMBER_THAI_HOT, Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
+    // Free on a rectangle: the Body Battery number grows with the time, up to this share of the time font's height, so it
+    // reads clearly second (TwoSunsRectFit, ADR-028). Text fonts only: "--" must draw.
+    static const RECT_FREE_VALUE_FONTS = [Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL] as Array<Graphics.FontDefinition>;
+    static const RECT_VALUE_TO_TIME_PERMILLE = 450;
     static const VALUE_FONTS = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     // Free has no date, weather, battery or curve row to share the stack with, so the Body Battery number, the face's
     // second question after the time, may be a size up (awake only; the always-on frame keeps VALUE_FONTS).
@@ -88,7 +92,7 @@ class TwoSunsLayout {
             _windowH = window.height as Number;
         }
         if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_RECTANGLE) {
-            _track = new TwoSunsTrack(_width, _height, _radius - ringRadius(), _d * TwoSunsTrack.CORNER_PERMILLE / TwoSunsConfig.PERMILLE);
+            _track = new TwoSunsTrack(_width, _height, trackInsetFor(_d), _d * TwoSunsTrack.CORNER_PERMILLE / TwoSunsConfig.PERMILLE);
         }
     }
 
@@ -261,7 +265,19 @@ class TwoSunsLayout {
         return _d * RING_WIDTH_PERMILLE / TwoSunsConfig.PERMILLE;
     }
 
+    // The rectangle track's centreline inset from the glass edge (ADR-028): the round ring's (half its width and the gap),
+    // or more, so the sun marker and its halo stay on the glass, which the round ring's bezel would hide.
+    static function trackInsetFor(d as Number) as Number {
+        var width = d * RING_WIDTH_PERMILLE / TwoSunsConfig.PERMILLE;
+        var ring = width / 2 + d * RING_GAP_PERMILLE / TwoSunsConfig.PERMILLE;
+        var marker = TwoSunsRing.markerReach(width);
+        return ring > marker ? ring : marker;
+    }
+
     function ringRadius() as Number {
+        if (_track != null) {
+            return _radius - trackInsetFor(_d);
+        }
         if (_subscreen != null) {
             // the window's outer radius less its fill, so the thick arc and the marker stay inside it
             var outer = (_windowW < _windowH ? _windowW : _windowH) / 2 - 1;

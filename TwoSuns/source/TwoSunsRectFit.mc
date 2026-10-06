@@ -1,0 +1,121 @@
+import Toybox.Graphics;
+import Toybox.Lang;
+
+// A rectangle's second fitting pass (docs/decisions.md ADR-028, the rectangle track): once every row has its place, the
+// time takes the largest font the inner box still holds, by height and by the width of the widest time ("00:00", so the
+// size does not change from minute to minute), and in Free the Body Battery number grows with it so the energy reading
+// stays clearly second. Rows are never dropped for it: a size whose stack would push the weather row off its chord is
+// skipped for the next smaller one. Pure measuring; TwoSunsFrame applies the result.
+class TwoSunsRectFit {
+
+    // [time font, value font] for the largest time that fits, or null when nothing beats the frame's own fonts.
+    static function pick(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Array<Graphics.FontDefinition>? {
+        var fonts = TwoSunsLayout.RECT_TIME_FONTS;
+        var room = layout.spanHeight() - topReserve(dc, layout, frame, state);
+        var weatherH = plannedWeatherHeight(dc, layout, frame, state);
+        var values = valueGrowFonts(frame);
+        for (var i = 0; i < fonts.size(); i++) {
+            var value = valueFor(dc, values, frame.valueFont, dc.getFontHeight(fonts[i]));
+            var current = fonts[i] == frame.timeFont;
+            if (current && value == frame.valueFont) {
+                return null;   // nothing bigger fits: keep the frame's fonts
+            }
+            if (fits(dc, layout, frame, state, room, weatherH, fonts[i], value)) {
+                return [fonts[i], value] as Array<Graphics.FontDefinition>;
+            }
+            if (current) {
+                return null;   // never smaller than the frame's own time
+            }
+        }
+        return null;
+    }
+
+    private static function fits(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState, room as Number,
+                                 weatherH as Number, time as Graphics.FontDefinition, value as Graphics.FontDefinition) as Boolean {
+        var h = dc.getFontHeight(time);
+        var bandH = bandHeightFor(dc, layout, frame, value);
+        if (layout.stackHeight(frame.dateHeight(dc), h, weatherH, bandH, frame.lineHeight(dc)) > room) {
+            return false;
+        }
+        var rows = layout.rows(frame.dateHeight(dc), h, frame.weatherHeight, bandH, frame.lineHeight(dc));
+        return timeFits(dc, layout, time, rows.timeTop, h, state.time) && weatherFitsAt(dc, layout, frame, state, rows.weatherTop);
+    }
+
+    // The weather row height the time is sized for: the row's own while the Weather setting is on, whether or not there is
+    // data right now, so the time does not change size when data comes and goes.
+    (:pro)
+    private static function plannedWeatherHeight(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Number {
+        var full = state.weatherOn ? TwoSunsWeatherRow.height(dc, layout, TwoSunsConfig.WEATHER_ROW_FULL) : 0;
+        return full > frame.weatherHeight ? full : frame.weatherHeight;
+    }
+
+    (:free)
+    private static function plannedWeatherHeight(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Number {
+        return 0;
+    }
+
+    // The value fonts the number may grow into: Free's grows with the time; Pro's shares its band with the curve and keeps
+    // its size.
+    (:pro)
+    private static function valueGrowFonts(frame as TwoSunsFrame) as Array<Graphics.FontDefinition> {
+        return [frame.valueFont] as Array<Graphics.FontDefinition>;
+    }
+
+    (:free)
+    private static function valueGrowFonts(frame as TwoSunsFrame) as Array<Graphics.FontDefinition> {
+        return TwoSunsLayout.RECT_FREE_VALUE_FONTS;
+    }
+
+    // Whether the weather row's lead cell fits at `top` (true when there is no row), without changing the frame.
+    (:pro)
+    private static function weatherFitsAt(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState, top as Number) as Boolean {
+        var weather = state.weather;
+        return frame.weatherMode == TwoSunsConfig.WEATHER_ROW_NONE || weather == null
+            || TwoSunsWeatherRow.aheadThatFit(dc, layout, weather, frame.weatherMode, top) >= 0;
+    }
+
+    (:free)
+    private static function weatherFitsAt(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState, top as Number) as Boolean {
+        return true;
+    }
+
+    // Room the time leaves for the watch battery row above the centred stack (a strip at the top, and its twin below), only
+    // while the Battery setting is on: with it off (the default) the time takes that room too.
+    (:pro)
+    private static function topReserve(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Number {
+        var top = frame.rows.timeTop;
+        return state.watchBattery == null ? 0 : 2 * (top - TwoSunsBatteryRow.top(dc, layout, top));
+    }
+
+    (:free)
+    private static function topReserve(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Number {
+        return 0;
+    }
+
+    // The largest value font no taller than the share of the time's height (TwoSunsLayout.RECT_VALUE_TO_TIME_PERMILLE),
+    // never smaller than the frame's own.
+    private static function valueFor(dc as Graphics.Dc, values as Array<Graphics.FontDefinition>, own as Graphics.FontDefinition,
+                                     timeH as Number) as Graphics.FontDefinition {
+        var cap = timeH * TwoSunsLayout.RECT_VALUE_TO_TIME_PERMILLE / TwoSunsConfig.PERMILLE;
+        for (var i = 0; i < values.size(); i++) {
+            var h = dc.getFontHeight(values[i]);
+            if (h <= cap && h > dc.getFontHeight(own)) {
+                return values[i];
+            }
+        }
+        return own;
+    }
+
+    private static function bandHeightFor(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, value as Graphics.FontDefinition) as Number {
+        var valueH = dc.getFontHeight(value);
+        var curveH = layout.capFor(TwoSunsLayout.CURVE_BAND_PERMILLE);
+        return frame.showCurve && curveH > valueH ? curveH : valueH;
+    }
+
+    private static function timeFits(dc as Graphics.Dc, layout as TwoSunsLayout, font as Graphics.FontDefinition, top as Number, h as Number,
+                                     time as String) as Boolean {
+        var radius = layout.contentRadius();
+        var width = layout.rightInsetWithin(radius, top, h) - layout.leftInsetWithin(radius, top, h);
+        return dc.getTextWidthInPixels(TwoSunsConfig.WIDEST_TIME, font) <= width && dc.getTextWidthInPixels(time, font) <= width;
+    }
+}

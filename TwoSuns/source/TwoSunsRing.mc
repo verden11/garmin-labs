@@ -53,6 +53,11 @@ class TwoSunsRing {
         dc.setPenWidth(1);
     }
 
+    // How far the sun marker and its black halo reach from the ring's centreline, for a ring `width` px wide.
+    static function markerReach(width as Number) as Number {
+        return width * MARKER_PERMILLE / TwoSunsConfig.PERMILLE + OUTLINE_PEN;
+    }
+
     static function colorFor(kind as Number, accent as Number) as Number {
         if (kind == TwoSunsConfig.RING_TWILIGHT) {
             return TwoSunsPalette.TWILIGHT;

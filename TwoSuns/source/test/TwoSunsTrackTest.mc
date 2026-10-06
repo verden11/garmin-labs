@@ -10,15 +10,11 @@ import Toybox.Test;
 const TRACK_SIZES = [[320, 360, 10], [448, 486, 68]] as Array<Array<Number>>;   // width, height, glass corner radius
 (:debug)
 const RING_WIDTH_PERMILLE_TEST = 25;   // TwoSunsLayout's ring width, of D
-(:debug)
-const RING_GAP_PERMILLE_TEST = 10;
 
 (:debug)
 function testTrack(size as Array<Number>) as TwoSunsTrack {
     var d = size[0] < size[1] ? size[0] : size[1];
-    var width = d * RING_WIDTH_PERMILLE_TEST / TwoSunsConfig.PERMILLE;
-    var inset = width / 2 + d * RING_GAP_PERMILLE_TEST / TwoSunsConfig.PERMILLE;
-    return new TwoSunsTrack(size[0], size[1], inset, d * TwoSunsTrack.CORNER_PERMILLE / TwoSunsConfig.PERMILLE);
+    return new TwoSunsTrack(size[0], size[1], TwoSunsLayout.trackInsetFor(d), d * TwoSunsTrack.CORNER_PERMILLE / TwoSunsConfig.PERMILLE);
 }
 
 (:debug)
@@ -74,11 +70,37 @@ function trackStaysOnTheDisplay(logger as Test.Logger) as Boolean {
 
 (:debug)
 function insideGlass(at as [Float, Float], w as Number, h as Number, glass as Number) as Boolean {
+    return discInsideGlass(at, 0, w, h, glass);
+}
+
+// A disc of `reach` px round `at` lies on the display and inside its rounded glass corners.
+(:debug)
+function discInsideGlass(at as [Float, Float], reach as Number, w as Number, h as Number, glass as Number) as Boolean {
+    if (at[0] < reach || at[0] > w - reach || at[1] < reach || at[1] > h - reach) {
+        return false;
+    }
     var cx = at[0] < glass ? glass : (at[0] > w - glass ? w - glass : at[0]);
     var cy = at[1] < glass ? glass : (at[1] > h - glass ? h - glass : at[1]);
     var dx = at[0] - cx;
     var dy = at[1] - cy;
-    return Math.sqrt(dx * dx + dy * dy) <= glass;
+    return Math.sqrt(dx * dx + dy * dy) + reach <= glass;
+}
+
+// The sun marker with its black halo stays on the display and inside the glass corners at every minute, on both sizes.
+(:test)
+function sunMarkerStaysOnTheGlass(logger as Test.Logger) as Boolean {
+    for (var i = 0; i < TRACK_SIZES.size(); i++) {
+        var w = TRACK_SIZES[i][0];
+        var h = TRACK_SIZES[i][1];
+        var d = w < h ? w : h;
+        var track = testTrack(TRACK_SIZES[i]);
+        var reach = TwoSunsRing.markerReach(d * RING_WIDTH_PERMILLE_TEST / TwoSunsConfig.PERMILLE);
+        for (var m = 0; m < TwoSunsConfig.MINUTES_PER_DAY; m++) {
+            var at = track.pointAt(track.distanceFor(m, TwoSunsConfig.ORIENTATION_NOON_TOP), 0.0);
+            Test.assertMessage(discInsideGlass(at, reach, w, h, TRACK_SIZES[i][2]), "marker off the glass at minute " + m + " (" + w + ")");
+        }
+    }
+    return true;
 }
 
 // The inner box is the full width beside the centre, narrower inside its rounded corners, and nothing past its top.
@@ -124,5 +146,43 @@ function rectangleHidesACurveWithNoLine(logger as Test.Logger) as Boolean {
         Test.assert(!new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], lone, true), false).showCurve);
         Test.assert(new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], line, true), false).showCurve);
     }
+    return true;
+}
+
+// On a rectangle the grown time never pushes the weather row out (a size that would is skipped for the next smaller
+// one), and the time is sized for the Weather setting, not for the data: it keeps its size when the data goes. Pro only.
+(:test, :pro)
+function rectangleGrowthKeepsTheWeatherRow(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    if (layout.track() == null) {
+        return true;
+    }
+    var days = [TwoSunsTestStates.widestDay(), TwoSunsTestStates.widestNextDay()] as Array<TwoSunsWeather>;
+    for (var i = 0; i < days.size(); i++) {
+        var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true), days[i]);
+        state.weatherOn = true;
+        var frame = new TwoSunsFrame(dc, layout, state, false);
+        Test.assertMessage(frame.weatherMode != TwoSunsConfig.WEATHER_ROW_NONE, "weather row dropped for the time, day " + i);
+        var bare = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true);
+        bare.weatherOn = true;
+        Test.assertEqual(new TwoSunsFrame(dc, layout, bare, false).timeFont, frame.timeFont);
+    }
+    return true;
+}
+
+// Free on a rectangle: the number grows with the time but stays clearly second (at most its share of the time's height).
+(:test, :free)
+function rectangleFreeNumberStaysSecond(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    if (layout.track() == null) {
+        return true;
+    }
+    var frame = new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true), false);
+    var timeH = dc.getFontHeight(frame.timeFont);
+    var own = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.VALUE_FREE_FONTS, layout.capFor(TwoSunsLayout.VALUE_FREE_MAX_PERMILLE));
+    Test.assert(frame.valueFont == own
+                || dc.getFontHeight(frame.valueFont) * TwoSunsConfig.PERMILLE <= timeH * TwoSunsLayout.RECT_VALUE_TO_TIME_PERMILLE);
     return true;
 }
