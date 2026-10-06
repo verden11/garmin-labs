@@ -656,7 +656,8 @@ show the simulator's canned values (sunrise 12:17, sunset 23:59, a 00:00 event; 
 **Amendment, 2026-10-06, review pass five:** the track corner is 0.15 of the short side (48 / 67 px), the studio's one corner
 proportion (1.5 insets, owner, 2026-10-06; it was 0.12); the window's tips move to y 112 / 151. The no-weather sentence is planned
 as itself, not against the morning's data worst case (which reserved a second line it never drew, under-filling the Venu X1 and
-round mornings), and drawn white, since it is the read. The STACK log counts the cells the frame draws (after the corner pills).
+round mornings), and drawn white, the label's role (on a rectangle, with its small clock, it is the read; on round and Instinct the time
+leads, as at night, and the sentence comes second). The STACK log counts the cells the frame draws (after the corner pills).
 Tests (simulator, container): Free PASSED 25/25 and Pro PASSED 28/28 on venusq2, venux1, fr965, fr255s, instincte40mm; the
 no-weather morning was screenshotted on fr965 and instincte40mm too (both tiers), since that change is shared.
 
