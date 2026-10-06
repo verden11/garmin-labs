@@ -660,9 +660,17 @@ round mornings), and drawn white, since it is the read. The STACK log counts the
 Tests (simulator, container): Free PASSED 25/25 and Pro PASSED 28/28 on venusq2, venux1, fr965, fr255s, instincte40mm; the
 no-weather morning was screenshotted on fr965 and instincte40mm too (both tiers), since that change is shared.
 
-**Amendment, review pass six:** with no weather the rectangle clock stays at `FONT_MEDIUM` (the data morning's size; the first
-rung had let it grow to NUMBER_MILD, larger than the sentence that is the read), and on the Instinct the no-weather morning sits
+**Amendment, review pass six:** with no weather the rectangle clock is `FONT_MEDIUM` (the Sq 2's data-morning size; the Venu X1's
+data morning has NUMBER_MILD, so its clock shrinks when weather drops out; the first rung had let it grow, larger than the
+sentence that is the read), and on the Instinct the no-weather morning sits
 below the round window like night (`belowWindow`), so the clock, date and sentence share one centre (the Pro sentence had broken
 into a two-axis staircase beside the window). Shared change: screenshotted on instincte40mm, instincte45mm and instinct3solar45mm,
 both tiers.
+
+**Amendment, review pass seven:** on the Instinct, a Pro no-weather morning moved its whole stack below the window and lost its
+pill row (the E 40 mm Pro looked like Free, against ROADMAP 1.18's approved Pro). Now only the sentence and the grid go below the
+window (`DayArcStack.place`, `_shift`); clock and date keep their band beside it, as on the data morning; Free and night still sit
+wholly below the window. Simulator only: Free PASSED (passed=25, failed=0, errors=0) and Pro PASSED (passed=28, failed=0, errors=0)
+on venusq2, venux1, fr965, fr255s, instincte40mm, instincte45mm, instinct3solar45mm; screenshots of the Instinct Pro no-weather
+morning on all three show the sentence centred below the window and two pill rows.
 

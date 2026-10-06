@@ -50,6 +50,7 @@ class DayArcStack {
     private var _window as Number;
     private var _hasGauge as Boolean;
     private var _iconHeight as Number = 0;
+    private var _shift as Number = 0;   // place(): extra height when an Instinct no-weather sentence moves below the window
     // The two hero icon sizes of this screen (ADR-017): [large width, large height, small width, small height], 0 when the window has none.
     private var _iconSizes as Array<Number> = [0, 0, 0, 0] as Array<Number>;
 
@@ -171,19 +172,20 @@ class DayArcStack {
         if (hs[ROW_GRID] == 0 && total < limit - start) {   // a stack with no grid block centres, Pro's included
             start += (limit - start - total) / 2;
         }
-        if (_window == DayArcConfig.WINDOW_NIGHT || strings.get(:value) == null) {
-            // Night is just the clock and the date, and the no-weather morning adds one sentence: all below the Instinct's
-            // window, so they share one centre (beside it the clock would centre in the narrow band and the date on the
-            // screen, and the sentence broke into a staircase across both, reviewer pass six). No-op elsewhere.
+        if (_window == DayArcConfig.WINDOW_NIGHT || (strings.get(:value) == null && hs[ROW_GRID] == 0)) {
+            // Night is just the clock and the date, and a no-weather morning with no grid adds one sentence: all below the
+            // Instinct's window, so they share one centre (beside it the clock would centre in the narrow band and the date on
+            // the screen; the sentence broke into a staircase, reviewer pass six). With Pro's grid, place() moves only the
+            // sentence and the grid below the window, so clock and date keep their band beside it. No-op elsewhere.
             start = layout.belowWindow(start);
         }
         var step = DayArcText.max(1, layout.permille(SEARCH_STEP_PERMILLE));
         place(start);
-        while (start + total <= limit && !DayArcStackFit.topRowsFit(self, dc())) {
+        while (start + total + _shift <= limit && !DayArcStackFit.topRowsFit(self, dc())) {
             start += step;
             place(start);
         }
-        fits = start + total <= limit && DayArcStackFit.allRowsFit(self, dc()) && DayArcStackFit.gridFits(self, dc());
+        fits = start + total + _shift <= limit && DayArcStackFit.allRowsFit(self, dc()) && DayArcStackFit.gridFits(self, dc());
         if (fits && pro && hs[ROW_GRID] > 0 && layout.subscreen() == null) {
             clearClock(limit - start - total);
         }
@@ -198,7 +200,7 @@ class DayArcStack {
     private function clockFontFor(t as Array<Number>) as Graphics.FontDefinition {
         var tier = DayArcText.max(t[DayArcConfig.LEVEL_CLOCK], DayArcPalette.MONO ? 1 : 0);
         if (layout.isRectangle() && _window != DayArcConfig.WINDOW_NIGHT) {
-            if (t[DayArcConfig.LEVEL_HERO] > 0 || strings.get(:value) == null) {   // no hero row: the data morning's size
+            if (t[DayArcConfig.LEVEL_HERO] > 0 || strings.get(:value) == null) {   // no hero row: the small clock, below the sentence that is the read
                 return DayArcLayout.RECT_SMALL_CLOCK_FONT;
             }
             tier = DayArcText.max(tier, 1);
@@ -271,6 +273,13 @@ class DayArcStack {
         for (var i = 0; i < ROW_COUNT; i++) {
             ys[i] = hs[i] > 0 ? y : -1;
             y += hs[i] > 0 ? hs[i] + gap : 0;
+        }
+        // Instinct, a no-weather morning with Pro's grid (reviewer pass seven): the sentence and the grid go below the window,
+        // on one centre, while clock and date stay beside it as on the data morning. _shift is that extra height.
+        _shift = 0;
+        if (strings.get(:value) == null && hs[ROW_GRID] > 0 && ys[ROW_SUB] >= 0) {
+            _shift = layout.belowWindow(ys[ROW_SUB]) - ys[ROW_SUB];
+            shiftFrom(ROW_SUB, ROW_COUNT, _shift);
         }
     }
 

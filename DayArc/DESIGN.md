@@ -457,7 +457,10 @@ change (every branch is `DayArcLayout.isRectangle()`).
 - **The Sq 2 Free clock changes size with the hero's tier, accepted:** `FONT_MEDIUM` beside the MEDIUM morning hero (and beside
   an empty-state hero, and with no hero at all on a morning without weather), NUMBER_MILD beside the HOT midday and evening hero, so the time grows by about 30% at 9:30 and shrinks
   when stress data goes missing. The alternative, one fixed clock size, reopens the clock-equals-hero problem in one of the two
-  cases. The Venu X1 Free (HOT everywhere) and the Sq 2 Pro (MEDIUM everywhere) do not move.
+  cases. With weather, the Venu X1 Free (HOT everywhere) and the Sq 2 Pro (MEDIUM everywhere) do not move. **A morning without
+  weather sets the clock to `FONT_MEDIUM` on every rectangle, both tiers:** the white sentence is the read there, and a larger
+  grey clock would outrank it (reviewer pass six). So the Venu X1 clock (NUMBER_MILD in its data morning) also shrinks when
+  weather drops out, accepted for the same reason.
 - Screenshots of the rectangle (`../device-test/rect-review/after/`) show the simulator's **canned values**: sunrise 12:17,
   sunset 23:59 and the 00:00 calendar event are what the simulator returns, not a real place or date; steps (5310), floors (7)
   and intensity (18) are set with `sim_activity`; weather is the simulator's (66 °F, 77/63, 10% rain).
