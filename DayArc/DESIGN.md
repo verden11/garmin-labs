@@ -422,13 +422,31 @@ change (every branch is `DayArcLayout.isRectangle()`).
   X1), and another 15 permille off the straight sides (19 / 28 px in): Pro's corner pills sit beside the side runs, and a grey
   pill outline at the arc's clearance alone read as touching the grey track (first Venu X1 screenshot). The stack starts at the inner box's top and ends at its bottom, which buys the planner about 25 px of height over the
   old inscribed-circle margins; `DayArcStack`'s dry run then picks the tiers, as everywhere.
-- **The clock starts one tier down in every active window** (NUMBER_MILD at most, as on the 1-bit Instinct; not at night, where
-  the time is the read). Reviewer, 2026-10-05: the square's extra height went to the clock first, and on the Venu X1 Free a grey
-  "20:02" stood 0.9 of the hero's height and twice its width, against about 0.65 before. The hero keeps its tier.
-- **What it buys (worst-case strings, `DayArcStackTest`, simulator only).** Venu Sq 2 Pro: midday and evening move from the
-  MILD hero with one grid row to MEDIUM with two; the morning keeps "Feels like" **and** a grid row (ROADMAP 13.30: the
-  square layout gives room for both). Venu Sq 2 Simple: midday and evening HOT. Venu X1: HOT in every window of both tiers,
-  Pro with two grid rows (three in the morning without weather).
+- **The clock stays clearly below the hero** in every active window (not at night, where the time is the read): one number tier
+  below a HOT hero (NUMBER_MILD), and the small text font `FONT_MEDIUM` (`DayArcLayout.RECT_SMALL_CLOCK_FONT`) beside a MEDIUM or
+  MILD hero. Reviewers, 2026-10-05 and 06: the square's extra height went to the clock first (Venu X1 Free, a grey "20:02" at
+  0.9 of the hero's height), and on the Venu Sq 2 Pro both NUMBER_MILD and FONT_LARGE digits rendered about as tall (~45 px) as
+  the MEDIUM hero's, so a tier rule on the font list alone did not separate them. The hero keeps its tier; the smaller clock
+  also frees the height that gives the Sq 2 Pro its second grid row.
+- **The morning sub line is planned for the watch's own data** (`DayArcSources.hasUvIndex`): `CurrentConditions.uvIndex` needs
+  API 5.1, the Venu Sq 2 / Sq 2 Music are 5.0, so their worst case is "104/-40  100% rain" without "UV 11". Planning the UV
+  segment there cost a second sub line the watch never draws, which left a ~45 px gap above Pro's lone grid row. Applies to any
+  product below API 5.1 (round ones included): their morning can only gain room.
+- **What it buys (worst-case strings, `DayArcStackTest` HEROINK/STACK log, simulator only).** Venu Sq 2 Pro: the hero is
+  NUMBER_MEDIUM (ink box 76 px) with **two** grid rows in the morning, midday and evening (it was MILD with one row before
+  ADR-019); the morning keeps "Feels like" **and** both grid rows (ROADMAP 13.30: the square gives room for both); with the
+  hero's own empty sentence (two lines) midday and evening step down to MILD with one row. Venu Sq 2 Free: NUMBER_HOT at
+  midday and evening, MEDIUM in the morning. Venu X1: HOT in every window of both tiers; Pro two grid rows (three in the
+  morning without weather).
+- **Free's empty band at the bottom, accepted (2026-10-06):** Free's stack is centred in the inner box, but the box's top
+  carries the arc and its corners, so the eye reads the band under the gauge (Venu X1 about 60 px, Sq 2 about 45 px in the
+  morning) as empty while the same space above the clock reads as filled. The hero is already at its largest tier on both
+  sizes where the window has a gauge (HOT), so there is nothing to give it; centring on the visible content instead would push
+  the clock into the arc's band. Kept: the band is the face breathing, not a missing row. The levers if a wrist disagrees: a
+  lower centre bias on rectangles, or a larger clock in Free only (which the reviewers just argued against).
+- Screenshots of the rectangle (`../device-test/rect-review/after/`) show the simulator's **canned values**: sunrise 12:17,
+  sunset 23:59 and the 00:00 calendar event are what the simulator returns, not a real place or date; steps (5310), floors (7)
+  and intensity (18) are set with `sim_activity`; weather is the simulator's (66 °F, 77/63, 10% rain).
 - Always-on: unchanged (the time only, drifting), fitted to the inner box. 24-hour burn-in simulation (simulator, Pro, from the
   midday window): no burn-in, peak luminance 1.94% (Venu Sq 2) and 2.27% (Venu X1), against a 10% limit that is unverified (quoted in
   `../docker/SIMULATOR.md` with no source; the simulator's own verdict box states no limit).

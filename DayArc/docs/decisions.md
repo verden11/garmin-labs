@@ -615,8 +615,9 @@ that clears the glass; progress runs clockwise and a share is the same share of 
 - Every row fits the inner box (track inner edge plus the arc's clearance, concentric rounded corners): `DayArcLayout.rowMaxWidth`,
   `topMargin` and `gridBottom` route there, so the planner (`DayArcStack`), the corner pills and the grid use it unchanged.
 - The gauge is a straight pill bar centred in the round gauge's row height; grid rows have no lift.
-- The clock starts one number tier down in every active window (as on the Instinct, ADR-015 (Instinct window gauge)), so the
-  extra height goes to the hero, not the clock (reviewer: on the Venu X1 Free the clock had reached 0.9 of the hero's height). Per-window colours
+- The clock stays clearly below the hero in every active window (not at night): one number tier below a HOT hero, the text
+  font `FONT_MEDIUM` beside a MEDIUM or MILD one (reviewers: on the Venu X1 Free the clock had reached 0.9 of the hero's
+  height; on the Venu Sq 2 Pro NUMBER_MILD and FONT_LARGE digits both rendered as tall as the MEDIUM hero's). Per-window colours
   (ADR-013 (icon system and per-window colour)), no verdicts (ADR-006 (single-hue gauge)) and the Accent (ADR-014 (one Accent
   colour list)) are unchanged.
 
@@ -634,3 +635,13 @@ there). No wrist has seen this; the Venu Sq 2's skin shows a glass corner of abo
 proportion, not a measured fit.
 
 **Reversed by:** The owner, on the screenshots or a wrist.
+
+**Amendment, 2026-10-06 (second review on the merged build):** (1) the clock rule above replaced "one tier down", which left the
+Sq 2 Pro clock and hero the same height. (2) The worst-case morning sub follows the watch: without `uvIndex` (API below 5.1,
+the Venu Sq 2 family is 5.0) it is planned without "UV 11", so the Sq 2 no longer reserves a second sub line it never draws; on
+any product below 5.1 the morning can only gain room (`DayArcSources.hasUvIndex`). With both, Venu Sq 2 Pro plans a MEDIUM hero
+and two grid rows in every data window, the morning label included. (3) Free's empty band under the gauge is accepted (DESIGN.md
+"Rectangle"): the stack is centred in the inner box and the hero is already at its largest tier. (4) The recaptured screenshots
+show the simulator's canned values (sunrise 12:17, sunset 23:59, a 00:00 event; steps, floors and intensity set by
+`sim_activity`) and are labelled so; empty states (no weather, no stress) and a blue Accent are captured with
+`tools/variant_shots.sh`, which patches a private copy of the project.

@@ -154,7 +154,7 @@ class DayArcStack {
     private function attempt(rung as Number, lines as Number, noGrid as Boolean) as Boolean {
         var t = DayArcConfig.STACK_LEVELS[rung];
         level = rung;
-        clockFont = DayArcLayout.CLOCK_FONTS[clockTier(t)];
+        clockFont = clockFontFor(t);
         heroFont = DayArcLayout.HERO_FONTS[t[DayArcConfig.LEVEL_HERO]];
         smallIcon = t[DayArcConfig.LEVEL_HERO] != 0;
         iconWidth = _iconSizes[smallIcon ? 2 : 0];
@@ -189,16 +189,20 @@ class DayArcStack {
         return fits;
     }
 
-    // The clock's tier for this rung. On a 1-bit watch it starts one tier down: with no hue the biggest digits read first, and
-    // they must be the hero's. On a rectangle (ADR-019, reviewers 2026-10-05/06) it also stays a tier below the hero's: the
-    // square's extra height went to the clock first (Venu X1 Free, a grey "20:02" at 0.9 of the hero's height), and on the
-    // Venu Sq 2 NUMBER_MILD digits beside NUMBER_MEDIUM ones render the same 45 px. Not at night, where the time is the read.
-    private function clockTier(t as Array<Number>) as Number {
+    // The clock's font for this rung. On a 1-bit watch it starts one tier down: with no hue the biggest digits read first, and
+    // they must be the hero's. On a rectangle (ADR-019, reviewers 2026-10-05/06), outside the night window where the time is
+    // the read, the clock stays clearly below the hero: one tier below a HOT hero (Venu X1 Free, a grey "20:02" had reached 0.9
+    // of the hero's height), and the small text clock beside a MEDIUM or MILD hero (Venu Sq 2 Pro: FONT_LARGE and
+    // NUMBER_MILD digits both render about as tall as NUMBER_MEDIUM ones, ~45 px).
+    private function clockFontFor(t as Array<Number>) as Graphics.FontDefinition {
         var tier = DayArcText.max(t[DayArcConfig.LEVEL_CLOCK], DayArcPalette.MONO ? 1 : 0);
         if (layout.isRectangle() && _window != DayArcConfig.WINDOW_NIGHT) {
-            tier = DayArcText.max(tier, t[DayArcConfig.LEVEL_HERO] + 1);
+            if (t[DayArcConfig.LEVEL_HERO] > 0) {
+                return DayArcLayout.RECT_SMALL_CLOCK_FONT;
+            }
+            tier = DayArcText.max(tier, 1);
         }
-        return DayArcText.min(tier, DayArcLayout.CLOCK_FONTS.size() - 1);
+        return DayArcLayout.CLOCK_FONTS[tier];
     }
 
     // Pro's corner pills sit in the date row, right under the clock: where the planned stack leaves spare height, widen the
