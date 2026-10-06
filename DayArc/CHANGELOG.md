@@ -12,7 +12,7 @@ store's "What's New" text for each version is in that listing's `listing/paste.m
   inside the track. On the Venu Sq 2, DayArc Pro's morning now shows "Feels like" and a row of fields together. Round watches
   and the Instinct are unchanged.
 - **Every watch, both listings (2026-10-06, simulator only):** a morning without weather shows the clock, the date and
-  "Weather unavailable" (DayArc Pro keeps its row of fields under it) instead of a lone "--" with nothing beside it; the morning line is planned without a UV reading on
+  "Weather unavailable" (DayArc Pro shows its fields under it) instead of a lone "--" with nothing beside it; the morning line is planned without a UV reading on
   watches that cannot report one (below API 5.1), which gives those watches' mornings more room.
 
 ## 1.0.0, both listings: uploaded and approved by Garmin 2026-10-05 (first publication)

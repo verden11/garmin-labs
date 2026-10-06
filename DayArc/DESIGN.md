@@ -15,7 +15,7 @@ type:
   clock: FONT_NUMBER_MEDIUM / FONT_NUMBER_MILD / FONT_LARGE (DayArcLayout.CLOCK_FONTS), plus FONT_MEDIUM on rectangles beside a MEDIUM or MILD hero or no hero (RECT_SMALL_CLOCK_FONT, ADR-019) — the tier is chosen by DayArcStack's whole-stack fit ("Layout"), not per row
   label: FONT_TINY / FONT_XTINY (LABEL_FONTS) — hero label and the date line (every window)
   hero: FONT_NUMBER_HOT / FONT_NUMBER_MEDIUM / FONT_NUMBER_MILD (HERO_FONTS) — the one number every window (but night) leads with; never smaller than the clock's tier
-  sub: FONT_TINY / FONT_XTINY (the same tier as the label) — the neutral muted line under the hero; wraps to two lines rather than shrinking the hero. The no-weather morning's sentence stands alone (no hero) and is white
+  sub: FONT_TINY / FONT_XTINY (the same tier as the label) — the neutral muted line under the hero; wraps to two lines rather than shrinking the hero. The no-weather morning's sentence stands alone (no hero) and is white; on a rectangle it is the read (small clock, ADR-019), on round and Instinct the time leads, as at night
   cell: FONT_XTINY (Pro's grid, fixed — a grid row that itself picked a larger font per-cell would misalign the two columns)
 icons:
   source: Tabler Icons (MIT license), github.com/tabler/tabler-icons — real paths adapted, not drawn from scratch (ADR-013)
@@ -132,7 +132,7 @@ Top to bottom, every window but night:
    threshold that, for stress, landed exactly on Garmin's own official band boundary — removed
    rather than defended.
 6. Sub line(s) (muted, small) — the neutral second line ("$1$ of 100", "23% rain UV 4", or the
-   empty-state sentence; the no-weather morning's "Weather unavailable" has no hero above it and is white, the read), wrapped to two lines when one line cannot hold it whole (morning's
+   empty-state sentence; the no-weather morning's "Weather unavailable" has no hero above it and is white: the read on a rectangle, second to the time on round and Instinct), wrapped to two lines when one line cannot hold it whole (morning's
    high/low + rain + UV is the longest real string). Omitted where the source data has none to add
    (midday's sub is `null` whenever stress itself is valid — the gauge already carries that row's
    information).
@@ -346,7 +346,8 @@ alone answers the glance; the grid rewards a longer look, it doesn't compete for
 touch-dependent.
 
 **Empty/error states**, one plain sentence or "--" per field, never blank:
-- Weather unavailable → "Weather unavailable" alone under the date, in white (the label's role: it is the read), planned as
+- Weather unavailable → "Weather unavailable" alone under the date, in white (the label's role; on a rectangle, with its small clock, it is the read; on round and Instinct the large clock leads,
+  as at night, and the sentence comes second), planned as
   itself (one line where it fits): no label, no "--", no icon, no hero row (2026-10-06; the sentence says it in words, and a
   bare dash with no icon read as a hole). Midday and evening keep label, icon, "--" and sentence.
 - Stress null → "Stress unavailable right now" — deliberately generic: Garmin's own docs say stress
@@ -471,6 +472,12 @@ change (every branch is `DayArcLayout.isRectangle()`).
 ## Instinct E and Instinct 3 Solar (1-bit, a round window top right; ADR-015, accepted 2026-10-04, simulator only)
 
 Black and white only: every colour role is white, the hero is told apart by its icon and label (never a hue), the Accent setting does not exist there. **The window-progress arc becomes a gauge in the round window** (a hairline circle, a thick fill from 12 o'clock clockwise, the same share of the current window; night has none). The clock and date share the band left of the window; the hero (icon and value), the gauge and the sub line sit below it; Pro's grid appears only when the stack has room and has no corner pills. What shows is the square cut by a circle about 98 px in radius, so rows are clipped to a 96 px circle. The mockup (`docs/archive/instinct-mockup.html`) is the approved look.
+
+**A morning without weather on the Instinct (ADR-019 amendments, review passes six and seven, simulator only):** Free sits wholly
+below the window, clock, date and sentence on one centre (as night does). Pro keeps clock and date in the band beside the window,
+as on the data morning, and puts the sentence and up to two pill rows below it (all three Instincts show two rows). This extends
+ROADMAP 1.18 rather than departing from it: the single pill row was the price of keeping the hero label, and with no weather there
+is no label or hero row to protect, so Pro differs from Free there even on the 3 Solar.
 
 **Pro on the Instinct (ADR-017, 2026-10-04):** the hero label is kept and Pro's grid shrinks to ONE row of pills where that fits (before, Pro dropped the label to buy two rows, which Simple never did). The E 40 mm draws that row in the morning, midday and evening; the 3 Solar draws it in the evening only. **On the 3 Solar the Pro morning and midday are the same picture as Simple, by design, not by bug:** the morning's sub line wraps to two lines at the worst case, and clock + date + two sub lines + hero leave no room for a pill row inside the circle the bezel leaves; midday's first row is the calendar pair, which needs a wider chord than that row has at 176 px (a cell is whole or not drawn, ADR-016). The levers if the owner wants Pro to differ in every window there: reorder the grid so the first row is two icon-only cells, or let the grid share the date's row; both are product calls. The hero icons stay the half-size white set; the weather glyph is the same outlined cloud and sun (no rays at that size). **Owner, 2026-10-04 (ROADMAP 1.18): keep Pro on the Instinct as built** (the 3 Solar morning and midday match Simple, thin strokes, one-row Pro grid); those are not to be changed.
 
