@@ -4,8 +4,8 @@ import Toybox.Lang;
 // the glass as the round ring is inset from the bezel. Its centreline, its length, the fill for a share, and the
 // rounded box at any depth that rows fit inside. Part of the layout's geometry (split out of DaysToGoLayout).
 class DaysToGoTrack {
-    // Corner radius of the centreline, a share of D: 67 px at 448 clears the Venu X1's rounded glass (about 64 px,
-    // measured off the alpha mask of the SDK's device image) with room; the Sq and Sq 2 glass is nearly square (about 10 px).
+    // Corner radius of the centreline, a share of D (the studio's 1.5-inset proportion): 67 px at 448 clears the Venu X1's
+    // rounded glass (60 to 68 px off the SDK device image's alpha mask) with room; the Sq and Sq 2 glass is nearly square.
     private static const CORNER_PERMILLE = 150;
     // A quarter circle is its radius times pi / 2.
     private static const QUARTER_ARC_PERMILLE = 1571;

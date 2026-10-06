@@ -11,8 +11,9 @@ class DaysToGoDraw {
     // text], so the screen-fit test catches clipping and overlap per device.
     static var misfits as Array<String>?;
     static var boxes as Array<Array>?;
-    // Glyphs that reach below the baseline (Latin; other scripts keep the font box only if they use these).
-    private static const DESCENDERS = "gjpqyQ,;()";
+    // The only glyphs logged as ink on a rectangle: the hero's digits and Pro's "h" / "m" (none reaches below the baseline).
+    // Any other text, a translated unit included, keeps its font box, so the fit test fails loudly rather than miss a descender.
+    private static const INK_GLYPHS = "0123456789:hm";
 
     static function text(dc as Graphics.Dc, layout as DaysToGoLayout, x as Number, y as Number, font as Graphics.FontDefinition, str as String, justify as Graphics.TextJustification) as Void {
         dc.drawText(x, y, font, str, justify);
@@ -32,15 +33,15 @@ class DaysToGoDraw {
         }
     }
 
-    // On a rectangle the fit test logs a text's ink where it can (ADR-019): a text with no descending letters ends at its
-    // baseline, so the caption may sit in the number's empty descent. Round and Instinct keep the font box.
+    // On a rectangle the fit test logs the hero's ink (ADR-019): digits end at their baseline, so the caption may sit in the
+    // number's empty descent. Round and Instinct, and every other text, keep the font box.
     private static function loggedHeight(dc as Graphics.Dc, layout as DaysToGoLayout, font as Graphics.FontDefinition, str as String) as Number {
         if (layout.track() == null || !(Graphics has :getFontAscent)) {
             return dc.getFontHeight(font);
         }
-        var marks = DESCENDERS.toCharArray();
-        for (var i = 0; i < marks.size(); i++) {
-            if (str.find(marks[i].toString()) != null) {
+        var chars = str.toCharArray();
+        for (var i = 0; i < chars.size(); i++) {
+            if (INK_GLYPHS.find(chars[i].toString()) == null) {
                 return dc.getFontHeight(font);
             }
         }

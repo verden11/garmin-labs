@@ -56,30 +56,47 @@ class DaysToGoFrame {
             }
             rows = plan(dc, layout, hasCaption);
         }
-        if (layout.track() != null && !sleeping && !state.heroIsWord) {
-            settle(dc, heroFonts);
+        if (layout.track() != null && !sleeping) {
+            settle(dc, state.heroIsWord);
         }
     }
 
-    // A rectangle's hero band is taller than its largest number font (ADR-019). The number keeps a band of its font's
-    // height and the caption sits a row gap under the digits' baseline (digits have no descent, so the font's padding
-    // below them is empty); the spare height is split, half above the number and half below the last row, which lifts the
-    // bottom rows off the corners' curve. A word hero (TODAY, SET A DATE) keeps the plain stack: the word centred in its
-    // band, the date at the box's bottom. The width check stays with DaysToGoDraw.
-    private function settle(dc as Graphics.Dc, heroFonts as Array<Graphics.FontDefinition>) as Void {
-        var font = DaysToGoDraw.fontUpTo(dc, heroFonts, rows.heroHeight);
-        var height = dc.getFontHeight(font);
-        var ink = (Graphics has :getFontAscent) ? Graphics.getFontAscent(font) : height;
-        var slack = rows.heroHeight - ink;
-        if (rows.heroHeight < height) {
+    // A rectangle's hero band is taller than its largest number font (ADR-019). The number takes the largest font whose
+    // digits (its ascent: digits have no descent) fit the band, and the caption sits a row gap under their baseline, in the
+    // font's empty padding; the spare height is split in font units, half above the number and half below the last row,
+    // which lifts the bottom rows off the corners' curve. A word hero (TODAY, SET A DATE) gets the same lift, so its date
+    // sits where a number face's does, and is centred in what is left. The width check stays with DaysToGoDraw.
+    private function settle(dc as Graphics.Dc, word as Boolean) as Void {
+        var font = numberFontFor(dc, rows.heroHeight);
+        if (font == null) {
             return;
         }
+        var ink = Graphics.getFontAscent(font);
+        var slack = rows.heroHeight - ink;
         var lift = slack - slack / 2;
-        rows.heroTop += slack / 2;
-        rows.heroHeight = height;
+        if (word) {
+            rows.heroHeight -= lift;
+        } else {
+            rows.heroTop += slack / 2;
+            rows.heroHeight = dc.getFontHeight(font);
+        }
         rows.captionTop = rows.captionTop > 0 ? rows.captionTop - lift : 0;
         rows.dateTop = rows.dateTop > 0 ? rows.dateTop - lift : 0;
         rows.footerTop = rows.footerTop > 0 ? rows.footerTop - lift : 0;
+    }
+
+    // The largest awake number font whose digits fit `band`, or null (none fits, or the API has no font ascent).
+    private function numberFontFor(dc as Graphics.Dc, band as Number) as Graphics.FontDefinition? {
+        if (!(Graphics has :getFontAscent)) {
+            return null;
+        }
+        var fonts = DaysToGoType.heroFonts(false, false);
+        for (var i = 0; i < fonts.size(); i++) {
+            if (Graphics.getFontAscent(fonts[i]) <= band) {
+                return fonts[i];
+            }
+        }
+        return null;
     }
 
     private function plan(dc as Graphics.Dc, layout as DaysToGoLayout, hasCaption as Boolean) as DaysToGoRows {
