@@ -13,20 +13,22 @@ class HeroFaceMissions {
         // so one state never draws two ways in one row (the green word and the full bar still say done).
         var noCheck = false;
         for (var i = 0; i < metrics.size(); i++) {
-            noCheck = noCheck || checkCrowds(dc, layout, metrics[i]);
+            var metric = metrics[i];
+            noCheck = noCheck || (metric.isDone() && !HeroFaceIcon.drawsFor(metric.kind) && checkCrowds(dc, layout, HeroFaceText.labels(metric.kind)));
         }
         for (var i = 0; i < metrics.size(); i++) {
             drawColumn(dc, layout, layout.columnLeft + step * i, metrics[i], state.accent, noCheck);
         }
     }
 
-    // A done label on a rectangle whose shortest fitting wording is still wider than its column less the check.
-    private static function checkCrowds(dc as Graphics.Dc, layout as HeroFaceLayout, metric as HeroFaceMetric) as Boolean {
-        if (!layout.rectangle() || !metric.isDone() || HeroFaceIcon.drawsFor(metric.kind)) {
+    // On a rectangle: is a done label's shortest fitting wording (`labels`, longest first) still wider than its column
+    // less the check? Public for the test that pins the one-treatment-per-row rule.
+    static function checkCrowds(dc as Graphics.Dc, layout as HeroFaceLayout, labels as Array<String>) as Boolean {
+        if (!layout.rectangle()) {
             return false;
         }
         var room = layout.columnWidth - checkWidth(dc);
-        return dc.getTextWidthInPixels(HeroFaceDraw.firstWithin(dc, room, Graphics.FONT_XTINY, HeroFaceText.labels(metric.kind)), Graphics.FONT_XTINY) > room;
+        return dc.getTextWidthInPixels(HeroFaceDraw.firstWithin(dc, room, Graphics.FONT_XTINY, labels), Graphics.FONT_XTINY) > room;
     }
 
     private static function drawColumn(dc as Graphics.Dc, layout as HeroFaceLayout, left as Number, metric as HeroFaceMetric, accent as Number, noCheck as Boolean) as Void {

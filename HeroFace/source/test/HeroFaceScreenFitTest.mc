@@ -271,3 +271,53 @@ function rectangleRingStaysOnTheDisplay(logger as Test.Logger) as Boolean {
         + " with seconds=" + HeroFaceFrame.inkHeight(layout.secondsTimeFont));
     return true;
 }
+
+// Two row rules (2026-10-06, ADR-005 amendment). The gold streak outranks the temperature: a HeroSet row whose streak
+// wording fits alone but not beside the temperature keeps the streak and drops the temperature, never the reverse
+// (rank-only beside it). And on a rectangle a done label that cannot fit beside its check makes the row drop the check
+// (`checkCrowds`); a short one does not, and round and Instinct products never do.
+(:test)
+function streakOutranksTemperatureAndDoneRowsMatch(logger as Test.Logger) as Boolean {
+    var settings = System.getDeviceSettings();
+    var size = {:width => settings.screenWidth, :height => settings.screenHeight};
+    var bitmap = (Graphics has :createBufferedBitmap)
+        ? Graphics.createBufferedBitmap(size).get() as Graphics.BufferedBitmap
+        : new Graphics.BufferedBitmap(size);
+    var dc = bitmap.getDc();
+    var layout = new HeroFaceLayout(dc);
+    var y = layout.underTimeTop;
+    var line = dc.getFontHeight(Graphics.FONT_XTINY);
+    var room = layout.rightInsetWithin(layout.contentRadius(), y, line) - layout.leftInsetWithin(layout.contentRadius(), y, line);
+    var temperature = "-20";
+    // A streak wording just too wide to share the row with the temperature, but narrow enough to fit alone.
+    var streak = "RANK 9  STREAK 9";
+    while (dc.getTextWidthInPixels(streak + "9", Graphics.FONT_XTINY) <= room
+            && dc.getTextWidthInPixels(streak, Graphics.FONT_XTINY) + layout.columnGap() + dc.getTextWidthInPixels(temperature, Graphics.FONT_XTINY) <= room) {
+        streak += "9";
+    }
+    var state = HeroFaceTestStates.everyday();
+    state.streakLines = [streak, "RANK 9"] as Array<String>;
+    state.streakLastDropsStreak = true;
+    state.streakKept = true;
+    state.temperature = temperature;
+    HeroFaceDraw.boxes = [] as Array<Array>;
+    var drawn = [] as Array<String>;
+    try {
+        new HeroFaceView(new HeroFaceLink()).drawState(dc, layout, state);
+        var boxes = HeroFaceDraw.boxes as Array<Array>;
+        for (var i = 0; i < boxes.size(); i++) {
+            drawn.add(boxes[i][4] as String);
+        }
+    } finally {
+        HeroFaceDraw.boxes = null;
+    }
+    logger.debug("row room=" + room + " drew " + drawn);
+    if (layout.subscreen() == null) {
+        Test.assert(drawn.indexOf(streak) >= 0);
+        Test.assert(drawn.indexOf(temperature) < 0);
+        Test.assert(drawn.indexOf("RANK 9") < 0);
+    }
+    Test.assertEqual(HeroFaceMissions.checkCrowds(dc, layout, ["ATSISPAUDIMAIATSISPAUDIMAI", "ATSISPAUDIMAIATSIS"] as Array<String>), layout.rectangle());
+    Test.assert(!HeroFaceMissions.checkCrowds(dc, layout, ["SQT"] as Array<String>));
+    return true;
+}
