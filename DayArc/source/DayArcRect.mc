@@ -10,11 +10,11 @@ import Toybox.Math;
 // gauge is a straight pill bar. Round and Instinct products never reach this class (DayArcLayout.isRectangle).
 // The corner radius idea is HeroFace's frame (copied, not linked): large enough to clear the glass, one proportion per size.
 class DayArcRect {
-    // The track's centreline corner radius, 0.12 of the short side: 53 px on the Venu X1, whose glass corner (a superellipse
-    // in the SDK skin's alpha) a 66 px circle fits; the track corner is nearly concentric with it and keeps about 8 px of
-    // black outside the stroke on the diagonal (DayArcRectTest asserts at least 2). 38 px on the Venu Sq 2 (its skin's glass
-    // corner is about 8 px): the same proportion, not a fit.
-    private static const CORNER_PERMILLE = 120;
+    // The track's centreline corner radius, 0.15 of the short side (1.5 insets, the studio's one proportion): 67 px on the
+    // Venu X1, whose glass corner (a superellipse in the SDK skin's alpha) a 66 px circle fits; the track keeps about 13 px of
+    // black outside the stroke on the diagonal (DayArcRectTest asserts at least 2). 48 px on the Venu Sq 2 (its skin's glass
+    // corner is about 8 px): the proportion, not a fit.
+    private static const CORNER_PERMILLE = 150;   // the studio's one corner proportion (1.5 insets; owner, 2026-10-06)
     private static const SEGMENTS = 5;   // left side, top-left corner, top, top-right corner, right side
     private static const DEGREES_PER_QUARTER = 90;
     private static const FULL_CIRCLE_DEGREES = 360;

@@ -1,5 +1,6 @@
 import Toybox.Complications;
 import Toybox.Lang;
+import Toybox.System;
 import Toybox.Weather;
 
 // The only class that touches the watch. Complications (permission: ComplicationSubscriber, manifest
@@ -65,6 +66,23 @@ class DayArcSources {
         } catch (e instanceof Lang.Exception) {
             return null;
         }
+    }
+
+    // Whether this watch can carry a UV reading at all (the planner's worst-case morning sub follows it). The same test as
+    // uvIndex() below (`has :uvIndex` on the live conditions), so the plan and the drawn line cannot disagree; with no
+    // conditions to ask, the API level decides (uvIndex needs 5.1).
+    static function hasUvIndex() as Boolean {
+        var conditions = null as Weather.CurrentConditions or Null;
+        try {
+            conditions = (Toybox has :Weather) ? Weather.getCurrentConditions() : null;
+        } catch (e instanceof Lang.Exception) {
+            conditions = null;
+        }
+        if (conditions != null) {
+            return conditions has :uvIndex;
+        }
+        var version = System.getDeviceSettings().monkeyVersion;
+        return version[0] > DayArcConfig.UV_API_MAJOR || (version[0] == DayArcConfig.UV_API_MAJOR && version[1] >= DayArcConfig.UV_API_MINOR);
     }
 
     // uvIndex needs API 5.1.0 on CurrentConditions (confirmed above the 4.2.0 floor, ADR-005):

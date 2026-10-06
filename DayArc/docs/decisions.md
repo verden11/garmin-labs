@@ -609,14 +609,15 @@ that clears the glass; progress runs clockwise and a share is the same share of 
 
 **Decision (DESIGN.md "Rectangle"):**
 - `DayArcRect` (new, rectangle only): the track's centreline is inset by what the round arc's is (`DayArcArc.radius`), the same
-  pen, corner radius 0.12 of the short side, clear of the Venu X1's measured glass corner (a 66 px circle fits the skin's alpha).
+  pen, corner radius 0.15 of the short side (the studio's 1.5 insets; 0.12 until review pass five), clear of the Venu X1's measured glass corner (a 66 px circle fits the skin's alpha).
   The window arc is its upper part, from the left side over the top to the right side, the round arc's share
   (`ARC_SPAN_DEGREES` of 360) of the path, filled clockwise from the left in the window's accent.
 - Every row fits the inner box (track inner edge plus the arc's clearance, concentric rounded corners): `DayArcLayout.rowMaxWidth`,
   `topMargin` and `gridBottom` route there, so the planner (`DayArcStack`), the corner pills and the grid use it unchanged.
 - The gauge is a straight pill bar centred in the round gauge's row height; grid rows have no lift.
-- The clock starts one number tier down in every active window (as on the Instinct, ADR-015 (Instinct window gauge)), so the
-  extra height goes to the hero, not the clock (reviewer: on the Venu X1 Free the clock had reached 0.9 of the hero's height). Per-window colours
+- The clock stays clearly below the hero in every active window (not at night): one number tier below a HOT hero, the text
+  font `FONT_MEDIUM` beside a MEDIUM or MILD one (reviewers: on the Venu X1 Free the clock had reached 0.9 of the hero's
+  height; on the Venu Sq 2 Pro NUMBER_MILD and FONT_LARGE digits both rendered as tall as the MEDIUM hero's). Per-window colours
   (ADR-013 (icon system and per-window colour)), no verdicts (ADR-006 (single-hue gauge)) and the Accent (ADR-014 (one Accent
   colour list)) are unchanged.
 
@@ -626,10 +627,55 @@ the window is the round arc's share of the path, every planned row and the gauge
 the morning unlabelled, stale since the label came in, ROADMAP 13.28). Screenshots of every window, both tiers, both sizes, the
 track part-filled (05:20, 06:00, 08:30, 09:25) and always-on: `../../device-test/rect-review/after/` (untracked). The "before"
 set there is in 12-hour time, the "after" set in 24-hour: compare clock widths with that in mind. 24-hour burn-in simulation
-(Pro, from midday): no burn-in, peak luminance 1.94% (Venu Sq 2), 2.27% (Venu X1).
+(Pro, from midday): no burn-in, peak luminance 1.94% (Venu Sq 2), 2.27% (Venu X1); the 10% limit often quoted beside
+these numbers is unverified (no source found; the simulator's verdict box states none).
 
 **Consequences:** On the Venu Sq 2 Pro the morning keeps "Feels like" and a grid row (ROADMAP 13.30's trade no longer happens
-there). No wrist has seen this; the Venu Sq 2's skin shows a glass corner of about 8 px, so its 38 px track corner is a
+there). No wrist has seen this; the Venu Sq 2's skin shows a glass corner of about 8 px, so its 48 px track corner is a
 proportion, not a measured fit.
 
 **Reversed by:** The owner, on the screenshots or a wrist.
+
+**Amendment, 2026-10-06 (second review on the merged build):** (1) the clock rule above replaced "one tier down", which left the
+Sq 2 Pro clock and hero the same height. (2) The worst-case morning sub follows the watch: without `uvIndex` (API below 5.1,
+the Venu Sq 2 family is 5.0) it is planned without "UV 11", so the Sq 2 no longer reserves a second sub line it never draws; on
+any product below 5.1 the morning can only gain room (`DayArcSources.hasUvIndex`). With both, Venu Sq 2 Pro plans a MEDIUM hero
+and two grid rows in every data window, the morning label included. (3) Free's empty band at the bottom is accepted (DESIGN.md
+"Rectangle"): the stack is measured centred in the inner box; the band reads emptier because the arc fills the top; lowering the
+stack would open the same gap under the arc and break the arc-clock header; the hero cannot take the room (HOT at midday and
+evening; on the Sq 2 morning every HOT rung fails the worst-case fit). The no-weather morning drops its label and hero row and reads clock, date
+and "Weather unavailable" (shared code, every product; still no icon, ROADMAP 13.29): with no icon a "--" floated alone in a row
+sized for digits (reviewers, passes three and four). `hasUvIndex` uses the drawn line's own test (`has :uvIndex` on the live
+conditions). The Sq 2 Pro "MEDIUM hero, two grid rows" morning is a simulator result that holds while the watch reports no
+`uvIndex`; a firmware that adds it plans the UV segment again. The
+Sq 2 Free clock changes size with the hero's tier (FONT_MEDIUM / NUMBER_MILD), accepted to keep the hierarchy. (4) The recaptured screenshots
+show the simulator's canned values (sunrise 12:17, sunset 23:59, a 00:00 event; steps, floors and intensity set by
+`sim_activity`) and are labelled so; empty states (no weather, no stress) and a blue Accent are captured with
+`tools/variant_shots.sh`, which patches a private copy of the project.
+
+**Amendment, 2026-10-06, review pass five:** the track corner is 0.15 of the short side (48 / 67 px), the studio's one corner
+proportion (1.5 insets, owner, 2026-10-06; it was 0.12); the window's tips move to y 112 / 151. The no-weather sentence is planned
+as itself, not against the morning's data worst case (which reserved a second line it never drew, under-filling the Venu X1 and
+round mornings), and drawn white, the label's role (on a rectangle, with its small clock, it is the read; on round and Instinct the time
+leads, as at night, and the sentence comes second). The STACK log counts the cells the frame draws (after the corner pills).
+Tests (simulator, container): Free PASSED 25/25 and Pro PASSED 28/28 on venusq2, venux1, fr965, fr255s, instincte40mm; the
+no-weather morning was screenshotted on fr965 and instincte40mm too (both tiers), since that change is shared.
+
+**Amendment, review pass six:** with no weather the rectangle clock is `FONT_MEDIUM` (the Sq 2's data-morning size; the Venu X1's
+data morning has NUMBER_MILD, so its clock shrinks when weather drops out; the first rung had let it grow, larger than the
+sentence that is the read), and on the Instinct the no-weather morning sits
+below the round window like night (`belowWindow`), so the clock, date and sentence share one centre (the Pro sentence had broken
+into a two-axis staircase beside the window). Shared change: screenshotted on instincte40mm, instincte45mm and instinct3solar45mm,
+both tiers.
+
+**Amendment, review pass seven:** on the Instinct, a Pro no-weather morning moved its whole stack below the window and lost its
+pill row (the E 40 mm Pro looked like Free, against ROADMAP 1.18's approved Pro). Now only the sentence and the grid go below the
+window (`DayArcStack.place`, `_shift`); clock and date keep their band beside it, as on the data morning; Free and night still sit
+wholly below the window. Simulator only: Free PASSED (passed=25, failed=0, errors=0) and Pro PASSED (passed=28, failed=0, errors=0)
+on venusq2, venux1, fr965, fr255s, instincte40mm, instincte45mm, instinct3solar45mm; screenshots of the Instinct Pro no-weather
+morning on all three show the sentence centred below the window and two pill rows.
+
+**Amendment, review pass ten:** on a rectangle, Pro's morning without weather (no hero row) is centred in the inner box, keeping
+room for one more grid row than reserved (`DayArcStack.attempt`); top-anchored it left about 150 px blank under the grid on the
+Venu X1. Round and Instinct Pro stay top-anchored. Simulator only (Venu Sq 2 and X1 Pro recaptured).
+

@@ -48,6 +48,8 @@ class DayArcLayout {
     private static const GRID_VALUE_GAP_MIN_PX = 3;    // on an Instinct's 166 px a permille gap was 1 px: "Rec5h"
 
     static const CLOCK_FONTS = [Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD, Graphics.FONT_LARGE] as Array<Graphics.FontDefinition>;
+    // Rectangles only (ADR-019): the clock beside a hero below HOT, a text font whose digits stay clearly under the hero's.
+    static const RECT_SMALL_CLOCK_FONT = Graphics.FONT_MEDIUM;
     static const HERO_FONTS = [Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
     static const LABEL_FONTS = [Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     static const CELL_FONT = Graphics.FONT_XTINY;
