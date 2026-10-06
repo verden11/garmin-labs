@@ -231,3 +231,39 @@ function rectangleFreeNumberStaysSecond(logger as Test.Logger) as Boolean {
                 || dc.getFontHeight(frame.valueFont) * TwoSunsConfig.PERMILLE <= timeH * TwoSunsLayout.RECT_VALUE_TO_TIME_PERMILLE);
     return true;
 }
+
+// The rectangle spread: every visible gap the same (within the rounding), margins included, the time's empty bands not
+// counted, the time's digits never touching a neighbour; null when the even gap would be under the minimum.
+(:test)
+function rectangleSpreadGapsAreEven(logger as Test.Logger) as Boolean {
+    var heights = [39, 155, 0, 68, 39] as Array<Number>;
+    var pads = [0, 30, 0, 0, 0] as Array<Number>;
+    var tops = TwoSunsRectSpread.place(heights, pads, 20, 340, 4) as Array<Number>;
+    var gaps = [tops[0] - 20, tops[1] + pads[1] - (tops[0] + heights[0]), tops[3] - (tops[1] + heights[1] - pads[1]),
+                tops[4] - (tops[3] + heights[3]), 340 - (tops[4] + heights[4])] as Array<Number>;
+    for (var i = 1; i < gaps.size(); i++) {
+        Test.assertMessage((gaps[i] - gaps[0]).abs() <= gaps.size(), "gap " + i + " is " + gaps[i] + ", first " + gaps[0]);
+    }
+    Test.assert(tops[0] >= 20 && tops[4] + heights[4] <= 340);
+    Test.assert(tops[1] + pads[1] >= tops[0] + heights[0] + 4 && tops[3] >= tops[1] + heights[1] - pads[1] + 4);   // digits never touch
+    Test.assert(TwoSunsRectSpread.place(heights, pads, 20, 270, 4) == null);
+    return true;
+}
+
+// On a rectangle the rows' places do not depend on which wording the sun sentence takes, so nothing jumps as it shortens.
+(:test)
+function rectangleRowsDoNotDependOnTheWording(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    if (layout.track() == null) {
+        return true;
+    }
+    var state = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true);
+    var a = new TwoSunsFrame(dc, layout, state, false);
+    state.skyLines = ["1h"] as Array<String>;
+    var b = new TwoSunsFrame(dc, layout, state, false);
+    Test.assertEqual(a.rows.lineTop, b.rows.lineTop);
+    Test.assertEqual(a.rows.bandTop, b.rows.bandTop);
+    Test.assertEqual(a.rows.timeTop, b.rows.timeTop);
+    return true;
+}

@@ -55,7 +55,14 @@ class TwoSunsView extends WatchUi.WatchFace {
         if (frame.showDate) {
             drawRow(dc, layout, radius, rows.dateTop, dc.getFontHeight(frame.dateFont), frame.dateFonts, state.dateLines, TwoSunsPalette.MUTED);
         }
-        drawRow(dc, layout, radius, rows.timeTop, dc.getFontHeight(frame.timeFont), frame.timeFonts, [state.time] as Array<String>, TwoSunsPalette.TEXT);
+        if (frame.timeByInk) {
+            // a rectangle's spread time: placed and fitted by its digits (TwoSunsRectSpread, TwoSunsRectFit)
+            dc.setColor(TwoSunsPalette.TEXT, Graphics.COLOR_TRANSPARENT);
+            TwoSunsDraw.inkText(dc, layout, layout.centerX(), rows.timeTop, frame.timeFont, state.time,
+                                TwoSunsRectSpread.timePad(frame.timeFont, dc.getFontHeight(frame.timeFont)));
+        } else {
+            drawRow(dc, layout, radius, rows.timeTop, dc.getFontHeight(frame.timeFont), frame.timeFonts, [state.time] as Array<String>, TwoSunsPalette.TEXT);
+        }
         drawBattery(dc, layout, frame, state);
         drawWeather(dc, layout, frame, state);
         drawBand(dc, layout, frame, state);

@@ -32,12 +32,12 @@ class TwoSunsFrame {
     // when the battery row is kept (`batteryStrip` px, set by TwoSunsRectFit).
     var spreadRows as Boolean = false;
     var batteryStrip as Number = 0;
-    var lineCandidates as Array<String> = [] as Array<String>;   // the sun sentence's wordings, for TwoSunsRectSpread
+    var timeByInk as Boolean = false;        // the time is drawn by its digits at its spread place (TwoSunsDraw.inkText)
+    var timeFitsByInk as Boolean = false;    // TwoSunsRectFit measured the time's digits against the box's width
 
     // `sleeping` keeps only the time, the value and the sun line (always-on).
     function initialize(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState, sleeping as Boolean) {
         spreadRows = !sleeping && layout.track() != null;
-        lineCandidates = state.skyLines;
         dateFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.DATE_FONTS, layout.capFor(TwoSunsLayout.DATE_MAX_PERMILLE));
         // Always-on time is two steps below whatever awake would pick right now, not a separate fixed
         // list — so it stays visibly smaller than awake on every screen, not just the ones where awake
@@ -164,7 +164,9 @@ class TwoSunsFrame {
         bandHeight = showCurve && curveHeight > valueHeight ? curveHeight : valueHeight;
         weatherHeight = weatherRowHeight(dc, layout);
         var stacked = layout.rows(dateHeight(dc), dc.getFontHeight(timeFont), weatherHeight, bandHeight, lineHeight(dc));
-        return spreadRows ? TwoSunsRectSpread.spread(dc, layout, self, stacked) : stacked;
+        var spread = spreadRows ? TwoSunsRectSpread.rowsFor(dc, layout, self, timeFont, valueFont, weatherHeight, batteryStrip) : null;
+        timeByInk = spread != null && timeFitsByInk;
+        return spread != null ? spread : stacked;
     }
 
     // The watch battery row sits one gap above the first row of the stack, in the strip the stack leaves free; it is drawn
