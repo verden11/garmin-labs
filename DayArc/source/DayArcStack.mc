@@ -171,9 +171,10 @@ class DayArcStack {
         if (hs[ROW_GRID] == 0 && total < limit - start) {   // a stack with no grid block centres, Pro's included
             start += (limit - start - total) / 2;
         }
-        if (_window == DayArcConfig.WINDOW_NIGHT) {
-            // Night is just the clock and the date: both below the Instinct's window, so they share one centre
-            // (beside it the clock would centre in the narrow band and the date on the screen). No-op elsewhere.
+        if (_window == DayArcConfig.WINDOW_NIGHT || strings.get(:value) == null) {
+            // Night is just the clock and the date, and the no-weather morning adds one sentence: all below the Instinct's
+            // window, so they share one centre (beside it the clock would centre in the narrow band and the date on the
+            // screen, and the sentence broke into a staircase across both, reviewer pass six). No-op elsewhere.
             start = layout.belowWindow(start);
         }
         var step = DayArcText.max(1, layout.permille(SEARCH_STEP_PERMILLE));
@@ -197,7 +198,7 @@ class DayArcStack {
     private function clockFontFor(t as Array<Number>) as Graphics.FontDefinition {
         var tier = DayArcText.max(t[DayArcConfig.LEVEL_CLOCK], DayArcPalette.MONO ? 1 : 0);
         if (layout.isRectangle() && _window != DayArcConfig.WINDOW_NIGHT) {
-            if (t[DayArcConfig.LEVEL_HERO] > 0) {
+            if (t[DayArcConfig.LEVEL_HERO] > 0 || strings.get(:value) == null) {   // no hero row: the data morning's size
                 return DayArcLayout.RECT_SMALL_CLOCK_FONT;
             }
             tier = DayArcText.max(tier, 1);

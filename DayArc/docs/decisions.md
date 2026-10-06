@@ -660,3 +660,9 @@ round mornings), and drawn white, since it is the read. The STACK log counts the
 Tests (simulator, container): Free PASSED 25/25 and Pro PASSED 28/28 on venusq2, venux1, fr965, fr255s, instincte40mm; the
 no-weather morning was screenshotted on fr965 and instincte40mm too (both tiers), since that change is shared.
 
+**Amendment, review pass six:** with no weather the rectangle clock stays at `FONT_MEDIUM` (the data morning's size; the first
+rung had let it grow to NUMBER_MILD, larger than the sentence that is the read), and on the Instinct the no-weather morning sits
+below the round window like night (`belowWindow`), so the clock, date and sentence share one centre (the Pro sentence had broken
+into a two-axis staircase beside the window). Shared change: screenshotted on instincte40mm, instincte45mm and instinct3solar45mm,
+both tiers.
+

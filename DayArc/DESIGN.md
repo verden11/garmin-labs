@@ -12,10 +12,10 @@ colors:
   accent_night: none — night has no hero, no icon, stays muted-only whatever the setting
   grid_icon_colors: all muted #AAAAAA since 2026-10-05 (ADR-013 amendment; the 14 per-type hues before it are in "Iconography" for history)
 type:
-  clock: FONT_NUMBER_MEDIUM / FONT_NUMBER_MILD / FONT_LARGE (DayArcLayout.CLOCK_FONTS) — the tier is chosen by DayArcStack's whole-stack fit ("Layout"), not per row
+  clock: FONT_NUMBER_MEDIUM / FONT_NUMBER_MILD / FONT_LARGE (DayArcLayout.CLOCK_FONTS), plus FONT_MEDIUM on rectangles beside a MEDIUM or MILD hero or no hero (RECT_SMALL_CLOCK_FONT, ADR-019) — the tier is chosen by DayArcStack's whole-stack fit ("Layout"), not per row
   label: FONT_TINY / FONT_XTINY (LABEL_FONTS) — hero label and the date line (every window)
   hero: FONT_NUMBER_HOT / FONT_NUMBER_MEDIUM / FONT_NUMBER_MILD (HERO_FONTS) — the one number every window (but night) leads with; never smaller than the clock's tier
-  sub: FONT_TINY / FONT_XTINY (the same tier as the label) — the neutral line under the hero; wraps to two lines rather than shrinking the hero
+  sub: FONT_TINY / FONT_XTINY (the same tier as the label) — the neutral muted line under the hero; wraps to two lines rather than shrinking the hero. The no-weather morning's sentence stands alone (no hero) and is white
   cell: FONT_XTINY (Pro's grid, fixed — a grid row that itself picked a larger font per-cell would misalign the two columns)
 icons:
   source: Tabler Icons (MIT license), github.com/tabler/tabler-icons — real paths adapted, not drawn from scratch (ADR-013)
@@ -98,7 +98,8 @@ left Venu Sq 2 a 204px chord and no tier that fit). **Since ADR-019 (2026-10-05)
   halves, preferring the morning sub's double-space between segments) rather than shrinking the
   hero, and the second line is part of the planned height. A second line is planned only when one
   line failed because the sub text itself did not fit, and at draw time a live string that fits one
-  line is drawn on one ("Weather unavailable" is never split into two words). Empty-state sentences
+  line is drawn on one ("Weather unavailable" is never split into two words on a colour screen; on the Instinct's narrow
+  band it may need two lines, drawn below the window on one centre). Empty-state sentences
   ("Stress unavailable right now", "Weather unavailable", "Body Battery unavailable") are not
   meant to be cut; `DayArcText.truncated` is the backstop, and it returns the whole string, or at
   least one character plus "...", or nothing — never a bare one-character stub.
@@ -131,7 +132,7 @@ Top to bottom, every window but night:
    threshold that, for stress, landed exactly on Garmin's own official band boundary — removed
    rather than defended.
 6. Sub line(s) (muted, small) — the neutral second line ("$1$ of 100", "23% rain UV 4", or the
-   empty-state sentence), wrapped to two lines when one line cannot hold it whole (morning's
+   empty-state sentence; the no-weather morning's "Weather unavailable" has no hero above it and is white, the read), wrapped to two lines when one line cannot hold it whole (morning's
    high/low + rain + UV is the longest real string). Omitted where the source data has none to add
    (midday's sub is `null` whenever stress itself is valid — the gauge already carries that row's
    information).
@@ -454,7 +455,7 @@ change (every branch is `DayArcLayout.isRectangle()`).
   failed the worst-case fit (`DayArcStackTest` STACK log, level 4); the live morning frame draws that same plan. The lever if a wrist disagrees: a downward centre bias on rectangles
   (`DayArcStack.attempt` already only slides a stack down, away from the arc), one constant and a screenshot.
 - **The Sq 2 Free clock changes size with the hero's tier, accepted:** `FONT_MEDIUM` beside the MEDIUM morning hero (and beside
-  an empty-state hero), NUMBER_MILD beside the HOT midday and evening hero, so the time grows by about 30% at 9:30 and shrinks
+  an empty-state hero, and with no hero at all on a morning without weather), NUMBER_MILD beside the HOT midday and evening hero, so the time grows by about 30% at 9:30 and shrinks
   when stress data goes missing. The alternative, one fixed clock size, reopens the clock-equals-hero problem in one of the two
   cases. The Venu X1 Free (HOT everywhere) and the Sq 2 Pro (MEDIUM everywhere) do not move.
 - Screenshots of the rectangle (`../device-test/rect-review/after/`) show the simulator's **canned values**: sunrise 12:17,
