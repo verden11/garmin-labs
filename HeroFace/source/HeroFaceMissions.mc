@@ -9,12 +9,27 @@ class HeroFaceMissions {
     static function draw(dc as Graphics.Dc, layout as HeroFaceLayout, state as HeroFaceState) as Void {
         var metrics = state.metrics;
         var step = layout.columnWidth + layout.columnGap();
+        // On a rectangle a done label too wide for its column with the check drops the check; then every column does,
+        // so one state never draws two ways in one row (the green word and the full bar still say done).
+        var noCheck = false;
         for (var i = 0; i < metrics.size(); i++) {
-            drawColumn(dc, layout, layout.columnLeft + step * i, metrics[i], state.accent);
+            noCheck = noCheck || checkCrowds(dc, layout, metrics[i]);
+        }
+        for (var i = 0; i < metrics.size(); i++) {
+            drawColumn(dc, layout, layout.columnLeft + step * i, metrics[i], state.accent, noCheck);
         }
     }
 
-    private static function drawColumn(dc as Graphics.Dc, layout as HeroFaceLayout, left as Number, metric as HeroFaceMetric, accent as Number) as Void {
+    // A done label on a rectangle whose shortest fitting wording is still wider than its column less the check.
+    private static function checkCrowds(dc as Graphics.Dc, layout as HeroFaceLayout, metric as HeroFaceMetric) as Boolean {
+        if (!layout.rectangle() || !metric.isDone() || HeroFaceIcon.drawsFor(metric.kind)) {
+            return false;
+        }
+        var room = layout.columnWidth - checkWidth(dc);
+        return dc.getTextWidthInPixels(HeroFaceDraw.firstWithin(dc, room, Graphics.FONT_XTINY, HeroFaceText.labels(metric.kind)), Graphics.FONT_XTINY) > room;
+    }
+
+    private static function drawColumn(dc as Graphics.Dc, layout as HeroFaceLayout, left as Number, metric as HeroFaceMetric, accent as Number, noCheck as Boolean) as Void {
         var width = layout.columnWidth;
         var center = left + width / 2;
         var line = dc.getFontHeight(Graphics.FONT_XTINY);
@@ -33,7 +48,7 @@ class HeroFaceMissions {
         if (metric.hasBar()) {
             drawBar(dc, left, barTop, width, layout.barHeight(), metric, accent);
         }
-        drawLabel(dc, layout, center, width, barTop + layout.barHeight() + gap, metric);
+        drawLabel(dc, layout, center, width, barTop + layout.barHeight() + gap, metric, noCheck);
     }
 
     // Pill track and fill; a fill shorter than the bar is tall gets a smaller
@@ -57,10 +72,10 @@ class HeroFaceMissions {
     // A finished goal: a drawn check beside its label in green. On the 1-bit Instinct the columns are about 42 px and
     // "check + STEP" did not fit ("ST."), so the label itself is reversed (black on a white pill) instead, which costs
     // two pixels each side and no check; the full solid bar says "done" there as well (ADR-002 amendment, 2026-10-04).
-    private static function drawLabel(dc as Graphics.Dc, layout as HeroFaceLayout, center as Number, width as Number, top as Number, metric as HeroFaceMetric) as Void {
+    private static function drawLabel(dc as Graphics.Dc, layout as HeroFaceLayout, center as Number, width as Number, top as Number, metric as HeroFaceMetric, noCheck as Boolean) as Void {
         var done = metric.isDone();
         var reversed = done && HeroFacePalette.MONO;
-        var check = done && !reversed ? checkWidth(dc) : 0;
+        var check = done && !reversed && !noCheck ? checkWidth(dc) : 0;
         var pad = reversed ? layout.doneLabelPad() : 0;
         var icon = HeroFaceIcon.drawsFor(metric.kind);
         var label = "";
@@ -70,12 +85,8 @@ class HeroFaceMissions {
         } else {
             label = HeroFaceDraw.firstWithin(dc, width - check - 2 * pad, Graphics.FONT_XTINY, HeroFaceText.labels(metric.kind));
             // On a rectangle the outer columns slide inside the frame (`inside`), so a label wider than its column would
-            // reach the middle one. A done label that only fits without its check drops the check first: the green word
-            // and the full bar still say done, and the word stays readable (Lithuanian "ATSISP" in 90 px on a Venu Sq 2,
-            // where cutting it made push-ups and sit-ups both "ATS.").
-            if (layout.rectangle() && check > 0 && dc.getTextWidthInPixels(label, Graphics.FONT_XTINY) > width - check) {
-                check = 0;
-            }
+            // reach the middle one: the row drops its checks first (`checkCrowds`; cutting first made Lithuanian
+            // push-ups and sit-ups both "ATS." on a Venu Sq 2), then a label still too wide is cut.
             if (layout.subscreen() != null || layout.rectangle()) {
                 // The Instinct's columns are about 40 px: a long translation is cut with a "." rather than reaching the next one.
                 label = HeroFaceDraw.truncated(dc, label, Graphics.FONT_XTINY, width - check - 2 * pad);

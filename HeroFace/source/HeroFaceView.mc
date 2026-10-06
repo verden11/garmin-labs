@@ -139,7 +139,9 @@ class HeroFaceView extends WatchUi.WatchFace {
 
     // The wide row under the time carries the streak and the temperature as one centred group (streak, a gap, the
     // temperature), so the temperature stays put whether or not a streak shows (design critique 2026-10-05, ROADMAP
-    // 13.8). A group too wide takes the streak's shorter wording, then drops the temperature.
+    // 13.8). A group too wide takes a shorter streak wording that still says the streak; if none fits beside the
+    // temperature, the temperature drops and the streak takes its longest wording that fits alone. The gold streak
+    // (kept and losable) outranks the optional temperature, so HeroSet's rank-only line is never chosen to keep it.
     private function drawUnderTime(dc as Graphics.Dc, layout as HeroFaceLayout, state as HeroFaceState) as Void {
         var y = layout.underTimeTop;
         var line = dc.getFontHeight(Graphics.FONT_XTINY);
@@ -150,8 +152,16 @@ class HeroFaceView extends WatchUi.WatchFace {
             ? HeroFaceDraw.firstFitting(dc, layout, layout.contentRadius(), 0, y, Graphics.FONT_XTINY, state.streakLines)
             : null;
         if (streak != null && temperature != null && groupWidth(dc, layout, streak, temperature) > room) {
-            streak = state.streakLines[state.streakLines.size() - 1];
-            if (groupWidth(dc, layout, streak, temperature) > room) {
+            var lines = state.streakLines;
+            var beside = null as String?;
+            for (var i = 0; i < lines.size() - (state.streakLastDropsStreak ? 1 : 0) && beside == null; i++) {
+                if (groupWidth(dc, layout, lines[i], temperature) <= room) {
+                    beside = lines[i];
+                }
+            }
+            if (beside != null) {
+                streak = beside;
+            } else {
                 temperature = null;
             }
         }

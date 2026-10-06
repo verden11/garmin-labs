@@ -43,7 +43,9 @@ class HeroFaceRing {
 
     // The rectangle's form of the ring (ADR-005): the first `length` px of an open-bottom rounded rectangle, up the
     // left side from its lower end, over the top, down the right side, so it fills clockwise like the round ring and
-    // leaves the bottom edge to the footer. Straight runs are filled boxes (no pen caps to seam), corners are arcs.
+    // leaves the bottom edge to the footer. Straight runs are filled boxes (no pen caps to seam), corners are arcs; a run
+    // that meets a corner reaches one pixel into it, or the arc's rasterised end left a dark 1 px seam at the Venu X1's
+    // top right (simulator skin shot, 2026-10-06).
     private static function frame(dc as Graphics.Dc, layout as HeroFaceLayout, box as HeroFaceFrame, color as Number, length as Number) as Void {
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
         var b = box.box();
@@ -51,7 +53,7 @@ class HeroFaceRing {
         var arcLength = HeroFaceFrame.quarterArc(b[4]);
         var side = b[3] - b[1] - b[4];
         var top = b[2] - b[0] - 2 * b[4];
-        var run = length < side ? length : side;
+        var run = length < side ? length : side + 1;
         dc.fillRectangle(b[0] - w / 2, b[3] - run, w, run);
         length -= side;
         if (length > 0) {
@@ -59,7 +61,7 @@ class HeroFaceRing {
         }
         length -= arcLength;
         if (length > 0) {
-            dc.fillRectangle(b[0] + b[4], b[1] - w / 2, length < top ? length : top, w);
+            dc.fillRectangle(b[0] + b[4], b[1] - w / 2, length < top ? length : top + 1, w);
         }
         length -= top;
         if (length > 0) {
@@ -67,7 +69,7 @@ class HeroFaceRing {
         }
         length -= arcLength;
         if (length > 0) {
-            dc.fillRectangle(b[2] - w / 2, b[1] + b[4], w, length < side ? length : side);
+            dc.fillRectangle(b[2] - w / 2, b[1] + b[4] - 1, w, (length < side ? length : side) + 1);
         }
     }
 

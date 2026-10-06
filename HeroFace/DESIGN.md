@@ -33,6 +33,8 @@ spacing:
   column-gap: "{spacing.inset}/5"
   ring-inset: "{spacing.inset}/5"
   ring-width: "{spacing.inset}/6"
+  frame-inset: "{spacing.inset}/4"          # rectangle only (ADR-005): the frame's centreline from the glass
+  frame-corner-centre: "{spacing.inset}*3/2" # rectangle only: each corner's centre from both edges
   bar-height: "{spacing.inset}/3"
   stack-gap: "{spacing.inset}/9"
 rounded:
@@ -71,9 +73,6 @@ components:
     typography: "{typography.face}"
   streak-line-kept:
     textColor: "{colors.gold}"
-    typography: "{typography.face}"
-  streak-line-idle:
-    textColor: "{colors.muted}"
     typography: "{typography.face}"
   date-line:
     textColor: "{colors.muted}"
@@ -141,7 +140,7 @@ A black field with a single white number, a muted grey voice for everything seco
 ### Neutral
 - **Void Black** (`{colors.ground}`): the only background. It is never tinted, never layered, never lightened into a card.
 - **Signal White** (`{colors.text}`): the time and mission values. Reserved for the two things read first.
-- **Second Voice Grey** (`{colors.muted}`): date, labels, seconds, footer numbers and drawn icons, and an idle (zero) streak. Everything that supports the glance without competing for it.
+- **Second Voice Grey** (`{colors.muted}`): date, labels, seconds, footer numbers and drawn icons. Everything that supports the glance without competing for it.
 - **Track Grey** (`{colors.track}`): the unfilled remainder of the ring and of every pill bar. Present so the *whole* of a goal is visible behind the part that is done.
 - **Sleep Grey** (`{colors.sleep-text}`): always-on time on burn-in-protected screens. Same hex as the track, a distinct role: keep both keys.
 
@@ -149,7 +148,7 @@ A black field with a single white number, a muted grey voice for everything seco
 
 **The Never-Colour-Alone Rule.** No state is legible by hue alone, and this is auditable. Done: green label *plus* a drawn check *plus* a full bar. Streak kept: gold *plus* a day count in the words. Low battery: red *plus* the number *plus* a visibly empty icon fill. Move alert: red *plus* the word changing from OK to GO. Ring complete: green *plus* a closed sweep. Audit test: render the face in greyscale — every state must still be nameable.
 
-**The Gold Reserve Rule.** Gold means a thing the user has accumulated and can lose. A zero streak is muted grey, not gold, because there is nothing kept yet.
+**The Gold Reserve Rule.** Gold means a thing the user has accumulated and can lose. A zero streak is not drawn at all ("0-DAY STREAK" would be a new owner's first read), because there is nothing kept yet. The gold streak also outranks the temperature beside it: a row too wide drops the temperature before it drops the streak (2026-10-06).
 
 **The Exact-Palette Rule.** Every colour is built from the channel values 00/55/AA/FF (why: see `watch-design-kit`'s `watch-design-lead` skill).
 
@@ -169,7 +168,7 @@ A black field with a single white number, a muted grey voice for everything seco
 
 **The Measure-Never-Guess Rule.** Every string is checked against the chord of the round display at its own row before it is drawn. Nothing is sized by assumption and nothing is clipped. One stated exception: on a rectangle the time's digit height is a measured share of the font's ascent (`HeroFaceFrame.DIGIT_HEIGHT_PERMILLE`, simulator-measured), because the Dc has no glyph metrics to ask (see "Rectangle").
 
-**The Shorter-Wording Rule.** When a string does not fit, the face picks a shorter *wording*, never a smaller font: `12345` → `12.3K` → `12K`; `INTENSITY` → `INT`; `WED 12 MARCH` → `WED 12`; `RANK 7  STREAK 12` → `RANK 7  12D` → `RANK 7`. Candidate lists are ordered longest-first and the last entry is the guaranteed fallback.
+**The Shorter-Wording Rule.** When a string does not fit, the face picks a shorter *wording*, never a smaller font: `12345` → `12.3K` → `12K`; `INTENSITY` → `INT`; `WED 12 MARCH` → `WED 12`; `RANK 7  STREAK 12` → `RANK 7` (HeroSet mode has these two wordings; the rank-only one is used only when the streak does not fit alone, never to keep the temperature). Candidate lists are ordered longest-first and the last entry is the guaranteed fallback.
 
 **The Uppercase Voice Rule.** All face copy is uppercase and terse. Words come from string resources only, so a translation is a new resource folder and no code change.
 
@@ -271,7 +270,7 @@ The entire sleep composition on burn-in screens: a dim `{colors.sleep-text}` tim
 
 Black and white only: every colour role is white (gold, green, red and the accent collapse; the Never-Colour-Alone rule already had a shape or a word for each state: an outlined track under a solid fill, a drawn check and a full bar for done, the number beside every icon). **The bezel ring becomes a gauge in the round window** (a hairline circle, a thick fill from 12 o'clock clockwise, closed when every goal is done). The time and the date share the band left of the window, the streak sits just below it, and the three mission columns end above the bottom corners. **No footer, temperature or seconds** (the smallest font is 23 px tall on a 176 px screen). What shows is the square cut by a circle about 98 px in radius, so rows are clipped to a 96 px circle. The mockup (`docs/archive/instinct-mockup.html`) is the approved look, not the built layout. **A finished goal there is a reversed label** (black on a white pill, no check, 2026-10-04, ADR-002 amendment): the columns are about 42 px and "check + STEP" cut the label to "ST.".
 
-## Rectangle (Venu Sq, Sq 2, X1; ADR-005, proposed 2026-10-05, amended the same day, simulator only, needs the owner's look-approval)
+## Rectangle (Venu Sq, Sq 2, X1; ADR-005, proposed 2026-10-05, amended 2026-10-05/06 with two owner decisions of 2026-10-06 (keep the edge frame; MOVE leaves the ring's score), simulator only, needs the owner's look-approval)
 
 A square design, not a round one in a box: the ring becomes a track along the screen's edges and every row takes the frame's full width.
 

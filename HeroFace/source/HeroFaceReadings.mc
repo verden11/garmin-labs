@@ -113,6 +113,7 @@ class HeroFaceReadings {
         state.streakLines = days > 0
             ? [HeroFaceText.format(Rez.Strings.rank_streak, [rank, days]), HeroFaceText.format(Rez.Strings.rank_only, [rank])] as Array<String>
             : [HeroFaceText.format(Rez.Strings.rank_only, [rank])] as Array<String>;
+        state.streakLastDropsStreak = days > 0;
         state.streakKept = true;
     }
 
