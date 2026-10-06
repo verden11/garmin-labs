@@ -609,7 +609,7 @@ that clears the glass; progress runs clockwise and a share is the same share of 
 
 **Decision (DESIGN.md "Rectangle"):**
 - `DayArcRect` (new, rectangle only): the track's centreline is inset by what the round arc's is (`DayArcArc.radius`), the same
-  pen, corner radius 0.12 of the short side, clear of the Venu X1's measured glass corner (a 66 px circle fits the skin's alpha).
+  pen, corner radius 0.15 of the short side (the studio's 1.5 insets; 0.12 until review pass five), clear of the Venu X1's measured glass corner (a 66 px circle fits the skin's alpha).
   The window arc is its upper part, from the left side over the top to the right side, the round arc's share
   (`ARC_SPAN_DEGREES` of 360) of the path, filled clockwise from the left in the window's accent.
 - Every row fits the inner box (track inner edge plus the arc's clearance, concentric rounded corners): `DayArcLayout.rowMaxWidth`,
@@ -631,7 +631,7 @@ set there is in 12-hour time, the "after" set in 24-hour: compare clock widths w
 these numbers is unverified (no source found; the simulator's verdict box states none).
 
 **Consequences:** On the Venu Sq 2 Pro the morning keeps "Feels like" and a grid row (ROADMAP 13.30's trade no longer happens
-there). No wrist has seen this; the Venu Sq 2's skin shows a glass corner of about 8 px, so its 38 px track corner is a
+there). No wrist has seen this; the Venu Sq 2's skin shows a glass corner of about 8 px, so its 48 px track corner is a
 proportion, not a measured fit.
 
 **Reversed by:** The owner, on the screenshots or a wrist.
@@ -652,3 +652,11 @@ Sq 2 Free clock changes size with the hero's tier (FONT_MEDIUM / NUMBER_MILD), a
 show the simulator's canned values (sunrise 12:17, sunset 23:59, a 00:00 event; steps, floors and intensity set by
 `sim_activity`) and are labelled so; empty states (no weather, no stress) and a blue Accent are captured with
 `tools/variant_shots.sh`, which patches a private copy of the project.
+
+**Amendment, 2026-10-06, review pass five:** the track corner is 0.15 of the short side (48 / 67 px), the studio's one corner
+proportion (1.5 insets, owner, 2026-10-06; it was 0.12); the window's tips move to y 112 / 151. The no-weather sentence is planned
+as itself, not against the morning's data worst case (which reserved a second line it never drew, under-filling the Venu X1 and
+round mornings), and drawn white, since it is the read. The STACK log counts the cells the frame draws (after the corner pills).
+Tests (simulator, container): Free PASSED 25/25 and Pro PASSED 28/28 on venusq2, venux1, fr965, fr255s, instincte40mm; the
+no-weather morning was screenshotted on fr965 and instincte40mm too (both tiers), since that change is shared.
+

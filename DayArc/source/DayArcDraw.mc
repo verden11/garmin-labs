@@ -74,9 +74,11 @@ class DayArcDraw {
         if (subY >= 0 && sub instanceof String) {
             var lineHeight = dc.getFontHeight(plan.textFont);
             var lines = plan.subLines(dc, sub);
+            // With no hero value (no weather) the sentence IS the read: white, the role of the label it replaces.
+            var colour = hero.get(:value) == null ? DayArcPalette.TEXT : DayArcPalette.MUTED;
             for (var i = 0; i < lines.size(); i++) {
                 var y = subY + i * lineHeight;
-                DayArcText.drawCentered(dc, layout.rowCenterX(y, lineHeight), y, plan.textFont, lines[i], plan.rowWidth(y, lineHeight), DayArcPalette.MUTED);
+                DayArcText.drawCentered(dc, layout.rowCenterX(y, lineHeight), y, plan.textFont, lines[i], plan.rowWidth(y, lineHeight), colour);
             }
         }
     }

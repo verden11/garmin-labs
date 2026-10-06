@@ -178,7 +178,7 @@ function subWrapsOnlyWhenTheLiveStringDoesNotFit(logger as Test.Logger) as Boole
 
 (:debug)
 function dayArcLiveHero(window as Number, date as String or Null, sub as String) as Dictionary {
-    var hero = {:label => window == DayArcConfig.WINDOW_MORNING ? null : "Label", :value => "44", :sub => sub, :dateText => date,
+    var hero = {:label => window == DayArcConfig.WINDOW_MORNING ? WatchUi.loadResource(Rez.Strings.morning_feels_label) as String : "Label", :value => "44", :sub => sub, :dateText => date,
                 :icon => DayArcIcons.heroFor(window, DayArcConfig.ACCENT_AUTO)} as Dictionary;
     if (window != DayArcConfig.WINDOW_MORNING) {
         hero.put(:gauge, 44);
@@ -203,7 +203,7 @@ function dayArcLiveCases() as Array<Array<Object>> {
                   :dateText => "Mon 28", :icon => DayArcIcons.heroFor(midday, 0)} as Dictionary],
         [morning, {:label => WatchUi.loadResource(Rez.Strings.morning_feels_label) as String, :value => "-12°", :sub => "55/43  30% rain  UV 4", :dateText => "Mon 28", :icon => DayArcIcons.heroFor(morning, 0)} as Dictionary],
         [morning, {:label => null, :value => null, :sub => WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String,
-                   :dateText => "Mon 28", :icon => DayArcIcons.heroFor(morning, 0)} as Dictionary],
+                   :dateText => "Mon 28"} as Dictionary],
         [DayArcConfig.WINDOW_NIGHT, {:dateText => "Mon 28"} as Dictionary],
     ] as Array<Array<Object>>;
 }

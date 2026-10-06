@@ -73,6 +73,11 @@ function dayArcCheckVariant(logger as Test.Logger, dc as Graphics.Dc, layout as 
     var plan = DayArcStack.plan(dc, layout, window, hero);
     dayArcLogPlan(logger, dc, layout, name, plan, hero);
     var problems = plan.fits ? "" : name + ": plan does not fit even at the last rung (level " + plan.level + "). ";
+    // The no-weather morning is the sentence alone: never a reserved second line it then draws on one (reviewer pass five). On
+    // the Instinct's narrow band the sentence itself can need two, which is fine.
+    var sentence = hero.get(:sub);
+    var idle = variant == 1 && sentence instanceof String && plan.subLineCount == DayArcConfig.MAX_SUB_LINES && plan.subLines(dc, sentence).size() == 1;
+    problems += idle ? name + ": plans a second sub line the empty sentence never draws. " : "";
     problems += dayArcBottomProblem(dc, plan, layout, name);
     problems += dayArcRowProblems(dc, layout, plan, hero, name);
     if (layout.subscreen() != null) {
@@ -91,7 +96,10 @@ function dayArcLogPlan(logger as Test.Logger, dc as Graphics.Dc, layout as DayAr
     }
     var gridRows = 0;
     if (hero.hasKey(:cells) && plan.gridTop() >= 0) {
-        gridRows = DayArcGrid.draw(dc, layout, plan.gridTop(), hero.get(:cells) as Array<Dictionary>);
+        // The cells the grid really draws: the corner fields beside the date leave it (DayArcCorners.rest), as in DayArcDraw.
+        var date = hero.get(:dateText);
+        var rest = DayArcCorners.rest(dc, layout, plan, date instanceof String ? date : null, hero.get(:cells) as Array<Dictionary>);
+        gridRows = DayArcGrid.draw(dc, layout, plan.gridTop(), rest);
     }
     logger.debug("STACK " + dc.getWidth() + "x" + dc.getHeight() + " " + name + " level=" + plan.level + " fits=" + plan.fits
         + " heroInk=" + DayArcText.inkHeight(dc, plan.heroFont) + " iconW=" + plan.iconWidth + " gap=" + plan.gap + " sublines=" + plan.subLineCount + " reservedGridRows=" + plan.gridRows + " rows(y/h)" + rows

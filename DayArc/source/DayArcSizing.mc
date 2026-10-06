@@ -19,7 +19,9 @@ class DayArcSizing {
             :liveDate => date instanceof String ? date : null,   // what DayArcStackFit asks the corner fields about (the sized :date is the worst case)
             :label => hero.get(:label),
             :value => value instanceof String ? wider(dc, value, worstValue, DayArcLayout.HERO_FONTS[0]) : null,   // null: no hero row
-            :sub => sub instanceof String ? wider(dc, sub, worstSub(window), text) : null,
+            // With no hero value (the no-weather morning) the sub line is the empty-state sentence alone: planned as itself, not
+            // against the morning's data worst case, which would reserve a second line it never draws (reviewer pass five).
+            :sub => sub instanceof String ? (value instanceof String ? wider(dc, sub, worstSub(window), text) : sub) : null,
         } as Dictionary;
     }
 
