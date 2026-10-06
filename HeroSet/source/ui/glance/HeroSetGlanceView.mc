@@ -54,6 +54,12 @@ class HeroSetGlanceView extends WatchUi.GlanceView {
     function drawState(dc as Dc, width as Lang.Number, height as Lang.Number, state as HeroSetDashboardState) as Void {
         var layout = new HeroSetGlanceLayout(width, height, dc.getFontHeight(FONT), window());
         var done = HeroSetRules.missionComplete(state.pushups, state.situps, state.squats, state.goal);
+        if (!done && statusPlan(dc, layout, state, done)[0].length() == 0) {
+            // No words fit (streak 0 on the Venu Sq 2, beside the Instinct's
+            // window): the pills centre on their own, under no blank row.
+            drawPills(dc, new HeroSetGlanceLayout(width, height, 0, window()), state);
+            return;
+        }
         drawStatus(dc, layout, state, done);
         drawPills(dc, layout, state);
     }
