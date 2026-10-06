@@ -640,8 +640,12 @@ proportion, not a measured fit.
 Sq 2 Pro clock and hero the same height. (2) The worst-case morning sub follows the watch: without `uvIndex` (API below 5.1,
 the Venu Sq 2 family is 5.0) it is planned without "UV 11", so the Sq 2 no longer reserves a second sub line it never draws; on
 any product below 5.1 the morning can only gain room (`DayArcSources.hasUvIndex`). With both, Venu Sq 2 Pro plans a MEDIUM hero
-and two grid rows in every data window, the morning label included. (3) Free's empty band under the gauge is accepted (DESIGN.md
-"Rectangle"): the stack is centred in the inner box and the hero is already at its largest tier. (4) The recaptured screenshots
+and two grid rows in every data window, the morning label included. (3) Free's empty band at the bottom is accepted (DESIGN.md
+"Rectangle"): the stack is measured centred in the inner box; the band reads emptier because the arc fills the top; lowering the
+stack would open the same gap under the arc and break the arc-clock header; the hero cannot take the room (HOT at midday and
+evening; on the Sq 2 morning every HOT rung fails the worst-case fit). The no-weather morning now reads "Weather" above its "--"
+and sentence, like the other windows' empty states (shared code, round products included; still no icon, ROADMAP 13.29). The
+Sq 2 Free clock changes size with the hero's tier (FONT_MEDIUM / NUMBER_MILD), accepted to keep the hierarchy. (4) The recaptured screenshots
 show the simulator's canned values (sunrise 12:17, sunset 23:59, a 00:00 event; steps, floors and intensity set by
 `sim_activity`) and are labelled so; empty states (no weather, no stress) and a blue Accent are captured with
 `tools/variant_shots.sh`, which patches a private copy of the project.

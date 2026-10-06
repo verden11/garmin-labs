@@ -120,7 +120,8 @@ Top to bottom, every window but night:
    new toggle. Pro's morning grid has no separate date cell (it would show the date twice).
 3. Hero label (**white**, small; the date, clock and sub line stay muted: reviewer pass seven, ADR-017 — the label names the number, so it is the brighter small line, and on a colour screen it is drawn down into the empty headroom above the hero's digits so it sits nearer its number than the date; not on the 1-bit Instinct, where every role is white and the boxes are tested tight against the bezel circle) — omitted when the read itself is the label (morning's temperature has
    none; midday/evening name the metric). **Since 2026-10-05 the morning has one too, "Feels like"** (owner, ROADMAP 13.28:
-   an unlabelled feels-like 9° under "H 16 / L 13" read as wrong on the wrist); none when there is no weather.
+   an unlabelled feels-like 9° under "H 16 / L 13" read as wrong on the wrist). With no weather it reads "Weather" (2026-10-06, reviewer: the morning's empty state was a lone dash in an
+   empty row, unlike midday's "Stress" / "--" / sentence), still with no icon.
 4. **Hero icon + hero value**, side by side as one centred group (ADR-013) — a single line-icon
    (Tabler Icons, recoloured) beside the number, both the same accent hue as the window. The value
    stays the largest single element on screen in Simple, and the largest and first-drawn element in
@@ -344,7 +345,7 @@ alone answers the glance; the grid rewards a longer look, it doesn't compete for
 touch-dependent.
 
 **Empty/error states**, one plain sentence or "--" per field, never blank:
-- Weather unavailable → "Weather unavailable" (hero's sub line).
+- Weather unavailable → label "Weather", hero "--", "Weather unavailable" (hero's sub line), no icon (2026-10-06).
 - Stress null → "Stress unavailable right now" — deliberately generic: Garmin's own docs say stress
   isn't tracked during activity, but the SDK gives a watch face no way to confirm *that's* the
   cause of any given null, so the copy doesn't claim it.
@@ -429,7 +430,8 @@ change (every branch is `DayArcLayout.isRectangle()`).
   the MEDIUM hero's, so a tier rule on the font list alone did not separate them. The hero keeps its tier; the smaller clock
   also frees the height that gives the Sq 2 Pro its second grid row.
 - **The morning sub line is planned for the watch's own data** (`DayArcSources.hasUvIndex`): `CurrentConditions.uvIndex` needs
-  API 5.1, the Venu Sq 2 / Sq 2 Music are 5.0, so their worst case is "104/-40  100% rain" without "UV 11". Planning the UV
+  API 5.1, the Venu Sq 2 / Sq 2 Music are 5.0 (SDK device files, `compiler.json` `connectIQVersion`, SDK 9.2.0; the Venu X1 is
+  6.0.2; real firmware may report a newer version, which `hasUvIndex` follows at runtime since it reads `monkeyVersion`), so their worst case is "104/-40  100% rain" without "UV 11". Planning the UV
   segment there cost a second sub line the watch never draws, which left a ~45 px gap above Pro's lone grid row. Applies to any
   product below API 5.1 (round ones included): their morning can only gain room.
 - **What it buys (worst-case strings, `DayArcStackTest` HEROINK/STACK log, simulator only).** Venu Sq 2 Pro: the hero is
@@ -438,12 +440,18 @@ change (every branch is `DayArcLayout.isRectangle()`).
   hero's own empty sentence (two lines) midday and evening step down to MILD with one row. Venu Sq 2 Free: NUMBER_HOT at
   midday and evening, MEDIUM in the morning. Venu X1: HOT in every window of both tiers; Pro two grid rows (three in the
   morning without weather).
-- **Free's empty band at the bottom, accepted (2026-10-06):** Free's stack is centred in the inner box, but the box's top
-  carries the arc and its corners, so the eye reads the band under the gauge (Venu X1 about 60 px, Sq 2 about 45 px in the
-  morning) as empty while the same space above the clock reads as filled. The hero is already at its largest tier on both
-  sizes where the window has a gauge (HOT), so there is nothing to give it; centring on the visible content instead would push
-  the clock into the arc's band. Kept: the band is the face breathing, not a missing row. The levers if a wrist disagrees: a
-  lower centre bias on rectangles, or a larger clock in Free only (which the reviewers just argued against).
+- **Free's empty band at the bottom, accepted (2026-10-06):** Free's stack is geometrically centred in the inner box (measured
+  on the captures: Venu X1 midday 63 px above the clock, 52 px under the gauge; Venu Sq 2 morning 56 px above, 46 px under the
+  sub line). The band under the content reads emptier only because the arc fills the corresponding band above. Kept, for two
+  reasons: the header (arc, clock, date) reads as one unit when the clock sits close under the arc, and lowering the stack to
+  balance the bottom would open the same gap under the arc instead; and nothing can take the room: midday and evening already
+  draw the HOT hero on both sizes, and the Sq 2 morning's MEDIUM hero is where the planner lands after every HOT rung (0 to 3)
+  failed the worst-case fit (`DayArcStackTest` STACK log, level 4); the live morning frame draws that same plan. The lever if a wrist disagrees: a downward centre bias on rectangles
+  (`DayArcStack.attempt` already only slides a stack down, away from the arc), one constant and a screenshot.
+- **The Sq 2 Free clock changes size with the hero's tier, accepted:** `FONT_MEDIUM` beside the MEDIUM morning hero (and beside
+  an empty-state hero), NUMBER_MILD beside the HOT midday and evening hero, so the time grows by about 30% at 9:30 and shrinks
+  when stress data goes missing. The alternative, one fixed clock size, reopens the clock-equals-hero problem in one of the two
+  cases. The Venu X1 Free (HOT everywhere) and the Sq 2 Pro (MEDIUM everywhere) do not move.
 - Screenshots of the rectangle (`../device-test/rect-review/after/`) show the simulator's **canned values**: sunrise 12:17,
   sunset 23:59 and the 00:00 calendar event are what the simulator returns, not a real place or date; steps (5310), floors (7)
   and intensity (18) are set with `sim_activity`; weather is the simulator's (66 °F, 77/63, 10% rain).

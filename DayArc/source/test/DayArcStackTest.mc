@@ -48,7 +48,7 @@ function dayArcWorstHero(variant as Number, window as Number) as Dictionary {
     var empty = variant == 1 || variant == 3 || variant == 5;
     if (window == DayArcConfig.WINDOW_MORNING) {
         // "Feels like" since ROADMAP 13.28; none when there is no weather (DayArcFields).
-        hero.put(:label, empty ? null : WatchUi.loadResource(Rez.Strings.morning_feels_label) as String);
+        hero.put(:label, WatchUi.loadResource(empty ? Rez.Strings.morning_weather_label : Rez.Strings.morning_feels_label) as String);
         hero.put(:value, empty ? "--" : DayArcConfig.WORST_TEMPERATURE);
         hero.put(:sub, empty ? WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String : (DayArcSources.hasUvIndex() ? DayArcConfig.WORST_MORNING_SUB : DayArcConfig.WORST_MORNING_SUB_NO_UV));
     } else if (window == DayArcConfig.WINDOW_MIDDAY) {

@@ -11,6 +11,9 @@ store's "What's New" text for each version is in that listing's `listing/paste.m
   rounded-rectangle track, the Stress and Body Battery gauge is a straight bar, and the time, date and readings use the room
   inside the track. On the Venu Sq 2, DayArc Pro's morning now shows "Feels like" and a row of fields together. Round watches
   and the Instinct are unchanged.
+- **Every watch, both listings (2026-10-06, simulator only):** a morning without weather reads "Weather" above its "--" and
+  "Weather unavailable", like the Stress and Body Battery empty states; the morning line is planned without a UV reading on
+  watches that cannot report one (below API 5.1), which gives those watches' mornings more room.
 
 ## 1.0.0, both listings: uploaded and approved by Garmin 2026-10-05 (first publication)
 

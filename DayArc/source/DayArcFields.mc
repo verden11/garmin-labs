@@ -58,8 +58,10 @@ class DayArcFields {
     private static function morningHero(sources as DayArcSources, epoch as Number) as Dictionary {
         var conditions = sources.currentConditions(epoch);
         if (conditions == null) {
+            // Named like midday's and evening's empty states ("Stress", "--", a sentence), so a no-weather morning is not a lone
+            // dash in an empty hero row (reviewer, 2026-10-06). Still no icon: a guessed condition is never drawn (ROADMAP 13.29).
             return {
-                :label => null,
+                :label => WatchUi.loadResource(Rez.Strings.morning_weather_label) as String,
                 :value => WatchUi.loadResource(Rez.Strings.value_none) as String,
                 :sub => WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String,
             } as Dictionary;
