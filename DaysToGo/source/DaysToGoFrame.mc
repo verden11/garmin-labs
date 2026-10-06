@@ -62,13 +62,16 @@ class DaysToGoFrame {
     }
 
     // A rectangle's hero band is taller than its largest number font (ADR-019). The number keeps a band of its font's
-    // height, the caption right under it as its unit, and the spare height is split: half above the number, half below
-    // the last row, which lifts the bottom rows off the corners' curve. A word hero (TODAY, SET A DATE) keeps the plain
-    // stack: the word centred in its band, the date at the box's bottom. The width check stays with DaysToGoDraw.
+    // height and the caption sits a row gap under the digits' baseline (digits have no descent, so the font's padding
+    // below them is empty); the spare height is split, half above the number and half below the last row, which lifts the
+    // bottom rows off the corners' curve. A word hero (TODAY, SET A DATE) keeps the plain stack: the word centred in its
+    // band, the date at the box's bottom. The width check stays with DaysToGoDraw.
     private function settle(dc as Graphics.Dc, heroFonts as Array<Graphics.FontDefinition>) as Void {
-        var height = dc.getFontHeight(DaysToGoDraw.fontUpTo(dc, heroFonts, rows.heroHeight));
-        var slack = rows.heroHeight - height;
-        if (slack <= 0) {
+        var font = DaysToGoDraw.fontUpTo(dc, heroFonts, rows.heroHeight);
+        var height = dc.getFontHeight(font);
+        var ink = (Graphics has :getFontAscent) ? Graphics.getFontAscent(font) : height;
+        var slack = rows.heroHeight - ink;
+        if (rows.heroHeight < height) {
             return;
         }
         var lift = slack - slack / 2;

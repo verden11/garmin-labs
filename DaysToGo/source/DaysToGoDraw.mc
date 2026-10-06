@@ -11,6 +11,8 @@ class DaysToGoDraw {
     // text], so the screen-fit test catches clipping and overlap per device.
     static var misfits as Array<String>?;
     static var boxes as Array<Array>?;
+    // Glyphs that reach below the baseline (Latin; other scripts keep the font box only if they use these).
+    private static const DESCENDERS = "gjpqyQ,;()";
 
     static function text(dc as Graphics.Dc, layout as DaysToGoLayout, x as Number, y as Number, font as Graphics.FontDefinition, str as String, justify as Graphics.TextJustification) as Void {
         dc.drawText(x, y, font, str, justify);
@@ -20,7 +22,7 @@ class DaysToGoDraw {
             return;
         }
         var width = dc.getTextWidthInPixels(str, font);
-        var height = dc.getFontHeight(font);
+        var height = loggedHeight(dc, layout, font, str);
         var left = x - width / 2;
         if (log != null && (y < 0 || y + height > layout.height() || left < layout.leftInset(y, height) || left + width > layout.rightInset(y, height))) {
             log.add(str + " y=" + y);
@@ -28,6 +30,21 @@ class DaysToGoDraw {
         if (drawn != null) {
             drawn.add([left, y, width, height, str]);
         }
+    }
+
+    // On a rectangle the fit test logs a text's ink where it can (ADR-019): a text with no descending letters ends at its
+    // baseline, so the caption may sit in the number's empty descent. Round and Instinct keep the font box.
+    private static function loggedHeight(dc as Graphics.Dc, layout as DaysToGoLayout, font as Graphics.FontDefinition, str as String) as Number {
+        if (layout.track() == null || !(Graphics has :getFontAscent)) {
+            return dc.getFontHeight(font);
+        }
+        var marks = DESCENDERS.toCharArray();
+        for (var i = 0; i < marks.size(); i++) {
+            if (str.find(marks[i].toString()) != null) {
+                return dc.getFontHeight(font);
+            }
+        }
+        return Graphics.getFontAscent(font);
     }
 
     // A drawn mark's box, checked and logged like text (test-only, no-op on the watch).
