@@ -32,10 +32,12 @@ class TwoSunsFrame {
     // when the battery row is kept (`batteryStrip` px, set by TwoSunsRectFit).
     var spreadRows as Boolean = false;
     var batteryStrip as Number = 0;
+    var lineCandidates as Array<String> = [] as Array<String>;   // the sun sentence's wordings, for TwoSunsRectSpread
 
     // `sleeping` keeps only the time, the value and the sun line (always-on).
     function initialize(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState, sleeping as Boolean) {
         spreadRows = !sleeping && layout.track() != null;
+        lineCandidates = state.skyLines;
         dateFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.DATE_FONTS, layout.capFor(TwoSunsLayout.DATE_MAX_PERMILLE));
         // Always-on time is two steps below whatever awake would pick right now, not a separate fixed
         // list — so it stays visibly smaller than awake on every screen, not just the ones where awake
