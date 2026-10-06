@@ -120,8 +120,8 @@ Top to bottom, every window but night:
    new toggle. Pro's morning grid has no separate date cell (it would show the date twice).
 3. Hero label (**white**, small; the date, clock and sub line stay muted: reviewer pass seven, ADR-017 — the label names the number, so it is the brighter small line, and on a colour screen it is drawn down into the empty headroom above the hero's digits so it sits nearer its number than the date; not on the 1-bit Instinct, where every role is white and the boxes are tested tight against the bezel circle) — omitted when the read itself is the label (morning's temperature has
    none; midday/evening name the metric). **Since 2026-10-05 the morning has one too, "Feels like"** (owner, ROADMAP 13.28:
-   an unlabelled feels-like 9° under "H 16 / L 13" read as wrong on the wrist). With no weather it reads "Weather" (2026-10-06, reviewer: the morning's empty state was a lone dash in an
-   empty row, unlike midday's "Stress" / "--" / sentence), still with no icon.
+   an unlabelled feels-like 9° under "H 16 / L 13" read as wrong on the wrist). With no weather there is no label and no hero row (2026-10-06, reviewers: with no icon, a "--"
+   floated alone in a row sized for digits): the morning reads clock, date and the sentence "Weather unavailable".
 4. **Hero icon + hero value**, side by side as one centred group (ADR-013) — a single line-icon
    (Tabler Icons, recoloured) beside the number, both the same accent hue as the window. The value
    stays the largest single element on screen in Simple, and the largest and first-drawn element in
@@ -345,7 +345,8 @@ alone answers the glance; the grid rewards a longer look, it doesn't compete for
 touch-dependent.
 
 **Empty/error states**, one plain sentence or "--" per field, never blank:
-- Weather unavailable → label "Weather", hero "--", "Weather unavailable" (hero's sub line), no icon (2026-10-06).
+- Weather unavailable → "Weather unavailable" alone under the date: no label, no "--", no icon, no hero row (2026-10-06; the
+  sentence says it in words, and a bare dash with no icon read as a hole). Midday and evening keep label, icon, "--" and sentence.
 - Stress null → "Stress unavailable right now" — deliberately generic: Garmin's own docs say stress
   isn't tracked during activity, but the SDK gives a watch face no way to confirm *that's* the
   cause of any given null, so the copy doesn't claim it.
@@ -431,15 +432,16 @@ change (every branch is `DayArcLayout.isRectangle()`).
   also frees the height that gives the Sq 2 Pro its second grid row.
 - **The morning sub line is planned for the watch's own data** (`DayArcSources.hasUvIndex`): `CurrentConditions.uvIndex` needs
   API 5.1, the Venu Sq 2 / Sq 2 Music are 5.0 (SDK device files, `compiler.json` `connectIQVersion`, SDK 9.2.0; the Venu X1 is
-  6.0.2; real firmware may report a newer version, which `hasUvIndex` follows at runtime since it reads `monkeyVersion`), so their worst case is "104/-40  100% rain" without "UV 11". Planning the UV
+  6.0.2; real firmware may report a newer one: `hasUvIndex` asks the live conditions `has :uvIndex`, the same test the drawn line uses, and
+  falls back to the API level only when there is no weather), so their worst case is "104/-40  100% rain" without "UV 11". Planning the UV
   segment there cost a second sub line the watch never draws, which left a ~45 px gap above Pro's lone grid row. Applies to any
   product below API 5.1 (round ones included): their morning can only gain room.
 - **What it buys (worst-case strings, `DayArcStackTest` HEROINK/STACK log, simulator only).** Venu Sq 2 Pro: the hero is
   NUMBER_MEDIUM (ink box 76 px) with **two** grid rows in the morning, midday and evening (it was MILD with one row before
   ADR-019); the morning keeps "Feels like" **and** both grid rows (ROADMAP 13.30: the square gives room for both); with the
   hero's own empty sentence (two lines) midday and evening step down to MILD with one row. Venu Sq 2 Free: NUMBER_HOT at
-  midday and evening, MEDIUM in the morning. Venu X1: HOT in every window of both tiers; Pro two grid rows (three in the
-  morning without weather).
+  midday and evening, MEDIUM in the morning. Venu X1: HOT in every window of both tiers; Pro two grid rows. A morning
+  without weather has no hero row, so Pro's grid takes that height (the worst-case plan logs four rows on both sizes).
 - **Free's empty band at the bottom, accepted (2026-10-06):** Free's stack is geometrically centred in the inner box (measured
   on the captures: Venu X1 midday 63 px above the clock, 52 px under the gauge; Venu Sq 2 morning 56 px above, 46 px under the
   sub line). The band under the content reads emptier only because the arc fills the corresponding band above. Kept, for two

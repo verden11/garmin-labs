@@ -18,7 +18,7 @@ Battery, night shows time and date only. The date is shown in every window now, 
 (ADR-013). Two listings share one codebase: **DayArc** (Simple) is one focal read per window, each
 beside a single-hue icon tied to that window's own accent colour; **DayArc Pro** is the same three
 data windows with a denser field grid underneath each hero read, each grid field carrying its own
-permanently-coloured icon (ADR-013), for the segment that wants a data-rich face (`docs/decisions.md`
+icon, all muted grey so the hero is the only coloured read (ADR-013, amended 2026-10-05), for the segment that wants a data-rich face (`docs/decisions.md`
 ADR-003, ADR-009, ADR-013). A thin window-progress arc across the top of the circle marks how far
 through the current window the clock is (morning/midday/evening only, ADR-013).
 
@@ -65,8 +65,8 @@ Exactly one, in both listings (ADR-014, partly reversing ADR-011): **Accent colo
 `0` Auto (default: each window's own hue — morning amber, midday cyan, evening rose), `1` Cyan,
 `2` Amber, `3` Rose, `4` Green, `5` Blue, `6` Purple; all 64-colour-safe, never a free colour
 picker. A fixed choice colours the window-progress arc, the hero value, the gauge fill and the hero
-icon in every non-night window; night stays hueless; Pro's 14 grid icons keep their fixed per-type
-hues. Property id `Accent` (never changes once shipped), `resources/settings/settings.xml` +
+icon in every non-night window; night stays hueless; Pro's grid icons stay muted grey (ADR-013
+amendment, 2026-10-05). Property id `Accent` (never changes once shipped), `resources/settings/settings.xml` +
 `properties.xml`, shared by both jungles. Two writers, last change wins: the Garmin Connect phone
 page (store-installed apps only — a sideloaded build gets none, so it is unverifiable until a store
 install) and the watch's own Customize list (`getSettingsView`, CIQ 4.2+ — the only route a
@@ -76,8 +76,8 @@ setting (ADR-003). No other setting is to be added under this one.
 
 ## Device reach
 
-`minApiLevel="4.2.0"`, TwoSuns ADR-009's 69-product set, reused verbatim (ADR-001). Round products
-(66 of the 69) are chord-fitted against the inscribed circle. The three rectangular AMOLED products
+`minApiLevel="4.2.0"`, TwoSuns ADR-009's 69-product set plus the Instinct E 40/45 mm and Instinct 3 Solar 45 mm (ADR-015):
+72 products (ADR-001). Round products are chord-fitted against the inscribed circle. The three rectangular AMOLED products
 (Venu Sq 2, Venu Sq 2 Music, Venu X1) have their own square design (ADR-019, 2026-10-05): the
 window-progress arc is the upper part of a rounded-rectangle track that follows the glass, the gauge is
 a straight bar, and every row fits the box inside that track (`DESIGN.md` "Rectangle"). Every window's stack — clock, date, hero, gauge, sub line(s) and, in

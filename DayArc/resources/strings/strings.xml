@@ -14,7 +14,6 @@
     <!-- Midday hero: stress, shown as a number and a single-brightness gauge fill, never a mood word
          (docs/decisions.md ADR-006 extends TwoSuns ADR-008's no-verdict rule to every metric here). -->
     <string id="morning_feels_label">Feels like</string>
-    <string id="morning_weather_label">Weather</string>
     <string id="midday_stress_label">Stress</string>
     <string id="midday_stress_unavailable">Stress unavailable right now</string>
     <string id="midday_calendar_label">Next</string>

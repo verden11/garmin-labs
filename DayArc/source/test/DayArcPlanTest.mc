@@ -201,8 +201,8 @@ function dayArcLiveCases() as Array<Array<Object>> {
         [midday, {:label => "Stress", :value => "37", :gauge => 37, :gaugeMax => 100, :dateText => "Mon 28", :icon => DayArcIcons.heroFor(midday, 0)} as Dictionary],
         [midday, {:label => "Stress", :value => "--", :sub => WatchUi.loadResource(Rez.Strings.midday_stress_unavailable) as String,
                   :dateText => "Mon 28", :icon => DayArcIcons.heroFor(midday, 0)} as Dictionary],
-        [morning, {:label => null, :value => "-12°", :sub => "55/43  30% rain  UV 4", :dateText => "Mon 28", :icon => DayArcIcons.heroFor(morning, 0)} as Dictionary],
-        [morning, {:label => null, :value => "--", :sub => WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String,
+        [morning, {:label => WatchUi.loadResource(Rez.Strings.morning_feels_label) as String, :value => "-12°", :sub => "55/43  30% rain  UV 4", :dateText => "Mon 28", :icon => DayArcIcons.heroFor(morning, 0)} as Dictionary],
+        [morning, {:label => null, :value => null, :sub => WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String,
                    :dateText => "Mon 28", :icon => DayArcIcons.heroFor(morning, 0)} as Dictionary],
         [DayArcConfig.WINDOW_NIGHT, {:dateText => "Mon 28"} as Dictionary],
     ] as Array<Array<Object>>;

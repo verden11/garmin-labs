@@ -242,7 +242,7 @@ class DayArcStack {
             return;
         }
         hs[ROW_LABEL] = optional && strings.get(:label) != null && !dropLabel ? textHeight : 0;
-        hs[ROW_HERO] = DayArcText.max(DayArcText.inkHeight(dc(), heroFont), _iconHeight);
+        hs[ROW_HERO] = strings.get(:value) != null ? DayArcText.max(DayArcText.inkHeight(dc(), heroFont), _iconHeight) : 0;
         hs[ROW_GAUGE] = _hasGauge ? layout.gaugeBoxHeight() : 0;
         var sub = strings.get(:sub) as String or Null;
         plannedSub = [] as Array<String>;

@@ -13,6 +13,7 @@ class DayArcPlanCache {
     private static const KEY_SUB = 40;
     private static const KEY_CELLS = 80;
     private static const KEY_DATE = 160;
+    private static const KEY_VALUE = 320;
 
     private var _plan as DayArcStack or Null = null;
     private var _key as Number = -1;
@@ -42,6 +43,7 @@ class DayArcPlanCache {
         k += hero.hasKey(:sub) && hero.get(:sub) != null ? KEY_SUB : 0;
         k += hero.hasKey(:cells) ? KEY_CELLS : 0;
         k += hero.get(:dateText) != null ? KEY_DATE : 0;
+        k += hero.get(:value) != null ? KEY_VALUE : 0;   // the no-weather morning has no hero row
         return k;
     }
 }

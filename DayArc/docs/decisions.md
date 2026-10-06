@@ -643,8 +643,11 @@ any product below 5.1 the morning can only gain room (`DayArcSources.hasUvIndex`
 and two grid rows in every data window, the morning label included. (3) Free's empty band at the bottom is accepted (DESIGN.md
 "Rectangle"): the stack is measured centred in the inner box; the band reads emptier because the arc fills the top; lowering the
 stack would open the same gap under the arc and break the arc-clock header; the hero cannot take the room (HOT at midday and
-evening; on the Sq 2 morning every HOT rung fails the worst-case fit). The no-weather morning now reads "Weather" above its "--"
-and sentence, like the other windows' empty states (shared code, round products included; still no icon, ROADMAP 13.29). The
+evening; on the Sq 2 morning every HOT rung fails the worst-case fit). The no-weather morning drops its label and hero row and reads clock, date
+and "Weather unavailable" (shared code, every product; still no icon, ROADMAP 13.29): with no icon a "--" floated alone in a row
+sized for digits (reviewers, passes three and four). `hasUvIndex` uses the drawn line's own test (`has :uvIndex` on the live
+conditions). The Sq 2 Pro "MEDIUM hero, two grid rows" morning is a simulator result that holds while the watch reports no
+`uvIndex`; a firmware that adds it plans the UV segment again. The
 Sq 2 Free clock changes size with the hero's tier (FONT_MEDIUM / NUMBER_MILD), accepted to keep the hierarchy. (4) The recaptured screenshots
 show the simulator's canned values (sunrise 12:17, sunset 23:59, a 00:00 event; steps, floors and intensity set by
 `sim_activity`) and are labelled so; empty states (no weather, no stress) and a blue Accent are captured with
