@@ -12,6 +12,7 @@ class DaysToGoLayout {
     // The stack spans this share of the content radius above and below the centre.
     private static const SPAN_PERMILLE = 800;
     private static const GAP_PERMILLE = 12;
+    private static const RECTANGLE_MIN_DRIFT_PX = 16;
 
     // The Instinct window sits in a bezel ring wider than itself (about 10 px at 176); the gauge's fill is a quarter of its radius.
     private static const WINDOW_CLEARANCE_PERMILLE = 60;
@@ -163,9 +164,12 @@ class DaysToGoLayout {
         return rows;
     }
 
-    // How far the always-on block moves between grid spots.
+    // How far the always-on block moves between grid spots. A rectangle moves at least RECTANGLE_MIN_DRIFT_PX: on the
+    // 240 px Venu Sq 3.5 % is 8 px, narrower than the hero's strokes, and the simulator shut the screen off for pixels lit
+    // three minutes (ADR-019).
     function driftStep() as Number {
-        return _d * DaysToGoConfig.BURN_IN_STEP_PERMILLE / DaysToGoConfig.PERMILLE;
+        var step = _d * DaysToGoConfig.BURN_IN_STEP_PERMILLE / DaysToGoConfig.PERMILLE;
+        return _track != null && step < RECTANGLE_MIN_DRIFT_PX ? RECTANGLE_MIN_DRIFT_PX : step;
     }
 
     function ringWidth() as Number {

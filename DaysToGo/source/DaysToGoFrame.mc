@@ -56,6 +56,24 @@ class DaysToGoFrame {
             }
             rows = plan(dc, layout, hasCaption);
         }
+        if (layout.track() != null && !sleeping) {
+            settle(dc, heroFonts);
+        }
+    }
+
+    // A rectangle's hero band is taller than its largest hero font (ADR-019): the hero keeps a band its font's height
+    // plus half the slack, so the caption sits under it, and the rows below rise by the other half, which also lifts
+    // the date out of the bottom corners' curve. The width check stays with DaysToGoDraw (a wide hero steps down there).
+    private function settle(dc as Graphics.Dc, heroFonts as Array<Graphics.FontDefinition>) as Void {
+        var slack = rows.heroHeight - dc.getFontHeight(DaysToGoDraw.fontUpTo(dc, heroFonts, rows.heroHeight));
+        if (slack <= 0) {
+            return;
+        }
+        var lift = slack / 2;
+        rows.heroHeight -= lift;
+        rows.captionTop = rows.captionTop > 0 ? rows.captionTop - lift : 0;
+        rows.dateTop = rows.dateTop > 0 ? rows.dateTop - lift : 0;
+        rows.footerTop = rows.footerTop > 0 ? rows.footerTop - lift : 0;
     }
 
     private function plan(dc as Graphics.Dc, layout as DaysToGoLayout, hasCaption as Boolean) as DaysToGoRows {

@@ -131,7 +131,7 @@ Constraints (from SDK and HeroFace): primitives and system fonts only, no bitmap
 (each channel 00, 55, AA or FF); black ground; a state is never colour alone.
 
 Recommended direction: **"one number"**. Black ground; the hero number in white at the largest system numeric font that fits
-(`FONT_NUMBER_THAI_HOT` → `HOT` → `MEDIUM` → `MILD`), centred in the middle third; a thin bezel ring in one accent that drains as the date approaches
+(`FONT_NUMBER_THAI_HOT` → `HOT` → `MEDIUM` → `MILD`), centred in the middle third; a thin bezel ring (on a rectangle a rounded-rectangle track along the glass edge, ADR-019) in one accent that drains as the date approaches
 (365-day window) and fills solid on the day; the time above it, medium and muted-white; event name in the accent colour above the number; caption and
 date in muted grey below; nothing else. Accents (owner to approve): mint `#55FFAA` (default, distinct from HeroFace's gold and blue), amber `#FFAA00`,
 sky `#55AAFF`, pink `#FF55AA`, violet `#AA55FF`, white `#FFFFFF`.
@@ -140,7 +140,7 @@ Row bands as fractions of the shorter screen side D, top to bottom (the implemen
 checks each row against the circle's chord): time 0.13–0.26, event name 0.28–0.35, hero 0.36–0.68, caption 0.69–0.76, date 0.78–0.85, optional bottom line 0.87–0.93.
 These are starting proportions, not a mock-up; the mock-up comes from the design tool.
 
-**As built (ADR-012):** fractional bands overlapped on the 208 px screen, because system fonts do not scale with the screen. So each row takes the largest font up to a height cap, the rows are stacked from those heights, and the hero takes the rest; on a small screen optional rows give way: the bottom line first shares the date row (ADR-016), then drops, then the name, then the date, until the hero has room for its smallest font. The ring is a full circle from the top, clockwise. Screen-fit tests pass on the ten sizes listed in `compatibility.md`.
+**As built (ADR-012):** fractional bands overlapped on the 208 px screen, because system fonts do not scale with the screen. So each row takes the largest font up to a height cap, the rows are stacked from those heights, and the hero takes the rest; on a small screen optional rows give way: the bottom line first shares the date row (ADR-016), then drops, then the name, then the date, until the hero has room for its smallest font. The ring is a full circle from the top, clockwise; on a rectangle it is a closed rounded-rectangle track from top centre, clockwise, filled by the same share of its length (ADR-019 (rectangles get a square design)). Screen-fit tests pass on the ten sizes listed in `compatibility.md`.
 
 **Always-on (AMOLED)**: only two lines, the hero number and the time, in dim grey (`#555555`), the whole block stepping across a 3×3 grid once a minute
 (HeroFace's `HeroFaceSleep`). No ring, no name, no date. MIP watches show the full face at all times.
