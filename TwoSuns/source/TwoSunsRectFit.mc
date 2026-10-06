@@ -13,9 +13,11 @@ class TwoSunsRectFit {
     // that room too (a setting that shows nothing must not cost the time a size).
     static function pick(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Array<Graphics.FontDefinition>? {
         var reserve = topReserve(dc, layout, frame, state);
+        frame.batteryStrip = 0;
         if (reserve > 0) {
             var withRow = pickWithin(dc, layout, frame, state, layout.spanHeight() - reserve);
-            if (batteryFits(dc, layout, frame, state, withRow, plannedWeatherHeight(dc, layout, frame, state))) {
+            if (batteryFits(dc, layout, frame, state, withRow, plannedWeatherHeight(dc, layout, frame, state), reserve)) {
+                frame.batteryStrip = reserve;
                 return withRow;
             }
         }
@@ -97,34 +99,34 @@ class TwoSunsRectFit {
         return true;
     }
 
-    // Room the time leaves for the watch battery row above the centred stack (a strip at the top, and its twin below), only
+    // Room the time leaves for the watch battery row at the top of the box (the row and its gap; no twin below), only
     // while the Battery setting is on: with it off (the default) the time takes that room too.
     (:pro)
     private static function topReserve(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Number {
         var top = frame.rows.timeTop;
-        return state.watchBattery == null ? 0 : 2 * (top - TwoSunsBatteryRow.top(dc, layout, top));
+        return state.watchBattery == null ? 0 : top - TwoSunsBatteryRow.top(dc, layout, top);   // the row and its gap, no twin below
     }
 
-    // Whether the watch battery row fits above the stack drawn with `picked` (or the frame's own fonts when null), planned
-    // with the weather row the setting asks for (`weatherH`), so the answer does not change when weather data comes and goes.
+    // Whether the watch battery row fits in a `strip` at the top of the box above the stack drawn with `picked` (or the
+    // frame's own fonts when null), planned with the weather row the setting asks for (`weatherH`), so the answer does not
+    // change when weather data comes and goes.
     (:pro)
     private static function batteryFits(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState,
-                                        picked as Array<Graphics.FontDefinition>?, weatherH as Number) as Boolean {
+                                        picked as Array<Graphics.FontDefinition>?, weatherH as Number, strip as Number) as Boolean {
         var percent = state.watchBattery;
         if (percent == null) {
             return false;
         }
         var time = picked == null ? frame.timeFont : picked[0];
         var value = picked == null ? frame.valueFont : picked[1];
-        var rows = layout.rows(frame.dateHeight(dc), dc.getFontHeight(time), weatherH, bandHeightFor(dc, layout, frame, value),
-                               frame.lineHeight(dc));
-        var top = TwoSunsBatteryRow.top(dc, layout, frame.showDate ? rows.dateTop : rows.timeTop);
-        return TwoSunsBatteryRow.fits(dc, layout, top, percent);
+        var stack = layout.stackHeight(frame.dateHeight(dc), dc.getFontHeight(time), weatherH, bandHeightFor(dc, layout, frame, value),
+                                       frame.lineHeight(dc));
+        return stack <= layout.spanHeight() - strip && TwoSunsBatteryRow.fits(dc, layout, layout.centerY() - layout.spanHeight() / 2, percent);
     }
 
     (:free)
     private static function batteryFits(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState,
-                                        picked as Array<Graphics.FontDefinition>?, weatherH as Number) as Boolean {
+                                        picked as Array<Graphics.FontDefinition>?, weatherH as Number, strip as Number) as Boolean {
         return false;
     }
 

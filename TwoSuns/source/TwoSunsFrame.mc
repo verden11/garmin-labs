@@ -28,9 +28,14 @@ class TwoSunsFrame {
     var weatherBoxCount as Number = 0;                             // boxes the weather row draws: the lead cell and each ahead cell
     var showBattery as Boolean = false;                            // Pro: the watch battery row above the stack, when the chord has room
     var batteryTop as Number = 0;
+    // A rectangle, awake (ADR-028): the rows are spread over the inner box (TwoSunsRectSpread), below the battery strip
+    // when the battery row is kept (`batteryStrip` px, set by TwoSunsRectFit).
+    var spreadRows as Boolean = false;
+    var batteryStrip as Number = 0;
 
     // `sleeping` keeps only the time, the value and the sun line (always-on).
     function initialize(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState, sleeping as Boolean) {
+        spreadRows = !sleeping && layout.track() != null;
         dateFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.DATE_FONTS, layout.capFor(TwoSunsLayout.DATE_MAX_PERMILLE));
         // Always-on time is two steps below whatever awake would pick right now, not a separate fixed
         // list — so it stays visibly smaller than awake on every screen, not just the ones where awake
@@ -127,9 +132,9 @@ class TwoSunsFrame {
     // A rectangle (ADR-028, the rectangle track): the time (and in Free the number) grows into what the inner box leaves,
     // measured by TwoSunsRectFit. Awake only; round and Instinct screens keep their cap. No row is dropped for it.
     private function growTime(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState) as Void {
-        var picked = TwoSunsRectFit.pick(dc, layout, self, state);
+        var picked = TwoSunsRectFit.pick(dc, layout, self, state);   // also sets batteryStrip
         if (picked == null) {
-            return;
+            picked = [timeFont, valueFont] as Array<Graphics.FontDefinition>;
         }
         timeFont = picked[0];
         timeFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.RECT_TIME_FONTS, timeFont);
@@ -156,7 +161,8 @@ class TwoSunsFrame {
         var curveHeight = layout.capFor(TwoSunsLayout.CURVE_BAND_PERMILLE);
         bandHeight = showCurve && curveHeight > valueHeight ? curveHeight : valueHeight;
         weatherHeight = weatherRowHeight(dc, layout);
-        return layout.rows(dateHeight(dc), dc.getFontHeight(timeFont), weatherHeight, bandHeight, lineHeight(dc));
+        var stacked = layout.rows(dateHeight(dc), dc.getFontHeight(timeFont), weatherHeight, bandHeight, lineHeight(dc));
+        return spreadRows ? TwoSunsRectSpread.spread(dc, layout, self, stacked) : stacked;
     }
 
     // The watch battery row sits one gap above the first row of the stack, in the strip the stack leaves free; it is drawn

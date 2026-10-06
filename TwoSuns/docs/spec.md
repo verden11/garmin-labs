@@ -151,9 +151,9 @@ Direction, **"two suns"**: black ground; one accent; a 24-hour ring around the b
 
 Rows are stacked from measured font heights (Days To Go ADR-012), not from fractions. **Drop order** when the screen is small: date, then curve, then the sun line; the time and the Body Battery value never drop; a curve with no room on its chord is dropped too (ADR-016). The ring and the time are kept on the smallest supported screen (218 px MIP).
 
-**Free (ADR-025):** awake, the Body Battery number is a size larger than in Pro (the stack has room); the always-on frame keeps the small size.
+**Free (ADR-025):** awake, the Body Battery number is a size larger than in Pro (the stack has room); the always-on frame keeps the small size. Measured: on `venusq2` the 130 permille cap picks `FONT_XTINY`, the same as Pro, so the size up does not happen there under this rule; on the rectangles the number grows with the time instead (ADR-028).
 
-**Always-on (AMOLED):** time, the Body Battery number and the sun sentence in `#5C5C5C`, a dim grey (ADR-007, amended 2026-09-27; colour changed by ADR-027, always-on text is a dim grey), the whole block stepping across a 3 by 3 grid every minute (ADR-007). No ring, no curve, no glyph, no date. MIP watches show the full face at all times.
+**Always-on (AMOLED):** time, the Body Battery number and the sun sentence in `#5C5C5C`, a dim grey (ADR-007, amended 2026-09-27; colour changed by ADR-027, always-on text is a dim grey), the whole block stepping across a 3 by 3 grid every minute (ADR-007). No ring, no curve, no glyph, no date. The time is two font steps below the awake time; on a rectangle below the grown awake time, in a list that continues past `FONT_NUMBER_MILD` to `FONT_LARGE` and `FONT_MEDIUM`, so it is always smaller (ADR-028). MIP watches show the full face at all times.
 
 ## Devices and memory
 
@@ -173,7 +173,7 @@ Rows are stacked from measured font heights (Days To Go ADR-012), not from fract
 | 240 px MIP | 2 | `fenix7s`, `fenix7spro` |
 | 218 px MIP | 2 | `fr255s`, `fr255sm` |
 
-- The three rectangular ones (Venu Sq 2, Sq 2 Music, Venu X1) have their own square form since 2026-10-05 (ADR-028, the rectangle track, proposed): the sky ring is a rounded-rectangle track along the glass with the 24 hours by its length (noon or midnight at top centre, clockwise), the rows fill the rounded box inside it and the time grows into the room left; every meaning and colour is the round face's (`../DESIGN.md` "Rectangle"). Fit-tested on `venusq2` and `venux1`, both tiers; screenshots exist (simulator only); **the owner's look approval of those screenshots comes before any upload.**
+- The three rectangular ones (Venu Sq 2, Sq 2 Music, Venu X1) have their own square form since 2026-10-05 (ADR-028, the rectangle track, proposed): the sky ring is a rounded-rectangle track along the glass with the 24 hours by its length (noon or midnight at top centre, clockwise), the rows fill the rounded box inside it and the time grows into the room left; every meaning and colour is the round face's except the empty `--`, drawn muted there like the hollow bolt (an owner question whether round follows) (`../DESIGN.md` "Rectangle"). Fit-tested on `venusq2` and `venux1`, both tiers; screenshots exist (simulator only); **the owner's look approval of those screenshots comes before any upload.**
 - **Excluded:** Instinct 3 Solar 45 mm, Instinct E 40 and 45 mm (semi-octagon, 64 KB, monochrome) and every product below API 4.2. The fēnix 5 Plus family has no Body Battery in the SDK lists and is out permanently.
 - **Tier B (1.1, gated on the probe): 23 products, API 3.4 to 4.1** (fēnix 6 family, FR55, FR945 LTE, MARQ Gen 1, Enduro, Descent Mk2, Instinct 2 family). No Complications: sunrise and sunset must come from the calculation and a location, which is the failure path the reviews describe, so it ships only when the location probe shows a source that works.
 - The fēnix 9 family, FR70 and FR170 (API 6.0) are in v1 by API level; the SDK's device lists omit them (doc lag), like the settings-view case in Days To Go. Their first run is the risk: **verify on a real watch or say so on the listing.**
