@@ -49,6 +49,10 @@ class TwoSunsLayout {
     // reads clearly second (TwoSunsRectFit, ADR-028). Text fonts only: "--" must draw.
     static const RECT_FREE_VALUE_FONTS = [Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL] as Array<Graphics.FontDefinition>;
     static const RECT_VALUE_TO_TIME_PERMILLE = 450;
+    static const RECT_PRO_VALUE_FONTS = [Graphics.FONT_SMALL, Graphics.FONT_TINY] as Array<Graphics.FontDefinition>;
+    // A rectangle's always-on time: two steps below the awake time in this list, which continues past the number fonts.
+    static const RECT_SLEEP_TIME_FONTS = [Graphics.FONT_NUMBER_THAI_HOT, Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM,
+                                          Graphics.FONT_NUMBER_MILD, Graphics.FONT_LARGE, Graphics.FONT_MEDIUM] as Array<Graphics.FontDefinition>;
     static const VALUE_FONTS = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     // Free has no date, weather, battery or curve row to share the stack with, so the Body Battery number, the face's
     // second question after the time, may be a size up (awake only; the always-on frame keeps VALUE_FONTS).

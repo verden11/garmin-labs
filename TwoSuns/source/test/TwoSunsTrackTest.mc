@@ -171,6 +171,51 @@ function rectangleGrowthKeepsTheWeatherRow(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// On a rectangle the Battery setting costs the time a size only when the battery row then draws: with the setting on and
+// no room for the row, the time is the same as with it off. Pro only.
+(:test, :pro)
+function rectangleBatteryCostsTheTimeOnlyWhenDrawn(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    if (layout.track() == null) {
+        return true;
+    }
+    var days = [null, TwoSunsTestStates.widestDay()] as Array<TwoSunsWeather or Null>;
+    for (var i = 0; i < days.size(); i++) {
+        var on = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true);
+        var off = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true);
+        off.watchBattery = null;
+        var day = days[i];
+        if (day != null) {
+            on = TwoSunsTestStates.withWeather(on, day);
+            off = TwoSunsTestStates.withWeather(off, day);
+            on.weatherOn = true;
+            off.weatherOn = true;
+        }
+        var withRow = new TwoSunsFrame(dc, layout, on, false);
+        if (!withRow.showBattery) {
+            Test.assertEqual(withRow.timeFont, new TwoSunsFrame(dc, layout, off, false).timeFont);
+        }
+    }
+    return true;
+}
+
+// On a rectangle the always-on time is always smaller than the awake time it follows.
+(:test)
+function rectangleAlwaysOnTimeIsSmaller(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    if (layout.track() == null) {
+        return true;
+    }
+    var states = TwoSunsTestStates.all();
+    for (var i = 0; i < states.size(); i++) {
+        var awake = dc.getFontHeight(new TwoSunsFrame(dc, layout, states[i], false).timeFont);
+        Test.assertMessage(dc.getFontHeight(new TwoSunsFrame(dc, layout, states[i], true).timeFont) < awake, "state " + i);
+    }
+    return true;
+}
+
 // Free on a rectangle: the number grows with the time but stays clearly second (at most its share of the time's height).
 (:test, :free)
 function rectangleFreeNumberStaysSecond(logger as Test.Logger) as Boolean {

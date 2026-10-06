@@ -36,7 +36,12 @@ class TwoSunsFrame {
         // list — so it stays visibly smaller than awake on every screen, not just the ones where awake
         // happens to land on its largest font (TwoSunsLayout.SLEEP_TIME_FONTS comment; 2026-09-27).
         var awakeTimeFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.TIME_FONTS, layout.capFor(TwoSunsLayout.TIME_MAX_PERMILLE));
-        if (sleeping) {
+        if (sleeping && layout.track() != null) {
+            // A rectangle's awake time grew (TwoSunsRectFit): always-on is two steps below that, from a list that continues
+            // past FONT_NUMBER_MILD, so it is always visibly smaller (ADR-028).
+            timeFonts = TwoSunsDraw.fontsBelow(TwoSunsLayout.RECT_SLEEP_TIME_FONTS, TwoSunsRectFit.awakeTimeFont(dc, layout, state), 2);
+            timeFont = timeFonts[0];
+        } else if (sleeping) {
             timeFonts = TwoSunsDraw.fontsBelow(TwoSunsLayout.TIME_FONTS, awakeTimeFont, 2);
             timeFont = timeFonts[0];
         } else {
@@ -130,7 +135,7 @@ class TwoSunsFrame {
         timeFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.RECT_TIME_FONTS, timeFont);
         if (picked[1] != valueFont) {
             valueFont = picked[1];
-            valueFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.RECT_FREE_VALUE_FONTS, valueFont);
+            valueFonts = [valueFont] as Array<Graphics.FontDefinition>;   // drawn whole: its width was measured on "100"
         }
         rows = plan(dc, layout);
         band = planBand(dc, layout, state);

@@ -3,15 +3,33 @@ import Toybox.Lang;
 
 // A rectangle's second fitting pass (docs/decisions.md ADR-028, the rectangle track): once every row has its place, the
 // time takes the largest font the inner box still holds, by height and by the width of the widest time ("00:00", so the
-// size does not change from minute to minute), and in Free the Body Battery number grows with it so the energy reading
-// stays clearly second. Rows are never dropped for it: a size whose stack would push the weather row off its chord is
+// size does not change from minute to minute), and the Body Battery number grows with it (Free up to FONT_LARGE, Pro, whose
+// band shares its row with the curve, up to FONT_SMALL) so the energy reading stays clearly second. Rows are never dropped for it: a size whose stack would push the weather row off its chord is
 // skipped for the next smaller one. Pure measuring; TwoSunsFrame applies the result.
 class TwoSunsRectFit {
 
-    // [time font, value font] for the largest time that fits, or null when nothing beats the frame's own fonts.
+    // [time font, value font] for the largest time that fits, or null when nothing beats the frame's own fonts. The strip for
+    // the watch battery row is kept only when the row will then fit and draw; when it would not draw anyway, the time takes
+    // that room too (a setting that shows nothing must not cost the time a size).
     static function pick(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Array<Graphics.FontDefinition>? {
+        var reserve = topReserve(dc, layout, frame, state);
+        if (reserve > 0) {
+            var withRow = pickWithin(dc, layout, frame, state, layout.spanHeight() - reserve);
+            if (batteryFits(dc, layout, frame, state, withRow, plannedWeatherHeight(dc, layout, frame, state))) {
+                return withRow;
+            }
+        }
+        return pickWithin(dc, layout, frame, state, layout.spanHeight());
+    }
+
+    // The time font the awake frame draws for this state (the always-on frame steps two below it).
+    static function awakeTimeFont(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState) as Graphics.FontDefinition {
+        return new TwoSunsFrame(dc, layout, state, false).timeFont;
+    }
+
+    private static function pickWithin(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState,
+                                       room as Number) as Array<Graphics.FontDefinition>? {
         var fonts = TwoSunsLayout.RECT_TIME_FONTS;
-        var room = layout.spanHeight() - topReserve(dc, layout, frame, state);
         var weatherH = plannedWeatherHeight(dc, layout, frame, state);
         var values = valueGrowFonts(frame);
         for (var i = 0; i < fonts.size(); i++) {
@@ -58,7 +76,7 @@ class TwoSunsRectFit {
     // its size.
     (:pro)
     private static function valueGrowFonts(frame as TwoSunsFrame) as Array<Graphics.FontDefinition> {
-        return [frame.valueFont] as Array<Graphics.FontDefinition>;
+        return TwoSunsLayout.RECT_PRO_VALUE_FONTS;
     }
 
     (:free)
@@ -85,6 +103,29 @@ class TwoSunsRectFit {
     private static function topReserve(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Number {
         var top = frame.rows.timeTop;
         return state.watchBattery == null ? 0 : 2 * (top - TwoSunsBatteryRow.top(dc, layout, top));
+    }
+
+    // Whether the watch battery row fits above the stack drawn with `picked` (or the frame's own fonts when null), planned
+    // with the weather row the setting asks for (`weatherH`), so the answer does not change when weather data comes and goes.
+    (:pro)
+    private static function batteryFits(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState,
+                                        picked as Array<Graphics.FontDefinition>?, weatherH as Number) as Boolean {
+        var percent = state.watchBattery;
+        if (percent == null) {
+            return false;
+        }
+        var time = picked == null ? frame.timeFont : picked[0];
+        var value = picked == null ? frame.valueFont : picked[1];
+        var rows = layout.rows(frame.dateHeight(dc), dc.getFontHeight(time), weatherH, bandHeightFor(dc, layout, frame, value),
+                               frame.lineHeight(dc));
+        var top = TwoSunsBatteryRow.top(dc, layout, frame.showDate ? rows.dateTop : rows.timeTop);
+        return TwoSunsBatteryRow.fits(dc, layout, top, percent);
+    }
+
+    (:free)
+    private static function batteryFits(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState,
+                                        picked as Array<Graphics.FontDefinition>?, weatherH as Number) as Boolean {
+        return false;
     }
 
     (:free)
