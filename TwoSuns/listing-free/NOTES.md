@@ -13,7 +13,7 @@ What sits behind [`paste.md`](paste.md), the paste-ready copy. Nothing here is p
 | Pro's price | The $2.50 tier (ADR-026, price: the $2.50 tier for every paid app), set in the form with the 1.1.0 upload (documented $1.99, $2.25 shown in the store until then). **The listing never states a price** |
 | Icon, cover, hero, screens | Rendered 2026-10-04 from the Free build (simulator, canned data); looks and identity are still the owner's to approve. The plain ring (no golden arcs, no "PRO" pill) tells Free from Pro: a proposal |
 | Whether the date row and ring orientation are Pro only | The plan puts both in Pro; Free is a thinner face without them. The draft does not mention them (the release contract: the Free listing never names Pro-only features) |
-| The empty Body Battery state (ADR-021, Body Battery in Free) | `--` and a hollow pill (the existing display). The alternative is a worded value ("No data"), which needs 15 languages of machine-drafted text |
+| The empty Body Battery state (ADR-021, Body Battery in Free) | `--` and a hollow bolt (the existing display; the pill became a bolt in ADR-023). The alternative is a worded value ("No data"), which needs 15 languages of machine-drafted text |
 | Translations | English only; any translation is machine-drafted and needs the owner's OK and a native read (`../listing/NOTES.md` "Languages") |
 | Upload order | Free (new app) first, Pro 1.1.0 the same day |
 | Whether line 1 is the sibling URL | The plan (D8) puts it first. It costs the list-view preview, which shows the first sentence; the Pro listing's rule was that the first sentence carries the promise. The owner may move the URL line below the promise sentence |

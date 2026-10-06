@@ -101,7 +101,7 @@ Dependencies point down only. Sensor classes take plain args, return plain value
 
 **HeroSetRules**: pure game rules. `xpForReps`; rank curve (`rankCost`, `rankThreshold`, `rankForXp`, `xpIntoRank`, `xpToNextRank`, [ADR-031](decisions.md#adr-031)); `nextStreak` (on completion) and `activeStreak` (0 once day missed); `missionComplete`, `crossedGoal` (milestone feedback), `clampDelta` (picker).
 
-**HeroSetCalendar**: `todayKey()` → `YYYYMMDD` from local clock; `isConsecutiveDate` handle month/year/leap rollover ([ADR-001](decisions.md#adr-001)).
+**HeroSetCalendar**: `todayKey()` → `YYYYMMDD` from local clock; `isConsecutiveDate` handle month/year/leap rollover, `previousDayKey` its inverse (undo of today completion, [ADR-058](decisions.md#adr-058)) ([ADR-001](decisions.md#adr-001)).
 
 **HeroSetRepCounter**: turn 25 Hz samples into one signal per exercise: push-ups and sit-ups use tilt swing along deviation's principal axis; squats use leaky double integral of strength, roughly height (`integratesMotion`). Count one rep per full swing past `+threshold` then `-threshold` (or reverse), sides at least `SENSOR_COOLDOWN_MS` apart ([ADR-032](decisions.md#adr-032)). Feeds every signal value to its `HeroSetSwingTrace`.
 
@@ -152,7 +152,7 @@ Workout 1 Hz timer → requestUpdate (HR / calories / elapsed)
 
 START (Finish) → pop workout → push picker(seed = detected)       [depth 1]
 Picker save → Store.add(exercise, delta)
-  → ensureCurrentDay → clamp ≥ 0 → awardXpFor (ratchet) → updateCompletion
+  → ensureCurrentDay → clamp ≥ 0 → awardXpFor (ratchet) → updateCompletion (sets, or undoes today on a count save, ADR-058)
   → logValidationTrial (workout-seeded only) → HeroSetSaveFeedback
 
 Connect Sync on (ADR-043):

@@ -39,6 +39,9 @@ class HeroSetStore {
     const DRAFT_EXERCISE_KEY = "hero_draft_exercise";
     const DRAFT_COUNT_KEY = "hero_draft_count";
     const NO_DRAFT_DAY = 0;
+    // Written to LAST_COMPLETION_KEY when today's completion is undone and
+    // no live run led into it (ADR-058). Day 0 is never a real day key.
+    const NO_COMPLETION_DAY = 0;
 
 
     private var _storage as HeroSetStorage;
@@ -97,7 +100,7 @@ class HeroSetStore {
         }
         _set(key, next);
         awardXpFor(exercise, previous, next);
-        updateCompletion();
+        updateCompletion(true);
     }
 
     // XP on the NET gain in stored progress, capped at a fixed number of
@@ -140,7 +143,7 @@ class HeroSetStore {
 
     // The day the daily mission was last completed, for subscribers that have
     // to decide whether the streak is still alive (ADR-044). Null until the
-    // first completion.
+    // first completion; NO_COMPLETION_DAY after an undone first day (ADR-058).
     function getLastCompletionDay() as Lang.Number? {
         return asNumberOrNull(_storage.getValue(LAST_COMPLETION_KEY));
     }
@@ -180,10 +183,13 @@ class HeroSetStore {
 
     // Lowering the goal below today's counts has to finish the day right
     // away, so the streak doesn't wait for the next rep to be logged.
+    // Raising it never takes a finished day back (ADR-045, ADR-058): the
+    // picker is also how tomorrow's goal is set, so an evening raise must not
+    // cost today's streak.
     function setGoal(goal as Lang.Number) as Void {
         _writeFailed = false;
         _set(GOAL_KEY, HeroSetRules.clampGoal(goal));
-        updateCompletion();
+        updateCompletion(false);
     }
 
     function isSyncEnabled() as Lang.Boolean {
@@ -194,20 +200,39 @@ class HeroSetStore {
         _set(SYNC_ENABLED_KEY, enabled);
     }
 
-    private function updateCompletion() as Void {
-        if (!isDailyMissionComplete()) {
-            return;
-        }
-
+    // A count correction that takes a finished today back under the goal
+    // undoes today's completion (ADR-058); XP is untouched either way
+    // (ADR-002). `complete` is read first: it runs ensureCurrentDay, so a
+    // midnight in between cannot pair new-day counts with the old day.
+    // The completion day is written before the streak, so a failed write
+    // can leave the streak off by one but never repeat the step.
+    private function updateCompletion(mayUndo as Lang.Boolean) as Void {
+        var complete = isDailyMissionComplete();
         var today = _clock.todayKey();
         var lastDay = asNumberOrNull(_storage.getValue(LAST_COMPLETION_KEY));
-        if (lastDay == today) {
-            return;
+        if (complete && lastDay != today) {
+            var streak = HeroSetRules.nextStreak(lastDay, today, readNumber(STREAK_KEY));
+            _set(LAST_COMPLETION_KEY, today);
+            _set(STREAK_KEY, streak);
+        } else if (mayUndo && !complete && lastDay == today) {
+            undoCompletion(today);
         }
+    }
 
-        var streak = HeroSetRules.nextStreak(lastDay, today, readNumber(STREAK_KEY));
-        _set(STREAK_KEY, streak);
-        _set(LAST_COMPLETION_KEY, today);
+    // Restores the state from before today counted, derived instead of
+    // stored: nextStreak made today's streak yesterday's + 1, or 1 when no
+    // live run led into today. NO_COMPLETION_DAY marks the latter; every
+    // reader treats it as a long-dead day, and the complication already
+    // publishes 0 for "never".
+    private function undoCompletion(today as Lang.Number) as Void {
+        var previous = readNumber(STREAK_KEY) - 1;
+        if (previous > 0) {
+            _set(LAST_COMPLETION_KEY, HeroSetCalendar.previousDayKey(today));
+            _set(STREAK_KEY, previous);
+        } else {
+            _set(LAST_COMPLETION_KEY, NO_COMPLETION_DAY);
+            _set(STREAK_KEY, 0);
+        }
     }
 
     // ------------------------------------------------------------------

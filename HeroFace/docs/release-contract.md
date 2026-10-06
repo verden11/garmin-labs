@@ -17,3 +17,8 @@ The listing sells a practical everyday face: time first, three daily goals as ba
 Allowed: the metric list, "Compatible Devices" as the store shows it (no watch count: the package has 117 products in 1.0.1 and the store lists only 69, see "Paid vs free reach"), "nothing leaves your watch", the HeroSet link on Connect IQ 4.2+ watches, the settings.
 
 Forbidden until measured on a watch: any battery-life number, any always-on claim beyond what the FR965 night of 2026-09-21/22 backs (§1: the face works always-on without burn-in retention on that watch), "works with every Garmin", accuracy claims of any kind, and any review, rating or user count — none exist. (The one-line request "If this face works for you, a rating in the store helps other people find it." is in the Free listing only, by the owner's decision of 2026-10-04; it asks and claims nothing.)
+
+## Cross-promotion (rule copied from Days To Go and Two Suns, 2026-10-05, ROADMAP 13.32; the agent's pick on the owner's standing instruction)
+
+- "More from Verden" links only live **free** siblings, checked with `curl` (HTTP 200) before each paste; never a paid listing, never a price.
+- The Free listing says plainly that nothing is locked (no trial, no code to enter, nothing to buy on the watch); never "upgrade" or "unlock" wording.

@@ -111,6 +111,22 @@ function loweringTheGoalCompletesTodayImmediately(logger as Test.Logger) as Lang
     return true;
 }
 
+// Unlike a count correction (ADR-058), a raised goal never takes a finished
+// day back: the picker also sets tomorrow's goal, so an evening raise must
+// not cost the streak (ADR-045). Lowering it again changes nothing.
+(:test)
+function raisingTheGoalKeepsTodaysCompletion(logger as Test.Logger) as Lang.Boolean {
+    var store = storeWith(20260911);
+    completeAll(store);
+    store.setGoal(store.getGoal() + HeroSetConfig.MISSION_GOAL_STEP);
+    Test.assert(!store.isDailyMissionComplete());
+    Test.assertEqual(store.getStreak(), 1);
+    Test.assertEqual(store.getLastCompletionDay(), 20260911);
+    store.setGoal(store.getGoal() - HeroSetConfig.MISSION_GOAL_STEP);
+    Test.assertEqual(store.getStreak(), 1);
+    return true;
+}
+
 (:test)
 function addAwardsXpOnNetStoredDelta(logger as Test.Logger) as Lang.Boolean {
     var store = storeWith(20260911);

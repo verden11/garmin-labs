@@ -20,6 +20,8 @@ Consigue HeroFace Pro: https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-8237
 
 Primero la hora, justo debajo los objetivos de hoy. Tres barras, un anillo para todo el día, una racha que vale la pena mantener, o tus repeticiones y tu rango de HeroSet, si lo tienes.
 
+Nada está bloqueado: sin periodo de prueba, sin código que introducir, nada que comprar en el reloj.
+
 La hora manda en la pantalla
 La hora es lo más grande de la esfera, al mayor tamaño que tu reloj puede dibujar. Debajo, los tres objetivos de hoy como barras: pasos, minutos de intensidad y pisos. El anillo alrededor del bisel es todo el día de un vistazo, y se llena de verde cuando cumples los tres.
 
@@ -46,8 +48,16 @@ Si esta esfera te resulta útil, una valoración en la tienda ayuda a que otras 
 Nada sale de tu reloj
 Sin cuenta, sin internet, sin analíticas, sin anuncios. La tienda indica "Communication & Data Transmission" porque HeroFace puede leer el progreso de HeroSet en el mismo reloj; no se envía nada a ningún sitio.
 
+Más de Verden
+DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 Ayuda y respuestas: https://verden.watch/heroface/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, written in the Days To Go and Two Suns release contracts), so today it names DayArc alone. Add each line below to the Spanish block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
 
 ## Chinese, Simplified (简体中文)
 
@@ -63,6 +73,8 @@ HeroFace
 获取 HeroFace Pro：https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116
 
 时间优先，今天的目标就在下方。三条进度条、一个代表全天的圆环、一段值得保持的连续纪录——如果你有 HeroSet，还能显示你的 HeroSet 次数和等级。
+
+没有任何锁定内容：没有试用期，无需输入代码，也无需在手表上购买任何东西。
 
 时间占据屏幕
 时间是表盘上最大的内容，以手表能显示的最大字号呈现。下方以进度条显示今天的三个目标：步数、强度分钟数和楼层。表圈上的圆环一次显示整天的进度，三个目标全部完成时会变成绿色。
@@ -90,5 +102,13 @@ HeroFace Pro 增加
 数据不会离开你的手表
 无需账户，不联网，无分析，无广告。商店列出“Communication & Data Transmission”，是因为 HeroFace 可以读取同一块手表上 HeroSet 的进度；不会向任何地方发送任何内容。
 
+Verden 的更多作品
+DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 帮助与解答：https://verden.watch/heroface/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, written in the Days To Go and Two Suns release contracts), so today it names DayArc alone. Add each line below to the Chinese block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12). Use a full-width colon (`：`) in these lines.
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`

@@ -33,8 +33,16 @@ Round and rectangular watches alike, full detail down to the smallest, dimming t
 Nothing leaves your watch
 No permissions, no account, no internet, no analytics, no ads.
 
+More from Verden
+DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 Support and answers: https://verden.watch/days-to-go/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the description block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+>
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
 ## App Version
 

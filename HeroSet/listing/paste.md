@@ -9,14 +9,14 @@ HeroSet - Bodyweight Rep Counter
 ## Description
 
 ```text
-100 push-ups, 100 sit-ups and 100 squats a day, or your own goal from 10 to 500. Your Garmin counts the reps.
+Push-ups, sit-ups and squats in one app: 100 of each a day, or your own goal from 10 to 500. Your Garmin counts the reps by itself, and everything runs on the watch, no phone needed.
 
 - Start a set, do your reps: HeroSet counts them with the watch's motion sensor.
 - Runs on the watch's buttons: START and UP/DOWN, or START and a swipe on touchscreen watches. No phone, no account.
 - After every set, check the count and adjust it before it's saved. Only the START button saves, so a stray tap can't.
 - HeroSet learns from the counts you save, so counting adapts to how you move.
 - Earn XP for every rep up to 100 per exercise a day, climb ranks and keep your streak alive. Rank reflects the reps you do, not the goal you pick.
-- Set your own daily goal on the watch: 10 to 500 reps, no phone needed.
+- Set your own daily goal on the watch: 10 to 500 reps.
 - Live heart rate and a calorie estimate during each set.
 - A glance on watches with Connect IQ 4.0 or later: see today's progress and your streak from your glance list without opening the app.
 - Also on black-and-white screens, with your XP ring in the small round window.
@@ -24,8 +24,17 @@ HeroSet - Bodyweight Rep Counter
 
 Everything stays on your watch. HeroSet has no network access, records no activity and sends nothing to Garmin Connect. The store lists "Communication & Data Transmission" because HeroSet hands today's progress to our HeroFace watch face on the same watch; nothing is sent anywhere.
 
-Good to know: counting depends on how you wear the watch and how you move, so the number can be off. Calories are the change in Garmin's own daily total, an estimate. Not a medical device.
+Good to know: counting depends on how you wear the watch and how you move, so the number can be off. Calories are the change in Garmin's own daily total, an estimate. A set is not saved as an activity, so it adds no intensity minutes of its own. Not a medical device.
+
+More from Verden
+DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, written in the Days To Go and Two Suns release contracts), so today it names DayArc alone. Add each line below to the description block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
 ## App Version
 

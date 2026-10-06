@@ -43,6 +43,8 @@ class TwoSunsLayout {
     // Fonts by role, largest first; a row takes the largest whose height fits its cap.
     static const DATE_FONTS = [Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     static const TIME_FONTS = [Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
+    // A rectangle's time may grow past its cap into what the inner box leaves (TwoSunsFrame.growTime, ADR-028).
+    static const RECT_TIME_FONTS = [Graphics.FONT_NUMBER_THAI_HOT, Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
     static const VALUE_FONTS = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     // Free has no date, weather, battery or curve row to share the stack with, so the Body Battery number, the face's
     // second question after the time, may be a size up (awake only; the always-on frame keeps VALUE_FONTS).
@@ -65,6 +67,9 @@ class TwoSunsLayout {
     private var _windowY as Number = 0;
     private var _windowW as Number = 0;
     private var _windowH as Number = 0;
+    // Rectangular screens only (Venu Sq 2, Sq 2 Music, Venu X1): the sky ring is a rounded-rectangle track and the rows fit
+    // the rounded box inside it (ADR-028, the rectangle track). Null on round and Instinct screens, whose paths never read it.
+    private var _track as TwoSunsTrack?;
 
     function initialize(dc as Graphics.Dc) {
         _width = dc.getWidth();
@@ -82,6 +87,14 @@ class TwoSunsLayout {
             _windowW = window.width as Number;
             _windowH = window.height as Number;
         }
+        if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_RECTANGLE) {
+            _track = new TwoSunsTrack(_width, _height, _radius - ringRadius(), _d * TwoSunsTrack.CORNER_PERMILLE / TwoSunsConfig.PERMILLE);
+        }
+    }
+
+    // The rectangle's track (ADR-028); null on round and Instinct screens.
+    function track() as TwoSunsTrack? {
+        return _track;
     }
 
     // The Instinct's physical window in display coordinates; null on every other product.
@@ -138,6 +151,9 @@ class TwoSunsLayout {
     function spanHeight() as Number {
         if (_subscreen != null) {
             return _height - 2 * edgeMargin();   // top margin to bottom margin (the stack starts at the top, beside the window)
+        }
+        if (_track != null) {
+            return _height - 2 * (_radius - contentRadius());   // the whole inner box: a rectangle has no chord to keep clear of
         }
         return 2 * contentRadius() * SPAN_PERMILLE / TwoSunsConfig.PERMILLE;
     }
@@ -266,7 +282,7 @@ class TwoSunsLayout {
             var visible = centerX() - chordHalfWidth(VISIBLE_RADIUS_PX, farthestInkDy(y, height));
             return visible > edgeMargin() ? visible : edgeMargin();
         }
-        return centerX() - chordHalfWidth(radius, farthestDy(y, height));
+        return centerX() - halfWidthWithin(radius, farthestDy(y, height));
     }
 
     function rightInsetWithin(radius as Number, y as Number, height as Number) as Number {
@@ -275,7 +291,13 @@ class TwoSunsLayout {
             var edge = besideWindow(y) ? _windowX - _d * WINDOW_CLEARANCE_PERMILLE / TwoSunsConfig.PERMILLE : _width - edgeMargin();
             return visible < edge ? visible : edge;
         }
-        return centerX() + chordHalfWidth(radius, farthestDy(y, height));
+        return centerX() + halfWidthWithin(radius, farthestDy(y, height));
+    }
+
+    // Round: the chord of the circle of `radius`. Rectangle: the rounded box inset by what `radius` is short of half of D.
+    private function halfWidthWithin(radius as Number, dy as Number) as Number {
+        var track = _track;
+        return track == null ? chordHalfWidth(radius, dy) : track.halfWidthAt(_radius - radius, dy);
     }
 
     // The whole display, for the screen-fit test.

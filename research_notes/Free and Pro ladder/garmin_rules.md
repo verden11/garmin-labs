@@ -61,8 +61,9 @@ All **measured** by reading the live page in a browser, 2026-09-28, unless marke
   support and privacy pages and the other apps). Field length limit unknown; keep it to one short line.
 - Every listing draft (`*/listing*/README.md`) carries the text under "Additional Hardware Requirements". Free listings use the same hub page
   until the site gets Free pages (WP8). New listing drafts and the WP10 template must include the field.
-- Live listings change only when the owner edits them in the dashboard (HeroSet, HeroFace, Days To Go, Two Suns); whether the field can be edited
-  without a new version upload is unverified.
+- Live listings change only when the owner edits them in the dashboard (HeroSet, HeroFace, Days To Go, Two Suns). **Every listing detail
+  (description, title, screenshots, cover, hero, pricing, every other field) can be edited at any time, without a new version, whether the
+  app is in review or approved** (owner, from the dashboard, 2026-10-05). So text and images follow what the LIVE build does, not the next one.
 
 ## Not documented (do not assume)
 

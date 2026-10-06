@@ -35,6 +35,100 @@ function glanceReaderMatchesTheStoreOnTheSameDay(logger as Test.Logger) as Lang.
     return true;
 }
 
+// A correction after a save is the same one stored count, so the dashboard,
+// the glance and the HeroFace complication all show the corrected number.
+// XP keeps what was already credited (ADR-002 ratchet), so it does not follow
+// a downward correction (ROADMAP 15.6).
+(:test)
+function aCorrectionReachesDashboardGlanceAndComplication(logger as Test.Logger) as Lang.Boolean {
+    var storage = new HeroSetCountingStorage();
+    var clock = new HeroSetTestClock();
+    var store = new HeroSetStore(storage, clock);
+    store.add(:pushups, 30);
+    store.add(:pushups, -12);
+    var state = store.getDashboardState();
+    Test.assertEqual(state.pushups, 18);
+    Test.assertEqual(HeroSetGlanceReader.read(storage, clock.day).pushups, 18);
+    Test.assertEqual(HeroSetComplicationPublisher.valueFor(state, clock.day, store.getLastCompletionDay()), "1|" + clock.day + "|18|0|0|1|20|0|0|100");
+    Test.assertEqual(store.getXp(), 60);
+    return true;
+}
+
+// True when the published complication value ends in `tail`, the
+// "|streak|lastDoneDay|goal" fields HeroFace reads (ADR-044).
+function complicationEndsWith(store as HeroSetStore, day as Lang.Number, tail as Lang.String) as Lang.Boolean {
+    var value = HeroSetComplicationPublisher.valueFor(store.getDashboardState(), day, store.getLastCompletionDay());
+    var end = value.substring(value.length() - tail.length(), value.length());
+    return end != null && end.equals(tail);
+}
+
+// A correction that takes today back under the goal undoes today's
+// completion (ADR-058): streak, completion day, glance and HeroFace's
+// lastDoneDay all say "open" with the bars. XP stays (ADR-002). A second
+// correction has nothing left to undo.
+(:test)
+function aCorrectionUnderTheGoalUndoesTodaysCompletion(logger as Test.Logger) as Lang.Boolean {
+    var storage = new HeroSetCountingStorage();
+    var clock = new HeroSetTestClock();
+    var store = new HeroSetStore(storage, clock);
+    completeAll(store);
+    var xp = store.getXp();
+    for (var i = 0; i < 2; i++) {
+        store.add(:pushups, -1);
+        Test.assert(!store.isDailyMissionComplete());
+        Test.assertEqual(store.getStreak(), 0);
+        Test.assertEqual(store.getLastCompletionDay(), store.NO_COMPLETION_DAY);
+        Test.assertEqual(HeroSetGlanceReader.read(storage, clock.day).streak, 0);
+        Test.assert(complicationEndsWith(store, clock.day, "|0|0|100"));
+    }
+    Test.assertEqual(store.getXp(), xp);
+    return true;
+}
+
+// Back over the goal completes today again, with no second XP payment.
+(:test)
+function aCorrectionBackOverTheGoalCompletesTodayAgain(logger as Test.Logger) as Lang.Boolean {
+    var clock = new HeroSetTestClock();
+    var store = new HeroSetStore(new HeroSetTestStorage(), clock);
+    completeAll(store);
+    var xp = store.getXp();
+    store.add(:pushups, -1);
+    store.add(:pushups, 1);
+    Test.assert(store.isDailyMissionComplete());
+    Test.assertEqual(store.getStreak(), 1);
+    Test.assertEqual(store.getLastCompletionDay(), clock.day);
+    Test.assert(complicationEndsWith(store, clock.day, "|1|" + clock.day + "|100"));
+    Test.assertEqual(store.getXp(), xp);
+    return true;
+}
+
+// Yesterday's completion is never touched by a correction on a new day that
+// has not completed; undoing today steps back to yesterday's run, which a
+// restart (a fresh store on the same storage) reads the same.
+(:test)
+function undoingTodayKeepsYesterdaysStreak(logger as Test.Logger) as Lang.Boolean {
+    var storage = new HeroSetTestStorage();
+    var clock = new HeroSetTestClock();
+    var yesterday = clock.day;
+    var store = new HeroSetStore(storage, clock);
+    completeAll(store);
+    clock.day = yesterday + 1;
+    store.add(:pushups, 5);
+    store.add(:pushups, -5);
+    Test.assertEqual(store.getStreak(), 1);
+    Test.assertEqual(store.getLastCompletionDay(), yesterday);
+    completeAll(store);
+    Test.assertEqual(store.getStreak(), 2);
+    store.add(:squats, -1);
+    store = new HeroSetStore(storage, clock);
+    Test.assertEqual(store.getStreak(), 1);
+    Test.assertEqual(store.getLastCompletionDay(), yesterday);
+    Test.assert(complicationEndsWith(store, clock.day, "|1|" + yesterday + "|100"));
+    store.add(:squats, 1);
+    Test.assertEqual(store.getStreak(), 2);
+    return true;
+}
+
 // The point of the read-only path: the next day's glance shows 0 without any
 // write, and the streak is alive until the day after that.
 (:test)

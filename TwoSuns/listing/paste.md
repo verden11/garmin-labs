@@ -34,8 +34,16 @@ Fits round and rectangular watches alike. It dims to a quiet time, number and su
 Your place stays on your watch
 The face reads your last known location (rounded to about 11 km), your recent Body Battery, and the watch's own sun data — nothing leaves the watch. No internet, no account, no analytics, no ads.
 
+More from Verden
+DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 Support and answers: https://verden.watch/two-suns/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the description block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
 ## App Version
 

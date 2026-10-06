@@ -15,6 +15,8 @@ Get DayArc Pro: https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571f
 
 DayArc changes what it shows through the day, on a fixed schedule. One setting: an accent colour, chosen in the Garmin Connect app — or leave it on Auto, where each time of day has its own colour.
 
+Nothing is locked: no trial, no code to enter, nothing to buy on the watch.
+
 Morning: feels-like temperature, the day's high and low, and chance of rain — what to dress for.
 Midday: a stress reading, shown as a number and a plain gauge, never a mood or a verdict.
 Evening: your Body Battery reading, the same way — a number, never good or bad.

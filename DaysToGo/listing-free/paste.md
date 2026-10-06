@@ -15,6 +15,8 @@ Get Days To Go Pro: https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da
 
 A countdown watch face: one big number for the days left until your date.
 
+Nothing is locked: no trial, no code to enter, nothing to buy on the watch.
+
 One number
 The days left is the biggest thing on the screen, at the largest size your watch can draw. The time above it, the date below. A thin ring around the bezel drains through the last year and fills on the day itself. No steps, no heart rate, no weather.
 
@@ -36,8 +38,16 @@ If this face works for you, a rating in the store helps other people find it.
 Nothing leaves your watch
 No permissions, no account, no internet, no analytics, no ads.
 
+More from Verden
+DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
+
 Support and answers: https://verden.watch/days-to-go/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (release contract), so today it names DayArc alone. Add each line below to the description block, after the DayArc line, once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 (all three free twins returned 404 on 2026-10-05, in Garmin review, ROADMAP 7.12).
+>
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
 ## App Version
 

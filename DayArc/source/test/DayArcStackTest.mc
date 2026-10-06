@@ -43,7 +43,8 @@ function dayArcWorstHero(variant as Number, window as Number) as Dictionary {
     hero.put(:dateText, DayArcConfig.WORST_DATE);
     var empty = variant == 1 || variant == 3 || variant == 5;
     if (window == DayArcConfig.WINDOW_MORNING) {
-        hero.put(:label, null);
+        // "Feels like" since ROADMAP 13.28; none when there is no weather (DayArcFields).
+        hero.put(:label, empty ? null : WatchUi.loadResource(Rez.Strings.morning_feels_label) as String);
         hero.put(:value, empty ? "--" : DayArcConfig.WORST_TEMPERATURE);
         hero.put(:sub, empty ? WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String : DayArcConfig.WORST_MORNING_SUB);
     } else if (window == DayArcConfig.WINDOW_MIDDAY) {
@@ -72,7 +73,7 @@ function dayArcCheckVariant(logger as Test.Logger, dc as Graphics.Dc, layout as 
     problems += dayArcRowProblems(dc, layout, plan, hero, name);
     if (layout.subscreen() != null) {
         problems += dayArcInstinctProblems(dc, layout, plan, hero, name);
-    } else if (window != DayArcConfig.WINDOW_NIGHT) {
+    } else if (window != DayArcConfig.WINDOW_NIGHT && !layout.isRectangle()) {   // a rectangle: DayArcRectTest
         problems += dayArcArcProblem(logger, dc, layout, plan, name);
     }
     return problems;
