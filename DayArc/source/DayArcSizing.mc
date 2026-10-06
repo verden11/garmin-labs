@@ -89,7 +89,7 @@ class DayArcSizing {
 
     private static function worstSub(window as Number) as String {
         if (window == DayArcConfig.WINDOW_MORNING) {
-            return DayArcConfig.WORST_MORNING_SUB;
+            return DayArcSources.hasUvIndex() ? DayArcConfig.WORST_MORNING_SUB : DayArcConfig.WORST_MORNING_SUB_NO_UV;
         }
         if (window == DayArcConfig.WINDOW_EVENING) {
             return Lang.format(WatchUi.loadResource(Rez.Strings.evening_battery_of_100) as String, [DayArcConfig.BODY_BATTERY_MAX]);

@@ -61,6 +61,11 @@ class DayArcConfig {
     static const WORST_CELL_VALUE = "8888";   // Pro's grid is planned against four digits (steps 1000+), so the hero tier never follows a reading
     static const WORST_TEMPERATURE = "-40°";
     static const WORST_MORNING_SUB = "104/-40  100% rain  UV 11";   // HIGH_LOW_TEMPERATURE is "55/43"-shaped (simulator)
+    // Without a UV reading (CurrentConditions.uvIndex needs API 5.1; the Venu Sq 2 is 5.0) the sub line never carries "UV",
+    // so planning for it cost the Sq 2 morning a second sub line it never draws (reviewer, 2026-10-06).
+    static const WORST_MORNING_SUB_NO_UV = "104/-40  100% rain";
+    static const UV_API_MAJOR = 5;
+    static const UV_API_MINOR = 1;
     static const MAX_SUB_LINES = 2;
     // A number font's digits fill about this share of its ascent (the rest is empty headroom above them): measured off
     // simulator screenshots, 0.77 on an FR965 and 0.67 on an epix 2 (2026-10-04). The hero icon is centred on that

@@ -28,7 +28,11 @@ function stackFitsWorstCaseOnThisDevice(logger as Test.Logger) as Boolean {
     for (var f = 0; f < DayArcLayout.HERO_FONTS.size(); f++) {
         inks += " " + DayArcText.inkHeight(dc, DayArcLayout.HERO_FONTS[f]);
     }
-    logger.debug("HEROINK " + dc.getWidth() + "x" + dc.getHeight() + " hot/medium/mild" + inks);
+    var clockInks = "";
+    for (var f = 0; f < DayArcLayout.CLOCK_FONTS.size(); f++) {
+        clockInks += " " + DayArcText.inkHeight(dc, DayArcLayout.CLOCK_FONTS[f]);
+    }
+    logger.debug("HEROINK " + dc.getWidth() + "x" + dc.getHeight() + " hot/medium/mild" + inks + " clock medium/mild/large" + clockInks);
     var variants = ["morning-data", "morning-empty", "midday-data", "midday-empty", "evening-data", "evening-empty", "night"] as Array<String>;
     for (var v = 0; v < variants.size(); v++) {
         failures += dayArcCheckVariant(logger, dc, layout, variants[v], v);
@@ -46,7 +50,7 @@ function dayArcWorstHero(variant as Number, window as Number) as Dictionary {
         // "Feels like" since ROADMAP 13.28; none when there is no weather (DayArcFields).
         hero.put(:label, empty ? null : WatchUi.loadResource(Rez.Strings.morning_feels_label) as String);
         hero.put(:value, empty ? "--" : DayArcConfig.WORST_TEMPERATURE);
-        hero.put(:sub, empty ? WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String : DayArcConfig.WORST_MORNING_SUB);
+        hero.put(:sub, empty ? WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String : (DayArcSources.hasUvIndex() ? DayArcConfig.WORST_MORNING_SUB : DayArcConfig.WORST_MORNING_SUB_NO_UV));
     } else if (window == DayArcConfig.WINDOW_MIDDAY) {
         hero.put(:value, empty ? "--" : DayArcConfig.WORST_COUNT);
         hero.put(:gauge, empty ? null : 100);

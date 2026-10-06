@@ -430,7 +430,8 @@ change (every branch is `DayArcLayout.isRectangle()`).
   square layout gives room for both). Venu Sq 2 Simple: midday and evening HOT. Venu X1: HOT in every window of both tiers,
   Pro with two grid rows (three in the morning without weather).
 - Always-on: unchanged (the time only, drifting), fitted to the inner box. 24-hour burn-in simulation (simulator, Pro, from the
-  midday window): no burn-in, peak luminance 1.94% (Venu Sq 2) and 2.27% (Venu X1), Garmin's limit 10%.
+  midday window): no burn-in, peak luminance 1.94% (Venu Sq 2) and 2.27% (Venu X1), against a 10% limit that is unverified (quoted in
+  `../docker/SIMULATOR.md` with no source; the simulator's own verdict box states no limit).
 
 ## Instinct E and Instinct 3 Solar (1-bit, a round window top right; ADR-015, accepted 2026-10-04, simulator only)
 

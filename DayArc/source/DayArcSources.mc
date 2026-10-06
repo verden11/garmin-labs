@@ -1,5 +1,6 @@
 import Toybox.Complications;
 import Toybox.Lang;
+import Toybox.System;
 import Toybox.Weather;
 
 // The only class that touches the watch. Complications (permission: ComplicationSubscriber, manifest
@@ -65,6 +66,12 @@ class DayArcSources {
         } catch (e instanceof Lang.Exception) {
             return null;
         }
+    }
+
+    // Whether this watch's API can carry a UV reading at all (the planner's worst-case morning sub follows it).
+    static function hasUvIndex() as Boolean {
+        var version = System.getDeviceSettings().monkeyVersion;
+        return version[0] > DayArcConfig.UV_API_MAJOR || (version[0] == DayArcConfig.UV_API_MAJOR && version[1] >= DayArcConfig.UV_API_MINOR);
     }
 
     // uvIndex needs API 5.1.0 on CurrentConditions (confirmed above the 4.2.0 floor, ADR-005):

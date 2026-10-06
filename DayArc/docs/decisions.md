@@ -626,7 +626,8 @@ the window is the round arc's share of the path, every planned row and the gauge
 the morning unlabelled, stale since the label came in, ROADMAP 13.28). Screenshots of every window, both tiers, both sizes, the
 track part-filled (05:20, 06:00, 08:30, 09:25) and always-on: `../../device-test/rect-review/after/` (untracked). The "before"
 set there is in 12-hour time, the "after" set in 24-hour: compare clock widths with that in mind. 24-hour burn-in simulation
-(Pro, from midday): no burn-in, peak luminance 1.94% (Venu Sq 2), 2.27% (Venu X1).
+(Pro, from midday): no burn-in, peak luminance 1.94% (Venu Sq 2), 2.27% (Venu X1); the 10% limit often quoted beside
+these numbers is unverified (no source found; the simulator's verdict box states none).
 
 **Consequences:** On the Venu Sq 2 Pro the morning keeps "Feels like" and a grid row (ROADMAP 13.30's trade no longer happens
 there). No wrist has seen this; the Venu Sq 2's skin shows a glass corner of about 8 px, so its 38 px track corner is a
