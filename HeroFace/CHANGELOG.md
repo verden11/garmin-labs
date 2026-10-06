@@ -16,6 +16,9 @@ Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.8 to 13.12; s
 Rectangular watches, 2026-10-05 (ADR-005, proposed; simulator only, nothing on a wrist; the look needs the owner's approval before upload):
 
 - **Five rectangular products join both builds (129 instead of 124):** Venu Sq and Sq Music (`venusq`, `venusqm`), Venu Sq 2 and Sq 2 Music (`venusq2`, `venusq2m`), Venu X1 (`venux1`). The ring becomes a frame along the screen's edges, open at the bottom for the footer, filling clockwise from the lower left; rows use the width inside it. HeroSet mode needs Connect IQ 4.2+, so the two first-generation Venu Sq stay in Everyday mode.
+- **Square design pass (same day, ADR-005 amendment):** the time is as large as the frame allows, sized by its digits rather than its font box (Venu Sq 2 from the smallest number font to the second largest, Venu X1 and Venu Sq to the largest), and the rows are spaced evenly so no empty band sits under it. With Pro's seconds on, the time steps down a size on the Venu Sq 2 and X1 to leave them room; Free is never smaller for them. The frame sits further in from the glass and its corners follow the X1's rounded glass, so the margin is even all the way round.
+- **The day ring leaves MOVE out (every watch, owner 2026-10-06):** a quiet MOVE bar is full, so it used to fill a third of the ring at zero activity and let the ring turn green while MOVE still showed. The ring now averages the other goals only.
+- **The streak outranks the temperature (every watch):** when the row under the time is too wide, the temperature goes before the streak does (in HeroSet mode Pro had dropped the streak to keep the temperature).
 - Pro is sold only on Garmin's paid-app list: Venu Sq 2, Sq 2 Music and X1 are on it; Venu Sq and Sq Music are not, so only the Free build reaches them. No model names in listing text.
 
 ## Free 1.0.0 and Pro 1.1.0 — uploaded 2026-10-04 by the owner, in Garmin review

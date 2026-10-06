@@ -26,7 +26,7 @@ monkeyc -d fr965 -f monkey.jungle      -o bin/HeroFace.prg     -y $KEY -w --type
 monkeyc -d fr965 -f monkey.free.jungle -o bin/HeroFaceFree.prg -y $KEY -w --typecheck 3   # Free
 monkeydo bin/HeroFace.prg fr965            # with the simulator running
 
-# Tests: Pro 26, Free 26 on round and rectangle products and 22 each on an Instinct (PASSED in the simulator 2026-10-05; no wrist); prints PASSED (…)
+# Tests: Pro 27, Free 27 on round and rectangle products and 23 each on an Instinct (PASSED in the simulator 2026-10-06; no wrist); prints PASSED (…)
 tools/run_tests.sh fr965                       # Pro (monkey.jungle)
 tools/run_tests.sh fr965 monkey.free.jungle    # Free
 tools/compile_sweep.sh                         # compile every product, both jungles, no simulator

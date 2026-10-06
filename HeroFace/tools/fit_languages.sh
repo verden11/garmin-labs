@@ -10,12 +10,14 @@
 # Prints one line per run; exits 1 if any run failed. Needs the simulator running (started for you in the container; with CIQ_DOCKER=0, start it yourself).
 set -u
 # Runs in a container by default (own simulator, no pkill, parallel-safe: ../../docker/README.md). CIQ_DOCKER=0 = host simulator.
-[[ -z ${CIQ_IN_DOCKER:-} && ${CIQ_DOCKER:-1} != 0 ]] && exec "${0:A:h:h:h}/docker/run.sh" "${0:A:h:h}" /ciq-docker/ciq-run.sh "tools/${0:t}" "$@"
+# docker/run.sh passes no TIER into the container, so it goes in through `env` (until 2026-10-06 a TIER=free run here was a Pro run).
+[[ -z ${CIQ_IN_DOCKER:-} && ${CIQ_DOCKER:-1} != 0 ]] && exec "${0:A:h:h:h}/docker/run.sh" "${0:A:h:h}" /ciq-docker/ciq-run.sh env TIER="${TIER:-pro}" "tools/${0:t}" "$@"
 PROJECT=${0:A:h:h}
 SDK_BIN=${SDK_BIN:-$(dirname "$(command -v monkeyc)")}
 KEY=${KEY:-$HOME/.garmin-connectiq/keys/developer_key}
 RUN_TIMEOUT=${RUN_TIMEOUT:-150}
 TIER=${TIER:-pro}
+echo "tier=$TIER"
 if [[ $TIER == free ]]; then MANIFEST=manifest.free.xml JUNGLE=monkey.free.jungle EXCLUDE=pro TAIL=; else MANIFEST=manifest.xml JUNGLE=monkey.jungle EXCLUDE=free TAIL=";$PROJECT/resources-pro-tail"; fi
 LANGS=(eng dan deu dut fin fre ita lit nob pol por spa swe tur ukr)
 if [[ ${1:-} == -l ]]; then LANGS=(${=2}); shift 2; fi
