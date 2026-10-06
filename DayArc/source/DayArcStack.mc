@@ -171,6 +171,10 @@ class DayArcStack {
         var start = layout.topMargin();
         if (hs[ROW_GRID] == 0 && total < limit - start) {   // a stack with no grid block centres, Pro's included
             start += (limit - start - total) / 2;
+        } else if (layout.isRectangle() && strings.get(:value) == null) {
+            // A rectangle's Pro morning without weather (no hero row) centres too, keeping room for one more grid row than
+            // reserved: top-anchored it left ~150 px blank under the grid on the Venu X1 (reviewer pass ten).
+            start += DayArcText.max(0, limit - start - total - layout.gridRowHeight(dc())) / 2;
         }
         if (_window == DayArcConfig.WINDOW_NIGHT || (strings.get(:value) == null && hs[ROW_GRID] == 0)) {
             // Night is just the clock and the date, and a no-weather morning with no grid adds one sentence: all below the

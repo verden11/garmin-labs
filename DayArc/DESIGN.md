@@ -104,8 +104,10 @@ left Venu Sq 2 a 204px chord and no tier that fit). **Since ADR-019 (2026-10-05)
   meant to be cut; `DayArcText.truncated` is the backstop, and it returns the whole string, or at
   least one character plus "...", or nothing — never a bare one-character stub.
 - Simple and night are vertically centred in the usable area. Pro is top-anchored with an elastic
-  grid: the hero block plus the reserved grid rows form the plan, and the grid takes whatever
-  vertical space remains. Night plans identically in both densities.
+  grid: the hero block plus the reserved grid rows form the plan, and the grid draws as many further rows as its cells need
+  and the space below allows (it does not stretch to fill it; a live frame can leave a band under it). Exception: on a
+  rectangle a Pro morning without weather (no hero row) is centred too, keeping room for one more grid row (ADR-019, pass
+  ten). Night plans identically in both densities.
 
 Top to bottom, every window but night:
 0. **Window-progress arc** (ADR-013) — a thin arc across the top of the circle, in the window's own
@@ -445,8 +447,10 @@ change (every branch is `DayArcLayout.isRectangle()`).
   ADR-019); the morning keeps "Feels like" **and** both grid rows (ROADMAP 13.30: the square gives room for both); with the
   hero's own empty sentence (two lines) midday and evening step down to MILD with one row. Venu Sq 2 Free: NUMBER_HOT at
   midday and evening, MEDIUM in the morning. Venu X1: HOT in every window of both tiers; Pro two grid rows. A morning
-  without weather has no hero row, so Pro's grid takes that height: the captures show the five fields left after the two corner
-  pills in three rows on both sizes (the STACK log now counts the same cells the frame draws, `DayArcCorners.rest`).
+  without weather has no hero row: Pro's grid draws the five fields left after the two corner pills in three rows on both sizes
+  (the STACK log counts the same cells the frame draws, `DayArcCorners.rest`), and the stack is centred in the inner box with
+  room kept for one more grid row, so it does not leave the bottom third blank (Venu X1: ~150 px top-anchored, reviewer pass
+  ten; now about 78 px above the clock and 74 px under the last row).
 - **Free's empty band at the bottom, accepted (2026-10-06):** Free's stack is geometrically centred in the inner box (measured
   on the captures: Venu X1 midday 63 px above the clock, 52 px under the gauge; Venu Sq 2 morning 56 px above, 46 px under the
   sub line). The band under the content reads emptier only because the arc fills the corresponding band above. Kept, for two

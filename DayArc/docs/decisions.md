@@ -675,3 +675,7 @@ wholly below the window. Simulator only: Free PASSED (passed=25, failed=0, error
 on venusq2, venux1, fr965, fr255s, instincte40mm, instincte45mm, instinct3solar45mm; screenshots of the Instinct Pro no-weather
 morning on all three show the sentence centred below the window and two pill rows.
 
+**Amendment, review pass ten:** on a rectangle, Pro's morning without weather (no hero row) is centred in the inner box, keeping
+room for one more grid row than reserved (`DayArcStack.attempt`); top-anchored it left about 150 px blank under the grid on the
+Venu X1. Round and Instinct Pro stay top-anchored. Simulator only (Venu Sq 2 and X1 Pro recaptured).
+
