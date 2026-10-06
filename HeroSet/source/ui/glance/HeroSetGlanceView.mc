@@ -84,10 +84,10 @@ class HeroSetGlanceView extends WatchUi.GlanceView {
         } else if (!done) {
             // Beside a check "NO STREAK YET" would contradict it; the row
             // drops to the check alone instead.
+            // Where "NO STREAK YET" has no room (the Venu Sq 2's glance, left of
+            // the Instinct's window) the row stays empty: "STREAK 0" read as a
+            // failure on day one, so the dashboard drops it too (ROADMAP 13.23).
             candidates.add(load(Rez.Strings.dashboard_streak_none));
-            // Left of the Instinct's window "NO STREAK YET" has no room; the
-            // dashboard falls back to this too (ADR-055).
-            candidates.add(Lang.format(load(Rez.Strings.dashboard_streak_short), [streak]));
         }
         return candidates;
     }
