@@ -60,6 +60,6 @@ Same as Days To Go ([`../DaysToGo/CLAUDE.md`](../DaysToGo/CLAUDE.md)) and HeroFa
 - Settings change → `tools/gen_settings.py`, then `--check`.
 - User-facing claims live in the listing and `../site/src/apps/two-suns/`; change both together, never change a published URL. Check every claim against `docs/release-contract.md`.
 - Every store publication gets a `CHANGELOG.md` entry and a What's New block in `listing/paste.md`.
-- Test count appears in `README.md` and here: **Pro 159, Free 71** (64 shared, 95 Pro-only, 7 Free-only; 151 and 64 on an Instinct); run 2026-10-06 in the container on venusq2, venux1, fr965, fr255s and instincte40mm, both tiers, simulator only; update both. The five added 2026-10-05 are the rectangle track's (ADR-028, `TwoSunsTrackTest`).
+- Test count appears in `README.md` and here: **Pro 161, Free 73** (65 shared, 96 Pro-only, 8 Free-only; 153 and 66 on an Instinct); run 2026-10-06 in the container on venusq2, venux1, fr965, fr255s and instincte40mm, both tiers, simulator only; update both. The eight added 2026-10-05/06 are the rectangle track's (ADR-028, `TwoSunsTrackTest`).
 - A new language: its line in **both** manifests and **both** jungles; its folder must not define `AppName` (`python3 tools/check_strings.py`). A new Pro-only function gets a `(:free)` twin or its callers are `(:pro)` too; a new test that touches Pro-only code is `(:test, :pro)`.
 - Edits outside `TwoSuns/` are limited to the root `CLAUDE.md` table row, the root `README.md`, and `site/`. Ask before touching `HeroSet/`, `HeroFace/` or `DaysToGo/`.
