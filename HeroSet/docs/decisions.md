@@ -60,7 +60,7 @@ If only read five: **[ADR-002](#adr-002)** (XP can't be farmed), **[ADR-018](#ad
 | 054 | Connect sync shelved: Connect's UI never renders developer lap/session fields; two device bugs found (stray recording on exit, discard still lapping) | Active, amends 043 |
 | 055 | Instinct family (semi-octagon, 1-bit, subscreen window): keep-out layout, black-and-white palette, XP gauge in the window; Instinct 2 / 2S / 2X, Descent G1, Instinct E, Instinct 3 Solar | **Proposed**, simulator evidence only, look approved 2026-10-03 |
 | 056 | Price: the $2.50 tier for every paid app (supersedes the price of 039) | Accepted 2026-10-04; ships with the next version upload |
-| 057 | Rectangular touch-first watches (Venu Sq 2, Sq 2 Music, X1); amended 2026-10-06: the XP ring is a rounded-rectangle track along the screen, the dashboard fills its inner box | Proposed 2026-10-05; simulator only, look not yet approved |
+| 057 | Rectangular touch-first watches (Venu Sq 2, Sq 2 Music, X1); amended 2026-10-06: the XP ring is a rounded-rectangle track along the screen, the dashboard fills its inner box | Accepted 2026-10-06 (owner approved the screen looks); simulator only, no wrist |
 | 058 | A correction under the goal undoes today's completion (streak and completion day back; raising the goal never undoes) | Active 2026-10-06 |
 
 ---
@@ -484,7 +484,7 @@ All are at or above `minApiLevel` 3.4.0 (`instinct2`/`2s`/`crossover` list CIQ 3
 **Reversed by.** The owner. The price part of ADR-039 (USD 2.00, no trial wording on price) is Superseded; its product list and no-trial decision stand.
 
 ### <a id="adr-057"></a>ADR-057: Rectangular touch-first watches: Venu Sq 2, Sq 2 Music, Venu X1
-**Status: Proposed 2026-10-05 (agent; simulator only, the screen looks await the owner's approval).**
+**Status: Accepted 2026-10-06: the owner approved the rectangle screen looks (the simulator screenshots of the square design, `device-test/rect-review/after/HeroSet-*`). Simulator only; no rectangle has been on a wrist.**
 
 **Decision.** Add `venusq2`, `venusq2m` (320x360) and `venux1` (448x486) to both manifests, with the complications resource in both jungles (CIQ 5.0 / 6.0.2, so they publish the complication of [ADR-044](#adr-044) (the private HeroFace complication) and show the glance of [ADR-051](#adr-051) (the read-only glance)). They are touch-first (`enter`, `esc`, plus `menu` on the Sq 2; no UP/DOWN), so the swipe input of [ADR-048](#adr-048) (touch-first watches) applies unchanged. All three are on Garmin's paid-app product list: the live paid Two Suns 1.0.0 listing, whose manifest has them, is offered on every manifest product but D2 Air X10 (`../../research_notes/Free and Pro ladder/garmin_rules.md` section 3), and the name match in `reach_by_product.md` found "the 3 rectangular DaysToGo products are all on the list".
 
