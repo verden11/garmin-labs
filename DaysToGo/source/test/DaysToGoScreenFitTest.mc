@@ -119,8 +119,14 @@ function daysToGoLayoutReport(logger as Test.Logger) as Boolean {
     var live = DaysToGoReadings.take(DaysToGoSettings.load());
     logger.debug(dc.getWidth() + "x" + dc.getHeight() + " ring r=" + layout.ringRadius() + " w=" + layout.ringWidth()
         + " content r=" + layout.contentRadius() + " live hero=" + live.hero + " time=" + live.time);
+    var fonts = DaysToGoType.heroFonts(false, false);
+    for (var f = 0; f < fonts.size() && (Graphics has :getFontAscent); f++) {
+        logger.debug("  number font " + f + ": height " + dc.getFontHeight(fonts[f]) + " ascent " + Graphics.getFontAscent(fonts[f]));
+    }
     var states = [live, DaysToGoTestStates.upcoming(365, 0, "Race"), DaysToGoTestStates.upcoming(12775, 0, "WWWWWWWWWWWWWWWW")] as Array<DaysToGoState>;
     for (var s = 0; s < states.size(); s++) {
+        var frame = new DaysToGoFrame(dc, layout, states[s], false);
+        logger.debug("  [" + s + "] hero band before settle " + frame.heroBand + ", after: top " + frame.rows.heroTop + " height " + frame.rows.heroHeight + " caption " + frame.rows.captionTop + " date " + frame.rows.dateTop);
         DaysToGoDraw.boxes = [] as Array<Array>;
         view.drawState(dc, layout, states[s]);
         var boxes = DaysToGoDraw.boxes as Array<Array>;

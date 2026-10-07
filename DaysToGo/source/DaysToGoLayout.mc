@@ -126,7 +126,7 @@ class DaysToGoLayout {
     function rows(timeH as Number, nameH as Number, captionH as Number, dateH as Number, footerH as Number,
                   sleeping as Boolean) as DaysToGoRows {
         var span = contentRadius() * SPAN_PERMILLE / DaysToGoConfig.PERMILLE;
-        var gap = _d * GAP_PERMILLE / DaysToGoConfig.PERMILLE;
+        var gap = rowGap();
         var rows = new DaysToGoRows();
         // Beside the Instinct window the stack runs the screen's height, top to a bottom margin, and the hero starts
         // below the window; on a rectangle it runs the box inside the track, top to bottom; on a round watch it is
@@ -162,6 +162,11 @@ class DaysToGoLayout {
         rows.heroTop = top;
         rows.heroHeight = bottom - top;
         return rows;
+    }
+
+    // The gap between two stacked rows.
+    function rowGap() as Number {
+        return _d * GAP_PERMILLE / DaysToGoConfig.PERMILLE;
     }
 
     // How far the always-on block moves between grid spots. A rectangle moves at least RECTANGLE_MIN_DRIFT_PX: on the

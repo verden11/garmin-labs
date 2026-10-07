@@ -32,6 +32,10 @@ class DaysToGoType {
     // their box is lifted by this share of it so they sit on the digits' baseline (tuned on screenshots, 2026-10-05).
     static const HOURS_UNIT_MAX_PERMILLE = 450;
     static const HOURS_UNIT_LIFT_PERMILLE = 130;
+    // A number font's ascent carries empty padding above the digits: the digits' ink is about this share of it (103 of
+    // 151 px on the Venu X1's largest number font, measured off a screenshot, 2026-10-07). Used only to balance a
+    // rectangle's spare height in ink (ADR-019); a wrong value moves the hero a few pixels, it never clips.
+    static const HERO_DIGIT_INK_PERMILLE = 680;
 
     // Marks before a row's words (DaysToGoMark): height as a share of the row's font, centred this far down the
     // font's box (where its capitals sit), a gap after it, and the stroke as a share of the height (tuned on screenshots).

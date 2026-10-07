@@ -21,6 +21,8 @@ class DaysToGoFrame {
     // The name steps down a font before it is cut short with "...".
     var nameFonts as Array<Graphics.FontDefinition>;
     private var _sleeping as Boolean = false;
+    // A rectangle's hero band before `settle` (ADR-019), for the layout report; 0 elsewhere.
+    var heroBand as Number = 0;
 
     // `sleeping` keeps only the time and the hero (always-on).
     function initialize(dc as Graphics.Dc, layout as DaysToGoLayout, state as DaysToGoState, sleeping as Boolean) {
@@ -57,27 +59,39 @@ class DaysToGoFrame {
             rows = plan(dc, layout, hasCaption);
         }
         if (layout.track() != null && !sleeping) {
-            settle(dc, state.heroIsWord);
+            settle(dc, layout, state.heroIsWord);
         }
     }
 
     // A rectangle's hero band is taller than its largest number font (ADR-019). The number takes the largest font whose
     // digits (its ascent: digits have no descent) fit the band, and the caption sits a row gap under their baseline, in the
-    // font's empty padding; the spare height is split in font units, half above the number and half below the last row,
-    // which lifts the bottom rows off the corners' curve. A word hero (TODAY, SET A DATE) gets the same lift, so its date
-    // sits where a number face's does, and is centred in what is left. The width check stays with DaysToGoDraw.
-    private function settle(dc as Graphics.Dc, word as Boolean) as Void {
-        var font = numberFontFor(dc, rows.heroHeight);
+    // font's empty padding; the spare height is split so the ink gaps above the digits and
+    // below the last row match (HERO_DIGIT_INK_PERMILLE), which lifts the bottom rows off the corners' curve. A word hero (TODAY) with a row under it gets exactly a number
+    // face's lift (its band less the caption row it lacks), so the date does not move on the day; with nothing under it
+    // (SET A DATE) it stays centred. The width check stays with DaysToGoDraw.
+    private function settle(dc as Graphics.Dc, layout as DaysToGoLayout, word as Boolean) as Void {
+        heroBand = rows.heroHeight;
+        var band = rows.heroHeight;
+        if (word) {
+            if (rows.captionTop == 0 && rows.dateTop == 0 && rows.footerTop == 0) {
+                return;
+            }
+            band -= rows.captionTop == 0 ? dc.getFontHeight(captionFont) + layout.rowGap() : 0;
+        }
+        var font = numberFontFor(dc, band);
         if (font == null) {
             return;
         }
-        var ink = Graphics.getFontAscent(font);
-        var slack = rows.heroHeight - ink;
-        var lift = slack - slack / 2;
+        var ascent = Graphics.getFontAscent(font);
+        var slack = band - ascent;
+        // Above the number goes half the slack less the ascent's empty padding over the digits, so the gaps match in ink.
+        var above = (slack - ascent * (DaysToGoConfig.PERMILLE - DaysToGoType.HERO_DIGIT_INK_PERMILLE) / DaysToGoConfig.PERMILLE) / 2;
+        above = above > 0 ? above : 0;
+        var lift = slack - above;
         if (word) {
             rows.heroHeight -= lift;
         } else {
-            rows.heroTop += slack / 2;
+            rows.heroTop += above;
             rows.heroHeight = dc.getFontHeight(font);
         }
         rows.captionTop = rows.captionTop > 0 ? rows.captionTop - lift : 0;
