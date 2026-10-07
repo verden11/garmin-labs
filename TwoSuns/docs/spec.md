@@ -41,7 +41,7 @@ Status: **Approved by the owner 2026-10-04 (ADR-020, ADR-021), uploaded 2026-10-
 | Permissions | **`ComplicationSubscriber` only** | `ComplicationSubscriber`, `SensorHistory`, `Positioning` (Free's are always a subset of Pro's) |
 | The time, the 24-hour ring from Garmin's own sunrise and sunset, ticks, sun marker, daylight to come and gone | yes | yes |
 | The sun sentence from Garmin's pair ("3h 42m of daylight", "Sunrise 06:41", "Sunrise ~06:41" after sunset, "Sun is up", "No sun data") | yes | yes, plus the calculated ones below |
-| Body Battery: Garmin's number in a level pill; `--` and a hollow pill when there is none | yes (ADR-021, Body Battery in Free) | yes |
+| Body Battery: Garmin's number beside a solid bolt; `--` and a hollow bolt when there is none | yes (ADR-021, Body Battery in Free) | yes |
 | 24-hour energy curve, the stale state (`SensorHistory`) | no | yes |
 | Remembered place, our own calculation: tomorrow's sunrise, civil twilight arcs, "Sun stays up/down today", "No sunrise tomorrow", "No place yet" | no (never says "No place yet": Garmin's null pair is "No sun data") | yes |
 | Golden hour (setting and arc) | no | yes |
@@ -205,7 +205,7 @@ Moon phase, heart rate, steps, seconds, notifications, multiple locations or "ti
 
 Owner notes, 2026-09-27, from the real-device look. Neither is v1 or blocking; both need their own design pass before either is built.
 
-- **Always-on: the Body Battery number has no context.** Awake it sits next to the level pill and under the ring, so it reads as Body Battery by position; asleep (D10, ADR-007) it is a bare number with none of that — nothing marks what it is. Flagged again by `watch-design-reviewer` (`watch-design-kit`, 2026-09-27): still open, still not designed. A small mark or word that survives the AMOLED lit-pixel budget (a commonly-cited ≤10%, uncited) would need its own design and a real-device check, not just re-adding the awake pill blind.
+- **Always-on: the Body Battery number has no context.** Awake it sits next to the bolt and under the ring, so it reads as Body Battery by position; asleep (D10, ADR-007) it is a bare number with none of that — nothing marks what it is. Flagged again by `watch-design-reviewer` (`watch-design-kit`, 2026-09-27): still open, still not designed. A small mark or word that survives the AMOLED lit-pixel budget (a commonly-cited ≤10%, uncited) would need its own design and a real-device check, not just re-adding the awake pill blind.
 - **Stress level.** Garmin exposes a stress score (`ActivityMonitor`/`SensorHistory`, not yet researched for this app). Adding it means a new data source, its own validity/staleness rules (like Body Battery's), a place in the layout that does not crowd the ring, curve or sun line, and a decision on whether it changes the "no mood, no advice" rule (D9) — stress readings invite a good/bad reading more than Body Battery does, so ADR-008 would need revisiting, not just extending.
 
 ## Risks and unknowns
@@ -220,7 +220,7 @@ Owner notes, 2026-09-27, from the real-device look. Neither is v1 or blocking; b
 | Body Battery accuracy | No independent validation of the composite score found | Show Garmin's number as Garmin reports it; no claims |
 | A copy from Vesper Solar and the many sun faces | Vesper Solar, 3 days old | Moat: correct numbers, no blanks, Body Battery curve, finish |
 | Translations never fit-tested; no native reader | `tools/fit_languages.sh` written, not run; `tools/check_strings.py` checks parity and length only | Run it on the smallest and a rectangular screen before shipping any language; say "machine-drafted" |
-| The stale curve fill is `#555555` (2.8:1 against black); the always-on text was too, raised to `#5555AA` 2026-09-27 and moved to the grey `#5C5C5C` (3.1:1) 2026-10-04 (ADR-027, always-on text is a dim grey) | Computed from the hex value | Stale is carried by shape (hollow glyph, outline dot) and is awake-only; check on a MIP watch in daylight |
+| The stale curve is the muted `#AAAAAA` line, 9:1 (its `#555555` fill, 2.8:1, is gone since 2026-10-05); the always-on text was `#555555`, raised to `#5555AA` 2026-09-27 and moved to the grey `#5C5C5C` (3.1:1) 2026-10-04 (ADR-027, always-on text is a dim grey) | Computed from the hex value | Stale is carried by shape (hollow glyph, outline dot) and is awake-only; check on a MIP watch in daylight |
 | Nobody pays for a single-idea face | about 75 paid Body Battery/sun faces, 2 at 1,000+ | Flagged; same price review and success test as Days To Go |
 | DST day ring jump | Wall-clock ring | Documented; a test covers 29 March and 25 October London |
 | Polar-circle transition days | USNO vs one-noon declination | ±1 day accepted, tested and documented |
@@ -246,7 +246,7 @@ What the build did differently from the spec as first written (2026-09-26). Each
 | Settings table: "Body Battery curve" | The setting is labelled "Energy curve" (trademark) | 018 |
 | Body Battery: Complication as the fallback for the number | Also when reading the history throws; not when the history exists but has no valid sample ("--") | 015 |
 | Sample stamped in the future: not specified | Up to 5 minutes ahead is clock skew and is kept; later is dropped | 015 |
-| Design brief: glyph, colours and drop order open | Decided by the build: a level pill (2026-09-27: changed from a battery-shaped glyph — owner feedback on a real-device photo, it read as watch battery), the palette in DESIGN.md, drop order date then curve then sun line | 016, 017 |
+| Design brief: glyph, colours and drop order open | Decided by the build (since 2026-10-05 a solid bolt, ROADMAP 13.16; earlier): a level pill (2026-09-27: changed from a battery-shaped glyph — owner feedback on a real-device photo, it read as watch battery), the palette in DESIGN.md, drop order date then curve then sun line | 016, 017 |
 | Always-on: "time and the two numbers" (D10) | Time, Body Battery value and sun sentence; no ring, curve, glyph or date | 007 |
 | `Position.getInfo` in the location order | Isolated in one function so that dropping Positioning is a deletion | 005 |
 | Weather sun API as a cross-check | Not called at all | 003 |
