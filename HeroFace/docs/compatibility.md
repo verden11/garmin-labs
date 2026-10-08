@@ -37,7 +37,7 @@ Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle
 
 ## HeroSet link
 
-66 of the 117 run Connect IQ 4.2+ and can read HeroSet's private complication
+72 of the 129 (counted 2026-10-08 from the SDK device files) run Connect IQ 4.2+ and can read HeroSet's private complication
 (HeroSet [ADR-044](../../HeroSet/docs/decisions.md#adr-044)). The rest — including HeroSet's own fēnix 6, MARQ Gen 1,
 FR945 LTE, Enduro and Descent MK2 users, who cap at CIQ 3.4 — always show
 everyday goals. Nothing breaks: the face never mentions a link it cannot make.
