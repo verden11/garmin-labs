@@ -36,7 +36,7 @@ class DaysToGoView extends WatchUi.WatchFace {
             state = null;
         }
         if (state == null) {
-            drawFallback(dc, layout);
+            drawFallback(dc, layout, _sleeping && _burnIn, System.getClockTime().min);
         } else if (_sleeping && _burnIn) {
             DaysToGoSleep.draw(dc, layout, state, System.getClockTime().min);
         } else {
@@ -123,11 +123,21 @@ class DaysToGoView extends WatchUi.WatchFace {
         DaysToGoDraw.line(dc, layout, radius, top, dc.getFontHeight(font), [font] as Array<Graphics.FontDefinition>, candidates, 0);
     }
 
-    // Never leave a blank screen: a question mark says "something went wrong", not "no event".
-    private function drawFallback(dc as Graphics.Dc, layout as DaysToGoLayout) as Void {
-        dc.setColor(DaysToGoPalette.TEXT, DaysToGoPalette.BACKGROUND);
+    // Never leave a blank screen: a question mark says "something went wrong", not "no event". Asleep on a burn-in
+    // protected watch it follows the always-on rule (ADR-007): the dim grey, drifting with the sleep frame's grid, so a
+    // read failure that persists across updates never burns in. Static and given the minute, so a test can draw it.
+    static function drawFallback(dc as Graphics.Dc, layout as DaysToGoLayout, dim as Boolean, minute as Number) as Void {
+        var color = fallbackColor(dim);
+        dc.setColor(color, DaysToGoPalette.BACKGROUND);
         dc.clear();
-        dc.drawText(layout.centerX(), layout.centerY(), Graphics.FONT_MEDIUM, "?", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        var shift = dim ? DaysToGoSleep.drift(layout, minute) : [0, 0] as Array<Number>;
+        dc.drawText(layout.centerX() + shift[0], layout.centerY() + shift[1], Graphics.FONT_MEDIUM, "?",
+                    Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    static function fallbackColor(dim as Boolean) as Number {
+        return dim ? DaysToGoPalette.SLEEP_TEXT : DaysToGoPalette.TEXT;
     }
 
     function onEnterSleep() as Void {

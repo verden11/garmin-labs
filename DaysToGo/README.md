@@ -22,8 +22,8 @@ monkeyc -d fr965 -f monkey.jungle -o bin/DaysToGo.prg -y $KEY -w --typecheck 3  
 monkeyc -d fr965 -f monkey.free.jungle -o bin/DaysToGoFree.prg -y $KEY -w --typecheck 3   # Free
 monkeydo bin/DaysToGo.prg fr965                 # with the simulator running
 
-tools/run_tests.sh fr965                        # Pro: 70 tests, 68 on an Instinct (PASSED in the simulator 2026-10-08); prints PASSED (…)
-tools/run_tests.sh fr965 monkey.free.jungle     # Free: 59 tests, 57 on an Instinct (PASSED in the simulator 2026-10-08)
+tools/run_tests.sh fr965                        # Pro: 71 tests, 69 on an Instinct (PASSED in the simulator 2026-10-08); prints PASSED (…)
+tools/run_tests.sh fr965 monkey.free.jungle     # Free: 60 tests, 58 on an Instinct (PASSED in the simulator 2026-10-08)
 tools/run_tests.sh fr55 monkey.jungle everyStateFitsThisDisplay
 tools/compile_sweep.sh                          # compile every product, both jungles
 

@@ -109,6 +109,29 @@ function alwaysOnFrameFitsAtEveryDrift(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// The error frame ("?") follows the always-on rule when asleep on a burn-in watch (ADR-007 amendment 2026-10-08): the dim
+// grey, and nine different spots over nine minutes, each within one drift step of the centre; awake it is white and still.
+(:test)
+function errorFrameDimsAndDriftsWhenAsleep(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new DaysToGoLayout(dc);
+    Test.assertEqual(DaysToGoView.fallbackColor(true), DaysToGoPalette.SLEEP_TEXT);
+    Test.assertEqual(DaysToGoView.fallbackColor(false), DaysToGoPalette.TEXT);
+    var step = layout.driftStep();
+    var seen = [] as Array<String>;
+    var spots = DaysToGoConfig.BURN_IN_GRID * DaysToGoConfig.BURN_IN_GRID;
+    for (var minute = 0; minute < spots; minute++) {
+        var shift = DaysToGoSleep.drift(layout, minute);
+        Test.assertMessage(shift[0].abs() <= step && shift[1].abs() <= step, "minute " + minute + " drifts past one step");
+        var key = shift[0] + "," + shift[1];
+        Test.assertMessage(seen.indexOf(key) < 0, "minute " + minute + " repeats spot " + key);
+        seen.add(key);
+        DaysToGoView.drawFallback(dc, layout, true, minute);   // draws without throwing at every spot
+    }
+    DaysToGoView.drawFallback(dc, layout, false, 0);
+    return true;
+}
+
 // Prints every row's box on this device, so layout can be checked without a
 // screenshot: `tools/run_tests.sh <device> daysToGoLayoutReport`.
 (:test)
