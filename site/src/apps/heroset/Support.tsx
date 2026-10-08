@@ -39,7 +39,7 @@ export function Support() {
         UP/DOWN. It applies to all three exercises, no phone needed. Lowering it below what you have already done
         completes today straight away.
       </p>
-      <h3>What if I correct today’s count back under my goal?</h3>
+      <h3>What if I adjust today’s count back under my goal?</h3>
       <p>
         Then today is no longer done: your streak goes back to what it was before today counted, in the app, the glance and,
         on watches with Connect IQ 4.2 or later, HeroFace. Save today’s count over the goal again and the day completes again.
@@ -59,16 +59,16 @@ export function Support() {
             Yes, on watches with Connect IQ 4.0 or later, which is most supported models: scroll through your glance
             list (add HeroSet to it if it is not there) to see today’s push-ups, sit-ups and squats and your streak
             without opening the app, and select it to open HeroSet. It is not available on fēnix 6, MARQ Gen 1,
-            Descent MK2 and MK2S, Forerunner 945 LTE, the original Enduro{instinctLive ? ' or the Instinct 2 family (Instinct E and Instinct 3 Solar do have it)' : ''}.
+            Descent MK2 and MK2S, Forerunner 945 LTE, or the original Enduro{instinctLive ? '; Instinct E and Instinct 3 Solar do have it' : ''}.
           </p>
         </>
       )}
       <h3>Which watches are supported?</h3>
       <p>
-        Most Garmin watches with a round screen{instinctLive ? ' (and the Instinct family)' : ''}, and the rectangular Venu Sq 2, Sq 2 Music and Venu X1: Forerunner 70, 165, 170, 255, 265, 570, 945 LTE, 955, 965 and 970;
+        Most Garmin watches with a round screen{instinctLive ? ' (and the black-and-white Instinct E and Instinct 3 Solar)' : ''}, and the rectangular Venu Sq 2, Sq 2 Music and Venu X1: Forerunner 70, 165, 170, 255, 265, 570, 945 LTE, 955, 965 and 970;
         epix (Gen 2) and epix Pro (Gen 2); fēnix 6, 6 Pro, 7, 7 Pro, 8, 8 Pro, 9, 9 Pro and fēnix E; Enduro and Enduro 3;
-        MARQ (Gen 1 and Gen 2); D2 Mach and D2 Air X10; Descent {instinctLive ? 'G1, ' : ''}MK2, MK2S, MK3 and G2; Venu 2, 2 Plus, 2S, 3, 3S, 4, Sq 2, Sq 2 Music and X1;
-        vívoactive 5 and 6; Approach S50 and S70; Instinct 3 AMOLED{instinctLive ? '; Instinct 2, 2S, 2X, E and 3 Solar (black-and-white screens, with a small round window top right that HeroSet uses as the XP gauge)' : ''}. On touchscreen watches without UP/DOWN buttons, swipe up or down to
+        MARQ (Gen 1 and Gen 2); D2 Mach and D2 Air X10; Descent MK2, MK2S, MK3 and G2; Venu 2, 2 Plus, 2S, 3, 3S, 4, Sq 2, Sq 2 Music and X1;
+        vívoactive 5 and 6; Approach S50 and S70; Instinct 3 AMOLED{instinctLive ? '; Instinct E and Instinct 3 Solar (black-and-white screens, with a small round window top right that HeroSet uses as the XP gauge)' : ''}. On touchscreen watches without UP/DOWN buttons, swipe up or down to
         adjust a count and press START to save; a tap on the counting or adjust screen never ends or saves a set. HeroSet has been tested on a
         Forerunner 965; every other model passes each screen check in Garmin’s simulator. The Connect IQ Store shows the
         exact list for your model. If your watch isn’t supported, email <a href={`mailto:${studio.email}`}>{studio.email}</a> with

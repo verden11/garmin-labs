@@ -21,8 +21,10 @@ export type App = {
   // The app's field color on the shared grid, plus readable ink on it.
   color: string
   onColor: string
-  // Store listing; absent until the app is live.
+  // Store listing; absent until the app is live. With freeStoreUrl set, storeUrl is the Pro listing ("<name> Pro").
   storeUrl?: string
+  // The free twin's listing (Free + Pro ladder): the store button splits into the two tiers.
+  freeStoreUrl?: string
   storeName: string
   // Path under public/, used as og:image / twitter:image on this app's landing page.
   ogImage?: string

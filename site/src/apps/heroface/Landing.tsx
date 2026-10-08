@@ -1,12 +1,12 @@
 import { heroface } from './app.ts'
 import { screens, watchFamilies, languages, watchCount, linkedWatchCount } from './facts.ts'
-import { CallToAction, HeroActions, Screens, Watches, WatchShot } from '../../components/AppSections.tsx'
+import { CallToAction, FreeOrPro, HeroActions, Screens, Watches, WatchShot } from '../../components/AppSections.tsx'
 import { appUrl } from '../../urls.ts'
 
 
 const rows = [
-  { title: 'The time, first', text: 'The largest thing on the screen, in the largest size that fits your watch. Everything else stays out of its way.' },
-  { title: 'Three goals, three bars', text: 'Steps, intensity minutes and floors by default, or whichever three you pick. Bar length carries the glance; the numbers are the detail.' },
+  { title: 'The time, first', text: 'The largest thing on the screen, sized to your screen. Everything else stays out of its way.' },
+  { title: 'Three goals, three bars', text: 'Steps, intensity minutes and floors, or in HeroFace Pro whichever three you pick. Bar length carries the glance; the numbers are the detail.' },
   { title: 'The day at the edge', text: 'The ring around the edge of the screen is your goals at once. It turns green when the day is done; the move bar stays out of it.' },
   { title: 'A streak worth keeping', text: 'Days in a row you met your step goal, in gold. It shows up when you have one, and stays out of the way when you don’t.' },
 ]
@@ -22,7 +22,7 @@ export function Landing() {
             <HeroActions app={heroface} />
           </div>
           <div className="hero__reps">
-            <WatchShot src="/heroface/watch/everyday.png" alt="HeroFace on a Forerunner 965: the time, the date, the temperature and three goal bars" />
+            <WatchShot src="/heroface/watch/everyday.png" alt="HeroFace on a Forerunner 265: the time, the date and three goal bars" />
           </div>
         </div>
       </section>
@@ -53,21 +53,27 @@ export function Landing() {
 
       <section className="wrap band" aria-labelledby="yours-title">
         <h2 id="yours-title" className="band__title">Your three, your colour.</h2>
-        <p className="band__lede">Set each bar to steps, calories, intensity minutes, distance, floors or the move bar. Pick the accent colour. Turn seconds and the temperature on or off. All from the Garmin Connect app on your phone.</p>
+        <p className="band__lede">Pick the accent colour: blue, cyan or magenta. HeroFace Pro also lets you set each bar to steps, calories, intensity minutes, distance, floors or the move bar, and turn seconds and the temperature on or off. All from the Garmin Connect app on your phone.</p>
         <dl className="facts">
           <div><dt>Always on</dt><dd>A dim, drifting clock that respects your watch’s always-on rules.</dd></div>
-          <div><dt>Round or rectangular</dt><dd>From a 208-pixel Forerunner 55 to a 466-pixel fēnix, one layout that measures itself; on a Venu Sq or Venu X1 the ring becomes a frame along the edges.</dd></div>
+          <div><dt>Round or rectangular</dt><dd>From a 208-pixel Forerunner 55 to a 466-pixel fēnix, one layout that measures itself. On a rectangular watch the ring becomes a frame along the edges; on a black-and-white Instinct, a gauge in the small round window.</dd></div>
           <div><dt>{languages.length} languages</dt><dd>Including the weekday and month, taken from your watch’s own language.</dd></div>
           <div><dt>Nothing leaves the watch</dt><dd>No account, no internet, no analytics, no ads.</dd></div>
         </dl>
         <p><a href={appUrl(heroface.slug, 'privacy')}>Read the privacy policy</a></p>
       </section>
 
+      <FreeOrPro
+        app={heroface}
+        free="The time, the date, three goal bars (steps, intensity minutes and floors, or the next thing your watch measures), the ring, the streak, the accent colour and HeroSet mode."
+        pro="Everything in HeroFace, plus your choice of what each bar shows, seconds beside the time, and the temperature from your watch’s weather."
+      />
+
       <section className="wrap band" aria-labelledby="heroset-title">
         <h2 id="heroset-title" className="band__title">Better with HeroSet.</h2>
         <p className="band__lede">If you also own <a href={appUrl('heroset')}>HeroSet</a>, the bars can show today’s push-ups, sit-ups and squats, the ring becomes your progress to the next rank, and holding the face opens the app. On the {linkedWatchCount} watches that support it, and entirely on the watch. Without HeroSet, nothing is missing.</p>
         <div className="band__figure">
-          <WatchShot src="/heroface/watch/heroset.png" alt="HeroFace with HeroSet on a Venu 3: rank, streak and today's push-ups, sit-ups and squats" />
+          <WatchShot src="/heroface/watch/heroset.png" alt="HeroFace with HeroSet on a fēnix 8: rank, streak and today's push-ups, sit-ups and squats" />
         </div>
       </section>
 
@@ -75,7 +81,7 @@ export function Landing() {
 
       <Watches
         title={`${watchCount} Garmin watches.`}
-        lede={`Round and rectangular screens, AMOLED and memory-in-pixel, Connect IQ 3.0 and newer, and the black-and-white Instinct. Tested on a Forerunner 965; every screen size passes each screen check in Garmin’s simulator. The ${heroface.storeName} shows whether your exact model is listed.`}
+        lede={`Round and rectangular screens, AMOLED and memory-in-pixel, Connect IQ 3.0 and newer, and the black-and-white Instinct. Tested on a Forerunner 965; every screen size passes each screen check in Garmin’s simulator. The ${heroface.storeName} shows whether your exact model is listed. HeroFace runs on all of them; HeroFace Pro is sold only on Garmin’s paid-app list, which leaves out many older watches, among them the Instinct 2, 2S and 2X, the Descent G1 and the first-generation Venu Sq.`}
         families={watchFamilies}
         languages={languages}
       />

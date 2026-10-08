@@ -22,7 +22,7 @@ export const watchFamilies: [string, string][] = [
   ['epix', 'Gen 2, Pro (Gen 2)'],
   ['Enduro', '3, Enduro'],
   ['MARQ', 'Gen 1, Gen 2'],
-  ['Venu', '2, 2 Plus, 2S, 3, 3S, 4, Mercedes-Benz Collection, Sq, Sq 2, Sq. Edition, Venu, X1'],
+  ['Venu', '2, 2 Plus, 2S, 3, 3S, 4, Mercedes-Benz Collection, Sq, Sq 2, Venu, X1'],
   ['vívoactive', '3, 3 LTE, 3 Mercedes-Benz Collection, 4, 4S, 5, 6'],
   ['Instinct', '2, 2S, 2X Solar, 3 AMOLED, 3 Solar, Crossover AMOLED, E'],
   ['Descent', 'G1, G2, Mk1, Mk2, Mk2 S, Mk3, Mk3i'],

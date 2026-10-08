@@ -2,16 +2,16 @@ import { Doc, Note, PrivacyTail } from '../../components/Doc.tsx'
 
 export function Privacy() {
   return (
-    <Doc title="Privacy policy" lede="Days To Go for Garmin watches. Effective 26 September 2026.">
+    <Doc title="Privacy policy" lede="Days To Go and Days To Go Pro for Garmin watches. Effective 8 October 2026.">
       <Note>
-        <strong>In short:</strong> Days To Go keeps everything on your watch. It asks for no permissions, has no account,
-        no internet access, no analytics and no ads.
+        <strong>In short:</strong> Days To Go and Days To Go Pro keep everything on your watch. Neither asks for any permissions,
+        and neither has an account, internet access, analytics or ads.
       </Note>
 
       <h2>What Days To Go reads</h2>
       <p>
-        To draw the face: the time and date, and, only if you turn them on, the battery level or your step count. It
-        reads these from your watch as it draws and saves none of them.
+        To draw the face: the time and date. Days To Go Pro also reads the battery level or your step count, only if you
+        turn that line on. It reads these from your watch as it draws and saves none of them.
       </p>
 
       <h2>What Days To Go saves</h2>
@@ -23,8 +23,8 @@ export function Privacy() {
       <h2>Settings</h2>
       <p>
         Your face settings are stored by Garmin Connect so they can reach the watch. They contain only your choices: the
-        event and its date, an optional name you type, the time of day, how to count, the date style, the bottom line and
-        the accent colour. If you type a name, it is stored with the other settings and shown only on your watch.
+        event and its date, an optional name you type, how to count, the date style and the accent colour; in Days To Go
+        Pro also the time of day, the minute, the event time zone and the bottom line. If you type a name, it is stored with the other settings and shown only on your watch.
       </p>
 
       <PrivacyTail />

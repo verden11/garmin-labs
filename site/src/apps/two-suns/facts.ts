@@ -11,11 +11,11 @@ export const appName = 'Two Suns'
 // Simulator captures, each framed in the watch it ran on: the store listings' sets (TwoSuns/listing*/screens-framed, docker/frame_listing.sh),
 // resized to 560 px in public/two-suns/watch/. Example numbers; the simulator's data is canned.
 export const screens: Screenshot[] = [
-  { label: 'By day', src: '/two-suns/watch/day.png', watch: 'fēnix 8 Pro' },
-  { label: 'Golden hour', src: '/two-suns/watch/golden-hour.png', watch: 'epix Pro' },
-  { label: 'After sunset', src: '/two-suns/watch/evening.png', watch: 'Venu 3' },
+  { label: 'By day (Pro)', src: '/two-suns/watch/day.png', watch: 'fēnix 8 Pro' },
+  { label: 'Golden hour (Pro)', src: '/two-suns/watch/golden-hour.png', watch: 'epix Pro' },
+  { label: 'After sunset (Pro)', src: '/two-suns/watch/evening.png', watch: 'Venu 3' },
   { label: 'Two Suns (free)', src: '/two-suns/watch/free.png', watch: 'Forerunner 970' },
-  { label: 'Instinct', src: '/two-suns/watch/instinct.png', watch: 'Instinct E' },
+  { label: 'Instinct (Pro)', src: '/two-suns/watch/instinct.png', watch: 'Instinct E' },
 ]
 
 // Generated from the manifests by site/scripts/watch-families.py (Two Suns Free and Pro manifests); re-run it when the products change. The store's

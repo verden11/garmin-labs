@@ -9,14 +9,15 @@ export function Support() {
       <h2>Contact</h2>
       <p>
         Questions or bugs: email <a href={`mailto:${studio.email}`}>{studio.email}</a>. Please include your watch model
-        and its software version, and say which bar or reading looks wrong.
+        and its software version, whether you have HeroFace or HeroFace Pro, and say which bar or reading looks wrong.
       </p>
 
       <h2>Changing what the bars show</h2>
       <p>
-        In the Garmin Connect app, open your watch, then Connect IQ Apps → Watch Faces → HeroFace → Settings. Each of the
-        three bars can be set to steps, calories, intensity minutes, distance, floors or the move bar, or left on
-        Automatic. You can also pick the accent colour and turn seconds and the temperature on or off.
+        In the Garmin Connect app, open your watch, then Connect IQ Apps → Watch Faces → HeroFace Pro → Settings. Each of
+        the three bars can be set to steps, calories, intensity minutes, distance, floors or the move bar, or left on
+        Automatic. You can also pick the accent colour and turn seconds and the temperature on or off. In HeroFace, the
+        free face, the bars are always on Automatic; Missions (HeroSet or everyday goals) and the accent colour are the settings.
       </p>
       <Note>
         Automatic picks the first thing your watch actually measures. A watch with no barometer has no floor count, so
@@ -27,7 +28,7 @@ export function Support() {
       <h3>A bar shows something I didn’t choose.</h3>
       <p>
         On Automatic, the face uses the first metric your watch supports: steps, then intensity minutes, then floors,
-        with calories, distance and the move bar as fallbacks. Set that bar explicitly in settings to override it.
+        with calories, distance and the move bar as fallbacks. In HeroFace Pro, set that bar explicitly in settings to override it.
       </p>
       <h3>One bar has no bar, only a number.</h3>
       <p>
@@ -35,7 +36,7 @@ export function Support() {
       </p>
       <h3>What is the ring around the edge?</h3>
       <p>
-        How far today has come across your goals at once. It turns green when every one of them is met. The move bar is left
+        How far today has come across your goals at once. It turns green when every goal in it is met. The move bar is left
         out of the ring: it is full whenever you have not sat still, and never counts as done. On a rectangular watch the ring
         is a frame along the edges of the screen; on an Instinct it is a gauge in the small round window. With HeroSet
         showing, it becomes your progress towards the next rank instead.
@@ -47,13 +48,14 @@ export function Support() {
       </p>
       <h3>The seconds stopped.</h3>
       <p>
-        Watches allow a watch face only a small amount of power to redraw between minutes. If your watch withdraws it,
-        HeroFace turns seconds off rather than leaving a frozen number on screen. Turn them back on in settings.
+        Seconds are a HeroFace Pro setting. Watches allow a watch face only a small amount of power to redraw between
+        minutes. If your watch withdraws it, HeroFace Pro turns seconds off rather than leaving a frozen number on screen. Turn them back on in settings.
       </p>
       <h3>Why is there no temperature?</h3>
       <p>
-        The face shows the weather your watch already has, which arrives with a phone sync. Older watches have no weather
-        at all, and then the temperature is simply left out.
+        The temperature is in HeroFace Pro, switched on in its settings; HeroFace, the free face, has none. Pro shows the
+        weather your watch already has, which arrives with a phone sync. Older watches have no weather at all, and then the
+        temperature is simply left out.
       </p>
       <h3>How do I show my HeroSet reps?</h3>
       <p>
@@ -63,8 +65,10 @@ export function Support() {
       </p>
       <h3>Which watches are supported?</h3>
       <p>
-        {watchCount} Garmin watches with round screens, from Connect IQ 3.0 upwards. The Connect IQ Store shows whether
-        your exact model is listed. HeroFace has been tested on a Forerunner 965; every screen size passes each screen
+        {watchCount} Garmin watches, round and rectangular, from Connect IQ 3.0 upwards, and the black-and-white Instinct.
+        The Connect IQ Store shows whether your exact model is listed. HeroFace runs on all of them; HeroFace Pro is sold
+        only on Garmin’s paid-app list, which leaves out many older watches, among them the Instinct 2, 2S and 2X, the
+        Descent G1 and the first-generation Venu Sq. HeroFace has been tested on a Forerunner 965; every screen size passes each screen
         check in Garmin’s simulator.
       </p>
     </Doc>
