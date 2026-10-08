@@ -23,8 +23,8 @@ next:
 package:
   file: dist/TwoSunsFree-1.1.0.iq
   products: 72   # <iq:product> lines in the manifest
-  exported: null
-  check: null
+  exported: 2026-10-08   # from a git archive of commit d130ae9 (clean tree), 93 part numbers; sha256 73aede6b4fef3434e54313b72cffb3aa9023c3bd3befa1d89147ccb5795f4459
+  check: "tools/check_free_package.sh dist/TwoSunsFree-1.1.0.iq dist/TwoSunsPro-1.2.0.iq: OK (permission ComplicationSubscriber only, key Accent only, no Pro code, no 'Pro' anywhere, AppName Two Suns); unpack check: app id = manifest.free.xml, 72 of 72 products, version 1.1.0 = paste.md; packaged .prg drawn in the simulator on fr965, venusq2, instincte40mm (simulator only)"
   note: "export: monkeyc -e -r -f monkey.free.jungle; built in the verden-ciq-build container"
 price: free (uploaded as a free app 2026-10-04)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}

@@ -23,8 +23,8 @@ next:
 package:
   file: dist/TwoSunsPro-1.2.0.iq
   products: 72   # <iq:product> lines in the manifest
-  exported: null
-  check: null
+  exported: 2026-10-08   # from a git archive of commit d130ae9 (clean tree), 93 part numbers; sha256 8f16b8aeb31279a940186a163bf0820a0d95fa6a0c8082c093c66e8cbb69e437
+  check: "tools/check_free_package.sh dist/TwoSunsFree-1.1.0.iq dist/TwoSunsPro-1.2.0.iq: OK (permissions ComplicationSubscriber Positioning SensorHistory, keys Accent Orientation Golden Curve Date Weather Battery, AppName Two Suns Pro, positive controls in every part number); unpack check: app id = manifest.xml, 72 of 72 products, version 1.2.0 = paste.md; packaged .prg drawn in the simulator on fr965, venusq2, instincte40mm (simulator only)"
   note: "export: monkeyc -e -r -f monkey.jungle; built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload, submitted 2026-10-04; the store shows $2.25 until Garmin approves), no number in listing text; ADR-026 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-020 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
