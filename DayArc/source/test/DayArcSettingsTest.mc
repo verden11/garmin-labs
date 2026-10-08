@@ -60,6 +60,7 @@ function accentIsWhiteOnTheMonoPalette(logger as Test.Logger) as Boolean {
 
 // The always-on grey (ADR-020, the studio's one always-on grey): at least 3:1 against black, the bar for a persistent colour.
 // WCAG contrast against black is (L + 0.05) / 0.05, L from the sRGB channels. #5C5C5C is 3.14:1; #555555 would fail at 2.82.
+// On colour screens it must also stay well under MUTED's 9.0:1 (below 4.5:1), so pointing renderIdle back at MUTED fails here.
 (:test)
 function alwaysOnGreyReadsOnBlack(logger as Test.Logger) as Boolean {
     var color = DayArcPalette.SLEEP_TEXT;
@@ -71,5 +72,7 @@ function alwaysOnGreyReadsOnBlack(logger as Test.Logger) as Boolean {
     }
     var ratio = (luminance + 0.05) / 0.05;
     Test.assertMessage(ratio >= 3.0, "always-on grey contrast " + ratio.format("%.2f") + ":1 on black");
+    // On a colour screen it is dimmer than the awake MUTED grey (#AAAAAA, 9.0:1), the colour ADR-020 moved away from.
+    Test.assertMessage(DayArcPalette.MONO || ratio < 4.5, "always-on grey is not dimmer than MUTED: " + ratio.format("%.2f") + ":1");
     return true;
 }

@@ -180,7 +180,7 @@ class DayArcDraw {
     // AMOLED always-on sleep: time only, dim, stepping across a 3x3 grid every minute so no pixel
     // stays lit more than a minute (TwoSunsSleep's proven pattern). `dx`/`dy` are the drift offset
     // for this minute; the view computes them from BURN_IN_GRID. No arc, no icon, no date — the
-    // fewest lit pixels, deliberately not a dimmed copy of the active frame (DESIGN.md "Night/idle";
+    // fewest lit pixels, deliberately not a dimmed copy of the active frame (DESIGN.md "Motion / always-on";
     // an idle date line was considered for ADR-013 and rejected for exactly this reason).
     static function renderIdle(dc as Graphics.Dc, layout as DayArcLayout, clockText as String, dx as Number, dy as Number) as Void {
         dc.setColor(DayArcPalette.BACKGROUND, DayArcPalette.BACKGROUND);

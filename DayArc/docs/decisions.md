@@ -165,7 +165,7 @@ its own cited precedent; (2) DayArc's stress threshold (25) was set to exactly G
 colour verdict as a brightness verdict — the opposite of what this ADR requires. Fixed by removing
 the threshold tier entirely rather than trying to justify or re-tune it: both gauges are now a
 single fill level, no dim tier, for either metric. This is a deliberate departure from TwoSuns's own
-Body Battery treatment (TwoSuns's threshold is an arbitrary "low charge" cue with no tie to an
+Body Battery treatment at the time (TwoSuns removed its own dim on 2026-10-08, TwoSuns ADR-008 (no verdicts on Body Battery) amendment; TwoSuns's threshold was an arbitrary "low charge" cue with no tie to an
 official verdict banding; DayArc's would have inherited one, so DayArc doesn't replicate it).
 
 **Why:** Garmin's own Body Battery copy models a low day in explicitly neutral language; its stress

@@ -335,7 +335,9 @@ every minute (TwoSuns's proven `TwoSunsSleep` pattern, reused — `DayArcConfig.
 `DayArcLayout.driftStep`). No hero, no gauge, no grid while asleep on AMOLED — the fewest lit
 pixels, not a reduced version of the active frame. MIP screens never enter this state; they keep
 showing the full active window while "asleep" (no burn-in risk, matches TwoSuns's own
-`_sleeping && _burnIn` branch exactly).
+`_sleeping && _burnIn` branch exactly). Simulator 24-hour heat map in `#5C5C5C` (2026-10-08, Pro, from the morning window): no
+burn-in detected, peak luminance 1.35% on `fr965` (2.52% in `#AAAAAA`, 2026-10-05) and 1.22% on `venux1` (2.27% before); frames in
+`../device-test/rect-review/aod-grey/`. Simulator only, nothing on a wrist.
 
 No other motion. No idle animation on the active face — nothing here marks a real state change
 that would justify it; the window switch itself (at 5:00/9:30/17:00/23:00) is a hard cut, not an
@@ -472,8 +474,9 @@ change (every branch is `DayArcLayout.isRectangle()`).
 - Screenshots of the rectangle (`../device-test/rect-review/after/`) show the simulator's **canned values**: sunrise 12:17,
   sunset 23:59 and the 00:00 calendar event are what the simulator returns, not a real place or date; steps (5310), floors (7)
   and intensity (18) are set with `sim_activity`; weather is the simulator's (66 °F, 77/63, 10% rain).
-- Always-on: unchanged (the time only, drifting), fitted to the inner box. 24-hour burn-in simulation (simulator, Pro, from the
-  midday window): no burn-in, peak luminance 1.94% (Venu Sq 2) and 2.27% (Venu X1), against a 10% limit that is unverified (quoted in
+- Always-on: the time only, drifting, fitted to the inner box (its colour since 2026-10-08 and the current heat-map figures: "Motion /
+  always-on", ADR-020). Baseline in `#AAAAAA`, before ADR-020, 24-hour burn-in simulation (simulator, Pro, from the
+  midday window, 2026-10-05): no burn-in, peak luminance 1.94% (Venu Sq 2) and 2.27% (Venu X1), against a 10% limit that is unverified (quoted in
   `../docker/SIMULATOR.md` with no source; the simulator's own verdict box states no limit).
 
 ## Instinct E and Instinct 3 Solar (1-bit, a round window top right; ADR-015, accepted 2026-10-04, simulator only)
