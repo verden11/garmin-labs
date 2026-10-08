@@ -52,7 +52,7 @@ Every changed listing image set was recaptured (both tiers where both changed) a
 
 ## Edge-state pass (evening; simulator only)
 
-- **Burn-in (24-hour heat-map simulation, always-on):** all pass; Days To Go 0.84%, Two Suns 1.09%, HeroFace 1.23%, DayArc 2.52% peak luminance (Garmin's limit 10%).
+- **Burn-in (24-hour heat-map simulation, always-on):** all pass; Days To Go 0.84%, Two Suns 1.09%, HeroFace 1.23%, DayArc 2.52% peak luminance (the simulator's 10% pass mark; unverified as a Garmin rule).
 - **Always-on looks:** three different greys across the studio: Days To Go and HeroFace `#555555` (2.8:1, under the house 3:1 bar), Two Suns `#5C5C5C` (its ADR-027), DayArc the full muted `#AAAAAA` (brightest, hence its higher luminance). Decision for the owner.
 - **First run:** Days To Go counts down to its default event (Jan 1 2027) until set; HeroFace shows zeros and empty bars; HeroSet's glance says `NO STREAK YET`; all read fine.
 - **DayArc Pro:** the next-calendar-event pill reads `00:00` in the simulator with no event (Garmin's complication string, passed through): check on the wrist (1.1).

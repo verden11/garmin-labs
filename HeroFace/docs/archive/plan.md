@@ -139,7 +139,7 @@ value = "1|20260920|37|52|100|4|63|12|20260919|100"
 The layout rules and measurements are in [`../DESIGN.md`](../../DESIGN.md). What the plan owns:
 
 - Time is the biggest element. Everything else is secondary and must be readable in one glance.
-- **Always-on / low power:** AMOLED sleep mode keeps under 10% of pixels lit and shows the time only. The ring is dropped entirely (a static arc is exactly what Garmin's burn-in rules are about) and the time shifts 4 px a minute, the most Garmin's guidance allows. MIP keeps the full face and updates once a minute. Everything except the time and seconds is gathered once a minute, not every second.
+- **Always-on / low power:** AMOLED sleep mode keeps under 10% of pixels lit (a figure from forum guidance, unverified) and shows the time only. The ring is dropped entirely (a static arc is exactly what Garmin's burn-in rules are about) and the time shifts 4 px a minute, the most Garmin's guidance allows. MIP keeps the full face and updates once a minute. Everything except the time and seconds is gathered once a minute, not every second.
 - **Ring:** the day as a whole, not steps again (the left mission bar already is the steps bar).
 - **Streak:** a zero streak prints nothing (rank alone in HeroSet mode), never `0-DAY STREAK` or `0D`.
 - **Notifications in the footer** are part of the design: a daily face that hides unread messages is less practical.
