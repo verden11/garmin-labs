@@ -16,14 +16,14 @@
 #         "HeroFace Pro" in every language.
 #   Guards: it fails (never skips) if any file under source/, resources*/, or any *.jungle or manifest*.xml is newer than either package
 #         (a stale .iq proves nothing: rebuild with --build), if a path it needs is missing, if the two source manifests list different
-#         products or not exactly 124 (117 round + 7 Instinct), or if the two packages list different part numbers. --build exports with -w --typecheck 3.
+#         products or not exactly 129 (117 round + 7 Instinct + 5 rectangle), or if the two packages list different part numbers. --build exports with -w --typecheck 3.
 #   Not done (future): a case-insensitive "pro" scan, and a positive control in tools/compile_sweep.sh.
 #   Both: the app ids are the expected ones and differ; the permission list is exactly ComplicationSubscriber (HeroSet mode
 #         needs it, so Free's permissions equal Pro's and are never more); same product count.
 set -u
 cd "$(dirname "$0")/.." || exit 2
 KEY=${KEY:-$HOME/.garmin-connectiq/keys/developer_key}
-EXPECTED_PRODUCTS=124   # 117 round + 7 Instinct (ADR-002, the Instinct family)
+EXPECTED_PRODUCTS=129   # 117 round + 7 Instinct (ADR-002, the Instinct family) + 5 rectangle (ADR-005)
 mkdir -p bin dist
 # Fail closed: every path the checks read must exist.
 for path in source resources resources-free resources-pro manifest.xml manifest.free.xml monkey.jungle monkey.free.jungle; do

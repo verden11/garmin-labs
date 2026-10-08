@@ -11,17 +11,21 @@ live:
   version: 1.0.1
   since: 2026-09-28
   note: 1.0.1 was submitted 2026-09-26 on top of 1.0.0; the app was approved 2026-09-28 and which version Garmin approved is not recorded
-next:
+in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
   version: "1.1.0"
-  status: uploaded   # drafted | prepared | uploaded | in-review | live
   uploaded: 2026-10-04
-  summary: "Free + Pro ladder (ADR-014): renamed Days To Go Pro; the Instinct family (ADR-015, 127 products); Pro headline To the minute (ADR-018: Minute and Event time zone, owner pick 2026-10-04). uploaded 2026-10-04 by the owner, in Garmin review"
+  summary: "Free + Pro ladder (ADR-014): renamed Days To Go Pro; the Instinct family (ADR-015, 127 products); To the minute (ADR-018); package dist/DaysToGoPro-1.1.0.iq from the tree at commit a6c7a35"
+next:
+  version: "1.2.0"
+  status: prepared   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: "square design on the rectangles (ADR-019), 8h 06m (ADR-018 amendment), the ring's one scale, date arrow and bottom-line marks, no on-watch date picker on Venu Sq 2 / Sq 2 Music (ADR-020), the always-on grey (ADR-007 amendment), Venu Sq / Sq Music in the package (129 products; not on the paid list); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/DaysToGo-Pro-1.2.0/"
 package:
-  file: dist/DaysToGoPro-1.1.0.iq
-  products: 127   # <iq:product> lines in the manifest; the export has 210 part numbers (device variants), not a product count
-  exported: 2026-10-04   # re-export with To the minute (ADR-018), from the tree at commit a6c7a35 (no code change after it)
-  check: "tools/check_free_package.sh with explicit file args (Free after ADR-018, this Pro): OK both. Pro: keys Hour, Minute, EventZone, Footer in every settings file and every .prg, name 'Days To Go Pro' found; translated Minute/zone titles present (checked deu, ukr). Free: settings byte-identical to the uploaded 1.0.0 export (210 of 210), no Hour/Minute/EventZone/Footer, no 'Pro'"
-  note: "export: monkeyc -e -r -f monkey.jungle in verden-ciq-build:9.2.0 via docker/run.sh; 8.8 MB (the old export was 7.5 MB: the Minute and zone labels and titles in 15 languages across 210 parts); the file is in the git-ignored dist/"
+  file: dist/DaysToGoPro-1.2.0.iq
+  products: 129   # <iq:product> lines in the manifest
+  exported: null
+  check: null
+  note: "export: monkeyc -e -r -f monkey.jungle in verden-ciq-build:9.2.0 via docker/run.sh; the file is in the git-ignored dist/"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-017 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-014 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
@@ -42,7 +46,7 @@ site:
   privacy: https://verden.watch/days-to-go/privacy/
 owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
   - "AWAITS APPROVAL (ROADMAP 13.38, 2026-10-08): the set retaken for the next build: screen 4 (4-rectangle, the Venu Sq 2 square design, ADR-019) is new; screens 2, 3, 5 compared identical and screen 1 differed by one clock minute only (10:10 kept); they are unchanged, and the hero was not re-rendered (its round source screens are unchanged). Preview: device-test/listing-review/DaysToGo-listing.png. Goes up with the next upload."
-  - "UPLOAD GATE (reviewer, 2026-10-08): paste.md 'A thin ring around the bezel' and 'Round and rectangular watches alike' no longer describe screen 4 (the square design's track along the glass, ADR-019); 'full detail down to the smallest' sits beside the bottom-line sentence that the Instinct does not draw (ADR-015). Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (square design; no on-watch date picker on Venu Sq 2 / Sq 2 Music, ADR-020) (not done under 13.38: site/ out of scope)."
+  - "UPLOAD GATE CLEARED 2026-10-08 (the 1.2.0 text, paste.md and paste-translations.md; the site wording is a separate held-back commit, deploy after Garmin approves). Was: paste.md 'A thin ring around the bezel' and 'Round and rectangular watches alike' no longer describe screen 4 (the square design's track along the glass, ADR-019); 'full detail down to the smallest' sits beside the bottom-line sentence that the Instinct does not draw (ADR-015). Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (square design; no on-watch date picker on Venu Sq 2 / Sq 2 Music, ADR-020) (not done under 13.38: site/ out of scope)."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
   - "Native read of the machine-drafted translations of the three new phone strings (Minute, Event time zone, My watch time zone; 14 languages, resources-pro-<lang>/): ROADMAP 7.10. The 'To the minute' claims wait on the wrist checks W1 to W6 in docs/status.md (ROADMAP 3.1)."

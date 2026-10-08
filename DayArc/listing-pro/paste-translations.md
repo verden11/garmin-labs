@@ -31,13 +31,14 @@ Si esta esfera te resulta útil, una valoración en la tienda ayuda a que otras 
 
 DayArc Pro lee datos que tu reloj ya tiene. No envía nada a ningún sitio: sin ubicación y sin red.
 
-Más de Verden
-Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9
-Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca
-HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d
-
 Ayuda y respuestas: https://verden.watch/day-arc-pro/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, release contract), and none is live yet: all three free twins returned 404 on 2026-10-08 (in Garmin review, ROADMAP 7.12), so the block is left out of the description. Once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 for one of them, add a `Más de Verden` line to the Spanish block above the support line, then that app's line:
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
 ## Chinese, Simplified (简体中文)
 
@@ -64,10 +65,11 @@ DayArc Pro 是独立于 DayArc 的商品，单独定价：一次购买，无需�
 
 DayArc Pro 只读取手表已有的数据，不会向任何地方发送任何内容：不使用位置，也不联网。
 
-Verden 的更多作品
-Days To Go：https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9
-Two Suns：https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca
-HeroFace：https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d
-
 帮助与解答：https://verden.watch/day-arc-pro/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, release contract), and none is live yet: all three free twins returned 404 on 2026-10-08 (in Garmin review, ROADMAP 7.12), so the block is left out of the description. Once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 for one of them, add a `Verden 的更多作品` line to the Chinese block (full-width colon `：` in each app line) above the support line, then that app's line:
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`

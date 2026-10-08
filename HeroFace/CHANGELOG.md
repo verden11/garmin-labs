@@ -3,7 +3,9 @@
 One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/paste.md`](listing/paste.md).
 
-## Unreleased (next upload of both)
+## Free 1.1.0 and Pro 1.2.0 — uploaded <date by owner>
+
+Prepared 2026-10-08 as the next upload of both listings, while Free 1.0.0 and Pro 1.1.0 are still in Garmin review (a newer version may be uploaded meanwhile). 129 products in both builds (117 round, 7 Instinct, 5 rectangular); permission `ComplicationSubscriber` only, as before. The What's New blocks are in `listing/paste.md` (Pro) and `listing-free/paste.md` (Free); both descriptions were rewritten where the new build contradicted them (the ring and the move bar, "Round watches, one design"). ADRs: 005 (rectangular watches, the ring as a frame; look approved by the owner 2026-10-08), 006 (always-on time is the studio's one always-on grey). Simulator only, nothing on a wrist.
 
 - **Always-on time in the studio's one always-on grey, `#5C5C5C` (2026-10-08, ROADMAP 13.25; both tiers; watches with burn-in protection only (the AMOLEDs; in the simulator also the Venu Sq); simulator only).** It was `#555555`, 2.82:1 against black, under the studio's 3:1 bar; now 3.14:1, the grey Two Suns already uses (HeroFace ADR-006 (always-on time is the studio's one always-on grey)). MIP watches and the 1-bit Instincts are unchanged (the Instinct AMOLEDs get the new grey). Tests: Pro 28, Free 28, 24 each on an Instinct (`alwaysOnGreyReadsOnBlack` new).
 
@@ -15,7 +17,7 @@ Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.8 to 13.12; s
 - **MOVE shows no value until it alerts:** `OK` is gone; the alert stays the red word GO.
 - Both listing sets recaptured.
 
-Rectangular watches, 2026-10-05 (ADR-005, proposed; simulator only, nothing on a wrist; the look needs the owner's approval before upload):
+Rectangular watches, 2026-10-05 (ADR-005 (rectangular watches, the ring as a frame); look approved by the owner 2026-10-08; simulator only, nothing on a wrist):
 
 - **Five rectangular products join both builds (129 instead of 124):** Venu Sq and Sq Music (`venusq`, `venusqm`), Venu Sq 2 and Sq 2 Music (`venusq2`, `venusq2m`), Venu X1 (`venux1`). The ring becomes a frame along the screen's edges, open at the bottom for the footer, filling clockwise from the lower left; rows use the width inside it. HeroSet mode needs Connect IQ 4.2+, so the two first-generation Venu Sq stay in Everyday mode.
 - **Square design pass (same day, ADR-005 amendment):** the time is as large as the frame allows, sized by its digits rather than its font box (Venu Sq 2 from the smallest number font to the second largest, Venu X1 and Venu Sq to the largest), and the rows are spaced evenly so no empty band sits under it. With Pro's seconds on, the time steps down a size on the Venu Sq 2 and X1 to leave them room; Free is never smaller for them. The frame sits further in from the glass and its corners follow the X1's rounded glass, so the margin is even all the way round.

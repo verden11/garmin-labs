@@ -49,6 +49,13 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 
 Copy rules: name no watch model, Instinct or otherwise, and no language or language count (owner rule, 2026-10-04; the store's device tab is the device claim, and the Instinct 2 family and Descent G1 are not sold on a paid app, [`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"); the glance is "on watches with Connect IQ 4.0 or later" (66 of 87 products, 63 of 80 before the Instinct E and Instinct 3 Solar; the Instinct 2 family has none; never "all watches", never "reminder"/"alert", [ADR-051](../docs/decisions.md#adr-051)); any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
 
+**1.3.1** (uploaded 2026-10-04, in Garmin review)
+
+```text
+- Black-and-white screens: text near the corners is no longer cut off by the bezel, so START: MENU and the finished-day message show whole.
+- Black-and-white screens: the glance now sits beside the round window instead of under it, and its bars show empty and full in black and white.
+```
+
 **1.3.0** (live since 2026-10-03; its first bullet names Instinct 2, 2S, 2X and Descent G1, which the store does not sell this paid app on: see Device claims above, history kept as submitted)
 
 ```text
@@ -83,6 +90,12 @@ Copy rules: name no watch model, Instinct or otherwise, and no language or langu
 ```
 
 **1.0.0:** `First release.`
+
+## 1.4.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **Version** `1.4.0`, not the `1.3.2` the changelog called this build while it was unreleased: it adds products (Instinct 3 AMOLED 45/50 mm, Venu Sq 2, Sq 2 Music, X1; 92 products), so the next minor. App Version is free text typed into the form ([ADR-053](../docs/decisions.md#adr-053) (App Version is typed, not read from the package)). It can go up while 1.3.1 is still in review (`../../research_notes/Free and Pro ladder/garmin_rules.md`).
+- **What's New** lists the user-facing changes of `../CHANGELOG.md` "1.4.0": more watches with the rectangular design ([ADR-057](../docs/decisions.md#adr-057) (rectangular watches)), the correction under the goal ([ADR-058](../docs/decisions.md#adr-058) (a correction under the goal undoes today's completion)), the review number, `--` calories, no `STREAK 0` on the Instinct dashboard. Copy rules as above: no watch model, no language, the HeroFace qualifier "on watches with Connect IQ 4.2 or later".
+- **Description unchanged:** nothing in it names a screen shape or contradicts the new build ("Check and adjust the count before it's saved" covers the correction). Translations unchanged with it.
 
 ## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
 

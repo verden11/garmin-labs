@@ -11,16 +11,20 @@ live:
   version: null
   since: null
   note: a new app, uploaded 2026-10-04, in Garmin review; nothing live yet
-next:
+in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
   version: "1.0.0"
-  status: uploaded   # drafted | prepared | uploaded | in-review | live
   uploaded: 2026-10-04
-  summary: "the Free twin: everyday and HeroSet mode, accent colour; names confirmed 2026-10-04; store URLs and uploads are the owner's"
+  summary: "the Free twin: everyday and HeroSet mode, accent colour; package dist/HeroFaceFree-1.0.0.iq from commit 99f2dc0 (124 products)"
+next:
+  version: "1.1.0"
+  status: prepared   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: "rectangular watches with their own design (ADR-005, 129 products), bar icons, the ring without the move bar, GO only, the centred streak, the always-on grey (ADR-006); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/HeroFace-Free-1.1.0/"
 package:
-  file: dist/HeroFaceFree-1.0.0.iq
-  products: 124   # <iq:product> lines in the manifest; the export has 207 part numbers (device variants), not a product count
-  exported: 2026-10-04   # re-export from commit 99f2dc0, after the last code change
-  check: "tools/check_free_package.sh: OK (keys Mode and Accent only, no Slot/Seconds/Weather, no 'Pro')"
+  file: dist/HeroFaceFree-1.1.0.iq
+  products: 129   # <iq:product> lines in the manifest
+  exported: null
+  check: null
   note: "export: monkeyc -e -r -f monkey.free.jungle -w --typecheck 3; built in the verden-ciq-build container"
 price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
@@ -42,6 +46,6 @@ site:
   privacy: https://verden.watch/heroface/privacy/
 owner_approvals:   # text, title and the uploaded images settled by the owner's upload of 2026-10-04; still open:
   - "AWAITS APPROVAL (ROADMAP 13.38, 2026-10-08): the set was re-checked against the next build: all five screens and the hero's magenta frame recaptured identical (0 pixels differ), nothing replaced; approve it as it stands for the next upload. Preview: device-test/listing-review/HeroFace-listing-free.png."
-  - "UPLOAD GATE (reviewer, 2026-10-08): paste.md 'it fills green when all three are met' is false for the next build where the Auto bars fall back to the move bar (no barometer, e.g. Venu Sq / Sq 2; the ring leaves the move bar out, ADR-005); 'Round watches, one design' predates the rectangles. Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (not done under 13.38: site/ out of scope)."
+  - "UPLOAD GATE CLEARED 2026-10-08 (the 1.1.0 text, paste.md and paste-translations.md; the site wording is a separate held-back commit, deploy after Garmin approves). Was: paste.md 'it fills green when all three are met' is false for the next build where the Auto bars fall back to the move bar (no barometer, e.g. Venu Sq / Sq 2; the ring leaves the move bar out, ADR-005); 'Round watches, one design' predates the rectangles. Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (not done under 13.38: site/ out of scope)."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
 open_items: "5.5 6.1 7.12"   # ids in ROADMAP.md

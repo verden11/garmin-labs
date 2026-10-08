@@ -5,22 +5,22 @@ folder: DayArc/listing-pro
 tier: pro
 app_id: cc86c6b6-9a5c-4908-9056-165ff4b81982
 store:
-  listing_url: null
-  developer_url: https://apps-developer.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe   # owner, 2026-10-05; store page https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe (live once Garmin approves)
+  listing_url: "https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe"   # live since Garmin approved it 2026-10-05
+  developer_url: https://apps-developer.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe
 live:
-  version: null
-  since: null
-  note: never submitted
+  version: 1.0.0
+  since: 2026-10-05
+  note: uploaded and approved by Garmin 2026-10-05 (first publication; package dist/DayArcPro-1.0.0.iq, 72 products, 93 part numbers, exported 2026-10-05 evening)
 next:
-  version: "1.0.0"
-  status: drafted   # drafted | prepared | uploaded | in-review | live
+  version: "1.1.0"
+  status: prepared   # drafted | prepared | uploaded | in-review | live
   uploaded: null
-  summary: text drafted, not finalised; the $2.50 tier (ADR-018, supersedes the price of ADR-007), no price number on the site or in listing text; 72 products with the Instinct E and 3 Solar
+  summary: "square design on Venu Sq 2, Sq 2 Music and X1 (ADR-019); Pro's Venu Sq 2 morning shows Feels like and a row of fields, the no-weather morning reads Weather unavailable, the always-on grey (ADR-020); 72 products, unchanged; More from Verden left out until a free sibling is live; upload bundle device-test/upload/DayArc-Pro-1.1.0/"
 package:
-  file: dist/DayArcPro-1.0.0.iq
-  products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
-  exported: 2026-10-05   # re-exported again that evening (Feels like label, condition icons, 12-hour fix); earlier: re-export from commit 4915c61 (code of a64233e), after the design-review fixes of ADR-017
-  check: "tools/check_package.sh: OK (Instinct parts carry no settings file, the other 89 have Accent)"
+  file: dist/DayArcPro-1.1.0.iq
+  products: 72   # <iq:product> lines in the manifest
+  exported: null
+  check: null
   note: "export: CIQ_IMAGE=verden-ciq-build:9.2.0 docker/run.sh DayArc monkeyc -e -r -w -f monkey.pro.jungle; built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form; ADR-018); no number in text
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}

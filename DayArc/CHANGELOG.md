@@ -4,13 +4,15 @@ One entry per Connect IQ Store publication, newest first, either listing (noted 
 store's "What's New" text for each version is in that listing's `listing/paste.md` or
 `listing-pro/paste.md`.
 
-## Unreleased
+## 1.1.0, both listings — uploaded <date by owner>
 
-- **Always-on time in the studio's one always-on grey, `#5C5C5C`, both listings (ADR-020, 2026-10-08, AMOLED watches only,
+Prepared 2026-10-08 as the first update of both listings (1.0.0 live since 2026-10-05). 72 products and 93 part numbers in each build, unchanged; permission `ComplicationSubscriber` only, as before. The What's New blocks are in `listing/paste.md` and `listing-pro/paste.md`; the descriptions drop the "More from Verden" lines until a free sibling is live (all three returned 404 on 2026-10-08). ADRs: 019 (rectangles get a square design; look approved by the owner 2026-10-08), 020 (always-on time in the studio's one always-on grey). Simulator only, nothing on a wrist.
+
+- **Always-on time in the studio's one always-on grey, `#5C5C5C`, both listings (ADR-020 (the one always-on grey), 2026-10-08, AMOLED watches only,
   simulator only):** the dim always-on time was the awake grey `#AAAAAA`; it is now the dimmer `#5C5C5C` the other faces use
   (3.14:1 against black, about a quarter of the relative luminance, computed; the simulator's peak always-on luminance about halved). MIP watches and the 1-bit Instincts are unchanged (the Instinct AMOLEDs get the new grey).
-- **Square design on the rectangular watches (Venu Sq 2, Venu Sq 2 Music, Venu X1), both listings (ADR-019, 2026-10-05,
-  simulator only, awaiting the owner's look at the screenshots):** the window-progress arc follows the screen as the top of a
+- **Square design on the rectangular watches (Venu Sq 2, Venu Sq 2 Music, Venu X1), both listings (ADR-019 (rectangles get a square design), 2026-10-05,
+  simulator only, look approved by the owner 2026-10-08):** the window-progress arc follows the screen as the top of a
   rounded-rectangle track, the Stress and Body Battery gauge is a straight bar, and the time, date and readings use the room
   inside the track. On the Venu Sq 2, DayArc Pro's morning now shows "Feels like" and a row of fields together. Round watches
   and the Instinct are unchanged.

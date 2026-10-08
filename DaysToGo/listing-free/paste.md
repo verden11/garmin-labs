@@ -18,7 +18,7 @@ A countdown watch face: one big number for the days left until your date.
 Nothing is locked: no trial, no code to enter, nothing to buy on the watch.
 
 One number
-The days left is the biggest thing on the screen, at the largest size your watch can draw. The time above it, the date below. A thin ring around the bezel drains through the last year and fills on the day itself. No steps, no heart rate, no weather.
+The days left is the biggest thing on the screen, at the largest size your watch can draw. The time above it, the date below. A thin ring along the edge of the screen drains through the last year and fills on the day itself. No steps, no heart rate, no weather.
 
 Any date, your own event
 A birthday, an anniversary, a race, a trip — any date, with your own name for it (up to 16 characters), a set of six accent colours, and a count in days or in weeks and days. New Year's Day by default, so it is never empty; "Every year" makes a birthday or anniversary roll over by itself.
@@ -26,8 +26,8 @@ A birthday, an anniversary, a race, a trip — any date, with your own name for 
 Whole calendar days
 The count is whole days on your calendar: tomorrow is 1 day, the day itself says TODAY, and afterwards it counts the days since. A date that does not exist, like 30 February, is never shown as a wrong number.
 
-One design, every screen
-Round and rectangular watches alike, full detail down to the smallest, dimming to a quiet number and clock when the screen sleeps.
+Every screen, its own fit
+On a round screen the ring runs around the bezel, on a rectangular screen it follows the edges of the glass, and on black-and-white screens it is a gauge in the small round window. Every line is measured to fit, down to the smallest screens, and the face dims to a quiet number and clock when the screen sleeps.
 
 Days To Go Pro adds
 An event with a time of day: its last 24 hours turn into hours and minutes.
@@ -52,13 +52,17 @@ Support and answers: https://verden.watch/days-to-go/support/
 ## App Version
 
 ```text
-1.0.0
+1.1.0
 ```
 
 ## What's New
 
 ```text
-First release of the free Days To Go: a big day count, your own date and name, six accent colours, days or weeks.
+- Now on more watches. Rectangular watches get a design of their own: the ring becomes a track along the edges of the screen, and the count, the time and the date use the room inside it.
+- The ring has one scale: it stops just short of full until the day itself, so a full ring always means the day has come.
+- While the event is ahead, its date starts with an arrow.
+- On some rectangular watches the date is now set in the Garmin Connect app only: their own date picker was too narrow to read.
+- Always-on watches with burn-in protection show the dimmed number and time a little brighter. On rectangular watches the dimmed time is no longer cut off.
 ```
 
 ## Hero Image

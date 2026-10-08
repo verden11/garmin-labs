@@ -61,6 +61,14 @@ How they are made: [`screenshots.md`](screenshots.md). Why they are what they ar
 - **Instinct:** the picture is allowed in the listing; the description says nothing about Instinct or any other model (owner, 2026-10-04).
 - The old six pictures (morning, midday, evening, night, two on the Instinct E 45 mm) were replaced by this set; they predated the 2026-10-04 icon-size and label changes (ADR-017).
 
+## 1.1.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **What's New history:** 1.0.0 (uploaded and approved 2026-10-05) went up with the field blank (initial release).
+- **Version** `1.1.0` (next minor; App Version is free text in the form, the manifest carries none).
+- **What's New** lists the user-facing changes of `../CHANGELOG.md` "1.1.0": the square design on the rectangles (ADR-019 (rectangles get a square design)), the no-weather morning ("Weather unavailable"), the always-on grey (ADR-020 (always-on time in the studio's one always-on grey)). No watch model, no language, no price.
+- **More from Verden left out of the description:** the block links only live free siblings, and all three free twins (Days To Go, Two Suns, HeroFace) returned 404 on 2026-10-08 (in Garmin review). The 1.0.0 text pasted 2026-10-05 carried the three lines as placeholders to drop at upload; the lines now wait under the description block in `paste.md` and `paste-translations.md`, to add when each URL returns 200. The live listing text can be edited now (`../../research_notes/Free and Pro ladder/garmin_rules.md`).
+- The rest of the description is unchanged: nothing in it names a screen shape, and the "--" sentence (Pro) is about fields, which still read "--".
+
 ## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
 
 - **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`. Claims are checked against [`../docs/release-contract.md`](../docs/release-contract.md).

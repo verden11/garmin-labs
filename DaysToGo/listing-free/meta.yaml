@@ -11,16 +11,20 @@ live:
   version: null
   since: null
   note: a new app, uploaded 2026-10-04, in Garmin review; nothing live yet
-next:
+in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
   version: "1.0.0"
-  status: uploaded   # drafted | prepared | uploaded | in-review | live
   uploaded: 2026-10-04
-  summary: the Free twin; names confirmed 2026-10-04; titles and the Pro store URL are the owner's decisions
+  summary: "the Free twin; package dist/DaysToGoFree-1.0.0.iq from commit 99f2dc0 (127 products)"
+next:
+  version: "1.1.0"
+  status: prepared   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: "Venu Sq / Sq Music (129 products), square design on the rectangles (ADR-019), the ring's one scale, date arrow, no on-watch date picker on Venu Sq 2 / Sq 2 Music (ADR-020), the always-on grey (ADR-007 amendment); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/DaysToGo-Free-1.1.0/"
 package:
-  file: dist/DaysToGoFree-1.0.0.iq
-  products: 127   # <iq:product> lines in the manifest; the export has 210 part numbers (device variants), not a product count
-  exported: 2026-10-04   # re-export from commit 99f2dc0, after the last code change
-  check: "tools/check_free_package.sh: OK (no Hour/Footer key or code, no 'Pro' anywhere, AppName Days To Go)"
+  file: dist/DaysToGoFree-1.1.0.iq
+  products: 129   # <iq:product> lines in the manifest
+  exported: null
+  check: null
   note: "export: monkeyc -e -r -f monkey.free.jungle; built in the verden-ciq-build container"
 price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
@@ -42,6 +46,6 @@ site:
   privacy: https://verden.watch/days-to-go/privacy/
 owner_approvals:   # text, title and the uploaded images settled by the owner's upload of 2026-10-04; still open:
   - "AWAITS APPROVAL (ROADMAP 13.38, 2026-10-08): the set retaken for the next build: screen 4 (4-rectangle, the Venu Sq 2 square design, ADR-019) is new; screens 1, 2, 3, 5 compared identical and are unchanged; the hero was not re-rendered (its round source screens are unchanged). Preview: device-test/listing-review/DaysToGo-listing-free.png. Goes up with the next upload."
-  - "UPLOAD GATE (reviewer, 2026-10-08): paste.md 'A thin ring around the bezel' and 'Round and rectangular watches alike' no longer describe screen 4 (the square design's track along the glass, ADR-019). Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (square design; no on-watch date picker on Venu Sq 2 / Sq 2 Music, ADR-020) (not done under 13.38: site/ out of scope)."
+  - "UPLOAD GATE CLEARED 2026-10-08 (the 1.1.0 text, paste.md and paste-translations.md; the site wording is a separate held-back commit, deploy after Garmin approves). Was: paste.md 'A thin ring around the bezel' and 'Round and rectangular watches alike' no longer describe screen 4 (the square design's track along the glass, ADR-019). Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (square design; no on-watch date picker on Venu Sq 2 / Sq 2 Music, ADR-020) (not done under 13.38: site/ out of scope)."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
 open_items: "3.1 3.7 7.12 10.30"   # ids in ROADMAP.md

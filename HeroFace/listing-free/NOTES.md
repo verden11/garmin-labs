@@ -62,6 +62,16 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 | Additional Hardware Requirements | Paste the bare URL `https://verden.watch/heroface/` only (API field `hardwareProductUrl`; the old sentence is retired, ROADMAP 10.16) |
 | Refund wording | No refund or return wording appears in listing text (owner decision, 2026-10-04). |
 
+## What's New: history
+
+- **1.0.0** (uploaded 2026-10-04, in review): `First release of the free HeroFace: the time, three goal bars, a progress ring, your streak, three accent colours, and HeroSet mode if you have HeroSet.`
+
+## 1.1.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **Version** `1.1.0` (next minor; App Version is free text in the form). It can go up while 1.0.0 is still in review (`../../research_notes/Free and Pro ladder/garmin_rules.md`).
+- **What's New:** the Free side of `../CHANGELOG.md` "Free 1.1.0": the rectangles (ADR-005 (rectangular watches, the ring as a frame)), the bar icons, the ring without the move bar, GO only, the centred streak, the always-on grey (ADR-006). No temperature line (Free has none), no watch model, no language.
+- **Description fixed for the new build (upload gate of 2026-10-08):** the ring sentence now says it turns green when the goals are all met and that a move bar (where Auto falls back to it, e.g. no barometer) stays out of the ring; "Round watches, one design" is now "Round or rectangular, one design". Spanish and Chinese mirrored.
+
 ## After approval (plan WP6, WP9)
 
 1. Read the Free listing's real compatible-device list and record it in `../docs/compatibility.md` (no device sentence goes into listing text).

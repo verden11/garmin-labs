@@ -25,23 +25,28 @@ If this face works for you, a rating in the store helps other people find it.
 
 DayArc Pro reads data your watch already has. Nothing is sent anywhere, no location, no network.
 
-More from Verden
-Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9
-Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca
-HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d
-
 Support and answers: https://verden.watch/day-arc-pro/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, release contract), and none is live yet: all three free twins returned 404 on 2026-10-08 (in Garmin review, ROADMAP 7.12), so the block is left out of the description. Once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 for one of them, add a `More from Verden` line above the support line, then that app's line:
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
 ## App Version
 
 ```text
-1.0.0
+1.1.0
 ```
 
 ## What's New
 
-Leave blank.
+```text
+- Rectangular watches get a design of their own: the arc follows the top edge of the screen, the Stress and Body Battery gauge is a straight bar, and the time, date and readings use the room inside. On the smallest of them the morning now shows "Feels like" and a row of fields together.
+- A morning without weather now shows the time, the date and "Weather unavailable", with your fields under it, instead of a lone "--".
+- Always-on watches with burn-in protection show the dimmed time in a darker grey, kinder to the screen.
+```
 
 ## Hero Image
 

@@ -51,6 +51,7 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 
 ## What's new: history
 
+- **1.1.0** (uploaded 2026-10-04, in review): `The app is now called HeroFace Pro on the watch. Nothing changes in how it works. Also available: HeroFace, a lighter version with three fixed goal bars and your HeroSet mode. The Magenta accent is now a paler shade so it reads clearly against the grey track.`
 - **1.0.1:** `- Installed HeroSet while HeroFace was on your watch? The face now picks it up within a minute, without switching faces.` / `- Fahrenheit temperatures are now rounded instead of cut off: 21 °C shows as 70 °F, not 69.` / `- The "HeroSet" mode setting is gone. It did the same as Auto, which stays the default; if you had picked it, your face looks the same.` / `- Reliability improvements.`
 - **1.0.0:** `First release.`
 
@@ -64,6 +65,12 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 - **Version** `1.1.0`; the What's New is the rename line, naming the sibling without "free".
 - No device sentence, no watch count (release contract). No price number is in the text (ADR-004, price: the $2.50 tier for every paid app).
 - "More from Verden" is left out: it lists only live free siblings, none live today.
+
+## Pro 1.2.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **Version** `1.2.0` (next minor; App Version is free text in the form, the manifest carries none, HeroSet ADR-053 (App Version is typed, not read from the package)). It can go up while 1.1.0 is still in review (`../../research_notes/Free and Pro ladder/garmin_rules.md`).
+- **What's New** lists the user-facing changes of `../CHANGELOG.md` "Pro 1.2.0": the rectangles and their design (ADR-005 (rectangular watches, the ring as a frame)), the bar icons, the ring without the move bar, GO only, the streak and temperature group, the always-on grey (ADR-006 (always-on time is the studio's one always-on grey)). No watch model, no language, no price, no "free".
+- **Description fixed for the new build (the reviewer's upload gate of 2026-10-08):** "it fills green when all three are met" is now "it fills with your goals and turns green when they are all met. The move bar, if you show it, stays out of the ring" (ADR-005: the ring averages the goals other than MOVE); "Round watches, one design ... up to the largest 466-pixel round screens" is now "Round or rectangular, one design" with the frame and the black-and-white window gauge named by screen type; "at the largest size your watch can draw" is now "sized to your screen" (with Seconds on, the time steps down a size on some rectangles). Spanish and Chinese mirrored in `paste-translations.md`. The matching site wording is a separate, held-back commit (deploy after Garmin approves).
 
 ## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
 

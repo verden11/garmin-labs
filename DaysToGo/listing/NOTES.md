@@ -54,6 +54,7 @@ English plus 14 (dan, deu, dut, fin, fre, ita, lit, nob, pol, por, spa, swe, tur
 
 ## Previous What's New blocks
 
+- **1.1.0** (uploaded 2026-10-04, in review): `New: count down to the minute. Give an event a start time and the time zone it starts in, and the last 24 hours count down in hours and minutes to the moment it starts. You choose the UTC offset; the watch keeps no time zone rules. The count of days stays on your own calendar. The app is now called Days To Go Pro on the watch. Also available: Days To Go, with the core countdown.`
 - **1.0.1:** `Long event names on small screens now end in "..." instead of being cut off without a marker.`
 - **1.0.0:** `First release.`
 
@@ -68,6 +69,12 @@ English plus 14 (dan, deu, dut, fin, fre, ita, lit, nob, pol, por, spa, swe, tur
 - Device note (plan WP4 step 6): not in the text, now or later (no device sentence, no watch names or count).
 - The price is **not** in this file (ADR-017: the $2.50 tier, set in the form with the 1.1.0 upload). Re-pricing an approved app can remove it for re-review (SDK `Monetization/App_Sales`); shipping it with the version upload covers that.
 - "More from Verden" is left out: it lists only live free siblings, none live today.
+
+## Pro 1.2.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **Version** `1.2.0` (next minor; App Version is free text in the form, the manifest carries none). It can go up while 1.1.0 is still in review (`../../research_notes/Free and Pro ladder/garmin_rules.md`).
+- **What's New** lists the user-facing changes of `../CHANGELOG.md` "Pro 1.2.0": the square design (ADR-019 (rectangles get a square design)), `8h 06m` (ADR-018 (to the minute), amendment), the ring's one scale, the date arrow and the bottom-line marks, no on-watch date picker on two rectangles (ADR-020 (no on-watch picker on the Sq 2)), the always-on grey (ADR-007 (always-on), amendment). The first-generation Venu Sq and Sq Music are in the package but not on Garmin's paid list, so Pro's What's New claims no new watches. No watch model, no language, no price, no "free"; nothing about time zones beyond what 1.1.0 said.
+- **Description fixed for the new build (the reviewer's upload gate of 2026-10-08):** "A thin ring around the bezel" is now "along the edge of the screen"; "One design, every screen / Round and rectangular watches alike, full detail down to the smallest" is now "Every screen, its own fit", naming the bezel ring, the track along a rectangle's glass and the black-and-white window gauge by screen type; the bottom-line sentence now says "(not on black-and-white screens)" (ADR-015 (Instinct family): no footer there). Spanish and Chinese mirrored. The site wording is a separate, held-back commit (deploy after Garmin approves).
 
 ## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
 

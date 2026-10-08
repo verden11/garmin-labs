@@ -16,7 +16,7 @@ Also available: HeroFace, a lighter version: https://apps.garmin.com/apps/890dd6
 The time first, today's goals right under it. Three bars you choose, a ring for the whole day, a streak worth keeping — or your HeroSet reps and rank, if you have it.
 
 The time owns the screen
-The time is the largest thing on the face, at the largest size your watch can draw. Under it, today's three goals as bars: steps, intensity minutes and floors, or whichever three you pick. The ring around the bezel is the whole day at once, and it fills green when all three are met.
+The time is the largest thing on the face, sized to your screen. Under it, today's three goals as bars: steps, intensity minutes and floors, or whichever three you pick. The ring around the edge of the screen is the whole day at once: it fills with your goals and turns green when they are all met. The move bar, if you show it, stays out of the ring.
 
 Three bars, your choice
 Each bar can show steps, calories, intensity minutes, distance, floors or the move bar. Pick your accent colour, show or hide seconds, show or hide the temperature — all from Garmin Connect.
@@ -27,8 +27,8 @@ No watch has every sensor. Without a barometer there are no floors; older watche
 Keep the streak
 Meet your step goal and a gold line counts the days in a row. Miss a day and the count starts again.
 
-Round watches, one design
-It measures itself to your screen, up to the largest 466-pixel round screens. On always-on watches it dims to a quiet clock that shifts position every minute. See Compatible Devices for your model.
+Round or rectangular, one design
+It measures itself to your screen. On a rectangular screen the ring becomes a frame along its edges; on black-and-white screens it is a gauge in the small round window. On always-on watches it dims to a quiet clock that shifts position every minute. See Compatible Devices for your model.
 
 With HeroSet
 On Connect IQ 4.2+ watches, if you own HeroSet — the daily push-up, sit-up and squat app — the bars can show today's reps, your rank and your HeroSet streak instead, and holding the face opens HeroSet. Without HeroSet, nothing is missing.
@@ -50,13 +50,19 @@ Support and answers: https://verden.watch/heroface/support/
 ## App Version
 
 ```text
-1.1.0
+1.2.0
 ```
 
 ## What's New
 
 ```text
-The app is now called HeroFace Pro on the watch. Nothing changes in how it works. Also available: HeroFace, a lighter version with three fixed goal bars and your HeroSet mode. The Magenta accent is now a paler shade so it reads clearly against the grey track.
+- Now on rectangular watches, with a design of their own: the ring becomes a frame along the edges of the screen, and the time is as large as the frame allows.
+- Small icons replace the short words on the bars: footprints for steps, a flame for calories, a pulse line for intensity minutes, stairs for floors.
+- The ring leaves the move bar out. A quiet move bar counted as full, so the ring started a third of the way round and could turn green while the move bar still showed.
+- The move bar shows no value until it wants you to move; then it reads GO.
+- The streak and the temperature sit together, centred under the time. When the row is too narrow for both, the streak stays and the temperature goes.
+- When nothing shows under the time yet, the time moves down so no empty gap is left.
+- Always-on watches with burn-in protection show the dimmed time a little brighter, so it reads more easily.
 ```
 
 ## Hero Image
