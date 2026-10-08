@@ -40,3 +40,8 @@ instincte45mm.excludeAnnotations = pro;color
 instincte45mm.resourcePath = resources;resources-free
 instinct3solar45mm.excludeAnnotations = pro;color
 instinct3solar45mm.resourcePath = resources;resources-free
+
+# Venu Sq 2 and Sq 2 Music: no on-watch date picker (ADR-020): the system picker's column is 30 px wide there, so
+# `getSettingsView` (annotated `picker`) is left out and the phone is the only route. Tier and palette restated (see above).
+venusq2.excludeAnnotations = pro;mono;picker
+venusq2m.excludeAnnotations = pro;mono;picker

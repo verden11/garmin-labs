@@ -38,7 +38,7 @@ Built 2026-10-04 (ROADMAP 3.10; owner chose option 1 of `../../reports/Days To G
 
 The owner chose to submit straight to the store and fix issues in later versions. That waives gates 2 and 3 (phone round trip, T4 decision) and accepts these risks, on record:
 
-- **The phone date route is untested on hardware (T2).** If Garmin Connect loses the date, the buyer's only way in is the on-watch picker (works on the FR965, sideloaded; 94 of the 117 round products by the SDK list). The face still counts to New Year's Day. This is the exact failure that hurt rival faces, and it would hit paying users.
+- **The phone date route is untested on hardware (T2).** If Garmin Connect loses the date, the buyer's only way in is the on-watch picker (works on the FR965, sideloaded; 94 of the 117 round products by the SDK list; not offered on the Venu Sq 2 and Sq 2 Music, ADR-020 (no on-watch picker on the Sq 2), where the phone is the only route). The face still counts to New Year's Day. This is the exact failure that hurt rival faces, and it would hit paying users.
 - **A phone save may overwrite an on-watch pick, or the reverse (T4), unknown.** Do not put the "set it on your watch" sentence in the description until it is tested; the support page already says "on many watches".
 - **Any fix costs a new version and about 72 hours of review**, and a bad first review is public. Price stays fixed at submission.
 - **A later Beta App upload is still possible at any time** (it uses its own app id) to test T2/T4 against the released build's behaviour, and it does not interfere with the live listing.
