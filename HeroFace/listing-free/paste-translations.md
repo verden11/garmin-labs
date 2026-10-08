@@ -65,7 +65,7 @@ Ayuda y respuestas: https://verden.watch/heroface/support/
 - Ahora en relojes rectangulares, con un diseño propio: el anillo se convierte en un marco a lo largo de los bordes de la pantalla y la hora es tan grande como el marco permite.
 - Unos pequeños iconos sustituyen a las palabras cortas de las barras: huellas para los pasos, una llama para las calorías, una línea de pulso para los minutos de intensidad y una escalera para los pisos.
 - El anillo deja fuera la barra de movimiento, así que en un día tranquilo ya no empieza con un tercio recorrido.
-- La barra de movimiento no muestra ningún valor hasta que quiere que te muevas; entonces muestra GO.
+- La barra de movimiento no muestra ningún valor hasta que quiera que te muevas; entonces muestra GO.
 - La racha va centrada bajo la hora. Cuando todavía no se muestra nada ahí, la hora baja para que no quede un hueco vacío.
 - En los relojes siempre encendidos con protección contra el quemado de pantalla, la hora atenuada se ve un poco más brillante, para que se lea mejor.
 ```
@@ -133,7 +133,7 @@ DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 ```text
 - 现已支持矩形屏幕的手表，并有专属设计：圆环变为沿屏幕边缘的边框，时间在边框允许的范围内尽可能大。
 - 进度条上的简短文字换成了小图标：脚印代表步数，火焰代表卡路里，脉搏线代表强度分钟数，楼梯代表楼层。
-- 圆环不再计入活动提醒条，因此在没有活动提醒的日子里，圆环不会再一开始就走了三分之一。
+- 圆环不再计入活动提醒条，因此在没有活动提醒的日子里，圆环不会再一开始就走完三分之一。
 - 活动提醒条在需要你活动之前不显示数值；需要活动时显示 GO。
 - 连续纪录居中显示在时间下方。那里还没有任何内容时，时间会下移，不留空白。
 - 在带有防烧屏保护的常亮显示手表上，变暗的时间会稍亮一些，更易读。

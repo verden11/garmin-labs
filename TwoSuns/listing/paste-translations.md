@@ -57,10 +57,10 @@ Ayuda y respuestas: https://verden.watch/two-suns/support/
 
 ```text
 - Los relojes rectangulares tienen un diseño propio: el anillo del sol se convierte en una pista a lo largo de los bordes de la pantalla, y la hora crece para ocupar el espacio que queda dentro.
-- Las filas Clima y Batería del reloj están desactivadas hasta que las activas en los ajustes.
+- Las filas Clima y Batería del reloj están desactivadas hasta que las actives en los ajustes.
 - El número de Body Battery mantiene un solo color en cualquier nivel; ya no se atenúa cuando el nivel es bajo. Una lectura de hace más de una hora sigue volviéndose gris.
 - Sin número de Body Battery, los dos guiones son grises, como el rayo hueco que tienen al lado, y una sola lectura ya no se muestra como un punto aislado.
-- Con la curva de energía activada, nada se mueve cuando la curva aparece o se acaba: el rayo y el número se quedan en su sitio, a la izquierda de la curva.
+- Con la curva de energía activada, nada se mueve cuando la curva aparece por primera vez o se acaba: el rayo y el número se quedan en su sitio, a la izquierda de la curva.
 - La curva de energía es una línea blanca sencilla, y el rayo de Body Battery es relleno.
 - La luz del día se indica en horas y minutos, como "3h 42m de luz", para que ya no parezca una hora del reloj.
 ```

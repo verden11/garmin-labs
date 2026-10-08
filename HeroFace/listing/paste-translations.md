@@ -59,7 +59,7 @@ Ayuda y respuestas: https://verden.watch/heroface/support/
 - Ahora en relojes rectangulares, con un diseño propio: el anillo se convierte en un marco a lo largo de los bordes de la pantalla y la hora es tan grande como el marco permite.
 - Unos pequeños iconos sustituyen a las palabras cortas de las barras: huellas para los pasos, una llama para las calorías, una línea de pulso para los minutos de intensidad y una escalera para los pisos.
 - El anillo deja fuera la barra de movimiento. Una barra de movimiento sin aviso contaba como llena, así que el anillo empezaba con un tercio ya recorrido y podía ponerse verde mientras la barra de movimiento seguía a la vista.
-- La barra de movimiento no muestra ningún valor hasta que quiere que te muevas; entonces muestra GO.
+- La barra de movimiento no muestra ningún valor hasta que quiera que te muevas; entonces muestra GO.
 - La racha y la temperatura van juntas, centradas bajo la hora. Cuando la fila no tiene sitio para las dos, se queda la racha y se quita la temperatura.
 - Cuando todavía no se muestra nada bajo la hora, la hora baja para que no quede un hueco vacío.
 - En los relojes siempre encendidos con protección contra el quemado de pantalla, la hora atenuada se ve un poco más brillante, para que se lea mejor.

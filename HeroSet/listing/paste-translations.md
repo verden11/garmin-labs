@@ -2,7 +2,7 @@
 
 Languages picked by the owner, 2026-10-05: English (the main `paste.md`), **Spanish** and **Chinese (Simplified)**.
 **Machine-drafted, not yet read by a native speaker** (translation reads stay the owner's call). Translated from `paste.md` as
-it stood on 2026-10-05; when the English changes, change these too. The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.4.0 on 2026-10-08, and words the watch shows are quoted as the watch shows them in that language (English where the face has no translation); every other
+it stood on 2026-10-05; when the English changes, change these too. The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.4.0 on 2026-10-08, and words the watch shows are quoted as the watch shows them in that language (English where the app has no translation); every other
 field is the same as in `paste.md`. The app name, the watch's button names (START, UP/DOWN) and the store's own permission name
 stay in English. No price number, as in English.
 
@@ -50,8 +50,8 @@ DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 - Ahora en más relojes, también en los rectangulares: en ellos, el anillo de XP del panel recorre los bordes de la pantalla y todo lo que hay dentro aprovecha todo el ancho.
 - Si corriges la cuenta de hoy y queda por debajo de tu objetivo, el día deja de estar completado: tu racha vuelve a ser la que era antes de que contara el día de hoy, en la app, en el glance y, en relojes con Connect IQ 4.2 o posterior, en HeroFace. Si vuelves a guardar por encima del objetivo, el día se completa de nuevo. La XP que ganaste se mantiene.
 - La pantalla de revisión muestra en grande la cantidad que se va a guardar, con la cuenta detectada en pequeño encima.
-- Durante una serie, las calorías muestran "--" hasta que se cuenta la primera, en lugar de 0.
-- Pantallas en blanco y negro: el panel no muestra la fila de la racha hasta que tienes una racha.
+- Durante una serie, las calorías muestran "--" hasta que se cuente la primera, en lugar de 0.
+- Pantallas en blanco y negro: el panel no muestra la fila de la racha hasta que tengas una racha.
 ```
 
 ### Hero Image

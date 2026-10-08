@@ -42,7 +42,7 @@ Ayuda y respuestas: https://verden.watch/day-arc-pro/support/
 ### What's New
 
 ```text
-- Los relojes rectangulares tienen un diseño propio: el arco sigue el borde superior de la pantalla, el indicador de estrés y de Body Battery es una barra recta, y la hora, la fecha y las lecturas aprovechan el espacio que queda dentro. En el más pequeño de ellos, la mañana ahora muestra "Feels like" y una fila de datos a la vez.
+- Los relojes rectangulares tienen un diseño propio: el arco sigue el borde superior de la pantalla, el indicador de estrés y de Body Battery es una barra recta, y la hora, la fecha y las lecturas aprovechan el espacio que queda dentro. En el más pequeño de ellos, la mañana ahora muestra a la vez "Feels like" y una fila de datos.
 - Una mañana sin datos del clima ahora muestra la hora, la fecha y "Weather unavailable", con tus datos debajo, en lugar de un "--" solitario.
 - En los relojes siempre encendidos con protección contra el quemado de pantalla, la hora atenuada se muestra en un gris más oscuro, más amable con la pantalla.
 ```
