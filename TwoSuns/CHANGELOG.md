@@ -12,7 +12,7 @@ Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.13 to 13.17; 
 
 - **Pro: the weather row and the watch battery row are Off by default** for new installs, so the first face is the one the listing shows (each is one switch; a wearer who switched one on keeps it).
 - **Pro: on a screen too short for the full weather row, the compact row shows the current conditions only** (it showed three ahead icons with no hours).
-- **Both: a square design on the rectangular watches** (Venu Sq 2, Sq 2 Music, Venu X1; ADR-028, the rectangle track): the sky ring is a rounded-rectangle track along the glass with the 24 hours by its length, the rows fill the box inside it with even spacing and a larger time. Built and simulator-tested; **pending the owner's look approval of the screenshots before it ships** (simulator only, nothing on a wrist).
+- **Both: a square design on the rectangular watches** (Venu Sq 2, Sq 2 Music, Venu X1; ADR-028, the rectangle track): the sky ring is a rounded-rectangle track along the glass with the 24 hours by its length, the rows fill the box inside it with even spacing and a larger time. Built and simulator-tested; **look approved by the owner from the simulator screenshots on 2026-10-08** (simulator only, nothing on a wrist).
 - **Pro: the energy curve is a white line with no fill** (the `#5555AA` fill was the night ring's colour).
 - **Both: the Body Battery bolt is solid** in the battery colour, not a half-grey gauge (Two Suns ADR-023 (watch battery row, bolt) amendment in `docs/decisions.md`).
 - **Both: daylight reads "3h 42m of daylight"** ("41m" under an hour), not "3:42", which read as a clock time. The letters are English for now (ROADMAP 13.7).

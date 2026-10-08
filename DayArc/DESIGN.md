@@ -330,7 +330,7 @@ Drawn in pixel coordinates (viewBox = size) so the SDK never resamples, odd stro
 
 AMOLED (`requiresBurnInProtection`) sleep: time only, in `SLEEP_TEXT` `#5C5C5C` (3.14:1 on black; the studio's one
 always-on grey, ADR-020 (always-on time in the studio's one always-on grey); `MUTED` `#AAAAAA` until 2026-10-08, about 3.8
-times the light), stepping across a 3×3 grid
+times the relative luminance, computed; the simulator's peak luminance about halved, 2.52% to 1.35% on `fr965`), stepping across a 3×3 grid
 every minute (TwoSuns's proven `TwoSunsSleep` pattern, reused — `DayArcConfig.BURN_IN_GRID`,
 `DayArcLayout.driftStep`). No hero, no gauge, no grid while asleep on AMOLED — the fewest lit
 pixels, not a reduced version of the active frame. MIP screens never enter this state; they keep

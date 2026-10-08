@@ -700,11 +700,11 @@ sleep frame draws it (`DayArcView` takes `renderIdle` only when the watch is asl
 and every DayArc product that does is a 16-bit AMOLED (SDK `compiler.json`), which stores it as about `#5A5D5A`, still about
 3.1:1 (computed); MIP watches keep the full active window in sleep and never meet it.
 
-**Evidence.** Test `alwaysOnGreyReadsOnBlack` (both densities, every product; on the Instinct it checks white) pins the 3:1
+**Evidence.** Test `alwaysOnGreyReadsOnBlack` (both densities, not annotated per product, run on fr965, venusq2 and instincte40mm; on the Instinct it checks white) pins the 3:1
 bar; the mono palette test now also checks `SLEEP_TEXT` is white. Suites PASSED 2026-10-08 in the container on fr965, venusq2 and instincte40mm: Pro 29, Simple 26 on each. Always-on frames and the 24-hour heat map on `fr965` and
 `venux1`, simulator only: DESIGN.md "Motion / always-on". Not measured: legibility outdoors on a wrist (the owner's FR965 has
 run the final builds since 2026-10-05, in `#AAAAAA`; ROADMAP 1.1).
 
-**Reversed by.** The always-on night on a wrist showing the time unreadable at 3.1:1: one constant, `SLEEP_TEXT` (or point
+**Reversed by.** The always-on time unreadable at 3.1:1 on a wrist, in daylight (the likelier failure) or at night: one constant, `SLEEP_TEXT` (or point
 `renderIdle` back at `MUTED`).
 

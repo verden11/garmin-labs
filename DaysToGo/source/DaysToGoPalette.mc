@@ -14,7 +14,7 @@ class DaysToGoPalette {
     // against black, above the >=3:1 bar for a persistent colour (0x555555, the 64-colour grey it replaces, is 2.82:1).
     // Not a 64-colour value: only the sleep and error frames draw it, only when the watch reports requiresBurnInProtection
     // (DaysToGoView): the AMOLEDs and, in the simulator, the Venu Sq LCD; all 16-bit, so stored as about 0x5A5D5A, still
-    // about 3.1:1. MIP watches are not expected to report the flag (Garmin's AMOLED FAQ; not checked per product).
+    // about 3.1:1 (both figures computed). MIP watches are not expected to report the flag (Garmin's AMOLED FAQ; not checked per product).
     static const SLEEP_TEXT = 0x5C5C5C;
 
     // The "Accent colour" setting, by index: mint (default), amber, sky, pink, violet, white.
