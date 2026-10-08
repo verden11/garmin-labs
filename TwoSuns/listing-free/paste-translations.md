@@ -2,7 +2,7 @@
 
 Languages picked by the owner, 2026-10-05: English (the main `paste.md`), **Spanish** and **Chinese (Simplified)**.
 **Machine-drafted, not yet read by a native speaker** (translation reads stay the owner's call). Translated from `paste.md` as
-it stood on 2026-10-05; when the English changes, change these too (the "small gauge" → bolt wording, ADR-023, is in; it ships with the next
+it stood on 2026-10-05, the ring and screen paragraphs on 2026-10-08 (1.1.0); when the English changes, change these too (the "small gauge" → bolt wording, ADR-023, is in; it ships with the next
 upload). Only the title and description are translated; every other field is the same as in `paste.md`. App names and
 store/support URLs stay as they are. "Body Battery" stays Garmin's own name.
 
@@ -27,7 +27,7 @@ La hora
 Lo más grande de la pantalla. Sin pasos, sin frecuencia cardiaca, sin meteorología, sin consejos.
 
 Un anillo para el sol
-Un anillo fino alrededor del bisel son las 24 horas de tu día, con el mediodía arriba. La noche es tenue, la luz del día se ilumina con tu color de acento y se atenúa cuando ya ha pasado. Unas marcas señalan la salida y la puesta del sol; un marcador indica dónde está el sol ahora, relleno mientras está sobre el horizonte.
+Un anillo fino a lo largo del borde de la pantalla son las 24 horas de tu día, con el mediodía arriba. La noche es tenue, la luz del día se ilumina con tu color de acento y se atenúa cuando ya ha pasado. Unas marcas señalan la salida y la puesta del sol; un marcador indica dónde está el sol ahora, relleno mientras está sobre el horizonte.
 
 Una línea para el sol
 Cuánta luz del día queda, o cuándo vuelve el sol, a partir de la salida y la puesta del sol de tu propio reloj.
@@ -38,8 +38,8 @@ El número de Garmin, tal como Garmin lo da, junto a un pequeño rayo. Sin conse
 Un solo ajuste
 Color de acento, seis para elegir, en Garmin Connect o en el propio reloj (Personalizar, junto a Aplicar). Los valores por defecto funcionan aunque nunca lo toques.
 
-Una esfera, todas las pantallas
-Se adapta por igual a relojes redondos y rectangulares. Cuando la pantalla se apaga, queda una hora, un número y una línea del sol discretos.
+Cada pantalla, a su medida
+En una pantalla redonda el anillo rodea el bisel, en una pantalla rectangular se convierte en una pista a lo largo de los bordes del cristal y en las pantallas en blanco y negro es un pequeño dial de 24 horas en la ventana redonda. Cuando la pantalla se apaga, queda una hora, un número y una línea del sol discretos.
 
 Si esta esfera te resulta útil, una valoración en la tienda ayuda a que otras personas la encuentren.
 
@@ -78,7 +78,7 @@ Two Suns
 屏幕上最大的内容。没有步数，没有心率，没有天气，没有建议。
 
 太阳圆环
-表圈上的细环代表你一天的 24 小时，正午在顶部。夜间较暗，白天以你的强调色点亮，已过去的部分会变暗。刻度标出日出和日落；一个标记显示太阳现在的位置，太阳在地平线以上时为实心。
+沿屏幕边缘的细环代表你一天的 24 小时，正午在顶部。夜间较暗，白天以你的强调色点亮，已过去的部分会变暗。刻度标出日出和日落；一个标记显示太阳现在的位置，太阳在地平线以上时为实心。
 
 太阳的一行字
 还剩多少日照，或太阳何时再次升起，依据你手表自身的日出和日落数据。
@@ -89,8 +89,8 @@ Garmin 自己的数值，按 Garmin 提供的原样显示，旁边有一个小�
 一个设置
 强调色，六种可选，可在 Garmin Connect 中或直接在手表上设置（“自定义”，在“应用”旁边）。即使从不更改，默认设置也能正常使用。
 
-一款表盘，适配所有屏幕
-圆形和方形手表都适用。屏幕休眠时，变暗为安静的时间、数值和太阳信息。
+每种屏幕，各有适配
+在圆形屏幕上，细环沿表圈环绕；在矩形屏幕上，它变为沿玻璃边缘的轨道；在黑白屏幕上，它是圆形小窗中的 24 小时小表盘。屏幕休眠时，变暗为安静的时间、数值和太阳信息。
 
 如果这款表盘对你有用，在商店留下评分可以帮助更多人找到它。
 

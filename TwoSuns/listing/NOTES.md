@@ -94,10 +94,17 @@ Export overreports device count vs. the manifest — full investigation in [`../
 
 ## Previous What's New blocks
 
+- **1.1.0** (uploaded 2026-10-04, in review): `The app is now called Two Suns Pro on the watch. New: optional Weather and Watch battery rows, switched on in the settings. A lighter Two Suns, with the sun ring and your Body Battery number, is also available.`
 - **1.0.1 (prepared, not submitted; ROADMAP 4.1 is the owner's call):** `Small refinement to the Body Battery level indicator.` Use it with the 1.0.1 package if the owner uploads 1.0.1 before 1.1.0.
 - **1.0.0:** blank (initial release).
 
-## Pro 1.1.0: what `paste.md` now holds (uploaded 2026-10-04, accepted under ADR-020 (Free + Pro ladder); moved from a draft here, 2026-10-04)
+## Pro 1.2.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **Version** `1.2.0` (next minor; App Version is free text in the form, the manifest carries none). It can go up while 1.1.0 is still in review (`../../research_notes/Free and Pro ladder/garmin_rules.md`).
+- **What's New** lists the user-facing changes of `../CHANGELOG.md` "Pro 1.2.0": the rectangles' own design (ADR-028 (rectangles: the sky ring follows the screen)), the Weather and Watch battery rows off until switched on (named as switches only, release contract), the Body Battery number in one colour at any level (ADR-008 (no verdicts on Body Battery), amended), the grey `--` and no lone dot (ADR-028 amendment), the curve's room (ADR-028 second amendment), the white curve line and solid bolt, the daylight wording. Left out: the compact weather row's change (it describes what the row shows, which waits for the wrist check, release contract) and the always-on grey (already in 1.1.0, ADR-027). No watch model, no language, no price, no "free".
+- **Description fixed for the new build (upload gate of 2026-10-08):** "A thin ring around the bezel" is now "A thin ring along the edge of the screen"; "One face, every screen / Fits round and rectangular watches alike" is now "Every screen, its own fit", the ring named by screen type (around the bezel, a track along the glass, a small dial in a black-and-white screen's round window), as Days To Go 1.2.0 did. Spanish and Chinese mirrored in `paste-translations.md`. The matching site wording is a separate, held-back commit (deploy after Garmin approves).
+
+## Pro 1.1.0: what `paste.md` held (uploaded 2026-10-04, accepted under ADR-020 (Free + Pro ladder); moved from a draft here, 2026-10-04)
 
 `paste.md` is the 1.1.0 text. Names are confirmed (2026-10-04); the sibling URL is the owner's; the price is the $2.50 tier (ADR-026), set in the form.
 

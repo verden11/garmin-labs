@@ -11,16 +11,20 @@ live:
   version: null
   since: null
   note: a new app, uploaded by the owner 2026-10-04, pending Garmin review; nothing is live yet
-next:
+in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
   version: "1.0.0"
-  status: uploaded   # drafted | prepared | uploaded | in-review | live; uploaded by the owner 2026-10-04, pending Garmin review
   uploaded: 2026-10-04
-  summary: the Free twin (Accent only, Garmin sun and Body Battery numbers only); names confirmed 2026-10-04; titles and the Pro store URL are the owner's decisions
+  summary: "the Free twin (Accent only, Garmin sun and Body Battery numbers only); package dist/TwoSunsFree-1.0.0.iq (72 products), re-exported 2026-10-04 after the always-on grey (ADR-027)"
+next:
+  version: "1.1.0"
+  status: prepared   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: "the rectangles' own design (ADR-028), Body Battery number one colour at any level (ADR-008 amendment), grey -- (ADR-021 amendment), solid bolt, 3h 42m daylight; description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/TwoSuns-Free-1.1.0/"
 package:
-  file: dist/TwoSunsFree-1.0.0.iq
-  products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
-  exported: 2026-10-04   # re-exported after the always-on text colour change (ADR-027, ROADMAP 10.26)
-  check: "tools/check_free_package.sh: OK (permission ComplicationSubscriber only, key Accent only, no 'Pro' anywhere)"
+  file: dist/TwoSunsFree-1.1.0.iq
+  products: 72   # <iq:product> lines in the manifest
+  exported: null
+  check: null
   note: "export: monkeyc -e -r -f monkey.free.jungle; built in the verden-ciq-build container"
 price: free (uploaded as a free app 2026-10-04)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
