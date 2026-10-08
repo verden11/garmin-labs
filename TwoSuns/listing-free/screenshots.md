@@ -2,6 +2,8 @@
 
 **Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh TwoSuns bash /ciq-docker/frame_listing.sh listing-free`.
 
+**Re-checked 2026-10-08 (ROADMAP 13.38), for the next build; awaits the owner's look approval.** Every picture was taken again from the current build with the same scenes and watches and compared pixel by pixel with the committed one (`compare -metric AE`): all five came out identical (0 pixels differ), so nothing was replaced, and the framed files and the hero stand. The 2026-10-08 changes do not reach these pictures: the Body Battery number is the canned 59, above the old dimming threshold of 30, so it was drawn in the accent before the one-colour change (ADR-008 amendment) and still is; no picture shows `--`, a rectangle or the always-on frame. Simulator only.
+
 Status 2026-10-04. Everything here is **simulator only** (the container's simulator, native pixels), rendered from the **Free build** (`monkey.free.jungle`), so no shot can show a Pro-only thing (no curve, no date row, no twilight, no golden hour, no weather or battery row). Nothing is a wrist photo. **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.** The Pro screens, cover and hero must not be reused here.
 
 ## What the pictures are, honestly
@@ -14,11 +16,11 @@ The simulator's canned sun times read wrong in the container's UTC clock (sunris
 
 | # | File | Device | Clock (UTC) | Accent | What it shows |
 |---|---|---|---|---|---|
-| 1 | `screens/1-day.png` | FR965, 454 px | 10:09 | Sky (0, the default) | Time, bolt and 59, "7h 22m of daylight", the ring (daylight gone and to come, ticks, sun marker) |
-| 2 | `screens/2-evening.png` | FR965, 454 px | 20:41 | Mint (1) | After sunset: outline marker on the night half, "Sunrise ~06:05" |
-| 3 | `screens/3-accent-pink.png` | FR965, 454 px | 13:21 | Pink (4) | The one setting: another accent |
-| 4 | `screens/4-instinct-e45.png` | **Instinct E 45 mm, 176 px (the Instinct-family shot)** | 10:09 | none (black and white) | The ring as a small 24-hour dial in the round window |
-| 5 | `screens/5-small-fr255s.png` | FR255S, 218 px | 10:09 | Violet (3) | The same face on a small round screen |
+| 1 | `screens/1-day.png` | Venu 4 41 mm, 390 px | 10:10 | Sky (0, the default) | Time, bolt and 59, "7h 22m of daylight", the ring (daylight gone and to come, ticks, sun marker) |
+| 2 | `screens/2-evening.png` | fenix 8 47 mm, 454 px | 20:41 | Mint (1) | After sunset: outline marker on the night half, "Sunrise ~06:05" |
+| 3 | `screens/3-accent-pink.png` | FR970, 454 px | 13:21 | Pink (4) | The one setting: another accent |
+| 4 | `screens/4-instinct-e45.png` | **Instinct E 45 mm, 176 px (the Instinct-family shot)** | 10:10 | none (black and white) | The ring as a small 24-hour dial in the round window |
+| 5 | `screens/5-small-fr255s.png` | FR255S, 218 px | 10:10 | Violet (3) | The same face on a small round screen |
 
 The Instinct family has no accent setting (ADR-024). Two Suns ships on three Instincts (E 40 mm, E 45 mm, 3 Solar 45 mm); E 45 mm is the one pictured.
 

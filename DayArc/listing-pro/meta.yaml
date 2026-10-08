@@ -40,6 +40,7 @@ site:
   support: https://verden.watch/day-arc-pro/support/
   privacy: https://verden.watch/day-arc-pro/privacy/
 owner_approvals:   # what only the owner may settle before paste.md is used
+  - "AWAITS APPROVAL (ROADMAP 13.38, 2026-10-08): the set was re-checked against the next build: screens 1 to 3 recaptured identical (0 pixels differ), 4 and 5 differed only in random simulator values; nothing replaced; approve it as it stands for the next upload. No rectangle is pictured (the square design, ADR-019, is not in this set). Preview: device-test/listing-review/DayArc-listing-pro.png."
   # Approved by the owner 2026-10-05 (chat): the updated face design (bolt hero icon, grey Pro grid icons), the recaptured
   # watch-framed screens, the listing text as drafted (keeping "Chosen in the Garmin Connect app"), and the upload order (ROADMAP 1.9); the cover, hero and icons ("Icons OK", same evening).
 open_items: "1.1 1.4 1.5 1.7 1.8 1.9"   # ids in ROADMAP.md

@@ -2,18 +2,20 @@
 
 **Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh HeroFace bash /ciq-docker/frame_listing.sh listing-free`.
 
+**Re-checked 2026-10-08 (ROADMAP 13.38), for the next build; awaits the owner's look approval.** Every picture (and `src/hero-magenta.png`) was taken again from the current Free build with the same scenes and watches and compared pixel by pixel with the committed one (`compare -metric AE`): all came out identical (0 pixels differ), so nothing was replaced, and the framed files and the hero stand. The day ring change (it no longer counts the move bar) does reach Free where its Auto bars fall back to the move bar (a watch with no barometer, such as the Venu Sq / Sq 2), but every capture watch here has floors, so no pictured ring changed; Free has no temperature for the streak to outrank. Simulator only.
+
 Status 2026-10-04: **a full set rendered from the current Free build (`monkey.free.jungle`), simulator only.** **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.** Five screen images in `screens/`, `cover-500.png`, `hero-1440x720.png`, `icon-24-128.png`, `icon-64-128.png`, and the sources in `src/`. The Free build has no temperature, no seconds, three fixed goal bars (Auto), the accent colour and HeroSet mode, and the pictures show only that. The Pro twin's set is made the same way: [`../listing/screenshots.md`](../listing/screenshots.md) (the shared method is explained there too). Earlier versions are in git history.
 
 ## The five screen images (upload order)
 
-All from the Free build, native simulator pixels, clock 2026-10-04 10:09. No price in any image.
+All from the Free build, native simulator pixels, clock 2026-10-04 10:09 at the start (the pictures read 10:11: the clock runs on while the face loads). No price in any image.
 
 | # | File | Device | What it shows |
 |---|---|---|---|
-| 1 | `screens/1-everyday.png` | `fr965`, 454 px | Everyday: 8420 steps, 18 intensity minutes, 7 floors, ring, the default blue accent |
-| 2 | `screens/2-accent-cyan.png` | `fr965`, 454 px | The same day in the Cyan accent (Free's one setting) |
-| 3 | `screens/3-goals-met.png` | `fr965`, 454 px | All three goals met: green bars and ring, check marks, gold streak line |
-| 4 | `screens/4-heroset.png` | `fr965`, 454 px | HeroSet mode: push-ups, sit-ups, squats, rank and streak, gold ring (the HeroSet value is canned, see below) |
+| 1 | `screens/1-everyday.png` | `fr265`, 416 px | Everyday: 8420 steps, 18 intensity minutes, 7 floors, ring, the default blue accent |
+| 2 | `screens/2-accent-cyan.png` | `venu441mm`, 390 px | The same day in the Cyan accent (Free's colour setting) |
+| 3 | `screens/3-goals-met.png` | `epix2pro47mm`, 416 px | All three goals met: green bars and ring, check marks, gold streak line |
+| 4 | `screens/4-heroset.png` | `fenix847mm`, 454 px | HeroSet mode: push-ups, sit-ups, squats, rank and streak, gold ring (the HeroSet value is canned, see below) |
 | 5 | `screens/5-instinct-e40.png` | **`instincte40mm`, 166 px native, shown x3 (the Instinct family)** | Black and white, the ring is a gauge in the round window, streak, three reversed labels for finished goals |
 
 The Instinct has no Accent setting, so the choice was only which watch and state looked best: the Instinct E 40 mm with every goal met (the finished-goal pills and the streak line, drawn icons in reversed pills since 2026-10-05, 13.11). `screens/5-instinct-e40.png` (the one to upload, as in the Days To Go listing) is the simulator's own 166 px capture (`tools/listing_shots.sh` writes it to `screens/native/5-instincte40mm-166.png`; not kept in git) enlarged x3 with nearest-neighbour (498 px, two colours, no smoothing) because the store shows screenshots larger than the display: `src/instinct-up.html`, rendered with the same Chrome command at `--window-size=498,498` to `screens/5-instinct-e40.png`.
@@ -29,7 +31,7 @@ docker/capture.sh HeroFace tools/listing_shots.sh free     # writes HeroFace/lis
 
 - **Run the accent pictures in their own container run, one file per run** (`... free 2-accent-cyan.png`, then `... free hero-magenta.png`; the extra arguments name the files to take, so any picture can be re-taken alone, which is also how a flaky "NOT SAVED" is repeated). In one long run the simulator kept the Accent value stored by the first scene, and the Cyan and Magenta scenes came out blue. **Fixed 2026-10-05:** `scene()` now deletes the simulator's stored app settings before each load (as Days To Go's script does), so one full run per tier takes every picture. The 2026-10-04 set was taken as: one full run (`4-heroset`, `1-everyday`; its accent frames and its `3-goals-met` / Instinct saves did not come out), then `2-accent-cyan`, `hero-magenta` and `3-goals-met` + the Instinct frame (`5-instincte40mm-166.png`, written to `screens/native/`, not kept) as separate runs. Every picture was looked at.
 - Built in a **private copy** of the project (the repo is never touched); the clock is the simulator's (`faketime`); activity data typed into Simulation > Activity Monitoring; each file is File > Save Screen Capture at the device's own pixel size.
-- The only setting Free has is the accent: shot 2 sets `Accent` 1 (Cyan) in the private copy's `resources-free/settings/properties.xml`; `src/hero-magenta.png` (used only in the hero) sets `Accent` 2 (the pale `#FFAAFF`).
+- The only setting changed for these pictures is the accent (Free also has Mode, left at its default): shot 2 sets `Accent` 1 (Cyan) in the private copy's `resources-free/settings/properties.xml`; `src/hero-magenta.png` (used only in the hero) sets `Accent` 2 (the pale `#FFAAFF`).
 - **HeroSet mode (shot 4) is canned**, exactly as for Pro: the simulator never sees HeroSet's complication, so the private copy's `HeroFaceLink.mc` is patched to report linked and to parse `1|20261004|60|45|28|2|40|3|20261003|100`. The drawing after that is the real path; the numbers are made up.
 - Simulator data is fake (battery 50, heart rate 80). **Never crop a screenshot into a claim about real readings.** The simulator's activity history does not produce a multi-day streak, so shot 3 reads "1-DAY STREAK".
 - Free never reads the temperature, seconds or per-bar settings, so none can appear; the pictures were looked at to confirm it.

@@ -1,5 +1,7 @@
 # HeroSet listing images: how they are made
 
+**Re-checked 2026-10-08 (ROADMAP 13.38), for the next build; awaits the owner's look approval.** The 2026-10-06 changes (the Venu Sq 2 / X1 square design and the bigger review and goal numbers, ADR-057; the undone-completion rule, ADR-058) were read in the source: every display change is behind the rectangle's track (`layout.track() != null`), and this set has no rectangle. Screens 1, 3, 4 and 5 were driven again from the current store build on the same watches and seeds (`drive_screens.sh fr970 ... 60,45,30 ... home`, `fr265 ... 100,100,100 ... home`, `instincte45mm ... 60,45,30 ... home`, `epix2pro47mm ... 60,45,30 23 glance all` step `5b-up`) and compared pixel by pixel with the committed captures (`compare -metric AE`): identical (0 pixels differ). Screen 2 was not re-taken: its heart rate is random, so it can never compare clean, and the set screen's round path is unchanged in the source. Nothing was replaced; the framed files and the hero stand. Simulator only.
+
 Status 2026-10-04 (screen 2 and the hero retaken later the same day with a heart rate). All five screens, the hero, the cover and the two device icons were re-made from the 1.3.1 store build (`store.jungle`, `-r`) on this date. **Simulator only, not device proof**; simulator data is canned (the clock is faked to 2026-10-04 10:09, the reps are seeded). Looks are not yet approved by the owner. Upload order and one-line captions: [`paste.md`](paste.md) "Screen Images"; sizes: [`meta.yaml`](meta.yaml) `assets`.
 
 ## The set
@@ -11,20 +13,22 @@ Status 2026-10-04 (screen 2 and the hero retaken later the same day with a heart
 | 1 | `screens-framed/1-dashboard.png` | fr970 | the home screen, rank 1, three bars, `NO STREAK YET` | 60, 45, 30 |
 | 2 | `screens-framed/2-counting.png` | fr965 | push-ups set, 23 counted, `TODAY 83/100`, `00:28 HR 123 CAL --` (see below) | 60, 45, 30 |
 | 3 | `screens-framed/3-review.png` | epix2pro47mm | review: `DETECTED 23`, adjusted with UP to `+24`, `TODAY 84/100` | 60, 45, 30 |
-| 4 | `screens-framed/4-complete.png` | fr265 | `DAILY MISSION COMPLETE`, rank 2, `1 DAY STREAK` | 100, 100, 100 |
+| 4 | `screens-framed/4-complete.png` | fr265 | `MISSION COMPLETE`, rank 2, `1 DAY STREAK` | 100, 100, 100 |
 | 5 | `screens-framed/5-instinct.png` | **instincte45mm** | the same dashboard in black and white, XP ring in the round window | 60, 45, 30 |
 
 Why these: the owner's story (2026-10-04): the one-glance home screen, counting a set, review and adjust, saved or complete, plus an Instinct. 4 is the complete state, not the `+N SAVED` one (the hero used that before; complete is the reward and the streak starts). The Instinct is the **Instinct E 45 mm**: the Instinct 2 family and Descent G1 are not on Garmin's paid-app product list, so the paid listing is not sold there and no caption names them. Of the three paid Instinct products, the E 45 mm had the boldest text and the most room (E 40 mm and 3 Solar were looked at too). Not used: the menu, the saved screen, a touch watch (the 5-image cap).
 
-Shot 2 (retaken 2026-10-04): the heart rate is from the simulator's own activity simulation (Simulation > Activity Data > Start/play, `sim_activity_data_start` in `docker/sim-gui.sh`, run with the `act` argument below), so it reads `HR 145` (the simulated rate moved between 123 and 159 over the test runs; this take was kept because it is inside 90 to 150) and `00:28` elapsed (a 25 s wait after opening the set screen, so the clock does not read `00:00`). **`CAL 0` is still 0**: the activity simulation does not move `ActivityMonitor.getInfo().calories` (checked over 3 minutes), and typing a value into the Activity Monitor Info dialog is overwritten by the simulation, so the delta from the start of the set stays 0 and no number was invented. The heart rate is simulator data: do not use this picture to claim an accurate or live reading on a wrist.
+Shot 2 (retaken 2026-10-05 for the build after 1.3.1): the heart rate is from the simulator's own activity simulation (Simulation > Activity Data > Start/play, `sim_activity_data_start` in `docker/sim-gui.sh`, run with the `act` argument below), so the kept take reads `HR 123` (the simulated rate moved between 123 and 159 over the test runs; this take was kept because it is inside 90 to 150) and `00:28` elapsed (a 25 s wait after opening the set screen, so the clock does not read `00:00`). **Calories read `CAL --`**: the activity simulation does not move `ActivityMonitor.getInfo().calories` (checked over 3 minutes), and typing a value into the Activity Monitor Info dialog is overwritten by the simulation, so the delta from the start of the set stays 0, which the build draws as `--` (no estimate yet), and no number was invented. The heart rate is simulator data: do not use this picture to claim an accurate or live reading on a wrist.
 
 ## How the screens were made
 
 1. **Drive the app and photograph the whole simulator window** (display plus the device skin), one container run per device and state. The rep seed is patched into a private copy of the project (the repo is untouched); the clock is faked. From the repo root:
 
    ```sh
-   docker/capture.sh HeroSet tools/drive_screens.sh fr965 btn store.jungle 60,45,30 23 glance all act   # 1 (1-dashboard), 2 (3-counting, with a heart rate), 3 (5b-up)
-   docker/capture.sh HeroSet tools/drive_screens.sh fr965 btn store.jungle 100,100,100 23 glance home    # 4 (1-dashboard)
+   docker/capture.sh HeroSet tools/drive_screens.sh fr965 btn store.jungle 60,45,30 23 glance all act   # 2 (3-counting, with a heart rate)
+   docker/capture.sh HeroSet tools/drive_screens.sh fr970 btn store.jungle 60,45,30 23 glance home       # 1 (1-dashboard)
+   docker/capture.sh HeroSet tools/drive_screens.sh epix2pro47mm btn store.jungle 60,45,30 23 glance all  # 3 (5b-up)
+   docker/capture.sh HeroSet tools/drive_screens.sh fr265 btn store.jungle 100,100,100 23 glance home    # 4 (1-dashboard)
    docker/capture.sh HeroSet tools/drive_screens.sh instincte45mm btn store.jungle 60,45,30 23 glance home   # 5 (1-dashboard)
    ```
 
@@ -48,7 +52,7 @@ Sources in `src/` (`hero.html`, `cover.html`, `icon.html`, `quantize64.py`); ren
 HeroSet/tools/render_listing.sh
 ```
 
-- `hero-1440x720.png`: on a flat amber `#FFAA00` ground (2026-10-04, ROADMAP 10.25), navy text, the shield mark, name, the promise line, and screens 1, 2 (the centre watch, the counting screen with `HR 145`) and 5 (the straps are faded out where the square cut them). No price, no accuracy claim.
+- `hero-1440x720.png`: on a flat amber `#FFAA00` ground (2026-10-04, ROADMAP 10.25), navy text, the shield mark, name, the promise line, and screens 1, 2 (the centre watch, the counting screen with `HR 123`) and 5 (the straps are faded out where the square cut them). No price, no accuracy claim.
 - `cover-500-designed.png`: shield and name only (it shows at about 100 px in browse), flat amber `#FFAA00` ground with navy ink and a blue `#0A3FB0` "Set" (Garmin's brand page: no black or transparent backgrounds; rejected variants in `NOTES.md`).
 - `icon-24-128.png` and `icon-64-128.png`: the launcher icon's shield on black, 128x128; the 64-colour one is the 24-bit render snapped to Garmin's 64-colour palette (channels 00/55/AA/FF) by `src/quantize64.py`. The shield is the current pixel-grid launcher shape (`resources/drawables/launcher_icon.svg`), cropped to its bounds.
 
@@ -58,4 +62,4 @@ HeroSet/tools/render_listing.sh
 
 ## Honesty rules
 
-Real captures of the store build, never mock-ups; the display pixels are only resized (Instinct) with the skin; the background is the only thing removed. Simulator data is canned (the seeded reps, the clock, the simulated heart rate, calories 0). No price number in any image. Nothing in an image claims accuracy, a wrist test, the Instinct 2 family, or a glance. The Instinct image shows one Instinct E 45 mm in the simulator: the Instinct claim waits for the store's device list ([`../docs/release-contract.md`](../docs/release-contract.md)).
+Real captures of the store build, never mock-ups; the display pixels are only resized (Instinct) with the skin; the background is the only thing removed. Simulator data is canned (the seeded reps, the clock, the simulated heart rate, calories `--`). No price number in any image. Nothing in an image claims accuracy, a wrist test, the Instinct 2 family, or a glance. The Instinct image shows one Instinct E 45 mm in the simulator: the Instinct claim waits for the store's device list ([`../docs/release-contract.md`](../docs/release-contract.md)).

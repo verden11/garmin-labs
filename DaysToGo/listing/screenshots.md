@@ -2,16 +2,19 @@
 
 **Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh DaysToGo bash /ciq-docker/frame_listing.sh listing`.
 
+**Recapture 2026-10-08 (ROADMAP 13.38), for the next build; awaits the owner's look approval.** Every picture was taken again from the current build with the same scenes and watches and compared pixel by pixel with the committed one (`compare -metric AE`). Only **`4-rectangle`** changed: the Venu Sq 2 now draws the square design (ADR-019, rectangles get a square design; look approved by the owner 2026-10-08): a rounded-rectangle track along the glass with the accent stretch from the top centre, the count larger in the inner box. Its framed file was re-made. The round shots and the Instinct frame came out identical (0 pixels differ; `1-to-the-minute` differed only by one clock minute (the committed 10:10 / 8h 05m against the new 10:09 / 8h 06m: run timing), so the committed one is kept) and are kept, so the hero (round screens only) is unchanged. Simulator only.
+
+
 Status: 2026-10-04. The whole set was re-rendered today from the **current Pro build** (after the on-watch date picker, the rectangle layout and the bottom-line changes of the same day). **Text uploaded with Pro 1.1.0 on 2026-10-04 (in Garmin review); whether these images replaced the live ones is ROADMAP 10.5.** Superseded files are in git history. Simulator only, no wrist photo: simulator passing is not device proof, and the clock, battery and steps in the pictures are canned, never a claim about real readings.
 
 ## The set (upload order)
 
 | File | Size | Device | State |
 |---|---|---|---|
-| `screens/1-to-the-minute.png` | 454 px | fr965 | "Race" at 20:15 in UTC+2 (Hour 20:00, Minute 15, zone UTC+2) on a UTC clock at 10:09: 8h 06m, battery on the date row, mint (2026-10-04, ADR-018, replaces the 7:51 hours-battery capture) |
-| `screens/2-weeks-steps.png` | 454 px, 17 KB | fr965 | "70.3" in weeks and days, steps on the date row, sky |
-| `screens/3-other-time-zone.png` | 454 px | fr965 | "Launch" the next day at 09:30 in UTC+9 on a UTC clock at 10:09: 14h 21m, the date row reads the written date, battery, pink (2026-10-04, ADR-018, replaces the 161-days capture) |
-| `screens/4-rectangle.png` | 320x360, 4 KB | venusq2 | hours state, amber (the bottom line is not drawn on the rectangle) |
+| `screens/1-to-the-minute.png` | 390 px | venu441mm | "Race" at 20:15 in UTC+2 (Hour 20:00, Minute 15, zone UTC+2) on a UTC clock at 10:10: 8h 05m, battery on the bottom line, mint (2026-10-04, ADR-018, replaces the 7:51 hours-battery capture) |
+| `screens/2-weeks-steps.png` | 454 px, 17 KB | fenix847mm | "70.3" in weeks and days, steps on the date row, sky |
+| `screens/3-other-time-zone.png` | 454 px | fr970 | "Launch" the next day at 09:30 in UTC+9 on a UTC clock at 10:09: 14h 21m, the date row reads the written date, battery on the bottom line, pink (2026-10-04, ADR-018, replaces the 161-days capture) |
+| `screens/4-rectangle.png` | 320x360, 4 KB | venusq2 | hours state, amber, the square design (track along the glass, battery on the bottom line; retaken 2026-10-08, ADR-019) |
 | `screens/5-instinct.png` | 498 px, 3 KB | instincte40mm (**Instinct family**) | hours state, black and white, ring as a gauge in the round window (the bottom line is not drawn there) |
 
 Five is the limit chosen by the owner (2026-10-04). Pro shows only what Pro adds on top of Free's fields (Hour, Minute and Event time zone, Footer; the two new captures are "to the minute", ADR-018); the accent colours are Free's too but vary the set. The Instinct picture comes from the **Instinct E 40 mm** on purpose: Garmin's paid-app product list has no Instinct 2, 2S, 2X or Descent G1 (coordinator note, `reports/Garmin policies and design guidelines.md`), so a Pro listing must not show or name them. `screens/5-instinct.png` is the simulator's own 166 px capture (`tools/listing_shots.sh` writes it to `screens/native/5-instincte40mm-166.png`; not kept in git) enlarged x3 with nearest-neighbour (498 px, no smoothing) because the store shows screenshots larger than that display.

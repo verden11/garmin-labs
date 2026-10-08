@@ -89,11 +89,11 @@ Whatever the Category choice offers.
 
 ## Screen Images
 
-1. `screens/1-day.png`
-2. `screens/2-evening.png`
-3. `screens/3-accent-pink.png`
-4. `screens/4-instinct-e45.png`
-5. `screens/5-small-fr255s.png`
+1. `screens-framed/1-day.png`
+2. `screens-framed/2-evening.png`
+3. `screens-framed/3-accent-pink.png`
+4. `screens-framed/4-instinct-e45.png`
+5. `screens-framed/5-small-fr255s.png`
 
 ## Device icons
 

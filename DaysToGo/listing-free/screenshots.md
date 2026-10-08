@@ -2,16 +2,19 @@
 
 **Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh DaysToGo bash /ciq-docker/frame_listing.sh listing-free`.
 
+**Recapture 2026-10-08 (ROADMAP 13.38), for the next build; awaits the owner's look approval.** Every picture was taken again from the current build with the same scenes and watches and compared pixel by pixel with the committed one (`compare -metric AE`). Only **`4-rectangle`** changed: the Venu Sq 2 now draws the square design (ADR-019, rectangles get a square design; look approved by the owner 2026-10-08): a rounded-rectangle track along the glass with the accent stretch from the top centre, the count larger in the inner box. Its framed file was re-made. The round shots and the Instinct frame came out identical (0 pixels differ) and are kept, so the hero (round screens only) is unchanged. Simulator only.
+
+
 Status: 2026-10-04. The whole set was rendered today from the **current Free build** (after the on-watch date picker, the rectangle layout and the bottom-line changes of the same day). **Uploaded by the owner 2026-10-04 with this set (looks approved by the upload), in Garmin review.** Earlier versions are in git history. Simulator only, no wrist photo: simulator passing is not device proof, and the clock in the pictures is canned.
 
 ## The set (upload order)
 
 | File | Size | Device | State |
 |---|---|---|---|
-| `screens/1-days-amber.png` | 454 px, 18 KB | fr965 | "Wedding", 161 DAYS, date line with the year, amber |
-| `screens/2-weeks-sky.png` | 454 px, 18 KB | fr965 | "70.3", 6 WEEKS + 3 DAYS, sky |
-| `screens/3-today-pink.png` | 454 px, 15 KB | fr965 | the day itself: TODAY, ring full, pink |
-| `screens/4-rectangle.png` | 320x360, 4 KB | venusq2 | 45 DAYS on a rectangular screen, violet |
+| `screens/1-days-amber.png` | 454 px, 18 KB | venu3 | "Wedding", 161 DAYS, date line with the year, amber |
+| `screens/2-weeks-sky.png` | 416 px, 17 KB | fr265 | "70.3", 6 WEEKS + 3 DAYS, sky |
+| `screens/3-today-pink.png` | 416 px, 11 KB | epix2pro47mm | the day itself: TODAY, ring full, pink |
+| `screens/4-rectangle.png` | 320x360, 4 KB | venusq2 | 45 DAYS on a rectangular screen, violet, the square design (track along the glass; retaken 2026-10-08, ADR-019) |
 | `screens/5-instinct.png` | 528 px, 3 KB | instinct2 (**Instinct family**) | 45 DAYS, black and white, ring as a gauge in the round window |
 
 Five is the limit chosen by the owner (2026-10-04). Free shows only Free's fields: Event, Name, Month/Day/Year, Unit (days or weeks), Date style, Accent; the Free build contains no Hour or Footer code path, so no bottom line or H:MM can appear (`tools/check_free_package.sh`). Accent colours vary across the set because the accent is Free's selling point; the Instinct has none (black and white). Free may use any Instinct (Garmin lists the Instinct 2 family for free apps), so the Instinct 2 is used; `screens/5-instinct.png` is the simulator's own 176 px capture (`tools/listing_shots.sh` writes it to `screens/native/5-instinct2-176.png`; not kept in git) enlarged x3 with nearest-neighbour (528 px, no smoothing) because the store shows screenshots larger than that display.
