@@ -35,7 +35,9 @@ export function Support() {
       </p>
       <h3>What is the ring around the edge?</h3>
       <p>
-        How far today has come across all three goals at once. It turns green when every one of them is met. With HeroSet
+        How far today has come across your goals at once. It turns green when every one of them is met. The move bar is left
+        out of the ring: it is full whenever you have not sat still, and never counts as done. On a rectangular watch the ring
+        is a frame along the edges of the screen; on an Instinct it is a gauge in the small round window. With HeroSet
         showing, it becomes your progress towards the next rank instead.
       </p>
       <h3>What does the gold line mean?</h3>

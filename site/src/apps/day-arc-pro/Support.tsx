@@ -22,6 +22,11 @@ export function Support() {
       <Note>If the setting is ever missing or can't be read, the face simply shows its normal Auto colours.</Note>
 
       <h2>Common questions</h2>
+      <h3>The morning says "Weather unavailable".</h3>
+      <p>
+        Your watch has no weather reading right now. The morning then shows the
+        time, the date and those words, with your fields under them, rather than a lone "--".
+      </p>
       <h3>Some fields are missing on my watch.</h3>
       <p>
         The grid shows only as many fields as measurably fit your watch's screen — the smallest screens in the supported
