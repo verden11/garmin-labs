@@ -223,6 +223,7 @@ Blunt and inverted.
 - **Shape:** square corners (0), min height 3rem.
 - **Store action:** the field's ink as background with the field color as text, 700 weight, 0.75rem 1.4rem padding.
 - **Hover:** lifts 2px over 180ms on the program ease-out; no color change.
+- **Two tiers:** an app with a free twin (`freeStoreUrl`) shows two equal store buttons, "Get <Name>, free" then "Get <Name> Pro", and its landing page has a "Free or Pro." band (what the free face has, what Pro adds, a store link each). Never "upgrade", "unlock" or "try free first".
 - **Status plate:** when the store link is absent, the same box renders as a 2px dashed field-ink outline reading "Coming soon". It is a state, not a button, and it is not clickable.
 - **Secondary action:** a plain underlined field-ink link beside it, 600 weight.
 

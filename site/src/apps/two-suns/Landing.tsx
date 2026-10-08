@@ -1,13 +1,13 @@
 import { twoSuns } from './app.ts'
 import { languages, screens, watchCount, watchFamilies } from './facts.ts'
-import { CallToAction, HeroActions, Screens, WatchShot, Watches } from '../../components/AppSections.tsx'
+import { CallToAction, FreeOrPro, HeroActions, Screens, WatchShot, Watches } from '../../components/AppSections.tsx'
 import { appUrl } from '../../urls.ts'
 
 const rows = [
   { title: 'The time comes first', text: 'The time is the biggest thing on the screen, in a large size that scales to your screen. A thin ring runs around the bezel on a round watch, and along the edges of the glass on a rectangular one.' },
-  { title: 'A ring for the sun', text: 'The ring is the 24 hours of your day, noon at the top or midnight at the top. Night is dim, daylight is lit, and a marker sits where the sun is now: solid while it is up, an outline while it is not.' },
-  { title: 'Your Body Battery, as a curve', text: 'Under the time, the last 24 hours of your Garmin Body Battery, with the current point marked and its number beside it. It is Garmin’s estimate, shown as Garmin reports it.' },
-  { title: 'One line for the sun', text: 'How much daylight is left, or when the sun comes back: “8h 41m of daylight”, “Sunrise 06:41”. Tomorrow’s sunrise after dark.' },
+  { title: 'A ring for the sun', text: 'The ring is the 24 hours of your day, noon at the top (Two Suns Pro can put midnight there). Night is dim, daylight is lit, and a marker sits where the sun is now: solid while it is up, an outline while it is not.' },
+  { title: 'Your Body Battery', text: 'Under the time, Garmin’s own Body Battery number beside a small bolt. Two Suns Pro adds the last 24 hours as a curve, with the current point marked. It is Garmin’s estimate, shown as Garmin reports it.' },
+  { title: 'One line for the sun', text: 'How much daylight is left, or when the sun comes back: “8h 41m of daylight”, “Sunrise 06:41”. Two Suns Pro works out tomorrow’s sunrise after dark.' },
 ]
 
 export function Landing() {
@@ -17,7 +17,7 @@ export function Landing() {
         <div className="wrap hero__inner">
           <div className="hero__copy">
             <h1 className="hero__name">{twoSuns.name}</h1>
-            <p className="hero__offer">The sun’s day and your Body Battery, on one watch face. A ring for the light, a curve for the last 24 hours.</p>
+            <p className="hero__offer">The sun’s day and your Body Battery, on one watch face. A ring for the light and, in Two Suns Pro, a curve for the last 24 hours.</p>
             <HeroActions app={twoSuns} />
           </div>
           <div className="hero__reps">
@@ -45,23 +45,29 @@ export function Landing() {
         <div className="wrap truth__inner">
           <h2 id="truth-title">A sentence, never a blank.</h2>
           <div className="truth__text">
-            <p>No place yet, so the watch cannot say where the sun is? The line says “No place yet”. No sun data at all? It says “No sun data”. No Body Battery reading? The number is a grey “--” beside a hollow bolt. If the newest reading is over an hour old, the curve and number turn grey and the dot becomes an outline. The number keeps one colour at any level: a low reading is not drawn as a warning. A new curve waits for two readings close together, and its place stays free until then, so nothing on the face moves when it appears.</p>
-            <p>Sun times come from your watch’s own sunrise and sunset values and, when the watch has a place, from a calculation that fills what the watch does not give: tomorrow’s sunrise after dark, the twilight, the golden hour.</p>
+            <p>No sun data? The line says “No sun data”; in Two Suns Pro, with no place yet to place the sun, it says “No place yet”. No Body Battery reading? The number is a grey “--” beside a hollow bolt. The number keeps one colour at any level: a low reading is not drawn as a warning. In Two Suns Pro, a reading over an hour old turns the curve and number grey and the dot becomes an outline, and a new curve waits for two readings close together, its place kept free until then, so nothing on the face moves when it appears.</p>
+            <p>Sun times come from your watch’s own sunrise and sunset values and, in Two Suns Pro when the watch has a place, from a calculation that fills what the watch does not give: tomorrow’s sunrise after dark, the twilight, the golden hour.</p>
           </div>
         </div>
       </section>
 
       <section className="wrap band" aria-labelledby="yours-title">
         <h2 id="yours-title" className="band__title">Yours to set.</h2>
-        <p className="band__lede">Five settings, all plain lists: accent colour (six), ring orientation, golden hour on or off, the energy curve (shown as Energy curve in the settings) on or off, and the date on or off. The face works with the defaults if you never open them.</p>
+        <p className="band__lede">Two Suns has one setting, the accent colour (six to choose from). Two Suns Pro has seven, all plain lists: the accent colour, ring orientation, golden hour, the energy curve, the date, and the weather and watch battery rows, both off unless you switch them on. Either face works with the defaults if you never open them.</p>
         <dl className="facts">
           <div><dt>Always on</dt><dd>On AMOLED watches, a dim time, number and sun line that shift position every minute; no ring, no curve. Other watches keep the full face.</dd></div>
           <div><dt>Your screen</dt><dd>On a round screen the ring runs around the bezel; on a rectangular one it becomes a track along the glass and the rows fill the box inside it, with a larger time; on the black-and-white Instinct it is a small dial in the round window. The layout measures itself to your screen and drops the date, then the curve, then the sun line before it would crowd the time. The {twoSuns.storeName} shows whether your exact model is listed.</dd></div>
           <div><dt>English and {languages.length - 1} more</dt><dd>The words on the watch come in {languages.length - 1} more languages, machine-drafted and not yet read by native speakers.</dd></div>
-          <div><dt>Your place stays on the watch</dt><dd>The face keeps a place, rounded to about 11 km, on the watch only. It has no internet access and sends nothing anywhere.</dd></div>
+          <div><dt>Your place stays on the watch</dt><dd>Two Suns Pro keeps a place, rounded to about 11 km, on the watch only; Two Suns, the free face, reads no location at all. Neither has internet access or sends anything anywhere.</dd></div>
         </dl>
         <p><a href={appUrl(twoSuns.slug, 'privacy')}>Read the privacy policy</a></p>
       </section>
+
+      <FreeOrPro
+        app={twoSuns}
+        free="The time, the 24-hour sun ring, one line for the sun from your watch’s own sunrise and sunset, Garmin’s own Body Battery number, and the accent colour. It reads no location and keeps no history."
+        pro="Everything in Two Suns, plus the energy curve (your last 24 hours of Body Battery), the golden hour, tomorrow’s sunrise and the twilight, the date, midnight at the top of the ring if you like, and optional weather and watch battery rows. It keeps a place, rounded to about 11 km, on the watch to place the sun."
+      />
 
       <Screens app={twoSuns} screens={screens} />
 
