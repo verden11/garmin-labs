@@ -25,7 +25,8 @@ export function Support() {
       <p>
         On many watches you can also set it without the phone: open the watch-face list, choose Days To Go, then choose
         Customize (next to Apply) and Set date. Pick the month, day and year. The face updates at once. Some watches do not
-        offer this and need the phone or Garmin Express.
+        offer this and need the phone or Garmin Express, among them the Venu Sq 2 and Sq 2 Music, whose own date picker is too
+        narrow to read.
       </p>
 
       <h2>Common questions</h2>

@@ -15,14 +15,14 @@ export const screens: Screenshot[] = [
 
 // Generated from the manifests by site/scripts/watch-families.py (Days To Go Free and Pro manifests); re-run it when the products change. The store's
 // device tab is the final word: a paid app is sold only on Garmin's paid-app list.
-export const watchCount = 127
+export const watchCount = 129
 export const watchFamilies: [string, string][] = [
   ['Forerunner', '55, 70, 165, 170, 245, 255, 255s, 265, 265s, 570, 645, 745, 935, 945, 945 LTE, 955, 965, 970'],
   ['fēnix', '5, 5 Plus, 5S, 5S Plus, 5X, 5X Plus, 6, 6 Pro, 6S, 6S Pro, 6X Pro, 7, 7 Pro, 7S, 7S Pro, 7X, 7X Pro, 8, 8 Pro, 8 Solar, 9, 9 Pro, 9 Pro Solar, Chronos, E'],
   ['epix', 'Gen 2, Pro (Gen 2)'],
   ['Enduro', '3, Enduro'],
   ['MARQ', 'Gen 1, Gen 2'],
-  ['Venu', '2, 2 Plus, 2S, 3, 3S, 4, Mercedes-Benz Collection, Sq 2, Venu, X1'],
+  ['Venu', '2, 2 Plus, 2S, 3, 3S, 4, Mercedes-Benz Collection, Sq, Sq 2, Sq. Edition, Venu, X1'],
   ['vívoactive', '3, 3 LTE, 3 Mercedes-Benz Collection, 4, 4S, 5, 6'],
   ['Instinct', '2, 2S, 2X Solar, 3 AMOLED, 3 Solar, Crossover AMOLED, E'],
   ['Descent', 'G1, G2, Mk1, Mk2, Mk2 S, Mk3, Mk3i'],

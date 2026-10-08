@@ -6,7 +6,7 @@ import { appUrl } from '../../urls.ts'
 const rows = [
   { title: 'One number', text: 'The days left is the biggest thing on the screen, in the largest size your watch can draw. The time sits above it.' },
   { title: 'Plain lists, no date picker', text: 'Pick the month, day and year from simple lists in the app, or on many watches on the watch itself. Nothing to set at all if you just want New Year.' },
-  { title: 'The ring drains', text: 'A thin ring around the bezel empties as the day gets closer and fills on the day itself.' },
+  { title: 'The ring drains', text: 'A thin ring along the edge of the screen empties as the day gets closer and fills on the day itself.' },
   { title: 'Whole calendar days', text: 'Tomorrow is 1 day. The day itself says TODAY. Afterwards it counts the days since.' },
 ]
 

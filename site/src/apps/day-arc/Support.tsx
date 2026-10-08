@@ -22,6 +22,11 @@ export function Support() {
       <Note>If the setting is ever missing or can't be read, the face simply shows its normal Auto colours.</Note>
 
       <h2>Common questions</h2>
+      <h3>The morning says "Weather unavailable".</h3>
+      <p>
+        Your watch has no weather reading right now. The morning then shows the
+        time, the date and those words rather than a lone "--".
+      </p>
       <h3>The stress or Body Battery number is "--".</h3>
       <p>
         Your watch has no valid reading right now. The face shows nothing rather than guessing, and says so in words

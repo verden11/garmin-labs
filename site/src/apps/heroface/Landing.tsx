@@ -7,7 +7,7 @@ import { appUrl } from '../../urls.ts'
 const rows = [
   { title: 'The time, first', text: 'The largest thing on the screen, in the largest size that fits your watch. Everything else stays out of its way.' },
   { title: 'Three goals, three bars', text: 'Steps, intensity minutes and floors by default, or whichever three you pick. Bar length carries the glance; the numbers are the detail.' },
-  { title: 'The day at the edge', text: 'The ring around the bezel is all three goals at once. It turns green when the day is done.' },
+  { title: 'The day at the edge', text: 'The ring around the edge of the screen is your goals at once. It turns green when the day is done; the move bar stays out of it.' },
   { title: 'A streak worth keeping', text: 'Days in a row you met your step goal, in gold. It shows up when you have one, and stays out of the way when you don’t.' },
 ]
 
@@ -56,7 +56,7 @@ export function Landing() {
         <p className="band__lede">Set each bar to steps, calories, intensity minutes, distance, floors or the move bar. Pick the accent colour. Turn seconds and the temperature on or off. All from the Garmin Connect app on your phone.</p>
         <dl className="facts">
           <div><dt>Always on</dt><dd>A dim, drifting clock that respects your watch’s always-on rules.</dd></div>
-          <div><dt>Every round watch</dt><dd>From a 208-pixel Forerunner 55 to a 466-pixel fēnix, one layout that measures itself.</dd></div>
+          <div><dt>Round or rectangular</dt><dd>From a 208-pixel Forerunner 55 to a 466-pixel fēnix, one layout that measures itself; on a Venu Sq or Venu X1 the ring becomes a frame along the edges.</dd></div>
           <div><dt>{languages.length} languages</dt><dd>Including the weekday and month, taken from your watch’s own language.</dd></div>
           <div><dt>Nothing leaves the watch</dt><dd>No account, no internet, no analytics, no ads.</dd></div>
         </dl>
@@ -75,7 +75,7 @@ export function Landing() {
 
       <Watches
         title={`${watchCount} Garmin watches.`}
-        lede={`Round screens, AMOLED and memory-in-pixel, Connect IQ 3.0 and newer, and the black-and-white Instinct. Tested on a Forerunner 965; every screen size passes each screen check in Garmin’s simulator. The ${heroface.storeName} shows whether your exact model is listed.`}
+        lede={`Round and rectangular screens, AMOLED and memory-in-pixel, Connect IQ 3.0 and newer, and the black-and-white Instinct. Tested on a Forerunner 965; every screen size passes each screen check in Garmin’s simulator. The ${heroface.storeName} shows whether your exact model is listed.`}
         families={watchFamilies}
         languages={languages}
       />
