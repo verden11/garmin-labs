@@ -5,8 +5,8 @@ folder: DaysToGo/listing
 tier: paid
 app_id: 45fad8be-72b0-4c4b-8b8e-58d9924d622c
 store:
-  listing_url: null
-  developer_url: null
+  listing_url: "https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4"   # the Free listing's line 1; HTTP 200 on 2026-10-08
+  developer_url: "https://apps-developer.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4"
 live:
   version: 1.0.1
   since: 2026-09-28
