@@ -597,7 +597,7 @@ ADR-019.)*
 
 ## ADR-019: Rectangles get a square design: a track that follows the glass, a straight gauge
 
-**Status:** Accepted 2026-10-05 (owner: square watches use square designs; build first, then the owner approves the real
+**Status:** Look approved by the owner 2026-10-08 from the simulator screenshots (`device-test/rect-review/after/`). Accepted 2026-10-05 (owner: square watches use square designs; build first, then the owner approves the real
 simulator screenshots before any upload). Simulator only. **Supersedes, on Venu Sq 2, Venu Sq 2 Music and Venu X1 only, the
 rectangle part of ADR-001's 2026-09-28 amendment (device set: full-width rows, the arc on the inscribed circle) and the curve of
 ADR-013 amendment 2 (icon system: the "E1" smile gauge and the lifted grid).** Round and Instinct products are unchanged.

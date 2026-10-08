@@ -74,7 +74,7 @@ Durable decisions, newest last. The earlier choices (minApiLevel, Everyday-first
 **Reversed by.** The owner.
 
 ## ADR-005: Rectangle family: the ring follows the screen's edges
-**Status: Proposed 2026-10-05 (agent, on the owner's request to add the rectangular watches). Simulator only, nothing on a watch. The rectangle look needs the owner's look-approval before any upload.**
+**Status: Accepted 2026-10-08. Look approved by the owner 2026-10-08 from the simulator screenshots (`device-test/rect-review/after/`). Proposed 2026-10-05 (agent, on the owner's request to add the rectangular watches). Simulator only, nothing on a watch. The rectangle look needs the owner's look-approval before any upload.**
 
 **Context.** `compatibility.md` left the rectangles out: "the row stack assumes a round chord; a rectangle wants its own proportions" (`archive/plan.md` phase 4). Five products at or above `minApiLevel` 3.0.0: `venusq`, `venusqm` (240 x 240 LCD, CIQ 3.3.6; `venusq` has the 96 KB watch-face budget), `venusq2`, `venusq2m` (320 x 360 AMOLED, CIQ 5.0) and `venux1` (448 x 486 AMOLED, CIQ 6.0, glass rounded about 53 px at the corners). With no code change the round ring sat on the inscribed circle, cut the mission row on `venusq2` ("MOVE" under the ring), and the time's box (81 px at `FONT_NUMBER_MILD`, the smallest number font there) did not fit its 71 px band, so `everyStateFitsThisDisplay` failed there.
 
