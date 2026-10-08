@@ -33,14 +33,14 @@ assets:
     - {file: screens-framed/2-midday.png, caption: "Midday, a stress reading with the calendar, intensity minutes, steps, calories, heart rate and floors around it", device: fr970, px: 720, kb: 99, framed: true}
     - {file: screens-framed/3-evening.png, caption: "Evening, Body Battery with recovery time, respiration, steps, pulse ox, heart rate and calories around it", device: fenix8pro47mm, px: 720, kb: 128, framed: true}
     - {file: screens-framed/4-accent-blue.png, caption: "The one setting, the accent colour (here blue in the evening)", device: fr965, px: 720, kb: 93, framed: true}
-    - {file: screens-framed/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window, one row of readings under it", device: instincte40mm, px: 720, kb: 108, instinct: true, framed: true}
+    - {file: screens-framed/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window, one row of readings under it", device: instincte40mm, px: 720, kb: 106, instinct: true, framed: true}
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/day-arc-pro/
   support: https://verden.watch/day-arc-pro/support/
   privacy: https://verden.watch/day-arc-pro/privacy/
 owner_approvals:   # what only the owner may settle before paste.md is used
-  - "AWAITS APPROVAL (ROADMAP 13.38, 2026-10-08): the set was re-checked against the next build: screens 1 to 3 recaptured identical (0 pixels differ), 4 and 5 differed only in random simulator values; nothing replaced; approve it as it stands for the next upload. No rectangle is pictured (the square design, ADR-019, is not in this set). Preview: device-test/listing-review/DayArc-listing-pro.png."
+  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set was re-checked against the next build: screens 1 to 3 recaptured identical (0 pixels differ), 4 and 5 differed only in random simulator values; nothing replaced; approve it as it stands for the next upload. No rectangle is pictured (the square design, ADR-019, is not in this set). Preview: device-test/listing-review/DayArc-listing-pro.png."
   # Approved by the owner 2026-10-05 (chat): the updated face design (bolt hero icon, grey Pro grid icons), the recaptured
   # watch-framed screens, the listing text as drafted (keeping "Chosen in the Garmin Connect app"), and the upload order (ROADMAP 1.9); the cover, hero and icons ("Icons OK", same evening).
 open_items: "1.1 1.4 1.5 1.7 1.8 1.9"   # ids in ROADMAP.md

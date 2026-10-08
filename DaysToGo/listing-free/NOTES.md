@@ -100,3 +100,7 @@ A complete set from the current Free build: five screens (days with a name, week
 - **Category:** Utility (alternative: Simple). **Subcategory:** whatever the Category choice offers. **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Preview Video:** none (YouTube or Vimeo only). **App Migration:** No; a new app, not an update.
 - **Monetization:** No: the Free app asks for no payment and unlocks nothing. Read the form's own wording at submission (`../listing/NOTES.md` records that the wording is easy to misread).
 - **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04).
+
+## Instinct image, black and white only (2026-10-08)
+
+`screens-framed/5-instinct.png` (instinct2): Checked, not changed: the capture is pure black and white (2 colours) and the Instinct 2 skin has no ghost, so the re-frame is pixel-identical and the file is kept.

@@ -33,14 +33,14 @@ assets:
     - {file: screens-framed/2-midday.png, caption: "Midday, a stress reading as a number and a plain gauge", device: fr265, px: 720, kb: 106, framed: true}
     - {file: screens-framed/3-evening.png, caption: "Evening, the Body Battery reading the same way", device: venu441mm, px: 720, kb: 73, framed: true}
     - {file: screens-framed/4-accent-purple.png, caption: "The one setting, the accent colour (here purple at midday)", device: epix2pro47mm, px: 720, kb: 140, framed: true}
-    - {file: screens-framed/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window", device: instincte40mm, px: 720, kb: 104, instinct: true, framed: true}
+    - {file: screens-framed/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window", device: instincte40mm, px: 720, kb: 105, instinct: true, framed: true}
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/day-arc/
   support: https://verden.watch/day-arc/support/
   privacy: https://verden.watch/day-arc/privacy/
 owner_approvals:   # what only the owner may settle before paste.md is used
-  - "AWAITS APPROVAL (ROADMAP 13.38, 2026-10-08): the set was re-checked against the next build: screens 1 to 4 recaptured identical (0 pixels differ), the Instinct differed only in a random simulator value; nothing replaced; approve it as it stands for the next upload. No rectangle is pictured (the square design, ADR-019, is not in this set). Preview: device-test/listing-review/DayArc-listing.png."
+  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set was re-checked against the next build: screens 1 to 4 recaptured identical (0 pixels differ), the Instinct differed only in a random simulator value; nothing replaced; approve it as it stands for the next upload. No rectangle is pictured (the square design, ADR-019, is not in this set). Preview: device-test/listing-review/DayArc-listing.png."
   # Approved by the owner 2026-10-05 (chat): the updated face design (bolt hero icon, grey Pro grid icons), the recaptured
   # watch-framed screens, the listing text as drafted (keeping "Chosen in the Garmin Connect app"), and the upload order (ROADMAP 1.9); the cover, hero and icons ("Icons OK", same evening).
 open_items: "1.1 1.4 1.5 1.7 1.8 1.9"   # ids in ROADMAP.md

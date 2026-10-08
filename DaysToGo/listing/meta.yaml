@@ -37,7 +37,7 @@ assets:
     - {file: screens-framed/2-weeks-steps.png, caption: "Weeks and days to a named event, step count on the date row", device: fenix847mm, px: 720, kb: 129, framed: true}
     - {file: screens-framed/3-other-time-zone.png, caption: "The other side of the world: a 09:30 start in UTC+9 the next day is 14h 21m away on a UTC clock, pink accent, battery on the bottom line", device: fr970, px: 720, kb: 103, framed: true}
     - {file: screens-framed/4-rectangle.png, caption: "The same face on a rectangular screen, its own square design, hours state, amber accent", device: venusq2, px: 720, kb: 95, framed: true, retaken: 2026-10-08}
-    - {file: screens-framed/5-instinct.png, caption: "Black and white, the ring is a gauge in the round window, hours state", device: instincte40mm, px: 720, kb: 104, instinct: true, framed: true}   # 166 px native capture enlarged x3 without smoothing; the native capture is not kept
+    - {file: screens-framed/5-instinct.png, caption: "Black and white, the ring is a gauge in the round window, hours state", device: instincte40mm, px: 720, kb: 103, instinct: true, framed: true}   # 166 px native capture enlarged x3 without smoothing; the native capture is not kept
   icons: [icon-64-128.png, icon-24-128.png]   # 128x128, mark + PRO badge; proposals, the real launcher icon is ROADMAP 3.3
   screenshots_doc: screenshots.md
 site:
@@ -45,7 +45,7 @@ site:
   support: https://verden.watch/days-to-go/support/
   privacy: https://verden.watch/days-to-go/privacy/
 owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
-  - "AWAITS APPROVAL (ROADMAP 13.38, 2026-10-08): the set retaken for the next build: screen 4 (4-rectangle, the Venu Sq 2 square design, ADR-019) is new; screens 2, 3, 5 compared identical and screen 1 differed by one clock minute only (10:10 kept); they are unchanged, and the hero was not re-rendered (its round source screens are unchanged). Preview: device-test/listing-review/DaysToGo-listing.png. Goes up with the next upload."
+  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set retaken for the next build: screen 4 (4-rectangle, the Venu Sq 2 square design, ADR-019) is new; screens 2, 3, 5 compared identical and screen 1 differed by one clock minute only (10:10 kept); they are unchanged, and the hero was not re-rendered (its round source screens are unchanged). Preview: device-test/listing-review/DaysToGo-listing.png. Goes up with the next upload."
   - "UPLOAD GATE CLEARED 2026-10-08 (the 1.2.0 text, paste.md and paste-translations.md; the site wording is a separate held-back commit, deploy after Garmin approves). Was: paste.md 'A thin ring around the bezel' and 'Round and rectangular watches alike' no longer describe screen 4 (the square design's track along the glass, ADR-019); 'full detail down to the smallest' sits beside the bottom-line sentence that the Instinct does not draw (ADR-015). Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (square design; no on-watch date picker on Venu Sq 2 / Sq 2 Music, ADR-020) (not done under 13.38: site/ out of scope)."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."

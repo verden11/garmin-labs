@@ -17,8 +17,13 @@ S=${4:-$(awk "BEGIN{s = 45400 / $DW; printf \"%d\", (s > 160 ? 160 : s)}")}
 SW=$(identify -format %w "$SKIN"); SH=$(identify -format %h "$SKIN")
 OX=$(awk "BEGIN{printf \"%d\", 360 - ($DX + $DW / 2) * $S / 100}"); OY=$(awk "BEGIN{printf \"%d\", 360 - ($DY + $DH / 2) * $S / 100}")
 TMP=$(mktemp -d)
+# The Instinct E skins carry a ghost of Garmin's sample screen in the display hole at alpha 1 to 25 of 255 (about 6,500 to
+# 10,700 pixels; Instinct 2 none, round skins a few hundred anti-aliased edge pixels): composited over a black screenshot it
+# drew faint grey marks. Inside the display rectangle, alpha under 10% is cleared; the opaque bezel and window rim stay.
+convert "$SKIN" -channel A \
+  -fx "(i >= $DX && i < $((DX + DW)) && j >= $DY && j < $((DY + DH)) && u < 0.1) ? 0 : u" +channel "$TMP/skin.png"
 # screen under the skin, then the white around the watch made transparent (flood fill from the four corners)
-convert -size "${SW}x${SH}" xc:none "$IN" -geometry "+$DX+$DY" -composite "$SKIN" -composite \
+convert -size "${SW}x${SH}" xc:none "$IN" -geometry "+$DX+$DY" -composite "$TMP/skin.png" -composite \
   -bordercolor white -border 1 -fuzz 6% -fill none \
   -draw 'color 0,0 floodfill' -draw "color $((SW + 1)),0 floodfill" -draw "color 0,$((SH + 1)) floodfill" -draw "color $((SW + 1)),$((SH + 1)) floodfill" \
   -shave 1x1 -filter Lanczos -resize "${S}%" "$TMP/watch.png"

@@ -92,3 +92,7 @@ Device icons 128x128 are left black: the quoted rule names the 500x500 store ico
 ## Form fields added to `paste.md` (ROADMAP 10.24, 2026-10-04)
 
 Answered as the sibling listings do (`../../TwoSuns/listing-free/paste.md`, `../../HeroSet/listing/paste.md`): **Subcategory** "whatever the Category choice offers" (Category stays Utility; HeroSet's own category has an "Other" entry, a face's Utility may not); **ANT+** No (the face decodes no ANT+ profile); **regional limits** No; **Preview Video** none (YouTube or Vimeo only); **Source Code URL** blank; **Review Notification** Yes; **App Migration** No (a new app id, not a newly compatible device on an existing app). Privacy-policy URL is not added: the field is conditional on "collects user data" being Yes.
+
+## Instinct image, black and white only (2026-10-08)
+
+`screens-framed/5-instinct-evening.png` (instincte40mm): re-framed 2026-10-08 (105 KB, under the 150 KB cap): the Instinct E skin's display hole carries a ghost of Garmin's sample screen at alpha 1 to 25 of 255 (6,500 to 10,700 pixels), which the framing composited over the black screen as faint grey marks; `docker/frame_shot.sh` now clears alpha under 10% inside the display rectangle (the opaque bezel and window rim stay). The capture was checked: pure black and white (2 colours), so nothing to snap. Only the faint marks went; the screen content is the same.

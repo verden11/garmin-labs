@@ -81,3 +81,7 @@ Two steps: attach the `.iq`, then enter details. The form has no price, support 
 - **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Subcategory:** whatever the Category choice offers. **Preview Video:** none (YouTube or Vimeo only).
 - **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04, `../../reports/Garmin policies and design guidelines.md`).
 - **Images:** the owner approves the looks of all images before upload (`meta.yaml` `owner_approvals`); rendered 2026-10-04 from the current Pro build in the simulator, how and from what in [`screenshots.md`](screenshots.md). Captions and devices are in `meta.yaml` `assets.screens` (no caption field in the form).
+
+## Instinct image, black and white only (2026-10-08)
+
+`screens-framed/5-instinct-e40.png` (instincte40mm): re-framed 2026-10-08 (105 KB, under the 150 KB cap): the Instinct E skin's display hole carries a ghost of Garmin's sample screen at alpha 1 to 25 of 255 (6,500 to 10,700 pixels), which the framing composited over the black screen as faint grey marks; `docker/frame_shot.sh` now clears alpha under 10% inside the display rectangle (the opaque bezel and window rim stay). The capture was checked: pure black and white (2 colours), so nothing to snap; `screens/native/` re-made from the x3 copy (`-sample`, exact). Only the faint marks went; the screen content is the same.
