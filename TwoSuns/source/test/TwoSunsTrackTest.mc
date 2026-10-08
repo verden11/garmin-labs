@@ -130,8 +130,9 @@ function layoutBuildsTheTrackOnlyOnARectangle(logger as Test.Logger) as Boolean 
     return true;
 }
 
-// A curve draws only when two neighbouring buckets have samples; a lone dot is never drawn (it would float at the band's
-// far end), on a rectangle and, since 2026-10-08, on round too: the bolt and the number stand alone (ADR-028). Pro only.
+// A curve draws only when two neighbouring buckets have samples (TwoSunsView.drawCurve gates on `hasALine`); a lone dot is
+// never drawn (it would float at the band's far end), on every shape since 2026-10-08. Its room is kept all the same
+// (ADR-028 amendment 2026-10-08; places: `curveRoomKeepsThePlaces`). Pro only.
 (:test, :pro)
 function aCurveWithNoLineIsHidden(logger as Test.Logger) as Boolean {
     var now = 1790000000;
@@ -142,9 +143,9 @@ function aCurveWithNoLineIsHidden(logger as Test.Logger) as Boolean {
     Test.assert(line.hasALine());
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
-    Test.assert(!new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], lone, true), false).showCurve);
     if (layout.track() != null) {
-        // a small round chord may have no room for any curve, so the line case is pinned only where it always fits
+        // a small round chord may have no room for any curve, so the room is pinned only where it always fits
+        Test.assert(new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], lone, true), false).showCurve);
         Test.assert(new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], line, true), false).showCurve);
     }
     return true;

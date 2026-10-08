@@ -1,6 +1,6 @@
 import Toybox.Lang;
 
-// The Body Battery band on one row: [level pill] [value] [curve], centred as a block and kept inside
+// The Body Battery band on one row: [bolt] [value] [curve], centred as a block (so with the curve, the bolt at its left edge) and kept inside
 // the round chord of the content circle. Pure numbers (TwoSunsBand.plan); the drawing reads them.
 // When the chord is too narrow for a curve of useful width, the curve is dropped and the glyph and
 // value stay: the value is never dropped (docs/spec.md "Design brief").
