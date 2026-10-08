@@ -4,8 +4,8 @@ import Toybox.System;
 
 // Always-on where the watch reports requiresBurnInProtection (the AMOLEDs; in the simulator also the Venu Sq LCD):
 // only a dim time, no ring or bars, and the whole block steps across a 3 x 3 grid once a minute. Garmin's lit-pixel and
-// dwell limits are unverified here (watch-design-kit platform-facts.md); the evidence is the simulator heat map
-// (DESIGN.md "Always-On Time").
+// dwell limits are unsourced or unverified here (watch-design-kit platform-facts.md has only the dwell figure, tagged
+// unverified); the evidence is the simulator heat map (DESIGN.md "Always-On Time").
 class HeroFaceSleep {
 
     static function draw(dc as Graphics.Dc, layout as HeroFaceLayout) as Void {

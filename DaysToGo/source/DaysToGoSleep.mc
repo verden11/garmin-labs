@@ -1,9 +1,9 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 
-// AMOLED always-on: Garmin allows at most 10% of pixels lit and none for more
-// than 3 minutes. So only the hero and the time, dim, no ring, and the whole
-// block steps across a 3 x 3 grid once a minute.
+// Always-on where the watch reports requiresBurnInProtection: Garmin's limits (lit pixels or luminance, dwell time)
+// differ by product and are recorded in ADR-007. So only the hero and the time, dim, no ring, and the whole block
+// steps across a 3 x 3 grid once a minute.
 class DaysToGoSleep {
 
     // `minute` picks the spot on the grid (the view passes the clock's minute).

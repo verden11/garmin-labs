@@ -142,7 +142,7 @@ Time format follows the system's 12/24 h. No numeric fields. Settings reach the 
 
 ## Design brief (as built; shipped by the owner with 1.0.0)
 
-The visual system as built is in [`../DESIGN.md`](../DESIGN.md). **The look, the rectangles and the launcher icon are not approved**. Simulator screenshots exist since 2026-10-04 (`../docker/shot.sh`, `../docker/capture.sh`); the rectangles' square form (ADR-028, the rectangle track, 2026-10-05) awaits the owner's look approval of `../../device-test/rect-review/after/`. Decided by the build, not by the owner: the colours, the row drop order. The glyph shape (2026-09-27) was the owner's call, on the real-device photo.
+The visual system as built is in [`../DESIGN.md`](../DESIGN.md). **The look and the launcher icon are not approved**; the rectangles' square form (ADR-028, the rectangle track) was approved by the owner on 2026-10-08 from the simulator screenshots in `../../device-test/rect-review/after/`, and the round follow-up of that day (a muted `--`, no lone dot) is still open. Simulator screenshots exist since 2026-10-04 (`../docker/shot.sh`, `../docker/capture.sh`). Decided by the build, not by the owner: the colours, the row drop order. The glyph shape (2026-09-27) was the owner's call, on the real-device photo.
 
 Constraints (from the SDK and Days To Go): primitives and system fonts only, no bitmaps; proportional layout with measured text fit; 64-colour safe values (each channel 00, 55, AA or FF; the one exception is the AMOLED-only always-on grey `#5C5C5C`, ADR-027); black ground; a state is never colour alone. **In bright sun the dim tracks must still read**: the night track is at least 3:1 against black (`#5555AA`, 3.3:1, computed from the hex value, not measured on a screen).
 
