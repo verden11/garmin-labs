@@ -97,7 +97,7 @@ class TwoSunsView extends WatchUi.WatchFace {
     private function drawWeather(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
     }
 
-    // The Body Battery band: a level pill, the value and, when there is room, the energy curve.
+    // The Body Battery band: the bolt, the value and, when there is room, the energy curve's room (its line once it has one).
     private function drawBand(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
         var band = frame.band;
         TwoSunsCurve.drawGlyph(dc, layout, band, state.batteryLevel, state.batteryStale, state.accent);

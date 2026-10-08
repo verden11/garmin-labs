@@ -123,7 +123,7 @@ A row between the time and the Body Battery band: **now** = a condition icon (1.
 
 One muted `#AAAAAA` row above the first row of the stack: a classic battery (outline, nub, fill) and the whole percent, centred. It lives in the strip between the stack and the ring, so it never moves another row on a round screen (on a rectangle its strip comes off the top of the box and can step the time down a size, ADR-028), and it is drawn only where its ink fits the round chord (round: drawn on 280, 390, 416, 454 and 466 px screens, not on the round 360 px, by the simulator's fonts; rectangles: drawn on both, in its own strip at the top of the box, ADR-028). Setting `Battery`, Off by default (since 2026-10-05, ROADMAP 13.13). No charging mark, no low colour. Not drawn always-on. The next-day marker in the weather row is an arrow (shaft and filled head, muted), not a character.
 
-## Rectangle (Venu Sq 2, Sq 2 Music, Venu X1; ADR-028 (the rectangle track), accepted 2026-10-08, look approved by the owner from simulator screenshots; the round follow-up of 2026-10-08 awaits its own approval)
+## Rectangle (Venu Sq 2, Sq 2 Music, Venu X1; ADR-028 (the rectangle track), accepted 2026-10-08, look approved by the owner from simulator screenshots; the 2026-10-08 changes, the round follow-up and the curve's room included, approved by the owner's "consider all UI changes approved" that day, relayed by the coordinator)
 
 The square watches get a square face, not the round one inscribed in them. Same meanings, same rows and the same colours. The two rectangle-only differences of 2026-10-05 (a muted `--`, no lone-dot curve) apply to round too since 2026-10-08 (ADR-028 amendment), so only the geometry follows the screen.
 
