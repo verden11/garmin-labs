@@ -37,7 +37,7 @@ assets:   # all rendered 2026-10-04 from the current Pro build in the simulator 
     - {file: screens-framed/1-day.png, caption: "The day, with the date, the energy curve and the sun ring", device: fenix8pro47mm, px: 720, kb: 125, framed: true}
     - {file: screens-framed/2-golden-hour.png, caption: "The golden-hour arcs (violet accent)", device: epix2pro47mm, px: 720, kb: 141, framed: true}
     - {file: screens-framed/3-evening.png, caption: "After sunset, the next sunrise (mint accent)", device: venu3, px: 720, kb: 66, framed: true}
-    - {file: screens-framed/4-instinct-e45.png, caption: "Black and white, the ring as a dial in the round window", device: instincte45mm, px: 720, kb: 100, instinct: true, framed: true}
+    - {file: screens-framed/4-instinct-e45.png, caption: "Black and white, the ring as a dial in the round window", device: instincte45mm, px: 720, kb: 99, instinct: true, framed: true, reframed: 2026-10-08}
     - {file: screens-framed/5-small-fr255s.png, caption: "A small round screen (pink accent)", device: fr255s, px: 720, kb: 102, framed: true}
   screenshots_doc: screenshots.md
 site:
@@ -45,7 +45,7 @@ site:
   support: https://verden.watch/two-suns/support/
   privacy: https://verden.watch/two-suns/privacy/
 owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
-  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set was re-checked against the next build: all five screens recaptured identical (0 pixels differ), nothing replaced; it goes up as it stands with the next upload. No rectangle is pictured (the square design, ADR-028, is not in this set). Preview: device-test/listing-review/TwoSuns-listing.png."
+  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set was re-checked against the next build: all five screens recaptured identical (0 pixels differ), nothing replaced; it goes up as it stands with the next upload; the Instinct image was re-framed after that without the skin's faint ghost marks (same screen content, NOTES.md). No rectangle is pictured (the square design, ADR-028, is not in this set). Preview: device-test/listing-review/TwoSuns-listing.png."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
   - "The 24-hour curve sentence and pictures went up with 1.1.0; whether the release contract allows it before the wrist check is ROADMAP 4.5."

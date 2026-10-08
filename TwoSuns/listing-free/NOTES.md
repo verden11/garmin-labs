@@ -95,3 +95,7 @@ Garmin's brand page: "Do not choose black or transparent backgrounds"; the owner
 - **White "Suns" on `#55AAFF`** (first try): 2.3:1, so "Suns" became the night blue.
 
 Open for the owner: the look; the device icons stay on black (Garmin's sentence is about the cover; the icon carries no text).
+
+## Instinct image, black and white only (2026-10-08)
+
+`screens-framed/4-instinct-e45.png` (instincte45mm): re-framed 2026-10-08 (99 KB, under the 150 KB cap): the Instinct E skin's display hole carries a ghost of Garmin's sample screen at alpha 1 to 25 of 255, which the framing composited over the black screen as faint grey marks (inside the dial and under the sun line); `docker/frame_shot.sh` now clears alpha under 10% inside the display rectangle (the opaque bezel and window rim stay). The capture `screens/4-instinct-e45.png` was checked: 176 x 176, pure black and white (2 colours), so nothing to snap. Only the faint marks went; the screen content is the same. The four round frames were not replaced (re-framing them changed only anti-aliased edge pixels).
