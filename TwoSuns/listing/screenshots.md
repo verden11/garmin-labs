@@ -2,6 +2,8 @@
 
 **Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh TwoSuns bash /ciq-docker/frame_listing.sh listing`.
 
+**Re-checked 2026-10-08 (ROADMAP 13.38), for the next build; awaits the owner's look approval.** Every picture was taken again from the current build with the same scenes and watches and compared pixel by pixel with the committed one (`compare -metric AE`): all five came out identical (0 pixels differ), so nothing was replaced, and the framed files and the hero stand. The 2026-10-08 changes do not reach these pictures: the Body Battery number is the canned 59, above the old dimming threshold of 30, so it was drawn in the accent before the one-colour change (ADR-008 amendment) and still is; no picture shows `--`, a rectangle or the always-on frame. Simulator only.
+
 Status 2026-10-04. Everything here is **simulator only** (the container's simulator, native pixels), rendered from the **current Pro build** (`monkey.jungle`). Nothing is a wrist photo. **Text uploaded with Pro 1.1.0 on 2026-10-04 (in Garmin review); whether these images replaced the live ones is ROADMAP 10.5.**
 
 ## What the pictures are, honestly

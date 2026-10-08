@@ -41,5 +41,6 @@ site:
   support: https://verden.watch/heroface/support/
   privacy: https://verden.watch/heroface/privacy/
 owner_approvals:   # text, title and the uploaded images settled by the owner's upload of 2026-10-04; still open:
+  - "AWAITS APPROVAL (ROADMAP 13.38, 2026-10-08): the set was re-checked against the next build: all five screens and the hero's magenta frame recaptured identical (0 pixels differ), nothing replaced; approve it as it stands for the next upload. Preview: device-test/listing-review/HeroFace-listing-free.png."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
 open_items: "5.5 6.1 7.12"   # ids in ROADMAP.md
