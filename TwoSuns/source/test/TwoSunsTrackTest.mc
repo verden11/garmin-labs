@@ -130,10 +130,10 @@ function layoutBuildsTheTrackOnlyOnARectangle(logger as Test.Logger) as Boolean 
     return true;
 }
 
-// A curve draws only when two neighbouring buckets have samples; on a rectangle a lone dot is not drawn (it would float at
-// the far end of a band that spans the box), and the bolt and the number stand alone. Pro only (the history).
+// A curve draws only when two neighbouring buckets have samples; a lone dot is never drawn (it would float at the band's
+// far end), on a rectangle and, since 2026-10-08, on round too: the bolt and the number stand alone (ADR-028). Pro only.
 (:test, :pro)
-function rectangleHidesACurveWithNoLine(logger as Test.Logger) as Boolean {
+function aCurveWithNoLineIsHidden(logger as Test.Logger) as Boolean {
     var now = 1790000000;
     var newest = now - TwoSunsConfig.SECONDS_PER_MINUTE;   // inside the newest bucket (a sample at `now` itself is clamped into it too)
     var lone = TwoSunsBattery.build([50] as Array<Numeric or Null>, [newest] as Array<Number or Null>, now);
@@ -142,8 +142,9 @@ function rectangleHidesACurveWithNoLine(logger as Test.Logger) as Boolean {
     Test.assert(line.hasALine());
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
+    Test.assert(!new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], lone, true), false).showCurve);
     if (layout.track() != null) {
-        Test.assert(!new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], lone, true), false).showCurve);
+        // a small round chord may have no room for any curve, so the line case is pinned only where it always fits
         Test.assert(new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], line, true), false).showCurve);
     }
     return true;

@@ -5,6 +5,8 @@ text for each version is in [`listing/paste.md`](listing/paste.md).
 
 ## Unreleased (next upload of both)
 
+- **Round watches match the square ones on an empty or new reading (2026-10-08; both tiers; simulator only).** `--` is grey like the hollow bolt beside it, and a curve with a single sample (a lone dot) is not drawn until a second one arrives (ADR-028 (the rectangle track), amended; ADR-021 (Body Battery in Free), amended). Tests: Pro 165, Free 76, unchanged in number (`aCurveWithNoLineIsHidden` now runs its lone-dot check on every shape).
+
 Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.13 to 13.17; simulator only, nothing on a wrist):
 
 - **Pro: the weather row and the watch battery row are Off by default** for new installs, so the first face is the one the listing shows (each is one switch; a wearer who switched one on keeps it).

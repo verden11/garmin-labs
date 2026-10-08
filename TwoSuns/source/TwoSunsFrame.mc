@@ -63,9 +63,9 @@ class TwoSunsFrame {
         lineFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.LINE_FONTS, lineFont);
         showDate = !sleeping && state.showDate && state.dateLines.size() > 0;
         var curve = state.curve;
-        // A rectangle's band spans the box, so a curve with no line (a lone dot) would float at its far end: there the bolt
-        // and the number stand alone until two neighbouring samples exist (ADR-028).
-        showCurve = !sleeping && curve != null && (layout.track() == null || curve.hasALine());
+        // A curve with no line (a lone dot) floats at the band's far end and reads as noise: the bolt and the number stand
+        // alone until two neighbouring samples exist (ADR-028, the rectangle track; round too since 2026-10-08).
+        showCurve = !sleeping && curve != null && curve.hasALine();
         showLine = state.skyLines.size() > 0;
         weatherMode = startingWeatherMode(state, sleeping);
         rows = dropRowsUntilItFits(dc, layout);

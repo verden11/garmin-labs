@@ -102,8 +102,8 @@ class TwoSunsView extends WatchUi.WatchFace {
         var band = frame.band;
         TwoSunsCurve.drawGlyph(dc, layout, band, state.batteryLevel, state.batteryStale, state.batteryAccent);
         TwoSunsDraw.box(layout, band.glyphLeft, band.glyphTop, band.glyphWidth, band.glyphHeight, "glyph");
-        // On a rectangle "--" is muted like the hollow bolt beside it, so the cell reads as one "no data" state (ADR-028).
-        var muted = state.batteryStale || (layout.track() != null && state.batteryLevel == null);
+        // "--" is muted like the hollow bolt beside it, so the cell reads as one "no data" state, on every shape (ADR-028).
+        var muted = state.batteryStale || state.batteryLevel == null;
         dc.setColor(muted ? TwoSunsPalette.MUTED : state.batteryAccent, Graphics.COLOR_TRANSPARENT);
         var top = frame.rows.bandTop + (frame.bandHeight - dc.getFontHeight(frame.valueFont)) / 2;
         TwoSunsDraw.text(dc, layout, band.valueCenterX, top, frame.valueFont, state.batteryText, Graphics.TEXT_JUSTIFY_CENTER);
