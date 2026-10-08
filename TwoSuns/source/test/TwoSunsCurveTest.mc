@@ -121,6 +121,11 @@ function curveRoomKeepsThePlaces(logger as Test.Logger) as Boolean {
         }
         full = frame;
     }
+    // A history read that throws (no curve object, Garmin's number null) keeps the room too: the API is there.
+    var thrown = curvePlaces(dc, new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true), false));
+    for (var p = 0; first != null && p < thrown.size(); p++) {
+        Test.assertMessage(thrown[p] == first[p], "a thrown read moved place " + p);
+    }
     var off = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true);
     TwoSunsReadings.fillBattery(off, TwoSunsTestStates.curve(50, 3), null, false);
     var bare = new TwoSunsFrame(dc, layout, off, false);

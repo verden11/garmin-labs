@@ -9,7 +9,7 @@ class TwoSunsState {
     var batteryLevel as Number or Null = null;               // 0 to 100 when the value is a number, for the level pill
     var batteryStale as Boolean = false;
     var curve as TwoSunsBatteryCurve or Null = null;         // null: no curve to draw
-    var curveOn as Boolean = false;                          // Pro: the Curve setting is on and the watch keeps a history (the band keeps the curve's room)
+    var curveOn as Boolean = false;                          // Pro: the Curve setting is on and the watch has the history API (the band keeps the curve's room)
     var skyLine as String = "";                              // the full sentence
     var skyLines as Array<String> = [] as Array<String>;     // longest first: the full sentence, then a shorter wording when there is one
     var sky as TwoSunsSky = new TwoSunsSky();
