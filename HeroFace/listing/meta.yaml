@@ -23,8 +23,8 @@ next:
 package:
   file: dist/HeroFacePro-1.2.0.iq
   products: 129   # <iq:product> lines in the manifest
-  exported: null
-  check: null
+  exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 218 part numbers; sha256 399b047174dfa2c9a4528699c6491ae775819ec253a6cb9d06487efabac62e9a
+  check: "tools/check_free_package.sh dist/HeroFaceFree-1.1.0.iq dist/HeroFacePro-1.2.0.iq: OK (keys Mode Slot1-3 Accent Seconds Weather, Pro-only names in the code, AppName HeroFace Pro, ComplicationSubscriber); unpack check: app id = manifest.xml, 129 of 129 products"
   note: "export: monkeyc -e -r -f monkey.jungle -w --typecheck 3; built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload, 2026-10-04, confirm it shows after approval; live at the USD 2.00 tier until then), no number in listing text; ADR-004 (the $2.50 tier for every paid app)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}

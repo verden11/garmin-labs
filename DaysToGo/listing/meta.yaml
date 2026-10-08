@@ -23,8 +23,8 @@ next:
 package:
   file: dist/DaysToGoPro-1.2.0.iq
   products: 129   # <iq:product> lines in the manifest
-  exported: null
-  check: null
+  exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 218 part numbers; sha256 f992f4c31678e98f2350952f3c9bf1272c58c2c5223cc12328806a8cd4dd43b0
+  check: "tools/check_free_package.sh dist/DaysToGoFree-1.1.0.iq dist/DaysToGoPro-1.2.0.iq: OK (Hour, Minute, EventZone, Footer in every settings file and .prg, AppName Days To Go Pro, no permissions); unpack check: app id = manifest.xml, 129 of 129 products"
   note: "export: monkeyc -e -r -f monkey.jungle in verden-ciq-build:9.2.0 via docker/run.sh; the file is in the git-ignored dist/"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-017 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-014 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}

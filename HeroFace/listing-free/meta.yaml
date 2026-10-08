@@ -23,8 +23,8 @@ next:
 package:
   file: dist/HeroFaceFree-1.1.0.iq
   products: 129   # <iq:product> lines in the manifest
-  exported: null
-  check: null
+  exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 218 part numbers; sha256 5cb12689f8b32558f670a8b232d4d19a9b6b6b5f700aa5c0534c7ce17d7a6122
+  check: "tools/check_free_package.sh dist/HeroFaceFree-1.1.0.iq dist/HeroFacePro-1.2.0.iq: OK (keys Mode and Accent, no Slot1-3/Seconds/Weather, no 'Pro', AppName HeroFace, ComplicationSubscriber); unpack check: app id = manifest.free.xml, 129 of 129 products"
   note: "export: monkeyc -e -r -f monkey.free.jungle -w --typecheck 3; built in the verden-ciq-build container"
 price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}

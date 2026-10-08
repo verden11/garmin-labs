@@ -19,8 +19,8 @@ next:
 package:
   file: dist/DayArcPro-1.1.0.iq
   products: 72   # <iq:product> lines in the manifest
-  exported: null
-  check: null
+  exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 93 part numbers; sha256 d9ced760d3351fbad67fb3020fa09579fc02396fe92860314382ae518834985d
+  check: "tools/check_package.sh: OK (93 part numbers, 4 Instinct without settings, 89 with Accent); unpack check: app id = manifest.pro.xml, 72 of 72 products, ComplicationSubscriber only"
   note: "export: CIQ_IMAGE=verden-ciq-build:9.2.0 docker/run.sh DayArc monkeyc -e -r -w -f monkey.pro.jungle; built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form; ADR-018); no number in text
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}

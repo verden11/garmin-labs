@@ -23,8 +23,8 @@ next:
 package:
   file: dist/DaysToGoFree-1.1.0.iq
   products: 129   # <iq:product> lines in the manifest
-  exported: null
-  check: null
+  exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 218 part numbers; sha256 6d8d9b38f20c5f3065934a87773712d8f10c8f7d29b6f930092d4bd0cc57a07a
+  check: "tools/check_free_package.sh dist/DaysToGoFree-1.1.0.iq dist/DaysToGoPro-1.2.0.iq: OK (no Hour/Minute/EventZone/Footer, no 'Pro', AppName Days To Go, no permissions); unpack check: app id = manifest.free.xml, 129 of 129 products (D2 Charlie's 006-B2994-00 left out by the export: CIQ 2.4.1 under the minimum API)"
   note: "export: monkeyc -e -r -f monkey.free.jungle; built in the verden-ciq-build container"
 price: free
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
