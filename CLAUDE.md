@@ -20,7 +20,7 @@ watch projects.
 
 `reports/` holds research and review reports; the sourced notes behind each are in `research_notes/<report title>/`.
 
-`ROADMAP.md` is the single to-do list for every project: what needs the owner's decision, what needs their hands (watch, store dashboard, people), what the agent can do now, what waits on a date. Per-project `docs/status.md` keeps where things stand, evidence, release gates and upload steps, **never open checkboxes**; add or tick items in ROADMAP.md only.
+`ROADMAP.md` is the single to-do list for every project: what needs the owner's decision, what needs their hands (watch, store dashboard, people), what the agent can do now, what waits on a date. Per-project `docs/status.md` keeps where things stand, evidence, release gates and upload steps, **never open checkboxes**; add items in ROADMAP.md only, and move each done item to `ROADMAP-done.md`.
 
 Every watch project shares one file layout — see root `README.md` "Layout" for the exact tree, not
 restated here. Keep new files in that shape.
