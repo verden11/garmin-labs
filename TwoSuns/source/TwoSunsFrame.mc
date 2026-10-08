@@ -62,10 +62,10 @@ class TwoSunsFrame {
         valueFonts = TwoSunsDraw.fontsFrom(valueList, valueFont);
         lineFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.LINE_FONTS, lineFont);
         showDate = !sleeping && state.showDate && state.dateLines.size() > 0;
-        var curve = state.curve;
-        // A curve with no line (a lone dot) floats at the band's far end and reads as noise: the bolt and the number stand
-        // alone until two neighbouring samples exist (ADR-028, the rectangle track; round too since 2026-10-08).
-        showCurve = !sleeping && curve != null && curve.hasALine();
+        // The band keeps the curve's room whenever the Curve setting is on and the watch keeps a history, line or not: the
+        // time, bolt and number never move when a curve first lands or ages out (ADR-028 amendment 2026-10-08). The line
+        // itself is drawn only once two neighbouring samples exist (TwoSunsView.drawCurve).
+        showCurve = !sleeping && state.curveOn;
         showLine = state.skyLines.size() > 0;
         weatherMode = startingWeatherMode(state, sleeping);
         rows = dropRowsUntilItFits(dc, layout);

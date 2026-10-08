@@ -39,6 +39,7 @@ function freeStateHasNoProState(logger as Test.Logger) as Boolean {
     Test.assert(!state.goldenArc);
     Test.assert(!state.showDate);
     Test.assert(state.curve == null);
+    Test.assert(!state.curveOn);   // no curve room either: Free's band is the centred pair (ADR-028 amendment 2026-10-08)
     Test.assert(!state.batteryStale);
     Test.assertEqual(state.skyLine, "No sun data");
     return true;

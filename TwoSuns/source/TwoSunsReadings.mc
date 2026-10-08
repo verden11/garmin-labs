@@ -28,6 +28,9 @@ class TwoSunsReadings {
     static function fillBattery(state as TwoSunsState, curve as TwoSunsBatteryCurve or Null, complication as Number or Null,
                                 showCurve as Boolean) as Void {
         state.batteryText = TwoSunsText.get(Rez.Strings.value_none);
+        // Sized for the setting, not the data (ADR-028 amendment 2026-10-08): a watch with a history keeps the curve's room
+        // even before it has a line, so nothing moves when the first line lands or the last one ages out.
+        state.curveOn = showCurve && curve != null;
         if (curve == null) {
             if (complication != null && TwoSunsBattery.isValidValue(complication)) {
                 state.batteryText = complication.toString();

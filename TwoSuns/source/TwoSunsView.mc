@@ -112,12 +112,17 @@ class TwoSunsView extends WatchUi.WatchFace {
     // The energy curve is Pro only: Free has no history, so no state ever carries one.
     (:pro)
     private function drawCurve(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
-        var curve = state.curve;
-        if (frame.showCurve && curve != null) {
-            var band = frame.band;
-            TwoSunsCurve.draw(dc, layout, band, curve, state.batteryStale, state.accent);
-            TwoSunsDraw.box(layout, band.curveLeft, band.curveTop, band.curveWidth, band.curveHeight, "curve");
+        if (!frame.showCurve) {
+            return;
         }
+        var band = frame.band;
+        var curve = state.curve;
+        // A curve with no line (a lone dot) floats at the band's far end and reads as noise: its room stays empty until two
+        // neighbouring samples exist (ADR-028, the rectangle track; round too since 2026-10-08).
+        if (curve != null && curve.hasALine()) {
+            TwoSunsCurve.draw(dc, layout, band, curve, state.batteryStale, state.accent);
+        }
+        TwoSunsDraw.box(layout, band.curveLeft, band.curveTop, band.curveWidth, band.curveHeight, "curve");
     }
 
     (:free)
