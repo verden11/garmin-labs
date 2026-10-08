@@ -24,7 +24,7 @@ What the listing, the store page and the site may claim. Copy of the rules in [`
 - "The only countdown with no permissions". "Works on every watch". "Set it on your watch" without "on many watches".
 - Anything about a rival by name. Brand names in tags.
 - "Free" wording while the price is paid; disclose any limited-time free period (store review guideline 4d).
-- Translated store copy that no native speaker has read.
+- Translated store copy that no native speaker has read, **except** the Spanish and Chinese (Simplified) listing text (title, description, What's New, hero tagline) the owner chose to publish machine-drafted (2026-10-05 / 2026-10-08; ROADMAP 13.33, a native read stays open, 7.10).
 
 ## Paid vs free reach (2026-10-04)
 

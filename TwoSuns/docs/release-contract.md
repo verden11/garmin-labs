@@ -26,7 +26,7 @@ What the listing, the store page and the site may claim. The checkable form of t
 - Anything about a rival by name. Brand names in tags.
 - "Free" wording while the price is paid; disclose any limited-time free period (store review guideline 4d). The store's "trial" does not exist for watch faces.
 - "No permissions" or "no location permission" while `Positioning` is in the manifest.
-- Translated store copy that no native speaker has read, **except** the Spanish and Chinese (Simplified) listing descriptions the owner chose to publish machine-drafted on 2026-10-05 (ROADMAP 13.33; a native read stays open, 7.10).
+- Translated store copy that no native speaker has read, **except** the Spanish and Chinese (Simplified) listing text (title, description, What's New, hero tagline) the owner chose to publish machine-drafted (2026-10-05, extended to What's New and heroes 2026-10-08) (ROADMAP 13.33; a native read stays open, 7.10).
 - A claim about the look, a screenshot, or "designed for" a watch before the owner has approved the look and supplied the images.
 
 ## Paid vs free reach (2026-10-04)
