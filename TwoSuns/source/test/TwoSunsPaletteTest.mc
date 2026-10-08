@@ -2,7 +2,7 @@ import Toybox.Lang;
 import Toybox.Test;
 
 // Regression for the winter-accent/MUTED collision watch-design-reviewer caught 2026-09-27: dim()
-// must never return MUTED, or a low reading and no reading become indistinguishable by colour.
+// must never return MUTED, or the ring's daylight already gone would share the "no data" grey.
 (:test, :color)
 function dimNeverEqualsMuted(logger as Test.Logger) as Boolean {
     for (var i = 0; i < TwoSunsPalette.ACCENTS.size(); i++) {

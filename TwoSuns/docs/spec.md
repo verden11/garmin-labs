@@ -88,7 +88,7 @@ Body Battery under the time:
 | State | When | Curve | Number |
 |---|---|---|---|
 | Normal | ≥ 1 valid sample, any level | last 24 h in 96 buckets of 15 min, current point marked in the accent; not drawn until two neighbouring buckets have samples (ADR-028 amendment 2026-10-08) | last valid sample (0 to 100), in the accent whatever the level (no dim below 30 since 2026-10-08, ADR-008 amendment) |
-| Stale | newest sample older than 60 min | curve muted, dot hollow | last value muted (overrides the level colour) |
+| Stale | newest sample older than 60 min | curve muted, dot hollow | last value muted |
 | Not worn / none | no valid sample (null, or 127 = not worn) | none | `--`, muted (every shape since 2026-10-08) |
 | Not available | `SensorHistory` absent on this watch, or reading it throws | none | from Complication if valid, else `--` |
 
