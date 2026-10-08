@@ -12,7 +12,7 @@ colors:
   accent-blue: "#55AAFF"
   accent-cyan: "#00FFFF"
   accent-magenta: "#FFAAFF"
-  sleep-text: "#555555"
+  sleep-text: "#5C5C5C"
 typography:
   time:
     fontFamily: "Graphics.FONT_NUMBER_THAI_HOT → FONT_NUMBER_HOT → FONT_NUMBER_MEDIUM → FONT_NUMBER_MILD"
@@ -142,7 +142,7 @@ A black field with a single white number, a muted grey voice for everything seco
 - **Signal White** (`{colors.text}`): the time and mission values. Reserved for the two things read first.
 - **Second Voice Grey** (`{colors.muted}`): date, labels, seconds, footer numbers and drawn icons. Everything that supports the glance without competing for it.
 - **Track Grey** (`{colors.track}`): the unfilled remainder of the ring and of every pill bar. Present so the *whole* of a goal is visible behind the part that is done.
-- **Sleep Grey** (`{colors.sleep-text}`): always-on time on burn-in-protected screens. Same hex as the track, a distinct role: keep both keys.
+- **Sleep Grey** (`{colors.sleep-text}`, `#5C5C5C`, 3.14:1 on black): always-on time on burn-in-protected screens, the studio's one always-on grey (ADR-006 (always-on time is the studio's one always-on grey)). It was `#555555`, the track's hex, at 2.82:1, under the 3:1 bar. AMOLED only, so not a 64-colour value; a MIP watch never draws it.
 
 ### Named Rules
 
@@ -242,7 +242,7 @@ Battery, heart rate and unread notifications in the ring's bottom gap, drawn as 
 Optional, in `{colors.muted}` at `FONT_XTINY`, tucked against the right edge of the time on the digits' baseline, never allowed below the date row. If they will not fit the chord beside a wide time, they are not drawn at all rather than crowding the ring. They redraw alone in a clipped box during low-power partial updates. **On a rectangle** the time keeps the seconds' width free on both sides by taking the next number font down while seconds are on (Venu X1 `THAI_HOT` to `HOT`, Venu Sq 2 `HOT` to `MEDIUM`; the Venu Sq keeps `THAI_HOT`), and grows back once if the watch cuts the seconds for the power budget.
 
 ### Always-On Time
-The entire sleep composition on burn-in screens: a dim `{colors.sleep-text}` time in `FONT_NUMBER_MEDIUM`, centred, stepping across a 3×3 grid at `{spacing.inset}`/2 per cell, one cell per minute. No ring, no bars, no date, no footer.
+The entire sleep composition on burn-in screens: a dim `{colors.sleep-text}` (`#5C5C5C`, 3.14:1, ADR-006) time in `FONT_NUMBER_MEDIUM`, centred, stepping across a 3×3 grid at `{spacing.inset}`/2 per cell, one cell per minute. No ring, no bars, no date, no footer.
 
 ## Do's and Don'ts
 

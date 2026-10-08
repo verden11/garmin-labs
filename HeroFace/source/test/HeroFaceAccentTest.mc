@@ -71,6 +71,15 @@ function everyAccentReadsOnBlack(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// The always-on grey (ADR-006, the studio's one always-on grey): at least 3:1 against black.
+// #5C5C5C is 3.14:1; the #555555 it replaced was 2.82:1. White on the Instinct palette, which never sleeps dim.
+(:test)
+function alwaysOnGreyReadsOnBlack(logger as Test.Logger) as Boolean {
+    var ratio = HeroFaceAccentCheck.contrast(HeroFacePalette.SLEEP_TEXT, HeroFacePalette.BACKGROUND);
+    Test.assertMessage(ratio >= HeroFaceAccentCheck.MIN_CONTRAST, "always-on grey contrast " + ratio.format("%.2f") + ":1 on black");
+    return true;
+}
+
 // The face's own rule (HeroFacePalette): an accent clears 3:1 against TRACK so a part-filled bar reads. All three do
 // (Magenta was 2.84 until the owner's recolour, ADR-003).
 (:test :color)

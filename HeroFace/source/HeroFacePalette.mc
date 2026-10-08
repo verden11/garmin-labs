@@ -2,8 +2,8 @@ import Toybox.Lang;
 
 // HeroSet's colour roles (HeroSet ADR-031), so the face reads as the same
 // product: gold is what the user keeps (streak, rank), the accent is today's
-// effort still under way, green is a finished goal. Every value is in
-// Garmin's 64-colour palette (channels 00/55/AA/FF), so MIP renders it exactly.
+// effort still under way, green is a finished goal. Every value but SLEEP_TEXT
+// is in Garmin's 64-colour palette (channels 00/55/AA/FF), so MIP renders it exactly.
 (:color)
 class HeroFacePalette {
     // True where tracks must be outlines and nothing may lean on grey or hue (the 1-bit Instinct, ADR-002).
@@ -17,8 +17,11 @@ class HeroFacePalette {
     // Attention, inherited from HeroSet's palette: a low battery, or a move bar
     // that has been sitting too long. Always paired with a word, never alone.
     static const ALERT = 0xFF0000;
-    // AOD time: dimmer than TEXT so an always-on AMOLED spends less light.
-    static const SLEEP_TEXT = 0x555555;
+    // Always-on time (AMOLED only, so it need not be 64-colour safe): the studio's one always-on grey (ADR-006,
+    // ROADMAP 13.25; Two Suns ADR-027). 3.14:1 against black, above the >=3:1 bar for a persistent colour (0x555555,
+    // the 64-colour grey it replaces, is 2.82:1). Only HeroFaceSleep draws it, and only when the watch requires
+    // burn-in protection (HeroFaceView), so a MIP watch never meets a value off its palette.
+    static const SLEEP_TEXT = 0x5C5C5C;
 
     // Accent setting, by index; ids are append-only and both the Free and the Pro build offer all three
     // (docs/decisions.md ADR-001, the Free + Pro ladder). The rule is 3:1 against TRACK so a part-filled
