@@ -5,7 +5,8 @@ text for each version is in [`listing/paste.md`](listing/paste.md).
 
 ## Unreleased (next upload of both)
 
-- **Round watches match the square ones on an empty or new reading (2026-10-08; both tiers; simulator only).** `--` is grey like the hollow bolt beside it, and a curve with a single sample (a lone dot) is not drawn until a second one arrives (ADR-028 (the rectangle track), amended; ADR-021 (Body Battery in Free), amended). Tests: Pro 165, Free 76, unchanged in number (`aCurveWithNoLineIsHidden` now runs its lone-dot check on every shape).
+- **The Body Battery number no longer dims below 30 (2026-10-08; both tiers; simulator only).** The number, the bolt and the curve's dot keep one colour whatever the level: a colour that changed with the reading was a quiet verdict (ADR-008 (no verdicts on Body Battery), amended; it reverses the owner's 2026-09-27 amendment). A reading over an hour old still turns grey with a hollow bolt and dot: that is its age, not its value.
+- **Round watches match the square ones on an empty or new reading (2026-10-08; both tiers; simulator only).** `--` is grey like the hollow bolt beside it, and a curve with a single sample (a lone dot) is not drawn until a second one arrives (ADR-028 (the rectangle track), amended; ADR-021 (Body Battery in Free), amended). Tests: Pro 165, Free 76, unchanged in number (`batteryNumberIsOneColourWhateverTheLevel` and `batteryColourFollowsAgeNotLevel` replace the two dim tests; `aCurveWithNoLineIsHidden` now runs its lone-dot check on every shape).
 
 Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.13 to 13.17; simulator only, nothing on a wrist):
 

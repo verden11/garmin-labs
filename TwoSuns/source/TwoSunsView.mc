@@ -100,11 +100,10 @@ class TwoSunsView extends WatchUi.WatchFace {
     // The Body Battery band: a level pill, the value and, when there is room, the energy curve.
     private function drawBand(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
         var band = frame.band;
-        TwoSunsCurve.drawGlyph(dc, layout, band, state.batteryLevel, state.batteryStale, state.batteryAccent);
+        TwoSunsCurve.drawGlyph(dc, layout, band, state.batteryLevel, state.batteryStale, state.accent);
         TwoSunsDraw.box(layout, band.glyphLeft, band.glyphTop, band.glyphWidth, band.glyphHeight, "glyph");
-        // "--" is muted like the hollow bolt beside it, so the cell reads as one "no data" state, on every shape (ADR-028).
-        var muted = state.batteryStale || state.batteryLevel == null;
-        dc.setColor(muted ? TwoSunsPalette.MUTED : state.batteryAccent, Graphics.COLOR_TRANSPARENT);
+        // One colour whatever the level; "--" and a stale number are muted like the hollow bolt beside them (ADR-008, ADR-028).
+        dc.setColor(TwoSunsReadings.batteryColor(state), Graphics.COLOR_TRANSPARENT);
         var top = frame.rows.bandTop + (frame.bandHeight - dc.getFontHeight(frame.valueFont)) / 2;
         TwoSunsDraw.text(dc, layout, band.valueCenterX, top, frame.valueFont, state.batteryText, Graphics.TEXT_JUSTIFY_CENTER);
         drawCurve(dc, layout, frame, state);
@@ -116,7 +115,7 @@ class TwoSunsView extends WatchUi.WatchFace {
         var curve = state.curve;
         if (frame.showCurve && curve != null) {
             var band = frame.band;
-            TwoSunsCurve.draw(dc, layout, band, curve, state.batteryStale, state.batteryAccent);
+            TwoSunsCurve.draw(dc, layout, band, curve, state.batteryStale, state.accent);
             TwoSunsDraw.box(layout, band.curveLeft, band.curveTop, band.curveWidth, band.curveHeight, "curve");
         }
     }

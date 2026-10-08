@@ -46,10 +46,6 @@ class TwoSunsConfig {
     static const BATTERY_BUCKETS = 96;
     static const BATTERY_MAX = 100;               // Garmin uses 127 for "not worn"; anything above 100 is dropped
     static const BATTERY_STALE_SECONDS = 3600;    // a newest sample older than this is shown muted
-    // Our own UI threshold, not Garmin's: below this the value, pill and dot dim (TwoSunsPalette.dim),
-    // same colour the ring uses for daylight already gone, so "dim" means the same thing everywhere on
-    // the face. Not a verdict: no word, no red, just less light for less left (owner, 2026-09-27).
-    static const BATTERY_LOW_THRESHOLD = 30;
     static const BATTERY_FUTURE_SLACK_SECONDS = 300;   // a sample stamped up to 5 minutes ahead is clock skew, later is dropped
 
     // The remembered place: rounded to 0.1 degree (about 11 km), replaced only when a source is further away.

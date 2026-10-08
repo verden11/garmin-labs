@@ -28,12 +28,10 @@ class TwoSunsReadings {
     static function fillBattery(state as TwoSunsState, curve as TwoSunsBatteryCurve or Null, complication as Number or Null,
                                 showCurve as Boolean) as Void {
         state.batteryText = TwoSunsText.get(Rez.Strings.value_none);
-        state.batteryAccent = state.accent;
         if (curve == null) {
             if (complication != null && TwoSunsBattery.isValidValue(complication)) {
                 state.batteryText = complication.toString();
                 state.batteryLevel = complication;
-                state.batteryAccent = batteryAccentFor(complication, state.accent);
             }
             return;
         }
@@ -42,15 +40,15 @@ class TwoSunsReadings {
             state.batteryText = current.toString();
             state.batteryLevel = current;
             state.batteryStale = curve.stale;
-            state.batteryAccent = batteryAccentFor(current, state.accent);
             state.curve = showCurve ? curve : null;
         }
     }
 
-    // dim(accent) below the low threshold, the accent itself at or above it. The same dim the ring uses
-    // for daylight already gone, so "dim" carries one meaning across the whole face.
-    static function batteryAccentFor(level as Number, accent as Number) as Number {
-        return level < TwoSunsConfig.BATTERY_LOW_THRESHOLD ? TwoSunsPalette.dim(accent) : accent;
+    // The Body Battery number's colour: the accent whatever the level (never a colour keyed to the reading: ADR-008 (no
+    // verdicts on Body Battery), amended 2026-10-08), MUTED when there is no number ("--") or the newest sample is over an
+    // hour old. Both are about the data's presence and age, never its value; the hollow bolt beside it says the same.
+    static function batteryColor(state as TwoSunsState) as Number {
+        return state.batteryStale || state.batteryLevel == null ? TwoSunsPalette.MUTED : state.accent;
     }
 
     // 24 h keeps the leading zero (07:05); 12 h drops it (7:05), like Garmin's own faces. `minuteOfDay` may

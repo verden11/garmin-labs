@@ -34,8 +34,8 @@ class TwoSunsPalette {
     // The accent dimmed for daylight already gone: each full channel (FF) drops to AA, the others stay, so
     // the result is still 3:1 against black for every accent (a channel dropped to 00 would fall below it
     // for blue and violet) and is never the night track colour. One accent is made only of AA/FF channels
-    // (winter, 0xFFFFFF) and dims to exactly MUTED — the "no data" grey — which would make a low reading
-    // and no reading indistinguishable, the exact collision ADR-008 rejected a third dim tier to avoid.
+    // (winter, 0xFFFFFF) and dims to exactly MUTED — the "no data" grey — which would make daylight already
+    // gone read as the same grey as a missing or stale reading.
     // Caught by watch-design-reviewer, 2026-09-27: nudge the red channel one step further in that one
     // case so it never lands on MUTED, still 64-colour-safe, still darker than the source.
     static function dim(color as Number) as Number {
