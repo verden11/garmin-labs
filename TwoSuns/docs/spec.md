@@ -251,4 +251,4 @@ What the build did differently from the spec as first written (2026-09-26). Each
 | `Position.getInfo` in the location order | Isolated in one function so that dropping Positioning is a deletion | 005 |
 | Weather sun API as a cross-check | Not called at all | 003 |
 | Plan phase 5: fit test on the ten sizes plus the two rectangles | `tools/fit_all.sh` runs ten devices (`venusq2` is the only rectangle); Venu X1's full suites, screen fit included, run since 2026-10-05 (ADR-028); the other 58 products are not run by it | 009, 028 |
-| Plan phase 6: languages fit-tested | Strings written and parity-checked; `tools/fit_languages.sh` written but not run | 014 |
+| Plan phase 6: languages fit-tested | Strings written and parity-checked; `tools/fit_languages.sh` run on the Instinct sizes (2026-10-04) and on `venusq2` and `venux1`, both tiers (2026-10-06/07): all 15 languages pass both screen-fit tests, simulator only; not run on `fr255s` | 014, 028 |
