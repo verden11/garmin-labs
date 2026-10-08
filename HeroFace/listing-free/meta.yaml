@@ -42,5 +42,6 @@ site:
   privacy: https://verden.watch/heroface/privacy/
 owner_approvals:   # text, title and the uploaded images settled by the owner's upload of 2026-10-04; still open:
   - "AWAITS APPROVAL (ROADMAP 13.38, 2026-10-08): the set was re-checked against the next build: all five screens and the hero's magenta frame recaptured identical (0 pixels differ), nothing replaced; approve it as it stands for the next upload. Preview: device-test/listing-review/HeroFace-listing-free.png."
+  - "UPLOAD GATE (reviewer, 2026-10-08): paste.md 'it fills green when all three are met' is false for the next build where the Auto bars fall back to the move bar (no barometer, e.g. Venu Sq / Sq 2; the ring leaves the move bar out, ADR-005); 'Round watches, one design' predates the rectangles. Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (not done under 13.38: site/ out of scope)."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
 open_items: "5.5 6.1 7.12"   # ids in ROADMAP.md

@@ -25,7 +25,7 @@ package:
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-017 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-014 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  status: rendered 2026-10-04 from the uploaded build; whether they replaced the live images is ROADMAP 10.5
+  status: rendered 2026-10-04 from the uploaded build, screen 4 retaken 2026-10-08 from the next (unreleased) build, so this set goes up only with that upload (ROADMAP 13.38); whether they replaced the live images is ROADMAP 10.5
   cover: cover-500.png (500x500, 17 KB; mark + name + PRO badge on a mint #55FFAA ground, 2026-10-04, ROADMAP 10.25)
   hero: hero-1440x720.png (1440x720, 156 KB; mint ground, three black watch screens (to the minute, weeks, the other side of the world), line "Count down to the minute, in the time zone it starts in.")
   screens:   # upload order, 5 at most, each under 150 KB; simulator captures (canned data)
@@ -42,6 +42,7 @@ site:
   privacy: https://verden.watch/days-to-go/privacy/
 owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
   - "AWAITS APPROVAL (ROADMAP 13.38, 2026-10-08): the set retaken for the next build: screen 4 (4-rectangle, the Venu Sq 2 square design, ADR-019) is new; screens 1, 2, 3, 5 and the hero compared identical and are unchanged. Preview: device-test/listing-review/DaysToGo-listing.png. Goes up with the next upload."
+  - "UPLOAD GATE (reviewer, 2026-10-08): paste.md 'A thin ring around the bezel' and 'Round and rectangular watches alike' no longer describe screen 4 (the square design's track along the glass, ADR-019); 'full detail down to the smallest' sits beside the bottom-line sentence that the Instinct does not draw (ADR-015). Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (square design; no on-watch date picker on Venu Sq 2 / Sq 2 Music, ADR-020) (not done under 13.38: site/ out of scope)."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
   - "Native read of the machine-drafted translations of the three new phone strings (Minute, Event time zone, My watch time zone; 14 languages, resources-pro-<lang>/): ROADMAP 7.10. The 'To the minute' claims wait on the wrist checks W1 to W6 in docs/status.md (ROADMAP 3.1)."
