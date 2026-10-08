@@ -41,7 +41,7 @@ site:
   support: https://verden.watch/two-suns/support/
   privacy: https://verden.watch/two-suns/privacy/
 owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
-  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set was re-checked against the next build: all five screens recaptured identical (0 pixels differ), nothing replaced; approve it as it stands for the next upload. No rectangle is pictured (the square design, ADR-028, is not in this set). Preview: device-test/listing-review/TwoSuns-listing.png."
+  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set was re-checked against the next build: all five screens recaptured identical (0 pixels differ), nothing replaced; it goes up as it stands with the next upload. No rectangle is pictured (the square design, ADR-028, is not in this set). Preview: device-test/listing-review/TwoSuns-listing.png."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
   - "The 24-hour curve sentence and pictures went up with 1.1.0; whether the release contract allows it before the wrist check is ROADMAP 4.5."
