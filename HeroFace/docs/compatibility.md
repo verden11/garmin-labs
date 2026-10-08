@@ -61,9 +61,9 @@ instead of steps / intensity / floors, and the face runs with no empty bar.
 link, reboot survival, a day of always-on wear; [`status.md`](status.md) §1). On every
 other product the simulator proves geometry and fonts, not always-on
 behaviour, daylight contrast on MIP or battery cost. The original Venu
-(`venu`, `venud`, `d2air`) has a stricter burn-in rule than the FR965 — no
-pixel lit for more than 3 minutes — and the sleep screen is unchecked against
-it.
+(`venu`, `venud`, `d2air`) is said to have a stricter burn-in rule than the FR965 (no pixel lit for
+more than a few minutes; the figure is unverified, watch-design-kit
+`platform-facts.md`), and the sleep screen is unchecked against it.
 
 ## Not supported, and why
 

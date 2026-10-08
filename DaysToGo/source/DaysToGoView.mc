@@ -131,9 +131,14 @@ class DaysToGoView extends WatchUi.WatchFace {
         dc.setColor(color, DaysToGoPalette.BACKGROUND);
         dc.clear();
         dc.setColor(color, Graphics.COLOR_TRANSPARENT);
+        var origin = fallbackOrigin(layout, dim, minute);
+        dc.drawText(origin[0], origin[1], Graphics.FONT_MEDIUM, "?", Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+    }
+
+    // Where the "?" is centred: the screen centre, plus the sleep frame's drift while dim.
+    static function fallbackOrigin(layout as DaysToGoLayout, dim as Boolean, minute as Number) as Array<Number> {
         var shift = dim ? DaysToGoSleep.drift(layout, minute) : [0, 0] as Array<Number>;
-        dc.drawText(layout.centerX() + shift[0], layout.centerY() + shift[1], Graphics.FONT_MEDIUM, "?",
-                    Graphics.TEXT_JUSTIFY_CENTER | Graphics.TEXT_JUSTIFY_VCENTER);
+        return [layout.centerX() + shift[0], layout.centerY() + shift[1]] as Array<Number>;
     }
 
     static function fallbackColor(dim as Boolean) as Number {

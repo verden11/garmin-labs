@@ -697,7 +697,8 @@ computed from the hex value; the 64-colour `#555555` would be 2.82:1, under the 
 (defined so both palettes have the role; never drawn there). `renderIdle` draws the time in it; every awake role is unchanged
 (`MUTED` stays the clock, date and sub-line grey of the active windows). `#5C5C5C` is not a 64-colour value: only the AMOLED
 sleep frame draws it (`DayArcView` takes `renderIdle` only when the watch is asleep and `requiresBurnInProtection` is true),
-and AMOLED renders any value; MIP watches keep the full active window in sleep and never meet it.
+and every DayArc product that does is a 16-bit AMOLED (SDK `compiler.json`), which stores it as about `#5A5D5A`, still about
+3.1:1 (computed); MIP watches keep the full active window in sleep and never meet it.
 
 **Evidence.** Test `alwaysOnGreyReadsOnBlack` (both densities, every product; on the Instinct it checks white) pins the 3:1
 bar; the mono palette test now also checks `SLEEP_TEXT` is white. Suites PASSED 2026-10-08 in the container on fr965, venusq2 and instincte40mm: Pro 29, Simple 26 on each. Always-on frames and the 24-hour heat map on `fr965` and

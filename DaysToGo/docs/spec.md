@@ -143,7 +143,7 @@ These are starting proportions, not a mock-up; the mock-up comes from the design
 **As built (ADR-012):** fractional bands overlapped on the 208 px screen, because system fonts do not scale with the screen. So each row takes the largest font up to a height cap, the rows are stacked from those heights, and the hero takes the rest; on a small screen optional rows give way: the bottom line first shares the date row (ADR-016), then drops, then the name, then the date, until the hero has room for its smallest font. The ring is a full circle from the top, clockwise; on a rectangle it is a closed rounded-rectangle track from top centre, clockwise, filled by the same share of its length (ADR-019 (rectangles get a square design)). Screen-fit tests pass on the ten sizes listed in `compatibility.md`.
 
 **Always-on (AMOLED)**: only two lines, the hero number and the time, in dim grey (`#5C5C5C`, 3.14:1 on black, burn-in-protected screens only; was `#555555` until 2026-10-08, ADR-007 (always-on) amendment), the whole block stepping across a 3×3 grid once a minute
-(HeroFace's `HeroFaceSleep`). No ring, no name, no date. MIP watches show the full face at all times.
+(HeroFace's `HeroFaceSleep`). No ring, no name, no date. The error frame (a "?" when the settings cannot be read) also draws in `#5C5C5C` and drifts on the same grid while asleep there, and stays white and still otherwise (ADR-007 amendment 2026-10-08). MIP watches show the full face at all times.
 
 ## Devices and memory
 

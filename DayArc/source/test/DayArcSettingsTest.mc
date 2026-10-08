@@ -60,7 +60,8 @@ function accentIsWhiteOnTheMonoPalette(logger as Test.Logger) as Boolean {
 
 // The always-on grey (ADR-020, the studio's one always-on grey): at least 3:1 against black, the bar for a persistent colour.
 // WCAG contrast against black is (L + 0.05) / 0.05, L from the sRGB channels. #5C5C5C is 3.14:1; #555555 would fail at 2.82.
-// On colour screens it must also stay well under MUTED's 9.0:1 (below 4.5:1), so pointing renderIdle back at MUTED fails here.
+// On colour screens it must also stay well under MUTED's 9.0:1 (below 4.5:1), so setting SLEEP_TEXT back to #AAAAAA fails here
+// (pointing renderIdle at MUTED itself would not: only a code review catches that).
 (:test)
 function alwaysOnGreyReadsOnBlack(logger as Test.Logger) as Boolean {
     var color = DayArcPalette.SLEEP_TEXT;

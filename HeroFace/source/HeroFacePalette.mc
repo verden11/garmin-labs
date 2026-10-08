@@ -20,8 +20,8 @@ class HeroFacePalette {
     // Always-on time, the studio's one always-on grey (ADR-006, ROADMAP 13.25; Two Suns ADR-027): 3.14:1 against black,
     // above the >=3:1 bar for a persistent colour (0x555555, the 64-colour grey it replaces, is 2.82:1). Not a 64-colour
     // value: only HeroFaceSleep draws it, only when the watch reports requiresBurnInProtection (HeroFaceView): the
-    // AMOLEDs and, in the simulator, the 16-bit Venu Sq LCD, which render it as given. A 64-colour screen would round
-    // it to 0x555555.
+    // AMOLEDs and, in the simulator, the Venu Sq LCD; all 16-bit, so stored as about 0x5A5D5A, still about 3.1:1.
+    // MIP watches are not expected to report the flag (Garmin's AMOLED FAQ; not checked per product).
     static const SLEEP_TEXT = 0x5C5C5C;
 
     // Accent setting, by index; ids are append-only and both the Free and the Pro build offer all three

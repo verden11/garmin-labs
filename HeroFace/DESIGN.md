@@ -142,7 +142,7 @@ A black field with a single white number, a muted grey voice for everything seco
 - **Signal White** (`{colors.text}`): the time and mission values. Reserved for the two things read first.
 - **Second Voice Grey** (`{colors.muted}`): date, labels, seconds, footer numbers and drawn icons. Everything that supports the glance without competing for it.
 - **Track Grey** (`{colors.track}`): the unfilled remainder of the ring and of every pill bar. Present so the *whole* of a goal is visible behind the part that is done.
-- **Sleep Grey** (`{colors.sleep-text}`, `#5C5C5C`, 3.14:1 on black): always-on time on burn-in-protected screens, the studio's one always-on grey (ADR-006 (always-on time is the studio's one always-on grey)). It was `#555555`, the track's hex, at 2.82:1, under the 3:1 bar. Not a 64-colour value: drawn only where the watch reports burn-in protection (the AMOLEDs and, in the simulator, the 16-bit Venu Sq LCD, which render it as given); a 64-colour screen would round it to `#555555`.
+- **Sleep Grey** (`{colors.sleep-text}`, `#5C5C5C`, 3.14:1 on black): always-on time on burn-in-protected screens, the studio's one always-on grey (ADR-006 (always-on time is the studio's one always-on grey)). It was `#555555`, the track's hex, at 2.82:1, under the 3:1 bar. Not a 64-colour value: drawn only where the watch reports burn-in protection (the AMOLEDs and, in the simulator, the Venu Sq LCD; all 16-bit, so stored as about `#5A5D5A`, still about 3.1:1); a MIP watch keeps the full face in sleep: Garmin's AMOLED FAQ ties burn-in protection to AMOLED products (DaysToGo ADR-007, amended 2026-10-04); not checked per product.
 
 ### Named Rules
 
@@ -182,7 +182,7 @@ One proportion generates the whole face: `inset = min(width, height)/10`. Everyt
 
 Reference stack at 454 px: streak y=52, time y=91, date y=221, missions y=263, footer y=372. At 240 px: 28, 56, 94, 122, 190.
 
-**Two power modes, two compositions.** Awake — and asleep on MIP, where the screen is always visible — the face draws in full. Asleep on a burn-in-protected AMOLED it draws only the time, dim, in `FONT_NUMBER_MEDIUM`, and the entire block walks a 3×3 grid at `inset/2` per step, one step per minute, so no pixel stays lit.
+**Two power modes, two compositions.** Awake — and asleep on MIP, where the screen is always visible — the face draws in full. Asleep where the watch reports burn-in protection (the AMOLEDs; in the simulator also the Venu Sq LCD) it draws only the time, dim, in `FONT_NUMBER_MEDIUM`, and the entire block walks a 3×3 grid at `inset/2` per step, one step per minute, so no pixel stays lit.
 
 ### Named Rules
 

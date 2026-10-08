@@ -5,8 +5,9 @@ import Toybox.System;
 import Toybox.WatchUi;
 
 // The face: gather one HeroFaceState, then draw it. Awake it is HeroSet's
-// dashboard around a clock; asleep on AMOLED it is only a dim, drifting time
-// to respect burn-in limits; asleep on MIP it stays the full face.
+// dashboard around a clock; asleep where the watch reports requiresBurnInProtection
+// (the AMOLEDs; in the simulator also the Venu Sq LCD) it is only a dim, drifting
+// time; asleep elsewhere (MIP) it stays the full face.
 class HeroFaceView extends WatchUi.WatchFace {
 
     private var _settings as HeroFaceSettings;

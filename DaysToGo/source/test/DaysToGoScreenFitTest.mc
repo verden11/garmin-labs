@@ -121,12 +121,18 @@ function errorFrameDimsAndDriftsWhenAsleep(logger as Test.Logger) as Boolean {
     var seen = [] as Array<String>;
     var spots = DaysToGoConfig.BURN_IN_GRID * DaysToGoConfig.BURN_IN_GRID;
     for (var minute = 0; minute < spots; minute++) {
-        var shift = DaysToGoSleep.drift(layout, minute);
-        Test.assertMessage(shift[0].abs() <= step && shift[1].abs() <= step, "minute " + minute + " drifts past one step");
-        var key = shift[0] + "," + shift[1];
+        var origin = DaysToGoView.fallbackOrigin(layout, true, minute);
+        var dx = origin[0] - layout.centerX();
+        var dy = origin[1] - layout.centerY();
+        Test.assertMessage(dx.abs() <= step && dy.abs() <= step, "minute " + minute + " drifts past one step");
+        var key = dx + "," + dy;
         Test.assertMessage(seen.indexOf(key) < 0, "minute " + minute + " repeats spot " + key);
         seen.add(key);
         DaysToGoView.drawFallback(dc, layout, true, minute);   // draws without throwing at every spot
+    }
+    for (var minute = 0; minute < spots; minute++) {
+        var still = DaysToGoView.fallbackOrigin(layout, false, minute);
+        Test.assertMessage(still[0] == layout.centerX() && still[1] == layout.centerY(), "awake '?' moved at minute " + minute);
     }
     DaysToGoView.drawFallback(dc, layout, false, 0);
     return true;
