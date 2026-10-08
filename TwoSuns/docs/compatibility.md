@@ -10,7 +10,7 @@ One build for all of them: rows are stacked from measured font heights, so there
 |---|---|---|---|
 | 466 px AMOLED | 1 | `fenix9pro51mm` | `fenix9pro51mm` |
 | 454 px AMOLED | 14 | `approachs7047mm`, `d2mach2`, `d2mach2pro`, `descentmk351mm`, `epix2pro51mm`, `fenix847mm`, `fenix8pro47mm`, `fenix947mm`, `fenix9pro47mm`, `fr57047mm`, `fr965`, `fr970`, `venu3`, `venu445mm` | `fr965` (also `venu3`, full suite) |
-| 448 × 486 px AMOLED | 1 | `venux1` | **not run** |
+| 448 × 486 px AMOLED | 1 | `venux1` | full suites, both tiers (2026-10-05 to 07, ADR-028) |
 | 416 px AMOLED | 12 | `d2airx10`, `d2mach1`, `epix2`, `epix2pro47mm`, `fenix843mm`, `fenix943mm`, `fenix9pro43mm`, `fenixe`, `fr265`, `instinct3amoled50mm`, `venu2`, `venu2plus` | `epix2` |
 | 390 px AMOLED | 19 | `approachs50`, `approachs7042mm`, `descentg2`, `descentmk343mm`, `epix2pro42mm`, `fr165`, `fr165m`, `fr170`, `fr170m`, `fr57042mm`, `fr70`, `instinct3amoled45mm`, `instinctcrossoveramoled`, `marq2`, `marq2aviator`, `venu3s`, `venu441mm`, `vivoactive5`, `vivoactive6` | `fr165` |
 | 360 px AMOLED | 2 | `fr265s`, `venu2s` | `fr265s` |
@@ -67,8 +67,8 @@ Two builds, one source: **Pro** (`manifest.xml`, the live app id, `monkey.jungle
 - **Why a Free twin matters here:** a paid app is sold only on Garmin's own list, so the paid listing can reach fewer than the 69 products; a free app may not be held to that list (**to verify** against the SDK's `Monetization/App_Sales` and the store form; the Free listing's real device list is only known after approval, so no count goes in any listing).
 - Compile evidence, 2026-10-01 (compile only, simulator not used, SDK 9.2.0): both jungles, normal and test (`-t`) builds, `-w --typecheck 3`, on the ten `fit_all.sh` devices (`fr255s`, `fenix7s`, `fenix7`, `fenix7x`, `fr265s`, `fr165`, `epix2`, `fr965`, `venusq2`, `fenix9pro51mm`) and `venux1` (the 11 screen classes in the table above, the smallest round screen `fr255s` among them): 44 of 44 builds pass; zero warnings on `fr965`, `fenix9pro51mm` and `venux1`, and on the others only the known launcher-icon size notice (the placeholder icon, unchanged by this work). The whole-manifest sweep (`tools/compile_sweep.sh`, normal builds, 2026-10-01): **69 of 69 pass on each jungle, 0 fail**; 57 products per jungle carry only the launcher-icon size notice, 12 are warning-free.
 - Tests: Pro 154, Free 67 (`development.md`). Run 2026-10-03 in the container: **Pro 154 passed** and **Free 67 passed** on the ten `fit_all.sh` devices (`fr255s`, `fenix7s`, `fenix7`, `fenix7x`, `fr265s`, `fr165`, `epix2`, `fr965`, `venusq2`, `fenix9pro51mm`). Simulator only.
-- **Watch battery row (Pro, ADR-023), live-state boxes from `twoSunsLayoutReport` 2026-10-03:** drawn on `fenix7x` (280), `fr165` (390), `epix2` (416), `fr965` (454) and `fenix9pro51mm` (466); not drawn on `fr265s` and `venusq2` (360). Not measured: the other products.
-- **Weather row (Pro, ADR-022), fit measured 2026-10-03 in the simulator** (`twoSunsLayoutReport`, `everyStateFitsThisDisplay` with four weather states, `weatherRowFormFollowsTheScreen`): the two-line row on 240 px and larger round screens (and the 320 by 360 `venusq2`), the one-line row beside the date on 218 px (`fr255s`). `fr265s` (360 px) has the least room (4 px spare). Not run: `venux1`, `fenix9pro51mm`, the other 60 products' real fonts.
+- **Watch battery row (Pro, ADR-023), live-state boxes from `twoSunsLayoutReport` 2026-10-03:** drawn on `fenix7x` (280), `fr165` (390), `epix2` (416), `fr965` (454) and `fenix9pro51mm` (466); not drawn on `fr265s` (360); on `venusq2` not drawn then, drawn since ADR-028 (2026-10-07) in its own strip at the top of the rectangle's box. Not measured: the other products.
+- **Weather row (Pro, ADR-022), fit measured 2026-10-03 in the simulator** (`twoSunsLayoutReport`, `everyStateFitsThisDisplay` with four weather states, `weatherRowFormFollowsTheScreen`): the two-line row on 240 px and larger round screens (and the 320 by 360 `venusq2`), the one-line row beside the date on 218 px (`fr255s`). `fr265s` (360 px) has the least room (4 px spare). Not run then: `venux1` (run since, ADR-028), `fenix9pro51mm`, the other 60 products' real fonts.
 - Screen fit for Free is **not measured**, and its memory was read only on `fr255s` (26.1 kB of 123.8 kB) and the Instinct E (26.1 kB of 59.8 kB), 2026-10-04: Free draws fewer rows (no date, no curve), so each state is a subset of what Pro already fits and its fit is expected to be no worse, but that is inference. Run `tools/fit_all.sh monkey.free.jungle`.
 - The on-watch Customize menu has the Accent item only in Free; Pro's has the five.
 
@@ -131,10 +131,10 @@ That is 10 of 11 screen sizes from `tools/fit_all.sh` (one product each), supers
 
 ## What was NOT tested
 
-- **The rectangles by eye** (Venu Sq 2, Sq 2 Music, Venu X1): the fit test passed on all three, but the owner has not looked at them.
-- **MIP contrast in daylight** (night track `#5555AA` is 3.3:1 and the stale fill `#555555` 2.8:1; the always-on text is `#5C5C5C`, 3.1:1, AMOLED only, ADR-027, computed from hex values, not measured).
+- **The rectangles by eye** (Venu Sq 2, Sq 2 Music, Venu X1): the fit test passed on `venusq2` and `venux1` (`venusq2m` is compile-only, same screen as `venusq2`); simulator screenshots exist (ADR-028), the owner's look approval is open.
+- **MIP contrast in daylight** (night track `#5555AA` is 3.3:1 (the stale curve is the muted `#AAAAAA` line since 2026-10-05, 9:1); the always-on text is `#5C5C5C`, 3.1:1, AMOLED only, ADR-027, computed from hex values, not measured).
 - **Always-on on a real AMOLED**: lit-pixel share, ghosting, whether the screen blanks.
-- **Translations in any language.** The tests run in English; the date line in the test states is fixed English ("Wed 30 Sep"). `tools/fit_languages.sh` was written and not run. `tools/check_strings.py` checks parity and length only.
+- **Translations in any language.** The tests run in English; the date line in the test states is fixed English ("Wed 30 Sep"). `tools/fit_languages.sh` has run on the Instinct sizes (2026-10-04) and on `venusq2` and `venux1` (2026-10-06/07, both tiers); not on the other round sizes. `tools/check_strings.py` checks parity and length only.
 - **Real data**: the simulator has no GPS position, canned weather, canned Complication sun values and synthetic Body Battery history; layout and logic are proved, data never.
 - **Memory** on a real watch (a normal `-r` run was read in the simulator on 2026-10-04, "Measured 2026-10-04" above), **battery** and **CPU**.
 - **The `.iq` package contents** (89 versus 69).
