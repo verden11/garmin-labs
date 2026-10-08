@@ -47,8 +47,9 @@ export function Support() {
       <h3>The Body Battery number is “--”.</h3>
       <p>
         The watch has no valid reading in the last 24 hours, for example because it has not been worn. The face shows
-        nothing rather than guessing. A curve or number in grey, with a hollow dot, means the newest reading is more than an
-        hour old.
+        nothing rather than guessing; the “--” is grey, like the hollow bolt beside it. A curve or number in grey, with a hollow
+        dot, means the newest reading is more than an hour old. The number keeps one colour at any level. In Two Suns Pro a new
+        curve appears once two readings sit close together; until then its place under the time stays empty.
       </p>
       <h3>Is the Body Battery figure Garmin’s?</h3>
       <p>
