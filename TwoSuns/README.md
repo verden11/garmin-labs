@@ -52,7 +52,7 @@ The test runners run in a container by default (`docker/README.md`). With `CIQ_D
 
 Always-on (AMOLED): the time, the Body Battery value and the sun sentence, dim, drifting on a 3 × 3 grid; no ring, no curve. MIP watches keep the full face. Body Battery is shown as Garmin reports it: no verdicts, no advice.
 
-Settings (Garmin Connect, lists only): Accent colour, Ring orientation, Golden hour, Energy curve, Date (Pro). Free has Accent colour only. Free has no curve, no date row, no twilight or golden arc, and keeps no place; a missing Body Battery number is `--` and a hollow bolt (ADR-021, Body Battery in Free).
+Settings (Garmin Connect, lists only): Accent colour, Ring orientation, Golden hour, Energy curve, Date, Weather, Watch battery (Pro; Weather and Watch battery Off by default). Free has Accent colour only. Free has no curve, no date row, no twilight or golden arc, and keeps no place; a missing Body Battery number is `--` and a hollow bolt (ADR-021, Body Battery in Free).
 
 ## Layout
 

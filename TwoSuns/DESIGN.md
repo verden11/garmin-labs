@@ -49,7 +49,7 @@ components:
 
 # Design
 
-The visual system **as built** (2026-09-26; the owner shipped it as 1.0.0, uploaded 2026-09-27). Noted then: the rectangular screens had not been looked at by eye and the launcher icon is a placeholder. Simulator screenshots exist since 2026-10-04 (`../docker/SIMULATOR.md`); the rectangles have their own form since 2026-10-05 ("Rectangle" below). Everything here is read from the code and the simulator's layout report; nothing has been seen on a watch. The owner may replace the direction with a design-tool mock-up ([`docs/archive/plan.md`](docs/archive/plan.md) phase 4 gate); then this file and the spec change.
+The visual system **as built** (2026-09-26; the owner shipped it as 1.0.0, uploaded 2026-09-27). Noted then: the rectangular screens had not been looked at by eye and the launcher icon is a placeholder. Simulator screenshots exist since 2026-10-04 (`../docker/SIMULATOR.md`); the rectangles have their own form since 2026-10-05 ("Rectangle" below). Everything here is read from the code and the simulator's layout report; nothing had been seen on a watch then (real-FR965 photos and look feedback came later: `docs/spec.md`). The owner may replace the direction with a design-tool mock-up ([`docs/archive/plan.md`](docs/archive/plan.md) phase 4 gate); then this file and the spec change.
 
 ## Direction
 
@@ -103,7 +103,7 @@ All values have channels 00, 55, AA or FF, the device-safe palette (why: see `wa
 | Golden hour | `#FF5500` | 6.6 : 1 |
 | Stale curve line (awake only) | `#AAAAAA` (muted) | 9.0 : 1 (no fill since 2026-10-05) |
 
-Accents (default first) and their "gone" form: sky `#55AAFF` 8.6 : 1 → `#55AAAA` 7.7 (default, chosen 2026-09-27 over the old amber default: blue carries no "status" meaning, so it never misreads as a low value); mint `#55FFAA` 16.3 → `#55AAAA` 7.7; autumn (the old "amber", renamed not recoloured) `#FFAA00` 11.0 → `#AAAA00` 8.5; violet `#AA55FF` 5.5 → `#AA55AA` 4.6; pink `#FF55AA` 7.1 → `#AA55AA` 4.6; winter (the old "white") `#FFFFFF` 21.0 → `#55AAAA` 7.7 (nudged from the naive `#AAAAAA`, which is bit-identical to MUTED/stale — see "watch-design-reviewer findings, 2026-09-27" below). The unit test `dimPartsStayReadable` asserts at least 3:1 for the night track and for every accent's gone form; `dimNeverEqualsMuted` (new) asserts no accent's gone form ever equals MUTED.
+Accents (default first) and their "gone" form: sky `#55AAFF` 8.6 : 1 → `#55AAAA` 7.7 (default, chosen 2026-09-27 over the old amber default: blue carries no "status" meaning, so it never misreads as a low value); mint `#55FFAA` 16.3 → `#55AAAA` 7.7; autumn (the old "amber", renamed not recoloured) `#FFAA00` 11.0 → `#AAAA00` 8.5; violet `#AA55FF` 5.5 → `#AA55AA` 4.6; pink `#FF55AA` 7.1 → `#AA55AA` 4.6; winter (the old "white") `#FFFFFF` 21.0 → `#55AAAA` 7.7 (nudged from the naive `#AAAAAA`, which is bit-identical to MUTED/stale — a watch-design-reviewer finding of 2026-09-27). The unit test `dimPartsStayReadable` asserts at least 3:1 for the night track and for every accent's gone form; `dimNeverEqualsMuted` (new) asserts no accent's gone form ever equals MUTED.
 
 Always-on text is `#5C5C5C`, 3.1:1 (was `#555555` 2.8:1, then `#5555AA` 3.3:1 from 2026-09-27; now a grey, ADR-027 (always-on text is a dim grey), `docs/decisions.md`). The stale curve is the muted `#AAAAAA` line, 9:1 (no fill since 2026-10-05; the old stale fill was `#555555`, 2.8:1). `TwoSunsPalette.TRACK` (`#555555`) is defined but no code draws it.
 
