@@ -39,7 +39,7 @@ Routes come from the app registry, so adding an app adds its three pages.
 
 ## Adding an app
 
-1. Create `src/apps/<slug>/` with an `app.ts` exporting an `App` (`src/apps/types.ts`): name, summary, field color + readable ink on it, mark, and `Landing`, `Support`, `Privacy` components. Copy `src/apps/heroset/` as a starting point.
+1. Create `src/apps/<slug>/` with an `app.ts` exporting an `App` (`src/apps/types.ts`): name, summary, field color + readable ink on it, mark, and `Landing`, `Support`, `Privacy` components; `storeUrl` once live, plus `freeStoreUrl` when a free twin exists (then `storeUrl` is the Pro listing, the store action splits in two, and the landing uses `FreeOrPro`). Copy `src/apps/heroset/` as a starting point.
 2. Add it to the list in `src/apps/index.ts`.
 3. `npm run build`.
 
@@ -72,13 +72,13 @@ vite.config.ts          dev middleware that renders pages on request
 
 ## HeroFace specifics
 
-- `src/apps/heroface/facts.ts` mirrors HeroFace `docs/compatibility.md` (117 watches, 66 that can link to HeroSet) and the language list.
-- `src/apps/days-to-go/` has no `storeUrl` until the store approves the app (the page shows "Coming soon"); its `facts.ts` carries only the language list, no watch list, until a live store build exists. Slug has a hyphen: `dist/days-to-go/index.html` is verified.
+- `src/apps/heroface/facts.ts` mirrors HeroFace `docs/compatibility.md` (129 watches from the manifests via `scripts/watch-families.py`, 72 on Connect IQ 4.2+ that can link to HeroSet) and the language list. Free and Pro share the page: `freeStoreUrl` is HeroFace (free), `storeUrl` HeroFace Pro.
+- `src/apps/days-to-go/`: `storeUrl` is Days To Go Pro, `freeStoreUrl` Days To Go (free); one shared page with a "Free or Pro." band. `facts.ts` has the watch list from the manifests. Slug has a hyphen: `dist/days-to-go/index.html` is verified.
 - `FacePreview.tsx` redraws the face in SVG from HeroFace's `HeroFaceLayout.mc` proportions; if the watch layout changes, update it.
 - Claims follow HeroFace `docs/status.md` ("Claims allowed and forbidden"). Screen checks cover every screen size, not every model: say so.
 
 ## Two Suns specifics
 
-- `src/apps/two-suns/` has no `storeUrl` until the store approves the app; its `facts.ts` holds the working name (`appName`), the language list and the permission list (mirrors `TwoSuns/manifest.xml`; Positioning is provisional), and no watch list.
+- `src/apps/two-suns/`: `storeUrl` is Two Suns Pro, `freeStoreUrl` Two Suns (free). Its `facts.ts` holds the name (`appName`), the language list, Pro's permission list (mirrors `TwoSuns/manifest.xml`) and the watch list. The privacy page has a separate free-face section (no location, no place or history kept).
 - `FacePreview.tsx` is a drawing built from SVG primitives with example numbers, captioned as not a screenshot on the landing page. Replace it with real captures (`Screens`) once the owner has them.
 - Claims follow `TwoSuns/docs/spec.md` "Claims that may be made": no sunrise-matches-the-glance claim and no works-without-GPS-or-phone claim until the device checks pass.
