@@ -59,7 +59,7 @@ The visual system **as built** (2026-09-26; the owner shipped it as 1.0.0, uploa
 
 watch battery (muted, optional, Pro) · date (muted, optional) · **time** · weather (Pro) · Body Battery band = [bolt] [value] [curve] · sun sentence.
 
-Each row takes the largest font up to a height cap (share of D, the shorter screen side); the rows are then stacked from their measured heights and centred (Days To Go ADR-012). Every text is measured against the round chord at its row: the sun sentence steps down through its wordings (full, shorter, shortest) and fonts, and only when nothing fits does it end in "...". Rectangular screens (Venu Sq 2, Sq 2 Music, Venu X1) have their own square form: see "Rectangle" below (ADR-028 (the rectangle track), proposed 2026-10-05, simulator only, look not yet approved).
+Each row takes the largest font up to a height cap (share of D, the shorter screen side); the rows are then stacked from their measured heights and centred (Days To Go ADR-012). Every text is measured against the round chord at its row: the sun sentence steps down through its wordings (full, shorter, shortest) and fonts, and only when nothing fits does it end in "...". Rectangular screens (Venu Sq 2, Sq 2 Music, Venu X1) have their own square form: see "Rectangle" below (ADR-028 (the rectangle track), accepted 2026-10-08, look approved by the owner from simulator screenshots).
 
 **Drop order** when the stack is taller than the span (800 permille of the content circle): the date, then the curve, then the sun line. The time and the Body Battery value never drop. A curve whose chord width is under 180 permille of D is dropped too; the glyph and value stay.
 
@@ -123,7 +123,7 @@ A row between the time and the Body Battery band: **now** = a condition icon (1.
 
 One muted `#AAAAAA` row above the first row of the stack: a classic battery (outline, nub, fill) and the whole percent, centred. It lives in the strip between the stack and the ring, so it never moves another row on a round screen (on a rectangle its strip comes off the top of the box and can step the time down a size, ADR-028), and it is drawn only where its ink fits the round chord (round: drawn on 280, 390, 416, 454 and 466 px screens, not on the round 360 px, by the simulator's fonts; rectangles: drawn on both, in its own strip at the top of the box, ADR-028). Setting `Battery`, Off by default (since 2026-10-05, ROADMAP 13.13). No charging mark, no low colour. Not drawn always-on. The next-day marker in the weather row is an arrow (shaft and filled head, muted), not a character.
 
-## Rectangle (Venu Sq 2, Sq 2 Music, Venu X1; ADR-028 (the rectangle track), proposed 2026-10-05, built, simulator only, look approval open)
+## Rectangle (Venu Sq 2, Sq 2 Music, Venu X1; ADR-028 (the rectangle track), accepted 2026-10-08, look approved by the owner from simulator screenshots; the round follow-up of 2026-10-08 awaits its own approval)
 
 The square watches get a square face, not the round one inscribed in them. Same meanings, same rows and the same colours. The two rectangle-only differences of 2026-10-05 (a muted `--`, no lone-dot curve) apply to round too since 2026-10-08 (ADR-028 amendment), so only the geometry follows the screen.
 

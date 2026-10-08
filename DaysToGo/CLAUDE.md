@@ -20,7 +20,7 @@ The evidence is in [`../reports/Countdown face research.md`](../reports/Countdow
 - Settings are **lists**, never `type="date"` or `numeric` min/max (both failed in rival faces).
   `tools/gen_settings.py [free|pro]` writes `resources-free/settings/*` and `resources-pro/settings/*` (**no settings file in the shared `resources/`**) and `resources/strings/generated.xml`.
   `AppName` lives only in `resources-free/strings` and `resources-pro/strings`, never in `resources/` or a `resources-<lang>/` (it would override the tier name on a non-English watch); each jungle appends its tier folder to every `base.lang.<l>`.
-  The date can also be set **on the watch** (`getSettingsView`, Menu2 + Picker; 94 of the 117 round products; not checked for the 5 rectangles).
+  The date can also be set **on the watch** (`getSettingsView`, Menu2 + Picker; 94 of the 117 round products; on Venu Sq, Sq Music and X1, **not on Venu Sq 2 / Sq 2 Music**: their system picker is 30 px wide, so the jungles drop `getSettingsView` there with the `picker` annotation, ADR-020 (no on-watch picker on the Sq 2)).
 - The count is integer calendar-day arithmetic (`DaysToGoCalendar.dayNumber`); never `Time.Moment` maths.
   It flips at local midnight. See `docs/spec.md` "Rules the count follows".
 - Properties only (no `Storage`), no permissions, nothing leaves the watch.

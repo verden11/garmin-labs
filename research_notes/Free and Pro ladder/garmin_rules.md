@@ -64,6 +64,7 @@ All **measured** by reading the live page in a browser, 2026-09-28, unless marke
 - Live listings change only when the owner edits them in the dashboard (HeroSet, HeroFace, Days To Go, Two Suns). **Every listing detail
   (description, title, screenshots, cover, hero, pricing, every other field) can be edited at any time, without a new version, whether the
   app is in review or approved** (owner, from the dashboard, 2026-10-05). So text and images follow what the LIVE build does, not the next one.
+  **A new version can be uploaded while an earlier version is still in review** (owner, from the dashboard, 2026-10-08).
 
 ## Not documented (do not assume)
 

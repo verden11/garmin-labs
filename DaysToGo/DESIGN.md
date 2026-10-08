@@ -82,6 +82,8 @@ A square watch gets a square face, not the round one inscribed in it (owner, 202
 
 Three columns that share the screen width, so each label must fit a third of it. The month is the **short word in the watch's language** (the same "Oct" the date row uses, `DaysToGoDateText.monthWord`), never the full name. The label font steps down with the screen: `FONT_TINY` up to 176 px (the Instinct family), `FONT_SMALL` up to 280 px (the MIP watches), `FONT_MEDIUM` above (ADR-005, amended 2026-10-04). The year column's first entry ("Every year") is broken after its first word onto two lines. White text on a black ground: the picker clears to black first, as the SDK's own Picker sample does (the simulator ignores that clear on a colour MIP watch, so only a wrist can confirm it).
 
+How many columns show at once is the system's, per device (its picker slots): one at a time on the rounds and the Venu X1, a carousel of three (focused in the middle) on the Venu Sq. The Venu Sq 2 and Sq 2 Music get no picker at all: their focused slot is 30 px wide, so no label fits (ADR-020 (no on-watch picker on the Sq 2)).
+
 ## Constraints
 
 Primitives and system fonts only, no bitmaps. Every colour but the always-on grey (`sleep-text`, `#5C5C5C`, drawn only where the watch reports burn-in protection, ADR-007 amendment 2026-10-08, pinned by `alwaysOnGreyReadsOnBlack`) has channels 00, 55, AA or FF, the device-safe palette (why: see `watch-design-kit`'s `watch-design-lead` skill). The look is the spec's recommended direction; the owner may replace it with a design-tool mock-up (`docs/archive/plan.md` phase 4 gate).
