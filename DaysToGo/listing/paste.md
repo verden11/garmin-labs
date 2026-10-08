@@ -126,7 +126,7 @@ Leave blank.
 
 ## Monetization
 
-**No**
+**Paid: Yes**, price tier USD 2.50 (Garmin's guideline 4d: a paid listing requires payment; only the Free twins answer No)
 
 ## Additional Hardware Requirements
 
