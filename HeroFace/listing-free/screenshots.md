@@ -77,3 +77,7 @@ Limits from [`../../reports/listing-template.md`](../../reports/listing-template
 - The real face from the Free build; the one patched thing is the canned HeroSet value (shot 4).
 - Nothing on a Free picture that Free does not have; Pro's pictures show the Pro-only things.
 - No claim in an image that the listing could not make ([`../docs/release-contract.md`](../docs/release-contract.md)): no battery, always-on, accuracy, watch count, rating or price.
+
+## Language heroes (2026-10-08)
+
+Each listing language has its own hero (owner, 2026-10-08). `hero-1440x720-es.png` (Spanish) and `hero-1440x720-zh.png` (Chinese, Simplified) are `src/hero.html` with the line translated: the page swaps the text when its URL ends in `#es` or `#zh`; the name, the PRO badge and the watches are unchanged. Chinese falls back from Archivo to Noto Sans SC (Google Fonts), so Latin letters and digits stay Archivo. the hero command above with `src/hero.html#es` or `src/hero.html#zh` as the URL renders each. The English render is unchanged by this (checked byte for byte, 2026-10-08). Machine-drafted text, not read by a native speaker.

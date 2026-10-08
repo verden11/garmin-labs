@@ -62,3 +62,7 @@ Limits checked with `ls -l` after each render: cover under 300 KB; hero under 20
 ## Rules
 
 Screenshots under 150 KB each; cover 500x500 (under 300 KB); hero 1440x720 (under 2048 KB, optional); device icons 128x128. Do not crop a screen into a claim about real readings. No price number in any image; the word "free" appears in no Pro image.
+
+## Language heroes (2026-10-08)
+
+Each listing language has its own hero (owner, 2026-10-08). `hero-1440x720-es.png` (Spanish) and `hero-1440x720-zh.png` (Chinese, Simplified) are `src/hero.html` with the line and the three captions ("Body Battery" stays) translated: the page swaps the text when its URL ends in `#es` or `#zh`; the name, the PRO badge and the watches are unchanged. Chinese falls back from Archivo to Noto Sans SC (Google Fonts), so Latin letters and digits stay Archivo. `DayArc/tools/render_listing_images.sh listing-pro` renders all three. The English render is unchanged by this (checked byte for byte, 2026-10-08). Machine-drafted text, not read by a native speaker.

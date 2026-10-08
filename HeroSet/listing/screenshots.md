@@ -63,3 +63,7 @@ HeroSet/tools/render_listing.sh
 ## Honesty rules
 
 Real captures of the store build, never mock-ups; the display pixels are only resized (Instinct) with the skin; the background is the only thing removed. Simulator data is canned (the seeded reps, the clock, the simulated heart rate, calories `--`). No price number in any image. Nothing in an image claims accuracy, a wrist test, the Instinct 2 family, or a glance. The Instinct image shows one Instinct E 45 mm in the simulator: the Instinct claim waits for the store's device list ([`../docs/release-contract.md`](../docs/release-contract.md)).
+
+## Language heroes (2026-10-08)
+
+Each listing language has its own hero (owner, 2026-10-08). `hero-1440x720-es.png` (Spanish) and `hero-1440x720-zh.png` (Chinese, Simplified) are `src/hero.html` with the line translated: the page swaps the text when its URL ends in `#es` or `#zh`; the name, the PRO badge and the watches are unchanged. Chinese falls back from Archivo to Noto Sans SC (Google Fonts), so Latin letters and digits stay Archivo. `HeroSet/tools/render_listing.sh` renders all three. The English render is unchanged by this (checked byte for byte, 2026-10-08). Machine-drafted text, not read by a native speaker.

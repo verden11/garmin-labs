@@ -45,3 +45,7 @@ Garmin: screenshots under 150 KB each, cover 500x500 under 300 KB, hero 1440x720
 ## Not done
 
 - The always-on (sleep) state (needs a wrist); a wrist photo; the owner's real launcher icon (ROADMAP 3.3).
+
+## Language heroes (2026-10-08)
+
+Each listing language has its own hero (owner, 2026-10-08). `hero-1440x720-es.png` (Spanish) and `hero-1440x720-zh.png` (Chinese, Simplified) are `src/hero.html` with the line translated: the page swaps the text when its URL ends in `#es` or `#zh`; the name, the PRO badge and the watches are unchanged. Chinese falls back from Archivo to Noto Sans SC (Google Fonts), so Latin letters and digits stay Archivo. `DaysToGo/tools/render_listing.sh <free|pro> hero` renders all three. The English render is unchanged by this (checked byte for byte, 2026-10-08). Machine-drafted text, not read by a native speaker.

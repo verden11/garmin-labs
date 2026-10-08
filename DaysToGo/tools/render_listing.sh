@@ -16,7 +16,8 @@ shot() {  # shot <html> <png> <w> <h>
 for w in $what; do
   case $w in
     cover) shot cover.html cover-500.png 500 500;;
-    hero) shot hero.html hero-1440x720.png 1440 720;;
+    hero) shot hero.html hero-1440x720.png 1440 720   # and one hero per listing language (owner, 2026-10-08): src/hero.html#es / #zh swaps the line
+          shot "hero.html#es" hero-1440x720-es.png 1440 720; shot "hero.html#zh" hero-1440x720-zh.png 1440 720;;
     icon) shot icon.html icon-24-128.png 128 128; python3 "$D/src/quantize64.py" "$D/icon-24-128.png" "$D/icon-64-128.png";;
     screens) [ "$TIER" = free ] && S=528 || S=498; shot instinct-up.html screens/5-instinct.png $S $S;;   # Free 176 px x3, Pro 166 px x3   # nearest-neighbour x3 of the native Instinct capture; see screenshots.md
   esac

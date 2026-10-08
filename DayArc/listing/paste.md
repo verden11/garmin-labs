@@ -53,7 +53,7 @@ Support and answers: https://verden.watch/day-arc/support/
 
 ## Hero Image
 
-`hero-1440x720.png`
+`hero-1440x720.png` (English). The hero is per language (owner, 2026-10-08): Spanish `hero-1440x720-es.png`, Chinese (Simplified) `hero-1440x720-zh.png`; see `paste-translations.md`.
 
 ## Category
 
