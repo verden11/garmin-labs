@@ -81,7 +81,7 @@ Readout by 2026-12-31: for each Free listing, bucket, reviews, Instinct rank; Su
 ### Phase 2: cadence and the second-store spike (2027-01 to 2027-03)
 
 1. **Cadence:** one new Garmin product every 5–6 weeks, Free first, Pro only where a density headline exists. Order by shelf and reuse: CloseHour (app, approved plan, Free), then the Opportunities backlog specs that reuse the face engine (Field Face for MIP/Instinct, Rank Face) before anything needing a new engine. Each product: agent builds in a worktree, design lead plus fresh design reviewer until "ship", you approve looks and upload. Your time per product: about 3 h.
-2. **Wear OS spike, time-boxed to 4 weeks of agent work and about 4 h of yours.** Steps: open a Google Play developer account ($25 one-time, business account if available to skip the 12-tester rule); install Watch Face Studio (free) and the Android emulator; port the simplest face (Days To Go Free) to the Watch Face Format; sideload to a used Galaxy Watch; run the 12-tester closed test if the account is personal; publish free. Readout at 90 days after publish: installs per day against the Garmin twin. Buy decision for the watch is yours (section 7).
+2. **Wear OS spike, time-boxed to 4 weeks of agent work and about 4 h of yours.** Steps: open a Google Play developer account ($25 one-time, personal); **the same week, join the tester-swap communities the owner already knows (you test others' apps, they test yours) and book 12 testers before the watch is bought** (owner, 2026-10-08: known route, expected to work; a business account would skip the rule but needs a registration and a D-U-N-S number, not worth it for a spike); install Watch Face Studio and the Android emulator; port the simplest face (Days To Go Free) to the Watch Face Format; upload to the closed track and start the 14-day clock **before** sideloading to the used Galaxy Watch, so the hardware never waits on the clock; publish free when Play grants production access. Readout at 90 days after publish: installs per day against the Garmin twin. Buy decision for the watch is yours (section 7).
 3. **Store copy translations** pasted (13.33) and the "More from Verden" block in every listing (13.32), with each product's next upload.
 4. **Month-6 review** (about 2027-03-31): total Pro sales, which Free listing moves, Wear OS installs. Decide: keep both stores, or go Garmin-only, or shift the cadence to Wear OS.
 
@@ -179,7 +179,7 @@ Section 1 (Decide):
 
 Section 3 (Agent can do now):
 - [ ] 16.4 `[agent]` Huawei Watch Face Store designer programme: read fee, revenue share, payout countries and tool in a browser; record in `research_notes/Passive income plan/platforms.md`. No spike without the owner.
-- [ ] 16.5 `[agent]` Wear OS spike, time-boxed 4 weeks: Watch Face Format port of Days To Go Free, emulator screenshots, closed-test plan for Google Play's 12-tester rule, Play listing draft. Stop and report if a second engine is needed.
+- [ ] 16.5 `[agent]` Wear OS spike, time-boxed 4 weeks: Watch Face Format port of Days To Go Free, emulator screenshots, closed-test track live with the owner's tester-swap recruits (12 opted in, 14 continuous days; owner recruits, agent tracks the opt-in count), Play listing draft. Stop and report if a second engine is needed or the 12 are not reached in 6 weeks.
 - [ ] 16.6 `[agent]` Monthly readout file `research_notes/Passive income plan/readouts.md`: per listing bucket, reviews, Instinct rank, Pro sales (owner pastes), against the phase stop rules.
 
 Section 4 (Waiting on a date):
