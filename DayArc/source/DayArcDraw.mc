@@ -192,6 +192,6 @@ class DayArcDraw {
         // so a horizontally-drifted frame stays inside it in either direction — watch-design-
         // reviewer's second pass, 2026-09-28: the first fix only reached renderActive, not this.
         var maxWidth = layout.rowMaxWidth(y, clockHeight) - 2 * step;
-        DayArcText.centered(dc, layout.centerX() + dx, y, DayArcLayout.CLOCK_FONTS, clockText, maxWidth, DayArcPalette.MUTED);
+        DayArcText.centered(dc, layout.centerX() + dx, y, DayArcLayout.CLOCK_FONTS, clockText, maxWidth, DayArcPalette.SLEEP_TEXT);
     }
 }

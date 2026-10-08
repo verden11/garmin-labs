@@ -6,6 +6,9 @@ store's "What's New" text for each version is in that listing's `listing/paste.m
 
 ## Unreleased
 
+- **Always-on time in the studio's one always-on grey, `#5C5C5C`, both listings (ADR-020, 2026-10-08, AMOLED watches only,
+  simulator only):** the dim always-on time was the awake grey `#AAAAAA`; it is now the dimmer `#5C5C5C` the other faces use
+  (3.14:1 against black, about a quarter of the light). MIP watches and the Instinct are unchanged.
 - **Square design on the rectangular watches (Venu Sq 2, Venu Sq 2 Music, Venu X1), both listings (ADR-019, 2026-10-05,
   simulator only, awaiting the owner's look at the screenshots):** the window-progress arc follows the screen as the top of a
   rounded-rectangle track, the Stress and Body Battery gauge is a straight bar, and the time, date and readings use the room

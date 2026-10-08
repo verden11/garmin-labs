@@ -24,6 +24,7 @@ and Pro says so in its own body.
 | 016 | Grid cells whole or not at all, Pro without a grid before trimming, half-size Instinct hero icons, icon level with the digits | Accepted 2026-10-04 (owner's standing authorisation) — simulator only |
 | 017 | Hero icons follow the screen (two sizes per screen), a line-icon weather glyph, the hero label before a grid row | Accepted 2026-10-04 (owner's standing authorisation) — simulator only |
 | 019 | Rectangles get a square design: a track that follows the glass, a straight gauge | Accepted 2026-10-05 — simulator only, screenshots for the owner's approval |
+| 020 | Always-on time in the studio's one always-on grey, `#5C5C5C` | Accepted 2026-10-08 (owner's standing authority) — simulator only |
 
 ## ADR-001: Device set / API floor
 
@@ -678,4 +679,31 @@ morning on all three show the sentence centred below the window and two pill row
 **Amendment, review pass ten:** on a rectangle, Pro's morning without weather (no hero row) is centred in the inner box, keeping
 room for one more grid row than reserved (`DayArcStack.attempt`); top-anchored it left about 150 px blank under the grid on the
 Venu X1. Round and Instinct Pro stay top-anchored. Simulator only (Venu Sq 2 and X1 Pro recaptured).
+
+## ADR-020: Always-on time in the studio's one always-on grey, `#5C5C5C`
+
+**Status:** Accepted 2026-10-08 (agent, under the owner's standing authority to take the recommended option; ROADMAP 13.25,
+one always-on grey for the studio). Simulator only.
+
+**Context.** The AMOLED always-on frame (`DayArcDraw.renderIdle`: the time only, drifting on a 3 x 3 grid) drew the time in
+`MUTED` `#AAAAAA`, 9.0:1 against black and 0.40 relative luminance, about 3.8 times the always-on grey the other faces use.
+No ADR or DESIGN.md line gives a reason for `MUTED` there: "Motion / always-on" says the frame was TwoSuns's `TwoSunsSleep`
+pattern reused, and Two Suns has since moved its always-on text to `#5C5C5C` (Two Suns ADR-027 (always-on text is a dim
+grey)); the frame's own stated philosophy is "fewest lit pixels", which a dimmer grey serves. Checked before the change: no
+1-bit path depends on it (the Instinct is not AMOLED and never enters `renderIdle`; its palette maps every role to white).
+
+**Decision.** A new role, `DayArcPalette.SLEEP_TEXT`: `#5C5C5C` on the colour palette (3.14:1 against black, WCAG formula,
+computed from the hex value; the 64-colour `#555555` would be 2.82:1, under the studio's 3:1 bar), white on the 1-bit palette
+(defined so both palettes have the role; never drawn there). `renderIdle` draws the time in it; every awake role is unchanged
+(`MUTED` stays the clock, date and sub-line grey of the active windows). `#5C5C5C` is not a 64-colour value: only the AMOLED
+sleep frame draws it (`DayArcView` takes `renderIdle` only when the watch is asleep and `requiresBurnInProtection` is true),
+and AMOLED renders any value; MIP watches keep the full active window in sleep and never meet it.
+
+**Evidence.** Test `alwaysOnGreyReadsOnBlack` (both densities, every product; on the Instinct it checks white) pins the 3:1
+bar; the mono palette test now also checks `SLEEP_TEXT` is white. Suites PASSED 2026-10-08 in the container on fr965, venusq2 and instincte40mm: Pro 29, Simple 26 on each. Always-on frames and the 24-hour heat map on `fr965` and
+`venux1`, simulator only: DESIGN.md "Motion / always-on". Not measured: legibility outdoors on a wrist (the owner's FR965 has
+run the final builds since 2026-10-05, in `#AAAAAA`; ROADMAP 1.1).
+
+**Reversed by.** The always-on night on a wrist showing the time unreadable at 3.1:1: one constant, `SLEEP_TEXT` (or point
+`renderIdle` back at `MUTED`).
 

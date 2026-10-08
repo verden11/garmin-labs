@@ -5,6 +5,7 @@ colors:
   ground: "#000000"
   text: "#FFFFFF"
   muted: "#AAAAAA"
+  sleep-text: "#5C5C5C"   # AMOLED always-on time only (ADR-020); not a 64-colour value, never drawn on MIP
   accent: the wearer's Accent colour (ADR-014). Auto (default) = the three per-window hues below, exactly as approved in ADR-013; or ONE fixed hue for the arc, hero value, gauge fill and hero icon in every non-night window — cyan #55FFFF, amber #FFAA00, rose #FF55AA, green #55FF55, blue #55AAFF, purple #AA55FF. A list, never a free picker; all 64-colour-safe
   accent_morning: "#FFAA00"   # Auto's hue for morning
   accent_midday: "#55FFFF"    # Auto's hue for midday
@@ -327,7 +328,9 @@ Drawn in pixel coordinates (viewBox = size) so the SDK never resamples, odd stro
 
 ## Motion / always-on
 
-AMOLED (`requiresBurnInProtection`) sleep: time only, `MUTED` colour, stepping across a 3×3 grid
+AMOLED (`requiresBurnInProtection`) sleep: time only, in `SLEEP_TEXT` `#5C5C5C` (3.14:1 on black; the studio's one
+always-on grey, ADR-020 (always-on time in the studio's one always-on grey); `MUTED` `#AAAAAA` until 2026-10-08, about 3.8
+times the light), stepping across a 3×3 grid
 every minute (TwoSuns's proven `TwoSunsSleep` pattern, reused — `DayArcConfig.BURN_IN_GRID`,
 `DayArcLayout.driftStep`). No hero, no gauge, no grid while asleep on AMOLED — the fewest lit
 pixels, not a reduced version of the active frame. MIP screens never enter this state; they keep

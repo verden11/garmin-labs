@@ -1,7 +1,7 @@
 import Toybox.Lang;
 
-// 64-colour-safe (each channel 0x00/0x55/0xAA/0xFF, MIP-exact) per DESIGN.md. Auto (the default)
-// keeps ADR-013's one accent hue per WINDOW; the wearer may instead pick one fixed hue from a
+// 64-colour-safe (each channel 0x00/0x55/0xAA/0xFF, MIP-exact) per DESIGN.md, except the AMOLED-only
+// SLEEP_TEXT. Auto (the default) keeps ADR-013's one accent hue per WINDOW; the wearer may instead pick one fixed hue from a
 // short list (ADR-014, "Accent colour") for every active window. Either way the hue is keyed to the
 // window or to the wearer's own choice, NEVER to the value shown: stress and Body Battery stay one
 // constant hue whatever they read, so ADR-006's no-verdict rule holds even if the wearer picks
@@ -14,6 +14,11 @@ class DayArcPalette {
     static const TEXT = 0xFFFFFF;
     static const MUTED = 0xAAAAAA;      // secondary labels, "--" empty values
     static const ARC_TRACK = 0x555555;  // faint: the arc's own background track, and the Pro divider
+    // Always-on (AMOLED only, so it need not be 64-colour safe): the studio's one always-on grey (ADR-020; Two Suns
+    // ADR-027). 3.14:1 against black, above the >=3:1 bar for a persistent colour, at about a quarter of MUTED's
+    // luminance (MUTED, 9.0:1, was the always-on colour before). Only DayArcDraw.renderIdle draws it, and only when the
+    // watch requires burn-in protection (DayArcView), so a MIP watch never meets a value off its palette.
+    static const SLEEP_TEXT = 0x5C5C5C;
 
     // The selectable hues, in the order settings.xml offers them after Auto (choice N = index N-1).
     // All >=3:1 against black (WCAG). The hero icon bitmaps are generated per hue in this same
@@ -53,6 +58,7 @@ class DayArcPalette {
     static const TEXT = 0xFFFFFF;
     static const MUTED = 0xFFFFFF;
     static const ARC_TRACK = 0xFFFFFF;
+    static const SLEEP_TEXT = 0xFFFFFF;
     static const HUE_CYAN = 0;
     static const HUE_AMBER = 1;
     static const HUE_ROSE = 2;
