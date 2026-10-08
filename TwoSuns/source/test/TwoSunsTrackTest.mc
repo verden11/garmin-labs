@@ -10,15 +10,11 @@ import Toybox.Test;
 const TRACK_SIZES = [[320, 360, 10], [448, 486, 68]] as Array<Array<Number>>;   // width, height, glass corner radius
 (:debug)
 const RING_WIDTH_PERMILLE_TEST = 25;   // TwoSunsLayout's ring width, of D
-(:debug)
-const RING_GAP_PERMILLE_TEST = 10;
 
 (:debug)
 function testTrack(size as Array<Number>) as TwoSunsTrack {
     var d = size[0] < size[1] ? size[0] : size[1];
-    var width = d * RING_WIDTH_PERMILLE_TEST / TwoSunsConfig.PERMILLE;
-    var inset = width / 2 + d * RING_GAP_PERMILLE_TEST / TwoSunsConfig.PERMILLE;
-    return new TwoSunsTrack(size[0], size[1], inset, d * TwoSunsTrack.CORNER_PERMILLE / TwoSunsConfig.PERMILLE);
+    return new TwoSunsTrack(size[0], size[1], TwoSunsLayout.trackInsetFor(d), d * TwoSunsTrack.CORNER_PERMILLE / TwoSunsConfig.PERMILLE);
 }
 
 (:debug)
@@ -74,11 +70,37 @@ function trackStaysOnTheDisplay(logger as Test.Logger) as Boolean {
 
 (:debug)
 function insideGlass(at as [Float, Float], w as Number, h as Number, glass as Number) as Boolean {
+    return discInsideGlass(at, 0, w, h, glass);
+}
+
+// A disc of `reach` px round `at` lies on the display and inside its rounded glass corners.
+(:debug)
+function discInsideGlass(at as [Float, Float], reach as Number, w as Number, h as Number, glass as Number) as Boolean {
+    if (at[0] < reach || at[0] > w - reach || at[1] < reach || at[1] > h - reach) {
+        return false;
+    }
     var cx = at[0] < glass ? glass : (at[0] > w - glass ? w - glass : at[0]);
     var cy = at[1] < glass ? glass : (at[1] > h - glass ? h - glass : at[1]);
     var dx = at[0] - cx;
     var dy = at[1] - cy;
-    return Math.sqrt(dx * dx + dy * dy) <= glass;
+    return Math.sqrt(dx * dx + dy * dy) + reach <= glass;
+}
+
+// The sun marker with its black halo stays on the display and inside the glass corners at every minute, on both sizes.
+(:test)
+function sunMarkerStaysOnTheGlass(logger as Test.Logger) as Boolean {
+    for (var i = 0; i < TRACK_SIZES.size(); i++) {
+        var w = TRACK_SIZES[i][0];
+        var h = TRACK_SIZES[i][1];
+        var d = w < h ? w : h;
+        var track = testTrack(TRACK_SIZES[i]);
+        var reach = TwoSunsRing.markerReach(d * RING_WIDTH_PERMILLE_TEST / TwoSunsConfig.PERMILLE);
+        for (var m = 0; m < TwoSunsConfig.MINUTES_PER_DAY; m++) {
+            var at = track.pointAt(track.distanceFor(m, TwoSunsConfig.ORIENTATION_NOON_TOP), 0.0);
+            Test.assertMessage(discInsideGlass(at, reach, w, h, TRACK_SIZES[i][2]), "marker off the glass at minute " + m + " (" + w + ")");
+        }
+    }
+    return true;
 }
 
 // The inner box is the full width beside the centre, narrower inside its rounded corners, and nothing past its top.
@@ -124,5 +146,124 @@ function rectangleHidesACurveWithNoLine(logger as Test.Logger) as Boolean {
         Test.assert(!new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], lone, true), false).showCurve);
         Test.assert(new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], line, true), false).showCurve);
     }
+    return true;
+}
+
+// On a rectangle the grown time never pushes the weather row out (a size that would is skipped for the next smaller
+// one), and the time is sized for the Weather setting, not for the data: it keeps its size when the data goes. Pro only.
+(:test, :pro)
+function rectangleGrowthKeepsTheWeatherRow(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    if (layout.track() == null) {
+        return true;
+    }
+    var days = [TwoSunsTestStates.widestDay(), TwoSunsTestStates.widestNextDay()] as Array<TwoSunsWeather>;
+    for (var i = 0; i < days.size(); i++) {
+        var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true), days[i]);
+        state.weatherOn = true;
+        var frame = new TwoSunsFrame(dc, layout, state, false);
+        Test.assertMessage(frame.weatherMode != TwoSunsConfig.WEATHER_ROW_NONE, "weather row dropped for the time, day " + i);
+        var bare = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true);
+        bare.weatherOn = true;
+        Test.assertEqual(new TwoSunsFrame(dc, layout, bare, false).timeFont, frame.timeFont);
+    }
+    return true;
+}
+
+// On a rectangle the Battery setting costs the time a size only when the battery row then draws: with the setting on and
+// no room for the row, the time is the same as with it off. Pro only.
+(:test, :pro)
+function rectangleBatteryCostsTheTimeOnlyWhenDrawn(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    if (layout.track() == null) {
+        return true;
+    }
+    var days = [null, TwoSunsTestStates.widestDay()] as Array<TwoSunsWeather or Null>;
+    for (var i = 0; i < days.size(); i++) {
+        var on = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true);
+        var off = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true);
+        off.watchBattery = null;
+        var day = days[i];
+        if (day != null) {
+            on = TwoSunsTestStates.withWeather(on, day);
+            off = TwoSunsTestStates.withWeather(off, day);
+            on.weatherOn = true;
+            off.weatherOn = true;
+        }
+        var withRow = new TwoSunsFrame(dc, layout, on, false);
+        if (!withRow.showBattery) {
+            Test.assertEqual(withRow.timeFont, new TwoSunsFrame(dc, layout, off, false).timeFont);
+        }
+    }
+    return true;
+}
+
+// On a rectangle the always-on time is always smaller than the awake time it follows.
+(:test)
+function rectangleAlwaysOnTimeIsSmaller(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    if (layout.track() == null) {
+        return true;
+    }
+    var states = TwoSunsTestStates.all();
+    for (var i = 0; i < states.size(); i++) {
+        var awake = dc.getFontHeight(new TwoSunsFrame(dc, layout, states[i], false).timeFont);
+        Test.assertMessage(dc.getFontHeight(new TwoSunsFrame(dc, layout, states[i], true).timeFont) < awake, "state " + i);
+    }
+    return true;
+}
+
+// Free on a rectangle: the number grows with the time but stays clearly second (at most its share of the time's height).
+(:test, :free)
+function rectangleFreeNumberStaysSecond(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    if (layout.track() == null) {
+        return true;
+    }
+    var frame = new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true), false);
+    var timeH = dc.getFontHeight(frame.timeFont);
+    var own = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.VALUE_FREE_FONTS, layout.capFor(TwoSunsLayout.VALUE_FREE_MAX_PERMILLE));
+    Test.assert(frame.valueFont == own
+                || dc.getFontHeight(frame.valueFont) * TwoSunsConfig.PERMILLE <= timeH * TwoSunsLayout.RECT_VALUE_TO_TIME_PERMILLE);
+    return true;
+}
+
+// The rectangle spread: every visible gap the same (within the rounding), margins included, the time's empty bands not
+// counted, the time's digits never touching a neighbour; null when the even gap would be under the minimum.
+(:test)
+function rectangleSpreadGapsAreEven(logger as Test.Logger) as Boolean {
+    var heights = [39, 155, 0, 68, 39] as Array<Number>;
+    var pads = [0, 30, 0, 0, 0] as Array<Number>;
+    var tops = TwoSunsRectSpread.place(heights, pads, 20, 340, 4) as Array<Number>;
+    var gaps = [tops[0] - 20, tops[1] + pads[1] - (tops[0] + heights[0]), tops[3] - (tops[1] + heights[1] - pads[1]),
+                tops[4] - (tops[3] + heights[3]), 340 - (tops[4] + heights[4])] as Array<Number>;
+    for (var i = 1; i < gaps.size(); i++) {
+        Test.assertMessage((gaps[i] - gaps[0]).abs() <= gaps.size(), "gap " + i + " is " + gaps[i] + ", first " + gaps[0]);
+    }
+    Test.assert(tops[0] >= 20 && tops[4] + heights[4] <= 340);
+    Test.assert(tops[1] + pads[1] >= tops[0] + heights[0] + 4 && tops[3] >= tops[1] + heights[1] - pads[1] + 4);   // digits never touch
+    Test.assert(TwoSunsRectSpread.place(heights, pads, 20, 270, 4) == null);
+    return true;
+}
+
+// On a rectangle the rows' places do not depend on which wording the sun sentence takes, so nothing jumps as it shortens.
+(:test)
+function rectangleRowsDoNotDependOnTheWording(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    if (layout.track() == null) {
+        return true;
+    }
+    var state = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true);
+    var a = new TwoSunsFrame(dc, layout, state, false);
+    state.skyLines = ["1h"] as Array<String>;
+    var b = new TwoSunsFrame(dc, layout, state, false);
+    Test.assertEqual(a.rows.lineTop, b.rows.lineTop);
+    Test.assertEqual(a.rows.bandTop, b.rows.bandTop);
+    Test.assertEqual(a.rows.timeTop, b.rows.timeTop);
     return true;
 }

@@ -17,6 +17,7 @@ class TwoSunsReadings {
         state.nowMinute = time.minuteOfDay;
         state.accent = TwoSunsPalette.accent(settings.accent);
         state.goldenArc = settings.golden;
+        state.weatherOn = settings.weather;
         state.orientation = settings.orientation;
         fillBattery(state, curve, complicationBattery, settings.curve);
         return state;

@@ -18,7 +18,8 @@ class TwoSunsState {
     var sky as TwoSunsSky = new TwoSunsSky();
     var nowMinute as Number = 0;                             // local minutes since midnight
     var accent as Number = TwoSunsPalette.ACCENTS[0];
-    var goldenArc as Boolean = false;                        // the Golden hour setting
+    var goldenArc as Boolean = false;
+    var weatherOn as Boolean = false;                        // Pro: the Weather setting (the row may still have no data)                        // the Golden hour setting
     var orientation as Number = TwoSunsConfig.ORIENTATION_NOON_TOP;
     var watchBattery as Number or Null = null;               // Pro: the watch's own charge, 0 to 100, null when the Battery setting is off
     var weather as TwoSunsWeather or Null = null;           // Pro: the weather row, null when there is nothing to show

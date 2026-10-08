@@ -28,15 +28,27 @@ class TwoSunsFrame {
     var weatherBoxCount as Number = 0;                             // boxes the weather row draws: the lead cell and each ahead cell
     var showBattery as Boolean = false;                            // Pro: the watch battery row above the stack, when the chord has room
     var batteryTop as Number = 0;
+    // A rectangle, awake (ADR-028): the rows are spread over the inner box (TwoSunsRectSpread), below the battery strip
+    // when the battery row is kept (`batteryStrip` px, set by TwoSunsRectFit).
+    var spreadRows as Boolean = false;
+    var batteryStrip as Number = 0;
+    var timeByInk as Boolean = false;        // the time is drawn by its digits at its spread place (TwoSunsDraw.inkText)
+    var timeFitsByInk as Boolean = false;    // TwoSunsRectFit measured the time's digits against the box's width
 
     // `sleeping` keeps only the time, the value and the sun line (always-on).
     function initialize(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState, sleeping as Boolean) {
+        spreadRows = !sleeping && layout.track() != null;
         dateFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.DATE_FONTS, layout.capFor(TwoSunsLayout.DATE_MAX_PERMILLE));
         // Always-on time is two steps below whatever awake would pick right now, not a separate fixed
         // list — so it stays visibly smaller than awake on every screen, not just the ones where awake
         // happens to land on its largest font (TwoSunsLayout.SLEEP_TIME_FONTS comment; 2026-09-27).
         var awakeTimeFont = TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.TIME_FONTS, layout.capFor(TwoSunsLayout.TIME_MAX_PERMILLE));
-        if (sleeping) {
+        if (sleeping && layout.track() != null) {
+            // A rectangle's awake time grew (TwoSunsRectFit): always-on is two steps below that, from a list that continues
+            // past FONT_NUMBER_MILD, so it is always visibly smaller (ADR-028).
+            timeFonts = TwoSunsDraw.fontsBelow(TwoSunsLayout.RECT_SLEEP_TIME_FONTS, TwoSunsRectFit.awakeTimeFont(dc, layout, state), 2);
+            timeFont = timeFonts[0];
+        } else if (sleeping) {
             timeFonts = TwoSunsDraw.fontsBelow(TwoSunsLayout.TIME_FONTS, awakeTimeFont, 2);
             timeFont = timeFonts[0];
         } else {
@@ -119,45 +131,24 @@ class TwoSunsFrame {
         return stacked;
     }
 
-    // A rectangle (ADR-028, the rectangle track): once every row has its place, the time takes the largest font the inner
-    // box still holds, by height and by width, measured. Awake only; round and Instinct screens keep their cap. The width is
-    // measured on the widest time ("00:00"), so the size does not change from minute to minute.
+    // A rectangle (ADR-028, the rectangle track): the time (and in Free the number) grows into what the inner box leaves,
+    // measured by TwoSunsRectFit. Awake only; round and Instinct screens keep their cap. No row is dropped for it.
     private function growTime(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState) as Void {
-        var fonts = TwoSunsLayout.RECT_TIME_FONTS;
-        var room = layout.spanHeight() - topReserve(dc, layout, state);
-        var radius = layout.contentRadius();
-        for (var i = 0; i < fonts.size() && fonts[i] != timeFont; i++) {
-            var h = dc.getFontHeight(fonts[i]);
-            if (layout.stackHeight(dateHeight(dc), h, weatherHeight, bandHeight, lineHeight(dc)) > room) {
-                continue;
-            }
-            var top = layout.rows(dateHeight(dc), h, weatherHeight, bandHeight, lineHeight(dc)).timeTop;
-            var width = layout.rightInsetWithin(radius, top, h) - layout.leftInsetWithin(radius, top, h);
-            if (dc.getTextWidthInPixels(TwoSunsConfig.WIDEST_TIME, fonts[i]) <= width && dc.getTextWidthInPixels(state.time, fonts[i]) <= width) {
-                timeFont = fonts[i];
-                timeFonts = TwoSunsDraw.fontsFrom(fonts, timeFont);
-                rows = plan(dc, layout);
-                band = planBand(dc, layout, state);
-                if (weatherMode != TwoSunsConfig.WEATHER_ROW_NONE && !weatherFits(dc, layout, state)) {
-                    weatherMode = TwoSunsConfig.WEATHER_ROW_NONE;
-                    rows = plan(dc, layout);
-                    band = planBand(dc, layout, state);
-                }
-                return;
-            }
+        var picked = TwoSunsRectFit.pick(dc, layout, self, state);   // also sets batteryStrip
+        if (picked == null) {
+            picked = [timeFont, valueFont] as Array<Graphics.FontDefinition>;
         }
-    }
-
-    // Room the time leaves for the watch battery row above the centred stack (a strip at the top, and its twin below), only
-    // while the Battery setting is on: with it off (the default) the time takes that room too (ADR-028, the rectangle track).
-    (:pro)
-    private function topReserve(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState) as Number {
-        return state.watchBattery == null ? 0 : 2 * (rows.timeTop - TwoSunsBatteryRow.top(dc, layout, rows.timeTop));
-    }
-
-    (:free)
-    private function topReserve(dc as Graphics.Dc, layout as TwoSunsLayout, state as TwoSunsState) as Number {
-        return 0;
+        timeFont = picked[0];
+        timeFonts = TwoSunsDraw.fontsFrom(TwoSunsLayout.RECT_TIME_FONTS, timeFont);
+        if (picked[1] != valueFont) {
+            valueFont = picked[1];
+            valueFonts = [valueFont] as Array<Graphics.FontDefinition>;   // drawn whole: its width was measured on "100"
+        }
+        rows = plan(dc, layout);
+        band = planBand(dc, layout, state);
+        if (weatherMode != TwoSunsConfig.WEATHER_ROW_NONE) {
+            weatherFits(dc, layout, state);   // re-measures the ahead cells at the row's new place; the lead cell fits (checked)
+        }
     }
 
     // The widest value the band must hold is measured, not guessed: the text itself or "100".
@@ -172,7 +163,10 @@ class TwoSunsFrame {
         var curveHeight = layout.capFor(TwoSunsLayout.CURVE_BAND_PERMILLE);
         bandHeight = showCurve && curveHeight > valueHeight ? curveHeight : valueHeight;
         weatherHeight = weatherRowHeight(dc, layout);
-        return layout.rows(dateHeight(dc), dc.getFontHeight(timeFont), weatherHeight, bandHeight, lineHeight(dc));
+        var stacked = layout.rows(dateHeight(dc), dc.getFontHeight(timeFont), weatherHeight, bandHeight, lineHeight(dc));
+        var spread = spreadRows ? TwoSunsRectSpread.rowsFor(dc, layout, self, timeFont, valueFont, weatherHeight, batteryStrip) : null;
+        timeByInk = spread != null && timeFitsByInk;
+        return spread != null ? spread : stacked;
     }
 
     // The watch battery row sits one gap above the first row of the stack, in the strip the stack leaves free; it is drawn
@@ -237,11 +231,11 @@ class TwoSunsFrame {
         return weatherAhead + (weather.hasLead() ? 1 : 0);
     }
 
-    private function dateHeight(dc as Graphics.Dc) as Number {
+    function dateHeight(dc as Graphics.Dc) as Number {
         return showDate ? dc.getFontHeight(dateFont) : 0;
     }
 
-    private function lineHeight(dc as Graphics.Dc) as Number {
+    function lineHeight(dc as Graphics.Dc) as Number {
         return showLine ? dc.getFontHeight(lineFont) : 0;
     }
 }

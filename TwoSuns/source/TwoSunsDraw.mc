@@ -30,6 +30,25 @@ class TwoSunsDraw {
         }
     }
 
+    // A rectangle's time, placed by its digits (TwoSunsRectSpread): drawn centred at `x`, and logged for the screen-fit
+    // test by its digits' box (the font box less `pad` above and below, where a number font draws nothing).
+    static function inkText(dc as Graphics.Dc, layout as TwoSunsLayout, x as Number, y as Number, font as Graphics.FontDefinition,
+                            str as String, pad as Number) as Void {
+        dc.drawText(x, y, font, str, Graphics.TEXT_JUSTIFY_CENTER);
+        var width = dc.getTextWidthInPixels(str, font);
+        var inkTop = y + pad;
+        var inkH = dc.getFontHeight(font) - 2 * pad;
+        var log = misfits;
+        if (log != null && (inkTop < 0 || inkTop + inkH > layout.height() || x - width / 2 < layout.leftInset(inkTop, inkH)
+                            || x + width / 2 > layout.rightInset(inkTop, inkH))) {
+            log.add(str + " y=" + y);
+        }
+        var drawn = boxes;
+        if (drawn != null) {
+            drawn.add([x - width / 2, inkTop, width, inkH, str]);
+        }
+    }
+
     // Test-only, like text(): logs a non-text box (the level pill, the curve) against the content circle
     // of the face, so it can neither touch the ring nor overlap a text.
     static function box(layout as TwoSunsLayout, x as Number, y as Number, width as Number, height as Number, label as String) as Void {

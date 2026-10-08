@@ -55,7 +55,14 @@ class TwoSunsView extends WatchUi.WatchFace {
         if (frame.showDate) {
             drawRow(dc, layout, radius, rows.dateTop, dc.getFontHeight(frame.dateFont), frame.dateFonts, state.dateLines, TwoSunsPalette.MUTED);
         }
-        drawRow(dc, layout, radius, rows.timeTop, dc.getFontHeight(frame.timeFont), frame.timeFonts, [state.time] as Array<String>, TwoSunsPalette.TEXT);
+        if (frame.timeByInk) {
+            // a rectangle's spread time: placed and fitted by its digits (TwoSunsRectSpread, TwoSunsRectFit)
+            dc.setColor(TwoSunsPalette.TEXT, Graphics.COLOR_TRANSPARENT);
+            TwoSunsDraw.inkText(dc, layout, layout.centerX(), rows.timeTop, frame.timeFont, state.time,
+                                TwoSunsRectSpread.timePad(frame.timeFont, dc.getFontHeight(frame.timeFont)));
+        } else {
+            drawRow(dc, layout, radius, rows.timeTop, dc.getFontHeight(frame.timeFont), frame.timeFonts, [state.time] as Array<String>, TwoSunsPalette.TEXT);
+        }
         drawBattery(dc, layout, frame, state);
         drawWeather(dc, layout, frame, state);
         drawBand(dc, layout, frame, state);
@@ -95,7 +102,9 @@ class TwoSunsView extends WatchUi.WatchFace {
         var band = frame.band;
         TwoSunsCurve.drawGlyph(dc, layout, band, state.batteryLevel, state.batteryStale, state.batteryAccent);
         TwoSunsDraw.box(layout, band.glyphLeft, band.glyphTop, band.glyphWidth, band.glyphHeight, "glyph");
-        dc.setColor(state.batteryStale ? TwoSunsPalette.MUTED : state.batteryAccent, Graphics.COLOR_TRANSPARENT);
+        // On a rectangle "--" is muted like the hollow bolt beside it, so the cell reads as one "no data" state (ADR-028).
+        var muted = state.batteryStale || (layout.track() != null && state.batteryLevel == null);
+        dc.setColor(muted ? TwoSunsPalette.MUTED : state.batteryAccent, Graphics.COLOR_TRANSPARENT);
         var top = frame.rows.bandTop + (frame.bandHeight - dc.getFontHeight(frame.valueFont)) / 2;
         TwoSunsDraw.text(dc, layout, band.valueCenterX, top, frame.valueFont, state.batteryText, Graphics.TEXT_JUSTIFY_CENTER);
         drawCurve(dc, layout, frame, state);

@@ -90,6 +90,13 @@ function twoSunsLayoutReport(logger as Test.Logger) as Boolean {
     var live = new TwoSunsSources().read(TwoSunsSettings.load());
     logger.debug(dc.getWidth() + "x" + dc.getHeight() + " ring r=" + layout.ringRadius() + " w=" + layout.ringWidth()
         + " content r=" + layout.contentRadius() + " span=" + layout.spanHeight() + " live time=" + live.time + " line=" + live.skyLine);
+    var fonts = [Graphics.FONT_XTINY, Graphics.FONT_TINY, Graphics.FONT_SMALL, Graphics.FONT_MEDIUM, Graphics.FONT_LARGE,
+                 Graphics.FONT_NUMBER_MILD, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_THAI_HOT] as Array<Graphics.FontDefinition>;
+    var heights = "font heights xtiny..thai_hot:";
+    for (var f = 0; f < fonts.size(); f++) {
+        heights += " " + dc.getFontHeight(fonts[f]);
+    }
+    logger.debug(heights);
     var states = [live, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curveOrNull(100, 3), true)] as Array<TwoSunsState>;
     TwoSunsTestStates.addWeatherStates(states, TwoSunsTestStates.skies());   // Pro: [2] day and [3] [4] [5] next-day forms of the weather row
     for (var s = 0; s < states.size(); s++) {
