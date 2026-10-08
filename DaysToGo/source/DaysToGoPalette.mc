@@ -1,6 +1,6 @@
 import Toybox.Lang;
 
-// Every value is in Garmin's 64-colour palette (channels 00/55/AA/FF), so MIP
+// Every value but SLEEP_TEXT is in Garmin's 64-colour palette (channels 00/55/AA/FF), so MIP
 // screens render it exactly. State is never colour alone: a word carries it too.
 (:color)
 class DaysToGoPalette {
@@ -10,8 +10,11 @@ class DaysToGoPalette {
     static const TEXT = 0xFFFFFF;
     static const MUTED = 0xAAAAAA;
     static const TRACK = 0x555555;
-    // Always-on: dimmer than TEXT so an AMOLED spends less light.
-    static const SLEEP_TEXT = 0x555555;
+    // Always-on (AMOLED only, so it need not be 64-colour safe): the studio's one always-on grey (ADR-007 amendment
+    // 2026-10-08, ROADMAP 13.25; Two Suns ADR-027). 3.14:1 against black, above the >=3:1 bar for a persistent colour
+    // (0x555555, the 64-colour grey it replaces, is 2.82:1). Only DaysToGoSleep draws it, and only when the watch
+    // requires burn-in protection (DaysToGoView), so a MIP watch never meets a value off its palette.
+    static const SLEEP_TEXT = 0x5C5C5C;
 
     // The "Accent colour" setting, by index: mint (default), amber, sky, pink, violet, white.
     static const ACCENTS = [0x55FFAA, 0xFFAA00, 0x55AAFF, 0xFF55AA, 0xAA55FF, 0xFFFFFF] as Array<Number>;

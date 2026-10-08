@@ -6,7 +6,7 @@ colors:
   text: "#FFFFFF"
   muted: "#AAAAAA"
   track: "#555555"
-  sleep-text: "#555555"
+  sleep-text: "#5C5C5C"
   accent-mint: "#55FFAA"
   accent-amber: "#FFAA00"
   accent-sky: "#55AAFF"
@@ -68,7 +68,7 @@ Each row takes the largest font up to a height cap; the hero takes the rest. On 
 
 ## Always-on (AMOLED)
 
-Hero and time only, `#555555`, the block stepping across a 3 × 3 grid (steps of 3.5% of the screen, about 16 px on 454, more than a digit stroke) once a minute; the hero is two sizes smaller than awake (starts at FONT_NUMBER_MEDIUM). No ring, name, date or caption. MIP watches keep the full face. The block uses the 0.8 span on round products; a rectangle uses the box inside its track made smaller by the drift step (ADR-019 (rectangles get a square design), which retired ADR-016's rectangle spans).
+Hero and time only, `#5C5C5C` (3.14:1 on black; the studio's one always-on grey, ADR-007 amendment 2026-10-08; was `#555555`, 2.82:1, under the 3:1 bar; AMOLED only, so not a 64-colour value), the block stepping across a 3 × 3 grid (steps of 3.5% of the screen, about 16 px on 454, more than a digit stroke) once a minute; the hero is two sizes smaller than awake (starts at FONT_NUMBER_MEDIUM). No ring, name, date or caption. MIP watches keep the full face. The block uses the 0.8 span on round products; a rectangle uses the box inside its track made smaller by the drift step (ADR-019 (rectangles get a square design), which retired ADR-016's rectangle spans).
 
 ## Rectangle (Venu Sq, Sq 2, X1; ADR-019)
 

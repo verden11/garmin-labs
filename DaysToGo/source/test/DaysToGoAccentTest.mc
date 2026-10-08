@@ -63,6 +63,15 @@ function everyAccentReadsOnBlack(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// The always-on grey (ADR-007 amendment 2026-10-08, the studio's one always-on grey): at least 3:1 against black.
+// #5C5C5C is 3.14:1; the #555555 it replaced was 2.82:1. White on the Instinct palette, which never sleeps dim.
+(:test)
+function alwaysOnGreyReadsOnBlack(logger as Test.Logger) as Boolean {
+    var ratio = DaysToGoAccentCheck.contrastOnBlack(DaysToGoPalette.SLEEP_TEXT);
+    Test.assertMessage(ratio >= DaysToGoAccentCheck.MIN_CONTRAST, "always-on grey contrast " + ratio.format("%.2f") + ":1 on black");
+    return true;
+}
+
 // Append-only: a shipped id never changes its colour (the phone and the watch store the id). Ids 6 and up
 // are deferred; when they land they are appended and this list grows.
 (:test :color)
