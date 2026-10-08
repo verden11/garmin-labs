@@ -5,7 +5,7 @@ One entry per Connect IQ Store publication, newest first. The store's
 
 ## Unreleased (next upload of both)
 
-- **Always-on time in the studio's one always-on grey, `#5C5C5C` (2026-10-08, ROADMAP 13.25; both tiers; AMOLED watches only; simulator only).** It was `#555555`, 2.82:1 against black, under the studio's 3:1 bar; now 3.14:1, the grey Two Suns already uses (HeroFace ADR-006 (always-on time is the studio's one always-on grey)). MIP and Instinct watches are unchanged. Tests: Pro 28, Free 28, 24 each on an Instinct (`alwaysOnGreyReadsOnBlack` new).
+- **Always-on time in the studio's one always-on grey, `#5C5C5C` (2026-10-08, ROADMAP 13.25; both tiers; watches with burn-in protection only (the AMOLEDs; in the simulator also the Venu Sq); simulator only).** It was `#555555`, 2.82:1 against black, under the studio's 3:1 bar; now 3.14:1, the grey Two Suns already uses (HeroFace ADR-006 (always-on time is the studio's one always-on grey)). MIP and Instinct watches are unchanged. Tests: Pro 28, Free 28, 24 each on an Instinct (`alwaysOnGreyReadsOnBlack` new).
 
 Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.8 to 13.12; simulator only, nothing on a wrist):
 

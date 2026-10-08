@@ -77,6 +77,8 @@ function everyAccentReadsOnBlack(logger as Test.Logger) as Boolean {
 function alwaysOnGreyReadsOnBlack(logger as Test.Logger) as Boolean {
     var ratio = HeroFaceAccentCheck.contrast(HeroFacePalette.SLEEP_TEXT, HeroFacePalette.BACKGROUND);
     Test.assertMessage(ratio >= HeroFaceAccentCheck.MIN_CONTRAST, "always-on grey contrast " + ratio.format("%.2f") + ":1 on black");
+    // Pinned to the studio's one always-on grey on colour screens, so drifting away from it fails here.
+    Test.assert(HeroFacePalette.MONO || HeroFacePalette.SLEEP_TEXT == 0x5C5C5C);
     return true;
 }
 

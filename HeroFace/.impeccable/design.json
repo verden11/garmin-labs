@@ -14,7 +14,7 @@
       "accent-blue": { "role": "primary", "displayName": "Effort Blue", "canonical": "#55AAFF", "tonalRamp": ["#04182B", "#072947", "#0B3D66", "#10538A", "#146AAD", "#2E8AD4", "#55AAFF", "#9CCDFF"] },
       "accent-cyan": { "role": "primary", "displayName": "Effort Cyan", "canonical": "#00FFFF", "tonalRamp": ["#002B2B", "#004747", "#006666", "#008A8A", "#00ADAD", "#00D4D4", "#00FFFF", "#77FFFF"] },
       "accent-magenta": { "role": "primary", "displayName": "Effort Magenta", "canonical": "#FF55FF", "tonalRamp": ["#2B042B", "#470747", "#660B66", "#8A108A", "#AD22AD", "#D43BD4", "#FF55FF", "#FF9CFF"] },
-      "sleep-text": { "role": "neutral", "displayName": "Sleep Grey", "canonical": "#555555", "tonalRamp": ["#0D0D0D", "#1A1A1A", "#2B2B2B", "#3D3D3D", "#555555", "#6E6E6E", "#8A8A8A", "#AAAAAA"] }
+      "sleep-text": { "role": "neutral", "displayName": "Sleep Grey", "canonical": "#5C5C5C", "tonalRamp": ["#0D0D0D", "#1A1A1A", "#2B2B2B", "#3D3D3D", "#5C5C5C", "#6E6E6E", "#8A8A8A", "#AAAAAA"] }
     },
     "typographyMeta": {
       "time": { "displayName": "Time", "purpose": "The centre of the face. Chosen at layout time by a fit ladder (FONT_NUMBER_THAI_HOT, FONT_NUMBER_HOT, FONT_NUMBER_MEDIUM, floor FONT_NUMBER_MILD): the first font whose box fits the leftover band and whose '00:00' sample fits the round chord at that height. Measured 128px @454, 36px @240." },

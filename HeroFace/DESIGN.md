@@ -101,7 +101,7 @@ components:
 
 **Creative North Star: "The Dashboard That Learned To Tell Time"**
 
-HeroFace takes HeroSet's dashboard grammar — a bezel progress ring, a gold keep-line, three pill mission bars — and re-proportions it so the time owns the middle. Everything is drawn from primitives on a pure black ground: arcs, rounded rectangles, two-stroke check marks, a battery outline, a heart made of two circles and a triangle. There are no bitmaps and no icon fonts, because the smallest supported watch-face memory budget is 64 KB; that constraint is also the aesthetic. Every colour sits on Garmin's 64-colour palette (channels 00/55/AA/FF) so a MIP screen renders it exactly as written and an AMOLED does not have to dither.
+HeroFace takes HeroSet's dashboard grammar — a bezel progress ring, a gold keep-line, three pill mission bars — and re-proportions it so the time owns the middle. Everything is drawn from primitives on a pure black ground: arcs, rounded rectangles, two-stroke check marks, a battery outline, a heart made of two circles and a triangle. There are no bitmaps and no icon fonts, because the smallest supported watch-face memory budget is 64 KB; that constraint is also the aesthetic. Every colour but the always-on Sleep Grey sits on Garmin's 64-colour palette (channels 00/55/AA/FF) so a MIP screen renders it exactly as written and an AMOLED does not have to dither; the Sleep Grey is drawn only on burn-in-protected screens (ADR-006).
 
 Density is deliberately low. One ring, one gold line, one time, one date row, three columns, one footer strip: seven things, in a fixed bottom-up stack, on every one of the 117 round products from 208 to 466 px (and, with the ring as a frame, the 5 rectangles). Nothing is positioned in absolute pixels. A single proportion — a tenth of the short screen edge — generates the ring, the gap, the bar, the column and the margin, and the time then takes whatever vertical band is left between the streak row and the date. Text is measured against the round chord at its own row before it is drawn, and a string that would not fit is replaced by a shorter wording rather than clipped or shrunk.
 
@@ -142,7 +142,7 @@ A black field with a single white number, a muted grey voice for everything seco
 - **Signal White** (`{colors.text}`): the time and mission values. Reserved for the two things read first.
 - **Second Voice Grey** (`{colors.muted}`): date, labels, seconds, footer numbers and drawn icons. Everything that supports the glance without competing for it.
 - **Track Grey** (`{colors.track}`): the unfilled remainder of the ring and of every pill bar. Present so the *whole* of a goal is visible behind the part that is done.
-- **Sleep Grey** (`{colors.sleep-text}`, `#5C5C5C`, 3.14:1 on black): always-on time on burn-in-protected screens, the studio's one always-on grey (ADR-006 (always-on time is the studio's one always-on grey)). It was `#555555`, the track's hex, at 2.82:1, under the 3:1 bar. AMOLED only, so not a 64-colour value; a MIP watch never draws it.
+- **Sleep Grey** (`{colors.sleep-text}`, `#5C5C5C`, 3.14:1 on black): always-on time on burn-in-protected screens, the studio's one always-on grey (ADR-006 (always-on time is the studio's one always-on grey)). It was `#555555`, the track's hex, at 2.82:1, under the 3:1 bar. Not a 64-colour value: drawn only where the watch reports burn-in protection (the AMOLEDs and, in the simulator, the 16-bit Venu Sq LCD, which render it as given); a 64-colour screen would round it to `#555555`.
 
 ### Named Rules
 
@@ -150,7 +150,7 @@ A black field with a single white number, a muted grey voice for everything seco
 
 **The Gold Reserve Rule.** Gold means a thing the user has accumulated and can lose. A zero streak is not drawn at all ("0-DAY STREAK" would be a new owner's first read), because there is nothing kept yet. The gold streak also outranks the temperature beside it: a row too wide drops the temperature before it drops the streak (2026-10-06).
 
-**The Exact-Palette Rule.** Every colour is built from the channel values 00/55/AA/FF (why: see `watch-design-kit`'s `watch-design-lead` skill).
+**The Exact-Palette Rule.** Every colour but the always-on Sleep Grey (`#5C5C5C`, ADR-006) is built from the channel values 00/55/AA/FF (why: see `watch-design-kit`'s `watch-design-lead` skill).
 
 ## Typography
 
@@ -242,7 +242,7 @@ Battery, heart rate and unread notifications in the ring's bottom gap, drawn as 
 Optional, in `{colors.muted}` at `FONT_XTINY`, tucked against the right edge of the time on the digits' baseline, never allowed below the date row. If they will not fit the chord beside a wide time, they are not drawn at all rather than crowding the ring. They redraw alone in a clipped box during low-power partial updates. **On a rectangle** the time keeps the seconds' width free on both sides by taking the next number font down while seconds are on (Venu X1 `THAI_HOT` to `HOT`, Venu Sq 2 `HOT` to `MEDIUM`; the Venu Sq keeps `THAI_HOT`), and grows back once if the watch cuts the seconds for the power budget.
 
 ### Always-On Time
-The entire sleep composition on burn-in screens: a dim `{colors.sleep-text}` (`#5C5C5C`, 3.14:1, ADR-006) time in `FONT_NUMBER_MEDIUM`, centred, stepping across a 3×3 grid at `{spacing.inset}`/2 per cell, one cell per minute. No ring, no bars, no date, no footer.
+The entire sleep composition on burn-in screens: a dim `{colors.sleep-text}` (`#5C5C5C`, 3.14:1, ADR-006) time in `FONT_NUMBER_MEDIUM`, centred, stepping across a 3×3 grid at `{spacing.inset}`/2 per cell, one cell per minute. No ring, no bars, no date, no footer. Simulator 24-hour heat map in `#5C5C5C` (2026-10-08, Pro): no burn-in detected, peak luminance 1.35% on `fr965` (1.23% in `#555555`, 2026-10-05) and 1.22% on `venux1`; frames in `../device-test/rect-review/aod-grey/`. Simulator only, nothing on a wrist.
 
 ## Do's and Don'ts
 
@@ -251,7 +251,7 @@ The entire sleep composition on burn-in screens: a dim `{colors.sleep-text}` (`#
 - **Do** measure text against the round chord at its own row before drawing it, and give every string a shorter-wording fallback ordered longest-first.
 - **Do** draw a full-length `{colors.track}` remainder behind every progress element.
 - **Do** pair any colour-carried state with a second signal: a word, a mark, or a bar length.
-- **Do** keep every new colour inside Garmin's 64-colour palette (channels 00/55/AA/FF).
+- **Do** keep every new colour inside Garmin's 64-colour palette (channels 00/55/AA/FF); the always-on Sleep Grey is the one exception (ADR-006).
 - **Do** build new marks from primitives — lines, arcs, circles, polygons, rounded rectangles.
 - **Do** hide an element that has no honest value rather than drawing a placeholder or a zero.
 
