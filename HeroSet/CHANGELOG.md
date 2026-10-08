@@ -4,7 +4,7 @@ One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/paste.md`](listing/paste.md); the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
-## 1.4.0 — uploaded <date by owner>
+## 1.4.0 — uploaded 2026-10-08 by the owner, in Garmin review
 
 Prepared 2026-10-08 as the next upload, while 1.3.1 is still in Garmin review (a newer version may be uploaded meanwhile). Called 1.3.2 while unreleased; it adds products, so it goes up as the next minor (App Version is typed into the form, [ADR-053](docs/decisions.md#adr-053) (App Version is typed, not read from the package)). 92 products (87 + Instinct 3 AMOLED 45/50 mm + Venu Sq 2, Sq 2 Music, X1); permissions `Sensor` + `ComplicationPublisher`, unchanged. What's New and App Version `1.4.0` are in `listing/paste.md`; the description is unchanged. ADRs: [ADR-057](docs/decisions.md#adr-057) (rectangular watches; the square design, look approved by the owner), [ADR-058](docs/decisions.md#adr-058) (a correction under the goal undoes today's completion), [ADR-055](docs/decisions.md#adr-055) (Instinct family; amended for the Instinct 3 AMOLED, look approved by the owner). Simulator only, nothing on a wrist.
 

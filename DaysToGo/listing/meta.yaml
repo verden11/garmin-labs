@@ -17,7 +17,7 @@ in_review:   # an earlier upload Garmin has not approved yet; a newer version ma
   summary: "Free + Pro ladder (ADR-014): renamed Days To Go Pro; the Instinct family (ADR-015, 127 products); To the minute (ADR-018); package dist/DaysToGoPro-1.1.0.iq from the tree at commit a6c7a35"
 next:
   version: "1.2.0"
-  status: prepared   # drafted | prepared | uploaded | in-review | live
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
   uploaded: null
   summary: "square design on the rectangles (ADR-019), 8h 06m (ADR-018 amendment), the ring's one scale, date arrow and bottom-line marks, no on-watch date picker on Venu Sq 2 / Sq 2 Music (ADR-020), the always-on grey (ADR-007 amendment), Venu Sq / Sq Music in the package (129 products; not on the paid list); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/DaysToGo-Pro-1.2.0/"
 package:

@@ -17,7 +17,7 @@ in_review:   # an earlier upload Garmin has not approved yet; a newer version ma
   summary: "the Free twin (Accent only, Garmin sun and Body Battery numbers only); package dist/TwoSunsFree-1.0.0.iq (72 products), re-exported 2026-10-04 after the always-on grey (ADR-027)"
 next:
   version: "1.1.0"
-  status: prepared   # drafted | prepared | uploaded | in-review | live
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
   uploaded: null
   summary: "the rectangles' own design (ADR-028), Body Battery number one colour at any level (ADR-008 amendment), grey -- (ADR-021 amendment), solid bolt, 3h 42m daylight; description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/TwoSuns-Free-1.1.0/"
 package:

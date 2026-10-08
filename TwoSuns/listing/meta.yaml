@@ -17,7 +17,7 @@ in_review:   # an earlier upload Garmin has not approved yet; a newer version ma
   summary: "Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023), the prepared 1.0.1 fix (commit 807977d) folded in, Instinct E and 3 Solar (ADR-024); package dist/TwoSunsPro-1.1.0.iq (72 products), re-exported 2026-10-04 after the always-on grey (ADR-027)"
 next:
   version: "1.2.0"
-  status: prepared   # drafted | prepared | uploaded | in-review | live
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
   uploaded: null
   summary: "the rectangles' own design (ADR-028), Weather and Battery rows off by default, Body Battery number one colour at any level (ADR-008 amendment), grey -- and no lone dot, the curve's room (ADR-028 amendments), white curve line, solid bolt, 3h 42m daylight; description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/TwoSuns-Pro-1.2.0/"
 package:

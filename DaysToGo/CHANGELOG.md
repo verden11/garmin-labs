@@ -3,7 +3,7 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/paste.md`](listing/paste.md).
 
-## Free 1.1.0 and Pro 1.2.0 — uploaded <date by owner>
+## Free 1.1.0 and Pro 1.2.0 — uploaded 2026-10-08 by the owner, in Garmin review
 
 Prepared 2026-10-08 as the next upload of both listings, while Free 1.0.0 and Pro 1.1.0 are still in Garmin review (a newer version may be uploaded meanwhile). 129 products in both builds; no permissions, as before. The What's New blocks are in `listing/paste.md` (Pro) and `listing-free/paste.md` (Free); both descriptions were rewritten where the new build contradicted them ("A thin ring around the bezel", "Round and rectangular watches alike"; Pro's bottom line is not drawn on black-and-white screens). ADRs: 019 (rectangles get a square design; look approved by the owner 2026-10-08), 020 (no on-watch date picker on the Venu Sq 2 and Sq 2 Music), 018 (to the minute; amendment: `8h 06m`), 016 (the bottom line and the name step-down; amendment 5), 007 (always-on; amendment: the one always-on grey), 006 (device set; amended: the first-generation Venu Sq). Simulator only, nothing on a wrist.
 

@@ -17,7 +17,7 @@ in_review:   # an earlier upload Garmin has not approved yet; a newer version ma
   summary: "the Free twin: everyday and HeroSet mode, accent colour; package dist/HeroFaceFree-1.0.0.iq from commit 99f2dc0 (124 products)"
 next:
   version: "1.1.0"
-  status: prepared   # drafted | prepared | uploaded | in-review | live
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
   uploaded: null
   summary: "rectangular watches with their own design (ADR-005, 129 products), bar icons, the ring without the move bar, GO only, the centred streak, the always-on grey (ADR-006); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/HeroFace-Free-1.1.0/"
 package:

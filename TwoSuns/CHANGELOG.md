@@ -3,7 +3,7 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/paste.md`](listing/paste.md).
 
-## Pro 1.2.0 and Free 1.1.0 — uploaded <date by owner>
+## Pro 1.2.0 and Free 1.1.0 — uploaded 2026-10-08 by the owner, in Garmin review
 
 Prepared 2026-10-08 as the next upload of both listings, while Pro 1.1.0 and Free 1.0.0 are still in Garmin review (a newer version may be uploaded meanwhile). 72 products in both builds, as before (the three rectangles were already in; they now have their own design). Permissions as before: Pro `ComplicationSubscriber`, `Positioning`, `SensorHistory`; Free `ComplicationSubscriber` only. The What's New blocks are in `listing/paste.md` (Pro) and `listing-free/paste.md` (Free); both descriptions were rewritten where the new build contradicted them ("A thin ring around the bezel", "Fits round and rectangular watches alike"). The always-on grey `#5C5C5C` (ADR-027) already shipped in the builds in review, so it is not new here. ADRs: 028 (rectangles: the sky ring follows the screen, with its two 2026-10-08 amendments: round `--` and the lone dot, and the curve's room), 008 (no verdicts on Body Battery, amended 2026-10-08: one colour at any level), 021 (Body Battery in Free, amended), 023 (watch battery row, bolt, amended). Simulator only, nothing on a wrist.
 

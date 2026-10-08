@@ -17,7 +17,7 @@ in_review:   # an earlier upload Garmin has not approved yet; a newer version ma
   summary: "the Free twin; package dist/DaysToGoFree-1.0.0.iq from commit 99f2dc0 (127 products)"
 next:
   version: "1.1.0"
-  status: prepared   # drafted | prepared | uploaded | in-review | live
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
   uploaded: null
   summary: "Venu Sq / Sq Music (129 products), square design on the rectangles (ADR-019), the ring's one scale, date arrow, no on-watch date picker on Venu Sq 2 / Sq 2 Music (ADR-020), the always-on grey (ADR-007 amendment); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/DaysToGo-Free-1.1.0/"
 package:

@@ -13,7 +13,7 @@ live:
   note: uploaded and approved by Garmin 2026-10-05 (first publication; package dist/DayArc-1.0.0.iq, 72 products, 93 part numbers, exported 2026-10-05 evening)
 next:
   version: "1.1.0"
-  status: prepared   # drafted | prepared | uploaded | in-review | live
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
   uploaded: null
   summary: "square design on Venu Sq 2, Sq 2 Music and X1 (ADR-019), the no-weather morning reads Weather unavailable, the always-on grey (ADR-020); 72 products, unchanged; More from Verden left out until a free sibling is live; upload bundle device-test/upload/DayArc-Free-1.1.0/"
 package:

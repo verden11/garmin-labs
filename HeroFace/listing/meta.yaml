@@ -17,7 +17,7 @@ in_review:   # an earlier upload Garmin has not approved yet; a newer version ma
   summary: "Free + Pro ladder (ADR-001): the paid app is renamed HeroFace Pro; plus the Instinct family (ADR-002, 124 products); package dist/HeroFacePro-1.1.0.iq from commit 99f2dc0"
 next:
   version: "1.2.0"
-  status: prepared   # drafted | prepared | uploaded | in-review | live
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
   uploaded: null
   summary: "rectangular watches with their own design (ADR-005, 129 products), bar icons, the ring without the move bar, GO only, streak and temperature as one group, the always-on grey (ADR-006); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/HeroFace-Pro-1.2.0/"
 package:

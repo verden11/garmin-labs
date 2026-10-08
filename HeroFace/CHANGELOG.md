@@ -3,7 +3,7 @@
 One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/paste.md`](listing/paste.md).
 
-## Free 1.1.0 and Pro 1.2.0 — uploaded <date by owner>
+## Free 1.1.0 and Pro 1.2.0 — uploaded 2026-10-08 by the owner, in Garmin review
 
 Prepared 2026-10-08 as the next upload of both listings, while Free 1.0.0 and Pro 1.1.0 are still in Garmin review (a newer version may be uploaded meanwhile). 129 products in both builds (117 round, 7 Instinct, 5 rectangular); permission `ComplicationSubscriber` only, as before. The What's New blocks are in `listing/paste.md` (Pro) and `listing-free/paste.md` (Free); both descriptions were rewritten where the new build contradicted them (the ring and the move bar, "Round watches, one design"). ADRs: 005 (rectangular watches, the ring as a frame; look approved by the owner 2026-10-08), 006 (always-on time is the studio's one always-on grey). Simulator only, nothing on a wrist.
 
