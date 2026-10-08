@@ -18,7 +18,7 @@ const softwareApplication = (app: App, url: string) => ({
   applicationCategory: 'HealthApplication',
   operatingSystem: 'Garmin Connect IQ',
   url: studio.origin + url,
-  ...(app.storeUrl ? { sameAs: app.storeUrl } : {}),
+  ...(app.storeUrl ? { sameAs: app.freeStoreUrl ? [app.freeStoreUrl, app.storeUrl] : app.storeUrl } : {}),
 })
 
 const table = new Map<string, Route>([

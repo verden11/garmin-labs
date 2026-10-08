@@ -39,7 +39,7 @@ export function Support() {
         UP/DOWN. It applies to all three exercises, no phone needed. Lowering it below what you have already done
         completes today straight away.
       </p>
-      <h3>What if I correct today’s count back under my goal?</h3>
+      <h3>What if I adjust today’s count back under my goal?</h3>
       <p>
         Then today is no longer done: your streak goes back to what it was before today counted, in the app, the glance and,
         on watches with Connect IQ 4.2 or later, HeroFace. Save today’s count over the goal again and the day completes again.
@@ -59,7 +59,7 @@ export function Support() {
             Yes, on watches with Connect IQ 4.0 or later, which is most supported models: scroll through your glance
             list (add HeroSet to it if it is not there) to see today’s push-ups, sit-ups and squats and your streak
             without opening the app, and select it to open HeroSet. It is not available on fēnix 6, MARQ Gen 1,
-            Descent MK2 and MK2S, Forerunner 945 LTE, or the original Enduro{instinctLive ? ' (Instinct E and Instinct 3 Solar do have it)' : ''}.
+            Descent MK2 and MK2S, Forerunner 945 LTE, or the original Enduro{instinctLive ? '; Instinct E and Instinct 3 Solar do have it' : ''}.
           </p>
         </>
       )}

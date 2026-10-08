@@ -9,7 +9,7 @@ export const watchFamilies: [string, string][] = [
   ['epix', 'Gen 2, Pro (Gen 2)'],
   ['Enduro', '3, Enduro'],
   ['MARQ', 'Gen 1, Gen 2'],
-  ['Venu', '2, 2 Plus, 2S, 3, 3S, 4, Mercedes-Benz Collection, Sq, Sq 2, Sq. Edition, Venu, X1'],
+  ['Venu', '2, 2 Plus, 2S, 3, 3S, 4, Mercedes-Benz Collection, Sq, Sq 2, Venu, X1'],
   ['vívoactive', '3, 3 LTE, 3 Mercedes-Benz Collection, 4, 4S, 5, 6'],
   ['Instinct', '2, 2S, 2X Solar, 3 AMOLED, 3 Solar, Crossover AMOLED, E'],
   ['Descent', 'G1, G2, Mk1, Mk2, Mk2 S, Mk3, Mk3i'],
@@ -18,20 +18,20 @@ export const watchFamilies: [string, string][] = [
 ]
 
 // Watches that can also show HeroSet reps: Connect IQ 4.2 and newer.
-export const linkedWatchCount = 66
+export const linkedWatchCount = 72   // Connect IQ 4.2+ products in the manifests (SDK device files), 2026-10-08
 
 export const languages = [
   'English', 'Dansk', 'Deutsch', 'Español', 'Français', 'Italiano', 'Lietuvių', 'Nederlands',
   'Norsk bokmål', 'Polski', 'Português', 'Suomi', 'Svenska', 'Türkçe', 'Українська',
 ]
 
-// Simulator captures of the Pro build, each framed in the watch it ran on: the store listing's set
-// (HeroFace/listing/screens-framed, docker/frame_listing.sh), resized to 560 px in public/heroface/watch/. The HeroSet one
+// Simulator captures, each framed in the watch it ran on: the Free listing's set (HeroFace/listing-free/screens-framed:
+// no temperature) except Your bars, from Pro's (HeroFace/listing), resized to 560 px in public/heroface/watch/. The HeroSet one
 // uses a canned HeroSet value (the simulator runs one app at a time; HeroFace listing/screenshots.md).
 export const screens: Screenshot[] = [
-  { label: 'Everyday', src: '/heroface/watch/everyday.png', watch: 'Forerunner 965' },
-  { label: 'Your bars', src: '/heroface/watch/your-bars.png', watch: 'fēnix 8 Pro' },
-  { label: 'Goals met', src: '/heroface/watch/goals-met.png', watch: 'Forerunner 970' },
-  { label: 'With HeroSet', src: '/heroface/watch/heroset.png', watch: 'Venu 3' },
+  { label: 'Everyday', src: '/heroface/watch/everyday.png', watch: 'Forerunner 265' },
+  { label: 'Your bars (Pro)', src: '/heroface/watch/your-bars.png', watch: 'fēnix 8 Pro' },
+  { label: 'Goals met', src: '/heroface/watch/goals-met.png', watch: 'epix Pro' },
+  { label: 'With HeroSet', src: '/heroface/watch/heroset.png', watch: 'fēnix 8' },
   { label: 'Instinct', src: '/heroface/watch/instinct.png', watch: 'Instinct E' },
 ]

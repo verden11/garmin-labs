@@ -21,8 +21,8 @@ export function Landing() {
             <HeroActions app={twoSuns} />
           </div>
           <div className="hero__reps">
-            <WatchShot src="/two-suns/watch/day.png" alt="Two Suns on a fēnix 8 Pro: the 24-hour sun ring, the time, Body Battery 59 with its curve, 7h 22m of daylight" />
-            <p>A simulator capture with example numbers.</p>
+            <WatchShot src="/two-suns/watch/day.png" alt="Two Suns Pro on a fēnix 8 Pro: the 24-hour sun ring, the time, Body Battery 59 with its curve, 7h 22m of daylight" />
+            <p>Two Suns Pro: a simulator capture with example numbers.</p>
           </div>
         </div>
       </section>

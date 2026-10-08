@@ -22,7 +22,7 @@ export function Landing() {
             <HeroActions app={heroface} />
           </div>
           <div className="hero__reps">
-            <WatchShot src="/heroface/watch/everyday.png" alt="HeroFace on a Forerunner 965: the time, the date, the temperature and three goal bars" />
+            <WatchShot src="/heroface/watch/everyday.png" alt="HeroFace on a Forerunner 265: the time, the date and three goal bars" />
           </div>
         </div>
       </section>
@@ -73,7 +73,7 @@ export function Landing() {
         <h2 id="heroset-title" className="band__title">Better with HeroSet.</h2>
         <p className="band__lede">If you also own <a href={appUrl('heroset')}>HeroSet</a>, the bars can show today’s push-ups, sit-ups and squats, the ring becomes your progress to the next rank, and holding the face opens the app. On the {linkedWatchCount} watches that support it, and entirely on the watch. Without HeroSet, nothing is missing.</p>
         <div className="band__figure">
-          <WatchShot src="/heroface/watch/heroset.png" alt="HeroFace with HeroSet on a Venu 3: rank, streak and today's push-ups, sit-ups and squats" />
+          <WatchShot src="/heroface/watch/heroset.png" alt="HeroFace with HeroSet on a fēnix 8: rank, streak and today's push-ups, sit-ups and squats" />
         </div>
       </section>
 

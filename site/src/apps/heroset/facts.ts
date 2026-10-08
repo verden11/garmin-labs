@@ -9,8 +9,8 @@ export const instinctLive = true   // HeroSet 1.3.0 (Instinct) live since 2026-1
 // device tab is the final word: a paid app is sold only on Garmin's paid-app list.
 // Trimmed by hand after generating: Instinct 2, 2S, 2X Solar and Descent G1 are in the package but not on Garmin's paid-app
 // list, so a paid HeroSet is not sold on them and this paid page never names them (HeroSet docs/release-contract.md
-// "Paid vs free reach", ROADMAP 7.8). Re-trim after every regeneration.
-export const watchCount = 92
+// "Paid vs free reach", ROADMAP 7.8). Re-trim after every regeneration: 92 in the manifest, 88 named here.
+export const watchCount = 88
 export const watchFamilies: [string, string][] = [
   ['Forerunner', '70, 165, 170, 255, 255s, 265, 265s, 570, 945 LTE, 955, 965, 970'],
   ['fēnix', '6, 6 Pro, 6S, 6S Pro, 6X Pro, 7, 7 Pro, 7S, 7S Pro, 7X, 7X Pro, 8, 8 Pro, 8 Solar, 9, 9 Pro, 9 Pro Solar, E'],

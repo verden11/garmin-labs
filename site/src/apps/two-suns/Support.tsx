@@ -28,9 +28,10 @@ export function Support() {
       <h2>What the bottom line says</h2>
       <p>
         By day it says how much daylight is left (“8h 41m of daylight”). Before sunrise and after sunset it says when the sun
-        comes up (“Sunrise 06:41”). A “~” (“Sunrise ~06:41”) means the time is today’s, used as an estimate for tomorrow
-        because the watch does not know where you are. In midnight sun and polar night it says “Sun stays up today” or “Sun
-        stays down today”. On small screens the sentence gets shorter (“Rise 06:41”).
+        comes up (“Sunrise 06:41”). A “~” (“Sunrise ~06:41”) means today’s sunrise, used as an estimate for tomorrow:
+        always after sunset on Two Suns, which reads no location, and on Two Suns Pro only while it has no place yet (with a
+        place, Pro works out tomorrow’s own sunrise). In midnight sun and polar night Two Suns Pro says “Sun stays up today”
+        or “Sun stays down today”. On small screens the sentence gets shorter (“Rise 06:41”).
       </p>
 
       <h2>Common questions</h2>

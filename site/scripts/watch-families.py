@@ -34,7 +34,7 @@ def family_of(n):
 def tidy(rest):
     """'8 47mm / 51mm / tactix 8' -> '8'; '165 Music' -> '165'; '(Gen 2) Athlete / ...' -> 'Gen 2'; one name per model line."""
     rest = rest.split(" / ")[0]
-    rest = re.sub(r"\s*-\s*Solar Edition.*|\s*\(no Wi-Fi\)|\s+Music\b|\s*\d+mm\b|\s+MicroLED", "", rest)
+    rest = re.sub(r"\s*-\s*Solar Edition.*|\s*\(no Wi-Fi\)|\.?\s+Music Edition\b|\s+Music\b|\s*\d+mm\b|\s+MicroLED", "", rest)
     rest = re.sub(r"^\((Gen \d)\).*", r"\1", rest)
     rest = re.sub(r"\((Gen \d)\)", r"(\1)", rest).strip()
     return rest

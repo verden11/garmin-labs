@@ -17,7 +17,7 @@ export function Support() {
         In the Garmin Connect app, open your watch, then Connect IQ Apps → Watch Faces → HeroFace Pro → Settings. Each of
         the three bars can be set to steps, calories, intensity minutes, distance, floors or the move bar, or left on
         Automatic. You can also pick the accent colour and turn seconds and the temperature on or off. In HeroFace, the
-        free face, the bars are always on Automatic and the accent colour is the setting to change.
+        free face, the bars are always on Automatic; Missions (HeroSet or everyday goals) and the accent colour are the settings.
       </p>
       <Note>
         Automatic picks the first thing your watch actually measures. A watch with no barometer has no floor count, so
