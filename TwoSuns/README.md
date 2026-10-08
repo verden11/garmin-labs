@@ -46,7 +46,7 @@ The test runners run in a container by default (`docker/README.md`). With `CIQ_D
 |---|---|
 | Ring | 24 hours of local clock time, noon at the top (a setting puts midnight there), clockwise. Night dim, civil twilight, daylight in the accent (the part already gone dimmer), ticks at sunrise and sunset, a sun marker at now (solid while the sun is up, an outline when it is not). Optional golden-hour arc. |
 | Time | The hero, in the largest system numeric font that fits. |
-| Body Battery band | A battery glyph, the value, and the last 24 hours as a curve with the current point marked. Stale (newest sample over an hour old) is muted and hollow. No number: `--`. |
+| Body Battery band | A bolt glyph, the value, and the last 24 hours as a curve with the current point marked (not drawn until two neighbouring 15-minute samples exist). Stale (newest sample over an hour old) is muted and hollow. No number: a muted `--` beside a hollow bolt. |
 | Sun sentence | "3:42 of daylight", "Sunrise 06:41", "Sun stays up today", "No place yet", "No sun data", and their shorter wordings on narrow rows. |
 | Date | Small, muted, above the time; optional. |
 
