@@ -30,7 +30,7 @@ assets:
   hero: hero-1440x720.png         # 1440x720, 275 KB; royal blue; re-rendered 2026-10-08 with the retaken screen 2
   screens:                        # simulator, Pro build, upload order; each under 150 KB
     - {file: screens-framed/1-everyday.png, caption: "The time, three goal bars, the ring, the temperature", device: fr965, px: 720, kb: 91, framed: true}
-    - {file: screens-framed/2-your-bars.png, caption: "Pro's own: bars you choose (move bar, steps, intensity minutes), seconds beside the time, the Magenta accent; the ring counts steps and intensity minutes, not the move bar", device: fenix8pro47mm, px: 720, kb: 128, framed: true, retaken: 2026-10-08}
+    - {file: screens-framed/2-your-bars.png, caption: "Pro's own: bars you choose (move bar, steps, intensity minutes), seconds beside the time, here in the Magenta accent; the ring counts steps and intensity minutes, not the move bar", device: fenix8pro47mm, px: 720, kb: 128, framed: true, retaken: 2026-10-08}
     - {file: screens-framed/3-goals-met.png, caption: "Every goal met: check marks and the streak", device: fr970, px: 720, kb: 94, framed: true}
     - {file: screens-framed/4-heroset.png, caption: "HeroSet mode: reps, rank and streak (canned HeroSet value, see screenshots.md)", device: venu3, px: 720, kb: 69, framed: true}
     - {file: screens-framed/5-instinct-e40.png, caption: "The Instinct one: black and white, the ring as a gauge in the round window", device: instincte40mm, px: 720, kb: 106, native_px: 166, instinct: true, framed: true}   # Pro is not sold on the Instinct 2 family, so that watch is not used

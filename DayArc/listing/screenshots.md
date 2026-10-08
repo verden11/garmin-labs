@@ -40,7 +40,7 @@ Cover, hero and icons (host Chrome, headless; sources in `src/`):
 tools/render_listing_images.sh listing
 ```
 
-It runs `Google Chrome --headless=new ... --screenshot` on `src/cover.html` (500x500), `src/hero.html` (1440x720, built from the three FR965 screens) and `src/icon.html` (128x128), then `src/quantize64.py` snaps the 24-bit icon to Garmin's 64-colour palette (channels 00/55/AA/FF) for `icon-64-128.png` (the same route as HeroSet and HeroFace). Re-run after any change to a screen, `mark.svg` or an HTML file. The page loads the Archivo font from Google Fonts, so the render needs network.
+It runs `Google Chrome --headless=new ... --screenshot` on `src/cover.html` (500x500), `src/hero.html` (1440x720, built from screens 1 to 3, the Venu 3, FR265 and Venu 4 41 mm captures) and `src/icon.html` (128x128), then `src/quantize64.py` snaps the 24-bit icon to Garmin's 64-colour palette (channels 00/55/AA/FF) for `icon-64-128.png` (the same route as HeroSet and HeroFace). Re-run after any change to a screen, `mark.svg` or an HTML file. The page loads the Archivo font from Google Fonts, so the render needs network.
 
 Limits checked with `ls -l` after each render: cover 500x500 under 300 KB; hero 1440x720 under 2048 KB; screens under 150 KB each; `sips -g pixelWidth -g pixelHeight` for the dimensions.
 

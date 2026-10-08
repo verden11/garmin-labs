@@ -13,7 +13,7 @@ All from the Free build, native simulator pixels, clock 2026-10-04 10:09 at the 
 | # | File | Device | What it shows |
 |---|---|---|---|
 | 1 | `screens/1-everyday.png` | `fr265`, 416 px | Everyday: 8420 steps, 18 intensity minutes, 7 floors, ring, the default blue accent |
-| 2 | `screens/2-accent-cyan.png` | `venu441mm`, 390 px | The same day in the Cyan accent (Free's one setting) |
+| 2 | `screens/2-accent-cyan.png` | `venu441mm`, 390 px | The same day in the Cyan accent (Free's colour setting) |
 | 3 | `screens/3-goals-met.png` | `epix2pro47mm`, 416 px | All three goals met: green bars and ring, check marks, gold streak line |
 | 4 | `screens/4-heroset.png` | `fenix847mm`, 454 px | HeroSet mode: push-ups, sit-ups, squats, rank and streak, gold ring (the HeroSet value is canned, see below) |
 | 5 | `screens/5-instinct-e40.png` | **`instincte40mm`, 166 px native, shown x3 (the Instinct family)** | Black and white, the ring is a gauge in the round window, streak, three reversed labels for finished goals |
@@ -31,7 +31,7 @@ docker/capture.sh HeroFace tools/listing_shots.sh free     # writes HeroFace/lis
 
 - **Run the accent pictures in their own container run, one file per run** (`... free 2-accent-cyan.png`, then `... free hero-magenta.png`; the extra arguments name the files to take, so any picture can be re-taken alone, which is also how a flaky "NOT SAVED" is repeated). In one long run the simulator kept the Accent value stored by the first scene, and the Cyan and Magenta scenes came out blue. **Fixed 2026-10-05:** `scene()` now deletes the simulator's stored app settings before each load (as Days To Go's script does), so one full run per tier takes every picture. The 2026-10-04 set was taken as: one full run (`4-heroset`, `1-everyday`; its accent frames and its `3-goals-met` / Instinct saves did not come out), then `2-accent-cyan`, `hero-magenta` and `3-goals-met` + the Instinct frame (`5-instincte40mm-166.png`, written to `screens/native/`, not kept) as separate runs. Every picture was looked at.
 - Built in a **private copy** of the project (the repo is never touched); the clock is the simulator's (`faketime`); activity data typed into Simulation > Activity Monitoring; each file is File > Save Screen Capture at the device's own pixel size.
-- The only setting Free has is the accent: shot 2 sets `Accent` 1 (Cyan) in the private copy's `resources-free/settings/properties.xml`; `src/hero-magenta.png` (used only in the hero) sets `Accent` 2 (the pale `#FFAAFF`).
+- The only setting changed for these pictures is the accent (Free also has Mode, left at its default): shot 2 sets `Accent` 1 (Cyan) in the private copy's `resources-free/settings/properties.xml`; `src/hero-magenta.png` (used only in the hero) sets `Accent` 2 (the pale `#FFAAFF`).
 - **HeroSet mode (shot 4) is canned**, exactly as for Pro: the simulator never sees HeroSet's complication, so the private copy's `HeroFaceLink.mc` is patched to report linked and to parse `1|20261004|60|45|28|2|40|3|20261003|100`. The drawing after that is the real path; the numbers are made up.
 - Simulator data is fake (battery 50, heart rate 80). **Never crop a screenshot into a claim about real readings.** The simulator's activity history does not produce a multi-day streak, so shot 3 reads "1-DAY STREAK".
 - Free never reads the temperature, seconds or per-bar settings, so none can appear; the pictures were looked at to confirm it.

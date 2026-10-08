@@ -12,7 +12,7 @@ The simulator has no GPS place, canned sun times that read wrong in the containe
 
 - sunrise 06:05 and sunset 17:32 are fixed in place of the Complication values (the NOAA times for 51.5 N, 0 E on 4 October; the clock is UTC);
 - Pro gets that place as its remembered place, so twilight and golden hour can draw;
-- the energy curve is a **hand-made** 24 h series of 15-minute samples that ends at the clock (shape: a low evening, a night rise, a morning peak at 92, then down to 59);
+- the energy curve is a **hand-made** 24 h series of 15-minute samples that ends at the clock (shape, counted back from the clock: 59 now, a peak of 92 nine hours earlier, a low of 30 seventeen hours earlier; it is anchored to the clock, not to a time of day);
 - the Body Battery number is fixed at 59.
 
 **All of that is canned. These pictures show the design, never a reading**, and none may be cropped into a claim about real data (release contract: the curve, sun times and weather are not yet checked on a wrist). The weather row and the watch battery row are **switched off** in the shots (ADR-022/023: the contract says not to describe them until the wrist check, and the simulator's weather is canned), so no Pro screen shows them. The listing text does not mention either row.
