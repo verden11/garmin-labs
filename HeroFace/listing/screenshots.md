@@ -99,3 +99,7 @@ stat -f '%z %N' screens/*.png cover-500.png hero-1440x720.png icon-*.png        
 - The numbers on screen must be ones the watch could actually produce.
 - No claim in the image that the listing itself could not make ([`../docs/release-contract.md`](../docs/release-contract.md)): no battery, always-on, accuracy, watch count, rating or price.
 - The Pro listing's text never says "free", and neither does an image.
+
+## Language heroes (2026-10-08)
+
+Each listing language has its own hero (owner, 2026-10-08). `hero-1440x720-es.png` (Spanish) and `hero-1440x720-zh.png` (Chinese, Simplified) are `src/hero.html` with the line translated: the page swaps the text when its URL ends in `#es` or `#zh`; the name, the PRO badge and the watches are unchanged. Chinese falls back from Archivo to Noto Sans SC (Google Fonts), so Latin letters and digits stay Archivo. The hero command above with `src/hero.html#es` or `src/hero.html#zh` as the URL renders each. The English render is unchanged by this (checked byte for byte, 2026-10-08). Machine-drafted text, not read by a native speaker.

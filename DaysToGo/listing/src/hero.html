@@ -3,10 +3,10 @@
 <!-- Store hero image (1440x720), Pro tier. Render: see ../screenshots.md. Three simulator captures of the PRO build (../screens/): to the minute in
      the zone it starts in (8:06), weeks with the steps line, the next day on the other side of the world (14:21; ADR-018). The mark is the launcher icon's own geometry plus the amber PRO badge that tells
      Pro from Free. Never the word "free", no price. Light/coloured ground (owner, 2026-10-04): Garmin's brand page says "Do not choose black or transparent backgrounds". Brand mint #55FFAA ground; ink #06261B arc, "1" and name; track #1FBF7A; "To Go" #0A6B43. The old dark one is in ../old/. A PROPOSAL until the owner approves the look. -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Noto+Sans+SC:wght@400..800&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#55FFAA;}
-  body{display:flex;align-items:center;justify-content:space-between;font-family:'Archivo',sans-serif;color:#06261B;
+  body{display:flex;align-items:center;justify-content:space-between;font-family:'Archivo','Noto Sans SC',sans-serif;color:#06261B;
        background:#55FFAA;}
   .copy{box-sizing:border-box;width:530px;padding-left:72px;padding-right:12px;flex:none;}
   .mark{width:110px;height:110px;display:block;margin:-5px 0 20px -5px;}
@@ -30,4 +30,11 @@
     <div class="w l"><img src="../screens/1-to-the-minute.png"></div>
     <div class="w s"><img src="../screens/3-other-time-zone.png"></div>
   </div>
+<script>
+  // One hero per listing language (owner, 2026-10-08): hero.html#es and hero.html#zh swap the line; plain hero.html is English.
+  // The headline may stand alone here only because each language's description carries the UTC-offset sentence (release contract).
+  var T = {es: 'Cuenta atrás al minuto, en la zona horaria en la que empieza.',
+           zh: '精确到分钟的倒计时，<br>按事件开始时所在的时区计算。'}[location.hash.slice(1)];
+  if (T) { document.documentElement.lang = location.hash.slice(1); document.querySelector('.copy p').innerHTML = T; }
+</script>
 </body></html>

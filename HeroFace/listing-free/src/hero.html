@@ -3,10 +3,10 @@
 <!-- Store hero image (1440x720), HeroFace (Free): the plain mark, and the one choice Free has, the accent colour: three round
      watches in Cyan, Blue (the default) and Magenta. Screens: ../screens/ and hero-magenta.png beside this file. Render: ../screenshots.md.
      2026-10-04 (ROADMAP 10.25): "sky" blue background, as the cover; the watches' own black screens sit on it. Dark version: ../old/. -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Noto+Sans+SC:wght@400..800&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#1F7AFF;}
-  body{display:flex;align-items:center;font-family:'Archivo',sans-serif;color:#fff;
+  body{display:flex;align-items:center;font-family:'Archivo','Noto Sans SC',sans-serif;color:#fff;
        background:radial-gradient(900px 640px at 72% 50%,#4C98FF 0%,#1F7AFF 70%);}
   .copy{box-sizing:border-box;width:560px;padding-left:72px;padding-right:24px;}
   .mark{width:92px;height:92px;display:block;margin-bottom:22px;}
@@ -29,4 +29,10 @@
     <div class="w l"><img src="../screens/1-everyday.png"></div>
     <div class="w s"><img src="hero-magenta.png"></div>
   </div>
+<script>
+  // One hero per listing language (owner, 2026-10-08): hero.html#es and hero.html#zh swap the line; plain hero.html is English.
+  var T = {es: 'Primero la hora, debajo los objetivos de hoy, en tu color.',
+           zh: '时间优先，下方是今天的目标，<br>用你选的颜色。'}[location.hash.slice(1)];
+  if (T) { document.documentElement.lang = location.hash.slice(1); document.querySelector('.copy p').innerHTML = T; }
+</script>
 </body></html>

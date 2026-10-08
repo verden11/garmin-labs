@@ -2,7 +2,7 @@
 
 Languages picked by the owner, 2026-10-05: English (the main `paste.md`), **Spanish** and **Chinese (Simplified)**.
 **Machine-drafted, not yet read by a native speaker** (translation reads stay the owner's call). Translated from `paste.md` as
-it stood on 2026-10-05, the ring and screen-shape paragraphs on 2026-10-08 (1.2.0); when the English changes, change these too. Only the title and description are translated; every other
+it stood on 2026-10-05, the ring and screen-shape paragraphs on 2026-10-08 (1.2.0); when the English changes, change these too. The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.2.0 on 2026-10-08, and words the watch shows are quoted as the watch shows them in that language (English where the face has no translation); every other
 field is the same as in `paste.md`. App names, store/support URLs and the store's own permission name stay in English. No price
 number, as in English.
 
@@ -53,6 +53,22 @@ Ayuda y respuestas: https://verden.watch/heroface/support/
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
 
+### What's New
+
+```text
+- Ahora en relojes rectangulares, con un diseño propio: el anillo se convierte en un marco a lo largo de los bordes de la pantalla y la hora es tan grande como el marco permite.
+- Unos pequeños iconos sustituyen a las palabras cortas de las barras: huellas para los pasos, una llama para las calorías, una línea de pulso para los minutos de intensidad y una escalera para los pisos.
+- El anillo deja fuera la barra de movimiento. Una barra de movimiento sin aviso contaba como llena, así que el anillo empezaba con un tercio ya recorrido y podía ponerse verde mientras la barra de movimiento seguía a la vista.
+- La barra de movimiento no muestra ningún valor hasta que quiera que te muevas; entonces muestra GO.
+- La racha y la temperatura van juntas, centradas bajo la hora. Cuando la fila no tiene sitio para las dos, se queda la racha y se quita la temperatura.
+- Cuando todavía no se muestra nada bajo la hora, la hora baja para que no quede un hueco vacío.
+- En los relojes siempre encendidos con protección contra el quemado de pantalla, la hora atenuada se ve un poco más brillante, para que se lea mejor.
+```
+
+### Hero Image
+
+`hero-1440x720-es.png`
+
 ## Chinese, Simplified (简体中文)
 
 ### Title
@@ -99,3 +115,19 @@ DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 >
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+
+### What's New
+
+```text
+- 现已支持矩形屏幕的手表，并有专属设计：圆环变为沿屏幕边缘的边框，时间在边框允许的范围内尽可能大。
+- 进度条上的简短文字换成了小图标：脚印代表步数，火焰代表卡路里，脉搏线代表强度分钟数，楼梯代表楼层。
+- 圆环不再计入活动提醒条。此前，没有提醒的活动提醒条被算作已满，因此圆环一开始就走了三分之一，还可能在活动提醒条仍在显示时变成绿色。
+- 活动提醒条在需要你活动之前不显示数值；需要活动时显示 GO。
+- 连续纪录和温度一起居中显示在时间下方。这一行放不下两项时，保留连续纪录，省略温度。
+- 时间下方还没有任何内容时，时间会下移，不留空白。
+- 在带有防烧屏保护的常亮显示手表上，变暗的时间会稍亮一些，更易读。
+```
+
+### Hero Image
+
+`hero-1440x720-zh.png`

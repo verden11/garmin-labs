@@ -3,7 +3,7 @@
 Languages picked by the owner, 2026-10-05: English (the main `paste.md`), **Spanish** and **Chinese (Simplified)**.
 **Machine-drafted, not yet read by a native speaker** (translation reads stay the owner's call). Translated from `paste.md` as
 it stood on 2026-10-05, the ring and screen paragraphs on 2026-10-08 (1.1.0); when the English changes, change these too (the "small gauge" → bolt wording, ADR-023, is in; it ships with the next
-upload). Only the title and description are translated; every other field is the same as in `paste.md`. App names and
+upload). The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.1.0 on 2026-10-08, and words the watch shows are quoted as the watch shows them in that language (English where the face has no translation); every other field is the same as in `paste.md`. App names and
 store/support URLs stay as they are. "Body Battery" stays Garmin's own name.
 
 ## Spanish (Español)
@@ -57,6 +57,20 @@ Ayuda y respuestas: https://verden.watch/two-suns/support/
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
+### What's New
+
+```text
+- Los relojes rectangulares tienen un diseño propio: el anillo del sol se convierte en una pista a lo largo de los bordes de la pantalla, y la hora y tu número de Body Battery crecen para ocupar el espacio que queda dentro.
+- El número de Body Battery mantiene un solo color en cualquier nivel; ya no se atenúa cuando el nivel es bajo.
+- Sin número de Body Battery, los dos guiones son grises, como el rayo hueco que tienen al lado.
+- El rayo de Body Battery es relleno.
+- La luz del día se indica en horas y minutos, como "3h 42m de luz", para que ya no parezca una hora del reloj.
+```
+
+### Hero Image
+
+`hero-1440x720-es.png`
+
 ## Chinese, Simplified (简体中文)
 
 ### Title
@@ -107,3 +121,17 @@ DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 >
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
+
+### What's New
+
+```text
+- 矩形屏幕的手表有了专属设计：太阳圆环变为沿屏幕边缘的轨道，时间和你的 Body Battery 数值放大，占满轨道内的空间。
+- Body Battery 数值在任何水平下都保持同一种颜色；数值较低时不再变暗。
+- 没有 Body Battery 数值时，两条短横线显示为灰色，与旁边的空心闪电图标一致。
+- Body Battery 闪电图标为实心。
+- 日照时长以小时和分钟显示，例如“3h 42m of daylight”，不再像时钟时间。
+```
+
+### Hero Image
+
+`hero-1440x720-zh.png`

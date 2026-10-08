@@ -54,7 +54,7 @@ DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 
 ## Hero Image
 
-`hero-1440x720.png`
+`hero-1440x720.png` (English). The hero is per language (owner, 2026-10-08): Spanish `hero-1440x720-es.png`, Chinese (Simplified) `hero-1440x720-zh.png`; see `paste-translations.md`.
 
 ## Category
 

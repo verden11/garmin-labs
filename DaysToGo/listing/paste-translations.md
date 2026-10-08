@@ -2,7 +2,7 @@
 
 Languages picked by the owner, 2026-10-05: English (the main `paste.md`), **Spanish** and **Chinese (Simplified)**.
 **Machine-drafted, not yet read by a native speaker** (translation reads stay the owner's call). Translated from `paste.md` as
-it stood on 2026-10-05, the ring, bottom-line and screen paragraphs on 2026-10-08 (1.2.0); when the English changes, change these too. Only the title and description are translated; every other
+it stood on 2026-10-05, the ring, bottom-line and screen paragraphs on 2026-10-08 (1.2.0); when the English changes, change these too. The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.2.0 on 2026-10-08, and words the watch shows are quoted as the watch shows them in that language (English where the face has no translation); every other
 field is the same as in `paste.md`. App names and store/support URLs stay as they are. No price number, as in English.
 
 ## Spanish (Español)
@@ -49,6 +49,21 @@ Ayuda y respuestas: https://verden.watch/days-to-go/support/
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
 >   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
+### What's New
+
+```text
+- Los relojes rectangulares tienen un diseño propio: el anillo se convierte en una pista a lo largo de los bordes de la pantalla, y la cuenta, la hora y cada línea, incluida la línea inferior, aprovechan el espacio que queda dentro.
+- Las últimas 24 horas se muestran como 8h 06m, para que ya no parezcan un segundo reloj.
+- El anillo tiene una sola escala: se queda a punto de llenarse hasta el día mismo, así que un anillo lleno siempre significa que el día ha llegado. En un evento con hora, las últimas 24 horas continúan desde ahí en lugar de empezar de nuevo.
+- Mientras el evento está por llegar, su fecha empieza con una flecha. La línea inferior empieza con una pequeña batería o unas huellas, para que su número diga qué es.
+- En algunos relojes rectangulares, la fecha ahora solo se configura en la app Garmin Connect: su propio selector de fecha era demasiado estrecho para leerse.
+- En los relojes siempre encendidos con protección contra el quemado de pantalla, el número y la hora atenuados se ven un poco más brillantes. En los relojes rectangulares, la hora atenuada ya no se corta.
+```
+
+### Hero Image
+
+`hero-1440x720-es.png`
+
 ## Chinese, Simplified (简体中文)
 
 ### Title
@@ -92,3 +107,18 @@ DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 >
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
 >   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
+
+### What's New
+
+```text
+- 矩形屏幕的手表有了专属设计：细环变为沿屏幕边缘的轨道，计数、时间和每一行（包括底部一行）都利用轨道内的空间。
+- 最后 24 小时显示为 8h 06m 这样的格式，不再像第二个时钟。
+- 细环只有一种刻度：在当天到来之前，它始终差一点才满，所以细环填满就一定意味着那一天到了。设有时间的事件，最后 24 小时会从那里接着走，而不是重新开始。
+- 事件尚未到来时，日期前会显示一个箭头。底部一行以小电池或脚印图标开头，让数字一看就知道代表什么。
+- 在部分矩形屏幕的手表上，日期现在只能在 Garmin Connect 应用中设置：这些手表自带的日期选择器太窄，难以阅读。
+- 在带有防烧屏保护的常亮显示手表上，变暗的数字和时间会稍亮一些。在矩形屏幕的手表上，变暗的时间不再被截断。
+```
+
+### Hero Image
+
+`hero-1440x720-zh.png`

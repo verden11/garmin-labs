@@ -11,7 +11,7 @@ chk() {  # chk <file> <WxH> <max bytes>
 }
 for D in listing listing-free; do
   chk $D/cover-500.png 500x500 300000
-  chk $D/hero-1440x720.png 1440x720 2048000
+  for h in $D/hero-1440x720*.png; do chk $h 1440x720 2048000; done   # English, -es, -zh (one hero per listing language)
   chk $D/icon-24-128.png 128x128 100000
   chk $D/icon-64-128.png 128x128 100000
   n=0

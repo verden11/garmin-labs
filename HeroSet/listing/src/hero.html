@@ -1,10 +1,10 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
 <!-- Store hero image (1440x720). Flat amber ground (Garmin: no black backgrounds, ROADMAP 10.25); navy text 9.0:1, "Set" blue 4.7:1. Render: see ../screenshots.md. -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Noto+Sans+SC:wght@400..800&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#FFAA00;}
-  body{display:flex;align-items:center;font-family:'Archivo',sans-serif;color:#0B1B33;
+  body{display:flex;align-items:center;font-family:'Archivo','Noto Sans SC',sans-serif;color:#0B1B33;
        background:#FFAA00;}
   .copy{box-sizing:border-box;width:520px;padding-left:80px;}
   .mark{width:72px;height:74px;display:block;margin-bottom:24px;}
@@ -33,4 +33,10 @@
     <div class="w l"><img src="../screens-framed/2-counting.png"></div>
     <div class="w s"><img src="../screens-framed/5-instinct.png"></div>
   </div>
+<script>
+  // One hero per listing language (owner, 2026-10-08): hero.html#es and hero.html#zh swap the line; plain hero.html is English.
+  var T = {es: '100 flexiones, 100 abdominales y 100 sentadillas al día, contadas en tu muñeca.',
+           zh: '每天俯卧撑、仰卧起坐和深蹲<br>各 100 个，在你的手腕上计数。'}[location.hash.slice(1)];
+  if (T) { document.documentElement.lang = location.hash.slice(1); document.querySelector('.copy p').innerHTML = T; }
+</script>
 </body></html>
