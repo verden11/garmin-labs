@@ -124,14 +124,14 @@ Screen-fit test (`tools/fit_all.sh` runs `tools/run_tests.sh <device>` on ten de
 | 416 px AMOLED | `epix2` | pass |
 | 454 px AMOLED | `fr965` | pass (`venu3` too) |
 | 466 px AMOLED | `fenix9pro51mm` | pass |
-| 320 × 360 AMOLED (rectangle) | `venusq2` | pass |
-| 448 × 486 AMOLED (rectangle) | `venux1` | pass |
+| 320 × 360 AMOLED (rectangle) | `venusq2` | pass (the round-centred form, before ADR-028; the square form: "Rectangular AMOLED" above, 2026-10-07) |
+| 448 × 486 AMOLED (rectangle) | `venux1` | pass (the round-centred form, before ADR-028; the square form: "Rectangular AMOLED" above, 2026-10-07) |
 
-That is 10 of 11 screen sizes from `tools/fit_all.sh` (one product each), superseded by the full sweep below. `fr265s` (360 px) and `venusq2` failed an earlier, stronger version of the test with one sentence wording; the three wordings fixed it ([ADR-014](decisions.md#adr-014-three-wordings-for-the-sun-sentence)). **`tools/fit_products.sh`, the full 69-product sweep, ran 2026-09-27**: `done: 69 pass, 0 fail`, `PASSED (passed=122, failed=0, errors=0)` on every product including Venu X1 (`bin/fit-products.txt`). This run predates the on-watch Customize menu (ADR-019); the earlier compile-only sweep (all 69, `-w --typecheck 3`, zero errors) is superseded by this one.
+That is 11 screen sizes: ten from `tools/fit_all.sh` (one product each) and `venux1` from the full sweep of 2026-09-27 below, which supersedes them all. `fr265s` (360 px) and `venusq2` failed an earlier, stronger version of the test with one sentence wording; the three wordings fixed it ([ADR-014](decisions.md#adr-014-three-wordings-for-the-sun-sentence)). **`tools/fit_products.sh`, the full 69-product sweep, ran 2026-09-27**: `done: 69 pass, 0 fail`, `PASSED (passed=122, failed=0, errors=0)` on every product including Venu X1 (`bin/fit-products.txt`). This run predates the on-watch Customize menu (ADR-019); the earlier compile-only sweep (all 69, `-w --typecheck 3`, zero errors) is superseded by this one.
 
 ## What was NOT tested
 
-- **The rectangles by eye** (Venu Sq 2, Sq 2 Music, Venu X1): the fit test passed on `venusq2` and `venux1` (`venusq2m` is compile-only, same screen as `venusq2`); simulator screenshots exist (ADR-028), the owner's look approval is open.
+- **The rectangles on a wrist** (Venu Sq 2, Sq 2 Music, Venu X1): the fit test passed on `venusq2` and `venux1` (`venusq2m` is compile-only, same screen as `venusq2`); simulator screenshots exist (ADR-028), the owner's look approval is open.
 - **MIP contrast in daylight** (night track `#5555AA` is 3.3:1 (the stale curve is the muted `#AAAAAA` line since 2026-10-05, 9:1); the always-on text is `#5C5C5C`, 3.1:1, AMOLED only, ADR-027, computed from hex values, not measured).
 - **Always-on on a real AMOLED**: lit-pixel share, ghosting, whether the screen blanks.
 - **Translations in any language.** The tests run in English; the date line in the test states is fixed English ("Wed 30 Sep"). `tools/fit_languages.sh` has run on the Instinct sizes (2026-10-04) and on `venusq2` and `venux1` (2026-10-06/07, both tiers); not on the other round sizes. `tools/check_strings.py` checks parity and length only.
