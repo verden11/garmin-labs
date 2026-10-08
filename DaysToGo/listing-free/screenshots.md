@@ -11,9 +11,9 @@ Status: 2026-10-04. The whole set was rendered today from the **current Free bui
 
 | File | Size | Device | State |
 |---|---|---|---|
-| `screens/1-days-amber.png` | 454 px, 18 KB | fr965 | "Wedding", 161 DAYS, date line with the year, amber |
-| `screens/2-weeks-sky.png` | 454 px, 18 KB | fr965 | "70.3", 6 WEEKS + 3 DAYS, sky |
-| `screens/3-today-pink.png` | 454 px, 15 KB | fr965 | the day itself: TODAY, ring full, pink |
+| `screens/1-days-amber.png` | 454 px, 18 KB | venu3 | "Wedding", 161 DAYS, date line with the year, amber |
+| `screens/2-weeks-sky.png` | 416 px, 17 KB | fr265 | "70.3", 6 WEEKS + 3 DAYS, sky |
+| `screens/3-today-pink.png` | 416 px, 11 KB | epix2pro47mm | the day itself: TODAY, ring full, pink |
 | `screens/4-rectangle.png` | 320x360, 4 KB | venusq2 | 45 DAYS on a rectangular screen, violet, the square design (track along the glass; retaken 2026-10-08, ADR-019) |
 | `screens/5-instinct.png` | 528 px, 3 KB | instinct2 (**Instinct family**) | 45 DAYS, black and white, ring as a gauge in the round window |
 

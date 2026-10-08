@@ -11,9 +11,9 @@ Status: 2026-10-04. The whole set was re-rendered today from the **current Pro b
 
 | File | Size | Device | State |
 |---|---|---|---|
-| `screens/1-to-the-minute.png` | 454 px | fr965 | "Race" at 20:15 in UTC+2 (Hour 20:00, Minute 15, zone UTC+2) on a UTC clock at 10:09: 8h 06m, battery on the date row, mint (2026-10-04, ADR-018, replaces the 7:51 hours-battery capture) |
-| `screens/2-weeks-steps.png` | 454 px, 17 KB | fr965 | "70.3" in weeks and days, steps on the date row, sky |
-| `screens/3-other-time-zone.png` | 454 px | fr965 | "Launch" the next day at 09:30 in UTC+9 on a UTC clock at 10:09: 14h 21m, the date row reads the written date, battery, pink (2026-10-04, ADR-018, replaces the 161-days capture) |
+| `screens/1-to-the-minute.png` | 390 px | venu441mm | "Race" at 20:15 in UTC+2 (Hour 20:00, Minute 15, zone UTC+2) on a UTC clock at 10:10: 8h 05m, battery on the bottom line, mint (2026-10-04, ADR-018, replaces the 7:51 hours-battery capture) |
+| `screens/2-weeks-steps.png` | 454 px, 17 KB | fenix847mm | "70.3" in weeks and days, steps on the date row, sky |
+| `screens/3-other-time-zone.png` | 454 px | fr970 | "Launch" the next day at 09:30 in UTC+9 on a UTC clock at 10:09: 14h 21m, the date row reads the written date, battery on the bottom line, pink (2026-10-04, ADR-018, replaces the 161-days capture) |
 | `screens/4-rectangle.png` | 320x360, 4 KB | venusq2 | hours state, amber, the square design (track along the glass, battery on the bottom line; retaken 2026-10-08, ADR-019) |
 | `screens/5-instinct.png` | 498 px, 3 KB | instincte40mm (**Instinct family**) | hours state, black and white, ring as a gauge in the round window (the bottom line is not drawn there) |
 

@@ -16,11 +16,11 @@ The simulator's canned sun times read wrong in the container's UTC clock (sunris
 
 | # | File | Device | Clock (UTC) | Accent | What it shows |
 |---|---|---|---|---|---|
-| 1 | `screens/1-day.png` | FR965, 454 px | 10:09 | Sky (0, the default) | Time, bolt and 59, "7h 22m of daylight", the ring (daylight gone and to come, ticks, sun marker) |
-| 2 | `screens/2-evening.png` | FR965, 454 px | 20:41 | Mint (1) | After sunset: outline marker on the night half, "Sunrise ~06:05" |
-| 3 | `screens/3-accent-pink.png` | FR965, 454 px | 13:21 | Pink (4) | The one setting: another accent |
-| 4 | `screens/4-instinct-e45.png` | **Instinct E 45 mm, 176 px (the Instinct-family shot)** | 10:09 | none (black and white) | The ring as a small 24-hour dial in the round window |
-| 5 | `screens/5-small-fr255s.png` | FR255S, 218 px | 10:09 | Violet (3) | The same face on a small round screen |
+| 1 | `screens/1-day.png` | Venu 4 41 mm, 390 px | 10:10 | Sky (0, the default) | Time, bolt and 59, "7h 22m of daylight", the ring (daylight gone and to come, ticks, sun marker) |
+| 2 | `screens/2-evening.png` | fenix 8 47 mm, 454 px | 20:41 | Mint (1) | After sunset: outline marker on the night half, "Sunrise ~06:05" |
+| 3 | `screens/3-accent-pink.png` | FR970, 454 px | 13:21 | Pink (4) | The one setting: another accent |
+| 4 | `screens/4-instinct-e45.png` | **Instinct E 45 mm, 176 px (the Instinct-family shot)** | 10:10 | none (black and white) | The ring as a small 24-hour dial in the round window |
+| 5 | `screens/5-small-fr255s.png` | FR255S, 218 px | 10:10 | Violet (3) | The same face on a small round screen |
 
 The Instinct family has no accent setting (ADR-024). Two Suns ships on three Instincts (E 40 mm, E 45 mm, 3 Solar 45 mm); E 45 mm is the one pictured.
 

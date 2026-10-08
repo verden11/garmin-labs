@@ -8,7 +8,7 @@ Status 2026-10-04: **a full set rendered from the current Pro build (`monkey.jun
 
 ## The five screen images (upload order)
 
-All from the Pro build, native simulator pixels, clock 2026-10-04 10:09. No price in any image.
+All from the Pro build, native simulator pixels, clock 2026-10-04 10:09 at the start (the pictures read 10:11: the clock runs on while the face loads). No price in any image.
 
 | # | File | Device | What it shows (what Pro has) |
 |---|---|---|---|
@@ -30,7 +30,7 @@ docker/capture.sh HeroFace tools/listing_shots.sh pro 2-your-bars.png   # one pi
 # the other four the same way: 1-everyday.png  3-goals-met.png  4-heroset.png  5-instincte40mm-166.png (the native Instinct frame, saved in screens/native/; then render src/instinct-up.html with Chrome to make the x3 upload file)
 ```
 
-**Take each picture in its own run.** In the Free twin's long run the simulator kept the Accent value stored by the first scene (the Cyan and Magenta frames came out blue); Pro's 2026-10-04 set was taken in one longer run in a different order (HeroSet scenes first) where it did not happen, and the trimmed script's order (1-everyday, then 2-your-bars) was **not** re-proven in one run (it was on 2026-10-08: one full `pro` run, the stored-settings delete in `scene()`, every picture checked). One picture per run is the safe, documented way, and the extra arguments make that cheap.
+**Take each picture in its own run.** In the Free twin's long run the simulator kept the Accent value stored by the first scene (the Cyan and Magenta frames came out blue); Pro's 2026-10-04 set was taken in one longer run in a different order (HeroSet scenes first) where it did not happen, and the trimmed script's order (1-everyday, then 2-your-bars) was proven in one run on 2026-10-08 (one full `pro` run with the stored-settings delete in `scene()`; every picture checked). One picture per run stays the fallback when an accent comes out wrong, and the extra arguments make that cheap.
 
 - The five pictures came out of one full run that also took a few extra frames (a second custom-bars variant, Instinct 2 and Instinct E 45 mm, a goals-met HeroSet frame); the script was trimmed to the chosen five afterwards and the unused frames were discarded. The scenes are unchanged. Extra arguments after `pro` name the files to re-take alone (`... pro 3-goals-met.png`); a "NOT SAVED" line means repeat that one. In the Free twin's long run the simulator kept a stored Accent value, so Free's accent frames are taken one per run; look at every picture.
 - The face is built in a **private copy** of the project, so `source/` and the repo's `properties.xml` are never touched. The clock is the simulator's own (`faketime`), the activity data is typed into Simulation > Activity Monitoring, and each file is the simulator's File > Save Screen Capture, so the size is the device's own.

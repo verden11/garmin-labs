@@ -12,11 +12,11 @@ At most five, the best five for this tier. The face changes through the day, so 
 
 | # | File | What it shows | Device | Size |
 |---|---|---|---|---|
-| 1 | `screens/1-morning.png` | Morning 07:15: feels-like temperature, high/low, rain chance, UV | FR965 | 454 px |
-| 2 | `screens/2-midday.png` | Midday 13:15: a stress reading as a number and a plain gauge | FR965 | 454 px |
-| 3 | `screens/3-evening.png` | Evening 20:00: the Body Battery reading, the same way | FR965 | 454 px |
-| 4 | `screens/4-accent-purple.png` | The one setting, the accent colour (purple at midday) | FR965 | 454 px |
-| 5 | `screens/5-instinct-evening.png` | **The Instinct one.** Evening 20:00, black and white; the arc is a gauge in the round window | Instinct E 40 mm | 166 px |
+| 1 | `screens/1-morning.png` | Morning 07:16: feels-like temperature, high/low, rain chance, UV | Venu 3 | 454 px |
+| 2 | `screens/2-midday.png` | Midday 13:16: a stress reading as a number and a plain gauge | FR265 | 416 px |
+| 3 | `screens/3-evening.png` | Evening 20:01: the Body Battery reading, the same way | Venu 4 41 mm | 390 px |
+| 4 | `screens/4-accent-purple.png` | The one setting, the accent colour (purple at midday) | epix Pro 47 mm | 416 px |
+| 5 | `screens/5-instinct-evening.png` | **The Instinct one.** Evening 20:01, black and white; the arc is a gauge in the round window | Instinct E 40 mm | 166 px |
 
 DayArc's manifest has three black-and-white Instincts (`instincte40mm`, `instincte45mm`, `instinct3solar45mm`); the E 40 mm frame has the largest hero of the three, so it is the one shown. Free shows one reading per window, so the Instinct frame is the hero and a gauge.
 

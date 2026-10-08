@@ -96,11 +96,11 @@ Whatever the Category choice offers.
 
 ## Screen Images
 
-1. `screens/1-everyday.png`
-2. `screens/2-accent-cyan.png`
-3. `screens/3-goals-met.png`
-4. `screens/4-heroset.png`
-5. `screens/5-instinct-e40.png`
+1. `screens-framed/1-everyday.png`
+2. `screens-framed/2-accent-cyan.png`
+3. `screens-framed/3-goals-met.png`
+4. `screens-framed/4-heroset.png`
+5. `screens-framed/5-instinct-e40.png`
 
 ## Device icons
 
