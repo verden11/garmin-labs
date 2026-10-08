@@ -54,7 +54,7 @@ Applies to all five rectangles (`venusq`, `venusqm`, `venusq2`, `venusq2m`, `ven
 | 320 × 360 (`venusq2`, `venusq2m`) | 7 | 8 | 48 | 17 |
 | 448 × 486 (`venux1`) | 9 | 11 | 67 | 22 |
 
-Hero font per size (`daysToGoLayoutReport`, simulator, 2026-10-07; band = the hero's height before the spare is shared out, default state / Race with a name): the largest system number font (`FONT_NUMBER_THAI_HOT`) is chosen on all three, so the hero is at the system ceiling, not held back by the box.
+Hero font per size (`daysToGoLayoutReport`, simulator, 2026-10-07; band = the hero's height before the spare is shared out, default state / Race with a name): in these two states the largest system number font (`FONT_NUMBER_THAI_HOT`) is chosen on all three, so the hero is at the system ceiling. **One state steps down:** Pro with a name and the bottom line on the Sq 2 leaves a band of about 127 px, under that font's 131 px ascent, so the hero is `FONT_NUMBER_HOT` there (Free, with no bottom line, keeps the larger one). This is the same rule as on round watches, where the hero steps down a size when the bottom line takes a row; the Sq and the X1 keep the largest font in that state.
 
 | Screen | Band | Largest number font: height / ascent | Next down |
 |---|---|---|---|
