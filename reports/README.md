@@ -6,6 +6,7 @@ Research and review reports. **They record what was found and decided at the tim
 
 | Report | What it is |
 |---|---|
+| [Passive income plan](Passive%20income%20plan.md) | 2026-10-08, revised 2026-10-09: the 12-month money plan (owner target €100–500/month, 5–10 h/week): arithmetic, phases with stop rules, Wear OS as the one second-store spike, ad budget, freeze list, weekly routine (ROADMAP 17.x). Notes in `research_notes/Passive income plan/` |
 | [Free and Pro ladder - START HERE](Free%20and%20Pro%20ladder%20-%20START%20HERE.md) | Entry point for any agent on the Free + Pro work: status, rules, a paste-ready prompt per work package |
 | [Free and Pro ladder](Free%20and%20Pro%20ladder.md) | The strategy and the owner decisions OD1 to OD8 (answers are written here; ROADMAP 2.3) |
 | [Free and Pro ladder execution plan](Free%20and%20Pro%20ladder%20execution%20plan.md) | What to do, in what order, in which files, and how to know it is done (WP1 to WP10) |
