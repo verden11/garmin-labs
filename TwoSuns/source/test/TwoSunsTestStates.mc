@@ -131,8 +131,10 @@ class TwoSunsTestStates {
     // A curve whose newest sample is `level`, `ageMinutes` old. Pro only (it builds the history).
     (:pro)
     static function curve(level as Number, ageMinutes as Number) as TwoSunsBatteryCurve {
-        var values = [level] as Array<Numeric or Null>;
-        var whens = [NOW - ageMinutes * TwoSunsConfig.SECONDS_PER_MINUTE] as Array<Number or Null>;
+        // two samples a bucket apart, so the curve draws a stretch of line (a rectangle hides a lone dot, ADR-028)
+        var newest = NOW - ageMinutes * TwoSunsConfig.SECONDS_PER_MINUTE;
+        var values = [level, level] as Array<Numeric or Null>;
+        var whens = [newest, newest - TwoSunsConfig.BATTERY_BUCKET_SECONDS] as Array<Number or Null>;
         return TwoSunsBattery.build(values, whens, NOW);
     }
 

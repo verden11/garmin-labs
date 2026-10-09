@@ -29,7 +29,7 @@ What sits behind [`paste.md`](paste.md), the paste-ready copy. Nothing here is p
 | Garmin's own Body Battery number, as Garmin reports it, a level bar, no advice; two dashes when none | ADR-021 (Body Battery in Free) and ADR-008 (no verdicts on Body Battery); the strings; test `freeBatteryIsTheComplicationOnly` (compiled, not run). **Not claimed:** accuracy, "live", "last 24 hours" (Free has no history and no timestamp) |
 | One setting: six accent colours, in Garmin Connect or on the watch | `resources-free/settings` (Accent ids 0 to 5), the on-watch Customize menu (ADR-019, on-watch Customize; confirmed on the FR965 for the pre-split build only, 2026-09-27); `tools/check_free_package.sh` for the keys |
 | Dims to a quiet time, number and sun line when the screen sleeps | The always-on frame (AMOLED); **no ghosting or battery claim**, forbidden until measured |
-| Fits round and rectangular watches alike | Screen-fit tests on every size (simulator, 2026-09-27, Pro build); the Free build's fit run is still to do. "Full detail down to the smallest" was dropped from this draft; the same phrase in `../listing/paste.md` line 42 is **to verify** (noted in `../listing/NOTES.md`, not edited) |
+| On a round screen the ring runs around the bezel, on a rectangular one a track along the glass, on black-and-white screens a small dial in the round window (from 1.1.0; was "Fits round and rectangular watches alike") | ADR-028 (rectangles: the sky ring follows the screen) and ADR-024 (Instinct E and 3 Solar); screen-fit tests in both tiers on every `fit_all.sh` device and both rectangles (simulator, 2026-10-08). Earlier: "Full detail down to the smallest" was dropped from this draft; the same phrase in `../listing/paste.md` line 42 is **to verify** (noted in `../listing/NOTES.md`, not edited) |
 | "This free version reads only your watch's own sunrise, sunset and Body Battery numbers. No location, no account, no internet, no analytics, no ads. It stores no place and no history; the only thing it saves is your accent colour setting." | The Free manifest has `ComplicationSubscriber` alone, no network code, no place and no `Application.Storage` call compiled in (`tools/check_free_package.sh`, the compiler); the accent colour is a Properties value. "No analytics, no ads" are the words the Pro listing already uses |
 | Device claims | **No device sentence and no watch model name in listing text** (owner, 2026-10-04): the store's device tab is the claim. The former `meta.yaml` `held_back_text` sentences are deleted (their old wording: "Pro is sold only on watches Garmin lists for paid apps; this version can also be installed on some watches Pro cannot be bought for", and the Instinct dial sentence for "One face, every screen"). No watch count (the contract forbids "works on X" for a watch only the simulator has seen) |
 
@@ -56,6 +56,16 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 | Additional Hardware Requirements | Paste the bare URL `https://verden.watch/two-suns/` only (API field `hardwareProductUrl`; the old sentence is retired, ROADMAP 10.16) |
 | Refund wording | No refund or return wording appears in listing text (owner decision, 2026-10-04). |
 | Device reach (ROADMAP 10.15) | Two Suns has almost no Free-only reach: every one of its 72 products except D2 Air X10 is on Garmin's paid list (the Instinct E and 3 Solar included), and D2 Air X10 is one of the 11 products no paid app is sold on ([`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"). No device sentence goes into the listing either way |
+
+## What's New: history
+
+- **1.0.0** (uploaded 2026-10-04, in review): blank (initial release).
+
+## 1.1.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **Version** `1.1.0` (next minor; App Version is free text in the form). It can go up while 1.0.0 is still in review (`../../research_notes/Free and Pro ladder/garmin_rules.md`).
+- **What's New:** the Free side of `../CHANGELOG.md` "Free 1.1.0": the rectangles' own design (ADR-028 (rectangles: the sky ring follows the screen)), the Body Battery number in one colour at any level (ADR-008 (no verdicts on Body Battery), amended), the grey `--` (ADR-021 (Body Battery in Free), amended), the solid bolt, the daylight wording. No Pro-only item (curve, weather, battery row), no watch model, no language.
+- **Description fixed for the new build (upload gate of 2026-10-08):** the ring sentence and "One face, every screen" rewritten as in the Pro listing (`../listing/NOTES.md` "Pro 1.2.0"). Spanish and Chinese mirrored.
 
 ## After approval (plan WP5, WP9)
 
@@ -85,3 +95,7 @@ Garmin's brand page: "Do not choose black or transparent backgrounds"; the owner
 - **White "Suns" on `#55AAFF`** (first try): 2.3:1, so "Suns" became the night blue.
 
 Open for the owner: the look; the device icons stay on black (Garmin's sentence is about the cover; the icon carries no text).
+
+## Instinct image, black and white only (2026-10-08)
+
+`screens-framed/4-instinct-e45.png` (instincte45mm): re-framed 2026-10-08 (99 KB, under the 150 KB cap): the Instinct E skin's display hole carries a ghost of Garmin's sample screen at alpha 1 to 25 of 255, which the framing composited over the black screen as faint grey marks (inside the dial and under the sun line); `docker/frame_shot.sh` now clears alpha under 10% inside the display rectangle (the opaque bezel and window rim stay). The capture `screens/4-instinct-e45.png` was checked: 176 x 176, pure black and white (2 colours), so nothing to snap. Only the faint marks went; the screen content is the same. The four round frames were not replaced (re-framing them changed only anti-aliased edge pixels).

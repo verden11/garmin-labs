@@ -8,17 +8,15 @@ class TwoSunsState {
     var batteryText as String = "";                          // "62" or "--"
     var batteryLevel as Number or Null = null;               // 0 to 100 when the value is a number, for the level pill
     var batteryStale as Boolean = false;
-    // The colour the value, pill and dot draw in: the chosen accent when the level is fresh and not low,
-    // dim(accent) when it is fresh but low (see TwoSunsConfig.BATTERY_LOW_THRESHOLD). Stale overrides both
-    // with a plain muted grey, drawn by the view itself, not carried here.
-    var batteryAccent as Number = TwoSunsPalette.ACCENTS[0];
     var curve as TwoSunsBatteryCurve or Null = null;         // null: no curve to draw
+    var curveOn as Boolean = false;                          // Pro: the Curve setting is on and the watch has the history API (the band keeps the curve's room)
     var skyLine as String = "";                              // the full sentence
     var skyLines as Array<String> = [] as Array<String>;     // longest first: the full sentence, then a shorter wording when there is one
     var sky as TwoSunsSky = new TwoSunsSky();
     var nowMinute as Number = 0;                             // local minutes since midnight
     var accent as Number = TwoSunsPalette.ACCENTS[0];
-    var goldenArc as Boolean = false;                        // the Golden hour setting
+    var goldenArc as Boolean = false;
+    var weatherOn as Boolean = false;                        // Pro: the Weather setting (the row may still have no data)
     var orientation as Number = TwoSunsConfig.ORIENTATION_NOON_TOP;
     var watchBattery as Number or Null = null;               // Pro: the watch's own charge, 0 to 100, null when the Battery setting is off
     var weather as TwoSunsWeather or Null = null;           // Pro: the weather row, null when there is nothing to show

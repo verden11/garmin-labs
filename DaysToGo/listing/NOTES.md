@@ -54,6 +54,7 @@ English plus 14 (dan, deu, dut, fin, fre, ita, lit, nob, pol, por, spa, swe, tur
 
 ## Previous What's New blocks
 
+- **1.1.0** (uploaded 2026-10-04, in review): `New: count down to the minute. Give an event a start time and the time zone it starts in, and the last 24 hours count down in hours and minutes to the moment it starts. You choose the UTC offset; the watch keeps no time zone rules. The count of days stays on your own calendar. The app is now called Days To Go Pro on the watch. Also available: Days To Go, with the core countdown.`
 - **1.0.1:** `Long event names on small screens now end in "..." instead of being cut off without a marker.`
 - **1.0.0:** `First release.`
 
@@ -69,6 +70,12 @@ English plus 14 (dan, deu, dut, fin, fre, ita, lit, nob, pol, por, spa, swe, tur
 - The price is **not** in this file (ADR-017: the $2.50 tier, set in the form with the 1.1.0 upload). Re-pricing an approved app can remove it for re-review (SDK `Monetization/App_Sales`); shipping it with the version upload covers that.
 - "More from Verden" is left out: it lists only live free siblings, none live today.
 
+## Pro 1.2.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **Version** `1.2.0` (next minor; App Version is free text in the form, the manifest carries none). It can go up while 1.1.0 is still in review (`../../research_notes/Free and Pro ladder/garmin_rules.md`).
+- **What's New** lists the user-facing changes of `../CHANGELOG.md` "Pro 1.2.0": the square design (ADR-019 (rectangles get a square design)), `8h 06m` (ADR-018 (to the minute), amendment), the ring's one scale, the date arrow and the bottom-line marks, no on-watch date picker on two rectangles (ADR-020 (no on-watch picker on the Sq 2)), the always-on grey (ADR-007 (always-on), amendment). The first-generation Venu Sq and Sq Music are in the package but not on Garmin's paid list, so Pro's What's New claims no new watches. No watch model, no language, no price, no "free"; nothing about time zones beyond what 1.1.0 said.
+- **Description fixed for the new build (the reviewer's upload gate of 2026-10-08):** "A thin ring around the bezel" is now "along the edge of the screen"; "One design, every screen / Round and rectangular watches alike, full detail down to the smallest" is now "Every screen, its own fit", naming the bezel ring, the track along a rectangle's glass and the black-and-white window gauge by screen type; the bottom-line sentence now says "(not on black-and-white screens)" (ADR-015 (Instinct family): no footer there). Spanish and Chinese mirrored. The site wording is a separate, held-back commit (deploy after Garmin approves).
+
 ## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
 
 - **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml); the approvals the owner owes are in its `owner_approvals`.
@@ -78,3 +85,7 @@ English plus 14 (dan, deu, dut, fin, fre, ita, lit, nob, pol, por, spa, swe, tur
 - **Category:** Utility (alternative: Simple). **Subcategory:** whatever the Category choice offers. **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Preview Video:** none (YouTube or Vimeo only).
 - **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04).
 - **Images:** the owner approves the looks first (`meta.yaml` `owner_approvals`). Simulator captures of the Pro build, 2026-10-04 (canned clock, battery and steps; not real readings). The Instinct picture is the Instinct E 40 mm (a Pro caption never names the Instinct 2 family); the simulator image is 166 px and `screens/5-instinct.png` is it enlarged x3 without smoothing (the native capture is re-made by `tools/listing_shots.sh` when re-taking; not kept); upload it only with the package that adds the Instinct products (1.1.0). Captions and devices are in `meta.yaml` `assets.screens`.
+
+## Instinct image, black and white only (2026-10-08)
+
+`screens-framed/5-instinct.png` (instincte40mm): re-framed 2026-10-08 (103 KB, under the 150 KB cap): the Instinct E skin's display hole carries a ghost of Garmin's sample screen at alpha 1 to 25 of 255 (6,500 to 10,700 pixels), which the framing composited over the black screen as faint grey marks; `docker/frame_shot.sh` now clears alpha under 10% inside the display rectangle (the opaque bezel and window rim stay). The capture was checked: pure black and white (2 colours), so nothing to snap; `screens/native/` re-made from the x3 copy (`-sample`, exact). Only the faint marks went; the screen content is the same.

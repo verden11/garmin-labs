@@ -26,7 +26,7 @@ What the listing, the store page and the site may claim. The checkable form of t
 - Anything about a rival by name. Brand names in tags.
 - "Free" wording while the price is paid; disclose any limited-time free period (store review guideline 4d). The store's "trial" does not exist for watch faces.
 - "No permissions" or "no location permission" while `Positioning` is in the manifest.
-- Translated store copy that no native speaker has read.
+- Translated store copy that no native speaker has read, **except** the Spanish and Chinese (Simplified) listing text (title, description, What's New, hero tagline) the owner chose to publish machine-drafted (2026-10-05, extended to What's New and heroes 2026-10-08) (ROADMAP 13.33; a native read stays open, 7.10).
 - A claim about the look, a screenshot, or "designed for" a watch before the owner has approved the look and supplied the images.
 
 ## Paid vs free reach (2026-10-04)
@@ -47,3 +47,4 @@ What the listing, the store page and the site may claim. The checkable form of t
 - Neither listing carries a device sentence or a watch model name (owner, 2026-10-04): the store's device tab, taken from each build, is the claim, and there is no watch count. The paid listing carries no "free" wording (its sibling line reads "Also available: Two Suns, a lighter version: <URL>").
 - Free's description says nothing is locked or unlockable inside Free (there are no locked items); never "upgrade" wording inside the app or in the Free description's first lines beyond the sibling line.
 - "More from Verden" links only live **free** siblings.
+- **From Pro 1.2.0 / Free 1.1.0 (72 products, prepared 2026-10-08):** the ring is described by screen type: around the bezel on a round screen, a track along the edges of the glass on a rectangular one (ADR-028 (rectangles: the sky ring follows the screen)), a small 24-hour dial in the round window on a black-and-white one (ADR-024 (Instinct E and 3 Solar)); never a watch model or count, and no longer "round and rectangular watches alike" (each shape has its own design). What's New may say the Weather and Watch battery rows are off until switched on (it names the switches); it still does not describe what the weather row shows.

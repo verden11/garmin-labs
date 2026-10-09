@@ -28,7 +28,11 @@ function stackFitsWorstCaseOnThisDevice(logger as Test.Logger) as Boolean {
     for (var f = 0; f < DayArcLayout.HERO_FONTS.size(); f++) {
         inks += " " + DayArcText.inkHeight(dc, DayArcLayout.HERO_FONTS[f]);
     }
-    logger.debug("HEROINK " + dc.getWidth() + "x" + dc.getHeight() + " hot/medium/mild" + inks);
+    var clockInks = "";
+    for (var f = 0; f < DayArcLayout.CLOCK_FONTS.size(); f++) {
+        clockInks += " " + DayArcText.inkHeight(dc, DayArcLayout.CLOCK_FONTS[f]);
+    }
+    logger.debug("HEROINK " + dc.getWidth() + "x" + dc.getHeight() + " hot/medium/mild" + inks + " clock medium/mild/large" + clockInks);
     var variants = ["morning-data", "morning-empty", "midday-data", "midday-empty", "evening-data", "evening-empty", "night"] as Array<String>;
     for (var v = 0; v < variants.size(); v++) {
         failures += dayArcCheckVariant(logger, dc, layout, variants[v], v);
@@ -43,9 +47,10 @@ function dayArcWorstHero(variant as Number, window as Number) as Dictionary {
     hero.put(:dateText, DayArcConfig.WORST_DATE);
     var empty = variant == 1 || variant == 3 || variant == 5;
     if (window == DayArcConfig.WINDOW_MORNING) {
-        hero.put(:label, null);
-        hero.put(:value, empty ? "--" : DayArcConfig.WORST_TEMPERATURE);
-        hero.put(:sub, empty ? WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String : DayArcConfig.WORST_MORNING_SUB);
+        // "Feels like" since ROADMAP 13.28; none when there is no weather (DayArcFields).
+        hero.put(:label, empty ? null : WatchUi.loadResource(Rez.Strings.morning_feels_label) as String);
+        hero.put(:value, empty ? null : DayArcConfig.WORST_TEMPERATURE);   // no weather: no hero row, the sentence is the read
+        hero.put(:sub, empty ? WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String : (DayArcSources.hasUvIndex() ? DayArcConfig.WORST_MORNING_SUB : DayArcConfig.WORST_MORNING_SUB_NO_UV));
     } else if (window == DayArcConfig.WINDOW_MIDDAY) {
         hero.put(:value, empty ? "--" : DayArcConfig.WORST_COUNT);
         hero.put(:gauge, empty ? null : 100);
@@ -68,11 +73,16 @@ function dayArcCheckVariant(logger as Test.Logger, dc as Graphics.Dc, layout as 
     var plan = DayArcStack.plan(dc, layout, window, hero);
     dayArcLogPlan(logger, dc, layout, name, plan, hero);
     var problems = plan.fits ? "" : name + ": plan does not fit even at the last rung (level " + plan.level + "). ";
+    // The no-weather morning is the sentence alone: never a reserved second line it then draws on one (reviewer pass five). On
+    // the Instinct's narrow band the sentence itself can need two, which is fine.
+    var sentence = hero.get(:sub);
+    var idle = variant == 1 && sentence instanceof String && plan.subLineCount == DayArcConfig.MAX_SUB_LINES && plan.subLines(dc, sentence).size() == 1;
+    problems += idle ? name + ": plans a second sub line the empty sentence never draws. " : "";
     problems += dayArcBottomProblem(dc, plan, layout, name);
     problems += dayArcRowProblems(dc, layout, plan, hero, name);
     if (layout.subscreen() != null) {
         problems += dayArcInstinctProblems(dc, layout, plan, hero, name);
-    } else if (window != DayArcConfig.WINDOW_NIGHT) {
+    } else if (window != DayArcConfig.WINDOW_NIGHT && !layout.isRectangle()) {   // a rectangle: DayArcRectTest
         problems += dayArcArcProblem(logger, dc, layout, plan, name);
     }
     return problems;
@@ -86,7 +96,10 @@ function dayArcLogPlan(logger as Test.Logger, dc as Graphics.Dc, layout as DayAr
     }
     var gridRows = 0;
     if (hero.hasKey(:cells) && plan.gridTop() >= 0) {
-        gridRows = DayArcGrid.draw(dc, layout, plan.gridTop(), hero.get(:cells) as Array<Dictionary>);
+        // The cells the grid really draws: the corner fields beside the date leave it (DayArcCorners.rest), as in DayArcDraw.
+        var date = hero.get(:dateText);
+        var rest = DayArcCorners.rest(dc, layout, plan, date instanceof String ? date : null, hero.get(:cells) as Array<Dictionary>);
+        gridRows = DayArcGrid.draw(dc, layout, plan.gridTop(), rest);
     }
     logger.debug("STACK " + dc.getWidth() + "x" + dc.getHeight() + " " + name + " level=" + plan.level + " fits=" + plan.fits
         + " heroInk=" + DayArcText.inkHeight(dc, plan.heroFont) + " iconW=" + plan.iconWidth + " gap=" + plan.gap + " sublines=" + plan.subLineCount + " reservedGridRows=" + plan.gridRows + " rows(y/h)" + rows

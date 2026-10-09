@@ -1,10 +1,10 @@
 <!doctype html>
 <html><head><meta charset="utf-8">
 <!-- Store hero image (1440x720), DayArc. Render: tools/render_listing_images.sh listing. The three faces are the simulator captures in ../screens/ (simulator data, not readings). -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Noto+Sans+SC:wght@400..800&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#2A2582;}
-  body{display:flex;align-items:center;font-family:'Archivo',sans-serif;color:#fff;
+  body{display:flex;align-items:center;font-family:'Archivo','Noto Sans SC',sans-serif;color:#fff;
        background:radial-gradient(900px 640px at 72% 50%,rgba(130,110,255,.45) 0%,rgba(130,110,255,0) 70%),linear-gradient(160deg,#4B3BC4 0%,#2A2582 100%);}
   .copy{box-sizing:border-box;width:500px;padding-left:72px;padding-right:12px;flex:none;}
   .markbox{width:150px;height:112px;overflow:hidden;margin:0 0 20px -6px}
@@ -31,4 +31,13 @@
     <div class="col"><div class="w"><img src="../screens/2-midday.png"></div><div class="cap"><b>Midday</b><i style="color:#55FFFF">Stress</i></div></div>
     <div class="col"><div class="w"><img src="../screens/3-evening.png"></div><div class="cap"><b>Evening</b><i style="color:#FF55AA">Body Battery</i></div></div>
   </div>
+<script>
+  // One hero per listing language (owner, 2026-10-08): hero.html#es and hero.html#zh swap the line and the captions; plain hero.html is English.
+  var T = {es: ['Una esfera que cambia<br>con tu día.', 'Mañana', 'Clima', 'Mediodía', 'Estrés', 'Tarde', 'Body Battery'],
+           zh: ['随你的一天而变化的表盘。', '早晨', '天气', '中午', '压力', '傍晚', '身体电量']}[location.hash.slice(1)];
+  if (T) {
+    document.documentElement.lang = location.hash.slice(1); document.querySelector('.copy p').innerHTML = T[0];
+    document.querySelectorAll('.cap').forEach(function (c, n) { c.querySelector('b').textContent = T[1 + 2 * n]; c.querySelector('i').textContent = T[2 + 2 * n]; });
+  }
+</script>
 </body></html>

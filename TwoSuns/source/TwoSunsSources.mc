@@ -87,7 +87,7 @@ class TwoSunsSources {
 
     (:pro)
     private function readCurve(epoch as Number) as TwoSunsBatteryCurve or Null {
-        if (!(Toybox has :SensorHistory) || !(Toybox.SensorHistory has :getBodyBatteryHistory)) {
+        if (!TwoSunsBattery.hasHistory()) {
             return null;
         }
         try {

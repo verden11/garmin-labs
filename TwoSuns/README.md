@@ -24,8 +24,8 @@ monkeyc -d fr965 -f monkey.jungle -o bin/TwoSuns.prg -y $KEY -w --typecheck 3   
 monkeyc -d fr965 -f monkey.free.jungle -o bin/TwoSunsFree.prg -y $KEY -w --typecheck 3  # Free
 monkeydo bin/TwoSuns.prg fr965                  # with the simulator running
 
-tools/run_tests.sh fr965                        # Pro: 154 tests; prints PASSED (…)
-tools/run_tests.sh fr965 monkey.free.jungle     # Free: 67 tests (compiled, not yet run)
+tools/run_tests.sh fr965                        # Pro: 166 tests; prints PASSED (…)
+tools/run_tests.sh fr965 monkey.free.jungle     # Free: 76 tests
 tools/run_tests.sh fr965 monkey.jungle everyStateFitsThisDisplay
 tools/fit_all.sh [jungle]                       # screen fit on ten devices, one per size but Venu X1
 tools/compile_sweep.sh                          # compile every product, both jungles, no simulator
@@ -46,13 +46,13 @@ The test runners run in a container by default (`docker/README.md`). With `CIQ_D
 |---|---|
 | Ring | 24 hours of local clock time, noon at the top (a setting puts midnight there), clockwise. Night dim, civil twilight, daylight in the accent (the part already gone dimmer), ticks at sunrise and sunset, a sun marker at now (solid while the sun is up, an outline when it is not). Optional golden-hour arc. |
 | Time | The hero, in the largest system numeric font that fits. |
-| Body Battery band | A battery glyph, the value, and the last 24 hours as a curve with the current point marked. Stale (newest sample over an hour old) is muted and hollow. No number: `--`. |
+| Body Battery band | A bolt glyph, the value, and the last 24 hours as a curve with the current point marked (not drawn until two neighbouring 15-minute samples exist). Stale (newest sample over an hour old) is muted and hollow. No number: a muted `--` beside a hollow bolt. |
 | Sun sentence | "3:42 of daylight", "Sunrise 06:41", "Sun stays up today", "No place yet", "No sun data", and their shorter wordings on narrow rows. |
 | Date | Small, muted, above the time; optional. |
 
 Always-on (AMOLED): the time, the Body Battery value and the sun sentence, dim, drifting on a 3 × 3 grid; no ring, no curve. MIP watches keep the full face. Body Battery is shown as Garmin reports it: no verdicts, no advice.
 
-Settings (Garmin Connect, lists only): Accent colour, Ring orientation, Golden hour, Energy curve, Date (Pro). Free has Accent colour only. Free has no curve, no date row, no twilight or golden arc, and keeps no place; a missing Body Battery number is `--` and a hollow pill (ADR-021, Body Battery in Free).
+Settings (Garmin Connect, lists only): Accent colour, Ring orientation, Golden hour, Energy curve, Date, Weather, Watch battery (Pro; Weather and Watch battery Off by default). Free has Accent colour only. Free has no curve, no date row, no twilight or golden arc, and keeps no place; a missing Body Battery number is `--` and a hollow bolt (ADR-021, Body Battery in Free).
 
 ## Layout
 
@@ -69,7 +69,7 @@ source/
   TwoSunsRingPlan / Ring / RingArc  sky ring: plan (pure) and drawing
   TwoSunsCurvePlan / Curve / Band   Body Battery band: plan (pure) and drawing
   TwoSunsLayout/Rows/Frame/Draw/Sleep/Palette/Config/Text/DateText/Settings
-  test/                             unit and screen-fit tests (Pro 154, Free 67)
+  test/                             unit and screen-fit tests (Pro 166, Free 76)
 resources/  resources-<lang>/       shared strings and drawables (English + 14 machine-drafted); NO settings, NO AppName
 resources-free/  resources-pro/     AppName ("Two Suns" / "Two Suns Pro"), the settings and properties of each tier
 manifest.xml, monkey.jungle              Pro (the live app id)

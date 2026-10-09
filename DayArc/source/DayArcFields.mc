@@ -58,9 +58,12 @@ class DayArcFields {
     private static function morningHero(sources as DayArcSources, epoch as Number) as Dictionary {
         var conditions = sources.currentConditions(epoch);
         if (conditions == null) {
+            // The sentence is the whole read (reviewers, 2026-10-06): with no icon (a guessed condition is never drawn, ROADMAP
+            // 13.29) a "--" alone floated in a hero row sized for digits, far from any label. No label, no hero row
+            // (DayArcStack plans none for a null value): clock, date, "Weather unavailable".
             return {
                 :label => null,
-                :value => WatchUi.loadResource(Rez.Strings.value_none) as String,
+                :value => null,
                 :sub => WatchUi.loadResource(Rez.Strings.morning_weather_unavailable) as String,
             } as Dictionary;
         }

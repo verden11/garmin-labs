@@ -5,22 +5,22 @@ folder: DayArc/listing-pro
 tier: pro
 app_id: cc86c6b6-9a5c-4908-9056-165ff4b81982
 store:
-  listing_url: null
-  developer_url: https://apps-developer.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe   # owner, 2026-10-05; store page https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe (live once Garmin approves)
+  listing_url: "https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe"   # live since Garmin approved it 2026-10-05
+  developer_url: https://apps-developer.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe
 live:
-  version: null
-  since: null
-  note: never submitted
+  version: 1.0.0
+  since: 2026-10-05
+  note: uploaded and approved by Garmin 2026-10-05 (first publication; package dist/DayArcPro-1.0.0.iq, 72 products, 93 part numbers, exported 2026-10-05 evening)
 next:
-  version: "1.0.0"
-  status: drafted   # drafted | prepared | uploaded | in-review | live
+  version: "1.1.0"
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
   uploaded: null
-  summary: text drafted, not finalised; the $2.50 tier (ADR-018, supersedes the price of ADR-007), no price number on the site or in listing text; 72 products with the Instinct E and 3 Solar
+  summary: "square design on Venu Sq 2, Sq 2 Music and X1 (ADR-019); Pro's Venu Sq 2 morning shows Feels like and a row of fields, the no-weather morning reads Weather unavailable, the always-on grey (ADR-020); 72 products, unchanged; More from Verden left out until a free sibling is live; upload bundle device-test/upload/DayArc-Pro-1.1.0/"
 package:
-  file: dist/DayArcPro-1.0.0.iq
-  products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
-  exported: 2026-10-05   # re-exported again that evening (Feels like label, condition icons, 12-hour fix); earlier: re-export from commit 4915c61 (code of a64233e), after the design-review fixes of ADR-017
-  check: "tools/check_package.sh: OK (Instinct parts carry no settings file, the other 89 have Accent)"
+  file: dist/DayArcPro-1.1.0.iq
+  products: 72   # <iq:product> lines in the manifest
+  exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 93 part numbers; sha256 d9ced760d3351fbad67fb3020fa09579fc02396fe92860314382ae518834985d
+  check: "tools/check_package.sh: OK (93 part numbers, 4 Instinct without settings, 89 with Accent); unpack check: app id = manifest.pro.xml, 72 of 72 products, ComplicationSubscriber only"
   note: "export: CIQ_IMAGE=verden-ciq-build:9.2.0 docker/run.sh DayArc monkeyc -e -r -w -f monkey.pro.jungle; built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form; ADR-018); no number in text
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
@@ -33,13 +33,14 @@ assets:
     - {file: screens-framed/2-midday.png, caption: "Midday, a stress reading with the calendar, intensity minutes, steps, calories, heart rate and floors around it", device: fr970, px: 720, kb: 99, framed: true}
     - {file: screens-framed/3-evening.png, caption: "Evening, Body Battery with recovery time, respiration, steps, pulse ox, heart rate and calories around it", device: fenix8pro47mm, px: 720, kb: 128, framed: true}
     - {file: screens-framed/4-accent-blue.png, caption: "The one setting, the accent colour (here blue in the evening)", device: fr965, px: 720, kb: 93, framed: true}
-    - {file: screens-framed/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window, one row of readings under it", device: instincte40mm, px: 720, kb: 108, instinct: true, framed: true}
+    - {file: screens-framed/5-instinct-evening.png, caption: "Black and white, the arc a gauge in the round window, one row of readings under it", device: instincte40mm, px: 720, kb: 106, instinct: true, framed: true}
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/day-arc-pro/
   support: https://verden.watch/day-arc-pro/support/
   privacy: https://verden.watch/day-arc-pro/privacy/
 owner_approvals:   # what only the owner may settle before paste.md is used
+  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set was re-checked against the next build: screens 1 to 3 recaptured identical (0 pixels differ), 4 and 5 differed only in random simulator values; nothing replaced; it goes up as it stands with the next upload. No rectangle is pictured (the square design, ADR-019, is not in this set). Preview: device-test/listing-review/DayArc-listing-pro.png."
   # Approved by the owner 2026-10-05 (chat): the updated face design (bolt hero icon, grey Pro grid icons), the recaptured
   # watch-framed screens, the listing text as drafted (keeping "Chosen in the Garmin Connect app"), and the upload order (ROADMAP 1.9); the cover, hero and icons ("Icons OK", same evening).
 open_items: "1.1 1.4 1.5 1.7 1.8 1.9"   # ids in ROADMAP.md

@@ -2,7 +2,7 @@
 
 Languages picked by the owner, 2026-10-05: English (the main `paste.md`), **Spanish** and **Chinese (Simplified)**.
 **Machine-drafted, not yet read by a native speaker** (translation reads stay the owner's call). Translated from `paste.md` as
-it stood on 2026-10-05; when the English changes, change these too. Only the title and description are translated; every other
+it stood on 2026-10-05; when the English changes, change these too. The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.4.0 on 2026-10-08, and words the watch shows are quoted as the watch shows them in that language (English where the app has no translation); every other
 field is the same as in `paste.md`. The app name, the watch's button names (START, UP/DOWN) and the store's own permission name
 stay in English. No price number, as in English.
 
@@ -44,6 +44,20 @@ DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
 >   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
+### What's New
+
+```text
+- Ahora en más relojes, también en los rectangulares: en ellos, el anillo de XP del panel recorre los bordes de la pantalla y todo lo que hay dentro aprovecha todo el ancho.
+- Si corriges la cuenta de hoy y queda por debajo de tu objetivo, el día deja de estar completado: tu racha vuelve a ser la que era antes de que contara el día de hoy, en la app, en el glance y, en relojes con Connect IQ 4.2 o posterior, en HeroFace. Si vuelves a guardar por encima del objetivo, el día se completa de nuevo. La XP que ganaste se mantiene.
+- La pantalla de revisión muestra en grande la cantidad que se va a guardar, con la cuenta detectada en pequeño encima.
+- Durante una serie, las calorías muestran "--" hasta que se cuente la primera, en lugar de 0.
+- Pantallas en blanco y negro: el panel no muestra la fila de la racha hasta que tengas una racha.
+```
+
+### Hero Image
+
+`hero-1440x720-es.png`
+
 ## Chinese, Simplified (简体中文)
 
 ### Title
@@ -81,3 +95,17 @@ DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
 >   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
+
+### What's New
+
+```text
+- 现已支持更多手表，包括矩形屏幕的手表：在这些手表上，主界面的 XP 圆环沿屏幕边缘延伸，圆环内的所有内容都使用整个宽度。
+- 把今天的次数改回目标以下时，当天将不再算作完成：你的连续纪录会恢复到今天计入之前的状态，在应用、概览（glance）以及 Connect IQ 4.2 及以上手表上的 HeroFace 中都是如此。再次保存超过目标的次数，当天即重新完成。已获得的 XP 会保留。
+- 检查界面以大号数字显示将要保存的次数，上方以小字显示检测到的次数。
+- 每组训练中，卡路里在开始计数之前显示为“--”，而不是 0。
+- 黑白屏幕：在你有连续纪录之前，主界面不显示连续纪录这一行。
+```
+
+### Hero Image
+
+`hero-1440x720-zh.png`

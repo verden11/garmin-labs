@@ -42,7 +42,7 @@ source/
 ├── sensor/       HeroSetSensorManager     accelerometer listener lifecycle
 │                 HeroSetActivitySync      FIT session + lap/session fields (dev
 │                                          only, `(:sync)`; ADR-043)
-├── layout/       HeroSetLayout            round-screen geometry
+├── layout/       HeroSetLayout            round-screen geometry; HeroSetRectTrack (rectangle XP track, ADR-057)
 ├── ui/
 │   ├── dashboard/  HeroSetView, HeroSetDayTracker,
 │   │               HeroSetRankHeader (XP ring + rank), HeroSetMissionBars
@@ -203,7 +203,7 @@ Every fixed pop count rely on Workout/Picker sitting at depth 1 ([ADR-024](decis
 | Item | Why it's not fixed yet | Fix when |
 |---|---|---|
 | `HeroSetStore.mc` is ~340 lines (budget 250); `HeroSetStoreTest.mc` 377 lines | Guards user data; bad split corrupts installs ([ADR-020](decisions.md#adr-020)) | With device upgrade check (gate 4) |
-| `HeroSetLayout.mc` is ~300 lines (budget 250) | Round, semi-octagon window and rectangle ring geometry share the same inset functions ([ADR-055](decisions.md#adr-055), [ADR-057](decisions.md#adr-057)) | When a fourth screen shape arrives: split the window geometry out |
+| `HeroSetLayout.mc` is ~300 lines (budget 250) | Round and semi-octagon window geometry share the same inset functions; the rectangle track moved out to `HeroSetRectTrack` (2026-10-06) ([ADR-055](decisions.md#adr-055), [ADR-057](decisions.md#adr-057)) | When a fourth screen shape arrives: split the window geometry out |
 | Rep detector and learning constants are tuned on synthetic fixtures, not watch recordings ([ADR-032](decisions.md#adr-032)/[040](decisions.md#adr-040)) | No way yet to pull raw sensor data off watch | When gate 2 trials show misses; record traces with dev build if needed |
 | Connect Sync (one activity per workout, [ADR-043](decisions.md#adr-043)) unverified on device | Dev build only until FR965 acceptance ([`connect-sync-plan.md`](archive/connect-sync-plan.md) device acceptance) | Before sync goes into the store build |
 | Validation log also records in store build (only viewer hidden) | Harmless 30-entry buffer, disclosed in HeroSet privacy page (`../site`); could now be gated with annotation like sync ([ADR-033](decisions.md#adr-033)) | If it ever holds anything sensitive |

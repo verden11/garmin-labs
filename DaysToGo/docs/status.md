@@ -2,6 +2,8 @@
 
 > **Open items live only in the root [`ROADMAP.md`](../../ROADMAP.md).** This file keeps where things stand, the evidence, the release gates and the upload steps. Listing text and metadata: [`../listing/paste.md`](../listing/paste.md) and [`../listing/meta.yaml`](../listing/meta.yaml). Claims: [`release-contract.md`](release-contract.md). Build history: [`archive/plan.md`](archive/plan.md).
 
+**Free 1.1.0 and Pro 1.2.0 uploaded by the owner 2026-10-08, in Garmin review** (129 products incl. Venu Sq / Sq Music; square design on rectangles; no on-watch picker on the Sq 2 family, ADR-020; one always-on grey; `device-test/upload/DaysToGo-*`). Simulator only.
+
 **Where things stand, 2026-10-05.** Live since 2026-09-28 (1.0.1 was submitted 2026-09-26; which version Garmin approved is not recorded). **Uploaded by the owner 2026-10-04, in Garmin review:** Days To Go Free 1.0.0 (new app) and Days To Go Pro 1.1.0 (the paid app renamed, the $2.50 tier, with **"To the minute"**, ADR-018), both with the Instinct family (ADR-015), 127 products, simulator only. **Unreleased since:** the first-generation Venu Sq and Sq Music join both manifests (129 products, Free-only reach, 2026-10-05) and the always-on time is no longer cut on the rectangles (ADR-016 (bottom line and name step-down), amendment 5; `compatibility.md` "Venu Sq and Venu Sq Music"); simulator only, both ship with the next upload of each tier. Open work: ROADMAP 3.1, 3.7, 3.12, 7.10, 7.12, 10.30.
 
 **Status 2026-09-26 (kept as history): 1.0.1 was submitted on top of 1.0.0; approved 2026-09-28.** The "After approval" section below lists what follows approval; the baseline (gate 11) is still to be written down.
@@ -38,7 +40,7 @@ Built 2026-10-04 (ROADMAP 3.10; owner chose option 1 of `../../reports/Days To G
 
 The owner chose to submit straight to the store and fix issues in later versions. That waives gates 2 and 3 (phone round trip, T4 decision) and accepts these risks, on record:
 
-- **The phone date route is untested on hardware (T2).** If Garmin Connect loses the date, the buyer's only way in is the on-watch picker (works on the FR965, sideloaded; 94 of the 117 round products by the SDK list). The face still counts to New Year's Day. This is the exact failure that hurt rival faces, and it would hit paying users.
+- **The phone date route is untested on hardware (T2).** If Garmin Connect loses the date, the buyer's only way in is the on-watch picker (works on the FR965, sideloaded; 94 of the 117 round products by the SDK list; not offered on the Venu Sq 2 and Sq 2 Music, ADR-020 (no on-watch picker on the Sq 2), where the phone is the only route). The face still counts to New Year's Day. This is the exact failure that hurt rival faces, and it would hit paying users.
 - **A phone save may overwrite an on-watch pick, or the reverse (T4), unknown.** Do not put the "set it on your watch" sentence in the description until it is tested; the support page already says "on many watches".
 - **Any fix costs a new version and about 72 hours of review**, and a bad first review is public. Price stays fixed at submission.
 - **A later Beta App upload is still possible at any time** (it uses its own app id) to test T2/T4 against the released build's behaviour, and it does not interfere with the live listing.

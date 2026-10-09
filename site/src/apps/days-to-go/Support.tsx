@@ -7,12 +7,12 @@ export function Support() {
       <h2>Contact</h2>
       <p>
         Questions or bugs: email <a href={`mailto:${studio.email}`}>{studio.email}</a>. Please include your watch model
-        and its software version, and the date you set.
+        and its software version, whether you have Days To Go or Days To Go Pro, and the date you set.
       </p>
 
       <h2>Setting the date</h2>
       <p>
-        In the Garmin Connect app, open your watch, then Connect IQ Apps → Watch Faces → Days To Go → Settings. Set{' '}
+        In the Garmin Connect app, open your watch, then Connect IQ Apps → Watch Faces → Days To Go (or Days To Go Pro) → Settings. Set{' '}
         <em>Event</em> to <em>My own date</em>, then choose the Month, Day and Year from the lists. Every date setting is a
         plain list, so there is no date picker to fill in.
       </p>
@@ -25,7 +25,8 @@ export function Support() {
       <p>
         On many watches you can also set it without the phone: open the watch-face list, choose Days To Go, then choose
         Customize (next to Apply) and Set date. Pick the month, day and year. The face updates at once. Some watches do not
-        offer this and need the phone or Garmin Express.
+        offer this and need the phone or Garmin Express, among them the Venu Sq 2 and Sq 2 Music, whose own date picker is too
+        narrow to read.
       </p>
 
       <h2>Common questions</h2>
@@ -47,9 +48,18 @@ export function Support() {
       </p>
       <h3>How do I count to a time, not just a day?</h3>
       <p>
-        Set Time of day to the hour of the event. In the last 24 hours the face shows hours and minutes, and once the time
-        arrives it says TODAY until midnight. The list of hours is always in 24-hour form (18:00), whatever your watch
-        uses for the clock.
+        In Days To Go Pro, set Time of day to the hour of the event and Minute to its minute. In the last 24 hours the face
+        counts down in hours and minutes (8h 06m), and once the time arrives it says TODAY until midnight. The list of hours
+        is always in 24-hour form (18:00), whatever your watch uses for the clock. These settings are in the Garmin Connect
+        app only. Days To Go, the free face, counts whole days.
+      </p>
+      <h3>The event is in another time zone.</h3>
+      <p>
+        In Days To Go Pro, set Event time zone to the UTC offset the event’s place will be on that day, for example UTC+9
+        for a 09:30 start in Tokyo. The hours and minutes then count down to that moment wherever you are. A watch keeps no
+        time-zone rules, so the face does not adjust for daylight saving: if the place changes its clocks before the event,
+        pick the offset it will be on by then. The day count itself stays on your own calendar and changes at your own
+        midnight.
       </p>
       <h3>How do I see weeks?</h3>
       <p>Set Count in to Weeks and days. From one full week on, the face shows whole weeks and the days over (6 WEEKS + 3 DAYS).</p>

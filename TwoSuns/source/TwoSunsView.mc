@@ -55,7 +55,14 @@ class TwoSunsView extends WatchUi.WatchFace {
         if (frame.showDate) {
             drawRow(dc, layout, radius, rows.dateTop, dc.getFontHeight(frame.dateFont), frame.dateFonts, state.dateLines, TwoSunsPalette.MUTED);
         }
-        drawRow(dc, layout, radius, rows.timeTop, dc.getFontHeight(frame.timeFont), frame.timeFonts, [state.time] as Array<String>, TwoSunsPalette.TEXT);
+        if (frame.timeByInk) {
+            // a rectangle's spread time: placed and fitted by its digits (TwoSunsRectSpread, TwoSunsRectFit)
+            dc.setColor(TwoSunsPalette.TEXT, Graphics.COLOR_TRANSPARENT);
+            TwoSunsDraw.inkText(dc, layout, layout.centerX(), rows.timeTop, frame.timeFont, state.time,
+                                TwoSunsRectSpread.timePad(frame.timeFont, dc.getFontHeight(frame.timeFont)));
+        } else {
+            drawRow(dc, layout, radius, rows.timeTop, dc.getFontHeight(frame.timeFont), frame.timeFonts, [state.time] as Array<String>, TwoSunsPalette.TEXT);
+        }
         drawBattery(dc, layout, frame, state);
         drawWeather(dc, layout, frame, state);
         drawBand(dc, layout, frame, state);
@@ -90,12 +97,13 @@ class TwoSunsView extends WatchUi.WatchFace {
     private function drawWeather(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
     }
 
-    // The Body Battery band: a level pill, the value and, when there is room, the energy curve.
+    // The Body Battery band: the bolt, the value and, when there is room, the energy curve's room (its line once it has one).
     private function drawBand(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
         var band = frame.band;
-        TwoSunsCurve.drawGlyph(dc, layout, band, state.batteryLevel, state.batteryStale, state.batteryAccent);
+        TwoSunsCurve.drawGlyph(dc, layout, band, state.batteryLevel, state.batteryStale, state.accent);
         TwoSunsDraw.box(layout, band.glyphLeft, band.glyphTop, band.glyphWidth, band.glyphHeight, "glyph");
-        dc.setColor(state.batteryStale ? TwoSunsPalette.MUTED : state.batteryAccent, Graphics.COLOR_TRANSPARENT);
+        // One colour whatever the level; "--" and a stale number are muted like the hollow bolt beside them (ADR-008, ADR-028).
+        dc.setColor(TwoSunsReadings.batteryColor(state), Graphics.COLOR_TRANSPARENT);
         var top = frame.rows.bandTop + (frame.bandHeight - dc.getFontHeight(frame.valueFont)) / 2;
         TwoSunsDraw.text(dc, layout, band.valueCenterX, top, frame.valueFont, state.batteryText, Graphics.TEXT_JUSTIFY_CENTER);
         drawCurve(dc, layout, frame, state);
@@ -104,12 +112,17 @@ class TwoSunsView extends WatchUi.WatchFace {
     // The energy curve is Pro only: Free has no history, so no state ever carries one.
     (:pro)
     private function drawCurve(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
-        var curve = state.curve;
-        if (frame.showCurve && curve != null) {
-            var band = frame.band;
-            TwoSunsCurve.draw(dc, layout, band, curve, state.batteryStale, state.batteryAccent);
-            TwoSunsDraw.box(layout, band.curveLeft, band.curveTop, band.curveWidth, band.curveHeight, "curve");
+        if (!frame.showCurve) {
+            return;
         }
+        var band = frame.band;
+        var curve = state.curve;
+        // A curve with no line (a lone dot) floats at the band's far end and reads as noise: its room stays empty until two
+        // neighbouring samples exist (ADR-028, the rectangle track; round too since 2026-10-08).
+        if (curve != null && curve.hasALine()) {
+            TwoSunsCurve.draw(dc, layout, band, curve, state.batteryStale, state.accent);
+        }
+        TwoSunsDraw.box(layout, band.curveLeft, band.curveTop, band.curveWidth, band.curveHeight, "curve");
     }
 
     (:free)

@@ -22,9 +22,9 @@ No permissions, nothing leaves the watch.
 | D2 | **Price: paid $1.99 first (the price is now the $2.50 tier, D13, ADR-017); ~~one review at day 45 after approval on whether to flip to free (once, never back)~~ superseded 2026-10-04: the flip rule is retired by the Free + Pro ladder (D12, ADR-014)** | **Owner, 2026-09-26; flip rule retired 2026-10-04** | Owner's choice of option 1 after the weekly free/paid idea was advised against (see "Price"). A free flip may also send traffic to the owner's other paid apps: a hypothesis to measure, not a promise. The build is identical either way |
 | D3 | **Name: Days To Go** | **Owner confirmed, 2026-09-26** (store search by eye and trademark search still to do) | Zero exact or containing collisions in the store search; matches how people say it. See `research_notes/.../naming_and_listing.md` |
 | D4 | **Settings: lists, never `date` or `numeric`** | Decided (evidence) | Both failed in rivals; see "Setting the date" |
-| D5 | **A second way in: set the date on the watch** (`getSettingsView` + Picker) | Decided, gated by the phase 3 device test | Removes the phone from the critical path; keep only if it does not destroy phone-set values. Documented for 94 of the 117 products; the older CIQ 3.x products and the newest have the phone only |
+| D5 | **A second way in: set the date on the watch** (`getSettingsView` + Picker) | Decided, gated by the phase 3 device test | Removes the phone from the critical path; keep only if it does not destroy phone-set values. Documented for 94 of the 117 products; the older CIQ 3.x products and the newest have the phone only, and so do the Venu Sq 2 and Sq 2 Music (ADR-020 (no on-watch picker on the Sq 2)) |
 | D6 | **Calendar-day arithmetic**, no `Time.Moment` maths | Decided (verified) | Rival bugs are all calendar bugs; unit tests pass in the simulator (43 tests; the counting rules on fr965, fenix6pro and venu2s, screen fit on ten sizes) |
-| D7 | **Devices: the 117 round products HeroFace supports** (CIQ 3.0+), plus 3 rectangular AMOLED products (Venu Sq 2, Sq 2 Music, Venu X1) added 2026-09-26, and the first-generation Venu Sq and Sq Music (LCD, CIQ 3.3.6; not on the paid list, Free-only reach) added 2026-10-05 | Recommended | Same evidence base and test method; if paid, the store itself restricts sales to its own list |
+| D7 | **Devices: the 117 round products HeroFace supports** (CIQ 3.0+), plus 3 rectangular AMOLED products (Venu Sq 2, Sq 2 Music, Venu X1) added 2026-09-26, and the first-generation Venu Sq and Sq Music (LCD, CIQ 3.3.6; not on the paid list, Free-only reach) added 2026-10-05; square design on the rectangles since 2026-10-05 (ADR-019) | Recommended | Same evidence base and test method; if paid, the store itself restricts sales to its own list |
 | D8 | **Category: Utility** | Recommended | It is a utility face; Simple is the alternative |
 | D9 | **Languages: English + HeroFace's 14 translations** | Recommended | Few strings; Russian, Greek and Chinese are owner-level additions |
 | D10 | **No code sharing with HeroFace** (copy the few files, no Barrel) | Decided | A Barrel pays off at the third shared face, not the second |
@@ -131,7 +131,7 @@ Constraints (from SDK and HeroFace): primitives and system fonts only, no bitmap
 (each channel 00, 55, AA or FF); black ground; a state is never colour alone.
 
 Recommended direction: **"one number"**. Black ground; the hero number in white at the largest system numeric font that fits
-(`FONT_NUMBER_THAI_HOT` → `HOT` → `MEDIUM` → `MILD`), centred in the middle third; a thin bezel ring in one accent that drains as the date approaches
+(`FONT_NUMBER_THAI_HOT` → `HOT` → `MEDIUM` → `MILD`), centred in the middle third; a thin bezel ring (on a rectangle a rounded-rectangle track along the glass edge, ADR-019) in one accent that drains as the date approaches
 (365-day window) and fills solid on the day; the time above it, medium and muted-white; event name in the accent colour above the number; caption and
 date in muted grey below; nothing else. Accents (owner to approve): mint `#55FFAA` (default, distinct from HeroFace's gold and blue), amber `#FFAA00`,
 sky `#55AAFF`, pink `#FF55AA`, violet `#AA55FF`, white `#FFFFFF`.
@@ -140,14 +140,14 @@ Row bands as fractions of the shorter screen side D, top to bottom (the implemen
 checks each row against the circle's chord): time 0.13–0.26, event name 0.28–0.35, hero 0.36–0.68, caption 0.69–0.76, date 0.78–0.85, optional bottom line 0.87–0.93.
 These are starting proportions, not a mock-up; the mock-up comes from the design tool.
 
-**As built (ADR-012):** fractional bands overlapped on the 208 px screen, because system fonts do not scale with the screen. So each row takes the largest font up to a height cap, the rows are stacked from those heights, and the hero takes the rest; on a small screen optional rows give way: the bottom line first shares the date row (ADR-016), then drops, then the name, then the date, until the hero has room for its smallest font. The ring is a full circle from the top, clockwise. Screen-fit tests pass on the ten sizes listed in `compatibility.md`.
+**As built (ADR-012):** fractional bands overlapped on the 208 px screen, because system fonts do not scale with the screen. So each row takes the largest font up to a height cap, the rows are stacked from those heights, and the hero takes the rest; on a small screen optional rows give way: the bottom line first shares the date row (ADR-016), then drops, then the name, then the date, until the hero has room for its smallest font. The ring is a full circle from the top, clockwise; on a rectangle it is a closed rounded-rectangle track from top centre, clockwise, filled by the same share of its length (ADR-019 (rectangles get a square design)). Screen-fit tests pass on the ten sizes listed in `compatibility.md`.
 
-**Always-on (AMOLED)**: only two lines, the hero number and the time, in dim grey (`#555555`), the whole block stepping across a 3×3 grid once a minute
-(HeroFace's `HeroFaceSleep`). No ring, no name, no date. MIP watches show the full face at all times.
+**Always-on (AMOLED)**: only two lines, the hero number and the time, in dim grey (`#5C5C5C`, 3.14:1 on black, burn-in-protected screens only; was `#555555` until 2026-10-08, ADR-007 (always-on) amendment), the whole block stepping across a 3×3 grid once a minute
+(HeroFace's `HeroFaceSleep`). No ring, no name, no date. The error frame (a "?" when the settings cannot be read) also draws in `#5C5C5C` and drifts on the same grid while asleep there, and stays white and still otherwise (ADR-007 amendment 2026-10-08). MIP watches show the full face at all times.
 
 ## Devices and memory
 
-- 117 round products (HeroFace's `manifest.xml`) plus 5 rectangular ones (round design, centred) and 7 Instinct products, `minApiLevel` 3.0.0, one build, no bitmaps. Smallest watch-face memory 96 KB.
+- 117 round products (HeroFace's `manifest.xml`) plus 5 rectangular ones (their own square design, a rounded-rectangle track, ADR-019) and 7 Instinct products, `minApiLevel` 3.0.0, one build, no bitmaps. Smallest watch-face memory 96 KB.
 - Measured, finished face, simulator normal run, 2026-09-26: **28% of 110 KB on fēnix 6 Pro, 33% of 94 KB on FR55**. Simulator only.
 - Not in v1: Instinct (semi-octagon, 64 KB, monochrome). A later face-shape pass, like HeroFace's phase 4.
 - Paid only: sold on the SDK's App_Sales product list (lowest tier CIQ 3.4) and in its country list.
@@ -159,7 +159,7 @@ Forbidden until measured on a device: battery figures, always-on ghosting, MIP c
 
 ## Non-goals (v1)
 
-Multiple events, notifications or reminders, weather, heart rate, complications (publish or subscribe), seconds, progress bar from a start date, Instinct/rectangle layouts,
+Multiple events, notifications or reminders, weather, heart rate, complications (publish or subscribe), seconds, progress bar from a start date,
 in-app purchases or keys, network of any kind, `Application.Storage`, `date`/`numeric` settings, `Time.Moment` day arithmetic.
 
 ## Risks and unknowns

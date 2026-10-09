@@ -65,15 +65,20 @@ class HeroSetView extends WatchUi.View {
 
     // One y for every footer state, fitted to the widest of them, so the bars
     // above never shift when the footer text changes. It lands in the ring's
-    // bottom gap.
+    // bottom gap; on a rectangle, on the floor of the track's inner box (ADR-057).
     function footerTop(dc as Dc, layout as HeroSetLayout) as Lang.Number {
+        var track = layout.track();
+        var line = dc.getFontHeight(Graphics.FONT_XTINY);
+        if (track != null) {
+            return track.contentBottom() - line;
+        }
         var texts = [_hint, _complete, _warning] as Lang.Array<Lang.String>;
         var widest = 0;
         for (var i = 0; i < texts.size(); i++) {
             var width = dc.getTextWidthInPixels(texts[i], Graphics.FONT_XTINY);
             widest = width > widest ? width : widest;
         }
-        return layout.fitCenteredY(layout.footerRowBottom(), layout.centerY(), widest, dc.getFontHeight(Graphics.FONT_XTINY));
+        return layout.fitCenteredY(layout.footerRowBottom(), layout.centerY(), widest, line);
     }
 
     // Completing today is what extends the run, so the line turns gold the
@@ -106,6 +111,7 @@ class HeroSetView extends WatchUi.View {
         var color = HeroSetPalette.MUTED;
         // The Instinct's bezel leaves the bottom row about 100 px (ADR-055): the long wordings fall back to a short one
         // instead of being cut mid-word ("DONE" is already translated for the mission rows; the warning keeps its "!").
+        // A rectangle's bottom row is cut by the XP track's rounded corners the same way (ADR-057).
         var shorter = null;
         if (state.storageWarning) {
             text = _warning;
@@ -116,7 +122,10 @@ class HeroSetView extends WatchUi.View {
             color = HeroSetPalette.DONE;
             shorter = HeroSetText.load(Rez.Strings.menu_sublabel_done);
         }
-        if (shorter != null && layout.subscreen() != null) {
+        var track = layout.track();
+        if (shorter != null && track != null && dc.getTextWidthInPixels(text, Graphics.FONT_XTINY) > track.innerWidth(y, dc.getFontHeight(Graphics.FONT_XTINY))) {
+            text = shorter;
+        } else if (shorter != null && layout.subscreen() != null) {
             text = HeroSetDraw.firstFitting(dc, layout, layout.displayRadius(), 0, y, Graphics.FONT_XTINY, [text, shorter] as Lang.Array<Lang.String>);
         }
         dc.setColor(color, HeroSetPalette.BACKGROUND);

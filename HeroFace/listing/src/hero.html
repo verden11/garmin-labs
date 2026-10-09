@@ -4,10 +4,10 @@
      The PRO pill beside the name is the same pill as in the mark. Render: ../screenshots.md.
      2026-10-04 (ROADMAP 10.25): "royal" blue background, as the cover (the Free hero is the lighter sky blue); the watches' own black
      screens sit on it. Dark version: ../old/. -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Noto+Sans+SC:wght@400..800&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#0A55D6;}
-  body{display:flex;align-items:center;font-family:'Archivo',sans-serif;color:#fff;
+  body{display:flex;align-items:center;font-family:'Archivo','Noto Sans SC',sans-serif;color:#fff;
        background:radial-gradient(900px 640px at 72% 50%,#2E78F0 0%,#0A55D6 70%);}
   .copy{box-sizing:border-box;width:560px;padding-left:72px;padding-right:24px;}
   .mark{width:92px;height:92px;display:block;margin-bottom:22px;}
@@ -32,4 +32,10 @@
     <div class="w l"><img src="../screens/2-your-bars.png"></div>
     <div class="w s"><img src="../screens/4-heroset.png"></div>
   </div>
+<script>
+  // One hero per listing language (owner, 2026-10-08): hero.html#es and hero.html#zh swap the line; plain hero.html is English.
+  var T = {es: 'Primero la hora, y debajo los tres objetivos que tú eliges.',
+           zh: '时间优先，<br>下方是你选择的三个目标。'}[location.hash.slice(1)];
+  if (T) { document.documentElement.lang = location.hash.slice(1); document.querySelector('.copy p').innerHTML = T; }
+</script>
 </body></html>

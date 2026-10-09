@@ -22,6 +22,11 @@ export function Support() {
       <Note>If the setting is ever missing or can't be read, the face simply shows its normal Auto colours.</Note>
 
       <h2>Common questions</h2>
+      <h3>The morning says "Weather unavailable".</h3>
+      <p>
+        Your watch has no weather reading right now. The morning then shows the
+        time, the date and those words rather than a lone "--".
+      </p>
       <h3>The stress or Body Battery number is "--".</h3>
       <p>
         Your watch has no valid reading right now. The face shows nothing rather than guessing, and says so in words
@@ -38,6 +43,12 @@ export function Support() {
       <p>
         On AMOLED watches: the time only, dim, moving position every minute to avoid burn-in. The full face shows when the
         watch is awake. Other watches keep the full face.
+      </p>
+      <h3>What does it look like on a rectangular watch?</h3>
+      <p>
+        It has its own square design there: the arc that shows how far the window has come runs along the top of a track
+        around the screen, the Stress and Body Battery gauge is a straight bar, and the time, date and readings use the room
+        inside the track. Round watches and the Instinct keep their own layout.
       </p>
       <h3>What does the face store?</h3>
       <p>One thing: your accent colour choice, a small number kept in the app's own settings storage on the watch. No readings are stored — see the privacy policy.</p>

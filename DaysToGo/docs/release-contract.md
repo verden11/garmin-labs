@@ -24,7 +24,7 @@ What the listing, the store page and the site may claim. Copy of the rules in [`
 - "The only countdown with no permissions". "Works on every watch". "Set it on your watch" without "on many watches".
 - Anything about a rival by name. Brand names in tags.
 - "Free" wording while the price is paid; disclose any limited-time free period (store review guideline 4d).
-- Translated store copy that no native speaker has read.
+- Translated store copy that no native speaker has read, **except** the Spanish and Chinese (Simplified) listing text (title, description, What's New, hero tagline) the owner chose to publish machine-drafted (2026-10-05 / 2026-10-08; ROADMAP 13.33, a native read stays open, 7.10).
 
 ## Paid vs free reach (2026-10-04)
 
@@ -40,3 +40,4 @@ What the listing, the store page and the site may claim. Copy of the rules in [`
 - No device sentence and no watch model name goes in either listing, now or after approval (owner, 2026-10-04): the store's device tab is the claim, and there is no watch count. The review request ("If this face works for you, a rating in the store helps other people find it.", DayArc's wording) is in the Free listing only, by the owner's decision of 2026-10-04; it asks and claims nothing, so it is not a claim about ratings.
 - Free's description says nothing is locked or unlockable inside Free (there are no locked items); never "upgrade" wording inside the app or in the Free description's first lines beyond the sibling line.
 - "More from Verden" links only live **free** siblings.
+- From Free 1.1.0 / Pro 1.2.0 (129 products, prepared 2026-10-08): the ring is named by screen type (around the bezel on a round screen, along the glass on a rectangular one, a gauge in the round window of a black-and-white screen; ADR-019 (rectangles get a square design), ADR-015 (Instinct family)), never "a thin ring around the bezel" for every watch; Pro's bottom line is never claimed for black-and-white screens (no footer there); "Set it on your watch" stays "on many watches" (ADR-020: not on the Venu Sq 2 and Sq 2 Music).

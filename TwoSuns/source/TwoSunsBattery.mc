@@ -40,6 +40,17 @@ class TwoSunsBattery {
         return curve;
     }
 
+    // Whether this watch's firmware has the Body Battery history at all (a property of the watch, not of one read).
+    (:pro)
+    static function hasHistory() as Boolean {
+        return (Toybox has :SensorHistory) && (Toybox.SensorHistory has :getBodyBatteryHistory);
+    }
+
+    (:free)
+    static function hasHistory() as Boolean {
+        return false;
+    }
+
     // A real reading: a number from 0 to 100. Null, negative and 127 (not worn) are not.
     static function isValidValue(value as Numeric) as Boolean {
         return value >= 0 && value <= TwoSunsConfig.BATTERY_MAX;

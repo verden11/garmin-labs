@@ -19,7 +19,7 @@ function freeBatteryIsTheComplicationOnly(logger as Test.Logger) as Boolean {
     Test.assert(none.batteryLevel == null);
     Test.assert(none.curve == null);
     Test.assert(!none.batteryStale);
-    Test.assertEqual(none.batteryAccent, none.accent);
+    Test.assertEqual(TwoSunsReadings.batteryColor(none), TwoSunsPalette.MUTED);
     Test.assertEqual(readingsState(null, 127, true).batteryText, "--");
     Test.assertEqual(readingsState(null, -1, true).batteryText, "--");
     Test.assertEqual(readingsState(null, 101, true).batteryText, "--");
@@ -39,6 +39,7 @@ function freeStateHasNoProState(logger as Test.Logger) as Boolean {
     Test.assert(!state.goldenArc);
     Test.assert(!state.showDate);
     Test.assert(state.curve == null);
+    Test.assert(!state.curveOn);   // no curve room either: Free's band is the centred pair (ADR-028 amendment 2026-10-08)
     Test.assert(!state.batteryStale);
     Test.assertEqual(state.skyLine, "No sun data");
     return true;

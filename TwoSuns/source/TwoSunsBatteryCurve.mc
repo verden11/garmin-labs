@@ -12,4 +12,14 @@ class TwoSunsBatteryCurve {
     function initialize() {
         buckets = new Array<Number or Null>[TwoSunsConfig.BATTERY_BUCKETS];
     }
+
+    // Whether two neighbouring buckets both have a sample, so the curve draws at least one stretch of line.
+    function hasALine() as Boolean {
+        for (var i = 1; i < buckets.size(); i++) {
+            if (buckets[i] != null && buckets[i - 1] != null) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

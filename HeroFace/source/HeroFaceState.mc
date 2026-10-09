@@ -12,6 +12,9 @@ class HeroFaceState {
     var temperature as String?;
     // Empty when there is no streak to show (no step goal on this watch).
     var streakLines as Array<String> = [] as Array<String>;
+    // True when the last (shortest) streak wording drops the streak itself (HeroSet's rank-only line): the gold
+    // streak outranks the temperature, so the temperature goes before that wording is used.
+    var streakLastDropsStreak as Boolean = false;
     // Gold only for something the user keeps; a zero streak stays muted.
     var streakKept as Boolean = false;
     var metrics as Array<HeroFaceMetric> = [] as Array<HeroFaceMetric>;

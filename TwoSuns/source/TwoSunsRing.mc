@@ -4,7 +4,8 @@ import Toybox.Math;
 
 // The sky ring around the bezel: a dim night track all round, twilight, daylight (still to come bright,
 // already gone dimmer), the golden hour, ticks at sunrise and sunset, and the sun at the current time
-// (solid while it is up, an outline while it is not: the state is never colour alone).
+// (solid while it is up, an outline while it is not: the state is never colour alone). On a rectangle every layer
+// lies on the rounded-rectangle track instead of the circle (TwoSunsTrack, docs/decisions.md ADR-028, the rectangle track).
 class TwoSunsRing {
     private static const TICK_INSET_PERMILLE = 600;   // a tick reaches this share of the ring width inside the ring
     private static const MARKER_PERMILLE = 900;       // the marker's radius as a share of the ring width
@@ -24,12 +25,21 @@ class TwoSunsRing {
         // and what is gone or twilight is a hairline over it (ADR-024).
         dc.setPenWidth(TwoSunsPalette.MONO ? 1 : layout.ringWidth());
         dc.setColor(TwoSunsPalette.NIGHT, Graphics.COLOR_TRANSPARENT);
-        dc.drawCircle(cx, cy, radius);
+        var track = layout.track();
+        if (track != null) {
+            track.drawSpan(dc, 0.0, track.length(), layout.ringWidth());
+        } else {
+            dc.drawCircle(cx, cy, radius);
+        }
         for (var i = 0; i < plan.arcs.size(); i++) {
             var arc = plan.arcs[i];
             dc.setPenWidth(TwoSunsPalette.MONO && (arc.kind == TwoSunsConfig.RING_TWILIGHT || arc.kind == TwoSunsConfig.RING_DAY_GONE) ? 1 : layout.ringWidth());
             dc.setColor(colorFor(arc.kind, state.accent), Graphics.COLOR_TRANSPARENT);
-            drawArc(dc, cx, cy, radius, arc, state.orientation);
+            if (track != null) {
+                drawStretch(dc, track, layout.ringWidth(), arc, state.orientation);
+            } else {
+                drawArc(dc, cx, cy, radius, arc, state.orientation);
+            }
         }
         dc.setPenWidth(TICK_PEN);
         dc.setColor(TwoSunsPalette.TEXT, Graphics.COLOR_TRANSPARENT);
@@ -41,6 +51,11 @@ class TwoSunsRing {
             drawMarker(dc, layout, marker, plan.sunUp, state.orientation);
         }
         dc.setPenWidth(1);
+    }
+
+    // How far the sun marker and its black halo reach from the ring's centreline, for a ring `width` px wide.
+    static function markerReach(width as Number) as Number {
+        return width * MARKER_PERMILLE / TwoSunsConfig.PERMILLE + OUTLINE_PEN;
     }
 
     static function colorFor(kind as Number, accent as Number) as Number {
@@ -69,21 +84,35 @@ class TwoSunsRing {
         dc.drawArc(cx, cy, radius, Graphics.ARC_CLOCKWISE, start, end);
     }
 
-    // The point on a circle of `radius` at a minute of the ring.
-    private static function pointAt(layout as TwoSunsLayout, radius as Number, minute as Number, orientation as Number) as Array<Number> {
+    // A stretch of the day on the rectangle's track: the same share of its length as of the day (ADR-028).
+    private static function drawStretch(dc as Graphics.Dc, track as TwoSunsTrack, pen as Number, arc as TwoSunsRingArc, orientation as Number) as Void {
+        var from = track.distanceFor(arc.from, orientation);
+        var span = (arc.to - arc.from) * track.length() / TwoSunsConfig.MINUTES_PER_DAY;
+        track.drawSpan(dc, from, from + (span < 1.0 ? 1.0 : span), pen);   // a stretch under a pixel still shows
+    }
+
+    // The point at a minute of the ring, `offset` px outward from the ring's centreline (negative: inward): on the
+    // circle of the ring, or across the rectangle's track.
+    private static function pointAt(layout as TwoSunsLayout, offset as Number, minute as Number, orientation as Number) as Array<Number> {
+        var track = layout.track();
+        if (track != null) {
+            var at = track.pointAt(track.distanceFor(minute, orientation), offset.toFloat());
+            return [Math.round(at[0]).toNumber(), Math.round(at[1]).toNumber()] as Array<Number>;
+        }
+        var radius = layout.ringRadius() + offset;
         var angle = TwoSunsRingPlan.angleFor(minute, orientation) * Math.PI / TwoSunsConfig.DEGREES_PER_HALF_TURN;
         return [layout.ringCenterX() + (radius * Math.cos(angle)).toNumber(), layout.ringCenterY() - (radius * Math.sin(angle)).toNumber()] as Array<Number>;
     }
 
     private static function drawTick(dc as Graphics.Dc, layout as TwoSunsLayout, minute as Number, orientation as Number) as Void {
         var half = layout.ringWidth() / 2;
-        var inner = pointAt(layout, layout.ringRadius() - half - layout.ringWidth() * TICK_INSET_PERMILLE / TwoSunsConfig.PERMILLE, minute, orientation);
-        var outer = pointAt(layout, layout.ringRadius() + half, minute, orientation);
+        var inner = pointAt(layout, -half - layout.ringWidth() * TICK_INSET_PERMILLE / TwoSunsConfig.PERMILLE, minute, orientation);
+        var outer = pointAt(layout, half, minute, orientation);
         dc.drawLine(inner[0], inner[1], outer[0], outer[1]);
     }
 
     private static function drawMarker(dc as Graphics.Dc, layout as TwoSunsLayout, minute as Number, sunUp as Boolean, orientation as Number) as Void {
-        var at = pointAt(layout, layout.ringRadius(), minute, orientation);
+        var at = pointAt(layout, 0, minute, orientation);
         var size = layout.ringWidth() * MARKER_PERMILLE / TwoSunsConfig.PERMILLE;
         dc.setColor(TwoSunsPalette.BACKGROUND, Graphics.COLOR_TRANSPARENT);
         dc.fillCircle(at[0], at[1], size + OUTLINE_PEN);

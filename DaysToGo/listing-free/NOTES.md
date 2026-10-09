@@ -63,6 +63,16 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 | Additional Hardware Requirements | Paste the bare URL `https://verden.watch/days-to-go/` only (API field `hardwareProductUrl`; the old sentence is retired, ROADMAP 10.16) |
 | Refund wording | No refund or return wording appears in listing text (owner decision, 2026-10-04). |
 
+## What's New: history
+
+- **1.0.0** (uploaded 2026-10-04, in review): `First release of the free Days To Go: a big day count, your own date and name, six accent colours, days or weeks.`
+
+## 1.1.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **Version** `1.1.0` (next minor; App Version is free text in the form). It can go up while 1.0.0 is still in review.
+- **What's New:** the Free side of `../CHANGELOG.md` "Free 1.1.0": more watches (the first-generation Venu Sq and Sq Music, not named), the square design (ADR-019), the ring's one scale, the date arrow, no on-watch date picker on two rectangles (ADR-020), the always-on grey (ADR-007 amendment). No Pro-only item (hours, bottom line), no watch model, no language.
+- **Description fixed for the new build (upload gate of 2026-10-08):** the ring sentence and "One design, every screen" rewritten as in the Pro listing (`../listing/NOTES.md` "Pro 1.2.0"). Spanish and Chinese mirrored.
+
 ## After approval (plan WP4 step 6, WP9)
 
 1. Read the Free listing's real compatible-device list and record it in `../docs/compatibility.md` (no device sentence goes into listing text).
@@ -90,3 +100,7 @@ A complete set from the current Free build: five screens (days with a name, week
 - **Category:** Utility (alternative: Simple). **Subcategory:** whatever the Category choice offers. **Collects user data:** No; the privacy-policy URL field is conditional on Yes, so it may not appear. **Preview Video:** none (YouTube or Vimeo only). **App Migration:** No; a new app, not an update.
 - **Monetization:** No: the Free app asks for no payment and unlocks nothing. Read the form's own wording at submission (`../listing/NOTES.md` records that the wording is easy to misread).
 - **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04).
+
+## Instinct image, black and white only (2026-10-08)
+
+`screens-framed/5-instinct.png` (instinct2): Checked, not changed: the capture is pure black and white (2 colours) and the Instinct 2 skin has no ghost, so the re-frame is pixel-identical and the file is kept.

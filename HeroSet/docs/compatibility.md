@@ -1,6 +1,6 @@
 # Compatibility
 
-Status: 2026-10-05. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
+Status: 2026-10-06. Decision records: [ADR-034](decisions.md#adr-034)/[035](decisions.md#adr-035)/[037](decisions.md#adr-037)/[038](decisions.md#adr-038) (waves 1–4), [ADR-048](decisions.md#adr-048) (wave 5).
 
 ## Supported products
 
@@ -99,7 +99,7 @@ Plain round AMOLED products to the app: five buttons (`enter, up, menu, down, es
 | Instinct 3 AMOLED 45 mm | `instinct3amoled45mm` | 390 px | 320 x 99 |
 | Instinct 3 AMOLED 50 mm | `instinct3amoled50mm` | 416 px | 346 x 106 |
 
-**Evidence (2026-10-05, container simulator only; nothing on a wrist):** dev suite 116/116 and store suite 103/103 on both (they include `everyScreenFitsThisDisplay` and the glance fit tests); per-language fit sweep (`tools/fit-sweep.sh`) on `instinct3amoled45mm` for eng, ita, por, ukr, dut, lit, all PASSED. Screens looked at (store build, `docker/capture.sh HeroSet tools/drive_screens.sh <device> btn store.jungle 60,45,30 23 glance all`): glance, dashboard, menu, set, review, saved on both sizes; nothing clipped by the bezel. In the simulator's glance list the system draws the launcher icon in the round window and the glance's rows below it, clear of the ring, so no window layout is needed here. Real subscreen behaviour on a watch is unknown. Look approval of these screens is the owner's.
+**Evidence (2026-10-05, container simulator only; nothing on a wrist):** dev suite 116/116 and store suite 103/103 on both (they include `everyScreenFitsThisDisplay` and the glance fit tests); per-language fit sweep (`tools/fit-sweep.sh`) on `instinct3amoled45mm` for eng, ita, por, ukr, dut, lit, all PASSED. Screens looked at (store build, `docker/capture.sh HeroSet tools/drive_screens.sh <device> btn store.jungle 60,45,30 23 glance all`): glance, dashboard, menu, set, review, saved on both sizes; nothing clipped by the bezel. In the simulator's glance list the system draws the launcher icon in the round window and the glance's rows below it, clear of the ring, so no window layout is needed here. Real subscreen behaviour on a watch is unknown. Look approved by the owner 2026-10-06.
 
 **Paid list (2026-10-05, closes ROADMAP 10.21 for HeroSet):** Garmin's App Sales article lists "Instinct® 3 AMOLED 45mm, Instinct® 3 AMOLED 50mm, … Instinct® Crossover AMOLED" in its API Level 6.0 row ([App_Sales.html](https://developer.garmin.com/connect-iq/articles/monetization/App_Sales.html), fetched 2026-10-05; the `/connect-iq/monetization/app-sales/` page is a script shell whose text is that article). All three are sold paid. An earlier research note placed Instinct 3 AMOLED under API Level 5.1; the current page says 6.0. Listing text names no watch model, so nothing there changes; the store's device tab grows with the next upload.
 
@@ -107,7 +107,7 @@ Plain round AMOLED products to the app: five buttons (`enter, up, menu, down, es
 
 ### Wave 7b (unreleased, added 2026-10-05) — touch-first rectangles ([ADR-057](decisions.md#adr-057))
 
-AMOLED, touch-first like wave 5 (START, BACK, touchscreen; the Sq 2 also has a MENU key), CIQ 5.0 / 6.0.2, 768 KB, glance (64 KB) and the HeroFace complication. No bezel: rows take the full width less the safe inset; the dashboard's XP ring sits on the inscribed circle and the dashboard content fits inside it. All three are on Garmin's paid-app list (the paid Two Suns 1.0.0 listing is offered on them). Simulator only: suites in both jungles, the 15-language fit sweep on `venusq2` and `venux1`, and screenshots of every screen on `venusq2` and `venux1`; look not yet approved by the owner.
+AMOLED, touch-first like wave 5 (START, BACK, touchscreen; the Sq 2 also has a MENU key), CIQ 5.0 / 6.0.2, 768 KB, glance (64 KB) and the HeroFace complication. No bezel: rows take the full width less half the safe inset; the dashboard's XP ring is a closed rounded-rectangle track along the screen's edges (corner radius 1.5 insets, clearing the X1's ~60 px glass corner as measured on the simulator skin) and the dashboard content fills its inner box (square design, ADR-057 amendment 2026-10-06). All three are on Garmin's paid-app list (the paid Two Suns 1.0.0 listing is offered on them). Simulator only: suites in both jungles, the 15-language fit sweep on `venusq2` and `venux1`, and screenshots of every screen on `venusq2` and `venux1` (2026-10-06, square design); look not yet approved by the owner.
 
 | Family | Products (`manifest` id) | Screen | Glance area |
 |---|---|---|---|

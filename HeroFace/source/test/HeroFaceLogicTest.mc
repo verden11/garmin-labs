@@ -98,6 +98,18 @@ function ringAveragesTheDaysMissions(logger as Test.Logger) as Boolean {
     ] as Array<HeroFaceMetric>;
     Test.assertEqual(HeroFaceReadings.dayScore(metrics), 750);
     Test.assertEqual(HeroFaceReadings.dayScore([] as Array<HeroFaceMetric>), 0);
+    // A quiet MOVE bar is full, but it is not progress: the ring leaves it out, so zero
+    // activity is an empty ring and the other goals alone make it full (owner, 2026-10-06).
+    var quiet = [
+        new HeroFaceMetric(HeroFaceConfig.STEPS, 0, 10000),
+        new HeroFaceMetric(HeroFaceConfig.INTENSITY, 0, 30),
+        new HeroFaceMetric(HeroFaceConfig.MOVE, 0, 5)
+    ] as Array<HeroFaceMetric>;
+    Test.assertEqual(HeroFaceReadings.dayScore(quiet), 0);
+    quiet[0] = new HeroFaceMetric(HeroFaceConfig.STEPS, 10000, 10000);
+    quiet[1] = new HeroFaceMetric(HeroFaceConfig.INTENSITY, 30, 30);
+    Test.assertEqual(HeroFaceReadings.dayScore(quiet), 1000);
+    Test.assertEqual(HeroFaceReadings.dayScore([new HeroFaceMetric(HeroFaceConfig.MOVE, 0, 5)] as Array<HeroFaceMetric>), 0);
     return true;
 }
 

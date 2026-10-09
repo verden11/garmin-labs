@@ -93,6 +93,57 @@ function bandKeepsTheValueAndDropsTheCurveWhenNarrow(logger as Test.Logger) as B
     return true;
 }
 
+// The Curve setting sizes the band, not the data (ADR-028 amendment 2026-10-08): with Curve on, the time, the bolt and the
+// number keep their places from no sample (Garmin's number null: "--") through one, two neighbouring and a full day, so
+// nothing jumps when a line lands or ages out. With Curve off the band is the bare centred pair. Pro only; every shape.
+(:test, :pro)
+function curveRoomKeepsThePlaces(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new TwoSunsLayout(dc);
+    var now = 1800000000;   // TwoSunsTestStates' clock
+    var counts = [0, 1, 2, TwoSunsConfig.BATTERY_BUCKETS] as Array<Number>;
+    var first = null as Array<Number>?;
+    var full = null as TwoSunsFrame?;
+    for (var i = 0; i < counts.size(); i++) {
+        var values = [] as Array<Numeric or Null>;
+        var whens = [] as Array<Number or Null>;
+        for (var k = 0; k < counts[i]; k++) {
+            values.add(50);
+            whens.add(now - TwoSunsConfig.SECONDS_PER_MINUTE - k * TwoSunsConfig.BATTERY_BUCKET_SECONDS);
+        }
+        var frame = new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsBattery.build(values, whens, now), true), false);
+        var places = curvePlaces(dc, frame);
+        if (first == null) {
+            first = places;
+        }
+        for (var p = 0; p < places.size(); p++) {
+            Test.assertMessage(places[p] == first[p], counts[i] + " samples moved place " + p + ": " + places[p] + " against " + first[p]);
+        }
+        full = frame;
+    }
+    // A history read that throws (no curve object, Garmin's number null) keeps the room too: the API is there.
+    var thrown = curvePlaces(dc, new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true), false));
+    for (var p = 0; first != null && p < thrown.size(); p++) {
+        Test.assertMessage(thrown[p] == first[p], "a thrown read moved place " + p);
+    }
+    var off = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true);
+    TwoSunsReadings.fillBattery(off, TwoSunsTestStates.curve(50, 3), null, false);
+    var bare = new TwoSunsFrame(dc, layout, off, false);
+    Test.assert(!off.curveOn && !bare.showCurve);
+    if (full != null && full.showCurve && layout.track() == null) {
+        Test.assert(bare.band.glyphLeft > full.band.glyphLeft);   // round: the bare pair is centred, the reserved one at the left
+    }
+    return true;
+}
+
+// The places the curve's arrival must not move: the time's top and size, the band's top and height, the bolt, the number.
+(:debug)
+function curvePlaces(dc as Graphics.Dc, frame as TwoSunsFrame) as Array<Number> {
+    var band = frame.band;
+    return [frame.rows.timeTop, dc.getFontHeight(frame.timeFont), frame.rows.bandTop, frame.bandHeight, band.glyphLeft, band.glyphTop,
+            band.valueCenterX, frame.rows.lineTop] as Array<Number>;
+}
+
 // The glyph and curve are drawn on this device's real resolution for a fresh curve, a stale one, and none, without an error.
 (:test, :pro)
 function curveAndGlyphDrawWithoutError(logger as Test.Logger) as Boolean {

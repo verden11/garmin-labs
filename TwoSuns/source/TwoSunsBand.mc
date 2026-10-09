@@ -1,6 +1,6 @@
 import Toybox.Lang;
 
-// The Body Battery band on one row: [level pill] [value] [curve], centred as a block and kept inside
+// The Body Battery band on one row: [bolt] [value] [curve], centred as a block (so with the curve, the bolt at its left edge) and kept inside
 // the round chord of the content circle. Pure numbers (TwoSunsBand.plan); the drawing reads them.
 // When the chord is too narrow for a curve of useful width, the curve is dropped and the glyph and
 // value stay: the value is never dropped (docs/spec.md "Design brief").
@@ -28,7 +28,8 @@ class TwoSunsBand {
         var fixed = band.glyphWidth + gap + valueWidth;
         var curveWidth = chordWidth - fixed - gap;
         var cap = layout.capFor(TwoSunsConfig.CURVE_MAX_WIDTH_PERMILLE);
-        curveWidth = curveWidth > cap ? cap : curveWidth;
+        // On a rectangle the band spans the inner box, side to side (ADR-028): the bolt at its left edge, the curve to its right.
+        curveWidth = curveWidth > cap && layout.track() == null ? cap : curveWidth;
         band.hasCurve = wantCurve && curveWidth >= layout.capFor(TwoSunsConfig.CURVE_MIN_WIDTH_PERMILLE);
         var total = band.hasCurve ? fixed + gap + curveWidth : fixed;
         var left = layout.rowCenterX(bandTop, bandHeight) - total / 2;

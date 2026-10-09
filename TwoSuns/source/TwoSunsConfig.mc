@@ -46,10 +46,6 @@ class TwoSunsConfig {
     static const BATTERY_BUCKETS = 96;
     static const BATTERY_MAX = 100;               // Garmin uses 127 for "not worn"; anything above 100 is dropped
     static const BATTERY_STALE_SECONDS = 3600;    // a newest sample older than this is shown muted
-    // Our own UI threshold, not Garmin's: below this the value, pill and dot dim (TwoSunsPalette.dim),
-    // same colour the ring uses for daylight already gone, so "dim" means the same thing everywhere on
-    // the face. Not a verdict: no word, no red, just less light for less left (owner, 2026-09-27).
-    static const BATTERY_LOW_THRESHOLD = 30;
     static const BATTERY_FUTURE_SLACK_SECONDS = 300;   // a sample stamped up to 5 minutes ahead is clock skew, later is dropped
 
     // The remembered place: rounded to 0.1 degree (about 11 km), replaced only when a source is further away.
@@ -107,6 +103,7 @@ class TwoSunsConfig {
     static const RING_GOLDEN = 4;
     // The 24 hour ring: noon at the top by default (docs/spec.md D1).
     static const NOON_MINUTE = 720;
+    static const WIDEST_TIME = "00:00";      // a rectangle's time font is chosen on this width, not the minute's (ADR-028)
     static const DEGREES_TOP = 90;           // Garmin arcs: 0 is 3 o'clock, counter-clockwise, so the top is 90
     static const DEGREES_FULL_TURN = 360;
     static const MINUTES_PER_DEGREE_RING = 4;   // 1440 minutes round 360 degrees

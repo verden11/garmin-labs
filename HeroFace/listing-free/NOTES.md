@@ -62,6 +62,16 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 | Additional Hardware Requirements | Paste the bare URL `https://verden.watch/heroface/` only (API field `hardwareProductUrl`; the old sentence is retired, ROADMAP 10.16) |
 | Refund wording | No refund or return wording appears in listing text (owner decision, 2026-10-04). |
 
+## What's New: history
+
+- **1.0.0** (uploaded 2026-10-04, in review): `First release of the free HeroFace: the time, three goal bars, a progress ring, your streak, three accent colours, and HeroSet mode if you have HeroSet.`
+
+## 1.1.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **Version** `1.1.0` (next minor; App Version is free text in the form). It can go up while 1.0.0 is still in review (`../../research_notes/Free and Pro ladder/garmin_rules.md`).
+- **What's New:** the Free side of `../CHANGELOG.md` "Free 1.1.0": the rectangles (ADR-005 (rectangular watches, the ring as a frame)), the bar icons, the ring without the move bar, GO only, the centred streak, the always-on grey (ADR-006). No temperature line (Free has none), no watch model, no language.
+- **Description fixed for the new build (upload gate of 2026-10-08):** the ring sentence now says it turns green when the goals are all met and that a move bar (where Auto falls back to it, e.g. no barometer) stays out of the ring; "Round watches, one design" is now "Round or rectangular, one design". Spanish and Chinese mirrored.
+
 ## After approval (plan WP6, WP9)
 
 1. Read the Free listing's real compatible-device list and record it in `../docs/compatibility.md` (no device sentence goes into listing text).
@@ -78,3 +88,7 @@ Same as [`../listing/NOTES.md`](../listing/NOTES.md): one box per language, 4000
 - **App Migration:** No; this is a new app, not an update.
 - **Monetization:** No: the Free app asks for no payment and unlocks nothing. Read the form's own wording at submission (`../listing/NOTES.md` records that the wording is easy to misread).
 - **Hardware field:** the bare URL only; the store API names it `hardwareProductUrl`, and a live listing's value is a bare URL (owner, 2026-10-02; Garmin research 2026-10-04).
+
+## Instinct image, black and white only (2026-10-08)
+
+`screens-framed/5-instinct-e40.png` (instincte40mm): re-framed 2026-10-08 (105 KB, under the 150 KB cap): the Instinct E skin's display hole carries a ghost of Garmin's sample screen at alpha 1 to 25 of 255 (6,500 to 10,700 pixels), which the framing composited over the black screen as faint grey marks; `docker/frame_shot.sh` now clears alpha under 10% inside the display rectangle (the opaque bezel and window rim stay). The capture was checked: pure black and white (2 colours), so nothing to snap; `screens/native/` re-made from the x3 copy (`-sample`, exact). Only the faint marks went; the screen content is the same.

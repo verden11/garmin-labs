@@ -6,9 +6,32 @@ import { appUrl } from '../urls.ts'
 // block, feature rows and FAQ; these are the parts that only differ by data.
 
 export function StoreAction({ app }: { app: App }) {
+  if (app.freeStoreUrl && app.storeUrl) {
+    return (
+      <>
+        <a className="button" href={app.freeStoreUrl}>Get {app.name}, free</a>
+        <a className="button" href={app.storeUrl}>Get {app.name} Pro</a>
+      </>
+    )
+  }
   return app.storeUrl
     ? <a className="button" href={app.storeUrl}>Get it on the {app.storeName}</a>
     : <p className="status">Coming soon to the {app.storeName}</p>
+}
+
+// Free + Pro ladder: what the free face has, what Pro adds, one store link each. Two separate store listings.
+export function FreeOrPro({ app, free, pro, note }: { app: App; free: string; pro: string; note?: string }) {
+  return (
+    <section className="wrap band" aria-labelledby="tiers-title">
+      <h2 id="tiers-title" className="band__title">Free or Pro.</h2>
+      <p className="band__lede">Two faces in the {app.storeName}, two separate listings. Nothing in {app.name} is locked or waiting to be bought on the watch.</p>
+      <dl className="facts">
+        <div><dt>{app.name}</dt><dd>Free. {free} <a href={app.freeStoreUrl}>Get {app.name}</a></dd></div>
+        <div><dt>{app.name} Pro</dt><dd>Paid, one purchase. {pro} <a href={app.storeUrl}>Get {app.name} Pro</a></dd></div>
+      </dl>
+      {note && <p className="band__aside">{note}</p>}
+    </section>
+  )
 }
 
 export function HeroActions({ app }: { app: App }) {

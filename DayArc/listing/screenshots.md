@@ -2,6 +2,8 @@
 
 **Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh DayArc bash /ciq-docker/frame_listing.sh listing`.
 
+**Re-checked 2026-10-08 (ROADMAP 13.38), for the next build; awaits the owner's look approval.** Every picture was taken again from the current build (`tools/listing_shots.sh simple`) with the same scenes and watches and compared pixel by pixel with the committed one (`compare -metric AE`): morning, midday, evening and the accent picture came out identical (0 pixels differ); the Instinct evening differed only in the simulator's random Body Battery (24 against the committed 59, same layout), so the committed frame is kept. Nothing was replaced; the framed files and the hero stand. The 2026-10-06/08 changes do not show here: the simulator has weather, so the morning is the weather morning, not the no-weather one; the square design is rectangle-only; the always-on grey is not pictured. Simulator only.
+
 Status 2026-10-04: the five screens, the cover, the hero and both device icons are rendered from the current build. **Looks not yet approved by the owner** (ROADMAP 1.5, 9.7); nothing is uploaded. Never use the site's SVG drawing (`site/src/apps/day-arc/FacePreview.tsx`) or the Design-canvas mockup as a store image: both are schematics, not the face (`../docs/release-contract.md`). Simulator values (weather, stress, Body Battery) are canned or random: no image claims a real reading.
 
 ## Upload set (in order)
@@ -10,11 +12,11 @@ At most five, the best five for this tier. The face changes through the day, so 
 
 | # | File | What it shows | Device | Size |
 |---|---|---|---|---|
-| 1 | `screens/1-morning.png` | Morning 07:15: feels-like temperature, high/low, rain chance, UV | FR965 | 454 px |
-| 2 | `screens/2-midday.png` | Midday 13:15: a stress reading as a number and a plain gauge | FR965 | 454 px |
-| 3 | `screens/3-evening.png` | Evening 20:00: the Body Battery reading, the same way | FR965 | 454 px |
-| 4 | `screens/4-accent-purple.png` | The one setting, the accent colour (purple at midday) | FR965 | 454 px |
-| 5 | `screens/5-instinct-evening.png` | **The Instinct one.** Evening 20:00, black and white; the arc is a gauge in the round window | Instinct E 40 mm | 166 px |
+| 1 | `screens/1-morning.png` | Morning 07:16: feels-like temperature, high/low, rain chance, UV | Venu 3 | 454 px |
+| 2 | `screens/2-midday.png` | Midday 13:16: a stress reading as a number and a plain gauge | FR265 | 416 px |
+| 3 | `screens/3-evening.png` | Evening 20:01: the Body Battery reading, the same way | Venu 4 41 mm | 390 px |
+| 4 | `screens/4-accent-purple.png` | The one setting, the accent colour (purple at midday) | epix Pro 47 mm | 416 px |
+| 5 | `screens/5-instinct-evening.png` | **The Instinct one.** Evening 20:01, black and white; the arc is a gauge in the round window | Instinct E 40 mm | 166 px |
 
 DayArc's manifest has three black-and-white Instincts (`instincte40mm`, `instincte45mm`, `instinct3solar45mm`); the E 40 mm frame has the largest hero of the three, so it is the one shown. Free shows one reading per window, so the Instinct frame is the hero and a gauge.
 
@@ -38,7 +40,7 @@ Cover, hero and icons (host Chrome, headless; sources in `src/`):
 tools/render_listing_images.sh listing
 ```
 
-It runs `Google Chrome --headless=new ... --screenshot` on `src/cover.html` (500x500), `src/hero.html` (1440x720, built from the three FR965 screens) and `src/icon.html` (128x128), then `src/quantize64.py` snaps the 24-bit icon to Garmin's 64-colour palette (channels 00/55/AA/FF) for `icon-64-128.png` (the same route as HeroSet and HeroFace). Re-run after any change to a screen, `mark.svg` or an HTML file. The page loads the Archivo font from Google Fonts, so the render needs network.
+It runs `Google Chrome --headless=new ... --screenshot` on `src/cover.html` (500x500), `src/hero.html` (1440x720, built from screens 1 to 3, the Venu 3, FR265 and Venu 4 41 mm captures) and `src/icon.html` (128x128), then `src/quantize64.py` snaps the 24-bit icon to Garmin's 64-colour palette (channels 00/55/AA/FF) for `icon-64-128.png` (the same route as HeroSet and HeroFace). Re-run after any change to a screen, `mark.svg` or an HTML file. The page loads the Archivo font from Google Fonts, so the render needs network.
 
 Limits checked with `ls -l` after each render: cover 500x500 under 300 KB; hero 1440x720 under 2048 KB; screens under 150 KB each; `sips -g pixelWidth -g pixelHeight` for the dimensions.
 
@@ -55,3 +57,7 @@ Limits checked with `ls -l` after each render: cover 500x500 under 300 KB; hero 
 ## Rules
 
 Screenshots under 150 KB each; cover 500x500 (under 300 KB); hero 1440x720 (under 2048 KB, optional); device icons 128x128. Do not crop a screen into a claim about real readings. No price number in any image.
+
+## Language heroes (2026-10-08)
+
+Each listing language has its own hero (owner, 2026-10-08). `hero-1440x720-es.png` (Spanish) and `hero-1440x720-zh.png` (Chinese, Simplified) are `src/hero.html` with the line and the three captions translated (Chinese uses Garmin's own name 身体电量 for Body Battery, 2026-10-09): the page swaps the text when its URL ends in `#es` or `#zh`; the name and the watches are unchanged. Chinese falls back from Archivo to Noto Sans SC (Google Fonts), so Latin letters and digits stay Archivo. `DayArc/tools/render_listing_images.sh listing` renders all three. The English render is unchanged by this (checked byte for byte, 2026-10-08). Machine-drafted text, not read by a native speaker.

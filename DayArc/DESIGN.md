@@ -5,22 +5,23 @@ colors:
   ground: "#000000"
   text: "#FFFFFF"
   muted: "#AAAAAA"
+  sleep-text: "#5C5C5C"   # AMOLED always-on time only (ADR-020); not a 64-colour value, never drawn on MIP
   accent: the wearer's Accent colour (ADR-014). Auto (default) = the three per-window hues below, exactly as approved in ADR-013; or ONE fixed hue for the arc, hero value, gauge fill and hero icon in every non-night window — cyan #55FFFF, amber #FFAA00, rose #FF55AA, green #55FF55, blue #55AAFF, purple #AA55FF. A list, never a free picker; all 64-colour-safe
   accent_morning: "#FFAA00"   # Auto's hue for morning
   accent_midday: "#55FFFF"    # Auto's hue for midday
   accent_evening: "#FF55AA"   # Auto's hue for evening
   accent_night: none — night has no hero, no icon, stays muted-only whatever the setting
-  grid_icon_colors: 14 fixed 64-colour-safe hues, one per icon TYPE, never per value (ADR-013) — see "Iconography" below for the table
+  grid_icon_colors: all muted #AAAAAA since 2026-10-05 (ADR-013 amendment; the 14 per-type hues before it are in "Iconography" for history)
 type:
-  clock: FONT_NUMBER_MEDIUM / FONT_NUMBER_MILD / FONT_LARGE (DayArcLayout.CLOCK_FONTS) — the tier is chosen by DayArcStack's whole-stack fit ("Layout"), not per row
+  clock: FONT_NUMBER_MEDIUM / FONT_NUMBER_MILD / FONT_LARGE (DayArcLayout.CLOCK_FONTS), plus FONT_MEDIUM on rectangles beside a MEDIUM or MILD hero or no hero (RECT_SMALL_CLOCK_FONT, ADR-019) — the tier is chosen by DayArcStack's whole-stack fit ("Layout"), not per row
   label: FONT_TINY / FONT_XTINY (LABEL_FONTS) — hero label and the date line (every window)
   hero: FONT_NUMBER_HOT / FONT_NUMBER_MEDIUM / FONT_NUMBER_MILD (HERO_FONTS) — the one number every window (but night) leads with; never smaller than the clock's tier
-  sub: FONT_TINY / FONT_XTINY (the same tier as the label) — the neutral line under the hero; wraps to two lines rather than shrinking the hero
+  sub: FONT_TINY / FONT_XTINY (the same tier as the label) — the neutral muted line under the hero; wraps to two lines rather than shrinking the hero. The no-weather morning's sentence stands alone (no hero) and is white; on a rectangle it is the read (small clock, ADR-019), on round and Instinct the time leads, as at night
   cell: FONT_XTINY (Pro's grid, fixed — a grid row that itself picked a larger font per-cell would misalign the two columns)
 icons:
   source: Tabler Icons (MIT license), github.com/tabler/tabler-icons — real paths adapted, not drawn from scratch (ADR-013)
   hero: one glyph per window (weather condition, stress wave, a Body Battery bolt since 2026-10-05 (was a battery shell; ROADMAP 13.19)), single-hue, tied to that window's own accent — colour still marks "the hero," nothing else
-  grid (Pro only): 14 glyphs, each a fixed hue by icon TYPE forever (heart always red, flame always orange...), never by the value shown — see ADR-013
+  grid (Pro only): 14 glyphs, all muted grey since 2026-10-05 (ADR-013 amendment), never coloured by the value shown
   date: shown every window now, not just night (ADR-013)
 ---
 
@@ -61,7 +62,8 @@ edge — a rectangle has no round bezel, but **its display's corner radius is no
 measured, not read from the SDK device definition), so rows reaching ~19px above the bottom edge
 with Pro's grid icons near x=6 are unverified against rounded corners: an open item for a look on a
 Venu Sq 2 / Venu X1 (ADR-001, amended — the earlier "same round-centred content on rectangles"
-left Venu Sq 2 a 204px chord and no tier that fit).
+left Venu Sq 2 a 204px chord and no tier that fit). **Since ADR-019 (2026-10-05) a rectangle has its own square design**
+(section "Rectangle"): rows fit a rounded inner box measured against the glass, not the full width.
 
 **How the stack is fitted** (`DayArcStack`, `DayArcConfig.STACK_LEVELS`):
 - A measured dry run of every row — clock, date, hero label, hero icon+value, gauge, sub line(s)
@@ -97,13 +99,16 @@ left Venu Sq 2 a 204px chord and no tier that fit).
   halves, preferring the morning sub's double-space between segments) rather than shrinking the
   hero, and the second line is part of the planned height. A second line is planned only when one
   line failed because the sub text itself did not fit, and at draw time a live string that fits one
-  line is drawn on one ("Weather unavailable" is never split into two words). Empty-state sentences
+  line is drawn on one ("Weather unavailable" is never split into two words on a colour screen; on the Instinct's narrow
+  band it may need two lines, drawn below the window on one centre). Empty-state sentences
   ("Stress unavailable right now", "Weather unavailable", "Body Battery unavailable") are not
   meant to be cut; `DayArcText.truncated` is the backstop, and it returns the whole string, or at
   least one character plus "...", or nothing — never a bare one-character stub.
 - Simple and night are vertically centred in the usable area. Pro is top-anchored with an elastic
-  grid: the hero block plus the reserved grid rows form the plan, and the grid takes whatever
-  vertical space remains. Night plans identically in both densities.
+  grid: the hero block plus the reserved grid rows form the plan, and the grid draws as many further rows as its cells need
+  and the space below allows (it does not stretch to fill it; a live frame can leave a band under it). Exception: on a
+  rectangle a Pro morning without weather (no hero row) is centred too, keeping room for one more grid row (ADR-019, pass
+  ten). Night plans identically in both densities.
 
 Top to bottom, every window but night:
 0. **Window-progress arc** (ADR-013) — a thin arc across the top of the circle, in the window's own
@@ -119,7 +124,8 @@ Top to bottom, every window but night:
    new toggle. Pro's morning grid has no separate date cell (it would show the date twice).
 3. Hero label (**white**, small; the date, clock and sub line stay muted: reviewer pass seven, ADR-017 — the label names the number, so it is the brighter small line, and on a colour screen it is drawn down into the empty headroom above the hero's digits so it sits nearer its number than the date; not on the 1-bit Instinct, where every role is white and the boxes are tested tight against the bezel circle) — omitted when the read itself is the label (morning's temperature has
    none; midday/evening name the metric). **Since 2026-10-05 the morning has one too, "Feels like"** (owner, ROADMAP 13.28:
-   an unlabelled feels-like 9° under "H 16 / L 13" read as wrong on the wrist); none when there is no weather.
+   an unlabelled feels-like 9° under "H 16 / L 13" read as wrong on the wrist). With no weather there is no label and no hero row (2026-10-06, reviewers: with no icon, a "--"
+   floated alone in a row sized for digits): the morning reads clock, date and the sentence "Weather unavailable".
 4. **Hero icon + hero value**, side by side as one centred group (ADR-013) — a single line-icon
    (Tabler Icons, recoloured) beside the number, both the same accent hue as the window. The value
    stays the largest single element on screen in Simple, and the largest and first-drawn element in
@@ -129,7 +135,7 @@ Top to bottom, every window but night:
    threshold that, for stress, landed exactly on Garmin's own official band boundary — removed
    rather than defended.
 6. Sub line(s) (muted, small) — the neutral second line ("$1$ of 100", "23% rain UV 4", or the
-   empty-state sentence), wrapped to two lines when one line cannot hold it whole (morning's
+   empty-state sentence; the no-weather morning's "Weather unavailable" has no hero above it and is white: the read on a rectangle, second to the time on round and Instinct), wrapped to two lines when one line cannot hold it whole (morning's
    high/low + rain + UV is the longest real string). Omitted where the source data has none to add
    (midday's sub is `null` whenever stress itself is valid — the gauge already carries that row's
    information).
@@ -178,7 +184,7 @@ approved as direction; the idle frame's own existing philosophy is "fewest lit p
 copy of the active frame, so a new always-on element was rejected rather than added by default. Flag
 to the owner if this should be revisited.
 
-**Decided 2026-09-28, replacing an earlier implementation-time decision:** on a rectangular product
+**Superseded on the three rectangles by ADR-019 (2026-10-05), see "Rectangle" below; kept for the record.** **Decided 2026-09-28, replacing an earlier implementation-time decision:** on a rectangular product
 (Venu Sq 2, Venu Sq 2 Music, Venu X1) rows use the full screen width and the screen's own bottom
 edge, while the window-progress arc stays on the inscribed circle (the arc is a circle arc; the
 stack simply starts below it, `DayArcLayout.topMargin`). The first build drew rectangles as the
@@ -239,7 +245,7 @@ highlight in the mockup either and keep none built.
 - **Hero icon** (weather condition, stress wave, battery shell): single hue, tied to that window's
   own accent — or, if the wearer picked one (ADR-014), that one hue in every non-night window. Colour
   still marks "the hero," nothing else, and is constant whatever the reading. The icon always shows,
-  even when the reading is unavailable: it is the window's identity marker, not a data-presence
+  even when the reading is unavailable (midday and evening; the morning has none without weather): it is the window's identity marker, not a data-presence
   indicator. Because a hero icon is pre-coloured (no runtime tint), there is one bitmap per icon per
   hue per size: 3 icons x 6 hues = 18 SVGs in each size set (a large and a small one per screen), generated by `tools/gen_hero_icons.py`
   (one fill/stroke colour each, no highlight; stress is Tabler's wave scaled to the set, weather and battery are
@@ -322,12 +328,16 @@ Drawn in pixel coordinates (viewBox = size) so the SDK never resamples, odd stro
 
 ## Motion / always-on
 
-AMOLED (`requiresBurnInProtection`) sleep: time only, `MUTED` colour, stepping across a 3×3 grid
+AMOLED (`requiresBurnInProtection`) sleep: time only, in `SLEEP_TEXT` `#5C5C5C` (3.14:1 on black; the studio's one
+always-on grey, ADR-020 (always-on time in the studio's one always-on grey); `MUTED` `#AAAAAA` until 2026-10-08, about 3.8
+times the relative luminance, computed; the simulator's peak luminance about halved, 2.52% to 1.35% on `fr965`), stepping across a 3×3 grid
 every minute (TwoSuns's proven `TwoSunsSleep` pattern, reused — `DayArcConfig.BURN_IN_GRID`,
 `DayArcLayout.driftStep`). No hero, no gauge, no grid while asleep on AMOLED — the fewest lit
 pixels, not a reduced version of the active frame. MIP screens never enter this state; they keep
 showing the full active window while "asleep" (no burn-in risk, matches TwoSuns's own
-`_sleeping && _burnIn` branch exactly).
+`_sleeping && _burnIn` branch exactly). Simulator 24-hour heat map in `#5C5C5C` (2026-10-08, Pro, from the morning window): no
+burn-in detected, peak luminance 1.35% on `fr965` (2.52% in `#AAAAAA`, 2026-10-05) and 1.22% on `venux1` (2.27% before); frames in
+`../device-test/rect-review/aod-grey/`. Simulator only, nothing on a wrist.
 
 No other motion. No idle animation on the active face — nothing here marks a real state change
 that would justify it; the window switch itself (at 5:00/9:30/17:00/23:00) is a hard cut, not an
@@ -343,7 +353,10 @@ alone answers the glance; the grid rewards a longer look, it doesn't compete for
 touch-dependent.
 
 **Empty/error states**, one plain sentence or "--" per field, never blank:
-- Weather unavailable → "Weather unavailable" (hero's sub line).
+- Weather unavailable → "Weather unavailable" alone under the date, in white (the label's role; on a rectangle, with its small clock, it is the read; on round and Instinct the large clock leads,
+  as at night, and the sentence comes second), planned as
+  itself (one line where it fits): no label, no "--", no icon, no hero row (2026-10-06; the sentence says it in words, and a
+  bare dash with no icon read as a hole). Midday and evening keep label, icon, "--" and sentence.
 - Stress null → "Stress unavailable right now" — deliberately generic: Garmin's own docs say stress
   isn't tracked during activity, but the SDK gives a watch face no way to confirm *that's* the
   cause of any given null, so the copy doesn't claim it.
@@ -391,9 +404,90 @@ stays open until one exists — a mockup is not device proof, same rule as every
 `watch-design-reviewer` has not yet re-run against the built version of this direction; do that
 before calling it `disposition: ship`.
 
+## Rectangle (Venu Sq 2, Venu Sq 2 Music, Venu X1; ADR-019, built 2026-10-05, simulator only)
+
+A square watch gets a square design, not the round one dropped in (owner, 2026-10-05; the studio rule for rectangles). It
+**supersedes, on these three products only, the "Decided 2026-09-28" paragraph above** (rows at the full screen width, the arc
+on the inscribed circle). Every meaning and colour stays: the per-window hues (ADR-013 (icon system and per-window colour)), no
+verdicts (ADR-006 (single-hue gauge)), the Accent setting (ADR-014 (one Accent colour list)). Round and Instinct products do not
+change (every branch is `DayArcLayout.isRectangle()`).
+
+- **The track follows the glass.** A rounded rectangle whose centreline is inset from the screen edge exactly as the round arc's
+  is from the bezel (`DayArcRect.inset` = the bezel margin plus half the pen; 8 px on the Sq 2, 12 px on the X1), the same stroke
+  (`DayArcArc.penWidth`, 5 / 8 px), corner radius 0.15 of the short side (48 / 67 px on the centreline): the studio's one corner
+  proportion, 1.5 insets, as in HeroSet, HeroFace and Two Suns (owner, 2026-10-06; it was 0.12 until review pass five). The Venu
+  X1's glass corner, measured off the SDK skin's alpha, is a superellipse that a 66 px circle fits from row 8 down; the 67 px
+  track corner keeps about 13 px of black outside the stroke on the diagonal (`DayArcRectTest` asserts at least 2 px all along
+  both top corners). The Sq 2 skin's glass corner is about 8 px, so its 48 px corner is the studio proportion, not a fit. HeroFace's rectangle frame was the precedent (idea copied,
+  no code linked).
+- **The window-progress arc is the upper part of that track**: from the left side, over both top corners, down the right side,
+  the same share of the path's length as the round arc's 140 of 360 degrees (`DayArcRect.segments`: on the Sq 2 56 px down each
+  side, the tips at y 112; on the X1 72 px, tips at y 151). Track in `ARC_TRACK` grey, filled clockwise from the left tip in the
+  window's accent; a share of the window is the same share of the path. Night has none, as on round.
+- **The hero gauge is a straight pill bar** (no curve on a square): the track grey bar with round ends, the accent fill from
+  the left, the round gauge's width (`gaugeMaxWidth`) capped by the inner box. The row keeps the round gauge's height (the
+  smile's depth included) and the bar sits in its middle: with only a row gap above it (the first build) the bar touched the
+  digits' baseline, so the depth stays as air, half above the bar and half below. Pro's grid rows sit level (no lift onto a curve).
+- **The content uses the square.** Every row (clock, date, label, hero, sub line, the corner pills beside the date, the grid
+  pills) fits the **inner box**: the track's inner edge plus the arc's own clearance (`DayArcArc` 15 permille), with corners
+  rounded concentrically with the track's (`DayArcRect.rowWidth`; 14 px in and a 42 px corner on the Sq 2, 22 px and 57 px on the
+  X1), and another 15 permille off the straight sides (19 / 28 px in): Pro's corner pills sit beside the side runs, and a grey
+  pill outline at the arc's clearance alone read as touching the grey track (first Venu X1 screenshot). The stack starts at the inner box's top and ends at its bottom, which buys the planner about 25 px of height over the
+  old inscribed-circle margins; `DayArcStack`'s dry run then picks the tiers, as everywhere.
+- **The clock stays clearly below the hero** in every active window (not at night, where the time is the read): one number tier
+  below a HOT hero (NUMBER_MILD), and the small text font `FONT_MEDIUM` (`DayArcLayout.RECT_SMALL_CLOCK_FONT`) beside a MEDIUM or
+  MILD hero. Reviewers, 2026-10-05 and 06: the square's extra height went to the clock first (Venu X1 Free, a grey "20:02" at
+  0.9 of the hero's height), and on the Venu Sq 2 Pro both NUMBER_MILD and FONT_LARGE digits rendered about as tall (~45 px) as
+  the MEDIUM hero's, so a tier rule on the font list alone did not separate them. The hero keeps its tier; the smaller clock
+  also frees the height that gives the Sq 2 Pro its second grid row.
+- **The morning sub line is planned for the watch's own data** (`DayArcSources.hasUvIndex`): `CurrentConditions.uvIndex` needs
+  API 5.1, the Venu Sq 2 / Sq 2 Music are 5.0 (SDK device files, `compiler.json` `connectIQVersion`, SDK 9.2.0; the Venu X1 is
+  6.0.2; real firmware may report a newer one: `hasUvIndex` asks the live conditions `has :uvIndex`, the same test the drawn line uses, and
+  falls back to the API level only when there is no weather), so their worst case is "104/-40  100% rain" without "UV 11". Planning the UV
+  segment there cost a second sub line the watch never draws, which left a ~45 px gap above Pro's lone grid row. Applies to any
+  product below API 5.1 (round ones included): their morning can only gain room.
+- **What it buys (worst-case strings, `DayArcStackTest` HEROINK/STACK log, simulator only).** Venu Sq 2 Pro: the hero is
+  NUMBER_MEDIUM (ink box 76 px) with **two** grid rows in the morning, midday and evening, the morning's while the watch
+  reports no `uvIndex` (the SDK's Sq 2 is API 5.0; a firmware that adds it plans the UV segment and may lose a row) (it was MILD with one row before
+  ADR-019); the morning keeps "Feels like" **and** both grid rows (ROADMAP 13.30: the square gives room for both); with the
+  hero's own empty sentence (two lines) midday and evening step down to MILD with one row. Venu Sq 2 Free: NUMBER_HOT at
+  midday and evening, MEDIUM in the morning. Venu X1: HOT in every window of both tiers; Pro two grid rows. A morning
+  without weather has no hero row: Pro's grid draws the five fields left after the two corner pills in three rows on both sizes
+  (the STACK log counts the same cells the frame draws, `DayArcCorners.rest`), and the stack is centred in the inner box with
+  room kept for one more grid row, so it does not leave the bottom third blank (Venu X1: ~150 px top-anchored, reviewer pass
+  ten; now about 78 px above the clock and 74 px under the last row).
+- **Free's empty band at the bottom, accepted (2026-10-06):** Free's stack is geometrically centred in the inner box (measured
+  on the captures: Venu X1 midday 63 px above the clock, 52 px under the gauge; Venu Sq 2 morning 56 px above, 46 px under the
+  sub line). The band under the content reads emptier only because the arc fills the corresponding band above. Kept, for two
+  reasons: the header (arc, clock, date) reads as one unit when the clock sits close under the arc, and lowering the stack to
+  balance the bottom would open the same gap under the arc instead; and nothing can take the room: midday and evening already
+  draw the HOT hero on both sizes, and the Sq 2 morning's MEDIUM hero is where the planner lands after every HOT rung (0 to 3)
+  failed the worst-case fit (`DayArcStackTest` STACK log, level 4); the live morning frame draws that same plan. The lever if a wrist disagrees: a downward centre bias on rectangles
+  (`DayArcStack.attempt` already only slides a stack down, away from the arc), one constant and a screenshot.
+- **The Sq 2 Free clock changes size with the hero's tier, accepted:** `FONT_MEDIUM` beside the MEDIUM morning hero (and beside
+  an empty-state hero, and with no hero at all on a morning without weather), NUMBER_MILD beside the HOT midday and evening hero, so the time grows by about 30% at 9:30 and shrinks
+  when stress data goes missing. The alternative, one fixed clock size, reopens the clock-equals-hero problem in one of the two
+  cases. With weather, the Venu X1 Free (HOT everywhere) and the Sq 2 Pro (MEDIUM everywhere) do not move. **A morning without
+  weather sets the clock to `FONT_MEDIUM` on every rectangle, both tiers:** the white sentence is the read there, and a larger
+  grey clock would outrank it (reviewer pass six). So the Venu X1 clock (NUMBER_MILD in its data morning) also shrinks when
+  weather drops out, accepted for the same reason.
+- Screenshots of the rectangle (`../device-test/rect-review/after/`) show the simulator's **canned values**: sunrise 12:17,
+  sunset 23:59 and the 00:00 calendar event are what the simulator returns, not a real place or date; steps (5310), floors (7)
+  and intensity (18) are set with `sim_activity`; weather is the simulator's (66 °F, 77/63, 10% rain).
+- Always-on: the time only, drifting, fitted to the inner box (its colour since 2026-10-08 and the current heat-map figures: "Motion /
+  always-on", ADR-020). Baseline in `#AAAAAA`, before ADR-020, 24-hour burn-in simulation (simulator, Pro, from the
+  midday window, 2026-10-05): no burn-in, peak luminance 1.94% (Venu Sq 2) and 2.27% (Venu X1), against a 10% limit that is unverified (quoted in
+  `../docker/SIMULATOR.md` with no source; the simulator's own verdict box states no limit).
+
 ## Instinct E and Instinct 3 Solar (1-bit, a round window top right; ADR-015, accepted 2026-10-04, simulator only)
 
 Black and white only: every colour role is white, the hero is told apart by its icon and label (never a hue), the Accent setting does not exist there. **The window-progress arc becomes a gauge in the round window** (a hairline circle, a thick fill from 12 o'clock clockwise, the same share of the current window; night has none). The clock and date share the band left of the window; the hero (icon and value), the gauge and the sub line sit below it; Pro's grid appears only when the stack has room and has no corner pills. What shows is the square cut by a circle about 98 px in radius, so rows are clipped to a 96 px circle. The mockup (`docs/archive/instinct-mockup.html`) is the approved look.
+
+**A morning without weather on the Instinct (ADR-019 amendments, review passes six and seven, simulator only):** Free sits wholly
+below the window, clock, date and sentence on one centre (as night does). Pro keeps clock and date in the band beside the window,
+as on the data morning, and puts the sentence and up to two pill rows below it (all three Instincts show two rows). This extends
+ROADMAP 1.18 rather than departing from it: the single pill row was the price of keeping the hero label, and with no weather there
+is no label or hero row to protect, so Pro differs from Free there even on the 3 Solar.
 
 **Pro on the Instinct (ADR-017, 2026-10-04):** the hero label is kept and Pro's grid shrinks to ONE row of pills where that fits (before, Pro dropped the label to buy two rows, which Simple never did). The E 40 mm draws that row in the morning, midday and evening; the 3 Solar draws it in the evening only. **On the 3 Solar the Pro morning and midday are the same picture as Simple, by design, not by bug:** the morning's sub line wraps to two lines at the worst case, and clock + date + two sub lines + hero leave no room for a pill row inside the circle the bezel leaves; midday's first row is the calendar pair, which needs a wider chord than that row has at 176 px (a cell is whole or not drawn, ADR-016). The levers if the owner wants Pro to differ in every window there: reorder the grid so the first row is two icon-only cells, or let the grid share the date's row; both are product calls. The hero icons stay the half-size white set; the weather glyph is the same outlined cloud and sun (no rays at that size). **Owner, 2026-10-04 (ROADMAP 1.18): keep Pro on the Instinct as built** (the 3 Solar morning and midday match Simple, thin strokes, one-row Pro grid); those are not to be changed.
 

@@ -2,6 +2,8 @@
 
 **Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh TwoSuns bash /ciq-docker/frame_listing.sh listing`.
 
+**Re-checked 2026-10-08 (ROADMAP 13.38), for the next build; awaits the owner's look approval.** Every picture was taken again from the current build with the same scenes and watches and compared pixel by pixel with the committed one (`compare -metric AE`): all five came out identical (0 pixels differ), so nothing was replaced, and the framed files and the hero stand. The 2026-10-08 changes do not reach these pictures: the Body Battery number is the canned 59, above the old dimming threshold of 30, so it was drawn in the accent before the one-colour change (ADR-008 amendment) and still is; no picture shows `--`, a rectangle or the always-on frame. Simulator only.
+
 Status 2026-10-04. Everything here is **simulator only** (the container's simulator, native pixels), rendered from the **current Pro build** (`monkey.jungle`). Nothing is a wrist photo. **Text uploaded with Pro 1.1.0 on 2026-10-04 (in Garmin review); whether these images replaced the live ones is ROADMAP 10.5.**
 
 ## What the pictures are, honestly
@@ -10,22 +12,22 @@ The simulator has no GPS place, canned sun times that read wrong in the containe
 
 - sunrise 06:05 and sunset 17:32 are fixed in place of the Complication values (the NOAA times for 51.5 N, 0 E on 4 October; the clock is UTC);
 - Pro gets that place as its remembered place, so twilight and golden hour can draw;
-- the energy curve is a **hand-made** 24 h series of 15-minute samples that ends at the clock (shape: a low evening, a night rise, a morning peak at 92, then down to 59);
+- the energy curve is a **hand-made** 24 h series of 15-minute samples that ends at the clock (shape, counted back from the clock: 59 now, a peak of 92 nine hours earlier, a low of 30 seventeen hours earlier; it is anchored to the clock, not to a time of day);
 - the Body Battery number is fixed at 59.
 
 **All of that is canned. These pictures show the design, never a reading**, and none may be cropped into a claim about real data (release contract: the curve, sun times and weather are not yet checked on a wrist). The weather row and the watch battery row are **switched off** in the shots (ADR-022/023: the contract says not to describe them until the wrist check, and the simulator's weather is canned), so no Pro screen shows them. The listing text does not mention either row.
 
 ## Screen images (upload order)
 
-All 24-hour clock (`sim_24h`), accent as listed, the date row and curve on (the Pro defaults). Sizes are the device's own pixels; each file is far under 150 KB.
+All 24-hour clock (`sim_24h`), accent as listed, the date row and curve on (the Pro defaults). Sizes are the device's own pixels of the raw captures in `screens/`; the uploads are the 720 px framed files in `screens-framed/`, each under 150 KB. The clock column is what each picture shows (the simulator's clock runs on from the scenario's start time).
 
 | # | File | Device | Clock (UTC) | Accent | What it shows |
 |---|---|---|---|---|---|
-| 1 | `screens/1-day.png` | FR965, 454 px | 10:09 | Sky (0) | The default: date, time, bolt and 59, the 24 h curve, "7h 22m of daylight"; the ring with twilight beside the ticks, daylight gone and to come, the sun marker |
-| 2 | `screens/2-golden-hour.png` | FR965, 454 px | 16:51 | Violet (3), Golden hour **On** | The warm golden-hour arcs beside sunrise and sunset, the marker inside the evening one |
-| 3 | `screens/3-evening.png` | FR965, 454 px | 20:41 | Mint (1) | After sunset: outline marker on the night half, "Sunrise 06:07" |
-| 4 | `screens/4-instinct-e45.png` | **Instinct E 45 mm, 176 px (the Instinct-family shot)** | 10:09 | none (black and white) | The ring as a small 24-hour dial in the round window, the curve and date lines beside it |
-| 5 | `screens/5-small-fr255s.png` | FR255S, 218 px | 10:09 | Pink (4) | The same face on a small round screen |
+| 1 | `screens/1-day.png` | fenix 8 Pro 47 mm, 454 px | 10:10 | Sky (0) | The default: date, time, bolt and 59, the 24 h curve, "7h 22m of daylight"; the ring with twilight beside the ticks, daylight gone and to come, the sun marker |
+| 2 | `screens/2-golden-hour.png` | epix Pro 47 mm, 416 px | 16:51 | Violet (3), Golden hour **On** | The warm golden-hour arcs beside sunrise and sunset, the marker just before the evening one |
+| 3 | `screens/3-evening.png` | Venu 3, 454 px | 20:41 | Mint (1) | After sunset: outline marker on the night half, "Sunrise 06:07" |
+| 4 | `screens/4-instinct-e45.png` | **Instinct E 45 mm, 176 px (the Instinct-family shot)** | 10:10 | none (black and white) | The ring as a small 24-hour dial in the round window, the curve and date lines beside it |
+| 5 | `screens/5-small-fr255s.png` | FR255S, 218 px | 10:10 | Pink (4) | The same face on a small round screen |
 
 The Instinct family has no accent or golden-hour setting (ADR-024), so shot 4 shows neither. Two Suns ships on three Instincts (E 40 mm, E 45 mm, 3 Solar 45 mm); E 45 mm is the one pictured (the E 40 and 3 Solar draw the same layout).
 
@@ -71,3 +73,7 @@ Garmin: screen images under 150 KB each, cover 500 x 500 under 300 KB, hero 1440
 ## Not made
 
 An always-on frame (the simulator does not enter Always-On, `docs/development.md`), a rectangular-screen shot (Venu Sq 2, Venu X1; not looked at), a weather-row or battery-row shot (held back, above), and anything from a real watch.
+
+## Language heroes (2026-10-08)
+
+Each listing language has its own hero (owner, 2026-10-08). `hero-1440x720-es.png` (Spanish) and `hero-1440x720-zh.png` (Chinese, Simplified) are `src/hero.html` with the line translated: the page swaps the text when its URL ends in `#es` or `#zh`; the name, the PRO badge and the watches are unchanged. Chinese falls back from Archivo to Noto Sans SC (Google Fonts), so Latin letters and digits stay Archivo. The hero command above with `src/hero.html#es` or `src/hero.html#zh` as the URL renders each. The English render is unchanged by this (checked byte for byte, 2026-10-08). Machine-drafted text, not read by a native speaker.

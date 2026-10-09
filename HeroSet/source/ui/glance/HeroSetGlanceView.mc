@@ -54,6 +54,12 @@ class HeroSetGlanceView extends WatchUi.GlanceView {
     function drawState(dc as Dc, width as Lang.Number, height as Lang.Number, state as HeroSetDashboardState) as Void {
         var layout = new HeroSetGlanceLayout(width, height, dc.getFontHeight(FONT), window());
         var done = HeroSetRules.missionComplete(state.pushups, state.situps, state.squats, state.goal);
+        if (!done && statusPlan(dc, layout, state, done)[0].length() == 0) {
+            // No words fit (streak 0 on the Venu Sq 2, beside the Instinct's
+            // window): the pills centre on their own, under no blank row.
+            drawPills(dc, new HeroSetGlanceLayout(width, height, 0, window()), state);
+            return;
+        }
         drawStatus(dc, layout, state, done);
         drawPills(dc, layout, state);
     }
@@ -84,10 +90,10 @@ class HeroSetGlanceView extends WatchUi.GlanceView {
         } else if (!done) {
             // Beside a check "NO STREAK YET" would contradict it; the row
             // drops to the check alone instead.
+            // Where "NO STREAK YET" has no room (the Venu Sq 2's glance, left of
+            // the Instinct's window) the row stays empty: "STREAK 0" read as a
+            // failure on day one, so the dashboard drops it too (ROADMAP 13.23).
             candidates.add(load(Rez.Strings.dashboard_streak_none));
-            // Left of the Instinct's window "NO STREAK YET" has no room; the
-            // dashboard falls back to this too (ADR-055).
-            candidates.add(Lang.format(load(Rez.Strings.dashboard_streak_short), [streak]));
         }
         return candidates;
     }

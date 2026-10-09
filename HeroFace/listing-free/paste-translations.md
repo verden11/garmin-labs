@@ -2,7 +2,7 @@
 
 Languages picked by the owner, 2026-10-05: English (the main `paste.md`), **Spanish** and **Chinese (Simplified)**.
 **Machine-drafted, not yet read by a native speaker** (translation reads stay the owner's call). Translated from `paste.md` as
-it stood on 2026-10-05; when the English changes, change these too. Only the title and description are translated; every other
+it stood on 2026-10-05, the ring and screen-shape paragraphs on 2026-10-08 (1.1.0); when the English changes, change these too. The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.1.0 on 2026-10-08, and words the watch shows are quoted as the watch shows them in that language (English where the face has no translation); every other
 field is the same as in `paste.md`. App names, store/support URLs and the store's own permission name stay in English.
 
 ## Spanish (Español)
@@ -23,7 +23,7 @@ Primero la hora, justo debajo los objetivos de hoy. Tres barras, un anillo para 
 Nada está bloqueado: sin periodo de prueba, sin código que introducir, nada que comprar en el reloj.
 
 La hora manda en la pantalla
-La hora es lo más grande de la esfera, al mayor tamaño que tu reloj puede dibujar. Debajo, los tres objetivos de hoy como barras: pasos, minutos de intensidad y pisos. El anillo alrededor del bisel es todo el día de un vistazo, y se llena de verde cuando cumples los tres.
+La hora es lo más grande de la esfera, al mayor tamaño que tu reloj puede dibujar. Debajo, los tres objetivos de hoy como barras: pasos, minutos de intensidad y pisos. El anillo alrededor del borde de la pantalla es todo el día de un vistazo: se llena con tus objetivos y se vuelve verde cuando los cumples todos. Si una barra pasa a la barra de movimiento, esta queda fuera del anillo.
 
 Solo lo que mide tu reloj
 Ningún reloj tiene todos los sensores. Sin barómetro no hay pisos. Cada barra pasa a lo siguiente que tu reloj mide de verdad, y lo que no puede saber se deja fuera: sin barras vacías, sin números inventados.
@@ -34,8 +34,8 @@ Cumple tu objetivo de pasos y una línea dorada cuenta los días seguidos. Si fa
 Tu color de acento
 Azul, cian o magenta, desde Garmin Connect.
 
-Relojes redondos, un diseño
-Se ajusta a tu pantalla, hasta las pantallas redondas más grandes de 466 píxeles. En los relojes siempre encendidos se atenúa a un reloj discreto que cambia de posición cada minuto. Consulta los dispositivos compatibles para tu modelo.
+Redondos o rectangulares, un diseño
+Se ajusta a tu pantalla. En una pantalla rectangular, el anillo se convierte en un marco a lo largo de sus bordes; en las pantallas en blanco y negro es un indicador en la pequeña ventana redonda. En los relojes siempre encendidos se atenúa a un reloj discreto que cambia de posición cada minuto. Consulta los dispositivos compatibles para tu modelo.
 
 Con HeroSet
 El modo HeroSet necesita HeroSet instalado (https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377). En relojes con Connect IQ 4.2 o posterior con HeroSet, las barras muestran en su lugar las flexiones, abdominales y sentadillas de hoy, con tu rango y tu racha de HeroSet, y mantener pulsada la esfera abre HeroSet. Sin HeroSet, la esfera muestra tus objetivos de cada día y no falta nada.
@@ -59,6 +59,21 @@ Ayuda y respuestas: https://verden.watch/heroface/support/
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
 
+### What's New
+
+```text
+- Ahora en relojes rectangulares, con un diseño propio: el anillo se convierte en un marco a lo largo de los bordes de la pantalla y la hora es tan grande como el marco permite.
+- Unos pequeños iconos sustituyen a las palabras cortas de las barras: huellas para los pasos, una llama para las calorías, una línea de pulso para los minutos de intensidad y una escalera para los pisos.
+- El anillo deja fuera la barra de movimiento, así que en un día tranquilo ya no empieza con un tercio recorrido.
+- La barra de movimiento no muestra ningún valor hasta que quiera que te muevas; entonces muestra GO.
+- La racha va centrada bajo la hora. Cuando todavía no se muestra nada ahí, la hora baja para que no quede un hueco vacío.
+- En los relojes siempre encendidos con protección contra el quemado de pantalla, la hora atenuada se ve un poco más brillante, para que se lea mejor.
+```
+
+### Hero Image
+
+`hero-1440x720-es.png`
+
 ## Chinese, Simplified (简体中文)
 
 ### Title
@@ -77,7 +92,7 @@ HeroFace
 没有任何锁定内容：没有试用期，无需输入代码，也无需在手表上购买任何东西。
 
 时间占据屏幕
-时间是表盘上最大的内容，以手表能显示的最大字号呈现。下方以进度条显示今天的三个目标：步数、强度分钟数和楼层。表圈上的圆环一次显示整天的进度，三个目标全部完成时会变成绿色。
+时间是表盘上最大的内容，以手表能显示的最大字号呈现。下方以进度条显示今天的三个目标：步数、强度分钟数和楼层。屏幕边缘的圆环一次显示整天的进度：它随你的目标填充，全部目标完成时会变成绿色。如果某条进度条改用活动提醒条，它不计入圆环。
 
 只显示手表能测量的内容
 没有一款手表拥有所有传感器。没有气压计就没有楼层数据。每条进度条会改用手表真正能测量的下一项数据，手表无法得知的内容会被省略——没有空进度条，也没有编造的数字。
@@ -88,8 +103,8 @@ HeroFace
 你的强调色
 蓝色、青色或洋红色，在 Garmin Connect 中设置。
 
-圆形手表，一种设计
-自动适配你的屏幕，最高支持 466 像素的最大圆形屏幕。在常亮显示的手表上，它会变暗为安静的时钟，并每分钟移动位置。具体型号请查看兼容设备列表。
+圆形或矩形，一种设计
+自动适配你的屏幕。在矩形屏幕上，圆环变为沿屏幕边缘的边框；在黑白屏幕上，它是小圆窗中的仪表。在常亮显示的手表上，它会变暗为安静的时钟，并每分钟移动位置。具体型号请查看兼容设备列表。
 
 搭配 HeroSet
 HeroSet 模式需要安装 HeroSet（https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377）。在装有 HeroSet 的 Connect IQ 4.2 及以上手表上，进度条会改为显示今天的俯卧撑、仰卧起坐和深蹲，以及你的 HeroSet 等级和连续纪录；长按表盘即可打开 HeroSet。没有 HeroSet 时，表盘显示你的日常目标，不会缺少任何内容。
@@ -112,3 +127,18 @@ DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 >
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+
+### What's New
+
+```text
+- 现已支持矩形屏幕的手表，并有专属设计：圆环变为沿屏幕边缘的边框，时间在边框允许的范围内尽可能大。
+- 进度条上的简短文字换成了小图标：脚印代表步数，火焰代表卡路里，脉搏线代表强度分钟数，楼梯代表楼层。
+- 圆环不再计入活动提醒条，因此在没有活动提醒的日子里，圆环不会再一开始就走完三分之一。
+- 活动提醒条在需要你活动之前不显示数值；需要活动时显示 GO。
+- 连续纪录居中显示在时间下方。那里还没有任何内容时，时间会下移，不留空白。
+- 在带有防烧屏保护的常亮显示手表上，变暗的时间会稍亮一些，更易读。
+```
+
+### Hero Image
+
+`hero-1440x720-zh.png`

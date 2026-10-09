@@ -11,17 +11,21 @@ live:
   version: 1.0.0
   since: 2026-09-28
   note: approved 2026-09-28 (late afternoon); the store shows $2.25 against $1.99 documented; the 1.1.0 upload sets the $2.50 tier (ADR-026)
-next:
+in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
   version: "1.1.0"
-  status: uploaded   # drafted | prepared | uploaded | in-review | live; uploaded by the owner 2026-10-04, pending Garmin review; live: stays 1.0.0 until approval
   uploaded: 2026-10-04
-  summary: Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023); the prepared 1.0.1 fix (commit 807977d) is folded in; Instinct E and 3 Solar (ADR-024) are included, look approved 2026-10-04, simulator only
+  summary: "Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023), the prepared 1.0.1 fix (commit 807977d) folded in, Instinct E and 3 Solar (ADR-024); package dist/TwoSunsPro-1.1.0.iq (72 products), re-exported 2026-10-04 after the always-on grey (ADR-027)"
+next:
+  version: "1.2.0"
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: "the rectangles' own design (ADR-028), Weather and Battery rows off by default, Body Battery number one colour at any level (ADR-008 amendment), grey -- and no lone dot, the curve's room (ADR-028 amendments), white curve line, solid bolt, 3h 42m daylight; description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/TwoSuns-Pro-1.2.0/"
 package:
-  file: dist/TwoSunsPro-1.1.0.iq
-  products: 72   # <iq:product> lines in the manifest; the export has 93 part numbers (device variants), not a product count
-  exported: 2026-10-04   # re-exported after the always-on text colour change (ADR-027, ROADMAP 10.26)
-  check: "tools/check_free_package.sh: OK (Positioning and SensorHistory declared, keys Accent Orientation Golden Curve Date Weather Battery)"
-  note: "export: monkeyc -e -r -f monkey.jungle; dist/TwoSuns-1.0.1-prepared.iq is the separate 1.0.1 package (ROADMAP 4.1); built in the verden-ciq-build container"
+  file: dist/TwoSunsPro-1.2.0.iq
+  products: 72   # <iq:product> lines in the manifest
+  exported: 2026-10-08   # from a git archive of commit d130ae9 (clean tree), 93 part numbers; sha256 8f16b8aeb31279a940186a163bf0820a0d95fa6a0c8082c093c66e8cbb69e437
+  check: "tools/check_free_package.sh dist/TwoSunsFree-1.1.0.iq dist/TwoSunsPro-1.2.0.iq: OK (permissions ComplicationSubscriber Positioning SensorHistory, keys Accent Orientation Golden Curve Date Weather Battery, AppName Two Suns Pro, positive controls in every part number); unpack check: app id = manifest.xml, 72 of 72 products, version 1.2.0 = paste.md; packaged .prg drawn in the simulator on fr965, venusq2, instincte40mm (simulator only)"
+  note: "export: monkeyc -e -r -f monkey.jungle; built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload, submitted 2026-10-04; the store shows $2.25 until Garmin approves), no number in listing text; ADR-026 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-020 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:   # all rendered 2026-10-04 from the current Pro build in the simulator (canned data); whether they replaced the live images is ROADMAP 10.5
@@ -33,7 +37,7 @@ assets:   # all rendered 2026-10-04 from the current Pro build in the simulator 
     - {file: screens-framed/1-day.png, caption: "The day, with the date, the energy curve and the sun ring", device: fenix8pro47mm, px: 720, kb: 125, framed: true}
     - {file: screens-framed/2-golden-hour.png, caption: "The golden-hour arcs (violet accent)", device: epix2pro47mm, px: 720, kb: 141, framed: true}
     - {file: screens-framed/3-evening.png, caption: "After sunset, the next sunrise (mint accent)", device: venu3, px: 720, kb: 66, framed: true}
-    - {file: screens-framed/4-instinct-e45.png, caption: "Black and white, the ring as a dial in the round window", device: instincte45mm, px: 720, kb: 100, instinct: true, framed: true}
+    - {file: screens-framed/4-instinct-e45.png, caption: "Black and white, the ring as a dial in the round window", device: instincte45mm, px: 720, kb: 99, instinct: true, framed: true, reframed: 2026-10-08}
     - {file: screens-framed/5-small-fr255s.png, caption: "A small round screen (pink accent)", device: fr255s, px: 720, kb: 102, framed: true}
   screenshots_doc: screenshots.md
 site:
@@ -41,6 +45,7 @@ site:
   support: https://verden.watch/two-suns/support/
   privacy: https://verden.watch/two-suns/privacy/
 owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
+  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set was re-checked against the next build: all five screens recaptured identical (0 pixels differ), nothing replaced; it goes up as it stands with the next upload; the Instinct image was re-framed after that without the skin's faint ghost marks (same screen content, NOTES.md). No rectangle is pictured (the square design, ADR-028, is not in this set). Preview: device-test/listing-review/TwoSuns-listing.png."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
   - "The 24-hour curve sentence and pictures went up with 1.1.0; whether the release contract allows it before the wrist check is ROADMAP 4.5."

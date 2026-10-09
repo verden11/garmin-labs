@@ -2,6 +2,8 @@
 
 > **Open items live only in the root [`ROADMAP.md`](../../ROADMAP.md).** This file keeps where things stand, the evidence, the release gates and the upload steps. Listing text and metadata: [`../listing/paste.md`](../listing/paste.md) and [`../listing/meta.yaml`](../listing/meta.yaml). Claims: [`release-contract.md`](release-contract.md). Build history: [`archive/plan.md`](archive/plan.md).
 
+**1.1.0 (both listings) uploaded by the owner 2026-10-08, in Garmin review** (square design on rectangles; the no-weather morning; the `#5C5C5C` always-on time; `device-test/upload/DayArc-*`). Simulator only.
+
 **Where things stand, 2026-10-05: LIVE.** DayArc and DayArc Pro 1.0.0 were uploaded and approved by Garmin on 2026-10-05 (https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193, https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe). Before that: Built and simulator tested for both densities, 72 products (69 plus the Instinct E and 3 Solar, ADR-015); the real-device evidence so far is the owner's FR965 photo of 2026-09-28 and a first look at the Pro build 2026-10-03. The final builds (after the 2026-10-05 review fixes) are on the owner's FR965 since 2026-10-05 for the all-day wear check (ROADMAP 1.1). Open work: ROADMAP 1.1, 1.5, 1.9, 1.10.
 
 Owner's runbook, both listings. Status of the build itself: [`archive/plan.md`](archive/plan.md) "Implementation

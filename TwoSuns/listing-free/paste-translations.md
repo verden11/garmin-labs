@@ -2,8 +2,8 @@
 
 Languages picked by the owner, 2026-10-05: English (the main `paste.md`), **Spanish** and **Chinese (Simplified)**.
 **Machine-drafted, not yet read by a native speaker** (translation reads stay the owner's call). Translated from `paste.md` as
-it stood on 2026-10-05; when the English changes, change these too (the "small gauge" → bolt wording, ADR-023, is in; it ships with the next
-upload). Only the title and description are translated; every other field is the same as in `paste.md`. App names and
+it stood on 2026-10-05, the ring and screen paragraphs on 2026-10-08 (1.1.0); when the English changes, change these too (the "small gauge" → bolt wording, ADR-023, is in; it ships with the next
+upload). The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.1.0 on 2026-10-08, and words the watch shows are quoted as the watch shows them in that language (English where the face has no translation); every other field is the same as in `paste.md`. App names and
 store/support URLs stay as they are. "Body Battery" stays Garmin's own name.
 
 ## Spanish (Español)
@@ -27,7 +27,7 @@ La hora
 Lo más grande de la pantalla. Sin pasos, sin frecuencia cardiaca, sin meteorología, sin consejos.
 
 Un anillo para el sol
-Un anillo fino alrededor del bisel son las 24 horas de tu día, con el mediodía arriba. La noche es tenue, la luz del día se ilumina con tu color de acento y se atenúa cuando ya ha pasado. Unas marcas señalan la salida y la puesta del sol; un marcador indica dónde está el sol ahora, relleno mientras está sobre el horizonte.
+Un anillo fino a lo largo del borde de la pantalla son las 24 horas de tu día, con el mediodía arriba. La noche es tenue, la luz del día se ilumina con tu color de acento y se atenúa cuando ya ha pasado. Unas marcas señalan la salida y la puesta del sol; un marcador indica dónde está el sol ahora, relleno mientras está sobre el horizonte.
 
 Una línea para el sol
 Cuánta luz del día queda, o cuándo vuelve el sol, a partir de la salida y la puesta del sol de tu propio reloj.
@@ -38,8 +38,8 @@ El número de Garmin, tal como Garmin lo da, junto a un pequeño rayo. Sin conse
 Un solo ajuste
 Color de acento, seis para elegir, en Garmin Connect o en el propio reloj (Personalizar, junto a Aplicar). Los valores por defecto funcionan aunque nunca lo toques.
 
-Una esfera, todas las pantallas
-Se adapta por igual a relojes redondos y rectangulares. Cuando la pantalla se apaga, queda una hora, un número y una línea del sol discretos.
+Cada pantalla, a su medida
+En una pantalla redonda el anillo rodea el bisel, en una pantalla rectangular se convierte en una pista a lo largo de los bordes del cristal y en las pantallas en blanco y negro es un pequeño dial de 24 horas en la ventana redonda. Cuando la pantalla se apaga, queda una hora, un número y una línea del sol discretos.
 
 Si esta esfera te resulta útil, una valoración en la tienda ayuda a que otras personas la encuentren.
 
@@ -57,6 +57,20 @@ Ayuda y respuestas: https://verden.watch/two-suns/support/
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
 
+### What's New
+
+```text
+- Los relojes rectangulares tienen un diseño propio: el anillo del sol se convierte en una pista a lo largo de los bordes de la pantalla, y la hora y tu número de Body Battery crecen para ocupar el espacio que queda dentro.
+- El número de Body Battery mantiene un solo color en cualquier nivel; ya no se atenúa cuando el nivel es bajo.
+- Sin número de Body Battery, los dos guiones son grises, como el rayo hueco que tienen al lado.
+- El rayo de Body Battery es relleno.
+- La luz del día se indica en horas y minutos, como "3h 42m de luz", para que ya no parezca una hora del reloj.
+```
+
+### Hero Image
+
+`hero-1440x720-es.png`
+
 ## Chinese, Simplified (简体中文)
 
 ### Title
@@ -70,7 +84,7 @@ Two Suns
 ```text
 想要更多？获取 Two Suns Pro：https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
 
-一款为太阳的一天设计的表盘：时间、代表光照的 24 小时圆环，以及你的身体电量（Body Battery）数值。
+一款为太阳的一天设计的表盘：时间、代表光照的 24 小时圆环，以及你的身体电量（èº«ä½çµé）数值。
 
 没有任何锁定内容：没有试用期，无需输入代码，也无需在手表上购买任何东西。
 
@@ -78,7 +92,7 @@ Two Suns
 屏幕上最大的内容。没有步数，没有心率，没有天气，没有建议。
 
 太阳圆环
-表圈上的细环代表你一天的 24 小时，正午在顶部。夜间较暗，白天以你的强调色点亮，已过去的部分会变暗。刻度标出日出和日落；一个标记显示太阳现在的位置，太阳在地平线以上时为实心。
+沿屏幕边缘的细环代表你一天的 24 小时，正午在顶部。夜间较暗，白天以你的强调色点亮，已过去的部分会变暗。刻度标出日出和日落；一个标记显示太阳现在的位置，太阳在地平线以上时为实心。
 
 太阳的一行字
 还剩多少日照，或太阳何时再次升起，依据你手表自身的日出和日落数据。
@@ -89,8 +103,8 @@ Garmin 自己的数值，按 Garmin 提供的原样显示，旁边有一个小�
 一个设置
 强调色，六种可选，可在 Garmin Connect 中或直接在手表上设置（“自定义”，在“应用”旁边）。即使从不更改，默认设置也能正常使用。
 
-一款表盘，适配所有屏幕
-圆形和方形手表都适用。屏幕休眠时，变暗为安静的时间、数值和太阳信息。
+每种屏幕，各有适配
+在圆形屏幕上，细环沿表圈环绕；在矩形屏幕上，它变为沿玻璃边缘的轨道；在黑白屏幕上，它是圆形小窗中的 24 小时小表盘。屏幕休眠时，变暗为安静的时间、数值和太阳信息。
 
 如果这款表盘对你有用，在商店留下评分可以帮助更多人找到它。
 
@@ -107,3 +121,17 @@ DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 >
 >   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
 >   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
+
+### What's New
+
+```text
+- 矩形屏幕的手表有了专属设计：太阳圆环变为沿屏幕边缘的轨道，时间和你的èº«ä½çµé数值放大，占满轨道内的空间。
+-èº«ä½çµé数值在任何水平下都保持同一种颜色；数值较低时不再变暗。
+- 没有èº«ä½çµé数值时，两条短横线显示为灰色，与旁边的空心闪电图标一致。
+-èº«ä½çµé闪电图标为实心。
+- 日照时长以小时和分钟显示，例如“3h 42m of daylight”，不再像时钟时间。
+```
+
+### Hero Image
+
+`hero-1440x720-zh.png`

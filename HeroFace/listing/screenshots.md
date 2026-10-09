@@ -2,18 +2,20 @@
 
 **Upload `screens-framed/` (since 2026-10-05, owner: every image in a watch, chassis and part of the strap, a different watch per image, as HeroSet).** Made by `docker/frame_listing.sh` from `src/frames.txt` (which watch frames which image; the device must be the one `tools/listing_shots.sh` captured on); `screens/` keeps the raw native captures, which the hero image and the framing read. Re-run after any recapture: `CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh HeroFace bash /ciq-docker/frame_listing.sh listing`.
 
+**Recapture 2026-10-08 (ROADMAP 13.38), for the next build; awaits the owner's look approval.** Every picture was taken again from the current Pro build with the same scenes and watches and compared pixel by pixel with the committed one (`compare -metric AE`). Only **`2-your-bars`** changed: the day ring no longer counts the move bar (owner, 2026-10-06, ADR-005), so with MOVE, steps and intensity minutes on the bars the ring now shows the steps and intensity minutes only and is shorter; the seconds read 28 instead of 32 (clock timing). Its framed file and the hero (whose centre watch it is) were re-made. `1-everyday`, `3-goals-met`, `4-heroset` and the Instinct frame came out identical (0 pixels differ) and are kept as they were: the streak-over-temperature rule does not change them (1-everyday has no streak; HeroSet mode fits both). Simulator only.
+
 Status 2026-10-04: **a full set rendered from the current Pro build (`monkey.jungle`), simulator only.** **Text uploaded with Pro 1.1.0 on 2026-10-04 (in Garmin review); whether these images replaced the live ones is ROADMAP 10.5.** Everything the store form takes is in this folder: five screen images in `screens/`, `cover-500.png`, `hero-1440x720.png`, `icon-24-128.png`, `icon-64-128.png`. The superseded set is in git history. The Free twin's set is in [`../listing-free/screenshots.md`](../listing-free/screenshots.md); the two are made the same way.
 
 ## The five screen images (upload order)
 
-All from the Pro build, native simulator pixels, clock 2026-10-04 10:09. No price in any image.
+All from the Pro build, native simulator pixels, clock 2026-10-04 10:09 at the start (the pictures read 10:11: the clock runs on while the face loads). No price in any image.
 
 | # | File | Device | What it shows (what Pro has) |
 |---|---|---|---|
 | 1 | `screens/1-everyday.png` | `fr965`, 454 px | Everyday: 8420 steps, 18 intensity minutes, 7 floors, ring, blue accent, the temperature under the time |
-| 2 | `screens/2-your-bars.png` | `fr965`, 454 px | **Pro's own:** the bars set to the move bar, steps and intensity minutes (each bar fills), seconds beside the time, the pale magenta accent |
-| 3 | `screens/3-goals-met.png` | `fr965`, 454 px | All three goals met: green bars and ring, check marks, gold streak line |
-| 4 | `screens/4-heroset.png` | `fr965`, 454 px | HeroSet mode: push-ups, sit-ups, squats, rank and streak, gold ring (the HeroSet value is canned, see below) |
+| 2 | `screens/2-your-bars.png` | `fenix8pro47mm`, 454 px | **Pro's own:** the bars set to the move bar, steps and intensity minutes (each bar fills), seconds beside the time, the pale magenta accent; the ring counts steps and intensity minutes, not the move bar (retaken 2026-10-08) |
+| 3 | `screens/3-goals-met.png` | `fr970`, 454 px | All three goals met: green bars and ring, check marks, gold streak line |
+| 4 | `screens/4-heroset.png` | `venu3`, 454 px | HeroSet mode: push-ups, sit-ups, squats, rank and streak, gold ring (the HeroSet value is canned, see below) |
 | 5 | `screens/5-instinct-e40.png` | **`instincte40mm`, 166 px native, shown x3 (the Instinct family)** | Black and white, the ring is a gauge in the round window (closed here), the time and date left of it, streak, three reversed labels for finished goals |
 
 The Instinct has no Accent setting, so there is nothing to choose; the goals-met state was picked because it is the best-looking frame (the finished-goal pills and the streak line, drawn icons in reversed pills since 2026-10-05, 13.11). **Pro is sold for the Instinct E and Instinct 3 watches, not the Instinct 2 family** (Garmin's paid-app product list, `../../reports/Garmin policies and design guidelines.md`), so the Pro Instinct picture is an Instinct E 40 mm. `screens/5-instinct-e40.png` (the one to upload, as in the Days To Go listing) is the simulator's own 166 px capture (`tools/listing_shots.sh` writes it to `screens/native/5-instincte40mm-166.png`; not kept in git) enlarged x3 with nearest-neighbour (498 px, two colours, no smoothing) because the store shows screenshots larger than the display: `src/instinct-up.html`, rendered by the same Chrome command with `--window-size=498,498` and `--screenshot="$PWD/screens/5-instinct-e40.png"`. `instinct3solar45mm` did not save in the scripted run (it opens on its glance), so it was not used.
@@ -28,7 +30,7 @@ docker/capture.sh HeroFace tools/listing_shots.sh pro 2-your-bars.png   # one pi
 # the other four the same way: 1-everyday.png  3-goals-met.png  4-heroset.png  5-instincte40mm-166.png (the native Instinct frame, saved in screens/native/; then render src/instinct-up.html with Chrome to make the x3 upload file)
 ```
 
-**Take each picture in its own run.** In the Free twin's long run the simulator kept the Accent value stored by the first scene (the Cyan and Magenta frames came out blue); Pro's 2026-10-04 set was taken in one longer run in a different order (HeroSet scenes first) where it did not happen, and the trimmed script's order (1-everyday, then 2-your-bars) was **not** re-proven in one run. One picture per run is the safe, documented way, and the extra arguments make that cheap.
+**Take each picture in its own run.** In the Free twin's long run the simulator kept the Accent value stored by the first scene (the Cyan and Magenta frames came out blue); Pro's 2026-10-04 set was taken in one longer run in a different order (HeroSet scenes first) where it did not happen, and the trimmed script's order (1-everyday, then 2-your-bars) was proven in one run on 2026-10-08 (one full `pro` run with the stored-settings delete in `scene()`; every picture checked). One picture per run stays the fallback when an accent comes out wrong, and the extra arguments make that cheap.
 
 - The five pictures came out of one full run that also took a few extra frames (a second custom-bars variant, Instinct 2 and Instinct E 45 mm, a goals-met HeroSet frame); the script was trimmed to the chosen five afterwards and the unused frames were discarded. The scenes are unchanged. Extra arguments after `pro` name the files to re-take alone (`... pro 3-goals-met.png`); a "NOT SAVED" line means repeat that one. In the Free twin's long run the simulator kept a stored Accent value, so Free's accent frames are taken one per run; look at every picture.
 - The face is built in a **private copy** of the project, so `source/` and the repo's `properties.xml` are never touched. The clock is the simulator's own (`faketime`), the activity data is typed into Simulation > Activity Monitoring, and each file is the simulator's File > Save Screen Capture, so the size is the device's own.
@@ -73,12 +75,12 @@ stat -f '%z %N' screens/*.png cover-500.png hero-1440x720.png icon-*.png        
 | File | Pixels | Size |
 |---|---|---|
 | `screens/1-everyday.png` | 454x454 | 16.9 KB |
-| `screens/2-your-bars.png` | 454x454 | 18.2 KB |
+| `screens/2-your-bars.png` | 454x454 | 17.0 KB (2026-10-08; framed 128 KB) |
 | `screens/3-goals-met.png` | 454x454 | 16.0 KB |
 | `screens/4-heroset.png` | 454x454 | 19.3 KB |
 | `screens/5-instinct-e40.png` | 498x498 (x3 of the 166 px native) | 3.5 KB |
 | `cover-500.png` | 500x500 | 15.7 KB |
-| `hero-1440x720.png` | 1440x720 | 280 KB |
+| `hero-1440x720.png` | 1440x720 | 275 KB (re-rendered 2026-10-08) |
 | `icon-24-128.png` | 128x128 | 3.6 KB |
 | `icon-64-128.png` | 128x128 | 1.4 KB |
 
@@ -97,3 +99,7 @@ stat -f '%z %N' screens/*.png cover-500.png hero-1440x720.png icon-*.png        
 - The numbers on screen must be ones the watch could actually produce.
 - No claim in the image that the listing itself could not make ([`../docs/release-contract.md`](../docs/release-contract.md)): no battery, always-on, accuracy, watch count, rating or price.
 - The Pro listing's text never says "free", and neither does an image.
+
+## Language heroes (2026-10-08)
+
+Each listing language has its own hero (owner, 2026-10-08). `hero-1440x720-es.png` (Spanish) and `hero-1440x720-zh.png` (Chinese, Simplified) are `src/hero.html` with the line translated: the page swaps the text when its URL ends in `#es` or `#zh`; the name, the PRO badge and the watches are unchanged. Chinese falls back from Archivo to Noto Sans SC (Google Fonts), so Latin letters and digits stay Archivo. The hero command above with `src/hero.html#es` or `src/hero.html#zh` as the URL renders each. The English render is unchanged by this (checked byte for byte, 2026-10-08). Machine-drafted text, not read by a native speaker.

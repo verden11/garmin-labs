@@ -142,7 +142,10 @@ class HeroSetManualPickerView extends WatchUi.View {
         var text = HeroSetText.signed(_delta);
         var hasSign = _delta != 0;
         var digits = hasSign ? text.substring(1, text.length()) as Lang.String : text;
-        var bottom = layout.footerRowBottom() - 2 * dc.getFontHeight(Graphics.FONT_XTINY) - dc.getFontHeight(Graphics.FONT_SMALL);
+        // On a round screen the hints walk up off the bezel, so a spare hint row is kept; a rectangle's hints stay on
+        // their rows, and that row goes to the number (ADR-057).
+        var hintRows = layout.track() != null ? 1 : 2;
+        var bottom = layout.footerRowBottom() - hintRows * dc.getFontHeight(Graphics.FONT_XTINY) - dc.getFontHeight(Graphics.FONT_SMALL);
         var font = layout.subscreen() == null ? HeroSetDraw.largestFontInBand(dc, layout, y, bottom, text, NUMBER_FONTS) : Graphics.FONT_LARGE;
         if (font == Graphics.FONT_LARGE) {
             HeroSetDraw.centered(dc, layout, y, Graphics.FONT_LARGE, text);

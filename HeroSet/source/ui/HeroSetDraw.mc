@@ -74,13 +74,13 @@ class HeroSetDraw {
         var y = layout.bandTop(0);
         var fonts = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Lang.Array<Graphics.FontDefinition>;
         var font = largestFont(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, fonts);
-        if (layout.subscreen() != null || layout.rectangle()) {
+        if (layout.subscreen() != null || layout.track() != null) {
             // Beside a subscreen window, or on a rectangle, there is no wider
             // chord to move down to (walking down only ran the title into the
             // rows below: Danish on venusq2, ADR-057), so cut the word instead.
             text = fitted(dc, layout, y, font, text);
         }
-        while (!layout.rectangle() && y < layout.centerY() && !fits(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, font)) {
+        while (layout.track() == null &&y < layout.centerY() && !fits(dc, layout, layout.displayRadius(), layout.textMargin(), y, text, font)) {
             y += 2;
         }
         dc.setColor(HeroSetPalette.TEXT, HeroSetPalette.BACKGROUND);

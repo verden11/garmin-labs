@@ -3,8 +3,7 @@
 Languages picked by the owner, 2026-10-05: English (the main `paste.md`), **Spanish** and **Chinese (Simplified)**, "the most
 spoken languages in the world". **Machine-drafted, not yet read by a native speaker** (translation reads stay the owner's call).
 The watch face itself shows English text; the listing does not say so (no language names in listing text, release contract).
-Every other field (images, category, price tier, URLs) is the same as in `paste.md`. Only the title and description are
-translated. No price number, no "free" wording, as in English.
+Every other field (images, category, price tier, URLs) is the same as in `paste.md`. The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.1.0 on 2026-10-08, and words the watch shows are quoted as the watch shows them in that language (English where the face has no translation). No price number, no "free" wording, as in English.
 
 ## Spanish (Español)
 
@@ -31,13 +30,26 @@ Si esta esfera te resulta útil, una valoración en la tienda ayuda a que otras 
 
 DayArc Pro lee datos que tu reloj ya tiene. No envía nada a ningún sitio: sin ubicación y sin red.
 
-Más de Verden
-Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9
-Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca
-HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d
-
 Ayuda y respuestas: https://verden.watch/day-arc-pro/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, release contract), and none is live yet: all three free twins returned 404 on 2026-10-08 (in Garmin review, ROADMAP 7.12), so the block is left out of the description. Once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 for one of them, add a `Más de Verden` line to the Spanish block above the support line, then that app's line:
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
+
+### What's New
+
+```text
+- Los relojes rectangulares tienen un diseño propio: el arco sigue el borde superior de la pantalla, el indicador de estrés y de Body Battery es una barra recta, y la hora, la fecha y las lecturas aprovechan el espacio que queda dentro. En el más pequeño de ellos, la mañana ahora muestra a la vez "Feels like" y una fila de datos.
+- Una mañana sin datos del clima ahora muestra la hora, la fecha y "Weather unavailable", con tus datos debajo, en lugar de un "--" solitario.
+- En los relojes siempre encendidos con protección contra el quemado de pantalla, la hora atenuada se muestra en un gris más oscuro, más amable con la pantalla.
+```
+
+### Hero Image
+
+`hero-1440x720-es.png`
 
 ## Chinese, Simplified (简体中文)
 
@@ -64,10 +76,23 @@ DayArc Pro 是独立于 DayArc 的商品，单独定价：一次购买，无需�
 
 DayArc Pro 只读取手表已有的数据，不会向任何地方发送任何内容：不使用位置，也不联网。
 
-Verden 的更多作品
-Days To Go：https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9
-Two Suns：https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca
-HeroFace：https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d
-
 帮助与解答：https://verden.watch/day-arc-pro/support/
 ```
+
+> **More from Verden, lines to add later (ROADMAP 13.32).** The block links only live free siblings (studio rule, release contract), and none is live yet: all three free twins returned 404 on 2026-10-08 (in Garmin review, ROADMAP 7.12), so the block is left out of the description. Once `curl -s -o /dev/null -w '%{http_code}' <URL>` returns 200 for one of them, add a `Verden 的更多作品` line to the Chinese block (full-width colon `：` in each app line) above the support line, then that app's line:
+>
+>   - `Days To Go: https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9`
+>   - `Two Suns: https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca`
+>   - `HeroFace: https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d`
+
+### What's New
+
+```text
+- 矩形屏幕的手表有了专属设计：弧线沿屏幕顶部边缘延伸，压力和èº«ä½çµé量表变为一条直条，时间、日期和各项读数利用其中的空间。在其中最小的一款上，早晨现在会同时显示“Feels like”和一行数据。
+- 没有天气数据的早晨，现在会显示时间、日期和“Weather unavailable”，下方是你的数据，而不是孤零零的“--”。
+- 在带有防烧屏保护的常亮显示手表上，变暗的时间改用更深的灰色，对屏幕更友好。
+```
+
+### Hero Image
+
+`hero-1440x720-zh.png`

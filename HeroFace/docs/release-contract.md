@@ -16,6 +16,8 @@ The listing sells a practical everyday face: time first, three daily goals as ba
 
 Allowed: the metric list, "Compatible Devices" as the store shows it (no watch count: the package has 117 products in 1.0.1 and the store lists only 69, see "Paid vs free reach"), "nothing leaves your watch", the HeroSet link on Connect IQ 4.2+ watches, the settings.
 
+From Free 1.1.0 / Pro 1.2.0 (129 products, prepared 2026-10-08): "round or rectangular" by screen type, the ring as a frame along a rectangular screen's edges and as a gauge in a black-and-white screen's round window (ADR-005 (rectangular watches, the ring as a frame), ADR-002 (Instinct family)); never a watch model or count. The ring sentence must say the move bar stays out of the ring (it averages the other goals, ADR-005 amendment of 2026-10-06), never "fills green when all three are met". Pro: the time is "sized to your screen", not "the largest size your watch can draw" (with Seconds on it steps down a size on some rectangles).
+
 Forbidden until measured on a watch: any battery-life number, any always-on claim beyond what the FR965 night of 2026-09-21/22 backs (§1: the face works always-on without burn-in retention on that watch), "works with every Garmin", accuracy claims of any kind, and any review, rating or user count — none exist. (The one-line request "If this face works for you, a rating in the store helps other people find it." is in the Free listing only, by the owner's decision of 2026-10-04; it asks and claims nothing.)
 
 ## Cross-promotion (rule copied from Days To Go and Two Suns, 2026-10-05, ROADMAP 13.32; the agent's pick on the owner's standing instruction)

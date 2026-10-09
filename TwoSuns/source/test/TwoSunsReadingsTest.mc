@@ -239,33 +239,30 @@ function batteryLevelFollowsTheNumber(logger as Test.Logger) as Boolean {
     return true;
 }
 
-// batteryAccentFor: dim(accent) below the low threshold, the accent itself at or above it, at the boundary too.
+// One colour whatever the level (ADR-008, no verdicts on Body Battery, amended 2026-10-08: the dim below 30 is gone):
+// Garmin's number at 0, 29, 30, 62 and 100 all draw in the accent; "--" (no number, or one out of range) is MUTED.
+// Both tiers: the Complication path is the one Free has.
 (:test)
-function batteryAccentForDimsOnlyBelowTheThreshold(logger as Test.Logger) as Boolean {
-    var accent = TwoSunsPalette.ACCENTS[0];
-    var dim = TwoSunsPalette.dim(accent);
-    Test.assertEqual(TwoSunsReadings.batteryAccentFor(0, accent), dim);
-    Test.assertEqual(TwoSunsReadings.batteryAccentFor(TwoSunsConfig.BATTERY_LOW_THRESHOLD - 1, accent), dim);
-    Test.assertEqual(TwoSunsReadings.batteryAccentFor(TwoSunsConfig.BATTERY_LOW_THRESHOLD, accent), accent);
-    Test.assertEqual(TwoSunsReadings.batteryAccentFor(100, accent), accent);
+function batteryNumberIsOneColourWhateverTheLevel(logger as Test.Logger) as Boolean {
+    var levels = [0, 29, 30, 62, 100] as Array<Number>;
+    for (var i = 0; i < levels.size(); i++) {
+        var state = readingsState(null, levels[i], true);
+        Test.assertMessage(TwoSunsReadings.batteryColor(state) == state.accent, "level " + levels[i] + " is not the accent");
+    }
+    Test.assertEqual(TwoSunsReadings.batteryColor(readingsState(null, null, true)), TwoSunsPalette.MUTED);
+    Test.assertEqual(TwoSunsReadings.batteryColor(readingsState(null, 127, true)), TwoSunsPalette.MUTED);
     return true;
 }
 
-// The state carries the dimmed or full accent through build(): low from history, low from the Complication
-// fallback, and never below the low colour just because the reading is stale (stale is muted separately by
-// the view, batteryAccent still reflects the level underneath it).
+// From the history: a fresh low and a fresh high draw alike; a reading over an hour old is MUTED whatever its level
+// (age, not value), and a history with no valid sample is "--", MUTED. Pro only (the history).
 (:test, :pro)
-function batteryAccentFollowsTheLevel(logger as Test.Logger) as Boolean {
+function batteryColourFollowsAgeNotLevel(logger as Test.Logger) as Boolean {
     var accent = TwoSunsPalette.ACCENTS[0];
-    var dim = TwoSunsPalette.dim(accent);
-    Test.assertEqual(readingsState(readingsCurve(62, 3), null, true).batteryAccent, accent);
-    Test.assertEqual(readingsState(readingsCurve(20, 3), null, true).batteryAccent, dim);
-    Test.assertEqual(readingsState(null, 62, true).batteryAccent, accent);
-    Test.assertEqual(readingsState(null, 20, true).batteryAccent, dim);
-    // Stale and low: still the dim colour underneath (the view draws muted grey instead, this is what it falls back to).
-    Test.assertEqual(readingsState(readingsCurve(20, 90), null, true).batteryAccent, dim);
-    // No valid reading at all: batteryAccent defaults to the plain accent, unused by the view ("--" never colours by level).
-    Test.assertEqual(readingsState(readingsCurve(127, 3), null, true).batteryAccent, accent);
-    Test.assertEqual(readingsState(null, null, true).batteryAccent, accent);
+    Test.assertEqual(TwoSunsReadings.batteryColor(readingsState(readingsCurve(20, 3), null, true)), accent);
+    Test.assertEqual(TwoSunsReadings.batteryColor(readingsState(readingsCurve(62, 3), null, true)), accent);
+    Test.assertEqual(TwoSunsReadings.batteryColor(readingsState(readingsCurve(20, 90), null, true)), TwoSunsPalette.MUTED);
+    Test.assertEqual(TwoSunsReadings.batteryColor(readingsState(readingsCurve(90, 90), null, true)), TwoSunsPalette.MUTED);
+    Test.assertEqual(TwoSunsReadings.batteryColor(readingsState(readingsCurve(127, 3), null, true)), TwoSunsPalette.MUTED);
     return true;
 }

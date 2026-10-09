@@ -39,19 +39,22 @@ DayArc: https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 ## App Version
 
 ```text
-1.3.1
+1.4.0
 ```
 
 ## What's New
 
 ```text
-- Black-and-white screens: text near the corners is no longer cut off by the bezel, so START: MENU and the finished-day message show whole.
-- Black-and-white screens: the glance now sits beside the round window instead of under it, and its bars show empty and full in black and white.
+- Now on more watches, including rectangular ones: there the dashboard's XP ring runs along the edges of the screen, and everything inside it uses the full width.
+- Correcting today's count back under your goal now takes the finished day back: your streak returns to what it was before today counted, in the app, the glance and, on watches with Connect IQ 4.2 or later, HeroFace. Saving over the goal again completes the day. XP you earned stays.
+- The review screen shows the amount to save as the big number, with the detected count small above it.
+- During a set, calories read "--" until the first one is counted, instead of 0.
+- Black-and-white screens: the dashboard leaves out the streak row until you have a streak.
 ```
 
 ## Hero Image
 
-`hero-1440x720.png`
+`hero-1440x720.png` (English). The hero is per language (owner, 2026-10-08): Spanish `hero-1440x720-es.png`, Chinese (Simplified) `hero-1440x720-zh.png`; see `paste-translations.md`.
 
 ## Category
 

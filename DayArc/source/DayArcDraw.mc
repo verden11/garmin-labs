@@ -74,9 +74,11 @@ class DayArcDraw {
         if (subY >= 0 && sub instanceof String) {
             var lineHeight = dc.getFontHeight(plan.textFont);
             var lines = plan.subLines(dc, sub);
+            // With no hero value (no weather) the sentence IS the read: white, the role of the label it replaces.
+            var colour = hero.get(:value) == null ? DayArcPalette.TEXT : DayArcPalette.MUTED;
             for (var i = 0; i < lines.size(); i++) {
                 var y = subY + i * lineHeight;
-                DayArcText.drawCentered(dc, layout.rowCenterX(y, lineHeight), y, plan.textFont, lines[i], plan.rowWidth(y, lineHeight), DayArcPalette.MUTED);
+                DayArcText.drawCentered(dc, layout.rowCenterX(y, lineHeight), y, plan.textFont, lines[i], plan.rowWidth(y, lineHeight), colour);
             }
         }
     }
@@ -126,6 +128,10 @@ class DayArcDraw {
     // Since E1 (2026-10-01) the gauge is a shallow smile: an arc of the layout's gauge circle (the
     // same curve the grid rows lift onto), round-capped with filled circles (drawArc ends are butt).
     private static function drawGauge(dc as Graphics.Dc, layout as DayArcLayout, top as Number, value as Number, max as Number, accent as Number) as Void {
+        if (layout.isRectangle()) {
+            DayArcRect.drawGauge(dc, layout, top, value, max, accent);   // a straight pill bar on a square (ADR-019)
+            return;
+        }
         var pen = layout.gaugeHeight();
         var radius = layout.gaugeRadius();
         // The visual side padding, capped by the real chord so it never clips a bezel on a small round
@@ -174,7 +180,7 @@ class DayArcDraw {
     // AMOLED always-on sleep: time only, dim, stepping across a 3x3 grid every minute so no pixel
     // stays lit more than a minute (TwoSunsSleep's proven pattern). `dx`/`dy` are the drift offset
     // for this minute; the view computes them from BURN_IN_GRID. No arc, no icon, no date — the
-    // fewest lit pixels, deliberately not a dimmed copy of the active frame (DESIGN.md "Night/idle";
+    // fewest lit pixels, deliberately not a dimmed copy of the active frame (DESIGN.md "Motion / always-on";
     // an idle date line was considered for ADR-013 and rejected for exactly this reason).
     static function renderIdle(dc as Graphics.Dc, layout as DayArcLayout, clockText as String, dx as Number, dy as Number) as Void {
         dc.setColor(DayArcPalette.BACKGROUND, DayArcPalette.BACKGROUND);
@@ -186,6 +192,6 @@ class DayArcDraw {
         // so a horizontally-drifted frame stays inside it in either direction — watch-design-
         // reviewer's second pass, 2026-09-28: the first fix only reached renderActive, not this.
         var maxWidth = layout.rowMaxWidth(y, clockHeight) - 2 * step;
-        DayArcText.centered(dc, layout.centerX() + dx, y, DayArcLayout.CLOCK_FONTS, clockText, maxWidth, DayArcPalette.MUTED);
+        DayArcText.centered(dc, layout.centerX() + dx, y, DayArcLayout.CLOCK_FONTS, clockText, maxWidth, DayArcPalette.SLEEP_TEXT);
     }
 }

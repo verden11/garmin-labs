@@ -3,17 +3,17 @@ import { appUrl } from '../../urls.ts'
 
 export function Privacy() {
   return (
-    <Doc title="Privacy policy" lede="HeroFace for Garmin watches. Effective 20 September 2026.">
+    <Doc title="Privacy policy" lede="HeroFace and HeroFace Pro for Garmin watches. Effective 8 October 2026.">
       <Note>
-        <strong>In short:</strong> HeroFace keeps everything on your watch. It has no account, no internet access, no
-        analytics and no ads.
+        <strong>In short:</strong> HeroFace and HeroFace Pro keep everything on your watch. Neither has an account, internet access,
+        analytics or ads.
       </Note>
 
       <h2>What HeroFace reads</h2>
       <p>
         To draw the face: the time and date, your step, intensity-minute and floor counts and their goals, the move bar,
-        calories, distance, heart rate, battery level, unread notification count, and the weather your watch has already
-        received. It reads these from your watch as it draws, and saves none of them.
+        calories, distance, heart rate, battery level and unread notification count. HeroFace Pro also reads the weather
+        your watch has already received, for the temperature. It reads these from your watch as it draws, and saves none of them.
       </p>
 
       <h2>What HeroFace saves</h2>
@@ -36,7 +36,8 @@ export function Privacy() {
       <h2>Settings</h2>
       <p>
         Your face settings are stored by Garmin Connect so they can reach the watch. They contain only your display
-        choices: which metrics the bars show, the accent colour, and whether seconds and temperature appear.
+        choices: whether HeroSet progress may show and the accent colour; in HeroFace Pro also which metrics the bars show
+        and whether seconds and temperature appear.
       </p>
 
       <PrivacyTail />

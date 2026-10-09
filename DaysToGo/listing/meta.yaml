@@ -5,35 +5,39 @@ folder: DaysToGo/listing
 tier: paid
 app_id: 45fad8be-72b0-4c4b-8b8e-58d9924d622c
 store:
-  listing_url: null
-  developer_url: null
+  listing_url: "https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4"   # the Free listing's line 1; HTTP 200 on 2026-10-08
+  developer_url: "https://apps-developer.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4"
 live:
   version: 1.0.1
   since: 2026-09-28
   note: 1.0.1 was submitted 2026-09-26 on top of 1.0.0; the app was approved 2026-09-28 and which version Garmin approved is not recorded
-next:
+in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
   version: "1.1.0"
-  status: uploaded   # drafted | prepared | uploaded | in-review | live
   uploaded: 2026-10-04
-  summary: "Free + Pro ladder (ADR-014): renamed Days To Go Pro; the Instinct family (ADR-015, 127 products); Pro headline To the minute (ADR-018: Minute and Event time zone, owner pick 2026-10-04). uploaded 2026-10-04 by the owner, in Garmin review"
+  summary: "Free + Pro ladder (ADR-014): renamed Days To Go Pro; the Instinct family (ADR-015, 127 products); To the minute (ADR-018); package dist/DaysToGoPro-1.1.0.iq from the tree at commit a6c7a35"
+next:
+  version: "1.2.0"
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: "square design on the rectangles (ADR-019), 8h 06m (ADR-018 amendment), the ring's one scale, date arrow and bottom-line marks, no on-watch date picker on Venu Sq 2 / Sq 2 Music (ADR-020), the always-on grey (ADR-007 amendment), Venu Sq / Sq Music in the package (129 products; not on the paid list); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/DaysToGo-Pro-1.2.0/"
 package:
-  file: dist/DaysToGoPro-1.1.0.iq
-  products: 127   # <iq:product> lines in the manifest; the export has 210 part numbers (device variants), not a product count
-  exported: 2026-10-04   # re-export with To the minute (ADR-018), from the tree at commit a6c7a35 (no code change after it)
-  check: "tools/check_free_package.sh with explicit file args (Free after ADR-018, this Pro): OK both. Pro: keys Hour, Minute, EventZone, Footer in every settings file and every .prg, name 'Days To Go Pro' found; translated Minute/zone titles present (checked deu, ukr). Free: settings byte-identical to the uploaded 1.0.0 export (210 of 210), no Hour/Minute/EventZone/Footer, no 'Pro'"
-  note: "export: monkeyc -e -r -f monkey.jungle in verden-ciq-build:9.2.0 via docker/run.sh; 8.8 MB (the old export was 7.5 MB: the Minute and zone labels and titles in 15 languages across 210 parts); the file is in the git-ignored dist/"
+  file: dist/DaysToGoPro-1.2.0.iq
+  products: 129   # <iq:product> lines in the manifest
+  exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 218 part numbers; sha256 f992f4c31678e98f2350952f3c9bf1272c58c2c5223cc12328806a8cd4dd43b0
+  check: "tools/check_free_package.sh dist/DaysToGoFree-1.1.0.iq dist/DaysToGoPro-1.2.0.iq: OK (Hour, Minute, EventZone, Footer in every settings file and .prg, AppName Days To Go Pro, no permissions); unpack check: app id = manifest.xml, 129 of 129 products"
+  note: "export: monkeyc -e -r -f monkey.jungle in verden-ciq-build:9.2.0 via docker/run.sh; the file is in the git-ignored dist/"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-017 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-014 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  status: rendered 2026-10-04 from the uploaded build; whether they replaced the live images is ROADMAP 10.5
+  status: rendered 2026-10-04 from the uploaded build, screen 4 retaken 2026-10-08 from the next (unreleased) build, so this set goes up only with that upload (ROADMAP 13.38); whether they replaced the live images is ROADMAP 10.5
   cover: cover-500.png (500x500, 17 KB; mark + name + PRO badge on a mint #55FFAA ground, 2026-10-04, ROADMAP 10.25)
   hero: hero-1440x720.png (1440x720, 156 KB; mint ground, three black watch screens (to the minute, weeks, the other side of the world), line "Count down to the minute, in the time zone it starts in.")
   screens:   # upload order, 5 at most, each under 150 KB; simulator captures (canned data)
-    - {file: screens-framed/1-to-the-minute.png, caption: "Pro's headline, to the minute in the zone the event starts in: a 20:15 start at UTC+2 seen from a UTC clock at 10:09, 8h 06m, battery on the date row", device: venu441mm, px: 720, kb: 75, framed: true}
+    - {file: screens-framed/1-to-the-minute.png, caption: "Pro's headline, to the minute in the zone the event starts in: a 20:15 start at UTC+2 seen from a UTC clock at 10:10, 8h 05m, battery on the bottom line", device: venu441mm, px: 720, kb: 75, framed: true}
     - {file: screens-framed/2-weeks-steps.png, caption: "Weeks and days to a named event, step count on the date row", device: fenix847mm, px: 720, kb: 129, framed: true}
-    - {file: screens-framed/3-other-time-zone.png, caption: "The other side of the world: a 09:30 start in UTC+9 the next day is 14h 21m away on a UTC clock, pink accent, battery on the date row", device: fr970, px: 720, kb: 103, framed: true}
-    - {file: screens-framed/4-rectangle.png, caption: "The same face on a rectangular screen, hours state, amber accent", device: venusq2, px: 720, kb: 93, framed: true}
-    - {file: screens-framed/5-instinct.png, caption: "Black and white, the ring is a gauge in the round window, hours state", device: instincte40mm, px: 720, kb: 104, instinct: true, framed: true}   # 166 px native capture enlarged x3 without smoothing; the native capture is not kept
+    - {file: screens-framed/3-other-time-zone.png, caption: "The other side of the world: a 09:30 start in UTC+9 the next day is 14h 21m away on a UTC clock, pink accent, battery on the bottom line", device: fr970, px: 720, kb: 103, framed: true}
+    - {file: screens-framed/4-rectangle.png, caption: "The same face on a rectangular screen, its own square design, hours state, amber accent", device: venusq2, px: 720, kb: 95, framed: true, retaken: 2026-10-08}
+    - {file: screens-framed/5-instinct.png, caption: "Black and white, the ring is a gauge in the round window, hours state", device: instincte40mm, px: 720, kb: 103, instinct: true, framed: true}   # 166 px native capture enlarged x3 without smoothing; the native capture is not kept
   icons: [icon-64-128.png, icon-24-128.png]   # 128x128, mark + PRO badge; proposals, the real launcher icon is ROADMAP 3.3
   screenshots_doc: screenshots.md
 site:
@@ -41,6 +45,8 @@ site:
   support: https://verden.watch/days-to-go/support/
   privacy: https://verden.watch/days-to-go/privacy/
 owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
+  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set retaken for the next build: screen 4 (4-rectangle, the Venu Sq 2 square design, ADR-019) is new; screens 2, 3, 5 compared identical and screen 1 differed by one clock minute only (10:10 kept); they are unchanged, and the hero was not re-rendered (its round source screens are unchanged). Preview: device-test/listing-review/DaysToGo-listing.png. Goes up with the next upload."
+  - "UPLOAD GATE CLEARED 2026-10-08 (the 1.2.0 text, paste.md and paste-translations.md; the site wording is a separate held-back commit, deploy after Garmin approves). Was: paste.md 'A thin ring around the bezel' and 'Round and rectangular watches alike' no longer describe screen 4 (the square design's track along the glass, ADR-019); 'full detail down to the smallest' sits beside the bottom-line sentence that the Instinct does not draw (ADR-015). Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (square design; no on-watch date picker on Venu Sq 2 / Sq 2 Music, ADR-020) (not done under 13.38: site/ out of scope)."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
   - "Native read of the machine-drafted translations of the three new phone strings (Minute, Event time zone, My watch time zone; 14 languages, resources-pro-<lang>/): ROADMAP 7.10. The 'To the minute' claims wait on the wrist checks W1 to W6 in docs/status.md (ROADMAP 3.1)."

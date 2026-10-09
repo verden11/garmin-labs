@@ -113,6 +113,7 @@ class HeroFaceReadings {
         state.streakLines = days > 0
             ? [HeroFaceText.format(Rez.Strings.rank_streak, [rank, days]), HeroFaceText.format(Rez.Strings.rank_only, [rank])] as Array<String>
             : [HeroFaceText.format(Rez.Strings.rank_only, [rank])] as Array<String>;
+        state.streakLastDropsStreak = days > 0;
         state.streakKept = true;
     }
 
@@ -136,12 +137,14 @@ class HeroFaceReadings {
     }
 
     // The ring is the whole day at once: the average fill of the goal-bearing
-    // missions, full only when every one is done.
+    // missions, full only when every one is done. MOVE is left out: its bar is full
+    // while you are not idle, so it read a third done at zero activity and let the
+    // ring turn green beside a MOVE that is never "done" (owner, 2026-10-06).
     static function dayScore(metrics as Array<HeroFaceMetric>) as Number {
         var sum = 0;
         var count = 0;
         for (var i = 0; i < metrics.size(); i++) {
-            if (metrics[i].hasBar()) {
+            if (metrics[i].hasBar() && metrics[i].kind != HeroFaceConfig.MOVE) {
                 sum += metrics[i].permille();
                 count++;
             }

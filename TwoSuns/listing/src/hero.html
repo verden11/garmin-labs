@@ -2,10 +2,10 @@
 <html><head><meta charset="utf-8">
 <!-- Store hero image (1440x720, Two Suns Pro). Light/coloured ground (ROADMAP 10.25). Render: see ../screenshots.md. Screens are the simulator captures in ../screens/
      (fr965 and Instinct E 45 mm, canned data); the Instinct is doubled with nearest neighbour on a canvas, then scaled down smooth. -->
-<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,400..800&family=Noto+Sans+SC:wght@400..800&display=swap" rel="stylesheet">
 <style>
   html,body{margin:0;width:1440px;height:720px;overflow:hidden;background:#AA55FF;}
-  body{display:flex;align-items:center;justify-content:space-between;font-family:'Archivo',sans-serif;color:#0B1530;}
+  body{display:flex;align-items:center;justify-content:space-between;font-family:'Archivo','Noto Sans SC',sans-serif;color:#0B1530;}
   .copy{box-sizing:border-box;width:470px;padding-left:56px;padding-right:8px;flex:none;}
   .mark{width:96px;height:96px;display:block;margin-bottom:24px;}
   h1{margin:0;font-size:58px;font-weight:800;font-stretch:112%;letter-spacing:-2px;line-height:1;display:flex;align-items:center;gap:14px;white-space:nowrap;}
@@ -35,5 +35,9 @@
     x.imageSmoothingEnabled = false; x.drawImage(i, 0, 0, 352, 352);
   };
   i.src = '../screens/4-instinct-e45.png';
+  // One hero per listing language (owner, 2026-10-08): hero.html#es and hero.html#zh swap the line; plain hero.html is English.
+  var T = {es: 'El día del cielo y tu energía,<br>en una sola esfera.',
+           zh: '天空的一天和你的能量，<br>尽在一个表盘上。'}[location.hash.slice(1)];
+  if (T) { document.documentElement.lang = location.hash.slice(1); document.querySelector('.copy p').innerHTML = T; }
 </script>
 </body></html>

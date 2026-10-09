@@ -1,4 +1,5 @@
 import Toybox.Lang;
+import Toybox.Math;
 import Toybox.Test;
 
 // The accent setting's validation and palette mapping (ADR-014). Pure functions only: real
@@ -53,5 +54,26 @@ function accentIsWhiteOnTheMonoPalette(logger as Test.Logger) as Boolean {
     }
     Test.assertEqual(DayArcPalette.MUTED, DayArcPalette.TEXT);
     Test.assertEqual(DayArcPalette.ARC_TRACK, DayArcPalette.TEXT);
+    Test.assertEqual(DayArcPalette.SLEEP_TEXT, DayArcPalette.TEXT);
+    return true;
+}
+
+// The always-on grey (ADR-020, the studio's one always-on grey): at least 3:1 against black, the bar for a persistent colour.
+// WCAG contrast against black is (L + 0.05) / 0.05, L from the sRGB channels. #5C5C5C is 3.14:1; #555555 would fail at 2.82.
+// On colour screens it must also stay well under MUTED's 9.0:1 (below 4.5:1), so setting SLEEP_TEXT back to #AAAAAA fails here
+// (pointing renderIdle at MUTED itself would not: only a code review catches that).
+(:test)
+function alwaysOnGreyReadsOnBlack(logger as Test.Logger) as Boolean {
+    var color = DayArcPalette.SLEEP_TEXT;
+    var weights = [0.2126, 0.7152, 0.0722] as Array<Float>;
+    var luminance = 0.0;
+    for (var i = 0; i < 3; i++) {
+        var channel = ((color >> (16 - 8 * i)) & 0xFF) / 255.0;
+        luminance += weights[i] * (channel <= 0.04045 ? channel / 12.92 : Math.pow((channel + 0.055) / 1.055, 2.4).toFloat());
+    }
+    var ratio = (luminance + 0.05) / 0.05;
+    Test.assertMessage(ratio >= 3.0, "always-on grey contrast " + ratio.format("%.2f") + ":1 on black");
+    // On a colour screen it is dimmer than the awake MUTED grey (#AAAAAA, 9.0:1), the colour ADR-020 moved away from.
+    Test.assertMessage(DayArcPalette.MONO || ratio < 4.5, "always-on grey is not dimmer than MUTED: " + ratio.format("%.2f") + ":1");
     return true;
 }

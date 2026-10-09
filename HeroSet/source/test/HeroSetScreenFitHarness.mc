@@ -53,6 +53,35 @@ class HeroSetScreenFitHarness {
         }
     }
 
+    // On a rectangle the dashboard's text sits inside the XP track (ADR-057): every corner of a text box's ink stays inside
+    // the track's inner edge, rounded corners included (the same clamp-to-centre test covers sides and corners).
+    static function collectInsideTrack(track as HeroSetRectTrack?, boxes as Lang.Array<Lang.Array>, problems as Lang.Array<Lang.String>) as Void {
+        if (track == null) {
+            return;
+        }
+        var b = track.box();
+        var radius = b[4] - (track.stroke() - track.stroke() / 2);
+        var settings = System.getDeviceSettings();
+        var trim = HeroSetLayout.inkTrim(settings.screenWidth, settings.screenHeight);
+        for (var i = 0; i < boxes.size(); i++) {
+            var box = boxes[i] as Lang.Array;
+            for (var k = 0; k < 4; k++) {
+                var x = (box[0] as Lang.Number) + (k % 2 == 0 ? 0 : box[2] as Lang.Number);
+                var y = (box[1] as Lang.Number) + (k < 2 ? trim : (box[3] as Lang.Number) - trim);
+                var dx = x - clamp(x, b[0] + b[4], b[2] - b[4]);
+                var dy = y - clamp(y, b[1] + b[4], b[3] - b[4]);
+                if (dx * dx + dy * dy > radius * radius) {
+                    problems.add("dashboard crosses the track: '" + box[4] + "' y=" + box[1]);
+                    break;
+                }
+            }
+        }
+    }
+
+    private static function clamp(value as Lang.Number, low as Lang.Number, high as Lang.Number) as Lang.Number {
+        return value < low ? low : (value > high ? high : value);
+    }
+
     // The bezel hides a semi-octagon display's corners: no text box may reach outside the circle that shows (ADR-055). Boxes
     // include font padding, so this is stricter than the ink; a screenshot of the simulator decides a disputed case.
     static function collectCorners(name as Lang.String, boxes as Lang.Array<Lang.Array>, problems as Lang.Array<Lang.String>) as Void {

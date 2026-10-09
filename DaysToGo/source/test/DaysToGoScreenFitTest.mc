@@ -43,15 +43,14 @@ function everyStateFitsThisDisplay(logger as Test.Logger) as Boolean {
 }
 
 // A bottom line the owner switched on is drawn, on its own row or sharing the date's, with a named event too (the
-// busiest stack: it used to vanish on a 454 px display). Asked of round displays of 218 px and up only: the Instinct
-// has no bottom line (ADR-015), and a 320 px rectangle's circle (ADR-016, amended 2026-10-04) leaves the hero too little room for
-// the bottom line beside the name, so it gives way there.
+// busiest stack: it used to vanish on a 454 px display). Asked of round displays of 218 px and up and of the rectangles,
+// whose square stack (ADR-019) has room for it on every size: the Instinct has no bottom line (ADR-015).
 (:test)
 function bottomLineIsDrawnNotSilentlyDropped(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new DaysToGoLayout(dc);
     var view = new DaysToGoView();
-    if (System.getDeviceSettings().screenShape != System.SCREEN_SHAPE_ROUND || dc.getHeight() < 218) {
+    if (layout.track() == null && (System.getDeviceSettings().screenShape != System.SCREEN_SHAPE_ROUND || dc.getHeight() < 218)) {
         return true;
     }
     var states = [DaysToGoTestStates.withFooter(DaysToGoTestStates.upcoming(76, 0, "Anna and Tom"), "50%"),
@@ -110,6 +109,35 @@ function alwaysOnFrameFitsAtEveryDrift(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// The error frame ("?") follows the always-on rule when asleep on a burn-in watch (ADR-007 amendment 2026-10-08): the dim
+// grey, and nine different spots over nine minutes, each within one drift step of the centre; awake it is white and still.
+(:test)
+function errorFrameDimsAndDriftsWhenAsleep(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new DaysToGoLayout(dc);
+    Test.assertEqual(DaysToGoView.fallbackColor(true), DaysToGoPalette.SLEEP_TEXT);
+    Test.assertEqual(DaysToGoView.fallbackColor(false), DaysToGoPalette.TEXT);
+    var step = layout.driftStep();
+    var seen = [] as Array<String>;
+    var spots = DaysToGoConfig.BURN_IN_GRID * DaysToGoConfig.BURN_IN_GRID;
+    for (var minute = 0; minute < spots; minute++) {
+        var origin = DaysToGoView.fallbackOrigin(layout, true, minute);
+        var dx = origin[0] - layout.centerX();
+        var dy = origin[1] - layout.centerY();
+        Test.assertMessage(dx.abs() <= step && dy.abs() <= step, "minute " + minute + " drifts past one step");
+        var key = dx + "," + dy;
+        Test.assertMessage(seen.indexOf(key) < 0, "minute " + minute + " repeats spot " + key);
+        seen.add(key);
+        DaysToGoView.drawFallback(dc, layout, true, minute);   // draws without throwing at every spot
+    }
+    for (var minute = 0; minute < spots; minute++) {
+        var still = DaysToGoView.fallbackOrigin(layout, false, minute);
+        Test.assertMessage(still[0] == layout.centerX() && still[1] == layout.centerY(), "awake '?' moved at minute " + minute);
+    }
+    DaysToGoView.drawFallback(dc, layout, false, 0);
+    return true;
+}
+
 // Prints every row's box on this device, so layout can be checked without a
 // screenshot: `tools/run_tests.sh <device> daysToGoLayoutReport`.
 (:test)
@@ -120,8 +148,14 @@ function daysToGoLayoutReport(logger as Test.Logger) as Boolean {
     var live = DaysToGoReadings.take(DaysToGoSettings.load());
     logger.debug(dc.getWidth() + "x" + dc.getHeight() + " ring r=" + layout.ringRadius() + " w=" + layout.ringWidth()
         + " content r=" + layout.contentRadius() + " live hero=" + live.hero + " time=" + live.time);
+    var fonts = DaysToGoType.heroFonts(false, false);
+    for (var f = 0; f < fonts.size() && (Graphics has :getFontAscent); f++) {
+        logger.debug("  number font " + f + ": height " + dc.getFontHeight(fonts[f]) + " ascent " + Graphics.getFontAscent(fonts[f]));
+    }
     var states = [live, DaysToGoTestStates.upcoming(365, 0, "Race"), DaysToGoTestStates.upcoming(12775, 0, "WWWWWWWWWWWWWWWW")] as Array<DaysToGoState>;
     for (var s = 0; s < states.size(); s++) {
+        var frame = new DaysToGoFrame(dc, layout, states[s], false);
+        logger.debug("  [" + s + "] hero band before settle " + frame.heroBand + ", after: top " + frame.rows.heroTop + " height " + frame.rows.heroHeight + " caption " + frame.rows.captionTop + " date " + frame.rows.dateTop);
         DaysToGoDraw.boxes = [] as Array<Array>;
         view.drawState(dc, layout, states[s]);
         var boxes = DaysToGoDraw.boxes as Array<Array>;
@@ -171,3 +205,32 @@ function rowsBesideAWindowStayClearOfIt(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// The rectangle's track (ADR-019) stays on the display (its corners leave straight runs), and a share of the ring is the same share
+// of its length, drawn: what the walker draws equals the fill asked for, the day is the whole closed track, and the 95%
+// cap leaves a gap. Rectangles only.
+(:test)
+function rectangleTrackFillMatchesItsShare(logger as Test.Logger) as Boolean {
+    var dc = testDc();
+    var layout = new DaysToGoLayout(dc);
+    var track = layout.track();
+    if (track == null) {
+        return true;
+    }
+    var b = track.box();
+    var half = layout.ringWidth() / 2 + 1;
+    Test.assert(b[0] - half >= 0 && b[1] - half >= 0 && b[2] + half <= dc.getWidth() && b[3] + half <= dc.getHeight());
+    Test.assert(b[4] * 2 < b[2] - b[0] && b[4] * 2 < b[3] - b[1]);
+    var length = track.length();
+    Test.assertEqual(track.fillFor(DaysToGoConfig.PERMILLE), length);
+    Test.assert((track.fillFor(500) - length / 2).abs() <= 1);
+    Test.assert(track.fillFor(950) < length && track.fillFor(950) > length * 9 / 10);
+    Test.assertEqual(track.fillFor(0), 0);
+    Test.assert(track.fillFor(1) >= layout.ringWidth());
+    var shares = [1, 125, 250, 500, 750, 950, 1000] as Array<Number>;
+    for (var i = 0; i < shares.size(); i++) {
+        var fill = track.fillFor(shares[i]);
+        Test.assertEqual(DaysToGoRing.trace(dc, track, DaysToGoPalette.TRACK, fill, layout.ringWidth()), fill);
+    }
+    logger.debug(dc.getWidth() + "x" + dc.getHeight() + " track " + b + " length " + length);
+    return true;
+}

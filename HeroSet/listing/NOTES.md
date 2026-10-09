@@ -49,6 +49,13 @@ Saved page, 2026-09-19: Title 50, Description 4000, What's New 4000, App Version
 
 Copy rules: name no watch model, Instinct or otherwise, and no language or language count (owner rule, 2026-10-04; the store's device tab is the device claim, and the Instinct 2 family and Descent G1 are not sold on a paid app, [`../docs/release-contract.md`](../docs/release-contract.md) "Paid vs free reach"); the glance is "on watches with Connect IQ 4.0 or later" (66 of 87 products, 63 of 80 before the Instinct E and Instinct 3 Solar; the Instinct 2 family has none; never "all watches", never "reminder"/"alert", [ADR-051](../docs/decisions.md#adr-051)); any HeroFace mention needs the qualifier "On watches running Connect IQ 4.2 or later" ([ADR-044](../docs/decisions.md#adr-044)); keep the reliability line unspecific, because naming the defect advertises it and [`../docs/release-contract.md`](../docs/release-contract.md) already says adjust, never fix.
 
+**1.3.1** (uploaded 2026-10-04, in Garmin review)
+
+```text
+- Black-and-white screens: text near the corners is no longer cut off by the bezel, so START: MENU and the finished-day message show whole.
+- Black-and-white screens: the glance now sits beside the round window instead of under it, and its bars show empty and full in black and white.
+```
+
 **1.3.0** (live since 2026-10-03; its first bullet names Instinct 2, 2S, 2X and Descent G1, which the store does not sell this paid app on: see Device claims above, history kept as submitted)
 
 ```text
@@ -84,6 +91,12 @@ Copy rules: name no watch model, Instinct or otherwise, and no language or langu
 
 **1.0.0:** `First release.`
 
+## 1.4.0: what `paste.md` now holds (prepared 2026-10-08, not uploaded)
+
+- **Version** `1.4.0`, not the `1.3.2` the changelog called this build while it was unreleased: it adds products (Instinct 3 AMOLED 45/50 mm, Venu Sq 2, Sq 2 Music, X1; 92 products), so the next minor. App Version is free text typed into the form ([ADR-053](../docs/decisions.md#adr-053) (App Version is typed, not read from the package)). It can go up while 1.3.1 is still in review (`../../research_notes/Free and Pro ladder/garmin_rules.md`).
+- **What's New** lists the user-facing changes of `../CHANGELOG.md` "1.4.0": more watches with the rectangular design ([ADR-057](../docs/decisions.md#adr-057) (rectangular watches)), the correction under the goal ([ADR-058](../docs/decisions.md#adr-058) (a correction under the goal undoes today's completion)), the review number, `--` calories, no `STREAK 0` on the Instinct dashboard. Copy rules as above: no watch model, no language, the HeroFace qualifier "on watches with Connect IQ 4.2 or later".
+- **Description unchanged:** nothing in it names a screen shape or contradicts the new build ("Check and adjust the count before it's saved" covers the correction). Translations unchanged with it.
+
 ## 2026-10-04: what moved out of `paste.md` (owner rule: paste.md holds only what is pasted or uploaded)
 
 - **Form:** https://apps.garmin.com/developer/upload; two steps, attach the `.iq`, then the details. One block is one field. Status, version, package, limits and assets are in [`meta.yaml`](meta.yaml).
@@ -94,3 +107,8 @@ Copy rules: name no watch model, Instinct or otherwise, and no language or langu
 - **Description, removed or reworded:** the refund sentence ("HeroSet is a paid app. Refunds follow the Connect IQ Store return window.", ROADMAP 10.16, reversed); the line "In 15 languages, including German, French, Spanish, Italian, Polish and Ukrainian" (now "Multi-language support: it follows your watch's language."; the language list stays in the release contract and `../docs/compatibility.md`); the line "Also on the black-and-white Instinct E (40 and 45 mm) and Instinct 3 Solar" (now "Also on black-and-white screens, with your XP ring in the small round window").
 - **What's New 1.3.1, previous wording (named models):** `- Instinct E and Instinct 3 Solar: text near the corners of the screen is no longer cut off by the bezel, so START: MENU and the finished-day message show whole.` / `- Instinct E and Instinct 3 Solar: the glance now sits beside the round window instead of under it, and its bars show empty and full in black and white.` Now written by screen type ("Black-and-white screens: ...").
 - **`meta.yaml` `held_back_text`:** none existed for HeroSet; the key is retired in every listing (listing text never names watch models).
+
+## Instinct image, black and white only (2026-10-08)
+
+`screens-framed/5-instinct.png` (instincte45mm): re-framed 2026-10-08 (101 KB, under the 150 KB cap): the Instinct E skin's display hole carries a ghost of Garmin's sample screen at alpha 1 to 25 of 255 (6,500 to 10,700 pixels), which the framing composited over the black screen as faint grey marks; `docker/frame_shot.sh` now clears alpha under 10% inside the display rectangle (the opaque bezel and window rim stay). The capture `screens/5-instinct.png` was snapped to pure black and white (threshold 50%): it had 361 colours, near-black 1 and 2 of 255 (the same ghost, seen through the simulator) and the skin's own grey labels and window rim cropped with the screen; the display is 1-bit, so two colours is what the watch shows. Only the faint marks went; the screen content is the same.
+The hero (`hero-1440x720.png`, which shows this image on the right) was re-rendered with `../tools/render_listing.sh` the same day; cover and icons came out byte-identical.

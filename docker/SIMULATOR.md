@@ -106,7 +106,7 @@ the ones marked *checked* were run on Two Suns and worked. Greyed items depend o
   that one file with the scenario's file-name argument. (3) HeroSet's `drive_screens.sh` on `fenix847mm` stayed on the glance
   (the first START did not open the app); fr970, fr265, epix2pro47mm, fr965 and instincte45mm work. (4) The heat-map verdict box
   reads black with `xwd`; `import -window root -crop` works. (5) Always-on burn-in, measured: Days To Go 0.84%, Two Suns 1.09%,
-  HeroFace 1.23%, DayArc 2.52% peak luminance on fr965 (limit 10%).
+  HeroFace 1.23%, DayArc 2.52% peak luminance on fr965 (the simulator's own pass mark is 10%; not confirmed as a Garmin store rule, unverified).
 - **QA captures:** `docker/capture.sh <project> /ciq-docker/qa_shots.sh <jungle> <device> <tag> <HH:MM>...` (fresh simulator per time,
   default settings, native capture plus the window with its memory readout). **Environment variables do not reach a scenario**
   (`capture.sh` passes none): options go in the arguments (a tag starting with `h24` selects 24-hour). Memory: the status bar

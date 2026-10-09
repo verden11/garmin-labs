@@ -18,8 +18,10 @@ class DayArcSizing {
             :date => date instanceof String ? wider(dc, date, DayArcConfig.WORST_DATE, text) : null,
             :liveDate => date instanceof String ? date : null,   // what DayArcStackFit asks the corner fields about (the sized :date is the worst case)
             :label => hero.get(:label),
-            :value => wider(dc, value instanceof String ? value : worstValue, worstValue, DayArcLayout.HERO_FONTS[0]),
-            :sub => sub instanceof String ? wider(dc, sub, worstSub(window), text) : null,
+            :value => value instanceof String ? wider(dc, value, worstValue, DayArcLayout.HERO_FONTS[0]) : null,   // null: no hero row
+            // With no hero value (the no-weather morning) the sub line is the empty-state sentence alone: planned as itself, not
+            // against the morning's data worst case, which would reserve a second line it never draws (reviewer pass five).
+            :sub => sub instanceof String ? (value instanceof String ? wider(dc, sub, worstSub(window), text) : sub) : null,
         } as Dictionary;
     }
 
@@ -89,7 +91,7 @@ class DayArcSizing {
 
     private static function worstSub(window as Number) as String {
         if (window == DayArcConfig.WINDOW_MORNING) {
-            return DayArcConfig.WORST_MORNING_SUB;
+            return DayArcSources.hasUvIndex() ? DayArcConfig.WORST_MORNING_SUB : DayArcConfig.WORST_MORNING_SUB_NO_UV;
         }
         if (window == DayArcConfig.WINDOW_EVENING) {
             return Lang.format(WatchUi.loadResource(Rez.Strings.evening_battery_of_100) as String, [DayArcConfig.BODY_BATTERY_MAX]);

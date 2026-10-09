@@ -11,29 +11,33 @@ live:
   version: 1.0.1
   since: 2026-09-24
   note: live on the FR965 store install 2026-09-26
-next:
+in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
   version: "1.1.0"
-  status: uploaded   # drafted | prepared | uploaded | in-review | live
   uploaded: 2026-10-04
-  summary: "Free + Pro ladder (ADR-001): the paid app is renamed HeroFace Pro; plus the Instinct family (ADR-002, 124 products). uploaded 2026-10-04 by the owner, in Garmin review"
+  summary: "Free + Pro ladder (ADR-001): the paid app is renamed HeroFace Pro; plus the Instinct family (ADR-002, 124 products); package dist/HeroFacePro-1.1.0.iq from commit 99f2dc0"
+next:
+  version: "1.2.0"
+  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
+  uploaded: null
+  summary: "rectangular watches with their own design (ADR-005, 129 products), bar icons, the ring without the move bar, GO only, streak and temperature as one group, the always-on grey (ADR-006); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/HeroFace-Pro-1.2.0/"
 package:
-  file: dist/HeroFacePro-1.1.0.iq
-  products: 124   # <iq:product> lines in the manifest; the export has 207 part numbers (device variants), not a product count
-  exported: 2026-10-04   # re-export from commit 99f2dc0, after the last code change
-  check: "tools/check_free_package.sh: OK (keys Mode Slot1-3 Accent Seconds Weather, name 'HeroFace Pro')"
+  file: dist/HeroFacePro-1.2.0.iq
+  products: 129   # <iq:product> lines in the manifest
+  exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 218 part numbers; sha256 399b047174dfa2c9a4528699c6491ae775819ec253a6cb9d06487efabac62e9a
+  check: "tools/check_free_package.sh dist/HeroFaceFree-1.1.0.iq dist/HeroFacePro-1.2.0.iq: OK (keys Mode Slot1-3 Accent Seconds Weather, Pro-only names in the code, AppName HeroFace Pro, ComplicationSubscriber); unpack check: app id = manifest.xml, 129 of 129 products"
   note: "export: monkeyc -e -r -f monkey.jungle -w --typecheck 3; built in the verden-ciq-build container"
 price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload, 2026-10-04, confirm it shows after approval; live at the USD 2.00 tier until then), no number in listing text; ADR-004 (the $2.50 tier for every paid app)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
-  status: rendered 2026-10-04 from the uploaded build; whether they replaced the live images is ROADMAP 10.5
+  status: rendered 2026-10-04 from the uploaded build; whether they replaced the live images is ROADMAP 10.5. 2026-10-08 (ROADMAP 13.38) screen 2 and the hero retaken for the next build (the ring no longer counts the move bar); the other four compared identical and are unchanged
   cover: cover-500.png            # 500x500, 16 KB; royal blue #0A55D6, the mark with a white PRO pill
-  hero: hero-1440x720.png         # 1440x720, 280 KB; royal blue
+  hero: hero-1440x720.png         # 1440x720, 275 KB; royal blue; re-rendered 2026-10-08 with the retaken screen 2
   screens:                        # simulator, Pro build, upload order; each under 150 KB
     - {file: screens-framed/1-everyday.png, caption: "The time, three goal bars, the ring, the temperature", device: fr965, px: 720, kb: 91, framed: true}
-    - {file: screens-framed/2-your-bars.png, caption: "Pro's own: bars you choose (move bar, steps, intensity minutes), seconds beside the time, the Magenta accent", device: fenix8pro47mm, px: 720, kb: 126, framed: true}
+    - {file: screens-framed/2-your-bars.png, caption: "Pro's own: bars you choose (move bar, steps, intensity minutes), seconds beside the time, here in the Magenta accent; the ring counts steps and intensity minutes, not the move bar", device: fenix8pro47mm, px: 720, kb: 128, framed: true, retaken: 2026-10-08}
     - {file: screens-framed/3-goals-met.png, caption: "Every goal met: check marks and the streak", device: fr970, px: 720, kb: 94, framed: true}
     - {file: screens-framed/4-heroset.png, caption: "HeroSet mode: reps, rank and streak (canned HeroSet value, see screenshots.md)", device: venu3, px: 720, kb: 69, framed: true}
-    - {file: screens-framed/5-instinct-e40.png, caption: "The Instinct one: black and white, the ring as a gauge in the round window", device: instincte40mm, px: 720, kb: 106, native_px: 166, instinct: true, framed: true}   # Pro is not sold on the Instinct 2 family, so that watch is not used
+    - {file: screens-framed/5-instinct-e40.png, caption: "The Instinct one: black and white, the ring as a gauge in the round window", device: instincte40mm, px: 720, kb: 105, native_px: 166, instinct: true, framed: true}   # Pro is not sold on the Instinct 2 family, so that watch is not used
   icons: {color_64: icon-64-128.png, color_24bit: icon-24-128.png}   # 128x128; the mark with a PRO pill
   screenshots_doc: screenshots.md
 site:
@@ -41,6 +45,8 @@ site:
   support: https://verden.watch/heroface/support/
   privacy: https://verden.watch/heroface/privacy/
 owner_approvals:   # text and title settled by the owner's upload of 2026-10-04; still open:
+  - "approved by the owner 2026-10-08 (ROADMAP 13.38, from the gallery strips): the set retaken for the next build: screen 2 (2-your-bars, the ring without the move bar) and the hero are new; screens 1, 3, 4, 5 compared identical and are unchanged. Preview: device-test/listing-review/HeroFace-listing.png. Goes up with the next upload."
+  - "UPLOAD GATE CLEARED 2026-10-08 (the 1.2.0 text, paste.md and paste-translations.md; the site wording is a separate held-back commit, deploy after Garmin approves). Was: paste.md 'it fills green when all three are met' is false for the next build when the move bar is one of the bars (screen 2: MOVE full, ring not green; the ring leaves the move bar out, ADR-005); also 'Round watches, one design' predates the rectangles, and 'at the largest size your watch can draw' has the seconds-on step-down on Venu Sq 2 / X1. Rewrite the listing text and the site page together before pasting, with a new App Version and What's New (not done under 13.38: site/ out of scope)."
   - "The look of the images recaptured by the 2026-10-05 design critique (ROADMAP 13.x): they show the next version, so they go up with it (10.5)."
   - "The looks of the new image set (screens, cover, hero, icons): whether they replaced the live images with the 1.1.0 upload, ROADMAP 10.5."
 open_items: "5.1 5.5 7.10 7.12 10.31"   # ids in ROADMAP.md
