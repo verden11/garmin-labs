@@ -80,7 +80,6 @@ Packages, listings, site (prepare so each upload is a paste).
 
 
 Passive income plan (`reports/Passive income plan.md`, 2026-10-09).
-- [ ] 17.4 `[agent]` Huawei Watch Face Store designer programme: read fee, revenue share, payout countries and tool in a browser; record in `research_notes/Passive income plan/platforms.md`. No spike without the owner.
 - [ ] 17.5 `[agent]` (phase 2, 2027-01) Wear OS spike, time-boxed 4 weeks: Google Play account ($25, personal) and the owner's tester-swap recruits first; Watch Face Format port of Days To Go Free, emulator screenshots, closed-test track live (12 opted in, 14 continuous days; owner recruits, agent tracks the opt-in count), Play listing draft. Stop and report if a second engine is needed or the 12 are not reached in 6 weeks.
 - [ ] 17.6 `[agent]` Monthly readout file `research_notes/Passive income plan/readouts.md` (last Monday of each month): per listing bucket, reviews, Instinct rank, Pro sales (owner pastes), against the phase stop rules in the plan's section 4.
 

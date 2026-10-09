@@ -40,12 +40,26 @@ Behind section 6 of `reports/Passive income plan.md`. Searches were standard-mod
   - https://developer.apple.com/app-store/review/guidelines/
   - https://developer.apple.com/support/compare-memberships/
 
-## Huawei Watch Face Store
+## Huawei Watch Face Store (HUAWEI Themes)
 
-- October 2025 press: 100,000+ faces, "VIP packages" that "enable design businesses to unlock new revenue streams", 17.5M MAU claimed. **Revenue share and designer terms not found**; one secondary source cites a 2021 single-face windfall (13M RMB), not typical.
+Terms read 2026-10-09 in a browser (ROADMAP 17.4); the developer docs are JavaScript pages, so the sources below do not render in a plain fetch.
+
+- **Programme.** Watch faces are one content type of HUAWEI Themes (with phone themes, fonts, wallpapers, AOD). Publishing needs a HUAWEI Developer ID and the **"certified designer (watch face)" permission**: a qualification review of submitted works ("individual designers, design companies, illustrators, students, and on-the-job employees can apply"; "excellent color matching skills, remarkable aesthetics ... originality ... premium works continuously"). A rejected application can be re-submitted only after the interval Huawei names; repeated submissions of the same work count as malicious. Steps: Console > Content services > HUAWEI Themes > Personal Center > Qualification application; Merchant Service must be enabled for paid content. Page last updated 2021-04-08.
+  - https://developer.huawei.com/consumer/en/doc/content/settlement-guidance-0000001056348857
+  - https://developer.huawei.com/consumer/en/doc/content/watchface-faq-0000001174035539 (designer permission; test only with a certified HUAWEI ID)
+- **Revenue share (agreement last updated 2026-09-30).** Bipartite model (publisher uploads own work): Huawei : Publisher = **30% : 70%** of the RSRA, where RSRA = (Price paid by End User − Deductions) × (1 − **Operation Cost Rate**), and the Operation Cost Rate is "a comprehensive rate that includes channel and other operation costs", **not stated on the page**. Membership (Themes VIP package) income uses the same split with a usage coefficient. So the real take is 70% of an unknown base; the marketing page says "Get as much as 70% of all revenue".
+  - https://developer.huawei.com/consumer/en/doc/content/protocol-0000001054239369
+  - https://developer.huawei.com/consumer/en/huaweithemes/
+- **Settlement.** Signing entity by the developer's registration location: Huawei Software Technologies (Chinese mainland, CNY), **Aspiegel SE for Part II countries (Europe and others; the list starts "Åland Islands, Albania, Andorra, Australia, Austria, Belgium ..."; Lithuania not individually confirmed, the list is truncated in the reader), EUR, minimum settlement €200**; Huawei Services (Hong Kong) for Part III, EUR, €200. Below the minimum, the amount rolls on; after six months Huawei settles what accumulated. Each settlement sheet needs a confirmation and (unless self-billing with a VAT number) a **commercial invoice emailed within five business days**; payment within 30 days after that. Taxes: VAT withheld and remitted by Huawei per country; withholding tax on the developer's share where treaties apply; currency conversion at the developer's cost.
+  - https://developer.huawei.com/consumer/en/doc/content/checkout-process-0000001055868899
+  - https://terms1.hicloud.com/agreementservice/developer/getAgreementTemplate?agrType=1003&country=ove&language=en_us&version=2021062801 (Merchant Service Agreement, 2021-06-28, PDF)
+- **Tool.** Theme Studio (Huawei's visual editor; watch faces are built from image layers and the tool's own element set), not code: a second engine, nothing from the Monkey C projects carries over except the artwork.
+  - https://developer.huawei.com/consumer/en/doc/content/themes-design-tools-0000001054531194
+- **Scale claims.** October 2025 press: 100,000+ faces, "VIP packages", 17.5M MAU; one secondary source cites a 2021 single-face windfall (13M RMB), not typical.
   - https://www.prnewswire.com/il/news-releases/huawei-empowers-global-designers-to-shape-wearable-brilliance-with-100-000-watch-faces-302570569.html
   - https://heyupnow.com/blogs/brand-buzz/huaweis-watch-face-store-hits-major-milestone-with-over-100-000-designs
 - Market: Counterpoint Q2 2026 has Huawei #1 at 22% share, about 80% of it in China.
+- **Verdict 2026-10-09: stays LATER.** Reachable for an individual in Europe (Aspiegel SE, EUR), but it costs a portfolio review, a second design tool, an invoice per payout and a €200 floor, for a split whose base is an undisclosed cost rate. Revisit only if the Wear OS spike shows that a non-Garmin store delivers installs.
 
 ## Zepp OS (Amazfit)
 
