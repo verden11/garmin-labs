@@ -1,8 +1,8 @@
 # Passive income plan: watch faces and apps, one person, 12 months
 
-Written 2026-10-08 from the owner's answers of the same day (target €100–500 net per month at month 12; 5–10 hours a week; Garmin plus one more platform if the research says GO; freeze everything not on the money path). Sources and the raw platform table are in `research_notes/Passive income plan/`. Open items go to the root `ROADMAP.md` (paste block in section 11); this report proposes and records, it does not track.
+Written 2026-10-08 from the owner's answers of the same day (target €100–500 net per month at month 12; 5–10 hours a week; Garmin plus one more platform if the research says GO; freeze everything not on the money path). **Revised 2026-10-09** after the hand-off merge (all nine listings uploaded 2026-10-08, square designs on the rectangles, Spanish and Chinese store copy, ROADMAP 16.x) and a fresh store poll. Sources and the raw platform table are in `research_notes/Passive income plan/`. Open items are in the root `ROADMAP.md` (ids 17.x, section 11); this report proposes and records, it does not track.
 
-**Read this first.** Every number below that is not marked *measured* is an assumption from `research_notes/Free and Pro ladder/revenue_model.md` or the store research of 2026-10-05. Nothing here is a forecast. Garmin publishes no indie revenue, and our own listings are days old at download bucket 0–1.
+**Read this first.** Every number below that is not marked *measured* is an assumption from `research_notes/Free and Pro ladder/revenue_model.md` or the store research of 2026-10-05. Nothing here is a forecast. Garmin publishes no indie revenue, and our own listings are days old at download bucket 0–10.
 
 ## 0. The answer in one screen
 
@@ -11,19 +11,21 @@ Written 2026-10-08 from the owner's answers of the same day (target €100–500
 3. **The three levers, in order:** free install volume on Garmin (every doubling doubles Pro sales), number of products on the shelf, a second store. **Not levers at this scale:** price (base case +15% from $2 to $3), rating (does not move rank, *measured*), and ads (€75 of Reddit buys 2–9 installs, *inferred*).
 4. **The ad budget is better spent on a used Galaxy Watch** (about €120–200) for the Wear OS spike than on three months of clicks. Keep €75 for one Reddit test after the organic exposure window, never before it. Section 7.
 5. **Timeline:** month 1 lands what is in review and freezes the rest; months 2–3 read the first exposure numbers and ship the first free app (Sun Window); months 4–6 start the cadence (one Garmin product every 5–6 weeks) and the Wear OS spike; months 7–12 scale what the numbers reward and kill what they do not; the month-12 review falls before the merchant fee renews (2027-09-17).
-6. **First action, today, 20 minutes:** the three dashboard checks already on the ROADMAP (10.29, 10.30, 10.31), because a listing whose sibling link reads `<PRO STORE URL>` leaks the only free traffic we have. Then section 10's weekly routine starts next Monday.
+6. **First action, today, 20 minutes:** the three dashboard checks already on the ROADMAP (10.29, 10.30, 10.31), because a listing whose sibling link reads `<PRO STORE URL>` leaks the only free traffic we have. While in the dashboard: confirm the 2026-10-08 approvals the store already shows, and look at the DayArc Pro download (section 1). Then section 10's weekly routine starts next Monday.
 
-## 1. Where you stand (2026-10-08, measured)
+## 1. Where you stand (2026-10-09, measured)
 
 | Asset | State |
 |---|---|
-| Live Garmin apps | HeroSet 1.3.0 (app), HeroFace 1.0.1, Days To Go, Two Suns, DayArc + DayArc Pro (faces). 5 app ids live, 9 listings counting the twins in review |
-| In Garmin review since 2026-10-04 | HeroSet 1.3.1, HeroFace Free + Pro 1.1.0, Days To Go Free + Pro 1.1.0, Two Suns Free + Pro 1.1.0 |
-| Downloads | Bucket 0 or 1 on every listing; 0 reviews (`research_notes/Free and Pro ladder/poll.csv`) |
-| Rank | DayArc and DayArc Pro entered Instinct 3 Solar at #117 / #116 on approval day; nowhere on fr965-class lists |
-| Money in | None yet. Merchant fee $100 paid 2026-09-17; renewal about 2027-09-17 |
-| Tooling you already own | One file layout for every face, compile-time Free/Pro split, container simulator with screenshots, 15-language fit sweep, `tools/store_poll.py` (buckets, reviews, rank), listing template, site with one page per app, `watch-pm` and `watch-design-lead` skills plus a design reviewer agent |
-| Approved and waiting | Sun Window free app with a glance (plan approved 2026-10-05), CloseHour app (plan done 2026-10-05), Opportunities backlog (5 specs) |
+| Live Garmin listings | 6 app ids live. The public store API returned the 2026-10-08 uploads on 2026-10-09 (`poll.csv`): HeroSet 1.4.0, HeroFace Pro 1.2.0, Days To Go Pro 1.2.0, Two Suns Pro 1.2.0, DayArc 1.1.0, DayArc Pro 1.1.0; each `docs/status.md` still says "in review". Confirm in the dashboard; then 16.3 records the dates |
+| Free twins | HeroFace Free 1.1.0, Days To Go Free 1.1.0, Two Suns Free 1.1.0: new app ids, uploaded 2026-10-08, store pages still 404 on 2026-10-09 (in review) |
+| Listings | All nine carry English, Spanish and Chinese (title, description, What's New and hero per language; 16.1 is the paste), a "More from Verden" block, the "nothing is locked" line on every Free, framed screenshots; the $2.50 tier was set on every paid upload (2.7 done) |
+| Devices | Square design on the Venu Sq / Sq 2 / X1 rectangles in all five apps; HeroSet 92 products, HeroFace 129, Days To Go 129, Two Suns 92, DayArc 93 |
+| Downloads | DayArc bucket 0 → 10 in four days (2026-10-05 to 10-09). **DayArc Pro bucket 0 → 1: the first download of a paid listing**, a sale unless it is your own store reinstall (the dashboard says which). Every other listing at 0–1; 0 reviews |
+| Rank | DayArc / DayArc Pro entered Instinct 3 Solar at #118 / #117 on approval day (2026-10-05) and were out of the top 120 by 2026-10-09: the newest-approvals tail is transient (one data point; 15.9 is the real test) |
+| Money in | Possibly one Pro sale (above). Merchant fee $100 paid 2026-09-17; renewal about 2027-09-17 |
+| Tooling you already own | One file layout for every face, compile-time Free/Pro split, container simulator with screenshots, 15-language fit sweep, `tools/store_poll.py` (bucket, reviews, Instinct rank), listing template with per-language fields, site with one page per app, `watch-pm` and `watch-design-lead` skills plus a design reviewer agent |
+| Approved and waiting | Sun Window free app with a glance (plan approved 2026-10-05, mockup approved, owner wear day next), CloseHour app (plan done 2026-10-05), Opportunities backlog (5 specs) |
 
 The infrastructure is the asset. A new face costs 1–2 build days plus half a day of listing work; the publishers who win do exactly this, many times, on one engine.
 
@@ -60,19 +62,20 @@ Dates are earliest, never promises. Each phase has a readout and a stop rule.
 ### Phase 0: land and freeze (now to about 2026-10-25, 2–4 h total)
 
 1. Dashboard checks 10.29, 10.30, 10.31 (sibling URLs and the $2.50 tier). 20 min.
-2. Paste the hardware-field site link into the four live listings (6.6). 15 min.
-3. Record each approval date from the 2026-10-04 wave as Garmin sends it (7.12); the agent reads device lists and starts the 30-day clock per listing (6.4). 5 min per approval.
-4. Freeze: everything in section 9's "park" list leaves the active ROADMAP sections. Agent prepares the move; you say yes. 15 min.
-5. Reply to every text review as it arrives, with the support route (15.5). Agent drafts.
+2. Paste the Spanish and Chinese fields into the nine listings (16.1; per-language title, description, What's New, hero). 30 min.
+3. Paste the hardware-field site link into the live listings (6.6). 15 min.
+4. Confirm the 2026-10-08 approvals in the dashboard (the store already shows the new versions, section 1); say "approved: <listing>" and the agent does 16.3 (dates, device lists, Free links into every "More from Verden" block, site Free URLs). The 30-day G1 clock starts per Free listing at its approval date (6.4). 5 min per approval.
+5. Freeze: everything in section 9's "park" list leaves the active ROADMAP sections. Agent prepares the move; you say yes (17.1). 15 min.
+6. Reply to every text review as it arrives, with the support route (15.5). Agent drafts.
 
-Readout: all 9 listings approved and correctly cross-linked. Stop rule: none; this phase only removes leaks.
+Readout: all 9 listings approved, the three Free links live and every listing cross-linked. Stop rule: none; this phase only removes leaks.
 
 ### Phase 1: first numbers and the first free app (about 2026-10-25 to 2026-12-31)
 
 1. **G1 reach readout** per Free listing at approval + 30 days: 100-install bucket and 3 reviews. Below that: fix the listing (title tokens, first lines, images), not the strategy. The HeroSet/HeroFace exposure readout is about 2026-10-25 (5.1, 5.7).
-2. **Second rank snapshot** 2026-10-19 to 11-02 (15.9): does the Instinct 3 rank of DayArc move from the newest tail into the ranked pool? This tells you whether rank follows sales or recent installs, which decides whether launch bursts are worth planning.
+2. **Second rank snapshot** 2026-10-19 to 11-02 (15.9): does the Instinct 3 rank of DayArc move from the newest tail into the ranked pool? This tells you whether rank follows sales or recent installs, which decides whether launch bursts are worth planning. First data point (2026-10-09, *measured*): DayArc dropped from #118 to outside the top 120 within four days, and its 1.1.0 update did not put it back on the tail; the tail is for new listings, and it is short.
 3. **Sun Window** free app with a glance (manifest type `watch-app`, so it lands on the watch-app shelf, not the thinner legacy widget shelf; its plan is approved and conditional on the FR965 spike yielding a place): spike, mockup, build, listing. A free app feeds the family shelf and is the cheapest product in the queue. Agent builds; you approve looks and upload. About 3 weekend blocks of your time over 6 weeks. **Separate question for later:** whether any Verden product can publish on the legacy widget shelf (22-entry pool, least crowded, *measured*); that needs a CIQ 3 widget target, which no current project has.
-4. **Listing repair pass** on whatever G1 shows weak: Free listings say plainly "nothing is locked" (15.1), HeroSet's first lines against the Strafe "Hero" family (15.2), one real-device photo per listing (15.8) once the wrist checks happen.
+4. **Listing repair pass**, only where G1 is weak: the "nothing is locked" line (15.1), HeroSet's first lines against the Strafe "Hero" family (15.2) and the "More from Verden" block (13.32) are already in the 2026-10-08 uploads. What is left to try: title tokens, the first image, one real-device photo per listing (15.8) once the wrist checks happen.
 5. **G2 attach readout** at approval + 60 days: 5 Pro sales or 1% of free installs. Below 0.3% with 1,000+ free installs means the Pro content or price is wrong, not the ladder.
 6. **One Reddit test**, €75, only after the exposure window closes and only pointed at `verden.watch/<app>?utm_*`. Pass bar: 100 sessions for ≤ €85 and ≥ 10% landing-to-store handoff. Fail either: no more ad spend in year one.
 
@@ -99,7 +102,7 @@ Stop rule for the spike: if Play's closed test cannot be filled in 6 weeks or th
 | Load | Cadence | Who | Time |
 |---|---|---|---|
 | Review replies | as they arrive | agent drafts, you paste | 5 min each |
-| Store poll, rank, buckets | daily, automatic | `tools/store_poll.py` (extend with rank, 15.7) | 0 |
+| Store poll, rank, buckets | daily, automatic | `tools/store_poll.py` (add the three Free ids to `store_poll_ids.txt` once their pages exist) | 0 |
 | Device waves (new Garmin watches) | 2–3 times a year | agent adds products, simulator, you approve screens and upload | 1 h per wave per app |
 | SDK and Garmin policy changes | yearly | agent | 1 h |
 | Merchant fee, payout account (USD-capable) | yearly | you | 30 min |
@@ -151,9 +154,9 @@ Why the watch beats the clicks: €75 of clicks buys 2–9 installs you cannot a
 
 ## 9. Freeze: what stays on the money path and what parks
 
-**Stays open (money path):** every upload and approval (7.12), dashboard checks (10.29–10.31, 6.6, 2.8), wrist checks that unblock a listing claim (1.1, 4.2, 3.1, 5.5, 7.3), listing text and images for the live builds (13.31, 15.1, 15.2, 15.5, 15.8, 13.32, 13.33), measurement (6.4, 5.1, 5.7, 15.7, 15.9), the broken clock on Venu Sq 2 (13.35, re-upload), site Free/Pro sections once approvals land (6.1, 3.7, 3.12, 9.9, 7.8), Sun Window, CloseHour, HeroSet Free after proof (7.4), the merchant reminders (10.20, 10.28), DMARC (6.5).
+**Stays open (money path):** every approval and its bookkeeping (7.12, 16.3), dashboard pastes and checks (10.29–10.31, 6.6, 16.1, 13.33), wrist checks that unblock a listing claim (1.1, 4.2, 3.1, 5.5, 7.3, 16.6), listing text and images with each next upload (13.31, 15.5, 15.8), measurement (6.4, 5.1, 5.7, 15.9), site accuracy and Free/Pro sections once approvals land (6.1, 3.7, 3.12, 9.9, 7.8, 16.4, 16.5), Sun Window, CloseHour, HeroSet Free after proof (7.4), the merchant reminders (10.20, 10.28), DMARC (6.5). **Tick, not park:** 13.35 (the Venu Sq 2 clock fix shipped in the 2026-10-08 Days To Go upload).
 
-**Parks until the month-6 review:** the Days To Go bold redesign (8.1, 8.2, 8.3, 15.4), extra accent ids, the always-on grey question (13.25), time-zone city hints and the `8h 06m` units (13.5, 13.7, 13.17), the Venu Sq 2 morning layout choice (13.30), more watches beyond what is already built (13.34), the launcher icon redo for apps already approved with placeholders (1.5, 3.3, 10.5 except where an upload happens anyway), native-speaker reads (7.10), the HeroFace seconds timing (10.18), HeroSet by-hand simulator items (7.11), git backup tags (10.3), the OrbStack licence (10.14, decide by its date but no work), the free strength data field (15.3), and 14.1.
+**Parks until the month-6 review:** the Days To Go bold redesign (8.1, 8.2, 8.3, 15.4), extra accent ids, time-zone city hints (13.5), the Two Suns night weather row and `#5555AA` (13.40, 10.17), the HeroSet goal-raise option (13.41), the launcher icon redo for apps already live with placeholders (1.5, 3.3, 10.5, 13.27 except where an upload happens anyway), native-speaker reads (7.10), the HeroFace seconds timing (10.18), HeroSet by-hand simulator items (7.11), git backup tags (10.3), the OrbStack licence (10.14, decide by its date but no work), the free strength data field (15.3), Instinct hardware checks (9.6) and 14.1.
 
 Rule for new ideas during the year: they go to `reports/Opportunities backlog.md`, not to the ROADMAP, unless they are the next product in the cadence.
 
@@ -167,25 +170,9 @@ Rule for new ideas during the year: they go to `reports/Opportunities backlog.md
 
 Anything that does not fit these five slots waits a week. The routine is the plan; the phases only say what goes in slot 3.
 
-## 11. ROADMAP lines to paste
+## 11. ROADMAP ids
 
-The agent did not edit `ROADMAP.md`: the main checkout holds uncommitted owner edits to it. Every id in this report (sections 4, 9 and below) is read from the **committed** ROADMAP; if your working copy already uses 16.x or has renumbered 15.x, renumber the block and re-check the 15.x references. The block is fenced so this report holds no open checkboxes (house rule).
-
-```markdown
-Section 1 (Decide):
-- [ ] 16.1 `[you]` Approve the freeze list in `reports/Passive income plan.md` section 9; the agent then moves parked items under a "Parked until 2027-03-31" heading in section 4.
-- [ ] 16.2 `[you]` (2027-01) Buy a used Galaxy Watch (Wear OS 5+, about €120–200) for the Wear OS spike, if the Days To Go port runs in the emulator (16.5).
-- [ ] 16.3 `[you]` (after the organic exposure window, about 2026-12) One Reddit Ads test, €75, one month, landing on `verden.watch/<app>?utm_*`; pass bar 100 sessions for ≤ €85 and ≥ 10% store handoff.
-
-Section 3 (Agent can do now):
-- [ ] 16.4 `[agent]` Huawei Watch Face Store designer programme: read fee, revenue share, payout countries and tool in a browser; record in `research_notes/Passive income plan/platforms.md`. No spike without the owner.
-- [ ] 16.5 `[agent]` Wear OS spike, time-boxed 4 weeks: Watch Face Format port of Days To Go Free, emulator screenshots, closed-test track live with the owner's tester-swap recruits (12 opted in, 14 continuous days; owner recruits, agent tracks the opt-in count), Play listing draft. Stop and report if a second engine is needed or the 12 are not reached in 6 weeks.
-- [ ] 16.6 `[agent]` Monthly readout file `research_notes/Passive income plan/readouts.md`: per listing bucket, reviews, Instinct rank, Pro sales (owner pastes), against the phase stop rules.
-
-Section 4 (Waiting on a date):
-- [ ] 16.7 `[both]` **2027-03-31** Month-6 review: both stores, Garmin-only, or Wear OS-first (plan section 8).
-- [ ] 16.8 `[both]` **2027-08-17** Month-12 review before the merchant fee renewal: family Pro net vs the fee, monthly net vs the €100–500 target, hours spent.
-```
+Added to `ROADMAP.md` on this branch on 2026-10-09 (the 2026-10-08 hand-off already uses 16.1–16.6, so the plan's ids are **17.x**): 17.1 approve the freeze list, 17.2 buy the used Galaxy Watch (2027-01), 17.3 the one Reddit test (section 1); 17.4 Huawei terms check, 17.5 Wear OS spike, 17.6 monthly readout file (section 3); 17.7 month-6 review 2027-03-31, 17.8 month-12 review 2027-08-17 (section 4). The main checkout's `ROADMAP.md` matched the committed one when this branch was written, so a fast-forward merge brings them in with nothing to paste.
 
 ## 12. What this plan does not claim
 

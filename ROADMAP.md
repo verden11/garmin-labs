@@ -12,7 +12,7 @@ Do not keep open checkboxes anywhere else. Status 2026-10-05. **Open items only:
 - **Drive mode:** say "drive M3". Claude takes the whole milestone, runs agents, stops at every `[you]` gate and hands you a checklist.
 - **Step mode:** say "next task". Claude shows the first unticked task of the section you name, you approve or do it, it moves to `ROADMAP-done.md`, repeat.
 - **Never decide alone:** names, prices, icons, looks, uploads, translations, site deploys, deleting history. Always `[you]`.
-- Ids are stable (other docs cite them): `1.x` to `8.x` are the old milestones, `9.x` Instinct family, `10.x` housekeeping, `11.x` image refresh, `13.x` design critique 2026-10-05 (one project at a time), `15.x` store top-apps research 2026-10-05 (`~/dev/watch-design-kit/reports/Connect IQ store top apps insights.md`). Add new work at the end of the right section.
+- Ids are stable (other docs cite them): `1.x` to `8.x` are the old milestones, `9.x` Instinct family, `10.x` housekeeping, `11.x` image refresh, `13.x` design critique 2026-10-05 (one project at a time), `15.x` store top-apps research 2026-10-05 (`~/dev/watch-design-kit/reports/Connect IQ store top apps insights.md`), `16.x` hand-off 2026-10-08, `17.x` passive income plan 2026-10-09 (`reports/Passive income plan.md`). Add new work at the end of the right section.
 - Dates are earliest, never promises. Simulator evidence is never device proof.
 
 ## 1. Decide (needs your answer; blocks agent work)
@@ -24,6 +24,9 @@ Do not keep open checkboxes anywhere else. Status 2026-10-05. **Open items only:
 - [x] 13.25 `[agent]` **Done 2026-10-08 (`c7964cf`): `#5C5C5C` (3.1:1) in Days To Go, HeroFace, DayArc (was `#AAAAAA`) and Two Suns; burn-in clean on fr965 and venux1; Days To Go's error screen dims and drifts too.** Always-on grey, one for the studio? Today three: Days To Go and HeroFace `#555555` (2.8:1, under the house 3:1 bar), Two Suns `#5C5C5C` (its ADR-027), DayArc the full muted `#AAAAAA` (brightest). Agent pick: `#5C5C5C` everywhere (about 15 min per face plus an upload each). Burn-in passes either way (heat map, 2026-10-05: 0.84 to 2.52% peak luminance, limit 10%).
 - [ ] 15.3 `[you]` (later) A free strength data field as a reach and cross-promotion product, not revenue: "Gym sets counter" only counts the current set and sits at bucket 100,000; new paid data fields stall at buckets 100 to 1,000. Say if worth a spec (watch-pm intake).
 - [ ] 15.4 `[you]` (later) Pro density on a second view (a wrist gesture or tap switches it) instead of more fields on the default face: the store's dense leaders keep one huge element and hide density there. A direction for HeroFace Pro / Days To Go Pro (with 8.1); mockup first.
+- [ ] 17.1 `[you]` Approve the freeze list in `reports/Passive income plan.md` section 9; the agent then moves the parked items under a "Parked until 2027-03-31" heading in section 4 and ticks 13.35 (shipped in the 2026-10-08 Days To Go upload).
+- [ ] 17.2 `[you]` (2027-01) Buy a used Galaxy Watch (Wear OS 5+, about €120–200) for the Wear OS spike, if the Days To Go port runs in the emulator (17.5).
+- [ ] 17.3 `[you]` (after the organic exposure window, about 2026-12) One Reddit Ads test, €75, one month, landing on `verden.watch/<app>?utm_*`; pass bar 100 sessions for ≤ €85 and ≥ 10% store handoff. Fail either: no more ad spend in year one.
 
 ## 2. Your hands (a watch, the store dashboard, a person)
 
@@ -87,6 +90,11 @@ Later features (need an earlier item first).
 - [ ] 8.1 `[agent]` Daring mockup for Days To Go, screenshot-verified at 454 px and the smallest size; stop for look approval (8.2).
 - [ ] 8.3 `[both]` Extra accent colours (ids 6 to 11) after the 15-language names are OK'd; repeat for Two Suns and HeroFace.
 
+Passive income plan (`reports/Passive income plan.md`, 2026-10-09).
+- [ ] 17.4 `[agent]` Huawei Watch Face Store designer programme: read fee, revenue share, payout countries and tool in a browser; record in `research_notes/Passive income plan/platforms.md`. No spike without the owner.
+- [ ] 17.5 `[agent]` (phase 2, 2027-01) Wear OS spike, time-boxed 4 weeks: Google Play account ($25, personal) and the owner's tester-swap recruits first; Watch Face Format port of Days To Go Free, emulator screenshots, closed-test track live (12 opted in, 14 continuous days; owner recruits, agent tracks the opt-in count), Play listing draft. Stop and report if a second engine is needed or the 12 are not reached in 6 weeks.
+- [ ] 17.6 `[agent]` Monthly readout file `research_notes/Passive income plan/readouts.md` (last Monday of each month): per listing bucket, reviews, Instinct rank, Pro sales (owner pastes), against the phase stop rules in the plan's section 4.
+
 ## 4. Waiting on a date or an outside event
 
 - [ ] 6.5 `[you]` **2026-10-10** DMARC `p=none` to `p=quarantine` after checking the rua reports in hello@verden.watch; then delete the "Due" line in `site/CLAUDE.md`.
@@ -97,6 +105,8 @@ Later features (need an earlier item first).
 - [ ] 10.31 `[you]` Check the live HeroFace Pro description: its sibling line must hold the Free URL `https://apps.garmin.com/apps/890dd680-20e6-4205-b9bf-cd98ea02849d` (works once approved), not `<HEROFACE STORE URL>`; and that the $2.50 tier is set (final text in `HeroFace/listing*/paste.md`). The Free description already links Pro.
 - [ ] 7.12 `[both]` Garmin review of HeroSet 1.3.1, Two Suns Pro 1.1.0, Two Suns Free, Days To Go Free, HeroFace Free, HeroFace Pro 1.1.0 and Days To Go Pro 1.1.0 (uploaded 2026-10-04) and whatever follows; on approval: record dates and read the stores' device lists; then 7.8 (`instinctLive`), the site's `freeStoreUrl` / `storeUrl` for Two Suns (6.1), 1.10 and the site flags; check the $2.50 tier shows on both paid listings.
 - [ ] 15.9 `[agent]` **about 2026-10-19 to 2026-11-02** Second snapshot of the same 8 device lists as the 2026-10-05 research (method and device part numbers in the report). It tests whether rank follows purchases or recent installs; probe: DayArc / DayArc Pro, which entered Instinct 3 at #117 / #116 through the newest-approvals tail on approval day. Add the result to the report's notes folder.
+- [ ] 17.7 `[both]` **2027-03-31** Month-6 review of the passive income plan: both stores, Garmin-only, or Wear OS-first (plan section 8).
+- [ ] 17.8 `[both]` **2027-08-17** Month-12 review before the merchant fee renewal: family Pro net vs the fee, monthly net vs the €100–500 target, hours spent. Renew deliberately; never cancel the merchant account to demonetize.
 - [ ] 14.1 Parked, not scheduled: private beta, paid-launch announcement, beta testers for watches other than the FR965, HeroSet Connect sync (ADR-043 / ADR-054, shelved; gated on an FR965 spike).
 
 ## Ship sequences (open ids only, in order)
