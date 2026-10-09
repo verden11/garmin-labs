@@ -3,7 +3,7 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/paste.md`](listing/paste.md).
 
-## Pro 1.2.0 and Free 1.1.0 — uploaded 2026-10-08 by the owner, in Garmin review
+## Pro 1.2.0 and Free 1.1.0 — uploaded 2026-10-08 by the owner; Pro 1.2.0 live by 2026-10-09 (store API; approval date not recorded); Free still not in the store
 
 Prepared 2026-10-08 as the next upload of both listings, while Pro 1.1.0 and Free 1.0.0 are still in Garmin review (a newer version may be uploaded meanwhile). 72 products in both builds, as before (the three rectangles were already in; they now have their own design). Permissions as before: Pro `ComplicationSubscriber`, `Positioning`, `SensorHistory`; Free `ComplicationSubscriber` only. The What's New blocks are in `listing/paste.md` (Pro) and `listing-free/paste.md` (Free); both descriptions were rewritten where the new build contradicted them ("A thin ring around the bezel", "Fits round and rectangular watches alike"). The always-on grey `#5C5C5C` (ADR-027) already shipped in the builds in review, so it is not new here. ADRs: 028 (rectangles: the sky ring follows the screen, with its two 2026-10-08 amendments: round `--` and the lone dot, and the curve's room), 008 (no verdicts on Body Battery, amended 2026-10-08: one colour at any level), 021 (Body Battery in Free, amended), 023 (watch battery row, bolt, amended). Simulator only, nothing on a wrist.
 
@@ -21,7 +21,7 @@ Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.13 to 13.17; 
 - **Both: daylight reads "3h 42m of daylight"** ("41m" under an hour), not "3:42", which read as a clock time. The letters are English for now (ROADMAP 13.7).
 - Both listing sets recaptured.
 
-## 1.1.0 (Two Suns Pro) and Two Suns Free 1.0.0 — uploaded 2026-10-04 by the owner, in review
+## 1.1.0 (Two Suns Pro) and Two Suns Free 1.0.0 — uploaded 2026-10-04 by the owner; Pro 1.1.0 live by 2026-10-05 (poll.csv); Free still not in the store
 
 Both packages were uploaded on 2026-10-04 and are pending Garmin's review; 1.0.0 stays live until Pro 1.1.0 is approved. Built 2026-10-01 to 2026-10-04 against the Free + Pro plan, **approved by the owner 2026-10-04** ([`docs/decisions.md`](docs/decisions.md) ADR-020 (Free + Pro ladder) and ADR-021 (Body Battery in Free), both Active), simulator-grade evidence only. The prepared 1.0.1 below was folded into Pro 1.1.0 and is not uploaded on its own; its package (`TwoSuns-1.0.1-prepared.iq`) is untouched.
 

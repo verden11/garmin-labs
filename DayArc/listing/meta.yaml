@@ -8,14 +8,12 @@ store:
   listing_url: "https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193"   # live since Garmin approved it 2026-10-05
   developer_url: https://apps-developer.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 live:
-  version: 1.0.0
-  since: 2026-10-05
-  note: uploaded and approved by Garmin 2026-10-05 (first publication; package dist/DayArc-1.0.0.iq, 72 products, 93 part numbers, exported 2026-10-05 evening)
-next:
   version: "1.1.0"
-  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
+  since: null   # live by 2026-10-09; uploaded 2026-10-08
+  note: "72 products; the 2026-10-08 upload, live by 2026-10-09 (store API latestExternalVersion, status APPROVED, nothing pending (research_notes/Free and Pro ladder/poll.csv, 2026-10-09 row); the exact approval date is not recorded (the dashboard or Garmin's email has it)). Earlier: 1.0.0 uploaded and approved 2026-10-05 (first publication)."
   summary: "square design on Venu Sq 2, Sq 2 Music and X1 (ADR-019), the no-weather morning reads Weather unavailable, the always-on grey (ADR-020); 72 products, unchanged; More from Verden left out until a free sibling is live; upload bundle device-test/upload/DayArc-Free-1.1.0/"
+in_review: null   # an earlier upload Garmin has not approved yet
+next: null   # nothing prepared; drafted | prepared | uploaded | in-review | live
 package:
   file: dist/DayArc-1.1.0.iq
   products: 72   # <iq:product> lines in the manifest

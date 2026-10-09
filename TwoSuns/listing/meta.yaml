@@ -8,25 +8,19 @@ store:
   listing_url: "https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b"
   developer_url: null
 live:
-  version: 1.0.0
-  since: 2026-09-28
-  note: approved 2026-09-28 (late afternoon); the store shows $2.25 against $1.99 documented; the 1.1.0 upload sets the $2.50 tier (ADR-026)
-in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
-  version: "1.1.0"
-  uploaded: 2026-10-04
-  summary: "Free + Pro ladder (ADR-020/021), Pro weather row and watch battery row (ADR-022/023), the prepared 1.0.1 fix (commit 807977d) folded in, Instinct E and 3 Solar (ADR-024); package dist/TwoSunsPro-1.1.0.iq (72 products), re-exported 2026-10-04 after the always-on grey (ADR-027)"
-next:
   version: "1.2.0"
-  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
+  since: null   # live by 2026-10-09; uploaded 2026-10-08
+  note: "the 2026-10-08 upload, live by 2026-10-09 (store API latestExternalVersion, status APPROVED, nothing pending (research_notes/Free and Pro ladder/poll.csv, 2026-10-09 row); the exact approval date is not recorded (the dashboard or Garmin's email has it)). Earlier: 1.1.0 (uploaded 2026-10-04, renamed Two Suns Pro) was live by 2026-10-05 (poll.csv); 1.0.0 approved 2026-09-28."
   summary: "the rectangles' own design (ADR-028), Weather and Battery rows off by default, Body Battery number one colour at any level (ADR-008 amendment), grey -- and no lone dot, the curve's room (ADR-028 amendments), white curve line, solid bolt, 3h 42m daylight; description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/TwoSuns-Pro-1.2.0/"
+in_review: null   # an earlier upload Garmin has not approved yet
+next: null   # nothing prepared; drafted | prepared | uploaded | in-review | live
 package:
   file: dist/TwoSunsPro-1.2.0.iq
   products: 72   # <iq:product> lines in the manifest
   exported: 2026-10-08   # from a git archive of commit d130ae9 (clean tree), 93 part numbers; sha256 8f16b8aeb31279a940186a163bf0820a0d95fa6a0c8082c093c66e8cbb69e437
   check: "tools/check_free_package.sh dist/TwoSunsFree-1.1.0.iq dist/TwoSunsPro-1.2.0.iq: OK (permissions ComplicationSubscriber Positioning SensorHistory, keys Accent Orientation Golden Curve Date Weather Battery, AppName Two Suns Pro, positive controls in every part number); unpack check: app id = manifest.xml, 72 of 72 products, version 1.2.0 = paste.md; packaged .prg drawn in the simulator on fr965, venusq2, instincte40mm (simulator only)"
   note: "export: monkeyc -e -r -f monkey.jungle; built in the verden-ciq-build container"
-price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload, submitted 2026-10-04; the store shows $2.25 until Garmin approves), no number in listing text; ADR-026 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-020 (the Free + Pro ladder; the day-45 review is retired)
+price: paid, the USD 2.50 tier (confirmed live, the store shows 2,99 EUR, the tier's eurozone price, poll.csv 2026-10-09) (set in the form with the 1.1.0 upload, submitted 2026-10-04; the store shows $2.25 until Garmin approves), no number in listing text; ADR-026 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-020 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:   # all rendered 2026-10-04 from the current Pro build in the simulator (canned data); whether they replaced the live images is ROADMAP 10.5
   cover: cover-500.png            # 500x500, 13 KB; violet ground (light/coloured, ROADMAP 10.25, 2026-10-04)

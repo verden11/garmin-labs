@@ -8,25 +8,19 @@ store:
   listing_url: "https://apps.garmin.com/apps/ad04d1e1-8e30-45cb-bbd6-82374f77b116"
   developer_url: null
 live:
-  version: 1.0.1
-  since: 2026-09-24
-  note: live on the FR965 store install 2026-09-26
-in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
-  version: "1.1.0"
-  uploaded: 2026-10-04
-  summary: "Free + Pro ladder (ADR-001): the paid app is renamed HeroFace Pro; plus the Instinct family (ADR-002, 124 products); package dist/HeroFacePro-1.1.0.iq from commit 99f2dc0"
-next:
   version: "1.2.0"
-  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
+  since: null   # live by 2026-10-09; uploaded 2026-10-08
+  note: "129 products; the 2026-10-08 upload, live by 2026-10-09 (store API latestExternalVersion, status APPROVED, nothing pending (research_notes/Free and Pro ladder/poll.csv, 2026-10-09 row); the exact approval date is not recorded (the dashboard or Garmin's email has it)). Earlier: 1.1.0 (uploaded 2026-10-04, renamed HeroFace Pro) was live by 2026-10-05 (poll.csv); 1.0.1 live 2026-09-24."
   summary: "rectangular watches with their own design (ADR-005, 129 products), bar icons, the ring without the move bar, GO only, streak and temperature as one group, the always-on grey (ADR-006); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/HeroFace-Pro-1.2.0/"
+in_review: null   # an earlier upload Garmin has not approved yet
+next: null   # nothing prepared; drafted | prepared | uploaded | in-review | live
 package:
   file: dist/HeroFacePro-1.2.0.iq
   products: 129   # <iq:product> lines in the manifest
   exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 218 part numbers; sha256 399b047174dfa2c9a4528699c6491ae775819ec253a6cb9d06487efabac62e9a
   check: "tools/check_free_package.sh dist/HeroFaceFree-1.1.0.iq dist/HeroFacePro-1.2.0.iq: OK (keys Mode Slot1-3 Accent Seconds Weather, Pro-only names in the code, AppName HeroFace Pro, ComplicationSubscriber); unpack check: app id = manifest.xml, 129 of 129 products"
   note: "export: monkeyc -e -r -f monkey.jungle -w --typecheck 3; built in the verden-ciq-build container"
-price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload, 2026-10-04, confirm it shows after approval; live at the USD 2.00 tier until then), no number in listing text; ADR-004 (the $2.50 tier for every paid app)
+price: paid, the USD 2.50 tier (confirmed live, the store shows 2,99 EUR, the tier's eurozone price, poll.csv 2026-10-09) (set in the form with the 1.1.0 upload, 2026-10-04, confirm it shows after approval; live at the USD 2.00 tier until then), no number in listing text; ADR-004 (the $2.50 tier for every paid app)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   status: rendered 2026-10-04 from the uploaded build; whether they replaced the live images is ROADMAP 10.5. 2026-10-08 (ROADMAP 13.38) screen 2 and the hero retaken for the next build (the ring no longer counts the move bar); the other four compared identical and are unchanged

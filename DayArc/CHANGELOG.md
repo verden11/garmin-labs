@@ -4,7 +4,7 @@ One entry per Connect IQ Store publication, newest first, either listing (noted 
 store's "What's New" text for each version is in that listing's `listing/paste.md` or
 `listing-pro/paste.md`.
 
-## 1.1.0, both listings — uploaded 2026-10-08 by the owner, in Garmin review
+## 1.1.0, both listings — uploaded 2026-10-08 by the owner, live by 2026-10-09 (store API; approval date not recorded)
 
 Prepared 2026-10-08 as the first update of both listings (1.0.0 live since 2026-10-05). 72 products and 93 part numbers in each build, unchanged; permission `ComplicationSubscriber` only, as before. The What's New blocks are in `listing/paste.md` and `listing-pro/paste.md`; the descriptions drop the "More from Verden" lines until a free sibling is live (all three returned 404 on 2026-10-08). ADRs: 019 (rectangles get a square design; look approved by the owner 2026-10-08), 020 (always-on time in the studio's one always-on grey). Simulator only, nothing on a wrist.
 

@@ -8,26 +8,19 @@ store:
   listing_url: "https://apps.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377"
   developer_url: "https://apps-developer.garmin.com/apps/54bbf625-82af-4715-8af0-f2f16a5d1377"
 live:
-  version: 1.3.0
-  since: 2026-10-03
-  note: uploaded by the owner 2026-10-03 (the Instinct family; exported before the 2026-10-04 bezel-corner, START-to-MENU and glance-bar fixes); 1.2.0 was uploaded 2026-09-27 (developed as 1.1.2, ADR-053) and approved 2026-10-01; 1.1.1 went live 2026-09-24
-in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
-  version: "1.3.1"
-  uploaded: 2026-10-04
-  package: "dist/HeroSet-1.3.1.iq (87 products, 134 part numbers, exported 2026-10-04)"
-  summary: "the description and What's New no longer name Instinct 2, 2S, 2X or Descent G1 (not on Garmin's paid-app list, ROADMAP 10.15; listing text now names no watch model at all, 10.23), the three fixes since 1.3.0 (Instinct bezel corners, START: MENU hint, glance bars outlined on a 1-bit display) and the glance laid out left of the round window on Instinct E and 3 Solar (blind, simulator only, ADR-055); the version number is the owner's call (App Version is free text)"
-next:
   version: "1.4.0"
-  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
+  since: null   # live by 2026-10-09; uploaded 2026-10-08
+  note: "92 products; the 2026-10-08 upload, live by 2026-10-09 (store API latestExternalVersion, status APPROVED, nothing pending (research_notes/Free and Pro ladder/poll.csv, 2026-10-09 row); the exact approval date is not recorded (the dashboard or Garmin's email has it)). Earlier: 1.3.1 (uploaded 2026-10-04) was live by 2026-10-05 (poll.csv); 1.3.0 uploaded 2026-10-03; 1.2.0 uploaded 2026-09-27 (developed as 1.1.2, ADR-053), approved 2026-10-01; 1.1.1 went live 2026-09-24."
   summary: "92 products (Instinct 3 AMOLED 45/50 mm, Venu Sq 2, Sq 2 Music, X1 with the square design, ADR-057), the correction under the goal undoes today's completion (ADR-058), the review number, CAL --, no STREAK 0 on the Instinct dashboard; was called 1.3.2 while unreleased; upload bundle device-test/upload/HeroSet-Paid-1.4.0/"
+in_review: null   # an earlier upload Garmin has not approved yet
+next: null   # nothing prepared; drafted | prepared | uploaded | in-review | live
 package:
   file: dist/HeroSet-1.4.0.iq
   products: 92   # <iq:product> lines in manifest-store.xml
   exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 139 part numbers; sha256 99dcb521fb94c4e88ee3a3f8e3364e24d1a07ba6a1e4e427cd237c1d992f78fe
   check: "no check script exists; unpack check (bsdtar): app id = manifest-store.xml, permissions ComplicationPublisher + Sensor only, 92 of 92 products, 139 part numbers, 139 .prg (Instinct 2, 2S and Descent G1 each have one SDK part number the export leaves out, as in 1.3.1)"
   note: "export: monkeyc -e -r -f store.jungle; built in the verden-ciq-build container"
-price: paid, the USD 2.50 tier (set in the form with the 1.3.1 upload, submitted 2026-10-04; live until Garmin approves at the USD 2.00 tier), no number in listing text, no trial; ADR-056 (the $2.50 tier), ADR-039 (no trial)
+price: paid, the USD 2.50 tier (confirmed live, the store shows 2,99 EUR, the tier's eurozone price, poll.csv 2026-10-09) (set in the form with the 1.3.1 upload, submitted 2026-10-04; live until Garmin approves at the USD 2.00 tier), no number in listing text, no trial; ADR-056 (the $2.50 tier), ADR-039 (no trial)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:   # all re-rendered 2026-10-04/05 from the store build after 1.3.1 (screens 2, 3, 5 and the hero show the next version's CAL --, +24 and Instinct dashboard; re-checked 2026-10-08, ROADMAP 13.38); cover and hero (amber) uploaded to the live listing by the owner 2026-10-04 (looks approved by that)
   rendered: 2026-10-04

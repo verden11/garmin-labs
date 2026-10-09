@@ -3,7 +3,7 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/paste.md`](listing/paste.md).
 
-## Free 1.1.0 and Pro 1.2.0 — uploaded 2026-10-08 by the owner, in Garmin review
+## Free 1.1.0 and Pro 1.2.0 — uploaded 2026-10-08 by the owner; Pro 1.2.0 live by 2026-10-09 (store API; approval date not recorded); Free still not in the store
 
 Prepared 2026-10-08 as the next upload of both listings, while Free 1.0.0 and Pro 1.1.0 are still in Garmin review (a newer version may be uploaded meanwhile). 129 products in both builds; no permissions, as before. The What's New blocks are in `listing/paste.md` (Pro) and `listing-free/paste.md` (Free); both descriptions were rewritten where the new build contradicted them ("A thin ring around the bezel", "Round and rectangular watches alike"; Pro's bottom line is not drawn on black-and-white screens). ADRs: 019 (rectangles get a square design; look approved by the owner 2026-10-08), 020 (no on-watch date picker on the Venu Sq 2 and Sq 2 Music), 018 (to the minute; amendment: `8h 06m`), 016 (the bottom line and the name step-down; amendment 5), 007 (always-on; amendment: the one always-on grey), 006 (device set; amended: the first-generation Venu Sq). Simulator only, nothing on a wrist.
 
@@ -16,7 +16,7 @@ Prepared 2026-10-08 as the next upload of both listings, while Free 1.0.0 and Pr
 - **Pro: the last 24 hours read `8h 06m` (owner, 2026-10-05, ROADMAP 13.2; simulator only).** `8:06` over HOURS read as a second clock under the time. The digits keep the hero font, the letters "h" and "m" are small and on the digits' baseline, and the HOURS caption is gone (DaysToGo ADR-018 (to the minute), amendment). The letters are English for now (ROADMAP 13.7).
 - **The ring has one scale (owner, 2026-10-05, ROADMAP 13.1; simulator only).** It stops at 95% until the day itself, so a full ring means only the day (it was full at exactly 365 days). In Pro, a timed event's last 24 hours stay on the days' square-root scale (5% at 24 hours, a sliver at the end) instead of restarting near full. Pro listing shots 1, 3, 4, 5 and the hero were recaptured. Tests: Pro 67, Free 56 (`hoursRingContinuesTheDays` new).
 
-## Free 1.0.0 and Pro 1.1.0 — uploaded 2026-10-04 by the owner, in Garmin review
+## Free 1.0.0 and Pro 1.1.0 — uploaded 2026-10-04 by the owner; Pro 1.1.0 live by 2026-10-05 (poll.csv); Free still not in the store
 
 Built 2026-10-01 against the Free + Pro plan; the owner approved the ladder 2026-10-04 (`docs/decisions.md` ADR-014 (Free + Pro ladder), Active) and uploaded both that day. Simulator-only evidence. Approval dates are recorded here when Garmin reports them.
 

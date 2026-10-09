@@ -4,7 +4,7 @@ One entry per Connect IQ Store publication, newest first. The store's
 "What's New" text for each version is in [`listing/paste.md`](listing/paste.md); the why is in
 the ADRs named. Dates are upload dates; review status follows.
 
-## 1.4.0 — uploaded 2026-10-08 by the owner, in Garmin review
+## 1.4.0 — uploaded 2026-10-08 by the owner, live by 2026-10-09 (store API; approval date not recorded)
 
 Prepared 2026-10-08 as the next upload, while 1.3.1 is still in Garmin review (a newer version may be uploaded meanwhile). Called 1.3.2 while unreleased; it adds products, so it goes up as the next minor (App Version is typed into the form, [ADR-053](docs/decisions.md#adr-053) (App Version is typed, not read from the package)). 92 products (87 + Instinct 3 AMOLED 45/50 mm + Venu Sq 2, Sq 2 Music, X1); permissions `Sensor` + `ComplicationPublisher`, unchanged. What's New and App Version `1.4.0` are in `listing/paste.md`; the description is unchanged. ADRs: [ADR-057](docs/decisions.md#adr-057) (rectangular watches; the square design, look approved by the owner), [ADR-058](docs/decisions.md#adr-058) (a correction under the goal undoes today's completion), [ADR-055](docs/decisions.md#adr-055) (Instinct family; amended for the Instinct 3 AMOLED, look approved by the owner). Simulator only, nothing on a wrist.
 
@@ -22,7 +22,7 @@ Design critique 2026-10-05 (owner said "do your picks"; ROADMAP 13.21 to 13.23; 
 - **Instinct Crossover AMOLED left out:** in its simulator the parked analog hands cover the middle of every screen (the rep number included); it needs its own layout first ([`docs/compatibility.md`](docs/compatibility.md) wave 7).
 - **Three rectangular watches added: Venu Sq 2, Venu Sq 2 Music, Venu X1** (touch-first, glance and HeroFace complication; 90 products; [ADR-057](docs/decisions.md#adr-057), rectangular watches). Rows use the full width (half the usual side inset: no bezel); the dashboard's XP ring sits on the inscribed circle and its content fits inside it; a long title shrinks and is cut instead of moving down. 15-language fit sweep PASSED on venusq2 and venux1. Tests 116 (store 103), PASSED on venusq2, venusq2m, venux1 in both builds; simulator only, look awaiting the owner.
 
-## 1.3.1 — uploaded 2026-10-04 by the owner, in review (fixes and the Instinct glance layout)
+## 1.3.1 — uploaded 2026-10-04 by the owner, live by 2026-10-05 (poll.csv), superseded by 1.4.0 (fixes and the Instinct glance layout)
 
 Update of the live app, set on the USD 2.50 price tier in the form ([ADR-056](docs/decisions.md#adr-056), the $2.50 tier for every paid app). 1.3.0 is live until Garmin approves this (uploaded by the owner 2026-10-03, exported before the fixes below). 1.3.1 changes no product and no permission (87 products, `Sensor` + `ComplicationPublisher`).
 

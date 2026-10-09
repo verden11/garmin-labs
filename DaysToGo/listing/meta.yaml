@@ -8,25 +8,19 @@ store:
   listing_url: "https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4"   # the Free listing's line 1; HTTP 200 on 2026-10-08
   developer_url: "https://apps-developer.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4"
 live:
-  version: 1.0.1
-  since: 2026-09-28
-  note: 1.0.1 was submitted 2026-09-26 on top of 1.0.0; the app was approved 2026-09-28 and which version Garmin approved is not recorded
-in_review:   # an earlier upload Garmin has not approved yet; a newer version may be uploaded meanwhile (research_notes/Free and Pro ladder/garmin_rules.md)
-  version: "1.1.0"
-  uploaded: 2026-10-04
-  summary: "Free + Pro ladder (ADR-014): renamed Days To Go Pro; the Instinct family (ADR-015, 127 products); To the minute (ADR-018); package dist/DaysToGoPro-1.1.0.iq from the tree at commit a6c7a35"
-next:
   version: "1.2.0"
-  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
+  since: null   # live by 2026-10-09; uploaded 2026-10-08
+  note: "129 products; the 2026-10-08 upload, live by 2026-10-09 (store API latestExternalVersion, status APPROVED, nothing pending (research_notes/Free and Pro ladder/poll.csv, 2026-10-09 row); the exact approval date is not recorded (the dashboard or Garmin's email has it)). Earlier: 1.1.0 (uploaded 2026-10-04, renamed Days To Go Pro) was live by 2026-10-05 (poll.csv); 1.0.x approved 2026-09-28."
   summary: "square design on the rectangles (ADR-019), 8h 06m (ADR-018 amendment), the ring's one scale, date arrow and bottom-line marks, no on-watch date picker on Venu Sq 2 / Sq 2 Music (ADR-020), the always-on grey (ADR-007 amendment), Venu Sq / Sq Music in the package (129 products; not on the paid list); description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/DaysToGo-Pro-1.2.0/"
+in_review: null   # an earlier upload Garmin has not approved yet
+next: null   # nothing prepared; drafted | prepared | uploaded | in-review | live
 package:
   file: dist/DaysToGoPro-1.2.0.iq
   products: 129   # <iq:product> lines in the manifest
   exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 218 part numbers; sha256 f992f4c31678e98f2350952f3c9bf1272c58c2c5223cc12328806a8cd4dd43b0
   check: "tools/check_free_package.sh dist/DaysToGoFree-1.1.0.iq dist/DaysToGoPro-1.2.0.iq: OK (Hour, Minute, EventZone, Footer in every settings file and .prg, AppName Days To Go Pro, no permissions); unpack check: app id = manifest.xml, 129 of 129 products"
   note: "export: monkeyc -e -r -f monkey.jungle in verden-ciq-build:9.2.0 via docker/run.sh; the file is in the git-ignored dist/"
-price: paid, the USD 2.50 tier (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-017 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-014 (the Free + Pro ladder; the day-45 review is retired)
+price: paid, the USD 2.50 tier (confirmed live, the store shows 2,99 EUR, the tier's eurozone price, poll.csv 2026-10-09) (set in the form with the 1.1.0 upload; live until then at the USD 2.00 tier), no number in listing text; ADR-017 (the $2.50 tier for every paid app); ADR-002 superseded by ADR-014 (the Free + Pro ladder; the day-45 review is retired)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   status: rendered 2026-10-04 from the uploaded build, screen 4 retaken 2026-10-08 from the next (unreleased) build, so this set goes up only with that upload (ROADMAP 13.38); whether they replaced the live images is ROADMAP 10.5

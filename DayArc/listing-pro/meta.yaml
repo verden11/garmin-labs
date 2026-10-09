@@ -8,21 +8,19 @@ store:
   listing_url: "https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe"   # live since Garmin approved it 2026-10-05
   developer_url: https://apps-developer.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe
 live:
-  version: 1.0.0
-  since: 2026-10-05
-  note: uploaded and approved by Garmin 2026-10-05 (first publication; package dist/DayArcPro-1.0.0.iq, 72 products, 93 part numbers, exported 2026-10-05 evening)
-next:
   version: "1.1.0"
-  status: in-review   # uploaded 2026-10-08 by the owner   # drafted | prepared | uploaded | in-review | live
-  uploaded: null
+  since: null   # live by 2026-10-09; uploaded 2026-10-08
+  note: "72 products; the 2026-10-08 upload, live by 2026-10-09 (store API latestExternalVersion, status APPROVED, nothing pending (research_notes/Free and Pro ladder/poll.csv, 2026-10-09 row); the exact approval date is not recorded (the dashboard or Garmin's email has it)). Earlier: 1.0.0 uploaded and approved 2026-10-05 (first publication)."
   summary: "square design on Venu Sq 2, Sq 2 Music and X1 (ADR-019); Pro's Venu Sq 2 morning shows Feels like and a row of fields, the no-weather morning reads Weather unavailable, the always-on grey (ADR-020); 72 products, unchanged; More from Verden left out until a free sibling is live; upload bundle device-test/upload/DayArc-Pro-1.1.0/"
+in_review: null   # an earlier upload Garmin has not approved yet
+next: null   # nothing prepared; drafted | prepared | uploaded | in-review | live
 package:
   file: dist/DayArcPro-1.1.0.iq
   products: 72   # <iq:product> lines in the manifest
   exported: 2026-10-08   # from a git archive of commit 3f6cb6c (clean tree), 93 part numbers; sha256 d9ced760d3351fbad67fb3020fa09579fc02396fe92860314382ae518834985d
   check: "tools/check_package.sh: OK (93 part numbers, 4 Instinct without settings, 89 with Accent); unpack check: app id = manifest.pro.xml, 72 of 72 products, ComplicationSubscriber only"
   note: "export: CIQ_IMAGE=verden-ciq-build:9.2.0 docker/run.sh DayArc monkeyc -e -r -w -f monkey.pro.jungle; built in the verden-ciq-build container"
-price: paid, the USD 2.50 tier (set in the form; ADR-018); no number in text
+price: paid, the USD 2.50 tier (confirmed live, the store shows 2,99 EUR, the tier's eurozone price, poll.csv 2026-10-09) (set in the form; ADR-018); no number in text
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
 assets:
   cover: cover-500.png        # 500x500, under 300 KB; rendered 2026-10-04 on an indigo ground (not black) from src/cover.html (PRO tag); look not yet approved by the owner
