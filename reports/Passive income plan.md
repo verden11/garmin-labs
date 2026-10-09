@@ -11,19 +11,19 @@ Written 2026-10-08 from the owner's answers of the same day (target €100–500
 3. **The three levers, in order:** free install volume on Garmin (every doubling doubles Pro sales), number of products on the shelf, a second store. **Not levers at this scale:** price (base case +15% from $2 to $3), rating (does not move rank, *measured*), and ads (€75 of Reddit buys 2–9 installs, *inferred*).
 4. **The ad budget is better spent on a used Galaxy Watch** (about €120–200) for the Wear OS spike than on three months of clicks. Keep €75 for one Reddit test after the organic exposure window, never before it. Section 7.
 5. **Timeline:** month 1 lands what is in review and freezes the rest; months 2–3 read the first exposure numbers and ship the first free app (Sun Window); months 4–6 start the cadence (one Garmin product every 5–6 weeks) and the Wear OS spike; months 7–12 scale what the numbers reward and kill what they do not; the month-12 review falls before the merchant fee renews (2027-09-17).
-6. **First action, today, 20 minutes:** the three dashboard checks already on the ROADMAP (10.29, 10.30, 10.31), because a listing whose sibling link reads `<PRO STORE URL>` leaks the only free traffic we have. While in the dashboard: read the review status of the nine 2026-10-08 uploads (only the dashboard says approved; the store's version field does not, section 1), and look at the DayArc Pro download. Then section 10's weekly routine starts next Monday.
+6. **First action, today, 15 minutes:** the dashboard's Merchant Account tab reads "In review" (section 1, ROADMAP 17.9): find the approval mail or ask Garmin whether paid sales are enabled, because every paid listing already shows a price. The sibling-link checks (10.29–10.31) were done 2026-10-09. Then section 10's weekly routine starts next Monday.
 
 ## 1. Where you stand (2026-10-09, measured)
 
 | Asset | State |
 |---|---|
-| Live Garmin listings | 6 app ids live (HeroSet, HeroFace Pro, Days To Go Pro, Two Suns Pro, DayArc, DayArc Pro). Their 2026-10-08 versions (1.4.0, 1.2.0, 1.1.0) are in Garmin review. **The public store API's version field is not approval:** it read the 2026-10-04 versions one day after upload while they were still in review, and reads the 2026-10-08 ones today. Only the dashboard says approved; then 16.3 records the dates |
-| Free twins | HeroFace Free 1.1.0, Days To Go Free 1.1.0, Two Suns Free 1.1.0: new app ids, uploaded 2026-10-08, store pages still 404 on 2026-10-09 (in review) |
+| Live Garmin listings | 6 app ids live (HeroSet, HeroFace Pro, Days To Go Pro, Two Suns Pro, DayArc, DayArc Pro). Their 2026-10-08 versions (1.4.0, 1.2.0, 1.1.0) are in Garmin review. Dashboard 2026-10-09 (agent, owner's browser): all six cards "Status: Approved", the public pages show the 2026-10-08 versions and their What's New to everyone; the dashboard has no per-version review state, so an update of an approved app is public as soon as the store shows it (16.3 recorded them as live) |
+| Free twins | HeroFace Free, Days To Go Free, Two Suns Free (new app ids, uploaded 2026-10-04, replaced 2026-10-08 by 1.1.0): cards "Status: Pending", pages visible only to the owner with Garmin's "could take up to 3 days" banner, 5 days in on 2026-10-09; store returns 404 |
 | Listings | All nine carry English, Spanish and Chinese (title, description, What's New and hero per language; 16.1 is the paste), a "More from Verden" block, the "nothing is locked" line on every Free, framed screenshots; the $2.50 tier was set on every paid upload (2.7 done) |
 | Devices | Square design on the Venu Sq / Sq 2 / X1 rectangles in all five apps; HeroSet 92 products, HeroFace 129, Days To Go 129, Two Suns 92, DayArc 93 |
-| Downloads | DayArc bucket 0 → 10 in four days (2026-10-05 to 10-09). **DayArc Pro bucket 0 → 1: the first download of a paid listing**, a sale unless it is your own store reinstall (the dashboard says which). Every other listing at 0–1; 0 reviews |
+| Downloads | DayArc bucket 0 → 10 in four days (2026-10-05 to 10-09). **DayArc Pro bucket 0 → 1: the first download of a paid listing** (its Statistics tab: one install, on 1.0.0, between 2026-10-05 and 10-08); a sale unless it is your own store install, and the dashboard shows no sales report to tell. Every other listing at 0–1; 0 reviews |
 | Rank | DayArc / DayArc Pro entered Instinct 3 Solar at #118 / #117 on approval day (2026-10-05) and were out of the top 120 by 2026-10-09: the newest-approvals tail is transient (one data point; 15.9 is the real test) |
-| Money in | Possibly one Pro sale (above). Merchant fee $100 paid 2026-09-17; renewal about 2027-09-17 |
+| Money in | Possibly one Pro sale (above), but the dashboard reports no sales anywhere, and its Merchant Account tab reads **"Account Status: In review"** (registration 2026-09-17; read 2026-10-09). Until that says approved, no paid download counts as money (ROADMAP 17.9). Merchant fee $100 paid 2026-09-17; renewal about 2027-09-17 |
 | Tooling you already own | One file layout for every face, compile-time Free/Pro split, container simulator with screenshots, 15-language fit sweep, `tools/store_poll.py` (bucket, reviews, Instinct rank), listing template with per-language fields, site with one page per app, `watch-pm` and `watch-design-lead` skills plus a design reviewer agent |
 | Approved and waiting | Sun Window free app with a glance (plan approved 2026-10-05, mockup approved, owner wear day next), CloseHour app (plan done 2026-10-05), Opportunities backlog (5 specs) |
 
@@ -61,7 +61,7 @@ Dates are earliest, never promises. Each phase has a readout and a stop rule.
 
 ### Phase 0: land and freeze (now to about 2026-10-25, 2–4 h total)
 
-1. Dashboard checks 10.29, 10.30, 10.31 (sibling URLs and the $2.50 tier). 20 min.
+1. ~~Dashboard checks 10.29, 10.30, 10.31~~ done 2026-10-09 by the agent in your browser: every sibling URL is real, every paid listing shows 2,99€. **New, 17.9:** the Merchant Account tab says "In review"; find out whether paid sales are enabled. 15 min.
 2. Paste the Spanish and Chinese fields into the nine listings (16.1; per-language title, description, What's New, hero). 30 min.
 3. Paste the hardware-field site link into the live listings (6.6). 15 min.
 4. Read each listing's review status in the dashboard (the public store cannot tell, section 1); say "approved: <listing>" and the agent does 16.3 (dates, device lists, Free links into every "More from Verden" block, site Free URLs). The 30-day G1 clock starts per Free listing at its approval date (6.4). 5 min per approval.

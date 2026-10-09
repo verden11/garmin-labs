@@ -2,6 +2,12 @@
 
 Ticked items moved out of `ROADMAP.md` on 2026-10-05, grouped by the section they sat in. Ids are stable: other docs cite them. Newer done items are added at the top of their section.
 
+## 4. Waiting on a date or an outside event
+
+- [x] 10.29 `[you]` Two Suns descriptions: sibling URLs real, not placeholders; Pro What's New names the Weather and Watch battery rows. **Done, read in the dashboard by the agent 2026-10-09:** Pro links Free `46bc433c…`, Free (pending) links Pro `9d4bca45…`; Pro 1.2.0 What's New is the new text.
+- [x] 10.30 `[you]` Days To Go Free description must hold the Pro URL, not `<PRO STORE URL>`. **Done 2026-10-09 (dashboard, agent):** "Get Days To Go Pro: https://apps.garmin.com/apps/95adf037-…" on the pending page.
+- [x] 10.31 `[you]` HeroFace Pro description must hold the Free URL and the $2.50 tier. **Done 2026-10-09 (dashboard, agent):** "Also available: HeroFace ... 890dd680-…"; price shows 2,99€, as on every paid listing.
+
 ## 1. Decide (needs your answer; blocks agent work)
 
 - [x] 13.30 `[you]` DayArc Pro on Venu Sq 2 (rectangle): since the "Feels like" label, the morning keeps the label and drops the Pro grid there (rule: the label is never traded for a grid row, DayArc ADR-017; the Instinct already works this way, 1.18). Options: (a) keep; (b) for the morning only, keep the grid and drop the label on screens too short for both (about 1 h). Agent pick: (a) for tonight, (b) in 1.0.1 if you want it. QA report F3. **Done 2026-10-07:** the DayArc square design (ADR-019) gives the Sq 2 Pro morning both "Feels like" and two grid rows; reviewer ship, pushed.
