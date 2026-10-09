@@ -115,7 +115,6 @@ Done items and the old notes: [`ROADMAP-done.md`](ROADMAP-done.md).
 ## Hand-off 2026-10-08 (all nine listings uploaded, site updated as if approved)
 
 - [ ] 16.1 `[you]` Paste the Spanish and Chinese What's New and the per-language heroes (`hero-1440x720-es.png` / `-zh.png`) into each of the 9 listings (each bundle README in `device-test/upload/` has a "Per-language fields" table). Title and description per language too, if not done yet.
-- [ ] 16.2 `[agent]` Chinese "Body Battery": the new zh What's New and DayArc's zh hero captions say "Body Battery"; the zh descriptions say 身体电量 (Garmin's Chinese name). Agent pick: 身体电量 everywhere (text edit + re-render the DayArc zh heroes).
 - [ ] 16.3 `[agent]` On Garmin's approval of each 2026-10-08 upload: record the approval date in CHANGELOG / `meta.yaml` (`next` → `live`); when a Free twin's store link returns 200, add it to every "More from Verden" block (staged lines in each `paste.md` / `paste-translations.md`) and to DayArc's description.
 - [ ] 16.4 `[you]` Site decision: the shared Days To Go and HeroFace pages name the Instinct 2 / 2S / 2X, Descent G1 and first-generation Venu Sq with "Pro is sold only on Garmin's paid-app list, which leaves out ...". Keep (agent pick) or drop those models from the shared pages.
 - [ ] 16.5 `[agent]` HeroSet's paid site page still names models the store does not sell for paid apps (fēnix 6S, FR945 LTE, Enduro, MARQ Gen 1, Descent Mk2/Mk2 S, D2 Air X10; release contract "18 of 87 unlisted"). Trim them from `site/src/apps/heroset/` (Support, facts) and re-deploy.

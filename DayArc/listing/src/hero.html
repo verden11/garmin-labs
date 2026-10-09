@@ -34,7 +34,7 @@
 <script>
   // One hero per listing language (owner, 2026-10-08): hero.html#es and hero.html#zh swap the line and the captions; plain hero.html is English.
   var T = {es: ['Una esfera que cambia<br>con tu día.', 'Mañana', 'Clima', 'Mediodía', 'Estrés', 'Tarde', 'Body Battery'],
-           zh: ['随你的一天而变化的表盘。', '早晨', '天气', '中午', '压力', '傍晚', 'Body Battery']}[location.hash.slice(1)];
+           zh: ['随你的一天而变化的表盘。', '早晨', '天气', '中午', '压力', '傍晚', '身体电量']}[location.hash.slice(1)];
   if (T) {
     document.documentElement.lang = location.hash.slice(1); document.querySelector('.copy p').innerHTML = T[0];
     document.querySelectorAll('.cap').forEach(function (c, n) { c.querySelector('b').textContent = T[1 + 2 * n]; c.querySelector('i').textContent = T[2 + 2 * n]; });
