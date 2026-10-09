@@ -21,6 +21,8 @@ Status: 2026-10-05 (1.3.0, the Instinct family, live since the owner's 2026-10-0
 
 ## Paid vs free reach (2026-10-04)
 
+**Owner, 2026-10-09: `manifest.xml` is the source of truth for which watches the site lists.** A model missing from the store's device tab still runs the app, so the site keeps every manifest product; the 18 unlisted models are not trimmed (ROADMAP 16.5 closed). Listing text still names no model (rule below unchanged).
+
 Garmin sells paid apps only on the products of its App Sales list, and **Instinct 2, 2S, 2X and Descent G1 are not on it** (Instinct E 40/45 mm and Instinct 3 Solar are). The package still contains those four products (87 in the manifest), but the store's device list for HeroSet lacks them, so **a paid HeroSet cannot be bought on them** and the listing text must not name them (store review guideline 4b, accurate device disclosure). Measured on the live 1.3.0 listing: 69 of the 87 manifest products are listed; 18 are not = 7 off the paid list (fēnix 6S, FR945 LTE, Enduro, Instinct 2, 2S, 2X, Descent G1) + 11 on the list but unexplained (MARQ Gen 1 x8, Descent Mk2/Mk2i, Mk2 S, D2 Air X10). A HeroSet Free would reach every manifest product (not built; gated on the accuracy proof). The 1.3.1 listing names no watch model ("black-and-white screens" only; the store's device tab is the claim); the live 1.3.0 text that names the other four is wrong and is edited in the dashboard with the 1.3.1 upload ([`status.md`](status.md) G). Source: [`../../reports/Garmin policies and design guidelines.md`](../../reports/Garmin%20policies%20and%20design%20guidelines.md) section 3.
 
 ## Refund wording (2026-10-04)
