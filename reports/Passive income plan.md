@@ -11,13 +11,13 @@ Written 2026-10-08 from the owner's answers of the same day (target €100–500
 3. **The three levers, in order:** free install volume on Garmin (every doubling doubles Pro sales), number of products on the shelf, a second store. **Not levers at this scale:** price (base case +15% from $2 to $3), rating (does not move rank, *measured*), and ads (€75 of Reddit buys 2–9 installs, *inferred*).
 4. **The ad budget is better spent on a used Galaxy Watch** (about €120–200) for the Wear OS spike than on three months of clicks. Keep €75 for one Reddit test after the organic exposure window, never before it. Section 7.
 5. **Timeline:** month 1 lands what is in review and freezes the rest; months 2–3 read the first exposure numbers and ship the first free app (Sun Window); months 4–6 start the cadence (one Garmin product every 5–6 weeks) and the Wear OS spike; months 7–12 scale what the numbers reward and kill what they do not; the month-12 review falls before the merchant fee renews (2027-09-17).
-6. **First action, today, 20 minutes:** the three dashboard checks already on the ROADMAP (10.29, 10.30, 10.31), because a listing whose sibling link reads `<PRO STORE URL>` leaks the only free traffic we have. While in the dashboard: confirm the 2026-10-08 approvals the store already shows, and look at the DayArc Pro download (section 1). Then section 10's weekly routine starts next Monday.
+6. **First action, today, 20 minutes:** the three dashboard checks already on the ROADMAP (10.29, 10.30, 10.31), because a listing whose sibling link reads `<PRO STORE URL>` leaks the only free traffic we have. While in the dashboard: read the review status of the nine 2026-10-08 uploads (only the dashboard says approved; the store's version field does not, section 1), and look at the DayArc Pro download. Then section 10's weekly routine starts next Monday.
 
 ## 1. Where you stand (2026-10-09, measured)
 
 | Asset | State |
 |---|---|
-| Live Garmin listings | 6 app ids live. The public store API returned the 2026-10-08 uploads on 2026-10-09 (`poll.csv`): HeroSet 1.4.0, HeroFace Pro 1.2.0, Days To Go Pro 1.2.0, Two Suns Pro 1.2.0, DayArc 1.1.0, DayArc Pro 1.1.0; each `docs/status.md` still says "in review". Confirm in the dashboard; then 16.3 records the dates |
+| Live Garmin listings | 6 app ids live (HeroSet, HeroFace Pro, Days To Go Pro, Two Suns Pro, DayArc, DayArc Pro). Their 2026-10-08 versions (1.4.0, 1.2.0, 1.1.0) are in Garmin review. **The public store API's version field is not approval:** it read the 2026-10-04 versions one day after upload while they were still in review, and reads the 2026-10-08 ones today. Only the dashboard says approved; then 16.3 records the dates |
 | Free twins | HeroFace Free 1.1.0, Days To Go Free 1.1.0, Two Suns Free 1.1.0: new app ids, uploaded 2026-10-08, store pages still 404 on 2026-10-09 (in review) |
 | Listings | All nine carry English, Spanish and Chinese (title, description, What's New and hero per language; 16.1 is the paste), a "More from Verden" block, the "nothing is locked" line on every Free, framed screenshots; the $2.50 tier was set on every paid upload (2.7 done) |
 | Devices | Square design on the Venu Sq / Sq 2 / X1 rectangles in all five apps; HeroSet 92 products, HeroFace 129, Days To Go 129, Two Suns 92, DayArc 93 |
@@ -64,7 +64,7 @@ Dates are earliest, never promises. Each phase has a readout and a stop rule.
 1. Dashboard checks 10.29, 10.30, 10.31 (sibling URLs and the $2.50 tier). 20 min.
 2. Paste the Spanish and Chinese fields into the nine listings (16.1; per-language title, description, What's New, hero). 30 min.
 3. Paste the hardware-field site link into the live listings (6.6). 15 min.
-4. Confirm the 2026-10-08 approvals in the dashboard (the store already shows the new versions, section 1); say "approved: <listing>" and the agent does 16.3 (dates, device lists, Free links into every "More from Verden" block, site Free URLs). The 30-day G1 clock starts per Free listing at its approval date (6.4). 5 min per approval.
+4. Read each listing's review status in the dashboard (the public store cannot tell, section 1); say "approved: <listing>" and the agent does 16.3 (dates, device lists, Free links into every "More from Verden" block, site Free URLs). The 30-day G1 clock starts per Free listing at its approval date (6.4). 5 min per approval.
 5. Freeze: everything in section 9's "park" list leaves the active ROADMAP sections. Agent prepares the move; you say yes (17.1). 15 min.
 6. Reply to every text review as it arrives, with the support route (15.5). Agent drafts.
 

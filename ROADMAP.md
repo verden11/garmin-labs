@@ -3,7 +3,7 @@
 **Single source for every open item, all apps.** Evidence stays in each project's `docs/status.md`; decisions in its `docs/decisions.md`.
 Do not keep open checkboxes anywhere else. Status 2026-10-05. **Open items only:** when an item is done, move its line (ticked) to [`ROADMAP-done.md`](ROADMAP-done.md).
 
-**NEXT ACTION (owner):** wear DayArc through the day (1.1, re-sideloaded 2026-10-05); then the DayArc icons and looks (1.5) and the three dashboard checks (10.29 to 10.31). Seven listings are in Garmin review (7.12).
+**NEXT ACTION (owner):** the passive income plan (`reports/Passive income plan.md` section 0; approve the freeze list, 17.1); wear DayArc through the day (1.1, re-sideloaded 2026-10-05); then the DayArc icons and looks (1.5) and the three dashboard checks (10.29 to 10.31). Seven listings are in Garmin review (7.12).
 **NEXT ACTION (agent):** 10.18; site items (6.1, 3.12, 7.8, 9.9) wait for approvals and your OK to deploy.
 
 ## How to use it
