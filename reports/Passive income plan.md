@@ -145,7 +145,7 @@ Why the watch beats the clicks: €75 of clicks buys 2–9 installs you cannot a
 
 | When | Decision | Default if silent |
 |---|---|---|
-| now | Approve the freeze list (section 9) | freeze |
+| ~~now~~ done 2026-10-09 | Approve the freeze list (section 9) | freeze new features and reworked designs; small work stays |
 | 2026-10-25 | G1/exposure readout: repair listings or move on | repair the weakest two |
 | 2026-12-31 | Reddit test yes/no | yes, €75, one month |
 | 2027-01 | Buy the used Galaxy Watch | yes, if the port runs in the emulator |
@@ -154,9 +154,11 @@ Why the watch beats the clicks: €75 of clicks buys 2–9 installs you cannot a
 
 ## 9. Freeze: what stays on the money path and what parks
 
-**Stays open (money path):** every approval and its bookkeeping (7.12, 16.3), dashboard pastes and checks (10.29–10.31, 6.6, 16.1, 13.33), wrist checks that unblock a listing claim (1.1, 4.2, 3.1, 5.5, 7.3, 16.6), listing text and images with each next upload (13.31, 15.5, 15.8), measurement (6.4, 5.1, 5.7, 15.9), site accuracy and Free/Pro sections once approvals land (6.1, 3.7, 3.12, 9.9, 7.8, 16.4, 16.5), Sun Window, CloseHour, HeroSet Free after proof (7.4), the merchant reminders (10.20, 10.28), DMARC (6.5). **Tick, not park:** 13.35 (the Venu Sq 2 clock fix shipped in the 2026-10-08 Days To Go upload).
+**Owner's rule (2026-10-09, 17.1 done):** freeze new features and reworked designs; small work, listing updates included, stays active.
 
-**Parks until the month-6 review:** the Days To Go bold redesign (8.1, 8.2, 8.3, 15.4), extra accent ids, time-zone city hints (13.5), the Two Suns night weather row and `#5555AA` (13.40, 10.17), the HeroSet goal-raise option (13.41), the launcher icon redo for apps already live with placeholders (1.5, 3.3, 10.5, 13.27 except where an upload happens anyway), native-speaker reads (7.10), the HeroFace seconds timing (10.18), HeroSet by-hand simulator items (7.11), git backup tags (10.3), the OrbStack licence (10.14, decide by its date but no work), the free strength data field (15.3), Instinct hardware checks (9.6) and 14.1.
+**Stays open:** every approval and its bookkeeping (7.12, 16.3), dashboard pastes and checks (6.6, 16.1, 13.33, 17.9), wrist checks (1.1, 4.2, 3.1, 5.5, 7.3, 7.9, 16.6, 10.18), listing text, images and icons with each next upload (13.31, 15.5, 15.8, 1.5, 3.3, 10.5, 13.27, 7.2), native-speaker reads (7.10), measurement (6.4, 5.1, 5.7, 15.9), site accuracy and Free/Pro sections once approvals land (6.1, 3.7, 3.12, 9.9, 7.8, 16.4, 16.5), Sun Window, CloseHour, HeroSet Free after proof (7.4), the merchant items (10.20, 10.28, 17.9), housekeeping (10.3, 10.14, 7.11), DMARC (6.5), the HeroSet goal-raise option (13.41, a one-line decision), Instinct hardware checks when a watch is in reach (9.6). 13.35 is ticked (the Venu Sq 2 clock fix shipped 2026-10-08).
+
+**Parked until the month-6 review (ROADMAP section 4, "Parked until 2027-03-31"):** the Days To Go bold redesign and the second Pro view (8.1, 8.2, 8.3, 15.4), time-zone city hints (13.5), the Two Suns night weather row and the `#5555AA` colour test (13.40, 10.17), the free strength data field (15.3), and 14.1.
 
 Rule for new ideas during the year: they go to `reports/Opportunities backlog.md`, not to the ROADMAP, unless they are the next product in the cadence.
 
