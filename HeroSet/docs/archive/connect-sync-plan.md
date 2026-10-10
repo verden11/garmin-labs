@@ -1,24 +1,24 @@
 # Garmin Connect sync (shelved, was 1.3.0)
 
-Status: 2026-09-27. **Shelved ([ADR-054](../decisions.md#adr-054)).** Step 0 run on FR965 (dev build, sideloaded, sync On): Garmin Connect (mobile + web) never renders our `FitContributor` lap/session fields — the Sets/Exercises table shows only the native "Choose an Exercise" placeholder, Reps 0, and a full-text search of the web export found zero mentions of pushups/situps/squats. This isn't the string-vs-numeric question step 0 was meant to answer; it's that Connect's Sets UI doesn't read developer fields at all, matching the platform limit already named below. Two further device bugs found in the same session, not investigated further: exiting HeroSet mid-visit leaves the session recording (blocks reopening — the ADR-030 failure class this design was meant to close off) and Discard still creates a lap. **Not shipping as designed.** Code stays as committed (`(:sync)`-scoped, excluded from `store.jungle`); resuming needs a different product answer to "where does the exercise breakdown live", not a re-run of the checklist below.
+Status: 2026-09-27. **Shelved ([ADR-054](../decisions.md#adr-054)).** Step 0 run on FR965 (dev build, sideloaded, sync On): Garmin Connect (mobile + web) never renders our `FitContributor` lap/session fields — Sets/Exercises table shows only native "Choose an Exercise" placeholder, Reps 0; full-text search of web export found zero mentions of pushups/situps/squats. Not string-vs-numeric question step 0 meant to answer; Connect's Sets UI doesn't read developer fields at all, matching platform limit named below. Two further device bugs found same session, not investigated further: exiting HeroSet mid-visit leaves session recording (blocks reopening — ADR-030 failure class this design meant to close off) and Discard still creates lap. **Not shipping as designed.** Code stays as committed (`(:sync)`-scoped, excluded from `store.jungle`); resuming needs different product answer to "where does the exercise breakdown live", not re-run of checklist below.
 
 ## Summary
 
-- **Opt-in:** Connect Sync `Off` (default) keeps everything on the watch.
-- **On:** each HeroSet visit with saved workout reps = one Garmin Connect Strength activity, **one lap per set** with exercise + saved reps, visit totals in the summary. Garmin adds time, HR, calories, Training Effect.
-- **Strava:** gets time + HR via the user's own Connect↔Strava link (ignores developer fields). Noise is muted on Strava's side (e.g. [ActivityFix](https://activityfix.com/)).
+- **Opt-in:** Connect Sync `Off` (default) keeps everything on watch.
+- **On:** each HeroSet visit with saved workout reps = one Garmin Connect Strength activity, **one lap per set** with exercise + saved reps, visit totals in summary. Garmin adds time, HR, calories, Training Effect.
+- **Strava:** gets time + HR via user's own Connect↔Strava link (ignores developer fields). Noise muted on Strava's side (e.g. [ActivityFix](https://activityfix.com/)).
 
 ## Platform limits (SDK 9.2, checked 2026-09-19)
 
-Why a day can't be one activity, and why not native strength sets:
+Why day can't be one activity, why not native strength sets:
 
 | Limit | Source |
 |---|---|
-| Only route into Connect: a live `ActivityRecording.Session` saved on the watch. No backdating (`Session` = `start/stop/save/discard/addLap/createField/isRecording`) | `ActivityRecording.html`, `Session.html` |
+| Only route into Connect: live `ActivityRecording.Session` saved on watch. No backdating (`Session` = `start/stop/save/discard/addLap/createField/isRecording`) | `ActivityRecording.html`, `Session.html` |
 | Session doesn't survive app close (FR965: stray activities, [ADR-030](../decisions.md#adr-030)). Garmin's `RecordSample` saves in `onStop` | [ADR-030](../decisions.md#adr-030), `RecordSample/RecordSampleApp.mc` |
 | No file API; `PersistedContent` read-only | Toybox module list |
 | Background services killed after 30 s | Core Topics "Backgrounding" |
-| No Garmin API accepts a finished activity (`makeWebRequest` JSON/URL only; Activity/Training APIs read or push plans) | `Communications.html`, gc-developer-program |
+| No Garmin API accepts finished activity (`makeWebRequest` JSON/URL only; Activity/Training APIs read or push plans) | `Communications.html`, gc-developer-program |
 | Developer fields only on SESSION, LAP, RECORD messages; no FIT `set`/exercise-category API → no native set list or muscle map | `FitContributor.html` |
 | `fitcontributions.xml` can show fields in Activity Laps and Summary; strings allowed on lap/session | Core Topics "Activity Recording" |
 
@@ -26,7 +26,7 @@ Why a day can't be one activity, and why not native strength sets:
 
 | Moment | What happens |
 |---|---|
-| First workout set of a visit | Create session (`SPORT_TRAINING`/`STRENGTH_TRAINING`, localized name + units), `start()`, pending lap = this exercise, 0 reps |
+| First workout set of visit | Create session (`SPORT_TRAINING`/`STRENGTH_TRAINING`, localized name + units), `start()`, pending lap = this exercise, 0 reps |
 | New set screen's first `onShow` | `start()`, write previous set's lap fields, `addLap()`, new pending lap |
 | Set screen hidden | `stop()`: rest, menu, picker time not counted |
 | Same set shown again (Resume, notification) | `start()` only, no lap |
@@ -34,9 +34,9 @@ Why a day can't be one activity, and why not native strength sets:
 | `AppBase.onStop` | ≥ 1 saved workout rep → write last lap + totals, `save()` (refused save → `discard()`). Else `discard()`. Never left open |
 
 Rules:
-- Only workout-seeded saves count (same boundary as learning, [ADR-040](../decisions.md#adr-040)); main-menu manual entries never start or join a session.
-- Discarded / empty sets keep a 0-rep lap; their time stays.
-- Negative correction: lap = `max(0, delta)`; exercise total drops by it (≥ 0). Earlier laps keep their counts, so laps can sum above the summary.
+- Only workout-seeded saves count (same boundary as learning, [ADR-040](../decisions.md#adr-040)); main-menu manual entries never start or join session.
+- Discarded / empty sets keep 0-rep lap; their time stays.
+- Negative correction: lap = `max(0, delta)`; exercise total drops by it (≥ 0). Earlier laps keep counts, so laps can sum above summary.
 - Sync turned off mid-visit → discard immediately.
 - `createSession`/`start` refused, or no `ActivityRecording` → no sync that visit, `SYNC FAIL`.
 
@@ -50,9 +50,9 @@ Rules:
 
 | # | Step |
 |---|---|
-| 0 | **Spike on FR965:** does Connect web **and** phone show the string lap field and blank unit (`fit_unit_none`)? Does `addLap()` right after `start()` put the boundary where expected? Decides string vs numeric fallback. |
+| 0 | **Spike on FR965:** does Connect web **and** phone show string lap field and blank unit (`fit_unit_none`)? Does `addLap()` right after `start()` put boundary where expected? Decides string vs numeric fallback. |
 | 7 | Device acceptance below, dev build. |
-| 8 | Only after 7: `Fit` + `FitContributor` into `manifest-store.xml`, stop excluding `sync` in `store.jungle`, toggle into `resources-store/` menu, delete `HeroSetSyncCoordinatorOff.mc`. Same session: `../site` privacy + support, store description, [`release-contract.md`](../release-contract.md) sync rows, go-to-market "never promise". Existing users may need to approve the new permission. |
+| 8 | Only after 7: `Fit` + `FitContributor` into `manifest-store.xml`, stop excluding `sync` in `store.jungle`, toggle into `resources-store/` menu, delete `HeroSetSyncCoordinatorOff.mc`. Same session: `../site` privacy + support, store description, [`release-contract.md`](../release-contract.md) sync rows, go-to-market "never promise". Existing users may need to approve new permission. |
 
 ## Device acceptance (FR965; simulator isn't proof, [ADR-022](../decisions.md#adr-022)/[023](../decisions.md#adr-023))
 
@@ -76,4 +76,4 @@ Check `SYNC …` log and Connect after phone sync.
 - Native activity already recording blocks `createSession` → `SYNC FAIL`; try once.
 - Session memory on 128 KB watches (fēnix 6/6S, Enduro) → simulator memory view before step 8.
 - `Fit` scares buyers or changes eligibility → test 10.
-- Store `.iq` compiles `fitcontributions.xml` + `fit_*` strings without the permission (builds fine) → confirm in preview at step 8.
+- Store `.iq` compiles `fitcontributions.xml` + `fit_*` strings without permission (builds fine) → confirm in preview at step 8.

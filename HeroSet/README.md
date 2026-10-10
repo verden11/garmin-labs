@@ -1,31 +1,30 @@
 # HeroSet
 
-Garmin watch app for daily bodyweight challenge:
+Garmin watch app, daily bodyweight challenge:
 **100 push-ups, 100 sit-ups, 100 squats**. Reps counted auto from wrist
 accelerometer (beta), hand-correctable. XP, rank, streak persist; daily counts
-reset at local midnight. Button-only, no phone.
+reset local midnight. Button-only, no phone.
 
 Built on Forerunner 965; 66 more round five-button watches supported,
 simulator-checked only — AMOLED (Forerunner 70/165/170/265/570/970, epix Gen 2
 and Pro, fēnix 8/9 AMOLED, fēnix E, MARQ Gen 2, D2 Mach, Descent MK3/G2) and
 MIP (fēnix 6/7/8 Solar/9 Pro Solar, MARQ Gen 1, Forerunner 255/945 LTE/955,
 Enduro and Enduro 3, Descent MK2) plus 13 touch-first watches (Venu 2/3/4,
-vívoactive 5/6, Approach S50/S70, D2 Air X10), the Instinct family and, not
-yet released, the rectangular Venu Sq 2 / Sq 2 Music / X1, Connect IQ 3.4+:
+vívoactive 5/6, Approach S50/S70, D2 Air X10), Instinct family, and, not
+yet released, rectangular Venu Sq 2 / Sq 2 Music / X1, Connect IQ 3.4+:
 [`docs/compatibility.md`](docs/compatibility.md).
 
-Live as a paid app on the Connect IQ Store.
+Live as paid app on Connect IQ Store.
 
 ## Status (2026-10-05)
 
-- **Since 1.1.1:** counting that learns from saved counts
+- **Since 1.1.1:** counting learns from saved counts
   ([ADR-040](docs/decisions.md#adr-040)), manual correction, goals, XP/rank/streak, live HR/calories,
-  15 languages. 124 unit tests (111 in the store build).
-- **Not proven on a wrist:** counting accuracy beyond a few FR965 sets; the
-  other 79 watches and the touch UI (simulator only).
-- **1.3.0 live (uploaded 2026-10-03); 1.3.1 uploaded 2026-10-04, in Garmin review:** the Instinct family (87 products), simulator only; 1.3.1 fixes bezel-corner text and the Instinct glance. **1.2.0 (glance + idle-kill fix, ADR-053; uploaded 2026-09-27, approved):** a read-only glance-list entry on 63 of the 80 watches, plus a fix for a set-losing bug found the same day ([ADR-051](docs/decisions.md#adr-051)/[052](docs/decisions.md#adr-052)). Uploaded on an owner call without the full FR965 check list — see [`docs/status.md`](docs/status.md).
-- **Unreleased (2026-10-05):** Instinct 3 AMOLED 45/50 mm added (89 products), simulator only; Instinct Crossover AMOLED left out (its hands cover the screen's middle), [`docs/compatibility.md`](docs/compatibility.md) wave 7.
-- **Connect sync:** shelved, [ADR-054](docs/decisions.md#adr-054) — Garmin Connect never renders the developer fields the design needed.
+  15 languages. 124 unit tests (111 in store build).
+- **Not proven on a wrist:** counting accuracy beyond few FR965 sets; other 79 watches and touch UI (simulator only).
+- **1.3.0 live (uploaded 2026-10-03); 1.3.1 uploaded 2026-10-04, in Garmin review:** Instinct family (87 products), simulator only; 1.3.1 fixes bezel-corner text and Instinct glance. **1.2.0 (glance + idle-kill fix, ADR-053; uploaded 2026-09-27, approved):** read-only glance-list entry on 63 of 80 watches, plus fix for set-losing bug found same day ([ADR-051](docs/decisions.md#adr-051)/[052](docs/decisions.md#adr-052)). Uploaded on owner call without full FR965 check list — see [`docs/status.md`](docs/status.md).
+- **Unreleased (2026-10-05):** Instinct 3 AMOLED 45/50 mm added (89 products), simulator only; Instinct Crossover AMOLED left out (hands cover screen's middle), [`docs/compatibility.md`](docs/compatibility.md) wave 7.
+- **Connect sync:** shelved, [ADR-054](docs/decisions.md#adr-054) — Garmin Connect never renders developer fields design needed.
 - Open items: [`../ROADMAP.md`](../ROADMAP.md); state and evidence: [`docs/status.md`](docs/status.md). Allowed claims:
   [`docs/release-contract.md`](docs/release-contract.md).
 
