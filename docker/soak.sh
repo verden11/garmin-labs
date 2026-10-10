@@ -1,14 +1,15 @@
 # Real-time soak of one face (simulator only, never device proof): the face runs on the real clock for MINUTES, flipping
 # between High Power and Always-On at every sample, so onEnterSleep/onExitSleep, the minute tick and midnight all happen.
 # A scenario for docker/capture.sh; launch with nohup so a closed session does not stop it (docker forwards SIGTERM):
-#   nohup docker/capture.sh <project> /ciq-docker/soak.sh <jungle> <device> [minutes 1440] [tag soak] [every 900] [monkeyc flags -r] > log 2>&1 &
+#   nohup docker/capture.sh <project> /ciq-docker/soak.sh <jungle> <device> [minutes 1440] [tag soak] [every 900] [monkeyc flags -r] [start clock] > log 2>&1 &
+#   start clock, e.g. "2026-10-10 22:56:00": the simulator's clock starts there and runs on (faketime), for a window or midnight edge
 # Writes /work/bin/soak/<tag>-<device>/ in the project (bin/ is untracked), updated at every sample so a dead container
 # still leaves its record: samples.csv (utc, n, mode, simulator alive, error lines in the monkeydo log, display hash),
 # disp-<n>-<mode>.png (the display), mem-<n>.png (the status bar: memory used / total, current use, not the peak),
 # md.log (monkeydo's output: crash traces land here) and sim.log. A store-like build (-r), default settings.
 # Fails to look for afterwards: errors > 0 (ERR_RE, matched against a planted crash 2026-10-10), alive = no, and two awake
 # samples with the same hash (the minute moves, so an identical awake frame is a frozen face).
-JUNGLE=${1:?jungle}; DEV=${2:?device}; MINUTES=${3:-1440}; TAG=${4:-soak}; EVERY=${5:-900}; FLAGS=${6:--r}
+JUNGLE=${1:?jungle}; DEV=${2:?device}; MINUTES=${3:-1440}; TAG=${4:-soak}; EVERY=${5:-900}; FLAGS=${6:--r}; START=${7:-}
 OUT=/work/bin/soak/$TAG-$DEV; mkdir -p "$OUT"; rm -f "$OUT"/*
 ERR_RE='Error:|Exception|Out Of Memory|Unhandled|Stack:'
 J=/root/.Garmin/ConnectIQ/Devices/$DEV/simulator.json
@@ -20,7 +21,7 @@ sim_mode() {
   [ "$1" = aod ] && { xdotool key Down; sleep 0.4; }
   xdotool key Return; sleep 4; xdotool key Escape; sleep 0.3
 }
-sim_boot; rm -f /tmp/com.garmin.connectiq/GARMIN/APPS/SETTINGS/*.SET /tmp/app-settings.json
+sim_boot "$START"; rm -f /tmp/com.garmin.connectiq/GARMIN/APPS/SETTINGS/*.SET /tmp/app-settings.json
 sim_load "$JUNGLE" "$DEV" $FLAGS || { echo "build failed" > "$OUT/FAILED"; exit 1; }
 sim_24h; sleep 5
 echo "utc,n,mode,alive,errors,hash" > "$OUT/samples.csv"

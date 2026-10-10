@@ -144,7 +144,9 @@ through the existing flag hooks (`FLAGS="-r -w -k" docker/shot.sh ...`, `MC_FLAG
   (the first START did not open the app); fr970, fr265, epix2pro47mm, fr965 and instincte45mm work. (4) The heat-map verdict box
   reads black with `xwd`; `import -window root -crop` works. (5) Always-on burn-in, measured: Days To Go 0.84%, Two Suns 1.09%,
   HeroFace 1.23%, DayArc 2.52% peak luminance on fr965 (the simulator's own pass mark is 10%; not confirmed as a Garmin store rule, unverified).
-- **Real-clock soak (2026-10-10):** `nohup docker/capture.sh <project> /ciq-docker/soak.sh <jungle> <device> [minutes 1440] [tag] [every 900] [flags -r] > log 2>&1 &`
+- **Real-clock soak (2026-10-10):** `nohup docker/capture.sh <project> /ciq-docker/soak.sh <jungle> <device> [minutes 1440] [tag] [every 900] [flags -r] [start clock] > log 2>&1 &`
+  (a start clock such as `"2026-10-10 23:55:30"` runs the simulator from there via faketime: midnight and window edges in 10 minutes;
+  a wrapper scenario under `<project>/bin/` can `sed` the private copy's properties first and then `source /ciq-docker/soak.sh ...`)
   runs a face on the real clock, flips High Power / Always-On at every sample, and writes `<project>/bin/soak/<tag>-<device>/`
   as it goes: `samples.csv` (time, mode, simulator alive, error lines in monkeydo's log, display hash), the display and the
   status-bar memory per sample, `md.log` (crash traces). Launch with `nohup`, not a tool's background job: docker passes a

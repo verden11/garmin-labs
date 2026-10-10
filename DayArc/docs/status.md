@@ -69,6 +69,7 @@ Nine photos, both builds, a watch set to 12-hour time:
 - **The muted clock reads fine** in daylight and in a car (owner photos; no complaint).
 - **Fixed from these photos (2026-10-05, simulator-tested):** (1) in 12-hour mode the hour was zero-padded, so 13:02 read `01:02` and the 18:54 sunset `06:54`, before the 07:32 sunrise; now `1:02`, `6:54`, as Garmin's faces (`DayArcFormat.clockTime`). (2) With no calendar event the Pro pill cut "No upcoming event" to "No up..."; now "None". This also settles the simulator's `00:00`: on the watch an empty calendar is null, not `00:00`.
 - **Open questions for the owner (ROADMAP 13.28, 13.29):** the hero `9°` is the feels-like value, unlabelled, so it read below the day's low of 13; and the morning icon is the window's fixed sun-and-cloud, not the current condition, so it shows even when there is no weather.
+- **Night window in the simulator (2026-10-10, simulator only):** real-clock runs on fr965, Pro and Simple, store-like `-r` builds, High Power and Always-On alternating (`docker/soak.sh` with a start clock): the full Pro stack at 22:58, time and date only at 23:00, 23:03 and 23:05; time and date at 04:58, the morning window at 05:00, 05:03 and 05:05 (Simple the same with its lighter stack); no errors.
 - **Not yet seen on the wrist:** the night window (23:00 to 05:00, time and date only), and tonight's build (bolt icon, grey pills, Feels like, condition icons, these fixes).
 
 ## What the owner must eyeball on the wrist next (first-photo fixes + the accent setting)
