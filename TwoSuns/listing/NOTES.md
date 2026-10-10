@@ -84,8 +84,8 @@ Export overreports device count vs. the manifest — full investigation in [`../
 `site/src/apps/two-suns/` (landing, support, privacy) staged in the same session; deploy is the owner's (`npm run deploy` in `site/`). Store URL is unset: the pages say "Coming soon to the Connect IQ Store". After approval: set `storeUrl` in `app.ts`, update this folder and the root README. Landing and store copy must agree with this listing and the release contract.
 
 - The landing page shows a **drawing** of the face (`FacePreview.tsx`, SVG primitives, example numbers 10:42, 64, "8:41 of daylight"), captioned "A drawing of the face by day, with example numbers. Not a screenshot." It is a schematic of the layout in the code, not an approved look. Delete it and use `Screens` with real captures when they exist.
-- The shared JSON-LD in `src/entry-server.tsx` gives every app `applicationCategory: HealthApplication`. That is site-wide, unchanged here, but it reads as a health label on this app's page. Make the category per-app (`App` type change) or neutral before deploy.
-- The studio home line in `src/site.ts` (`intro`) names the other three apps and not this one; left unchanged so the working name is spelled in one place. Add a sentence when the name is settled.
+- **Resolved 2026-10-10 (site SEO pass): faces now get `LifestyleApplication`.** The shared JSON-LD in `src/entry-server.tsx` gave every app `applicationCategory: HealthApplication`. That is site-wide, unchanged here, but it reads as a health label on this app's page. Make the category per-app (`App` type change) or neutral before deploy.
+- **Resolved 2026-10-10 (site SEO pass): `intro` now names no app.** The studio home line in `src/site.ts` (`intro`) named the other three apps and not this one; left unchanged so the working name is spelled in one place. Add a sentence when the name is settled.
 - The studio mark and `public/favicon.svg` grow one bar per app in the shell automatically; the favicon file is edited by hand if wanted.
 
 ## Images

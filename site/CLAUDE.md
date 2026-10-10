@@ -41,5 +41,5 @@ Add app:
 - Zero client JS: React run only at build time. No add hydration, analytics, third-party script; privacy page say none exist.
 - App user-facing claim come from that app's docs, not from memory. Behavior change there → update page here (and privacy page effective date if data handling change).
 - Contact email live only in `src/site.ts`.
-- SEO head (title, description, canonical, OG, JSON-LD) is built in `render()` in `src/entry-server.tsx`; `studio.intro` names no app so the home description never goes stale. JSON-LD carries no `offers`/price (no price numbers anywhere, prices vary by region) and no rating.
+- SEO head (title, description, canonical, OG, JSON-LD) is built in `render()` in `src/entry-server.tsx`; `studio.intro` names no app (only kinds: "a rep counter and a set of watch faces"), so it stays true as faces are added; reword it when a new kind ships (widget, phone app). JSON-LD carries no `offers`/price (no price numbers anywhere, prices vary by region) and no rating.
 - No affiliation/trademark footer, no third-party service name (e.g. Strava) unless truly needed; privacy page stay minimal.
