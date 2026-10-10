@@ -1,20 +1,12 @@
 # HeroFace
 
-A Garmin watch face from Verden, in HeroSet's visual language: the time in the
-middle, today's three goals as mission bars, and a progress ring on the bezel.
+Garmin watch face from Verden, HeroSet's visual language: time middle, today's three goals as mission bars, progress ring on bezel.
 
-It works on its own. The bars show **steps, intensity minutes and floors**, the
-ring shows how the whole day is going, and a gold line counts the days in a row
-you hit your step goal. On watches with Connect IQ 4.2+ and
-[HeroSet](../HeroSet) installed, the bars can switch to your push-ups, sit-ups
-and squats, with your HeroSet rank and streak.
+Works standalone. Bars show **steps, intensity minutes, floors**; ring shows whole-day progress; gold line counts days in a row step goal hit. On watches with Connect IQ 4.2+ and [HeroSet](../HeroSet) installed, bars can switch to push-ups, sit-ups, squats, with HeroSet rank and streak.
 
-Two builds from one source (uploaded 2026-10-04, in Garmin review; ladder approved by the owner 2026-10-04, [`docs/decisions.md`](docs/decisions.md) ADR-001, the Free + Pro ladder): **HeroFace** (Free,
-`monkey.free.jungle`: everyday and HeroSet mode, accent colour) and **HeroFace Pro** (the paid app, `monkey.jungle`: adds the metric per
-bar, seconds and the temperature). The on-watch names are placeholders.
+Two builds, one source (uploaded 2026-10-04, in Garmin review; ladder approved by owner 2026-10-04, [`docs/decisions.md`](docs/decisions.md) ADR-001 (Free + Pro ladder)): **HeroFace** (Free, `monkey.free.jungle`: everyday + HeroSet mode, accent colour) and **HeroFace Pro** (paid app, `monkey.jungle`: adds metric per bar, seconds, temperature). On-watch names placeholders.
 
-117 round watches, 7 Instinct watches (black and white, with a round window; ADR-002, simulator only) and 5 rectangular Venu Sq / Sq 2 / X1 watches (the ring becomes a frame; ADR-005, proposed, simulator only), Connect IQ 3.0 and up, in 15 languages:
-[`docs/compatibility.md`](docs/compatibility.md).
+117 round watches, 7 Instinct watches (black and white, round window; ADR-002 (Instinct family), simulator only), 5 rectangular Venu Sq / Sq 2 / X1 watches (ring becomes frame; ADR-005 (rectangular watches), proposed, simulator only), Connect IQ 3.0 and up, 15 languages: [`docs/compatibility.md`](docs/compatibility.md).
 
 ## Build
 
@@ -37,29 +29,22 @@ monkeyc -e -r -f monkey.jungle      -o dist/HeroFacePro.iq  -y $KEY   # Pro (the
 tools/check_free_package.sh                    # Free has no Slot/Seconds/Weather key and no "Pro"; Pro has them
 ```
 
-`monkeyc`/`monkeydo` live in the SDK's `bin/` folder if they aren't on `PATH`.
+`monkeyc`/`monkeydo` in SDK `bin/` folder if not on `PATH`.
 
-`everyStateFitsThisDisplay` renders the face in its widest states at the
-device's real resolution and fonts, and fails on text that leaves the round
-display or overlaps another row. Run it for a device per screen size after any
-layout or string change. `heroFaceLayoutReport` prints every row's box for that
-device, which is how layout is checked without a screenshot.
+`everyStateFitsThisDisplay` renders face in widest states at device's real resolution and fonts; fails on text leaving round display or overlapping another row. Run per screen size after any layout or string change. `heroFaceLayoutReport` prints every row's box for device: layout checked without screenshot.
 
 ## What it shows
 
 | Row | Everyday | With HeroSet |
 |---|---|---|
-| Ring | how far today's three goals have come, together | XP into the current rank |
-| Top line | days in a row the step goal was met | rank and HeroSet streak |
+| Ring | progress of today's three goals together | XP into current rank |
+| Top line | days in a row step goal met | rank and HeroSet streak |
 | Centre | time (+ optional seconds) | same |
 | Under it | date and, where supported, temperature | same |
 | Bars | steps · intensity minutes · floors | push-ups · sit-ups · squats |
 | Bottom | battery · heart rate · notifications | same |
 
-Each bar falls back to a metric the watch actually has: no barometer means the
-floors bar becomes the move bar, and so on. Settings (Garmin Connect) choose
-the mode and the accent colour (both tiers), and in Pro each bar's metric, seconds and the
-temperature. Free has the three bars on Auto, no seconds and no temperature.
+Each bar falls back to metric watch actually has: no barometer -> floors bar becomes move bar, etc. Settings (Garmin Connect) choose mode and accent colour (both tiers); Pro also each bar's metric, seconds, temperature. Free: three bars on Auto, no seconds, no temperature.
 
 ## Layout
 
@@ -93,6 +78,4 @@ PRODUCT.md                product truth
 DESIGN.md                 the visual system
 ```
 
-House rules follow HeroSet's ([`../HeroSet/CLAUDE.md`](../HeroSet/CLAUDE.md)): typed functions, no
-magic numbers, one class per file, text fit measured and never guessed,
-comments explain *why*.
+House rules follow HeroSet's ([`../HeroSet/CLAUDE.md`](../HeroSet/CLAUDE.md)): typed functions, no magic numbers, one class per file, text fit measured never guessed, comments explain *why*.

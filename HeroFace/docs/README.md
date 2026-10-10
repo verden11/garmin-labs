@@ -1,12 +1,12 @@
 # HeroFace docs
 
-Open work is in the root [`ROADMAP.md`](../../ROADMAP.md), never here. Rules for agents: [`../CLAUDE.md`](../CLAUDE.md).
+Open work in root [`ROADMAP.md`](../../ROADMAP.md), never here. Agent rules: [`../CLAUDE.md`](../CLAUDE.md).
 
 | Doc | What |
 |---|---|
-| [`status.md`](status.md) | Where things stand, the HeroSet link, device evidence, the Free + Pro pair |
+| [`status.md`](status.md) | Current state, HeroSet link, device evidence, Free + Pro pair |
 | [`decisions.md`](decisions.md) | ADRs (why) |
 | [`compatibility.md`](compatibility.md) | Products, API levels, memory, evidence per device |
-| [`release-contract.md`](release-contract.md) | What may be claimed and what may not |
-| [`development.md`](development.md) | Commands, tests, how to debug |
-| [`archive/`](archive/) | The build plan and the Instinct mockup |
+| [`release-contract.md`](release-contract.md) | Claims allowed, claims not allowed |
+| [`development.md`](development.md) | Commands, tests, debugging |
+| [`archive/`](archive/) | Build plan, Instinct mockup |
