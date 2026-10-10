@@ -64,6 +64,10 @@ People.
 
 ## 3. Agent can do now (no input needed)
 
+- [ ] 8.2 `[agent]` Bolder Days To Go: implement the direction 8.1 settles (owner 2026-10-10: design agents decide; unparked).
+- [ ] 13.40 `[agent]` Two Suns Pro, night next-day weather row: icon placement differs between cells, lone hourly "9" can read as temperature (ADR-022; same on round). Unparked by owner 2026-10-10; design agents decide (no owner look-approval).
+- [ ] 8.1 `[agent]` Daring mockup for Days To Go, screenshot-verified at 454 px and smallest size; unparked by owner 2026-10-10; watch-design-lead decides and a fresh watch-design-reviewer must say ship (owner look-approval no longer needed).
+
 Simulator work (GUI tooling in `docker/sim-gui.sh` can drive it).
 
 Packages, listings, site (prepare so each upload is a paste).
@@ -94,12 +98,9 @@ Passive income plan (`reports/Passive income plan.md`, 2026-10-09).
 - [ ] 17.8 `[both]` **2027-08-17** Month-12 review before merchant fee renewal: family Pro net vs fee, monthly net vs €100–500 target, hours spent. Renew deliberately; never cancel merchant account to demonetize.
 
 Parked until 2027-03-31 (owner, 2026-10-09: new features and reworked designs wait for month-6 review, 17.7; small work and listing updates stay above). Ids unchanged; new ideas -> `reports/Opportunities backlog.md`.
-- [ ] 8.2 `[you]` (later) Approve direction for bolder Days To Go; then implement (8.1).
 - [ ] 13.5 `[you]` Days To Go Pro: Event time zone is 216-entry `UTC±hh:mm` list; wrong pick silently an hour off (spec rule 6). Option: city hints on common offsets (`UTC+01:00 (Paris, Lagos)`). About half a day plus strings and listing.
 - [ ] 15.3 `[you]` (later) Free strength data field as reach and cross-promotion product, not revenue: "Gym sets counter" only counts current set, sits at bucket 100,000; new paid data fields stall at buckets 100 to 1,000. Say if worth spec (watch-pm intake).
 - [ ] 15.4 `[you]` (later) Pro density on second view (wrist gesture or tap switches it) instead of more fields on default face: store's dense leaders keep one huge element, hide density there. Direction for HeroFace Pro / Days To Go Pro (with 8.1); mockup first.
-- [ ] 13.40 `[agent]` Two Suns Pro, night next-day weather row: icon placement differs between cells, lone hourly "9" can read as temperature (ADR-022; same on round). Later.
-- [ ] 8.1 `[agent]` Daring mockup for Days To Go, screenshot-verified at 454 px and smallest size; stop for look approval (8.2).
 - [ ] 8.3 `[both]` Extra accent colours (ids 6 to 11) after 15-language names OK'd; repeat for Two Suns and HeroFace.
 - [ ] 14.1 Parked, not scheduled: private beta, paid-launch announcement, beta testers for watches other than FR965, HeroSet Connect sync (ADR-043 / ADR-054, shelved; gated on FR965 spike).
 

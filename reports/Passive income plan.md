@@ -158,7 +158,7 @@ Why watch beats clicks: €75 of clicks buys 2–9 installs you cannot attribute
 
 **Stays open:** every approval and bookkeeping (7.12, 16.3), dashboard pastes and checks (6.6, 16.1, 13.33, 17.9), wrist checks (1.1, 4.2, 3.1, 5.5, 7.3, 7.9, 16.6, 10.18), listing text, images, icons with each next upload (13.31, 15.5, 15.8, 1.5, 3.3, 10.5, 13.27, 7.2), native-speaker reads (7.10), measurement (6.4, 5.1, 5.7, 15.9), site accuracy and Free/Pro sections once approvals land (6.1, 3.7, 3.12, 9.9, 7.8, 16.4, 16.5), Sun Window, CloseHour, HeroSet Free after proof (7.4), merchant items (10.20, 10.28, 17.9), housekeeping (10.3, 10.14, 7.11), DMARC (6.5), HeroSet goal-raise option (13.41, one-line decision), Instinct hardware checks when a watch in reach (9.6). 13.35 ticked (Venu Sq 2 clock fix shipped 2026-10-08).
 
-**Parked until month-6 review (ROADMAP section 4, "Parked until 2027-03-31"):** Days To Go bold redesign and second Pro view (8.1, 8.2, 8.3, 15.4), time-zone city hints (13.5), Two Suns night weather row and `#5555AA` colour test (13.40, 10.17), free strength data field (15.3), and 14.1.
+**Parked until month-6 review (ROADMAP section 4, "Parked until 2027-03-31"):** Days To Go second Pro view and extra accents (8.3, 15.4; the bold redesign 8.1/8.2 unparked by the owner 2026-10-10), time-zone city hints (13.5), (Two Suns night weather row 13.40 unparked by the owner 2026-10-10; `#5555AA` test 10.17 found already settled by ADR-027), free strength data field (15.3), and 14.1.
 
 Rule for new ideas during year: go to `reports/Opportunities backlog.md`, not ROADMAP, unless next product in cadence.
 
