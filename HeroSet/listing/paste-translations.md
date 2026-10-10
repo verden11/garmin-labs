@@ -11,7 +11,7 @@ stay in English. No price number, as in English.
 ### Title
 
 ```text
-HeroSet - Contador de repeticiones con peso corporal
+HeroSet - Contador de repeticiones sin pesas
 ```
 
 ### Description
