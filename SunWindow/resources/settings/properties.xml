@@ -1,0 +1,4 @@
+<properties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- Value matches SunWindowConfig.ACCENT_DEFAULT; the id never changes once shipped (ADR-013, append-only list). -->
+    <property id="Accent" type="number">0</property>
+</properties>

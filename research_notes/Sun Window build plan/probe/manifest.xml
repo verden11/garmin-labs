@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<!-- Throwaway spike probe for Sun Window (plan P1.1). Not the product: its own throwaway app id. -->
+<iq:manifest version="3" xmlns:iq="http://www.garmin.com/xml/connectiq">
+  <iq:application id="a1b2c3d4-0000-4000-8000-000000000018" type="widget" name="@Strings.AppName" entry="SunProbeApp" launcherIcon="@Drawables.LauncherIcon" minApiLevel="5.1.0">
+    <iq:products>
+      <iq:product id="fr965"/>
+      <iq:product id="fenix7s"/>
+      <iq:product id="venu3"/>
+      <iq:product id="instincte40mm"/>
+    </iq:products>
+    <iq:permissions>
+      <iq:uses-permission id="Positioning"/>
+    </iq:permissions>
+    <iq:languages><iq:language>eng</iq:language></iq:languages>
+  </iq:application>
+</iq:manifest>

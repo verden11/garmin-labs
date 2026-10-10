@@ -1,0 +1,14 @@
+<settings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd">
+    <!-- The one wearer setting (ADR-009, ADR-013). A list only, never a free colour picker. Ids are append-only and
+         match SunWindowPalette.ACCENTS. Left out of the 1-bit Instinct resourcePath (monkey.jungle). -->
+    <setting propertyKey="@Properties.Accent" title="@Strings.setting_accent">
+        <settingConfig type="list">
+            <listEntry value="0">@Strings.accent_sky</listEntry>
+            <listEntry value="1">@Strings.accent_mint</listEntry>
+            <listEntry value="2">@Strings.accent_amber</listEntry>
+            <listEntry value="3">@Strings.accent_pink</listEntry>
+            <listEntry value="4">@Strings.accent_violet</listEntry>
+            <listEntry value="5">@Strings.accent_white</listEntry>
+        </settingConfig>
+    </setting>
+</settings>

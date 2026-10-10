@@ -1,0 +1,30 @@
+<strings>
+    <!-- Glance scope: every string the glance process draws. Words follow docs/release-contract.md (the sun is the subject,
+         no good/bad/safe/enough) and DESIGN.md. English only for v1 (ADR-013). -->
+    <string id="AppName" scope="glance">Sun Window</string>
+    <string id="state_open" scope="glance">OPEN</string>
+    <string id="state_closed" scope="glance">CLOSED</string>
+    <string id="state_none" scope="glance">NONE TODAY</string>
+    <string id="glance_once" scope="glance">Open once</string>
+
+    <!-- Reason lines under the state word. $1$ is a clock time. -->
+    <string id="reason_opens">Opens $1$</string>
+    <string id="reason_closed_today">Closed for today</string>
+    <string id="reason_sky">Cloud cover</string>
+    <string id="reason_low">Sun stays low</string>
+    <string id="reason_no_weather">No weather</string>
+
+    <!-- Empty and error states: each a plain sentence. -->
+    <string id="locating">Finding your place</string>
+    <string id="no_place">No place yet</string>
+    <string id="no_place_hint">Press START</string>
+
+    <!-- Settings (the in-app menu and Garmin Connect). -->
+    <string id="setting_accent">Accent colour</string>
+    <string id="accent_sky">Sky</string>
+    <string id="accent_mint">Mint</string>
+    <string id="accent_amber">Amber</string>
+    <string id="accent_pink">Pink</string>
+    <string id="accent_violet">Violet</string>
+    <string id="accent_white">White</string>
+</strings>
