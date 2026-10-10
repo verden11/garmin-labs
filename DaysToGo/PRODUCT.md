@@ -6,31 +6,31 @@
 
 web
 
-The only web surface is the Days To Go page in `../site`. The product itself is a native Garmin Connect IQ watch face (Monkey C). Watch UI follows [`docs/spec.md`](docs/spec.md), not web conventions.
+Only web surface: Days To Go page in `../site`. Product = native Garmin Connect IQ watch face (Monkey C). Watch UI follows [`docs/spec.md`](docs/spec.md), not web conventions.
 
 ## Users
 
-Garmin watch wearers counting down to a date: a race, a trip, a birthday, a holiday, an exam, New Year. They glance at it many times a day and want the number right. Many have tried a countdown face whose date would not save.
+Garmin watch wearers counting down to date: race, trip, birthday, holiday, exam, New Year. Glance many times/day, want number right. Many tried countdown face whose date would not save.
 
 ## Product Purpose
 
-A watch face with one job: how many days until a date, and it is counted in whole calendar days. The count is the largest thing on the screen, the time is second, and nothing else is on by default. It works the moment it is installed (it counts to New Year's Day) and the date can be set on the phone or on the watch. Success means someone keeps it on their wrist until the day.
+Watch face, one job: days until date, counted in whole calendar days. Count = largest thing on screen, time second, nothing else on by default. Works once installed (counts to New Year's Day); date set on phone or watch. Success = someone keeps it on wrist until the day.
 
 ## Positioning
 
-Countdown-first, not a dashboard with a countdown slot. No permissions, nothing leaves the watch. It is not "the only countdown with no permissions" (a large existing face also asks for none); the difference is that setting the date is the part built to work.
+Countdown-first, not dashboard with countdown slot. No permissions, nothing leaves watch. Not "the only countdown with no permissions" (large existing face also asks none); difference: setting date is the part built to work.
 
 ## Operating Context
 
-- Glanced at arm's length, many times a day, in daylight and dark.
-- AMOLED watches use always-on with burn-in limits: hero and time only, dim. MIP watches show the full face.
-- No input on the face itself. Configured through Garmin Connect / Connect IQ app settings or the watch's own Customize screen.
+- Glanced at arm's length, many times/day, daylight and dark.
+- AMOLED watches use always-on with burn-in limits: hero and time only, dim. MIP watches show full face.
+- No input on face itself. Configured via Garmin Connect / Connect IQ app settings or watch's own Customize screen.
 
 ## Capabilities and Constraints
 
 - Connect IQ watch face, `minApiLevel` 3.0.0, one build per tier, 129 products (117 round, 5 rectangular, 7 Instinct), no bitmaps. Smallest memory budget 96 KB.
 - No network, no permissions, no `Storage`.
-- Price: paid, the $2.50 tier of Garmin's price points for Days To Go Pro (set in the upload form with 1.1.0; live at the lowest tier until then; [ADR-017](docs/decisions.md#adr-017), price: the $2.50 tier for every paid app); Days To Go (Free) is free; no price number in listing or site text (the day-45 flip review of [`docs/decisions.md`](docs/decisions.md) ADR-002 was retired 2026-10-04 by the Free + Pro ladder, ADR-014).
+- Price: paid, $2.50 tier of Garmin's price points for Days To Go Pro (set in upload form with 1.1.0; live at lowest tier until then; [ADR-017](docs/decisions.md#adr-017), price: the $2.50 tier for every paid app); Days To Go (Free) is free; no price number in listing or site text (day-45 flip review of [`docs/decisions.md`](docs/decisions.md) ADR-002 retired 2026-10-04 by Free + Pro ladder, ADR-014).
 - Languages: English plus 14 machine-drafted translations, not yet read by native speakers.
 
 ## Brand Commitments

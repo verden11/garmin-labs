@@ -1,17 +1,14 @@
 # Days To Go
 
-A Garmin watch face from Verden with one job: how many days until a date, and
-the date is always right. The day count is the biggest thing on the screen, the
-time is second, and nothing else is on by default.
+Garmin watch face from Verden, one job: days until date, date always right. Day count biggest on screen, time second, nothing else on by default.
 
-Set the date on the phone (plain lists, no date picker) **or on the watch**.
-Nothing is set up yet? It counts to the next New Year's Day. No permissions,
-nothing leaves the watch.
+Set date on phone (plain lists, no date picker) **or on watch**.
+Nothing set? Counts to next New Year's Day. No permissions, nothing leaves watch.
 
-Two builds from one source (uploaded 2026-10-04, in Garmin review; ladder approved by the owner 2026-10-04, `docs/decisions.md` ADR-014 (Free + Pro ladder)): **Days To Go** (Free, `monkey.free.jungle`) and **Days To Go Pro** (the paid app, `monkey.jungle`, adds timed events and a battery or steps line).
+Two builds, one source (uploaded 2026-10-04, in Garmin review; ladder approved by owner 2026-10-04, `docs/decisions.md` ADR-014 (Free + Pro ladder)): **Days To Go** (Free, `monkey.free.jungle`) and **Days To Go Pro** (paid app, `monkey.jungle`, adds timed events and battery or steps line).
 
-117 round watches (Connect IQ 3.0 and up), 5 rectangular ones (Venu Sq 2, Venu Sq 2 Music, Venu X1; the first-generation Venu Sq and Venu Sq Music, added 2026-10-05, Free-only reach) and 7 Instinct watches (black and white, with a round window; accepted 2026-10-04, simulator only): [`docs/compatibility.md`](docs/compatibility.md).
-Status: built and simulator-tested, **not yet run on a wrist**.
+117 round watches (Connect IQ 3.0 and up), 5 rectangular (Venu Sq 2, Venu Sq 2 Music, Venu X1; first-generation Venu Sq and Venu Sq Music, added 2026-10-05, Free-only reach) and 7 Instinct watches (black and white, round window; accepted 2026-10-04, simulator only): [`docs/compatibility.md`](docs/compatibility.md).
+Status: built, simulator-tested, **not yet run on a wrist**.
 
 ## Build
 
@@ -38,15 +35,15 @@ tools/check_free_package.sh                     # Free has no Hour/Footer and no
 
 | State | Hero | Caption | Ring |
 |---|---|---|---|
-| Upcoming | days (or whole weeks, `+ n DAYS`) | DAYS / WEEKS | square root of the share of the next 365 days still to go (grey track only beyond a year) |
-| Last 24 h of a timed event | `H:MM` | HOURS | share of the 24 h still to go |
+| Upcoming | days (or whole weeks, `+ n DAYS`) | DAYS / WEEKS | square root of share of next 365 days still to go (grey track only beyond a year) |
+| Last 24 h of timed event | `H:MM` | HOURS | share of 24 h still to go |
 | The day itself | TODAY | | full |
 | Past | days since | DAYS SINCE | track only |
-| A date that does not exist | SET A DATE | | none |
+| Date that does not exist | SET A DATE | | none |
 
-Always: the time, the event name (if set), the target date as words. Optional
-bottom line: battery or steps (Pro only; the last-24-hours `H:MM` state is Pro only too). Always-on (AMOLED): hero and time only, dim,
-drifting on a 3 × 3 grid.
+Always: time, event name (if set), target date as words. Optional
+bottom line: battery or steps (Pro only; last-24-hours `H:MM` state Pro only too). Always-on (AMOLED): hero and time only, dim,
+drifting on 3 × 3 grid.
 
 ## Layout
 
