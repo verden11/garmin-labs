@@ -11,6 +11,7 @@ This site public website for **Verden** — studio name for user apps. One site 
 - Domain `verden.watch` register at Hostinger; DNS stay at Hostinger: `A @ 199.36.158.100`, `TXT @ hosting-site=verden-watch-87da4`, `CNAME www verden-watch-87da4.web.app`, plus Hostinger mail records (MX `mx1`/`mx2.hostinger.com`, SPF, DKIM `hostingermail-a/b/c`, DMARC). No touch mail records when edit web ones.
 - `_dmarc` TXT is `v=DMARC1; p=quarantine; rua=mailto:hello@verden.watch` since 2026-10-10 (was `p=none` from 2026-09-26; no rua reports arrived, a test mail to Gmail passed SPF, DKIM `hostingermail1` and DMARC).
 - Contact inbox: `hello@verden.watch` (Hostinger Mail); set in `src/site.ts`.
+- `public/.well-known/security.txt` (RFC 9116): contact + `Expires` 2027-10-10, renew yearly (ROADMAP 6.7). Firebase `ignore` skips only `.DS_Store`, not every dotfile, so `.well-known/` deploys; keep it that way. Email change → update this file too.
 - Site must stay public: store reviewer and user must reach support and privacy page without login.
 - Keep Firebase Analytics / Google Analytics off for the Hosting site: privacy page promise no analytics, no third-party script.
 
