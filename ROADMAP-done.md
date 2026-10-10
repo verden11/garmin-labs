@@ -4,6 +4,8 @@ Ticked items moved out of `ROADMAP.md` on 2026-10-05, grouped by the section the
 
 ## 4. Waiting on a date or an outside event
 
+- [x] 6.5 `[you]` **2026-10-10** DMARC `p=none` to `p=quarantine` after checking the rua reports in hello@verden.watch; then delete the "Due" line in `site/CLAUDE.md`. **Done 2026-10-10 (owner, Hostinger DNS, TTL 3600):** no rua reports had arrived (low volume); instead a test mail from hello@ to Gmail showed SPF, DKIM (`hostingermail1`) and DMARC pass, so the policy is `p=quarantine`; the "Due" line in `site/CLAUDE.md` became a fact line.
+
 - [x] 10.29 `[you]` Two Suns descriptions: sibling URLs real, not placeholders; Pro What's New names the Weather and Watch battery rows. **Done, read in the dashboard by the agent 2026-10-09:** Pro links Free `46bc433c…`, Free (pending) links Pro `9d4bca45…`; Pro 1.2.0 What's New is the new text.
 - [x] 10.30 `[you]` Days To Go Free description must hold the Pro URL, not `<PRO STORE URL>`. **Done 2026-10-09 (dashboard, agent):** "Get Days To Go Pro: https://apps.garmin.com/apps/95adf037-…" on the pending page.
 - [x] 10.31 `[you]` HeroFace Pro description must hold the Free URL and the $2.50 tier. **Done 2026-10-09 (dashboard, agent):** "Also available: HeroFace ... 890dd680-…"; price shows 2,99€, as on every paid listing.

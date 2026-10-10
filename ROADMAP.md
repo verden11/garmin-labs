@@ -3,7 +3,7 @@
 **Single source for every open item, all apps.** Evidence stays in each project's `docs/status.md`; decisions in its `docs/decisions.md`.
 Do not keep open checkboxes anywhere else. Status 2026-10-10. **Open items only:** when an item is done, move its line (ticked) to [`ROADMAP-done.md`](ROADMAP-done.md).
 
-**NEXT ACTION (owner):** **DMARC is due today (6.5, 2026-10-10).** Then wear DayArc through the night window (1.1, 16.6). Merchant account still "In review" (17.9): chase on 2026-10-17 if Garmin has not replied. The three Free twins still 404 on 2026-10-10 (7.12): if still Pending on 2026-10-13, ask developer support.
+**NEXT ACTION (owner):** Wear DayArc through the night window (1.1, 16.6). Merchant account still "In review" (17.9): chase on 2026-10-17 if Garmin has not replied. The three Free twins still 404 on 2026-10-10 (7.12): if still Pending on 2026-10-13, ask developer support.
 **NEXT ACTION (agent):** nothing unblocked (7.11 done 2026-10-10). Next on events: 16.3 when a Free twin is approved; 15.9 from 2026-10-19; 17.6 on 2026-10-26. Site items (6.1, 3.12, 7.8, 9.9) wait for approvals and your OK to deploy.
 
 ## How to use it
@@ -84,7 +84,6 @@ Passive income plan (`reports/Passive income plan.md`, 2026-10-09).
 
 ## 4. Waiting on a date or an outside event
 
-- [ ] 6.5 `[you]` **2026-10-10** DMARC `p=none` to `p=quarantine` after checking the rua reports in hello@verden.watch; then delete the "Due" line in `site/CLAUDE.md`.
 - [ ] 5.7 `[both]` **about 2026-10-25** the HeroSet / HeroFace exposure readout (5.1).
 - [ ] 10.28 `[you]` **about 2027-08-17** reminder: Garmin merchant account annual fee ($100), paid 2026-09-17, first renewal probably 2027-09-17 (10.20: confirm the date in the dashboard).
 - [ ] 17.9 `[you]` **Merchant account reads "In review"** in the dashboard's Merchant Account tab (registration 2026-09-17; read by the agent in your browser 2026-10-09). 10.20 says it was approved 2026-09-18. Garmin: "Final approval of your merchant account may take up to two business days. If your account has been in review for more than two days, please contact ConnectIQAppAdmin@garmin.com" (owner found 2026-10-10; email sent 2026-10-10; no reply yet, note the reply date here; chase on 2026-10-17 if silent). Until approved no paid download can be counted as money, and the dashboard shows no sales report at all (only the registration date and the status). Note the answer in 10.20.

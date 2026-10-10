@@ -9,7 +9,7 @@ This site public website for **Verden** — studio name for user apps. One site 
 - Repo: private GitHub `verden11/garmin-labs`, branch `main` — monorepo; this site is the `site/` folder.
 - Live at **https://verden.watch/** (primary; `www` and http redirect there). Host: Firebase Hosting, project `verden-watch-87da4` (also live at https://verden-watch-87da4.web.app/). Deploys on push to `main` by the GitHub Action "Deploy to Firebase Hosting on merge" (about 30 s; check `gh run list`). By hand only as a fallback: `npm run deploy` (build, then `firebase deploy --only hosting`; needs `firebase login`). Cache + security headers in `firebase.json`. HTTPS: Firebase-managed cert, auto-renew.
 - Domain `verden.watch` register at Hostinger; DNS stay at Hostinger: `A @ 199.36.158.100`, `TXT @ hosting-site=verden-watch-87da4`, `CNAME www verden-watch-87da4.web.app`, plus Hostinger mail records (MX `mx1`/`mx2.hostinger.com`, SPF, DKIM `hostingermail-a/b/c`, DMARC). No touch mail records when edit web ones.
-- **Due 2026-10-10:** `_dmarc` TXT is `v=DMARC1; p=none; rua=mailto:hello@verden.watch` (set 2026-09-26). Read the reports in `hello@verden.watch`; if only Hostinger mail shows, change `p=none` to `p=quarantine`, then delete this line.
+- `_dmarc` TXT is `v=DMARC1; p=quarantine; rua=mailto:hello@verden.watch` since 2026-10-10 (was `p=none` from 2026-09-26; no rua reports arrived, a test mail to Gmail passed SPF, DKIM `hostingermail1` and DMARC).
 - Contact inbox: `hello@verden.watch` (Hostinger Mail); set in `src/site.ts`.
 - Site must stay public: store reviewer and user must reach support and privacy page without login.
 - Keep Firebase Analytics / Google Analytics off for the Hosting site: privacy page promise no analytics, no third-party script.
