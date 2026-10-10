@@ -19,7 +19,7 @@ Simulator is not device proof. Each row is filled with a date and "FR965 only" w
 | D7 | Glance renders from a sideload; no stale state across midnight; clipped bezel | Correct state, nothing clipped | **Glance renders PASS 2026-10-05 (FR965 only, probe):** listed from a sideload, redraws, reads Storage and Weather in the glance with no crash. The focused card is a light slate-blue (not black), which confirms the white glance mark (ADR-011). Midnight still open |
 | D9 | Window edges for the owner's place against the fixtures script | Within 1 minute | **Open** (wear day) |
 | D11 | Gesture that opens the accent menu on the FR965 | Menu opens | **Open** (wear day) |
-| D12 | Idle timeout when launched from the glance | Measured | **Open** (spike) |
+| D12 | Idle timeout when launched from the glance | Measured | **Measured 2026-10-05 (FR965 only, probe):** about **120 s** untouched, then the watch closes the app. Enough for the full view (two one-minute redraws); a one-shot fix slower than that is cut off, but on the FR965 `getInfo()` answered at once. Launcher-launched timeout still open |
 
 ## Ready to submit when ALL of these are true
 
