@@ -19,8 +19,7 @@ tools/run_tests.sh <device> [jungle] [testName]      # jungle defaults to monkey
 tools/run_tests.sh fr965 monkey.pro.jungle
 ```
 
-Trust the printed `PASSED` line, not the exit code alone (matches the exit code here, but the
-convention across this studio's projects is to trust the line).
+Trust printed `PASSED` line, not exit code alone (matches exit code here, but convention across studio projects: trust the line).
 
 ## Compile sweep (both densities, every product)
 
@@ -28,21 +27,15 @@ convention across this studio's projects is to trust the line).
 tools/compile_sweep.sh
 ```
 
-Compile-only, no simulator (`knowledge/platform-facts.md` "Tooling" — compiling is always safe to
-run regardless of who holds the simulator). Writes `bin/compile-sweep-monkey.simple.txt` and
-`bin/compile-sweep-monkey.pro.txt`. This proves every product *builds*; it is not a render or
-per-device fit sweep — see `tools/run_tests.sh` for that, on whichever devices need it.
+Compile-only, no simulator (`knowledge/platform-facts.md` "Tooling" — compiling always safe regardless of who holds simulator). Writes `bin/compile-sweep-monkey.simple.txt` and `bin/compile-sweep-monkey.pro.txt`. Proves every product *builds*; not render or per-device fit sweep — see `tools/run_tests.sh` for that, on whichever devices need it.
 
 ## Sideload
 
-Drag the exported `.prg`/`.iq` to the device's `GARMIN/APPS/` folder over USB mass storage, or use
-Garmin Express.
+Drag exported `.prg`/`.iq` to device's `GARMIN/APPS/` folder over USB mass storage, or use Garmin Express.
 
 ## Simulator
 
-Scripts run in a container by default (`../docker/README.md`); the host simulator (`CIQ_DOCKER=0`) is a shared resource across concurrent sessions (`knowledge/platform-facts.md` "Tooling"). Compiling
-never needs it; `monkeydo`/`tools/run_tests.sh` do. Check `pgrep -f monkeydo` first if another
-session might be using it.
+Scripts run in container by default (`../docker/README.md`); host simulator (`CIQ_DOCKER=0`) = shared resource across concurrent sessions (`knowledge/platform-facts.md` "Tooling"). Compiling never needs it; `monkeydo`/`tools/run_tests.sh` do. Check `pgrep -f monkeydo` first if another session might use it.
 
 ## Export
 
@@ -51,9 +44,8 @@ monkeyc -e -r -f monkey.simple.jungle -o dist/DayArc.iq -y ~/.garmin-connectiq/k
 monkeyc -e -r -f monkey.pro.jungle -o dist/DayArcPro.iq -y ~/.garmin-connectiq/keys/developer_key
 ```
 
-Check the reported device count against each manifest's product list before trusting it
-(`knowledge/platform-facts.md` "Build/export").
+Check reported device count against each manifest's product list before trusting it (`knowledge/platform-facts.md` "Build/export").
 
 ## Screenshots (Instinct and any layout change)
 
-The unit suite measures numbers; it cannot see the bezel. For every layout change, photograph what the simulator draws (the face on its device skin, with the real fonts and the real bezel mask): `../docker/shot.sh DayArc monkey.pro.jungle instinct2 instincte40mm` writes `bin/shot-<device>-face.png` (the display, 3x). The Instinct's visible area is a circle about 98 px in radius, which a 176 x 176 square test misses: a finished-day footer was clipped in HeroSet that way (HeroSet ADR-055, amended 2026-10-03). `PREP='sed -i ... resources/properties.xml' ../docker/shot.sh ...` shows a particular state without touching the repo.
+Unit suite measures numbers; cannot see bezel. Every layout change: photograph what simulator draws (face on device skin, real fonts, real bezel mask): `../docker/shot.sh DayArc monkey.pro.jungle instinct2 instincte40mm` writes `bin/shot-<device>-face.png` (display, 3x). Instinct visible area = circle about 98 px radius, which 176 x 176 square test misses: finished-day footer clipped in HeroSet that way (HeroSet ADR-055, amended 2026-10-03). `PREP='sed -i ... resources/properties.xml' ../docker/shot.sh ...` shows particular state without touching repo.
