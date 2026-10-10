@@ -5,6 +5,7 @@ import { daysToGo } from './days-to-go/app.ts'
 import { twoSuns } from './two-suns/app.ts'
 import { dayArc } from './day-arc/app.ts'
 import { dayArcPro } from './day-arc-pro/app.ts'
+import { sunWindow } from './sun-window/app.ts'
 
 // Add an app: create src/apps/<slug>/ exporting an App, then list it here.
-export const apps: App[] = [heroset, heroface, daysToGo, twoSuns, dayArc, dayArcPro]
+export const apps: App[] = [heroset, heroface, daysToGo, twoSuns, dayArc, dayArcPro, sunWindow]
