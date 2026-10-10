@@ -20,7 +20,7 @@ export const twoSuns: App = {
   onColor: '#240a10',
   storeName: 'Connect IQ Store',
   storeUrl: 'https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b',   // Two Suns Pro
-  freeStoreUrl: 'https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca',   // Two Suns (free), uploaded 2026-10-04
+  // freeStoreUrl: 'https://apps.garmin.com/apps/46bc433c-5c1d-4ec1-97c7-0cf8ca8a5bca',   // Two Suns (free), uploaded 2026-10-04; pending Garmin review (404 on 2026-10-10), restore on approval (ROADMAP 16.3)
   ogImage: '/two-suns/watch/day.png',
   Mark: TwoSunsMark,
   Landing,
