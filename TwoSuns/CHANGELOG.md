@@ -3,6 +3,13 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/paste.md`](listing/paste.md).
 
+## Pro 1.2.1 — prepared 2026-10-10, not uploaded (the owner uploads)
+
+A fix release of the paid app id only; Free 1.1.0 is unchanged (no curve, 26 kB on an Instinct). Same 72 products.
+
+- **Fixed: Out Of Memory on Instinct E 40 / 45 mm and Instinct 3 Solar 45 mm.** Found 2026-10-10 by a real-clock simulator soak (`../docker/soak.sh`): Pro 1.2.0 crashed in the 24-hour Body Battery read within 5 to 25 minutes on all three; not seen on a watch. The rectangle code no longer loads on an Instinct (50.0 → 44.4 kB of 59.8 kB) and the history is streamed into its buckets. ADR-024 and ADR-015 amendments of 2026-10-10.
+- Nothing changes on round or rectangular watches (0 differing pixels on fr965 and venusq2).
+
 ## Pro 1.2.0 and Free 1.1.0 — uploaded 2026-10-08 by the owner; Pro 1.2.0 live by 2026-10-09 (store API; approval date not recorded); Free still not in the store
 
 Prepared 2026-10-08 as the next upload of both listings, while Pro 1.1.0 and Free 1.0.0 are still in Garmin review (a newer version may be uploaded meanwhile). 72 products in both builds, as before (the three rectangles were already in; they now have their own design). Permissions as before: Pro `ComplicationSubscriber`, `Positioning`, `SensorHistory`; Free `ComplicationSubscriber` only. The What's New blocks are in `listing/paste.md` (Pro) and `listing-free/paste.md` (Free); both descriptions were rewritten where the new build contradicted them ("A thin ring around the bezel", "Fits round and rectangular watches alike"). The always-on grey `#5C5C5C` (ADR-027) already shipped in the builds in review, so it is not new here. ADRs: 028 (rectangles: the sky ring follows the screen, with its two 2026-10-08 amendments: round `--` and the lone dot, and the curve's room), 008 (no verdicts on Body Battery, amended 2026-10-08: one colour at any level), 021 (Body Battery in Free, amended), 023 (watch battery row, bolt, amended). Simulator only, nothing on a wrist.

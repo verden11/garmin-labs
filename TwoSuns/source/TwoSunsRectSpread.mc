@@ -8,6 +8,7 @@ import Toybox.Lang;
 // the baseline, and as much above), so its empty bands may lie over a margin or a neighbour's gap but its digits never
 // do. Places depend only on the rows' heights, never on which wording a sentence takes. A stack that cannot be spread so
 // is null, and the centred round stack stands. The battery strip, when kept, comes off the top of the box first.
+(:rect)
 class TwoSunsRectSpread {
 
     // The rows for these fonts and this weather row height, below a `strip` px battery strip; null when they do not fit.

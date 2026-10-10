@@ -2,7 +2,7 @@
 
 Languages picked by the owner, 2026-10-05: English (the main `paste.md`), **Spanish** and **Chinese (Simplified)**.
 **Machine-drafted, not yet read by a native speaker** (translation reads stay the owner's call). Translated from `paste.md` as
-it stood on 2026-10-05, the ring and screen paragraphs on 2026-10-08 (Pro 1.2.0); when the English changes, change these too. The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.2.0 on 2026-10-08, and words the watch shows are quoted as the watch shows them in that language (English where the face has no translation); every other
+it stood on 2026-10-05, the ring and screen paragraphs on 2026-10-08 (Pro 1.2.0); when the English changes, change these too. The title, description, What's New and hero image are per language (owner, 2026-10-08), all below; the What's New blocks are translated from `paste.md` 1.2.1 on 2026-10-10 (the 1.2.0 ones are in git history), and words the watch shows are quoted as the watch shows them in that language (English where the face has no translation); every other
 field is the same as in `paste.md`. App names and store/support URLs stay as they are. "Body Battery" stays Garmin's own
 name. No price number, as in English.
 
@@ -56,13 +56,7 @@ Ayuda y respuestas: https://verden.watch/two-suns/support/
 ### What's New
 
 ```text
-- Los relojes rectangulares tienen un diseño propio: el anillo del sol se convierte en una pista a lo largo de los bordes de la pantalla, y la hora crece para ocupar el espacio que queda dentro.
-- Las filas Clima y Batería del reloj están desactivadas hasta que las actives en los ajustes.
-- El número de Body Battery mantiene un solo color en cualquier nivel; ya no se atenúa cuando el nivel es bajo. Una lectura de hace más de una hora sigue volviéndose gris.
-- Sin número de Body Battery, los dos guiones son grises, como el rayo hueco que tienen al lado, y una sola lectura ya no se muestra como un punto aislado.
-- Con la curva de energía activada, nada se mueve cuando la curva aparece por primera vez o se acaba: el rayo y el número se quedan en su sitio, a la izquierda de la curva.
-- La curva de energía es una línea blanca sencilla, y el rayo de Body Battery es relleno.
-- La luz del día se indica en horas y minutos, como "3h 42m de luz", para que ya no parezca una hora del reloj.
+- Corrige que la esfera se quedara sin memoria en los relojes Instinct E e Instinct 3 Solar.
 ```
 
 ### Hero Image
@@ -119,13 +113,7 @@ DayArc：https://apps.garmin.com/apps/9e641dce-3838-4613-a129-55faeb761193
 ### What's New
 
 ```text
-- 矩形屏幕的手表有了专属设计：太阳圆环变为沿屏幕边缘的轨道，时间放大，占满轨道内的空间。
-- “Weather”和“Watch battery”两行默认关闭，需在设置中开启。
-- 身体电量数值在任何水平下都保持同一种颜色；数值较低时不再变暗。超过一小时的读数仍会变为灰色。
-- 没有身体电量数值时，两条短横线显示为灰色，与旁边的空心闪电图标一致；只有一个读数时，也不再显示为孤立的圆点。
-- 开启能量曲线后，曲线出现或走到尽头时，任何内容都不会移动：闪电图标和数值固定在曲线左侧。
-- 能量曲线是一条简洁的白线，身体电量闪电图标为实心。
-- 日照时长以小时和分钟显示，例如“3h 42m of daylight”，不再像时钟时间。
+- 修复了表盘在 Instinct E 和 Instinct 3 Solar 手表上内存不足的问题。
 ```
 
 ### Hero Image

@@ -55,20 +55,34 @@ class TwoSunsView extends WatchUi.WatchFace {
         if (frame.showDate) {
             drawRow(dc, layout, radius, rows.dateTop, dc.getFontHeight(frame.dateFont), frame.dateFonts, state.dateLines, TwoSunsPalette.MUTED);
         }
-        if (frame.timeByInk) {
-            // a rectangle's spread time: placed and fitted by its digits (TwoSunsRectSpread, TwoSunsRectFit)
-            dc.setColor(TwoSunsPalette.TEXT, Graphics.COLOR_TRANSPARENT);
-            TwoSunsDraw.inkText(dc, layout, layout.centerX(), rows.timeTop, frame.timeFont, state.time,
-                                TwoSunsRectSpread.timePad(frame.timeFont, dc.getFontHeight(frame.timeFont)));
-        } else {
-            drawRow(dc, layout, radius, rows.timeTop, dc.getFontHeight(frame.timeFont), frame.timeFonts, [state.time] as Array<String>, TwoSunsPalette.TEXT);
-        }
+        drawTime(dc, layout, frame, state);
         drawBattery(dc, layout, frame, state);
         drawWeather(dc, layout, frame, state);
         drawBand(dc, layout, frame, state);
         if (frame.showLine) {
             drawRow(dc, layout, radius, rows.lineTop, dc.getFontHeight(frame.lineFont), frame.lineFonts, state.skyLines, TwoSunsPalette.TEXT);
         }
+    }
+
+    // A rectangle's spread time is placed and fitted by its digits (TwoSunsRectSpread, TwoSunsRectFit); every other time is a row.
+    (:rect)
+    private function drawTime(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
+        if (frame.timeByInk) {
+            dc.setColor(TwoSunsPalette.TEXT, Graphics.COLOR_TRANSPARENT);
+            TwoSunsDraw.inkText(dc, layout, layout.centerX(), frame.rows.timeTop, frame.timeFont, state.time,
+                                TwoSunsRectSpread.timePad(frame.timeFont, dc.getFontHeight(frame.timeFont)));
+        } else {
+            drawTimeRow(dc, layout, frame, state);
+        }
+    }
+
+    (:norect)
+    private function drawTime(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
+        drawTimeRow(dc, layout, frame, state);
+    }
+
+    private function drawTimeRow(dc as Graphics.Dc, layout as TwoSunsLayout, frame as TwoSunsFrame, state as TwoSunsState) as Void {
+        drawRow(dc, layout, layout.contentRadius(), frame.rows.timeTop, dc.getFontHeight(frame.timeFont), frame.timeFonts, [state.time] as Array<String>, TwoSunsPalette.TEXT);
     }
 
     // The watch battery row is Pro only: Free has no such row.

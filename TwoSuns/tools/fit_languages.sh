@@ -36,11 +36,11 @@ for product in "$@"; do
 project.manifest = $PROJECT/$MANIFEST
 base.sourcePath = $PROJECT/source
 base.resourcePath = $(paths $ALL)$WORK/$lang
-base.excludeAnnotations = $EXCLUDE;mono
+base.excludeAnnotations = $EXCLUDE;mono;norect
 EOF
     # The Instinct products: the black-and-white palette and no Accent or Golden file, as the real jungle has (ADR-024).
     if grep -q "^$product.excludeAnnotations" $PROJECT/$JUNGLE; then
-      echo "$product.excludeAnnotations = $EXCLUDE;color" >> $WORK/$lang.jungle
+      echo "$product.excludeAnnotations = $EXCLUDE;color;rect" >> $WORK/$lang.jungle
       echo "$product.resourcePath = $(paths $INSTINCT)$WORK/$lang" >> $WORK/$lang.jungle
     fi
     prg=$WORK/$lang-$product.prg

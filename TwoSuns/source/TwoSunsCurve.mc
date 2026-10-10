@@ -80,6 +80,6 @@ class TwoSunsCurve {
     // when that is more, so a large hollow bolt is not a hairline (docs/decisions.md ADR-028).
     private static function outlinePen(layout as TwoSunsLayout, band as TwoSunsBand) as Number {
         var scaled = band.glyphHeight / OUTLINE_PEN_DIVISOR;
-        return layout.track() != null && scaled > layout.pen() ? scaled : layout.pen();
+        return layout.onTrack() && scaled > layout.pen() ? scaled : layout.pen();
     }
 }

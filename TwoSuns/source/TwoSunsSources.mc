@@ -80,6 +80,7 @@ class TwoSunsSources {
         if (_curve != null && epoch - _curveAt < TwoSunsConfig.BATTERY_REFRESH_SECONDS && epoch >= _curveAt) {
             return _curve;
         }
+        _curve = null;   // free the old curve before the read: an Instinct has little headroom
         _curve = readCurve(epoch);
         _curveAt = epoch;
         return _curve;
@@ -92,15 +93,14 @@ class TwoSunsSources {
         }
         try {
             var iterator = Toybox.SensorHistory.getBodyBatteryHistory({:period => new Time.Duration(TwoSunsConfig.BATTERY_WINDOW_SECONDS)});
-            var values = [] as Array<Numeric or Null>;
-            var whens = [] as Array<Number or Null>;
+            var curve = new TwoSunsBatteryCurve();
+            var bucketWhen = new Array<Number or Null>[TwoSunsConfig.BATTERY_BUCKETS];
             var sample = iterator.next();
             while (sample != null) {
-                values.add(sample.data);
-                whens.add(sample.when.value());
+                TwoSunsBattery.add(curve, bucketWhen, sample.data, sample.when.value(), epoch);
                 sample = iterator.next();
             }
-            return TwoSunsBattery.build(values, whens, epoch);
+            return TwoSunsBattery.finish(curve, epoch);
         } catch (e instanceof Lang.Exception) {
             return null;
         }

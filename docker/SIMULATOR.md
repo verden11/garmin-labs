@@ -144,6 +144,13 @@ through the existing flag hooks (`FLAGS="-r -w -k" docker/shot.sh ...`, `MC_FLAG
   (the first START did not open the app); fr970, fr265, epix2pro47mm, fr965 and instincte45mm work. (4) The heat-map verdict box
   reads black with `xwd`; `import -window root -crop` works. (5) Always-on burn-in, measured: Days To Go 0.84%, Two Suns 1.09%,
   HeroFace 1.23%, DayArc 2.52% peak luminance on fr965 (the simulator's own pass mark is 10%; not confirmed as a Garmin store rule, unverified).
+- **Real-clock soak (2026-10-10):** `nohup docker/capture.sh <project> /ciq-docker/soak.sh <jungle> <device> [minutes 1440] [tag] [every 900] [flags -r] > log 2>&1 &`
+  runs a face on the real clock, flips High Power / Always-On at every sample, and writes `<project>/bin/soak/<tag>-<device>/`
+  as it goes: `samples.csv` (time, mode, simulator alive, error lines in monkeydo's log, display hash), the display and the
+  status-bar memory per sample, `md.log` (crash traces). Launch with `nohup`, not a tool's background job: docker passes a
+  SIGTERM into the container. A planted out-of-bounds write was caught (`Error: Array Out Of Bounds Error`), so `errors 0` means
+  something; two awake samples with the same hash mean a frozen face. Map a `-r` crash address with the build's
+  `.prg.debug.xml` (`pcToLineNum`). First find: Two Suns Pro 1.2.0 Out Of Memory on the Instincts (Two Suns ADR-024 amendment).
 - **QA captures:** `docker/capture.sh <project> /ciq-docker/qa_shots.sh <jungle> <device> <tag> <HH:MM>...` (fresh simulator per time,
   default settings, native capture plus the window with its memory readout). **Environment variables do not reach a scenario**
   (`capture.sh` passes none): options go in the arguments (a tag starting with `h24` selects 24-hour). Memory: the status bar

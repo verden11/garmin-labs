@@ -130,7 +130,7 @@ function curveRoomKeepsThePlaces(logger as Test.Logger) as Boolean {
     TwoSunsReadings.fillBattery(off, TwoSunsTestStates.curve(50, 3), null, false);
     var bare = new TwoSunsFrame(dc, layout, off, false);
     Test.assert(!off.curveOn && !bare.showCurve);
-    if (full != null && full.showCurve && layout.track() == null) {
+    if (full != null && full.showCurve && !layout.onTrack()) {
         Test.assert(bare.band.glyphLeft > full.band.glyphLeft);   // round: the bare pair is centred, the reserved one at the left
     }
     return true;

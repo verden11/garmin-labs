@@ -8,6 +8,7 @@ import Toybox.Lang;
 // when the rows can still be spread evenly over the box (TwoSunsRectSpread), the time's digits fit the box's width at
 // their place and the weather row keeps its lead cell: rows are never dropped for it. Pure measuring; TwoSunsFrame applies
 // the result.
+(:rect)
 class TwoSunsRectFit {
 
     // [time font, value font] for the largest time that fits, or null when nothing beats the frame's own fonts. The strip for

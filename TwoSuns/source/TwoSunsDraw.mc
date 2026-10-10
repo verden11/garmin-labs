@@ -32,6 +32,7 @@ class TwoSunsDraw {
 
     // A rectangle's time, placed by its digits (TwoSunsRectSpread): drawn centred at `x`, and logged for the screen-fit
     // test by its digits' box (the font box less `pad` above and below, where a number font draws nothing).
+    (:rect)
     static function inkText(dc as Graphics.Dc, layout as TwoSunsLayout, x as Number, y as Number, font as Graphics.FontDefinition,
                             str as String, pad as Number) as Void {
         dc.drawText(x, y, font, str, Graphics.TEXT_JUSTIFY_CENTER);

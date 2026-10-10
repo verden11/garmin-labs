@@ -48,19 +48,13 @@ Support and answers: https://verden.watch/two-suns/support/
 ## App Version
 
 ```text
-1.2.0
+1.2.1
 ```
 
 ## What's New
 
 ```text
-- Rectangular watches get a design of their own: the sun ring becomes a track along the edges of the screen, and the time grows into the room inside it.
-- The Weather and Watch battery rows are off until you switch them on in the settings.
-- The Body Battery number keeps one colour at any level; it no longer dims when the level is low. A reading over an hour old still turns grey.
-- With no Body Battery number, the two dashes are grey like the hollow bolt beside them, and a single reading no longer shows as a lone dot.
-- With the energy curve on, nothing moves when the curve first appears or runs out: the bolt and the number keep their place at its left.
-- The energy curve is a plain white line, and the Body Battery bolt is solid.
-- Daylight reads in hours and minutes, such as "3h 42m of daylight", so it no longer looks like a clock time.
+- Fixes the face running out of memory on Instinct E and Instinct 3 Solar watches.
 ```
 
 ## Hero Image

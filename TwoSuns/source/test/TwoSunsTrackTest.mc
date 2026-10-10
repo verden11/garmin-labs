@@ -11,7 +11,7 @@ const TRACK_SIZES = [[320, 360, 10], [448, 486, 68]] as Array<Array<Number>>;   
 (:debug)
 const RING_WIDTH_PERMILLE_TEST = 25;   // TwoSunsLayout's ring width, of D
 
-(:debug)
+(:debug, :rect)
 function testTrack(size as Array<Number>) as TwoSunsTrack {
     var d = size[0] < size[1] ? size[0] : size[1];
     return new TwoSunsTrack(size[0], size[1], TwoSunsLayout.trackInsetFor(d), d * TwoSunsTrack.CORNER_PERMILLE / TwoSunsConfig.PERMILLE);
@@ -24,7 +24,7 @@ function nearPoint(at as [Float, Float], x as Number, y as Number) as Boolean {
 
 // Noon at top centre, 18:00 a quarter of the length on (the right side's middle), midnight at bottom centre, 06:00 on the
 // left; midnight at the top when the setting says so; every hour is the same length.
-(:test)
+(:test, :rect)
 function trackMapsATimeToTheRightPoint(logger as Test.Logger) as Boolean {
     for (var i = 0; i < TRACK_SIZES.size(); i++) {
         var w = TRACK_SIZES[i][0];
@@ -50,7 +50,7 @@ function trackMapsATimeToTheRightPoint(logger as Test.Logger) as Boolean {
 
 // The track's outer edge stays on the display and inside the rounded glass at every minute, on both sizes; a tick's
 // inner end stays inside the track's inner box.
-(:test)
+(:test, :rect)
 function trackStaysOnTheDisplay(logger as Test.Logger) as Boolean {
     for (var i = 0; i < TRACK_SIZES.size(); i++) {
         var w = TRACK_SIZES[i][0];
@@ -87,7 +87,7 @@ function discInsideGlass(at as [Float, Float], reach as Number, w as Number, h a
 }
 
 // The sun marker with its black halo stays on the display and inside the glass corners at every minute, on both sizes.
-(:test)
+(:test, :rect)
 function sunMarkerStaysOnTheGlass(logger as Test.Logger) as Boolean {
     for (var i = 0; i < TRACK_SIZES.size(); i++) {
         var w = TRACK_SIZES[i][0];
@@ -104,7 +104,7 @@ function sunMarkerStaysOnTheGlass(logger as Test.Logger) as Boolean {
 }
 
 // The inner box is the full width beside the centre, narrower inside its rounded corners, and nothing past its top.
-(:test)
+(:test, :rect)
 function trackBoxFollowsItsCorners(logger as Test.Logger) as Boolean {
     var track = testTrack(TRACK_SIZES[0]);
     var inset = 20;
@@ -122,7 +122,7 @@ function layoutBuildsTheTrackOnlyOnARectangle(logger as Test.Logger) as Boolean 
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
     var rectangle = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_RECTANGLE;
-    Test.assertEqual(layout.track() != null, rectangle);
+    Test.assertEqual(layout.onTrack(), rectangle);
     if (rectangle) {
         var box = dc.getHeight() - 2 * (dc.getWidth() / 2 - layout.contentRadius());
         Test.assertEqual(layout.spanHeight(), box);
@@ -143,7 +143,7 @@ function aCurveWithNoLineIsHidden(logger as Test.Logger) as Boolean {
     Test.assert(line.hasALine());
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
-    if (layout.track() != null) {
+    if (layout.onTrack()) {
         // a small round chord may have no room for any curve, so the room is pinned only where it always fits
         Test.assert(new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], lone, true), false).showCurve);
         Test.assert(new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], line, true), false).showCurve);
@@ -157,7 +157,7 @@ function aCurveWithNoLineIsHidden(logger as Test.Logger) as Boolean {
 function rectangleGrowthKeepsTheWeatherRow(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
-    if (layout.track() == null) {
+    if (!layout.onTrack()) {
         return true;
     }
     var days = [TwoSunsTestStates.widestDay(), TwoSunsTestStates.widestNextDay()] as Array<TwoSunsWeather>;
@@ -179,7 +179,7 @@ function rectangleGrowthKeepsTheWeatherRow(logger as Test.Logger) as Boolean {
 function rectangleBatteryCostsTheTimeOnlyWhenDrawn(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
-    if (layout.track() == null) {
+    if (!layout.onTrack()) {
         return true;
     }
     var days = [null, TwoSunsTestStates.widestDay()] as Array<TwoSunsWeather or Null>;
@@ -207,7 +207,7 @@ function rectangleBatteryCostsTheTimeOnlyWhenDrawn(logger as Test.Logger) as Boo
 function rectangleAlwaysOnTimeIsSmaller(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
-    if (layout.track() == null) {
+    if (!layout.onTrack()) {
         return true;
     }
     var states = TwoSunsTestStates.all();
@@ -223,7 +223,7 @@ function rectangleAlwaysOnTimeIsSmaller(logger as Test.Logger) as Boolean {
 function rectangleFreeNumberStaysSecond(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
-    if (layout.track() == null) {
+    if (!layout.onTrack()) {
         return true;
     }
     var frame = new TwoSunsFrame(dc, layout, TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true), false);
@@ -236,7 +236,7 @@ function rectangleFreeNumberStaysSecond(logger as Test.Logger) as Boolean {
 
 // The rectangle spread: every visible gap the same (within the rounding), margins included, the time's empty bands not
 // counted, the time's digits never touching a neighbour; null when the even gap would be under the minimum.
-(:test)
+(:test, :rect)
 function rectangleSpreadGapsAreEven(logger as Test.Logger) as Boolean {
     var heights = [39, 155, 0, 68, 39] as Array<Number>;
     var pads = [0, 30, 0, 0, 0] as Array<Number>;
@@ -257,7 +257,7 @@ function rectangleSpreadGapsAreEven(logger as Test.Logger) as Boolean {
 function rectangleRowsDoNotDependOnTheWording(logger as Test.Logger) as Boolean {
     var dc = testDc();
     var layout = new TwoSunsLayout(dc);
-    if (layout.track() == null) {
+    if (!layout.onTrack()) {
         return true;
     }
     var state = TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], null, true);

@@ -7,6 +7,7 @@ import Toybox.Math;
 // runs clockwise; a stretch of the day is the same share of the track's length (straight runs plus quarter-circle
 // corners), so the 24 hours are equal time per pixel of length. Also the rounded inner box the rows fit in.
 // Pure geometry plus the drawing of one stretch; TwoSunsRing decides what to draw.
+(:rect)
 class TwoSunsTrack {
     // How round the track's corners are, of D. It clears the Venu X1's rounded glass (68 px radius at 448, measured off
     // the alpha mask of the SDK's device image) and is one proportion on every size (48 px on the 320 px Venu Sq 2,

@@ -4,7 +4,8 @@
 project.manifest = manifest.xml
 base.sourcePath = source
 base.resourcePath = resources;resources-accent-pro;resources-pro;resources-golden-pro;resources-pro-tail
-base.excludeAnnotations = free;mono
+# Rectangle code (TwoSunsTrack, TwoSunsRectFit, TwoSunsRectSpread: `rect`) stays on every round and rectangle product; its `norect` twins go.
+base.excludeAnnotations = free;mono;norect
 # AppName is the one string that differs by tier, and a language does NOT inherit the default's strings
 # (the compiler warns "String id 'AppName' undefined for language ..."). So each language also searches the tier
 # folder; AppName is defined only there, never in resources/ or resources-<lang>/, so no language can override it.
@@ -25,10 +26,11 @@ base.lang.ukr = $(base.lang.ukr);resources-pro
 
 # The Instinct E and 3 Solar (docs/decisions.md ADR-024): the black-and-white palette (`color` excluded) and no Accent or
 # Golden settings file (their folders are left out of the resourcePath: a 1-bit display shows neither). A per-product
-# excludeAnnotations REPLACES the base list, so the tier's own exclude is restated.
-instincte40mm.excludeAnnotations = free;color
+# excludeAnnotations REPLACES the base list, so the tier's own exclude is restated. An Instinct never draws a rectangle, so it
+# also drops the `rect` code (it raised Instinct Pro from 44.4 to 50.0 kB of 59.8 kB and ran it out of memory, 2026-10-10) and keeps the `norect` twins.
+instincte40mm.excludeAnnotations = free;color;rect
 instincte40mm.resourcePath = resources;resources-pro;resources-pro-tail
-instincte45mm.excludeAnnotations = free;color
+instincte45mm.excludeAnnotations = free;color;rect
 instincte45mm.resourcePath = resources;resources-pro;resources-pro-tail
-instinct3solar45mm.excludeAnnotations = free;color
+instinct3solar45mm.excludeAnnotations = free;color;rect
 instinct3solar45mm.resourcePath = resources;resources-pro;resources-pro-tail

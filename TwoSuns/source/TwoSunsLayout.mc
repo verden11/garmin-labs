@@ -44,13 +44,17 @@ class TwoSunsLayout {
     static const DATE_FONTS = [Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
     static const TIME_FONTS = [Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
     // A rectangle's time may grow past its cap into what the inner box leaves (TwoSunsFrame.growTime, ADR-028).
+    (:rect)
     static const RECT_TIME_FONTS = [Graphics.FONT_NUMBER_THAI_HOT, Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM, Graphics.FONT_NUMBER_MILD] as Array<Graphics.FontDefinition>;
     // Free on a rectangle: the Body Battery number grows with the time, up to this share of the time font's height, so it
     // reads clearly second (TwoSunsRectFit, ADR-028). Text fonts only: "--" must draw.
+    (:rect)
     static const RECT_FREE_VALUE_FONTS = [Graphics.FONT_LARGE, Graphics.FONT_MEDIUM, Graphics.FONT_SMALL] as Array<Graphics.FontDefinition>;
     static const RECT_VALUE_TO_TIME_PERMILLE = 450;
+    (:rect)
     static const RECT_PRO_VALUE_FONTS = [Graphics.FONT_SMALL, Graphics.FONT_TINY] as Array<Graphics.FontDefinition>;
     // A rectangle's always-on time: two steps below the awake time in this list, which continues past the number fonts.
+    (:rect)
     static const RECT_SLEEP_TIME_FONTS = [Graphics.FONT_NUMBER_THAI_HOT, Graphics.FONT_NUMBER_HOT, Graphics.FONT_NUMBER_MEDIUM,
                                           Graphics.FONT_NUMBER_MILD, Graphics.FONT_LARGE, Graphics.FONT_MEDIUM] as Array<Graphics.FontDefinition>;
     static const VALUE_FONTS = [Graphics.FONT_SMALL, Graphics.FONT_TINY, Graphics.FONT_XTINY] as Array<Graphics.FontDefinition>;
@@ -77,6 +81,7 @@ class TwoSunsLayout {
     private var _windowH as Number = 0;
     // Rectangular screens only (Venu Sq 2, Sq 2 Music, Venu X1): the sky ring is a rounded-rectangle track and the rows fit
     // the rounded box inside it (ADR-028, the rectangle track). Null on round and Instinct screens, whose paths never read it.
+    (:rect)
     private var _track as TwoSunsTrack?;
 
     function initialize(dc as Graphics.Dc) {
@@ -95,14 +100,37 @@ class TwoSunsLayout {
             _windowW = window.width as Number;
             _windowH = window.height as Number;
         }
+        initTrack();
+    }
+
+    // The rectangle code (TwoSunsTrack, TwoSunsRectFit, TwoSunsRectSpread and what only they reach) is `(:rect)`: the Instinct
+    // products exclude it (monkey.jungle, monkey.free.jungle), a `(:norect)` twin doing what a non-rectangle does.
+    (:rect)
+    private function initTrack() as Void {
         if (System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_RECTANGLE) {
             _track = new TwoSunsTrack(_width, _height, trackInsetFor(_d), _d * TwoSunsTrack.CORNER_PERMILLE / TwoSunsConfig.PERMILLE);
         }
     }
 
-    // The rectangle's track (ADR-028); null on round and Instinct screens.
+    (:norect)
+    private function initTrack() as Void {
+    }
+
+    // The rectangle's track (ADR-028); null on round screens. Rectangle code only: shared code asks onTrack().
+    (:rect)
     function track() as TwoSunsTrack? {
         return _track;
+    }
+
+    // True on a rectangle (the track exists); always false in a build without the rectangle code.
+    (:rect)
+    function onTrack() as Boolean {
+        return _track != null;
+    }
+
+    (:norect)
+    function onTrack() as Boolean {
+        return false;
     }
 
     // The Instinct's physical window in display coordinates; null on every other product.
@@ -160,7 +188,7 @@ class TwoSunsLayout {
         if (_subscreen != null) {
             return _height - 2 * edgeMargin();   // top margin to bottom margin (the stack starts at the top, beside the window)
         }
-        if (_track != null) {
+        if (onTrack()) {
             return _height - 2 * (_radius - contentRadius());   // the whole inner box: a rectangle has no chord to keep clear of
         }
         return 2 * contentRadius() * SPAN_PERMILLE / TwoSunsConfig.PERMILLE;
@@ -279,7 +307,7 @@ class TwoSunsLayout {
     }
 
     function ringRadius() as Number {
-        if (_track != null) {
+        if (onTrack()) {
             return _radius - trackInsetFor(_d);
         }
         if (_subscreen != null) {
@@ -315,9 +343,15 @@ class TwoSunsLayout {
     }
 
     // Round: the chord of the circle of `radius`. Rectangle: the rounded box inset by what `radius` is short of half of D.
+    (:rect)
     private function halfWidthWithin(radius as Number, dy as Number) as Number {
         var track = _track;
         return track == null ? chordHalfWidth(radius, dy) : track.halfWidthAt(_radius - radius, dy);
+    }
+
+    (:norect)
+    private function halfWidthWithin(radius as Number, dy as Number) as Number {
+        return chordHalfWidth(radius, dy);
     }
 
     // The whole display, for the screen-fit test.

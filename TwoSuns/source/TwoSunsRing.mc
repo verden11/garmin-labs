@@ -25,21 +25,12 @@ class TwoSunsRing {
         // and what is gone or twilight is a hairline over it (ADR-024).
         dc.setPenWidth(TwoSunsPalette.MONO ? 1 : layout.ringWidth());
         dc.setColor(TwoSunsPalette.NIGHT, Graphics.COLOR_TRANSPARENT);
-        var track = layout.track();
-        if (track != null) {
-            track.drawSpan(dc, 0.0, track.length(), layout.ringWidth());
-        } else {
-            dc.drawCircle(cx, cy, radius);
-        }
+        drawNight(dc, layout, cx, cy, radius);
         for (var i = 0; i < plan.arcs.size(); i++) {
             var arc = plan.arcs[i];
             dc.setPenWidth(TwoSunsPalette.MONO && (arc.kind == TwoSunsConfig.RING_TWILIGHT || arc.kind == TwoSunsConfig.RING_DAY_GONE) ? 1 : layout.ringWidth());
             dc.setColor(colorFor(arc.kind, state.accent), Graphics.COLOR_TRANSPARENT);
-            if (track != null) {
-                drawStretch(dc, track, layout.ringWidth(), arc, state.orientation);
-            } else {
-                drawArc(dc, cx, cy, radius, arc, state.orientation);
-            }
+            drawStretchOrArc(dc, layout, cx, cy, radius, arc, state.orientation);
         }
         dc.setPenWidth(TICK_PEN);
         dc.setColor(TwoSunsPalette.TEXT, Graphics.COLOR_TRANSPARENT);
@@ -84,7 +75,41 @@ class TwoSunsRing {
         dc.drawArc(cx, cy, radius, Graphics.ARC_CLOCKWISE, start, end);
     }
 
+    // The night track, all round: the circle, or on a rectangle the whole track.
+    (:rect)
+    private static function drawNight(dc as Graphics.Dc, layout as TwoSunsLayout, cx as Number, cy as Number, radius as Number) as Void {
+        var track = layout.track();
+        if (track != null) {
+            track.drawSpan(dc, 0.0, track.length(), layout.ringWidth());
+        } else {
+            dc.drawCircle(cx, cy, radius);
+        }
+    }
+
+    (:norect)
+    private static function drawNight(dc as Graphics.Dc, layout as TwoSunsLayout, cx as Number, cy as Number, radius as Number) as Void {
+        dc.drawCircle(cx, cy, radius);
+    }
+
+    (:rect)
+    private static function drawStretchOrArc(dc as Graphics.Dc, layout as TwoSunsLayout, cx as Number, cy as Number, radius as Number,
+                                             arc as TwoSunsRingArc, orientation as Number) as Void {
+        var track = layout.track();
+        if (track != null) {
+            drawStretch(dc, track, layout.ringWidth(), arc, orientation);
+        } else {
+            drawArc(dc, cx, cy, radius, arc, orientation);
+        }
+    }
+
+    (:norect)
+    private static function drawStretchOrArc(dc as Graphics.Dc, layout as TwoSunsLayout, cx as Number, cy as Number, radius as Number,
+                                             arc as TwoSunsRingArc, orientation as Number) as Void {
+        drawArc(dc, cx, cy, radius, arc, orientation);
+    }
+
     // A stretch of the day on the rectangle's track: the same share of its length as of the day (ADR-028).
+    (:rect)
     private static function drawStretch(dc as Graphics.Dc, track as TwoSunsTrack, pen as Number, arc as TwoSunsRingArc, orientation as Number) as Void {
         var from = track.distanceFor(arc.from, orientation);
         var span = (arc.to - arc.from) * track.length() / TwoSunsConfig.MINUTES_PER_DAY;
@@ -93,12 +118,22 @@ class TwoSunsRing {
 
     // The point at a minute of the ring, `offset` px outward from the ring's centreline (negative: inward): on the
     // circle of the ring, or across the rectangle's track.
+    (:rect)
     private static function pointAt(layout as TwoSunsLayout, offset as Number, minute as Number, orientation as Number) as Array<Number> {
         var track = layout.track();
         if (track != null) {
             var at = track.pointAt(track.distanceFor(minute, orientation), offset.toFloat());
             return [Math.round(at[0]).toNumber(), Math.round(at[1]).toNumber()] as Array<Number>;
         }
+        return circlePointAt(layout, offset, minute, orientation);
+    }
+
+    (:norect)
+    private static function pointAt(layout as TwoSunsLayout, offset as Number, minute as Number, orientation as Number) as Array<Number> {
+        return circlePointAt(layout, offset, minute, orientation);
+    }
+
+    private static function circlePointAt(layout as TwoSunsLayout, offset as Number, minute as Number, orientation as Number) as Array<Number> {
         var radius = layout.ringRadius() + offset;
         var angle = TwoSunsRingPlan.angleFor(minute, orientation) * Math.PI / TwoSunsConfig.DEGREES_PER_HALF_TURN;
         return [layout.ringCenterX() + (radius * Math.cos(angle)).toNumber(), layout.ringCenterY() - (radius * Math.sin(angle)).toNumber()] as Array<Number>;

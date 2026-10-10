@@ -223,7 +223,7 @@ Owner notes, 2026-09-27, from the real-device look. Neither is v1 or blocking; b
 | Nobody pays for a single-idea face | about 75 paid Body Battery/sun faces, 2 at 1,000+ | Flagged; same price review and success test as Days To Go |
 | DST day ring jump | Wall-clock ring | Documented; a test covers 29 March and 25 October London |
 | Polar-circle transition days | USNO vs one-noon declination | ±1 day accepted, tested and documented |
-| 64 KB watches and older firmware | Tier B excluded; the 64 KB Instinct E and 3 Solar are in since ADR-024 (Pro 45.8 of 59.8 kB, `../../docker/SIMULATOR.md`) | `has` guards everywhere; v1 minimum memory is 128 KB |
+| 64 KB watches and older firmware | Tier B excluded; the 64 KB Instinct E and 3 Solar are in since ADR-024 (Pro 44.4 of 59.8 kB since 2026-10-10, after an Out Of Memory crash at 50.0 kB: `compatibility.md` "Memory, 2026-10-10", ADR-024 amendment) | `has` guards everywhere; v1 minimum memory is 128 KB |
 
 ## Success and stop test (proposal, owner to confirm)
 

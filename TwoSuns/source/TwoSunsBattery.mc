@@ -1,8 +1,9 @@
 import Toybox.Lang;
 import Toybox.Math;
 
-// Turns SensorHistory Body Battery samples into a TwoSunsBatteryCurve. Pure: the caller reads the
-// iterator and passes parallel arrays, so every rule below is unit-tested without a watch.
+// Turns SensorHistory Body Battery samples into a TwoSunsBatteryCurve. Pure: the caller feeds the
+// iterator's samples one by one to `add` (the tests pass parallel arrays to `build`), so every rule below
+// is unit-tested without a watch.
 class TwoSunsBattery {
 
     // `whens` are epoch seconds (each sample's own `when`, never getOldestSampleTime). Order does not matter.
@@ -11,30 +12,37 @@ class TwoSunsBattery {
     static function build(values as Array<Numeric or Null>, whens as Array<Number or Null>, now as Number) as TwoSunsBatteryCurve {
         var curve = new TwoSunsBatteryCurve();
         var bucketWhen = new Array<Number or Null>[TwoSunsConfig.BATTERY_BUCKETS];
-        var start = now - TwoSunsConfig.BATTERY_WINDOW_SECONDS;
         var count = values.size() < whens.size() ? values.size() : whens.size();
         for (var i = 0; i < count; i++) {
-            var value = values[i];
-            var when = whens[i];
-            if (value == null || when == null) {
-                continue;
-            }
-            if (!isValidValue(value) || when < start || when > now + TwoSunsConfig.BATTERY_FUTURE_SLACK_SECONDS) {
-                continue;
-            }
-            var level = Math.round(value).toNumber();
-            var index = bucketIndex(when, start);
-            var held = bucketWhen[index];
-            if (held == null || when > held) {
-                curve.buckets[index] = level;
-                bucketWhen[index] = when;
-            }
-            var newest = curve.newestWhen;
-            if (newest == null || when > newest) {
-                curve.newestWhen = when;
-                curve.current = level;
-            }
+            add(curve, bucketWhen, values[i], whens[i], now);
         }
+        return finish(curve, now);
+    }
+
+    // One sample into the curve; the newest sample of each bucket wins. Fed straight from the iterator so a
+    // read never holds the raw samples on top of it (an Instinct has 59.8 kB; simulator soak, 2026-10-10).
+    (:pro)
+    static function add(curve as TwoSunsBatteryCurve, bucketWhen as Array<Number or Null>, value as Numeric or Null, when as Number or Null, now as Number) as Void {
+        var start = now - TwoSunsConfig.BATTERY_WINDOW_SECONDS;
+        if (value == null || when == null || !isValidValue(value) || when < start || when > now + TwoSunsConfig.BATTERY_FUTURE_SLACK_SECONDS) {
+            return;
+        }
+        var level = Math.round(value).toNumber();
+        var index = bucketIndex(when, start);
+        var held = bucketWhen[index];
+        if (held == null || when > held) {
+            curve.buckets[index] = level;
+            bucketWhen[index] = when;
+        }
+        var newest = curve.newestWhen;
+        if (newest == null || when > newest) {
+            curve.newestWhen = when;
+            curve.current = level;
+        }
+    }
+
+    (:pro)
+    static function finish(curve as TwoSunsBatteryCurve, now as Number) as TwoSunsBatteryCurve {
         var newestWhen = curve.newestWhen;
         curve.stale = newestWhen != null && now - newestWhen > TwoSunsConfig.BATTERY_STALE_SECONDS;
         return curve;
