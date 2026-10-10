@@ -66,7 +66,7 @@ class TwoSunsWeatherRow {
     }
 
     private static function hasLow(weather as TwoSunsWeather) as Boolean {
-        return weather.nextDay && weather.lowText.length() > 0;
+        return weather.nextDay && weather.lowText.length() > 0 && weather.leadText.length() > 0;   // a low is drawn after its high
     }
 
     // Which planned cell the i-th drawn one is, when `count` of `size` fit: spread over the plan, so the last (the one
