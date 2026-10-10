@@ -85,6 +85,43 @@ the ones marked *checked* were run on Two Suns and worked. Greyed items depend o
 | Simulation | Activity Data, Activity Monitoring (`sim_activity`), **Time Simulation**, Background Events, Push Notification, Phone App Message, Complications | live HR, steps/goals, fast-forwarding the clock (midnight flips, window changes), background and complication events |
 | Glance | an app with a glance opens on the glance list on glance devices | *checked earlier:* HeroSet's glance (`HeroSet/tools/drive_screens.sh`, step `0b-glance`). Settings > Glance Launch Mode is greyed for a face |
 
+### Profiling (from Garmin's Profiling article, 2026-10-10)
+
+`monkeyc -k` (`--profile`, confirmed in SDK 9.2.0's `--help`) builds with profiling support. Nothing in `docker/` sets it by default: pass it
+through the existing flag hooks (`FLAGS="-r -w -k" docker/shot.sh ...`, `MC_FLAGS="-w --typecheck 3 -k"` for the test runner).
+
+- **Simulator:** File > View Profiler, **Start** at the point to measure, **Stop**. Profiler > Settings sets a sample period that stops it for you.
+  Columns: Total Time (us, with callees), **Actual** Time (us, self only), Average Time (us per call), Call Count, Call Stack. Re-sort by each:
+  a cheap function called thousands of times (a draw helper in `onUpdate`) shows in Call Count and Total, not in Average.
+- **Watch:** build with `-k` (VS Code: Monkey C Compiler Options in the workspace settings), `Monkey C: Build for Device`, sideload and run;
+  the watch writes `<appname>.PRF` to `GARMIN/APPS/LOGS`. Load it in the simulator's profiler with **Load**. Copy it into `device-test/`.
+- **Scripted (2026-10-10):** `docker/capture.sh <project> /ciq-docker/profile.sh <jungle> <device> [seconds 30] [tag]` writes
+  `<project>/bin/profile/<tag>-<device>/`: `startup-by-{total,calls}-1.png` (the table at the first Stop: initialize and everything since
+  launch, about 15 frames) and `by-{actual,total,calls}-{1,2,3}.png` (a 30 s steady-state window, sorted by self time / time with callees / Call
+  Count, three pages each), plus `APP.PRF` (the simulator's own capture; Load reopens it). A `-k` build opens the Profiler window by itself and it
+  collects from launch, so the script presses Stop, drags the pane splitter right (so Average Time and Call Count show), Start, waits, Stop.
+  A person reads the PNGs: no screenshot is parsed (`APP.PRF` is a binary protobuf stream with no function names). Header x positions
+  (Total 390, Actual 520, Call Count 775) hit every app's columns, which differ in width; a header click flips the order whatever column it
+  is on, the script tracks that. The Filter box did not take typed text over xdotool.
+- **Limits:** a watch **app** (HeroSet) does not attach: the window stays on "Load an app to use the profiler", Stop writes no `APP.PRF` and
+  an error box blocks the rest. Only faces are profiled. The first `onUpdate` cannot be isolated: the profiler only shows totals and a
+  per-call average, so a worst single call (the watchdog's question) needs a wrist `.PRF`.
+- **Read it with care:** simulator timings are the host's emulation, not the watch's: `Dc.drawText` and `Dc.clear` dominate every face, which
+  says how the simulator draws, not what a watch spends. **Call Count does not depend on that speed**: divide it by `onUpdate`'s count for
+  calls per frame. A finding is our own code repeating unchanged work each frame **and** worth more than a percent of `onUpdate`; absolute
+  `drawText`/`clear` time is never one. `-k` adds overhead, so never profile with the build that goes to the store.
+- **First run, fr965, 30 s, 32 `onUpdate` frames per face, all eight face builds (2026-10-10, simulator only): nothing fixed, one borderline left.**
+  `onUpdate` averages 36 to 55 ms in the simulator (DayArc Pro 55, TwoSuns Pro 48, HeroFace Pro 48, Days To Go Pro 38, Free and Simple
+  builds 36 to 52). Self time of every function of ours is under 1% of it (DayArc `complicationValue` 13.6 ms and `cellsCovered` 12.5 ms of
+  1770 ms; Days To Go `Settings.load` 9 ms of 1228 ms; TwoSuns `Settings.load` 10.6 ms of 1531 ms). The busiest counts are trivial helpers
+  at 0.2 to 2 us a call (`Array.size`, `permille` 136 a frame, `getFontAscent`). Days To Go re-reads Properties every frame (12 `getValue`
+  calls a frame) on purpose (its CLAUDE.md: the on-watch picker writes Properties with no callback), 0.4%. DayArc caches its plan
+  (`DayArcPlanCache`) and re-checks it each frame. **Borderline, not changed:** TwoSuns rebuilds `skyText` and `sunriseLine` (4 calls a
+  frame each, 1.6 to 2.7% of `onUpdate` with their callees) and `TwoSunsSources.read` (6 to 7%) every frame from unchanged inputs. A cache
+  would cost about 0.2 ms a call in the simulator, add state to invalidate, and cost memory on a face at 45.8 of 59.8 kB on an Instinct;
+  `TwoSunsSources.mc` also has uncommitted edits from another session. Redraw at 1 Hz is the high-power cadence, not a defect. Not
+  profiled: HeroSet (an app: see Limits). Re-run after a layout or data-path change, and when a face gains per-frame work.
+
 ### Recipes built on these (2026-10-05)
 
 - **Watch-framed listing images (chassis and part of the strap), any device, no simulator:** `docker/frame_shot.sh <device> <screen.png> <out.png> [scale%]`
