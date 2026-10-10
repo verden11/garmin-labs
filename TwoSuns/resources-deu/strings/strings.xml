@@ -28,6 +28,9 @@
     <string id="accent_pink">Pink</string>
     <string id="accent_violet">Violett</string>
     <string id="accent_winter">Winter</string>
+    <string id="accent_cyan">Cyan</string>
+    <string id="accent_lime">Limette</string>
+    <string id="accent_magenta">Magenta</string>
     <string id="setting_orientation">Ausrichtung des Rings</string>
     <string id="orientation_noon">Mittag oben</string>
     <string id="orientation_midnight">Mitternacht oben</string>

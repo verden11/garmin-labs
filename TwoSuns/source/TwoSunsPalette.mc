@@ -20,7 +20,9 @@ class TwoSunsPalette {
     // even on a value that is not low: 2026-09-27, owner feedback on a real-device photo). Autumn and
     // Winter are the old amber and white, renamed and reordered, not recoloured: naming them as a mood
     // rather than a raw colour makes clear they are a deliberate choice, not a status indicator.
-    static const ACCENTS = [0x55AAFF, 0x55FFAA, 0xFFAA00, 0xAA55FF, 0xFF55AA, 0xFFFFFF] as Array<Number>;
+    // Ids 6-8 (cyan, lime, magenta) are Pro's (ROADMAP 8.3, ADR-020 amendment 2026-10-10): Free's settings list stops at 5.
+    // Yellow is the weather number's hue and orange and coral sit on the golden hour, so they are not offered here.
+    static const ACCENTS = [0x55AAFF, 0x55FFAA, 0xFFAA00, 0xAA55FF, 0xFF55AA, 0xFFFFFF, 0x00FFFF, 0x55FF55, 0xFF55FF] as Array<Number>;
 
     static function accent(index as Number) as Number {
         return index >= 0 && index < ACCENTS.size() ? ACCENTS[index] : ACCENTS[0];
@@ -71,7 +73,7 @@ class TwoSunsPalette {
     static const MUTED = 0xFFFFFF;
     static const TRACK = 0xFFFFFF;
     static const SLEEP_TEXT = 0xFFFFFF;
-    static const ACCENTS = [0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF] as Array<Number>;
+    static const ACCENTS = [0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF, 0xFFFFFF] as Array<Number>;
     static const NIGHT = 0xFFFFFF;
     static const TWILIGHT = 0xFFFFFF;
     static const GOLDEN = 0xFFFFFF;

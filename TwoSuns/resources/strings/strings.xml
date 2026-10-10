@@ -32,6 +32,9 @@
     <string id="accent_violet">Violet</string>
     <string id="accent_pink">Pink</string>
     <string id="accent_winter">Winter</string>
+    <string id="accent_cyan">Cyan</string>
+    <string id="accent_lime">Lime</string>
+    <string id="accent_magenta">Magenta</string>
     <string id="setting_orientation">Ring orientation</string>
     <string id="orientation_noon">Noon at the top</string>
     <string id="orientation_midnight">Midnight at the top</string>

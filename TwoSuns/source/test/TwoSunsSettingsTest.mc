@@ -7,7 +7,7 @@ import Toybox.Test;
 // Free + Pro ladder); Free has the tests at the end of this file and the accent tests in TwoSunsAccentTest.
 (:test, :pro)
 function badSettingsFallBackToDefaults(logger as Test.Logger) as Boolean {
-    var s = new TwoSunsSettings({"Accent" => 6, "Orientation" => 2, "Golden" => -1, "Curve" => "x", "Date" => 2.5, "Weather" => 7, "Battery" => -3} as Dictionary);
+    var s = new TwoSunsSettings({"Accent" => TwoSunsConfig.ACCENT_COUNT, "Orientation" => 2, "Golden" => -1, "Curve" => "x", "Date" => 2.5, "Weather" => 7, "Battery" => -3} as Dictionary);
     Test.assertEqual(s.accent, 0);
     Test.assertEqual(s.orientation, TwoSunsConfig.ORIENTATION_NOON_TOP);
     Test.assert(!s.golden);
@@ -126,5 +126,20 @@ function customizeMenuHasEveryProSetting(logger as Test.Logger) as Boolean {
         var colourOnly = ids[i] == TwoSunsSettingsMenu.ITEM_ACCENT || ids[i] == TwoSunsSettingsMenu.ITEM_GOLDEN;
         Test.assertMessage((menu.findItemById(ids[i]) >= 0) == !(TwoSunsPalette.MONO && colourOnly), "Customize item " + i);
     }
+    return true;
+}
+
+// Pro offers ids 6-8 (cyan, lime, magenta); Free stops at 5 and treats a Pro id as unknown (ROADMAP 8.3).
+(:test, :pro, :color)
+function proAccentsAreReadable(logger as Test.Logger) as Boolean {
+    Test.assertEqual(new TwoSunsSettings({"Accent" => 8} as Dictionary).accent, 8);
+    Test.assertEqual(TwoSunsPalette.accent(8), 0xFF55FF);
+    return true;
+}
+
+(:test, :free)
+function freeIgnoresProAccents(logger as Test.Logger) as Boolean {
+    Test.assertEqual(new TwoSunsSettings({"Accent" => 6} as Dictionary).accent, 0);
+    Test.assertEqual(new TwoSunsSettings({"Accent" => 5} as Dictionary).accent, 5);
     return true;
 }

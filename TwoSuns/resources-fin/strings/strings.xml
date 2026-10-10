@@ -28,6 +28,9 @@
     <string id="accent_pink">Vaaleanpunainen</string>
     <string id="accent_violet">Violetti</string>
     <string id="accent_winter">Talvi</string>
+    <string id="accent_cyan">Syaani</string>
+    <string id="accent_lime">Limenvihreä</string>
+    <string id="accent_magenta">Magenta</string>
     <string id="setting_orientation">Renkaan suunta</string>
     <string id="orientation_noon">Keskipäivä ylhäällä</string>
     <string id="orientation_midnight">Keskiyö ylhäällä</string>

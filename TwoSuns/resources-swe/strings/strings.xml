@@ -28,6 +28,9 @@
     <string id="accent_pink">Rosa</string>
     <string id="accent_violet">Violett</string>
     <string id="accent_winter">Vinter</string>
+    <string id="accent_cyan">Cyan</string>
+    <string id="accent_lime">Limegrön</string>
+    <string id="accent_magenta">Magenta</string>
     <string id="setting_orientation">Ringens riktning</string>
     <string id="orientation_noon">Mitt på dagen överst</string>
     <string id="orientation_midnight">Midnatt överst</string>

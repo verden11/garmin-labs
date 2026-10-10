@@ -8,6 +8,9 @@
             <listEntry value="3">@Strings.accent_violet</listEntry>
             <listEntry value="4">@Strings.accent_pink</listEntry>
             <listEntry value="5">@Strings.accent_winter</listEntry>
+            <listEntry value="6">@Strings.accent_cyan</listEntry>
+            <listEntry value="7">@Strings.accent_lime</listEntry>
+            <listEntry value="8">@Strings.accent_magenta</listEntry>
         </settingConfig>
     </setting>
 </settings>

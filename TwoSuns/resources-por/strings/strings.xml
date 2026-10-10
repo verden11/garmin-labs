@@ -28,6 +28,9 @@
     <string id="accent_pink">Rosa</string>
     <string id="accent_violet">Violeta</string>
     <string id="accent_winter">Inverno</string>
+    <string id="accent_cyan">Ciano</string>
+    <string id="accent_lime">Lima</string>
+    <string id="accent_magenta">Magenta</string>
     <string id="setting_orientation">Orientação do anel</string>
     <string id="orientation_noon">Meio-dia em cima</string>
     <string id="orientation_midnight">Meia-noite em cima</string>

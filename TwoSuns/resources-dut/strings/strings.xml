@@ -28,6 +28,9 @@
     <string id="accent_pink">Roze</string>
     <string id="accent_violet">Paars</string>
     <string id="accent_winter">Winter</string>
+    <string id="accent_cyan">Cyaan</string>
+    <string id="accent_lime">Limoen</string>
+    <string id="accent_magenta">Magenta</string>
     <string id="setting_orientation">Richting van de ring</string>
     <string id="orientation_noon">Middag boven</string>
     <string id="orientation_midnight">Middernacht boven</string>

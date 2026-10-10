@@ -22,7 +22,8 @@ Run:  python3 tools/gen_settings.py            # write both tiers
 import sys
 from pathlib import Path
 
-ACCENTS = ["sky", "mint", "autumn", "violet", "pink", "winter"]   # TwoSunsPalette.ACCENTS order
+ACCENTS = ["sky", "mint", "autumn", "violet", "pink", "winter", "cyan", "lime", "magenta"]   # TwoSunsPalette.ACCENTS order
+FREE_ACCENTS = 6   # Free offers ids 0-5; 6-8 are Pro's (ROADMAP 8.3)
 XSI = ('xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" '
        'xsi:noNamespaceSchemaLocation="https://developer.garmin.com/downloads/connect-iq/resources.xsd"')
 
@@ -30,8 +31,9 @@ TIERS = ("free", "pro")
 PRO_ONLY_KEYS = ("Orientation", "Golden", "Curve", "Date", "Weather", "Battery")
 
 # (property id, title id, default, [(value, string id)]). Keep in step with TwoSunsConfig (KEY_*, ACCENT_COUNT, ON/OFF).
-# Accent ids are append-only. 0-5 are shipped and are the Free list too; ids 6-11 (cyan, lime, yellow, magenta; orange and coral
-# are not admitted here) are deferred, and when they land they are Pro-only (research_notes/Free and Pro ladder/accent_roster.md).
+# Accent ids are append-only. 0-5 are shipped and are the Free list too; ids 6-8 (cyan, lime, magenta) are Pro-only since
+# 2026-10-10 (ROADMAP 8.3). Yellow (the weather number), orange and coral (the golden hour) are not admitted here
+# (research_notes/Free and Pro ladder/accent_roster.md).
 SETTINGS = [
     ("Accent", "setting_accent", 0, [(i, f"accent_{a}") for i, a in enumerate(ACCENTS)]),
     ("Orientation", "setting_orientation", 0, [(0, "orientation_noon"), (1, "orientation_midnight")]),
@@ -44,7 +46,14 @@ SETTINGS = [
 
 
 def tier_settings(tier):
-    return [s for s in SETTINGS if tier == "pro" or s[0] not in PRO_ONLY_KEYS]
+    out = []
+    for s in SETTINGS:
+        if tier == "free" and s[0] in PRO_ONLY_KEYS:
+            continue
+        if tier == "free" and s[0] == "Accent":
+            s = (s[0], s[1], s[2], s[3][:FREE_ACCENTS])
+        out.append(s)
+    return out
 
 
 # The settings files, in the order the phone shows them (the compiler merges the files in resourcePath order). Accent and

@@ -62,14 +62,28 @@ class TwoSunsSettingsDelegate extends WatchUi.Menu2InputDelegate {
     }
 
     private function accentLabels() as Array<String> {
-        return [
+        return proAccentLabels([
             WatchUi.loadResource(Rez.Strings.accent_sky) as String,
             WatchUi.loadResource(Rez.Strings.accent_mint) as String,
             WatchUi.loadResource(Rez.Strings.accent_autumn) as String,
             WatchUi.loadResource(Rez.Strings.accent_violet) as String,
             WatchUi.loadResource(Rez.Strings.accent_pink) as String,
             WatchUi.loadResource(Rez.Strings.accent_winter) as String,
-        ];
+        ]);
+    }
+
+    // Pro's accents after Free's six, in id order (ROADMAP 8.3).
+    (:pro)
+    private function proAccentLabels(labels as Array<String>) as Array<String> {
+        labels.add(WatchUi.loadResource(Rez.Strings.accent_cyan) as String);
+        labels.add(WatchUi.loadResource(Rez.Strings.accent_lime) as String);
+        labels.add(WatchUi.loadResource(Rez.Strings.accent_magenta) as String);
+        return labels;
+    }
+
+    (:free)
+    private function proAccentLabels(labels as Array<String>) as Array<String> {
+        return labels;
     }
 
     (:pro)

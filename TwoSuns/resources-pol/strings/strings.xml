@@ -28,6 +28,9 @@
     <string id="accent_pink">Róż</string>
     <string id="accent_violet">Fiolet</string>
     <string id="accent_winter">Zima</string>
+    <string id="accent_cyan">Cyjan</string>
+    <string id="accent_lime">Limonka</string>
+    <string id="accent_magenta">Magenta</string>
     <string id="setting_orientation">Układ pierścienia</string>
     <string id="orientation_noon">Południe (12:00) u góry</string>
     <string id="orientation_midnight">Północ (0:00) u góry</string>

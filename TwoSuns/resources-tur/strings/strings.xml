@@ -28,6 +28,9 @@
     <string id="accent_pink">Pembe</string>
     <string id="accent_violet">Mor</string>
     <string id="accent_winter">Kış</string>
+    <string id="accent_cyan">Camgöbeği</string>
+    <string id="accent_lime">Fıstık yeşili</string>
+    <string id="accent_magenta">Macenta</string>
     <string id="setting_orientation">Halka yönü</string>
     <string id="orientation_noon">Öğlen üstte</string>
     <string id="orientation_midnight">Gece yarısı üstte</string>

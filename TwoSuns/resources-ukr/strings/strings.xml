@@ -28,6 +28,9 @@
     <string id="accent_pink">Рожевий</string>
     <string id="accent_violet">Фіолетовий</string>
     <string id="accent_winter">Зимовий</string>
+    <string id="accent_cyan">Бірюзовий</string>
+    <string id="accent_lime">Лаймовий</string>
+    <string id="accent_magenta">Пурпуровий</string>
     <string id="setting_orientation">Орієнтація кільця</string>
     <string id="orientation_noon">Полудень (12:00) угорі</string>
     <string id="orientation_midnight">Північ (0:00) угорі</string>

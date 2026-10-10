@@ -18,8 +18,19 @@ class TwoSunsSettings {
     var battery as Boolean = false;
 
     function initialize(values as Dictionary) {
-        accent = within(values, TwoSunsConfig.KEY_ACCENT, TwoSunsConfig.ACCENT_COUNT - 1, 0);
+        accent = within(values, TwoSunsConfig.KEY_ACCENT, accentCount() - 1, 0);
         readPro(values);
+    }
+
+    // Free offers ids 0-5; Pro adds 6-8 (ROADMAP 8.3). A Pro id reaching Free falls back to the default.
+    (:pro)
+    static function accentCount() as Number {
+        return TwoSunsConfig.ACCENT_COUNT;
+    }
+
+    (:free)
+    static function accentCount() as Number {
+        return TwoSunsConfig.FREE_ACCENT_COUNT;
     }
 
     // Pro: the six settings only Pro has.

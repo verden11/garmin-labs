@@ -28,6 +28,9 @@
     <string id="accent_pink">Rožinė</string>
     <string id="accent_violet">Violetinė</string>
     <string id="accent_winter">Žieminė</string>
+    <string id="accent_cyan">Žalsvai mėlyna</string>
+    <string id="accent_lime">Salotinė</string>
+    <string id="accent_magenta">Purpurinė</string>
     <string id="setting_orientation">Žiedo padėtis</string>
     <string id="orientation_noon">Vidurdienis viršuje</string>
     <string id="orientation_midnight">Vidurnaktis viršuje</string>

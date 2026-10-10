@@ -28,6 +28,9 @@
     <string id="accent_pink">Rose</string>
     <string id="accent_violet">Violet</string>
     <string id="accent_winter">Hiver</string>
+    <string id="accent_cyan">Cyan</string>
+    <string id="accent_lime">Vert lime</string>
+    <string id="accent_magenta">Magenta</string>
     <string id="setting_orientation">Orientation de l'anneau</string>
     <string id="orientation_noon">Midi en haut</string>
     <string id="orientation_midnight">Minuit en haut</string>

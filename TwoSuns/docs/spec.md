@@ -48,7 +48,7 @@ Status: **Approved by owner 2026-10-04 (ADR-020, ADR-021), uploaded 2026-10-04 (
 | Ring orientation (noon or midnight at top) | no (noon at top) | yes |
 | Date row (setting) | no | yes |
 | Accent colour, ids 0 to 5 (sky, mint, autumn, violet, pink, winter), on phone and in Customize | **yes** (every face has accent in Free, studio rule) | yes |
-| Accent ids 6 to 11 | no | **deferred**: not built; Pro only when they come (cyan, lime, yellow, magenta; orange and coral not admitted: golden hour is `#FF5500`) |
+| Accent ids 6 to 8 (cyan, lime, magenta) | no | **yes** (2026-10-10, ROADMAP 8.3; unreleased); yellow (the weather number), orange and coral (golden hour `#FF5500`) not admitted |
 | Always-on frame (time, value, sun sentence) | yes | yes |
 | Languages (15), the 69 products | yes | yes |
 
@@ -128,7 +128,7 @@ All lists (Properties only for settings; `Application.Storage` only for remember
 
 | Setting | Values | Default |
 |---|---|---|
-| Accent colour | six colours (64-colour safe): sky, mint, autumn, violet, pink, winter | sky (2026-09-27: changed from amber — amber read as "low" warning at normal value, on real-device photo; autumn and winter are old amber and white, renamed not recoloured) |
+| Accent colour | six colours (64-colour safe): sky, mint, autumn, violet, pink, winter; Pro adds cyan, lime, magenta | sky (2026-09-27: changed from amber — amber read as "low" warning at normal value, on real-device photo; autumn and winter are old amber and white, renamed not recoloured) |
 | Ring orientation | Noon at the top / Midnight at the top | Noon at the top |
 | Golden hour | On / Off | Off |
 | Energy curve | On / Off | On |

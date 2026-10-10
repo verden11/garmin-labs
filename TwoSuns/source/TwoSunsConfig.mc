@@ -62,7 +62,8 @@ class TwoSunsConfig {
 
     // Settings (docs/spec.md "Settings"). Values match resources-pro/settings and resources-free/settings (tools/gen_settings.py);
     // list values are never negative.
-    static const ACCENT_COUNT = 6;
+    static const ACCENT_COUNT = 9;                  // Free offers 0-5 (FREE_ACCENT_COUNT), Pro all
+    static const FREE_ACCENT_COUNT = 6;
     static const ORIENTATION_NOON_TOP = 0;
     static const ORIENTATION_MIDNIGHT_TOP = 1;
     static const OFF = 0;
