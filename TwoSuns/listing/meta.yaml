@@ -13,7 +13,13 @@ live:
   note: "the 2026-10-08 upload, live by 2026-10-09 (store API latestExternalVersion, status APPROVED, nothing pending (research_notes/Free and Pro ladder/poll.csv, 2026-10-09 row); the exact approval date is not recorded (the dashboard or Garmin's email has it)). Earlier: 1.1.0 (uploaded 2026-10-04, renamed Two Suns Pro) was live by 2026-10-05 (poll.csv); 1.0.0 approved 2026-09-28."
   summary: "the rectangles' own design (ADR-028), Weather and Battery rows off by default, Body Battery number one colour at any level (ADR-008 amendment), grey -- and no lone dot, the curve's room (ADR-028 amendments), white curve line, solid bolt, 3h 42m daylight; description rewritten for it (the 2026-10-08 upload gate); upload bundle device-test/upload/TwoSuns-Pro-1.2.0/"
 in_review: null   # an earlier upload Garmin has not approved yet
-next: null   # nothing prepared; drafted | prepared | uploaded | in-review | live
+next:   # drafted | prepared | uploaded | in-review | live
+  version: "1.2.1"
+  status: prepared   # 2026-10-10, for the owner to upload (ROADMAP 18.1)
+  summary: "fix: Out Of Memory on Instinct E 40/45 mm and Instinct 3 Solar (rectangle code left out of the Instinct builds, 50.0 -> 44.4 kB of 59.8 kB; Body Battery history streamed); ADR-024, ADR-015, ADR-028 amendments of 2026-10-10; container simulator soak 40 min clean on all three, not seen on a watch"
+  file: dist/TwoSunsPro-1.2.1.iq
+  exported: 2026-10-10   # from a git archive of commit 6c4f4da (clean tree), 93 part numbers; sha256 3590fe13b4199f4aa5192d577c9c2391895f1c68f5ff74574bd55ab8bb9347bf
+  check: "tools/check_free_package.sh dist/TwoSunsFree.iq (rebuilt from 6c4f4da, not for upload) dist/TwoSunsPro-1.2.1.iq: OK (permissions ComplicationSubscriber Positioning SensorHistory, keys Accent Orientation Golden Curve Date Weather Battery, AppName Two Suns Pro, 93 part numbers)"
 package:
   file: dist/TwoSunsPro-1.2.0.iq
   products: 72   # <iq:product> lines in the manifest
