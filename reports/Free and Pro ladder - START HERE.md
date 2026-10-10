@@ -1,7 +1,6 @@
 # Free and Pro ladder: START HERE (agent handoff)
 
-Single entry point for any agent or session picking up this work. Written 2026-09-28, status updated 2026-10-05. If you have only this file, you can start; the two long
-documents below hold the evidence and the detail.
+Single entry point for any agent/session picking up this work. Written 2026-09-28, status updated 2026-10-05. Only this file -> can start; two long documents below hold evidence, detail.
 
 | Need | File |
 |---|---|
@@ -12,31 +11,31 @@ documents below hold the evidence and the detail.
 
 ## 1. The strategy in ten lines
 
-1. Every watch face ships as a pair: **Free** (new app id, clean name, $0) + **Pro** (the already-live paid app id, renamed "<Name> Pro"). Nothing is ever flipped to free.
-2. Split at compile time with `excludeAnnotations` (DayArc's method). No runtime toggle, unlock key, licence server, or locked items visible in Free.
-3. Free delivers the whole promise and must look great; Pro only adds density, modes, layouts, colours. Free permissions are a subset of Pro's.
-4. **Every face has a customisable accent colour in its Free tier.** Lists only, append-only ids, each face admits only colours that do not collide with its own role colours.
-5. **Design more daringly, not busier:** one decisive move per face, bold category-keyed colour, real icons, never a colour keyed to a reading. Design Free first. HTML/SVG mockup + browser screenshot + owner approval before any Monkey C. 96 KB faces (HeroFace, DaysToGo) have no bitmap budget.
-6. Paid apps sell only on Garmin's allow-list; a free twin reaches 33 more products on HeroFace and Days To Go (0 extra on Two Suns and DayArc, 1 on HeroSet).
-7. Price (owner, 2026-10-04): **every paid app takes the $2.50 tier** (US $2.49, 2,99 €); free apps stay free; no price number in site or listing text.
-8. Money is small: a cheap asymmetric bet, break-even attach about 0.8%, base case hundreds of dollars a year. Every revenue input is an assumption.
-9. Sequence: Wave 1 pilots = DayArc pair + Days To Go Free. Wave 2 = Two Suns Free, HeroFace Free (after the HeroSet/HeroFace 30-day readout, about 2026-10-25). Wave 3 = HeroSet Free (after accuracy proof).
+1. Every watch face ships as pair: **Free** (new app id, clean name, $0) + **Pro** (already-live paid app id, renamed "<Name> Pro"). Nothing ever flipped to free.
+2. Split at compile time with `excludeAnnotations` (DayArc's method). No runtime toggle, unlock key, licence server, locked items visible in Free.
+3. Free delivers whole promise, must look great; Pro only adds density, modes, layouts, colours. Free permissions = subset of Pro's.
+4. **Every face has customisable accent colour in Free tier.** Lists only, append-only ids, each face admits only colours not colliding with own role colours.
+5. **Design more daringly, not busier:** one decisive move per face, bold category-keyed colour, real icons, never colour keyed to reading. Design Free first. HTML/SVG mockup + browser screenshot + owner approval before any Monkey C. 96 KB faces (HeroFace, DaysToGo) no bitmap budget.
+6. Paid apps sell only on Garmin's allow-list; free twin reaches 33 more products on HeroFace and Days To Go (0 extra on Two Suns and DayArc, 1 on HeroSet).
+7. Price (owner, 2026-10-04): **every paid app takes $2.50 tier** (US $2.49, 2,99 €); free apps stay free; no price number in site or listing text.
+8. Money small: cheap asymmetric bet, break-even attach about 0.8%, base case hundreds of dollars a year. Every revenue input = assumption.
+9. Sequence: Wave 1 pilots = DayArc pair + Days To Go Free. Wave 2 = Two Suns Free, HeroFace Free (after HeroSet/HeroFace 30-day readout, about 2026-10-25). Wave 3 = HeroSet Free (after accuracy proof).
 10. Gates: G1 reach (Free approval + 30 days: 100 installs, 3 reviews), G2 attach (+60 days: 5 Pro sales or 1%), G3 quality (Free rating ≥4.0), G4 renewal (month 12).
 
 ## 2. Status: read this first, it decides what you may do
 
-**Approved by the owner 2026-10-04 (OD1/OD2), names (OD3) and price (OD4) decided the same day; the day-45 flip rule is retired.** The to-do list for everything is the root `ROADMAP.md`; this tracker only says where each work package ended up.
+**Approved by the owner 2026-10-04 (OD1/OD2), names (OD3) and price (OD4) decided same day; day-45 flip rule retired.** To-do list for everything = root `ROADMAP.md`; this tracker only says where each work package ended up.
 
 | Allowed now | Not allowed until the owner says so |
 |---|---|
 | Read, research, mockups, spec/DESIGN drafts, tests, code, drafting listings and ADRs | Any store upload, any price/name/icon decision, site deploy (a push to `site/`), machine translations shipped, phone/watch tests |
 
-Status tracker (update the row you finish; keep a date):
+Status tracker (update row you finish; keep date):
 
 | WP | Item | State |
 |---|---|---|
 | WP0 | Owner decisions OD1–OD4 | done 2026-10-04 (ladder, names, $2.50 tier) |
-| WP0 | Garmin email | cancelled by the owner 2026-10-04; Garmin's published policies were re-read instead (`reports/Garmin policies and design guidelines.md`) |
+| WP0 | Garmin email | cancelled by owner 2026-10-04; Garmin's published policies re-read instead (`reports/Garmin policies and design guidelines.md`) |
 | WP0 | Flip reminders retired (ADR in Days To Go and Two Suns) | done 2026-10-04 (ADR-002 Superseded in both) |
 | WP1 | Accent tables: HeroFace, Days To Go, Two Suns | shipped in each Free (ids below); extra ids 6–11 later (ROADMAP 8.3) |
 | WP2 | Daring mockups: Days To Go first | open (ROADMAP 8.1, 8.2) |
@@ -51,17 +50,17 @@ Status tracker (update the row you finish; keep a date):
 
 ## 3. Rules every agent follows
 
-- **Never decide alone:** store names, prices, visual identity/icons, permissions with a privacy cost, any store upload, any phone or watch test, any site deploy, unreviewed machine translations. Prepare it, list it as an owner decision, stop.
-- **Do not stage, commit, stash or reset** unless asked. The git index is mixed.
-- Simulator passing is not device proof. Say so. Do not invent evidence (reviews, downloads, screenshots, revenue).
-- Gloss ADR numbers with a short parenthetical, never cite bare.
-- Behaviour change → update its doc the same session. Durable decision → ADR in that project's `docs/decisions.md`. Every store publication → `CHANGELOG.md` entry + What's New block.
-- Published site URLs never change. The live paid app id and every shipped setting id never change.
-- Read the target project's `CLAUDE.md` and `docs/decisions.md` before touching it. Root `CLAUDE.md` "Studio direction" carries the three owner directives.
+- **Never decide alone:** store names, prices, visual identity/icons, permissions with privacy cost, any store upload, any phone or watch test, any site deploy, unreviewed machine translations. Prepare, list as owner decision, stop.
+- **Do not stage, commit, stash or reset** unless asked. Git index mixed.
+- Simulator passing not device proof. Say so. Do not invent evidence (reviews, downloads, screenshots, revenue).
+- Gloss ADR numbers with short parenthetical, never cite bare.
+- Behaviour change -> update its doc same session. Durable decision -> ADR in that project's `docs/decisions.md`. Every store publication -> `CHANGELOG.md` entry + What's New block.
+- Published site URLs never change. Live paid app id and every shipped setting id never change.
+- Read target project's `CLAUDE.md` and `docs/decisions.md` before touching it. Root `CLAUDE.md` "Studio direction" carries three owner directives.
 
 ## 4. Starter prompts (paste one per agent)
 
-Each agent gets one work package. Replace nothing; the paths are real. Use a fresh context per prompt.
+Each agent gets one work package. Replace nothing; paths real. Fresh context per prompt.
 
 **WP0: owner checklist (agent prepares, owner answers)**
 > Read `reports/Free and Pro ladder - START HERE.md`, then `reports/Free and Pro ladder.md` "Owner decisions". Produce a one-screen checklist of OD1–OD8 with the recommended default and deadline for each, plus the dashboard checklist from `research_notes/Free and Pro ladder/garmin_questions.md`. Do not answer for the owner and do not send anything. When the owner has answered, execute WP0 steps 3–4 in `reports/Free and Pro ladder execution plan.md` (retire the day-45 flip rule with a new ADR in `DaysToGo/docs/decisions.md` and `TwoSuns/docs/decisions.md`; update root README/CLAUDE status rows).
@@ -92,14 +91,14 @@ Each agent gets one work package. Replace nothing; the paths are real. Use a fre
 
 ## 5. Facts an agent might otherwise re-derive wrongly
 
-- Days To Go and Two Suns were both approved on 2026-09-28, late afternoon (owner, 2026-10-01); the day-45 reviews are retired. Every paid app moves to the $2.50 tier with its next upload (Two Suns showed $2.25 before); no price number goes on the site or in listing text.
+- Days To Go, Two Suns both approved 2026-09-28, late afternoon (owner, 2026-10-01); day-45 reviews retired. Every paid app moves to $2.50 tier with next upload (Two Suns showed $2.25 before); no price number on site or in listing text.
 - Garmin price tiers: $2.00, then every $0.25 to $10; $2.00 shows $1.99 (US) / 2,49 €; $3.00 shows $2.99 / 3,49 €.
 - Garmin keeps 15%, $100 annual merchant fee (paid 2026-09-17; renewal reminder ROADMAP 10.28), $10 payout minimum. Break-even: 59 sales/yr at $2.00, 39 at $3.00.
-- Some Garmin developer pages (the price-points tabs) did not extract with a static fetch: read them in a browser. The store API works with plain `curl`.
-- Never cancel the merchant account to demonetize; it takes every paid app down.
-- Accent ids: Days To Go 0–5 (mint, amber, sky, pink, violet, white) and Two Suns 0–5 (sky, mint, amber, violet, pink, white) are shipped; HeroFace 0–2 (sky, cyan, magenta) shipped. Tables in the plan's WP1.
-- Not established: any revenue, our own attach rate, whether Garmin treats twins as duplicates, whether repricing an approved app removes it, HeroSet's accuracy vs the native counter.
+- Some Garmin developer pages (price-points tabs) did not extract with static fetch: read in browser. Store API works with plain `curl`.
+- Never cancel merchant account to demonetize; takes every paid app down.
+- Accent ids: Days To Go 0–5 (mint, amber, sky, pink, violet, white) and Two Suns 0–5 (sky, mint, amber, violet, pink, white) shipped; HeroFace 0–2 (sky, cyan, magenta) shipped. Tables in plan's WP1.
+- Not established: any revenue, our own attach rate, whether Garmin treats twins as duplicates, whether repricing approved app removes it, HeroSet's accuracy vs native counter.
 
 ## 6. Keeping this file true
 
-When a WP finishes, update section 2's tracker and any fact in section 5 that changed, in the same session. If a decision changes, change it in `reports/Free and Pro ladder.md` first, then here.
+When WP finishes, update section 2's tracker and any changed section 5 fact, same session. If decision changes, change it in `reports/Free and Pro ladder.md` first, then here.
