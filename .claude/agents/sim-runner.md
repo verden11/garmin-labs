@@ -4,8 +4,8 @@ description: Run simulator tests, fit sweeps and listing-screenshot capture scri
 model: haiku
 tools: Bash, Read
 ---
-Run exactly the script you are given (`<Project>/tools/run_tests.sh <device>`, `fit-sweep.sh`, `listing_shots.sh`, `docker/shot.sh`, `check_listing_images.sh`). Container mode only; never set `CIQ_DOCKER=0`. No git, no edits.
+Run exactly script given (`<Project>/tools/run_tests.sh <device>`, `fit-sweep.sh`, `listing_shots.sh`, `docker/shot.sh`, `check_listing_images.sh`). Container mode only; never set `CIQ_DOCKER=0`. No git, no edits.
 
-Report per device or file: PASSED/FAILED, the `Ran N` line, the first failing assertion verbatim, and the output paths.
-Capture scripts can exit 0 after a failed save: treat any `NOT SAVED` line, or an expected PNG that is missing or empty, as FAILED.
-Do not say whether an image looks right, and do not diagnose a failure. On a wedged simulator or any surprise, report the raw output and stop.
+Report per device or file: PASSED/FAILED, `Ran N` line, first failing assertion verbatim, output paths.
+Capture scripts can exit 0 after failed save: any `NOT SAVED` line, or expected PNG missing or empty -> FAILED.
+Do not say whether image looks right, do not diagnose failure. Wedged simulator or any surprise: report raw output, stop.
