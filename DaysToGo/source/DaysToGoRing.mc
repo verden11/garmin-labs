@@ -1,7 +1,7 @@
 import Toybox.Graphics;
 import Toybox.Lang;
 
-// The bezel ring: a grey track all round, and the accent arc clockwise from
+// The bezel band (ADR-021): a hairline grey track all round, and the accent band clockwise from
 // the top for the share of the wait still to go. On a rectangle the ring is a
 // rounded-rectangle track along the screen's edges (DaysToGoTrack, ADR-019).
 class DaysToGoRing {
@@ -41,21 +41,25 @@ class DaysToGoRing {
             drawWindow(dc, window, state);
             return;
         }
-        dc.setPenWidth(layout.ringWidth());
         var track = layout.track();
         if (track != null) {
-            trace(dc, track, DaysToGoPalette.TRACK, track.length(), layout.ringWidth());
+            dc.setPenWidth(layout.trackWidth());
+            trace(dc, track, DaysToGoPalette.TRACK, track.length(), layout.trackWidth());
             var fill = track.fillFor(state.ringPermille);
             if (fill > 0) {
-                trace(dc, track, state.accent, fill, layout.ringWidth());
+                dc.setPenWidth(layout.bandWidth());
+                trace(dc, track, state.accent, fill, layout.bandWidth());
             }
             dc.setPenWidth(1);
             return;
         }
+        // A hairline all round, and the band over it for the share still to go, butt ends (ADR-021).
+        dc.setPenWidth(layout.trackWidth());
         dc.setColor(DaysToGoPalette.TRACK, Graphics.COLOR_TRANSPARENT);
         dc.drawCircle(layout.centerX(), layout.centerY(), layout.ringRadius());
         var sweep = ringSweepFor(state.ringPermille);
         if (sweep > 0) {
+            dc.setPenWidth(layout.bandWidth());
             dc.setColor(state.accent, Graphics.COLOR_TRANSPARENT);
             var start = RING_START_DEG;
             if (sweep >= FULL_CIRCLE_DEG) {

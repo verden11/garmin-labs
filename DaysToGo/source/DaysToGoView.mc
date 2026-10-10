@@ -19,7 +19,9 @@ class DaysToGoView extends WatchUi.WatchFace {
     }
 
     function onLayout(dc as Graphics.Dc) as Void {
-        _layout = new DaysToGoLayout(dc);
+        var layout = new DaysToGoLayout(dc);
+        DaysToGoBandFit.apply(dc, layout, self);
+        _layout = layout;
     }
 
     // Settings are read fresh every update: the on-watch date picker writes
@@ -57,7 +59,7 @@ class DaysToGoView extends WatchUi.WatchFace {
             dc.setColor(state.accent, Graphics.COLOR_TRANSPARENT);
             DaysToGoDraw.line(dc, layout, radius, rows.nameTop, dc.getFontHeight(frame.nameFont), frame.nameFonts, [state.name] as Array<String>, 0);
         }
-        dc.setColor(state.phase == DaysToGoConfig.PHASE_TODAY ? state.accent : DaysToGoPalette.TEXT, Graphics.COLOR_TRANSPARENT);
+        dc.setColor(heroColor(state), Graphics.COLOR_TRANSPARENT);
         drawHero(dc, layout, radius, rows.heroTop, rows.heroHeight, state, false, 0);
         if (state.captionLines.size() > 0) {
             drawRow(dc, layout, radius, rows.captionTop, frame.captionFont, state.captionLines, DaysToGoPalette.MUTED);
@@ -69,6 +71,12 @@ class DaysToGoView extends WatchUi.WatchFace {
         if (frame.showFooter && !frame.footerWithDate && footer != null) {
             drawMarked(dc, layout, radius, rows.footerTop, frame.smallFont, [marked(state.footerMark, footer)] as Array<Array<Object>>);
         }
+    }
+
+    // The hero is the wearer's accent in every state that has one (ADR-021); white on the Instinct, whose accent() is white.
+    // The "?" error frame is not a state and stays white (fallbackColor).
+    static function heroColor(state as DaysToGoState) as Number {
+        return state.accent;
     }
 
     // Shared with DaysToGoSleep: the hours hero carries its unit letters, every other hero is one string.
