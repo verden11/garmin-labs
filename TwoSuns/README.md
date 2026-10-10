@@ -1,19 +1,13 @@
 # Two Suns
 
-A Garmin watch face from Verden that answers one question at a glance: how
-much light, and how much energy, do I have left today? The time is the
-biggest thing on the screen. A 24-hour ring around the bezel is the sky's sun,
-a 24-hour curve under the time is the watch's own Body Battery, and one line at
-the bottom says how much daylight is left or when the sun returns. Sunrise
-and sunset are Garmin's own numbers, the same as the watch's Sunrise/Sunset
-glance. Every failure has a sentence, not a blank. Nothing leaves the watch.
+Garmin watch face from Verden, answers one question at glance: how much light, how much energy left today? Time biggest on screen. 24-hour ring around bezel = sky's sun, 24-hour curve under time = watch's own Body Battery, one bottom line says daylight left or when sun returns. Sunrise/sunset = Garmin's own numbers, same as watch's Sunrise/Sunset glance. Every failure gets sentence, not blank. Nothing leaves watch.
 
 **"Two Suns" is confirmed** (ADR-010, 2026-09-27); no trademark search done.
 
-Two builds from one source (uploaded 2026-10-04, in Garmin review; ladder approved by the owner 2026-10-04, `docs/decisions.md` ADR-020 (Free + Pro ladder)): **Two Suns** (Free, `monkey.free.jungle`: the time, the sun ring from Garmin's own sunrise and sunset, Garmin's Body Battery number, an accent colour; permission `ComplicationSubscriber` only, no location) and **Two Suns Pro** (the paid app, `monkey.jungle`: adds the 24-hour energy curve, the place-based sun, golden hour, ring orientation and the date row). Everything below describes Pro unless it says Free.
+Two builds, one source (uploaded 2026-10-04, in Garmin review; ladder approved by owner 2026-10-04, `docs/decisions.md` ADR-020 (Free + Pro ladder)): **Two Suns** (Free, `monkey.free.jungle`: time, sun ring from Garmin's own sunrise/sunset, Garmin's Body Battery number, accent colour; permission `ComplicationSubscriber` only, no location) and **Two Suns Pro** (paid app, `monkey.jungle`: adds 24-hour energy curve, place-based sun, golden hour, ring orientation, date row). Everything below describes Pro unless says Free.
 
-72 products at Connect IQ 4.2 and up (66 round, 3 rectangular AMOLED, 3 Instinct with a round window, black and white: ADR-024, accepted 2026-10-04, simulator only): [`docs/compatibility.md`](docs/compatibility.md).
-Status: **submitted 2026-09-27, pending review.** Built and simulator-tested, spot-checked on a real FR965, no full wear day yet. Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
+72 products, Connect IQ 4.2+ (66 round, 3 rectangular AMOLED, 3 Instinct with round window, black and white: ADR-024 (Instinct support), accepted 2026-10-04, simulator only): [`docs/compatibility.md`](docs/compatibility.md).
+Status: **submitted 2026-09-27, pending review.** Built, simulator-tested, spot-checked on real FR965, no full wear day yet. Store page (live once approved): https://apps.garmin.com/apps/9d4bca45-d79a-4f26-abf5-04e0519cf10b
 
 ## Build
 
@@ -38,21 +32,21 @@ tools/check_free_package.sh                     # Free has only ComplicationSubs
 # dist/TwoSuns.iq is the pre-ladder 1.0.1 package, never overwritten (a copy: dist/TwoSuns-1.0.1-prepared.iq)
 ```
 
-The test runners run in a container by default (`docker/README.md`). With `CIQ_DOCKER=0` (host simulator) they run `pkill -f monkeydo` after every run and restart the simulator with `pkill` when it wedges: do not run them while another session uses it ([`docs/development.md`](docs/development.md)).
+Test runners run in container by default (`docker/README.md`). With `CIQ_DOCKER=0` (host simulator) they run `pkill -f monkeydo` after every run, restart simulator with `pkill` when wedged: do not run while another session uses it ([`docs/development.md`](docs/development.md)).
 
 ## What it shows
 
 | Part | What |
 |---|---|
-| Ring | 24 hours of local clock time, noon at the top (a setting puts midnight there), clockwise. Night dim, civil twilight, daylight in the accent (the part already gone dimmer), ticks at sunrise and sunset, a sun marker at now (solid while the sun is up, an outline when it is not). Optional golden-hour arc. |
-| Time | The hero, in the largest system numeric font that fits. |
-| Body Battery band | A bolt glyph, the value, and the last 24 hours as a curve with the current point marked (not drawn until two neighbouring 15-minute samples exist). Stale (newest sample over an hour old) is muted and hollow. No number: a muted `--` beside a hollow bolt. |
-| Sun sentence | "3:42 of daylight", "Sunrise 06:41", "Sun stays up today", "No place yet", "No sun data", and their shorter wordings on narrow rows. |
-| Date | Small, muted, above the time; optional. |
+| Ring | 24 hours local clock time, noon at top (setting puts midnight there), clockwise. Night dim, civil twilight, daylight in accent (part already gone dimmer), ticks at sunrise and sunset, sun marker at now (solid while sun up, outline when not). Optional golden-hour arc. |
+| Time | Hero, largest system numeric font that fits. |
+| Body Battery band | Bolt glyph, value, last 24 hours as curve, current point marked (not drawn until two neighbouring 15-minute samples exist). Stale (newest sample over 1 hour old) muted, hollow. No number: muted `--` beside hollow bolt. |
+| Sun sentence | "3:42 of daylight", "Sunrise 06:41", "Sun stays up today", "No place yet", "No sun data", and shorter wordings on narrow rows. |
+| Date | Small, muted, above time; optional. |
 
-Always-on (AMOLED): the time, the Body Battery value and the sun sentence, dim, drifting on a 3 × 3 grid; no ring, no curve. MIP watches keep the full face. Body Battery is shown as Garmin reports it: no verdicts, no advice.
+Always-on (AMOLED): time, Body Battery value, sun sentence, dim, drifting on 3 × 3 grid; no ring, no curve. MIP watches keep full face. Body Battery shown as Garmin reports: no verdicts, no advice.
 
-Settings (Garmin Connect, lists only): Accent colour, Ring orientation, Golden hour, Energy curve, Date, Weather, Watch battery (Pro; Weather and Watch battery Off by default). Free has Accent colour only. Free has no curve, no date row, no twilight or golden arc, and keeps no place; a missing Body Battery number is `--` and a hollow bolt (ADR-021, Body Battery in Free).
+Settings (Garmin Connect, lists only): Accent colour, Ring orientation, Golden hour, Energy curve, Date, Weather, Watch battery (Pro; Weather and Watch battery Off by default). Free has Accent colour only. Free: no curve, no date row, no twilight or golden arc, keeps no place; missing Body Battery number = `--` and hollow bolt (ADR-021 (Body Battery in Free)).
 
 ## Layout
 
