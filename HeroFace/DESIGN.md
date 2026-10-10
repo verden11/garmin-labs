@@ -94,39 +94,38 @@ components:
     textColor: "{colors.sleep-text}"
     typography: "{typography.time-aod}"
 ---
-
 # Design System: HeroFace
 
 ## Overview
 
 **Creative North Star: "The Dashboard That Learned To Tell Time"**
 
-HeroFace takes HeroSet's dashboard grammar — a bezel progress ring, a gold keep-line, three pill mission bars — and re-proportions it so the time owns the middle. Everything is drawn from primitives on a pure black ground: arcs, rounded rectangles, two-stroke check marks, a battery outline, a heart made of two circles and a triangle. There are no bitmaps and no icon fonts, because the smallest supported watch-face memory budget is 64 KB; that constraint is also the aesthetic. Every colour but the always-on Sleep Grey sits on Garmin's 64-colour palette (channels 00/55/AA/FF) so a MIP screen renders it exactly as written and an AMOLED does not have to dither; the Sleep Grey is drawn only on burn-in-protected screens (ADR-006).
+HeroFace takes HeroSet's dashboard grammar — bezel progress ring, gold keep-line, three pill mission bars — re-proportioned so time owns the middle. All drawn from primitives on pure black: arcs, rounded rectangles, two-stroke check marks, battery outline, heart from two circles and a triangle. No bitmaps, no icon fonts: smallest supported watch-face memory budget is 64 KB; constraint is also the aesthetic. Every colour but always-on Sleep Grey sits on Garmin's 64-colour palette (channels 00/55/AA/FF): MIP screen renders exactly as written, AMOLED does not dither. Sleep Grey drawn only on burn-in-protected screens (ADR-006 (always-on time is the studio's one always-on grey)).
 
-Density is deliberately low. One ring, one gold line, one time, one date row, three columns, one footer strip: seven things, in a fixed bottom-up stack, on every one of the 117 round products from 208 to 466 px (and, with the ring as a frame, the 5 rectangles). Nothing is positioned in absolute pixels. A single proportion — a tenth of the short screen edge — generates the ring, the gap, the bar, the column and the margin, and the time then takes whatever vertical band is left between the streak row and the date. Text is measured against the round chord at its own row before it is drawn, and a string that would not fit is replaced by a shorter wording rather than clipped or shrunk.
+Density deliberately low. One ring, one gold line, one time, one date row, three columns, one footer strip: seven things, fixed bottom-up stack, on every one of 117 round products from 208 to 466 px (and, ring as frame, the 5 rectangles). Nothing positioned in absolute pixels. Single proportion — a tenth of short screen edge — generates ring, gap, bar, column, margin; time takes whatever vertical band is left between streak row and date. Text measured against round chord at its own row before drawn; string that would not fit replaced by shorter wording, not clipped or shrunk.
 
-The face refuses the category default it was built against: a bezel of six tiny complications with glyph icons. It spends its whole budget on one number and three bars.
+Face refuses category default it was built against: bezel of six tiny complications with glyph icons. Spends whole budget on one number and three bars.
 
 **Key Characteristics:**
 - Black ground, no surfaces, no shadows, no gradients
 - Every dimension is a ratio of `min(width, height)/10`
-- Two type tiers: the time, and everything else
-- Colour carries meaning and never carries it alone
-- Primitives only; the icons are drawn, not glyphs
-- Rows stack bottom-up; the time expands into the remainder
+- Two type tiers: time, and everything else
+- Colour carries meaning, never carries it alone
+- Primitives only; icons drawn, not glyphs
+- Rows stack bottom-up; time expands into remainder
 
 ## Colors
 
-A black field with a single white number, a muted grey voice for everything secondary, and three meaning-bearing colours that are never spent decoratively.
+Black field, single white number, muted grey voice for everything secondary, three meaning-bearing colours never spent decoratively.
 
 ### Primary
-- **Effort Blue** (`{colors.accent-blue}`): today's progress still under way — the mission-bar fill and the everyday ring fill. Default of three user-selectable accents.
-- **Kept Gold** (`{colors.gold}`): reserved for what the user has *kept*, never for what they are doing. The streak line once the streak is non-zero, the rank line and the XP ring in HeroSet mode. Nothing else may be gold.
-- **Finished Green** (`{colors.done}`): a goal that is complete. The bar fill, the column label, and the ring at full sweep.
+- **Effort Blue** (`{colors.accent-blue}`): today's progress still under way — mission-bar fill, everyday ring fill. Default of three user-selectable accents.
+- **Kept Gold** (`{colors.gold}`): reserved for what user has *kept*, never what they are doing. Streak line once streak non-zero, rank line and XP ring in HeroSet mode. Nothing else may be gold.
+- **Finished Green** (`{colors.done}`): goal complete. Bar fill, column label, ring at full sweep.
 
 ### Secondary
-- **Alert Red** (`{colors.alert}`): two uses only — a move-bar in the alert state, and battery at or below 15%. Never a progress colour.
-- **Accent alternatives** (`{colors.accent-cyan}`, `{colors.accent-magenta}`): the two other settings-selectable accents. The rule is 3:1 against the track so a part-filled bar still reads, and all three pass. Magenta was `#FF55FF` (2.84, a miss); the owner had it recoloured to the pale magenta `#FFAAFF` on 2026-10-04 (ADR-003), same id and name. None is gold or green.
+- **Alert Red** (`{colors.alert}`): two uses only — move-bar in alert state, battery at or below 15%. Never a progress colour.
+- **Accent alternatives** (`{colors.accent-cyan}`, `{colors.accent-magenta}`): two other settings-selectable accents. Rule is 3:1 against track so part-filled bar still reads; all three pass. Magenta was `#FF55FF` (2.84, a miss); owner had it recoloured to pale magenta `#FFAAFF` on 2026-10-04 (ADR-003), same id and name. None is gold or green.
 
 | Accent (id) | Colour | On TRACK `#555555` (rule: 3:1) | On black | On white (the time) |
 |---|---|---|---|---|
@@ -135,149 +134,149 @@ A black field with a single white number, a muted grey voice for everything seco
 | Magenta (2) | `#FFAAFF` | 4.42 | 12.45 | 1.69 |
 | Magenta before 2026-10-04 | `#FF55FF` | 2.84 (missed) | 8.00 | 2.63 |
 
-**Accent ids and tiers (ADR-001, the Free + Pro ladder in `docs/decisions.md`).** The ids are append-only; the one shade change is Magenta's, by the owner (ADR-003): 0 Effort Blue `#55AAFF` (the default), 1 Cyan `#00FFFF`, 2 Magenta `#FFAAFF`. The **Free** build and the **Pro** build offer the same three; HeroFace stays at its shipped three (the plan's WP6 list of ids 3 to 7 is DaysToGo's table pasted in and is not used). Reserved, never admitted as an accent: gold, green, alert red, white and the two greys, so none of Amber, Yellow, Lime, Mint, Orange, Coral or White. A new accent is a new id appended at the end, after the owner's look-approval, and it must clear 3:1 against the track.
+**Accent ids and tiers (ADR-001, the Free + Pro ladder in `docs/decisions.md`).** Ids append-only; one shade change is Magenta's, by owner (ADR-003): 0 Effort Blue `#55AAFF` (default), 1 Cyan `#00FFFF`, 2 Magenta `#FFAAFF`. **Free** build and **Pro** build offer same three; HeroFace stays at shipped three (plan's WP6 list of ids 3 to 7 is DaysToGo's table pasted in, not used). Reserved, never admitted as accent: gold, green, alert red, white, two greys, so none of Amber, Yellow, Lime, Mint, Orange, Coral or White. New accent = new id appended at end, after owner's look-approval, must clear 3:1 against track.
 
 ### Neutral
-- **Void Black** (`{colors.ground}`): the only background. It is never tinted, never layered, never lightened into a card.
-- **Signal White** (`{colors.text}`): the time and mission values. Reserved for the two things read first.
-- **Second Voice Grey** (`{colors.muted}`): date, labels, seconds, footer numbers and drawn icons. Everything that supports the glance without competing for it.
-- **Track Grey** (`{colors.track}`): the unfilled remainder of the ring and of every pill bar. Present so the *whole* of a goal is visible behind the part that is done.
-- **Sleep Grey** (`{colors.sleep-text}`, `#5C5C5C`, 3.14:1 on black): always-on time on burn-in-protected screens, the studio's one always-on grey (ADR-006 (always-on time is the studio's one always-on grey)). It was `#555555`, the track's hex, at 2.82:1, under the 3:1 bar. Not a 64-colour value: drawn only where the watch reports burn-in protection (the AMOLEDs and, in the simulator, the Venu Sq LCD; all 16-bit, so stored as about `#5A5D5A`, still about 3.1:1); a MIP watch keeps the full face in sleep: Garmin's AMOLED FAQ ties burn-in protection to AMOLED products (DaysToGo ADR-007, amended 2026-10-04); not checked per product.
+- **Void Black** (`{colors.ground}`): only background. Never tinted, never layered, never lightened into card.
+- **Signal White** (`{colors.text}`): time and mission values. Reserved for two things read first.
+- **Second Voice Grey** (`{colors.muted}`): date, labels, seconds, footer numbers, drawn icons. Everything supporting glance without competing.
+- **Track Grey** (`{colors.track}`): unfilled remainder of ring and every pill bar. Present so *whole* goal visible behind done part.
+- **Sleep Grey** (`{colors.sleep-text}`, `#5C5C5C`, 3.14:1 on black): always-on time on burn-in-protected screens, studio's one always-on grey (ADR-006 (always-on time is the studio's one always-on grey)). Was `#555555`, track's hex, 2.82:1, under 3:1 bar. Not 64-colour value: drawn only where watch reports burn-in protection (AMOLEDs and, in simulator, Venu Sq LCD; all 16-bit, so stored about `#5A5D5A`, still about 3.1:1); MIP watch keeps full face in sleep: Garmin's AMOLED FAQ ties burn-in protection to AMOLED products (DaysToGo ADR-007, amended 2026-10-04); not checked per product.
 
 ### Named Rules
 
-**The Never-Colour-Alone Rule.** No state is legible by hue alone, and this is auditable. Done: green label *plus* a drawn check *plus* a full bar. Streak kept: gold *plus* a day count in the words. Low battery: red *plus* the number *plus* a visibly empty icon fill. Move alert: red *plus* the word changing from OK to GO. Ring complete: green *plus* a closed sweep. Audit test: render the face in greyscale — every state must still be nameable.
+**The Never-Colour-Alone Rule.** No state legible by hue alone; auditable. Done: green label *plus* drawn check *plus* full bar. Streak kept: gold *plus* day count in words. Low battery: red *plus* number *plus* visibly empty icon fill. Move alert: red *plus* word changing from OK to GO. Ring complete: green *plus* closed sweep. Audit test: render face in greyscale — every state must still be nameable.
 
-**The Gold Reserve Rule.** Gold means a thing the user has accumulated and can lose. A zero streak is not drawn at all ("0-DAY STREAK" would be a new owner's first read), because there is nothing kept yet. The gold streak also outranks the temperature beside it: a row too wide drops the temperature before it drops the streak (2026-10-06).
+**The Gold Reserve Rule.** Gold = thing user has accumulated and can lose. Zero streak not drawn at all ("0-DAY STREAK" would be new owner's first read), nothing kept yet. Gold streak also outranks temperature beside it: row too wide drops temperature before streak (2026-10-06).
 
-**The Exact-Palette Rule.** Every colour but the always-on Sleep Grey (`#5C5C5C`, ADR-006) is built from the channel values 00/55/AA/FF (why: see `watch-design-kit`'s `watch-design-lead` skill).
+**The Exact-Palette Rule.** Every colour but always-on Sleep Grey (`#5C5C5C`, ADR-006 (always-on time is the studio's one always-on grey)) built from channel values 00/55/AA/FF (why: see `watch-design-kit`'s `watch-design-lead` skill).
 
 ## Typography
 
-**Time Font:** Garmin system number fonts, in a fit ladder: `FONT_NUMBER_THAI_HOT` → `FONT_NUMBER_HOT` → `FONT_NUMBER_MEDIUM`, with `FONT_NUMBER_MILD` as the floor.
+**Time Font:** Garmin system number fonts, fit ladder: `FONT_NUMBER_THAI_HOT` → `FONT_NUMBER_HOT` → `FONT_NUMBER_MEDIUM`, `FONT_NUMBER_MILD` as floor.
 **Everything-Else Font:** `FONT_XTINY`, uppercase.
 
-**Character:** Two tiers and no middle. The time is set in the largest number face that provably fits its band and the ring's inner chord; every other word on the face is one small uppercase size. The distance between those two tiers *is* the hierarchy — there are no intermediate weights or sizes to negotiate.
+**Character:** Two tiers, no middle. Time set in largest number face provably fitting its band and ring's inner chord; every other word one small uppercase size. Distance between tiers *is* hierarchy — no intermediate weights or sizes to negotiate.
 
 ### Hierarchy
-- **Time** (number font, measured — 128px @454, 36px @240): the centre of the face, vertically centred in the band left between the streak row and the date row. Chosen at layout time by trying each font largest-first and accepting the first whose box fits the band *and* whose widest sample (`00:00`) fits the round chord at that height.
-- **Face text** (`FONT_XTINY`, measured — 37px @454, 26px @240): streak/rank line, date, mission values, mission labels, seconds, footer numbers. One size for all of them.
-- **Always-on time** (`FONT_NUMBER_MEDIUM`, fixed): the only element drawn in sleep on burn-in screens.
+- **Time** (number font, measured — 128px @454, 36px @240): face centre, vertically centred in band left between streak row and date row. Chosen at layout time: try each font largest-first, accept first whose box fits band *and* whose widest sample (`00:00`) fits round chord at that height.
+- **Face text** (`FONT_XTINY`, measured — 37px @454, 26px @240): streak/rank line, date, mission values, mission labels, seconds, footer numbers. One size for all.
+- **Always-on time** (`FONT_NUMBER_MEDIUM`, fixed): only element drawn in sleep on burn-in screens.
 
 ### Named Rules
 
-**The Measure-Never-Guess Rule.** Every string is checked against the chord of the round display at its own row before it is drawn. Nothing is sized by assumption and nothing is clipped. One stated exception: on a rectangle the time's digit height is a measured share of the font's ascent (`HeroFaceFrame.DIGIT_HEIGHT_PERMILLE`, simulator-measured), because the Dc has no glyph metrics to ask (see "Rectangle").
+**The Measure-Never-Guess Rule.** Every string checked against chord of round display at its own row before drawn. Nothing sized by assumption, nothing clipped. One stated exception: on rectangle time's digit height is measured share of font's ascent (`HeroFaceFrame.DIGIT_HEIGHT_PERMILLE`, simulator-measured), because Dc has no glyph metrics to ask (see "Rectangle").
 
-**The Shorter-Wording Rule.** When a string does not fit, the face picks a shorter *wording*, never a smaller font: `12345` → `12.3K` → `12K`; `INTENSITY` → `INT`; `WED 12 MARCH` → `WED 12`; `RANK 7  STREAK 12` → `RANK 7` (HeroSet mode has these two wordings; the rank-only one is used only when the streak does not fit alone, never to keep the temperature). Candidate lists are ordered longest-first and the last entry is the guaranteed fallback.
+**The Shorter-Wording Rule.** String not fitting: face picks shorter *wording*, never smaller font: `12345` → `12.3K` → `12K`; `INTENSITY` → `INT`; `WED 12 MARCH` → `WED 12`; `RANK 7  STREAK 12` → `RANK 7` (HeroSet mode has these two wordings; rank-only used only when streak does not fit alone, never to keep temperature). Candidate lists ordered longest-first, last entry guaranteed fallback.
 
-**The Uppercase Voice Rule.** All face copy is uppercase and terse. Words come from string resources only, so a translation is a new resource folder and no code change.
+**The Uppercase Voice Rule.** All face copy uppercase, terse. Words from string resources only, so translation = new resource folder, no code change.
 
 ## Layout
 
-One proportion generates the whole face: `inset = min(width, height)/10`. Everything else divides it — ring inset `inset/5`, ring width `inset/6`, bar height `inset/3`, column gap `inset/5`, stack gap `inset/9`, text margin `inset/2`. No pixel value is ever written down; the two reference devices are worked examples, not tokens. At 454 px: inset 45, ring radius 218, ring width 7. At 240 px: inset 24, ring radius 116, ring width 4.
+One proportion generates whole face: `inset = min(width, height)/10`. Everything else divides it — ring inset `inset/5`, ring width `inset/6`, bar height `inset/3`, column gap `inset/5`, stack gap `inset/9`, text margin `inset/2`. No pixel value ever written down; two reference devices are worked examples, not tokens. At 454 px: inset 45, ring radius 218, ring width 7. At 240 px: inset 24, ring radius 116, ring width 4.
 
-**Rows stack bottom-up.** The footer sits one inset above the bottom edge, inside the ring's gap. The mission block sits two stack-gaps above it. The date row sits one stack-gap and one line above the missions. The streak row is pinned to the top, just inside the ring. The time then takes the entire remaining band and is centred in it — which is why the time is always the largest thing on the face, at every screen size, without a table of per-device sizes.
+**Rows stack bottom-up.** Footer one inset above bottom edge, inside ring's gap. Mission block two stack-gaps above it. Date row one stack-gap and one line above missions. Streak row pinned top, just inside ring. Time takes entire remaining band, centred in it — why time is always largest thing on face, every screen size, without per-device size table.
 
-**Horizontal extents follow the circle, not the rectangle.** Left and right insets for any row are computed as the chord half-width of the content circle at whichever edge of that row is farther from centre. Mission columns are laid out inside that chord: three equal columns of `(chord − 2 gaps)/3` (95 px @454, 54 px @240). On a rectangle the circle is replaced by the frame and its rounded corners (see "Rectangle" below); on the Instinct by a box clipped to its visible circle.
+**Horizontal extents follow circle, not rectangle.** Left and right insets for any row computed as chord half-width of content circle at whichever edge of row is farther from centre. Mission columns laid out inside chord: three equal columns of `(chord − 2 gaps)/3` (95 px @454, 54 px @240). On rectangle circle replaced by frame and its rounded corners (see "Rectangle" below); on Instinct by box clipped to its visible circle.
 
 Reference stack at 454 px: streak y=52, time y=91, date y=221, missions y=263, footer y=372. At 240 px: 28, 56, 94, 122, 190.
 
-**Two power modes, two compositions.** Awake — and asleep on MIP, where the screen is always visible — the face draws in full. Asleep where the watch reports burn-in protection (the AMOLEDs; in the simulator also the Venu Sq LCD) it draws only the time, dim, in `FONT_NUMBER_MEDIUM`, and the entire block walks a 3×3 grid at `inset/2` per step, one step per minute, so no pixel stays lit.
+**Two power modes, two compositions.** Awake — and asleep on MIP, screen always visible — face draws in full. Asleep where watch reports burn-in protection (AMOLEDs; in simulator also Venu Sq LCD) draws only time, dim, `FONT_NUMBER_MEDIUM`, entire block walks 3×3 grid at `inset/2` per step, one step per minute, so no pixel stays lit.
 
 ### Named Rules
 
-**The One Proportion Rule.** Every dimension on the face is a division of `min(width, height)/10`. A hard-coded pixel value, or a per-device layout table, is a defect.
+**The One Proportion Rule.** Every dimension is division of `min(width, height)/10`. Hard-coded pixel value, or per-device layout table, is defect.
 
-**The Time Takes The Remainder Rule.** The time is never assigned a size. It receives the band left over after the other rows are stacked, and picks the largest font that band and chord will hold.
+**The Time Takes The Remainder Rule.** Time never assigned size. Receives band left after other rows stacked, picks largest font band and chord will hold.
 
-**The Chord Rule.** On a round screen, usable width is the chord at the row's farthest edge from centre — never the full display width. Content fits against a circle inset from the ring by half the ring width plus half the text margin, so text never touches the ring.
+**The Chord Rule.** On round screen, usable width is chord at row's farthest edge from centre — never full display width. Content fits against circle inset from ring by half ring width plus half text margin, so text never touches ring.
 
 ## Elevation & Depth
 
-There is no elevation system. No shadows, no gradients, no blur, no layered surfaces, no borders around containers. The ground is pure black and every element is drawn flat directly onto it. This is not a stylistic restraint to be relaxed later: MIP displays have no backlight-independent tonal range to layer into, and a 64 KB budget with no bitmaps has no way to render one.
+No elevation system. No shadows, gradients, blur, layered surfaces, borders around containers. Ground pure black, every element drawn flat directly onto it. Not stylistic restraint to relax later: MIP displays have no backlight-independent tonal range to layer into, and 64 KB budget with no bitmaps cannot render one.
 
-Depth is expressed as *containment* instead. The track behind every progress element (the grey 260° arc, the grey pill under every bar) shows the whole of a goal, and the coloured fill sits in the same plane on top of it. The only "in front of" relationship on the face is fill-over-track.
+Depth expressed as *containment* instead. Track behind every progress element (grey 260° arc, grey pill under every bar) shows whole goal, coloured fill same plane on top. Only "in front of" relationship on face is fill-over-track.
 
 ### Named Rules
 
-**The Flat-By-Construction Rule.** Nothing on this face casts, glows, or layers. If a surface needs to feel distinct, it is distinguished by position and colour role, never by depth.
+**The Flat-By-Construction Rule.** Nothing on face casts, glows, or layers. Surface needing to feel distinct is distinguished by position and colour role, never depth.
 
-**The Track-Behind-Fill Rule.** Every progress element draws its full-length track first in `{colors.track}`, then its fill. A progress indicator without a visible remainder is incomplete.
+**The Track-Behind-Fill Rule.** Every progress element draws full-length track first in `{colors.track}`, then fill. Progress indicator without visible remainder is incomplete.
 
 ## Shapes
 
-Two shapes and one stroke. **Pills:** every mission bar is a rounded rectangle with a radius of half its own height, track and fill alike; a fill shorter than the bar is tall drops its radius to half the fill width, so the rounded ends never cross each other into a lens. **Arcs:** the bezel ring is a single stroked arc, `inset/6` wide, running clockwise from 220° through the top to 320° — a 260° sweep that leaves a 100° gap at the bottom for the footer. Any non-zero progress shows at least one degree, and a fill never closes the circle.
+Two shapes, one stroke. **Pills:** every mission bar is rounded rectangle, radius half its own height, track and fill alike; fill shorter than bar is tall drops radius to half fill width, so rounded ends never cross into lens. **Arcs:** bezel ring is single stroked arc, `inset/6` wide, clockwise from 220° through top to 320° — 260° sweep leaving 100° gap at bottom for footer. Any non-zero progress shows at least one degree; fill never closes circle.
 
-Drawn marks are geometric and sized off the label font, not off the screen: the done check is two lines on the label baseline with a pen of one fifth of its size (minimum 2); the battery is an outlined rectangle with a solid nub and a proportional inner fill; the heart is two circles over a triangle; the notification bubble is a rounded rectangle (radius one fifth) with a triangular tail.
+Drawn marks geometric, sized off label font, not screen: done check is two lines on label baseline, pen one fifth of its size (minimum 2); battery is outlined rectangle with solid nub and proportional inner fill; heart is two circles over triangle; notification bubble is rounded rectangle (radius one fifth) with triangular tail.
 
 ### Named Rules
 
-**The Drawn-Not-Glyph Rule.** Every mark on the face is constructed from primitives. No bitmaps, no icon fonts, no glyph characters standing in for symbols — at 64 KB there is no budget for them and at 208 px there is no fidelity in them.
+**The Drawn-Not-Glyph Rule.** Every mark constructed from primitives. No bitmaps, no icon fonts, no glyph characters standing in for symbols — at 64 KB no budget, at 208 px no fidelity.
 
-**The Open Ring Rule.** The bezel arc is open at the bottom and never completes a circle. The gap is where the footer lives; closing it would take the footer's room and lose the read of "how much is left".
+**The Open Ring Rule.** Bezel arc open at bottom, never completes circle. Gap is where footer lives; closing it would take footer's room and lose read of "how much is left".
 
 ## Components
 
 ### Bezel Ring
-The day in one arc. Track first at `{colors.track}`, then the fill from the same 220° origin. Colour carries mode: the accent while the day is in progress, `{colors.done}` at full, `{colors.gold}` in HeroSet mode where the ring is XP into the current rank. Width `{spacing.ring-width}`, radius `display radius − {spacing.ring-inset}`. Fill is average progress across the goal-bearing missions, so it is only full when every one is done. **MOVE is not one of them** (owner, 2026-10-06, ADR-005 amendment): its bar is full while you are not idle, which made the ring read a third done at zero activity and turn green beside a MOVE bar that is never "done".
+Day in one arc. Track first at `{colors.track}`, then fill from same 220° origin. Colour carries mode: accent while day in progress, `{colors.done}` at full, `{colors.gold}` in HeroSet mode where ring is XP into current rank. Width `{spacing.ring-width}`, radius `display radius − {spacing.ring-inset}`. Fill is average progress across goal-bearing missions, so only full when every one done. **MOVE is not one of them** (owner, 2026-10-06, ADR-005 amendment): its bar full while not idle, which made ring read a third done at zero activity and turn green beside MOVE bar never "done".
 
 ### Mission Column
-Three equal columns: value on top (`{colors.text}`, or `{colors.alert}` in an alert state), pill bar in the middle, label at the bottom. Done turns the fill and the label `{colors.done}` and prepends a drawn check sized at three quarters of the label ascent; the check and label are centred as one unit so the column stays balanced. Both value and label pick the longest wording that fits the column width. A metric with no goal draws no bar and keeps its value and label. **Icons for clipped words (2026-10-05, owner, ROADMAP 13.11):** steps, calories, intensity minutes and floors draw a primitive icon (footprints, flame, pulse line, stairs; `HeroFaceIcon`; not a bolt, which means Body Battery across the studio, the label font's capital height, on its baseline) instead of `STEP`, `CAL`, `INT`, `FLR`; done keeps the check and the green; on the Instinct the reversed pill holds the icon. Distance (KM/MI), MOVE and HeroSet's three exercises keep their words. **On a rectangle a done label too wide for its column with the check drops the check** (the green word and the full bar still say done), and only a label too wide on its own is cut with "." as on the Instinct (Lithuanian push-ups and sit-ups on a Venu Sq 2, 2026-10-06). **MOVE has no value until it alerts** (ROADMAP 13.10): the bar alone while quiet, the red word GO on alert (red plus a word, never colour alone); `OK` is no longer drawn.
+Three equal columns: value on top (`{colors.text}`, or `{colors.alert}` in alert state), pill bar middle, label bottom. Done turns fill and label `{colors.done}`, prepends drawn check sized at three quarters of label ascent; check and label centred as one unit so column stays balanced. Value and label both pick longest wording fitting column width. Metric with no goal draws no bar, keeps value and label. **Icons for clipped words (2026-10-05, owner, ROADMAP 13.11):** steps, calories, intensity minutes, floors draw primitive icon (footprints, flame, pulse line, stairs; `HeroFaceIcon`; not a bolt, which means Body Battery across studio, label font's capital height, on its baseline) instead of `STEP`, `CAL`, `INT`, `FLR`; done keeps check and green; on Instinct reversed pill holds icon. Distance (KM/MI), MOVE and HeroSet's three exercises keep words. **On rectangle done label too wide for its column with check drops check** (green word and full bar still say done); only label too wide on its own is cut with "." as on Instinct (Lithuanian push-ups and sit-ups on Venu Sq 2, 2026-10-06). **MOVE has no value until it alerts** (ROADMAP 13.10): bar alone while quiet, red word GO on alert (red plus word, never colour alone); `OK` no longer drawn.
 
 ### Mission Bar
-`{spacing.bar-height}` tall, full column width, pill-capped at both ends. Track always drawn; fill is `width × permille/1000` in the accent, or `{colors.done}` when complete. Zero progress draws track only.
+`{spacing.bar-height}` tall, full column width, pill-capped both ends. Track always drawn; fill is `width × permille/1000` in accent, or `{colors.done}` when complete. Zero progress draws track only.
 
 ### Streak / Rank Line
-**As built (2026-10-05, ROADMAP 13.8):** the row under the time, one centred group: the streak (gold, or muted at zero) then the temperature (muted), a column gap between. Too wide: the streak's shorter wording, then the temperature drops. The temperature therefore never jumps between the row's centre and its edge. When the row is empty (no streak yet and no temperature, which is Free's first days), the time moves down half a row so no empty band sits under it (ROADMAP 13.9). The paragraph below is the original plan.
+**As built (2026-10-05, ROADMAP 13.8):** row under time, one centred group: streak (gold, or muted at zero) then temperature (muted), column gap between. Too wide: streak's shorter wording, then temperature drops. Temperature therefore never jumps between row's centre and edge. Row empty (no streak yet and no temperature, which is Free's first days): time moves down half a row so no empty band sits under it (ROADMAP 13.9). Paragraph below is original plan.
 
-The top row, just inside the ring. `{colors.gold}` when there is something kept, `{colors.muted}` at zero, and the row is omitted entirely when the watch has no step goal to build a streak from. Never wraps: the wording shortens instead.
+Top row, just inside ring. `{colors.gold}` when something kept, `{colors.muted}` at zero, row omitted entirely when watch has no step goal to build streak from. Never wraps: wording shortens instead.
 
 ### Date Row
-**As built:** the date has the narrow row inside the ring's top, alone (a temperature beside it does not fit there, `HeroFaceLayout.stackRows`); the temperature is in the row under the time (above). Original plan: one muted uppercase line under the time: weekday, day, month, and optionally the temperature in whole degrees. Sourced from the system so it is translated for free; drops the month, then the temperature, on narrow chords.
+**As built:** date has narrow row inside ring's top, alone (temperature beside it does not fit there, `HeroFaceLayout.stackRows`); temperature in row under time (above). Original plan: one muted uppercase line under time: weekday, day, month, optionally temperature in whole degrees. Sourced from system so translated for free; drops month, then temperature, on narrow chords.
 
 ### Footer
-Battery, heart rate and unread notifications in the ring's bottom gap, drawn as primitive icons each followed by its number in `{colors.muted}`, the group centred as a whole. The battery number carries no percent sign — the icon already says "battery", and the saved width is what keeps three items inside the gap on a small screen. Items with nothing to say are never drawn (no heart rate reading, no notifications), and if the group still overflows the chord it drops items from the right until it fits. Battery at or below 15% turns red.
+Battery, heart rate, unread notifications in ring's bottom gap, drawn as primitive icons each followed by number in `{colors.muted}`, group centred as whole. Battery number carries no percent sign — icon already says "battery", saved width keeps three items inside gap on small screen. Items with nothing to say never drawn (no heart rate reading, no notifications); if group still overflows chord, drops items from right until fits. Battery at or below 15% turns red.
 
 ### Seconds
-Optional, in `{colors.muted}` at `FONT_XTINY`, tucked against the right edge of the time on the digits' baseline, never allowed below the date row. If they will not fit the chord beside a wide time, they are not drawn at all rather than crowding the ring. They redraw alone in a clipped box during low-power partial updates. **On a rectangle** the time keeps the seconds' width free on both sides by taking the next number font down while seconds are on (Venu X1 `THAI_HOT` to `HOT`, Venu Sq 2 `HOT` to `MEDIUM`; the Venu Sq keeps `THAI_HOT`), and grows back once if the watch cuts the seconds for the power budget.
+Optional, `{colors.muted}` at `FONT_XTINY`, tucked against right edge of time on digits' baseline, never allowed below date row. If they will not fit chord beside wide time, not drawn at all rather than crowding ring. Redraw alone in clipped box during low-power partial updates. **On rectangle** time keeps seconds' width free both sides by taking next number font down while seconds on (Venu X1 `THAI_HOT` to `HOT`, Venu Sq 2 `HOT` to `MEDIUM`; Venu Sq keeps `THAI_HOT`), grows back once if watch cuts seconds for power budget.
 
 ### Always-On Time
-The entire sleep composition on burn-in screens: a dim `{colors.sleep-text}` (`#5C5C5C`, 3.14:1, ADR-006) time in `FONT_NUMBER_MEDIUM`, centred, stepping across a 3×3 grid at `{spacing.inset}`/2 per cell, one cell per minute. No ring, no bars, no date, no footer. Simulator 24-hour heat map in `#5C5C5C` (2026-10-08, Pro): no burn-in detected, peak luminance 1.35% on `fr965` (1.23% in `#555555`, 2026-10-05) and 1.22% on `venux1`; frames in `../device-test/rect-review/aod-grey/`. Simulator only, nothing on a wrist.
+Entire sleep composition on burn-in screens: dim `{colors.sleep-text}` (`#5C5C5C`, 3.14:1, ADR-006 (always-on time is the studio's one always-on grey)) time in `FONT_NUMBER_MEDIUM`, centred, stepping across 3×3 grid at `{spacing.inset}`/2 per cell, one cell per minute. No ring, bars, date, footer. Simulator 24-hour heat map in `#5C5C5C` (2026-10-08, Pro): no burn-in detected, peak luminance 1.35% on `fr965` (1.23% in `#555555`, 2026-10-05) and 1.22% on `venux1`; frames in `../device-test/rect-review/aod-grey/`. Simulator only, nothing on a wrist.
 
 ## Do's and Don'ts
 
 ### Do:
-- **Do** derive every new dimension from `min(width, height)/10`, the way `barHeight` (/3), `ringWidth` (/6), `columnGap` (/5) and `stackGap` (/9) already do.
-- **Do** measure text against the round chord at its own row before drawing it, and give every string a shorter-wording fallback ordered longest-first.
-- **Do** draw a full-length `{colors.track}` remainder behind every progress element.
-- **Do** pair any colour-carried state with a second signal: a word, a mark, or a bar length.
-- **Do** keep every new colour inside Garmin's 64-colour palette (channels 00/55/AA/FF); the always-on Sleep Grey is the one exception (ADR-006).
+- **Do** derive every new dimension from `min(width, height)/10`, as `barHeight` (/3), `ringWidth` (/6), `columnGap` (/5), `stackGap` (/9) already do.
+- **Do** measure text against round chord at its own row before drawing, give every string shorter-wording fallback ordered longest-first.
+- **Do** draw full-length `{colors.track}` remainder behind every progress element.
+- **Do** pair any colour-carried state with second signal: word, mark, or bar length.
+- **Do** keep every new colour inside Garmin's 64-colour palette (channels 00/55/AA/FF); always-on Sleep Grey is the one exception (ADR-006 (always-on time is the studio's one always-on grey)).
 - **Do** build new marks from primitives — lines, arcs, circles, polygons, rounded rectangles.
-- **Do** hide an element that has no honest value rather than drawing a placeholder or a zero.
+- **Do** hide element with no honest value rather than drawing placeholder or zero.
 
 ### Don't:
-- **Don't** spend gold on anything but a thing the user has kept and could lose.
-- **Don't** use `{colors.alert}` as a progress colour, or add a red/green distinction as the only difference between two states.
-- **Don't** hard-code a pixel value or add a per-device layout table.
-- **Don't** shrink a font to make text fit; shorten the wording instead. (One stated exception: a rectangle's time steps down a size while Pro's seconds are on, see Seconds.)
-- **Don't** close the bezel arc or fill the bottom gap — the footer lives there.
-- **Don't** add shadows, gradients, tinted panels or card backgrounds; the ground is black and the face is flat.
+- **Don't** spend gold on anything but thing user has kept and could lose.
+- **Don't** use `{colors.alert}` as progress colour, or add red/green distinction as only difference between two states.
+- **Don't** hard-code pixel value or add per-device layout table.
+- **Don't** shrink font to make text fit; shorten wording instead. (One stated exception: rectangle's time steps down a size while Pro's seconds on, see Seconds.)
+- **Don't** close bezel arc or fill bottom gap — footer lives there.
+- **Don't** add shadows, gradients, tinted panels, card backgrounds; ground black, face flat.
 - **Don't** ship bitmaps or icon-font glyphs.
-- **Don't** put anything but the dim time on a burn-in-protected screen in sleep.
-- **Don't** let anything on the face compete with the time for size.
+- **Don't** put anything but dim time on burn-in-protected screen in sleep.
+- **Don't** let anything on face compete with time for size.
 
 ## Instinct (1-bit, a round window top right; ADR-002, accepted 2026-10-04, simulator only)
 
-Black and white only: every colour role is white (gold, green, red and the accent collapse; the Never-Colour-Alone rule already had a shape or a word for each state: an outlined track under a solid fill, a drawn check and a full bar for done, the number beside every icon). **The bezel ring becomes a gauge in the round window** (a hairline circle, a thick fill from 12 o'clock clockwise, closed when every goal is done). The time and the date share the band left of the window, the streak sits just below it, and the three mission columns end above the bottom corners. **No footer, temperature or seconds** (the smallest font is 23 px tall on a 176 px screen). What shows is the square cut by a circle about 98 px in radius, so rows are clipped to a 96 px circle. The mockup (`docs/archive/instinct-mockup.html`) is the approved look, not the built layout. **A finished goal there is a reversed label** (black on a white pill, no check, 2026-10-04, ADR-002 amendment): the columns are about 42 px and "check + STEP" cut the label to "ST.".
+Black and white only: every colour role white (gold, green, red, accent collapse; Never-Colour-Alone rule already had shape or word for each state: outlined track under solid fill, drawn check and full bar for done, number beside every icon). **Bezel ring becomes gauge in round window** (hairline circle, thick fill from 12 o'clock clockwise, closed when every goal done). Time and date share band left of window, streak just below it, three mission columns end above bottom corners. **No footer, temperature or seconds** (smallest font 23 px tall on 176 px screen). Visible: square cut by circle about 98 px radius, so rows clipped to 96 px circle. Mockup (`docs/archive/instinct-mockup.html`) is approved look, not built layout. **Finished goal there is reversed label** (black on white pill, no check, 2026-10-04, ADR-002 amendment): columns about 42 px, "check + STEP" cut label to "ST.".
 
 ## Rectangle (Venu Sq, Sq 2, X1; ADR-005, proposed 2026-10-05, amended 2026-10-05/06 with two owner decisions of 2026-10-06 (keep the edge frame; MOVE leaves the ring's score), simulator only, needs the owner's look-approval)
 
-A square design, not a round one in a box: the ring becomes a track along the screen's edges and every row takes the frame's full width.
+Square design, not round one in a box: ring becomes track along screen's edges, every row takes frame's full width.
 
-**The bezel ring becomes a frame along the screen's edges**: an open-bottom rounded rectangle whose centreline sits a quarter inset in from the glass (a visible band of black between frame and glass, about 8 px at 448), a sixth of an inset wide. Each corner is a quarter circle centred 1.5 insets in from both edges, so on the Venu X1, whose glass corner measures about 68 px (1.55 insets), the frame runs nearly concentric with the glass and the margin stays even round the corner; the Venu Sq and Sq 2 glass is almost square, and there the round corner is the design's own. Track first, then the fill measured along the path from the lower end of the left side, up, over the top and down the right side: clockwise from the lower left, like the round ring, and open at the bottom where the footer lives (the Open Ring Rule). The share filled is the share of the path's length. It does not start at top centre like the studio's closed rectangle tracks: an open path started there would split the fill across the footer gap (ADR-005 amendment). Same colour roles: the accent, green when every goal is done, gold for XP in HeroSet mode.
+**Bezel ring becomes frame along screen's edges**: open-bottom rounded rectangle whose centreline sits quarter inset in from glass (visible black band between frame and glass, about 8 px at 448), sixth of inset wide. Each corner quarter circle centred 1.5 insets in from both edges, so on Venu X1, glass corner about 68 px (1.55 insets), frame runs nearly concentric with glass, margin stays even round corner; Venu Sq and Sq 2 glass almost square, there round corner is design's own. Track first, then fill measured along path from lower end of left side, up, over top, down right side: clockwise from lower left, like round ring, open at bottom where footer lives (the Open Ring Rule). Share filled is share of path's length. Does not start at top centre like studio's closed rectangle tracks: open path started there would split fill across footer gap (ADR-005 amendment). Same colour roles: accent, green when every goal done, gold for XP in HeroSet mode.
 
-**The time is the hero, sized by its ink.** A number font's box is about a third empty (headroom above the digits, descent below them), so on a rectangle the time is chosen and placed by its digits: the largest number font whose digits (0.72 of the ascent; measured 0.68 to 0.69 on simulator screenshots, not on a watch: a wrist check that the time's ink clears the date and the row under it on the Sq 2 and X1 is open) leave a stack gap above and below them in the band between the date and the row under the time, and whose widest time fits the frame. Measured: `THAI_HOT` on the Venu Sq (39 px digits) and the X1 (108 px, width-bound: 364 of the frame's 398), `HOT` on the Sq 2 (80 px; `THAI_HOT` is 311 px wide, the frame 284).
+**Time is hero, sized by its ink.** Number font's box about a third empty (headroom above digits, descent below), so on rectangle time chosen and placed by its digits: largest number font whose digits (0.72 of ascent; measured 0.68 to 0.69 on simulator screenshots, not on a watch: wrist check that time's ink clears date and row under it on Sq 2 and X1 is open) leave stack gap above and below in band between date and row under time, and whose widest time fits frame. Measured: `THAI_HOT` on Venu Sq (39 px digits) and X1 (108 px, width-bound: 364 of frame's 398), `HOT` on Sq 2 (80 px; `THAI_HOT` is 311 px wide, frame 284).
 
-**The stack is balanced, not top-heavy.** Rows keep the round order (date, time, streak and temperature, missions, footer in the open bottom) and the One Proportion Rule, with half-inset top and bottom margins (no chord to clear). The height the time's digits do not use is shared evenly by the gap above the time, the gap under it and the gap above the footer, so the missions and the row under the time rise together and no hole opens under the time. With nothing under the time (Free's first days) the time moves down half a row, as on round screens.
+**Stack balanced, not top-heavy.** Rows keep round order (date, time, streak and temperature, missions, footer in open bottom) and One Proportion Rule, with half-inset top and bottom margins (no chord to clear). Height time's digits do not use shared evenly by gap above time, gap under it, gap above footer, so missions and row under time rise together, no hole opens under time. With nothing under time (Free's first days) time moves down half a row, as on round screens.
 
-**Horizontal extents follow the frame, not a circle:** content fits half a ring width plus half a text margin inside its centreline and inside a rounded corner at all four corners (the X1's glass is rounded at the bottom too). **Pro's seconds** keep their width free on both sides of the time (it stays centred) only while they are drawn: with seconds on, the Sq 2 time is `MEDIUM` and the X1's `HOT`; Free, which has no seconds, never pays for them. Always-on is unchanged: the dim time on a 3 x 3 drift wherever the watch asks for burn-in protection (the simulator does on all three sizes, the Venu Sq's LCD included; whether the real Venu Sq asks for it is unverified on a watch, and if it does not, the full face draws in sleep as on round MIP watches; compatibility.md).
+**Horizontal extents follow frame, not circle:** content fits half ring width plus half text margin inside its centreline and inside rounded corner at all four corners (X1's glass rounded at bottom too). **Pro's seconds** keep width free both sides of time (stays centred) only while drawn: with seconds on, Sq 2 time is `MEDIUM`, X1's `HOT`; Free, no seconds, never pays for them. Always-on unchanged: dim time on 3 x 3 drift wherever watch asks for burn-in protection (simulator does on all three sizes, Venu Sq's LCD included; whether real Venu Sq asks for it is unverified on a watch, and if not, full face draws in sleep as on round MIP watches; compatibility.md).
