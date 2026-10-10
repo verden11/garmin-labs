@@ -11,6 +11,7 @@ that serves all of their public pages.
 | [`DaysToGo/`](DaysToGo) | Watch face — days until a date, one big number, counted in whole calendar days. 117 round + 3 rectangular + 7 Instinct products (127). | Live (approved 2026-09-28); Pro 1.1.0 and the new Free in Garmin review (uploaded 2026-10-04) |
 | [`TwoSuns/`](TwoSuns) | Watch face — the time, a 24-hour sun ring and the day's Body Battery as a curve; "Two Suns". 72 products (66 round + 3 rectangular + 3 Instinct). | 1.0.0 live; Pro 1.1.0 and the new Free in Garmin review (uploaded 2026-10-04) |
 | [`DayArc/`](DayArc) | Watch face pair — content changes on a fixed clock through the day (weather/stress/Body Battery/night); "DayArc" (free) one reading per window, "DayArc Pro" (paid, the $2.50 tier) a denser field grid per window. One codebase, two listings. 72 products (66 round + 3 rectangular + Instinct E 40/45 mm and 3 Solar). | **Live since 2026-10-05** (both listings approved by Garmin); one setting (Accent colour); wrist check of the final build open |
+| [`SunWindow/`](SunWindow) | Widget with a glance — whether the sun is at or above 45° now: OPEN, CLOSED or NONE TODAY, with today's window times. Free only. 65 products (API 5.1+ watches, 3 of them Instinct). | **Built, simulator only; not uploaded.** FR965 spike passed 2026-10-05 (place, weather values, glance, timeout); wear day of the build, store assets and the site pages open |
 | [`site/`](site) | The public site: studio home plus landing, support and privacy pages per app. Live at **https://verden.watch/** | Live |
 
 Each folder is built and released independently. They share this repo so
@@ -21,7 +22,7 @@ cross-cutting changes land in one commit.
 Every watch project has the same shape, so the same file is in the same place. **One to-do list for everything: [`ROADMAP.md`](ROADMAP.md).**
 
 ```
-HeroSet/ · HeroFace/ · DaysToGo/ · TwoSuns/ · DayArc/
+HeroSet/ · HeroFace/ · DaysToGo/ · TwoSuns/ · DayArc/ · SunWindow/
   README.md  CLAUDE.md  CHANGELOG.md   one CHANGELOG entry per store publication
   PRODUCT.md  DESIGN.md                what it is, how it looks (HeroSet has no DESIGN.md)
   docs/
@@ -72,6 +73,7 @@ cd DaysToGo    && monkeyc -d fr965 -f monkey.jungle -o bin/DaysToGo.prg -y $KEY
 cd TwoSuns     && monkeyc -d fr965 -f monkey.jungle -o bin/TwoSuns.prg -y $KEY
 cd DayArc      && monkeyc -d fr965 -f monkey.simple.jungle -o bin/DayArc.prg -y $KEY
 cd DayArc      && monkeyc -d fr965 -f monkey.pro.jungle -o bin/DayArcPro.prg -y $KEY
+cd SunWindow   && monkeyc -d fr965 -f monkey.jungle -o bin/SunWindow.prg -y $KEY
 cd site && npm install && npm run dev
 ```
 

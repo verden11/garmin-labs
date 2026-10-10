@@ -1,8 +1,14 @@
 # Sun Window — status and release runbook
 
-> **Open items live only in the root [`ROADMAP.md`](../../ROADMAP.md) (16.x).** This file keeps where things stand, the evidence, the release gates and the upload steps. The task plan: [`../../reports/Sun Window build plan.md`](../../reports/Sun%20Window%20build%20plan.md). Listing text and metadata: [`../listing/paste.md`](../listing/paste.md) and [`../listing/meta.yaml`](../listing/meta.yaml). Claims: [`release-contract.md`](release-contract.md).
+> **Open items live only in the root [`ROADMAP.md`](../../ROADMAP.md) (18.x).** This file keeps where things stand, the evidence, the release gates and the upload steps. The task plan: [`../../reports/Sun Window build plan.md`](../../reports/Sun%20Window%20build%20plan.md). Listing text and metadata: [`../listing/paste.md`](../listing/paste.md) and [`../listing/meta.yaml`](../listing/meta.yaml). Claims: [`release-contract.md`](release-contract.md).
 
-**Where things stand, 2026-10-05.** Spec and decisions are written; the owner approved the plan's recommendations on 2026-10-05 (ADR-001, ADR-005 to ADR-007, ADR-013). **No code exists, and nothing about Sun Window has run on a watch or in the simulator.** Next: plan phase P1 (the FR965 device spike) and P2 (mockup and look approval), in parallel. Product code (P3) starts only after the spike yields a place on the watch (ADR-007) and the owner approves the look (ADR-011).
+**Where things stand, 2026-10-10.** The app is **built and checked in the simulator only; this build has not been on a wrist and nothing is uploaded.** The FR965 spike of 2026-10-05 (a probe, not this build) passed the place, the glance and the timeout checks. The owner approved the plan's recommendations (2026-10-05, ADR-001, ADR-005 to ADR-007, ADR-013), the look (mockup rev 2, ADR-011) and, on 2026-10-10, the `widget` manifest type (ADR-008).
+
+Simulator evidence (2026-10-10, container, simulator only): 33 unit tests pass on every one of the 65 products (30 on the three 1-bit Instincts), see [`compatibility.md`](compatibility.md); compile sweep 65 pass, 0 fail; `tools/glance-scope-check.sh` clean; screenshots of every state in [`archive/screens/`](archive/screens/); a fresh-context design review and a code review ran and their findings are fixed or recorded (below).
+
+Next (owner): look-check the built screens and the icon (ROADMAP 18.1), the wear day ([`wear-day-checklist.md`](wear-day-checklist.md), ROADMAP 18.4), the trademark check (18.3), then merge, deploy the site and upload (18.5).
+
+**Reviews, 2026-10-10.** Design review (`watch-design-reviewer`, simulator shots): disposition fix, all findings applied except the owner-level note that the system draws the placeholder launcher icon next to the white glance mark (OD-10, ROADMAP 18.1). Code review (`reviewer`): 21 findings. Fixed: the window on the wrong local day at UTC+13/+14 west of the date line (Apia, Kiritimati), a location request cancelled by an overlay, a place near longitude 180 that could not be stored, the sun dot drawn off the time axis, `ask()` without a guard, the 1-pixel sill on the Instinct, centring of the empty states, the glance on the Instinct E 45 mm (the sub-window covers the word row: the mark is dropped there), the stale docs. Recorded, not changed: the reason line says "Cloud cover" for a UV reading under 3 (the owner approved the wording, ADR-013; it is a plain-words gloss for a low UV index); the offset is read "now", so on a daylight-saving change day the clock edge is an hour off until the switch (night only).
 
 ## Never decide alone
 
@@ -28,21 +34,21 @@ Simulator is not device proof. Each row is filled with a date and "FR965 only" w
 | 1 | Name cleared | Store search and a trademark search found no conflict with "Sun Window" (ADR-001) | **Partly open.** Store search clean (2026-10-04); trademark and domain check not run |
 | 2 | Device checks | D2, D6, D7, D9, D11 and D12 above recorded | **Open** |
 | 3 | Platform claims verified | The open and close times match the fixtures script for the owner's place, on the FR965 (D9) | **Open** |
-| 4 | Look approved | Mockup approved (ADR-011), then the built screens in the simulator on a round, a rectangle (venux1) and an Instinct | **Open** |
-| 5 | UX checklist passed | Buttons-only navigation works; every empty state has a sentence (open once, finding location, no fix, no weather); the accent persists on the watch. The phone settings round trip is checked after approval (ADR-013) | **Open** |
+| 4 | Look approved | Mockup approved (ADR-011), then the built screens in the simulator on a round, a rectangle (venux1) and an Instinct | **Mockup approved 2026-10-05.** Built screens shot on fr965, venu3, epix2pro47mm, fr255s, venux1 and both Instinct E sizes ([`archive/screens/`](archive/screens/)); the owner's look-check is open (ROADMAP 18.1) |
+| 5 | UX checklist passed | Buttons-only navigation works; every empty state has a sentence (open once, finding location, no fix, no weather); the accent persists on the watch. The phone settings round trip is checked after approval (ADR-013) | **Partly, simulator only:** every empty state has a sentence and was shot ("Open once", "Finding your place", "No place yet / Press START"); START opens the app from the glance. The menu gesture (D11) and the accent persisting need the wrist |
 | 6 | Always-on / burn-in | Not applicable: an app has no always-on mode | n/a |
 | 7 | Wear day | One full day on the build that will be exported, this app only; the worn commit hash recorded in `device-test/README.md`; DST checked on the watch if the window spans 2026-10-25, otherwise simulator only | **Open** |
-| 8 | Full device/fit sweep | `tools/fit_products.sh` all pass on the submitted commit | **Open** |
+| 8 | Full device/fit sweep | `tools/fit_products.sh` all pass on the submitted commit | **65 of 65 pass, simulator only, 2026-10-10** ([`compatibility.md`](compatibility.md)); re-run on the commit that is uploaded |
 | 9 | Export checked | Package permissions are `Positioning` only; no `Background`, `Notifications` or `Communications` in the manifest or source; device count matches the manifest | **Open** |
 | 10 | Language decision | English only (ADR-013) | **Decided 2026-10-05** |
 | 11 | Real assets | Launcher icon, cover, hero, device icons, store screens approved by the owner | **Open** |
-| 12 | Listing written and checked | `listing/paste.md` in form order, every sentence checked against `release-contract.md`; no "vitamin D", no "no location" | **Open** (skeleton only) |
+| 12 | Listing written and checked | `listing/paste.md` in form order, every sentence checked against `release-contract.md`; no "vitamin D", no "no location" | **Drafted 2026-10-05**, final at upload (plan P9.4); images are drafts for the owner's look (ROADMAP 18.1) |
 | 13 | Site live | `/sun-window/`, `/sun-window/support/`, `/sun-window/privacy/` open without login | **Open** |
 | 14 | Price | Free, no price, no upgrade text (ADR-003) | **Decided** |
 | 15 | Baseline recorded | Optional: other studio apps' download and review numbers on upload day | Optional |
-| 16 | Tests green | All tests pass, zero build warnings (except the launcher-icon notice), `tools/glance-scope-check.sh` silent, on the submitted commit | **Open** |
-| 17 | Design reviewed | `watch-design-reviewer` returned `disposition: ship`, or every `fix` resolved | **Open** |
-| 18 | No "no location" | No store, site or watch text says "no location" while `Positioning` is declared | **Open** |
+| 16 | Tests green | All tests pass, zero build warnings (except the launcher-icon notice), `tools/glance-scope-check.sh` silent, on the submitted commit | **Green on the PR's code, simulator only, 2026-10-10:** 65 of 65 products pass, compile sweep 65 pass 0 fail, glance scope clean (fr965, instincte40mm); re-run on the uploaded commit |
+| 17 | Design reviewed | `watch-design-reviewer` returned `disposition: ship`, or every `fix` resolved | **Ran 2026-10-10 (disposition fix); every material fix applied**; the one owner-level note (the placeholder launcher icon next to the white mark) is OD-10 |
+| 18 | No "no location" | No store, site or watch text says "no location" while `Positioning` is declared | **Clean in the app, `listing/` and the site pages drafted so far** (`rg -i 'no location'`); re-check at upload |
 
 ## Store form answers (ADR-013)
 

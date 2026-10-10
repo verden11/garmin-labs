@@ -1,7 +1,7 @@
 ---
 name: Sun Window
 description: Today's sun path over a dashed 45-degree sill; the window (the path above the sill) drawn thick in the accent; the sun disc filled when open, an outline otherwise.
-status: APPROVED by the owner 2026-10-05, mockup rev 2 (ADR-011). Nothing here is built.
+status: APPROVED by the owner 2026-10-05, mockup rev 2 (ADR-011). BUILT 2026-10-10 and checked in the simulator only (screens in docs/archive/screens/); not seen on a wrist.
 colors:
   ground: "#000000"
   text: "#FFFFFF"      # state word, glance word and mark
@@ -83,6 +83,22 @@ None. An app has no always-on mode. The full view redraws once a minute (one tim
 2026-10-05: rev 2 approved as a whole (OD-7, ADR-011), including the two fit shortenings ("Sun stays low", "Open once") and
 Sky as the default accent (Amber was offered, not chosen). Known small flaw, accepted with the mockup: the NONE TODAY glance
 mark's disc sits low on the 63 px fēnix 7S card; the build places it inside the row.
+
+## Built vs the approved mockup (2026-10-10, simulator only)
+
+What moved, and why (owner steering 2026-10-03: say it when the real fonts cannot match a mockup):
+
+- The range separator is a hyphen, not the mockup's en dash: the measured widths were for a hyphen, and the en dash was never
+  checked in Garmin's fonts. A 12-hour range carries `a`/`p` ("7:26a-1:15p"); a single time ("Opens 7:26") does not.
+- No reason line under OPEN, as in the mockup; "No weather" appears there only when the watch gave no UV reading.
+- The glance title is white (the mockup had it muted): the focused glance card on the FR965 is a mid slate blue (spike photo
+  2026-10-05), where `#AAAAAA` would be about 2:1.
+- The 45-degree sill is at least 2 px on the 1-bit Instinct (a 1 px stroke is too thin there); the single-row empty states are
+  centred on the screen.
+- The time axis is fixed at 04:00 to 22:30 for every day, so summer and winter compare; a sunrise before 04:00 (high latitude at
+  midsummer) clips the path at the left edge.
+- The system draws the launcher icon at the left of the glance card (orange disc and bar, today the placeholder). It sits next to
+  the white mark; the icon is the owner's decision (OD-10, ROADMAP 18.1).
 
 ## Craft
 

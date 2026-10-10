@@ -12,7 +12,7 @@ Do not keep open checkboxes anywhere else. Status 2026-10-10. **Open items only:
 - **Drive mode:** say "drive M3". Claude takes the whole milestone, runs agents, stops at every `[you]` gate and hands you a checklist.
 - **Step mode:** say "next task". Claude shows the first unticked task of the section you name, you approve or do it, it moves to `ROADMAP-done.md`, repeat.
 - **Never decide alone:** names, prices, icons, looks, uploads, translations, site deploys, deleting history. Always `[you]`.
-- Ids are stable (other docs cite them): `1.x` to `8.x` are the old milestones, `9.x` Instinct family, `10.x` housekeeping, `11.x` image refresh, `13.x` design critique 2026-10-05 (one project at a time), `15.x` store top-apps research 2026-10-05 (`~/dev/watch-design-kit/reports/Connect IQ store top apps insights.md`), `16.x` hand-off 2026-10-08, `17.x` passive income plan 2026-10-09 (`reports/Passive income plan.md`). Add new work at the end of the right section.
+- Ids are stable (other docs cite them): `1.x` to `8.x` are the old milestones, `9.x` Instinct family, `10.x` housekeeping, `11.x` image refresh, `13.x` design critique 2026-10-05 (one project at a time), `15.x` store top-apps research 2026-10-05 (`~/dev/watch-design-kit/reports/Connect IQ store top apps insights.md`), `16.x` hand-off 2026-10-08, `17.x` passive income plan 2026-10-09 (`reports/Passive income plan.md`), `18.x` Sun Window (M13, `reports/Sun Window build plan.md`). Add new work at the end of the right section.
 - Dates are earliest, never promises. Simulator evidence is never device proof.
 
 ## 1. Decide (needs your answer; blocks agent work)
@@ -22,6 +22,8 @@ Do not keep open checkboxes anywhere else. Status 2026-10-10. **Open items only:
 - [x] 13.25 `[agent]` **Done 2026-10-08 (`c7964cf`): `#5C5C5C` (3.1:1) in Days To Go, HeroFace, DayArc (was `#AAAAAA`) and Two Suns; burn-in clean on fr965 and venux1; Days To Go's error screen dims and drifts too.** Always-on grey, one for the studio? Today three: Days To Go and HeroFace `#555555` (2.8:1, under the house 3:1 bar), Two Suns `#5C5C5C` (its ADR-027), DayArc the full muted `#AAAAAA` (brightest). Agent pick: `#5C5C5C` everywhere (about 15 min per face plus an upload each). Burn-in passes either way (heat map, 2026-10-05: 0.84 to 2.52% peak luminance, limit 10%).
 - [ ] 17.2 `[you]` (2027-01) Buy a used Galaxy Watch (Wear OS 5+, about €120–200) for the Wear OS spike, if the Days To Go port runs in the emulator (17.5).
 - [ ] 17.3 `[you]` (after the organic exposure window, about 2026-12) One Reddit Ads test, €75, one month, landing on `verden.watch/<app>?utm_*`; pass bar 100 sessions for ≤ €85 and ≥ 10% store handoff. Fail either: no more ad spend in year one.
+- [ ] 18.1 `[you]` Sun Window (free widget with a glance; plan `reports/Sun Window build plan.md`, project `SunWindow/`): look-check of the **built** screens (simulator shots in `SunWindow/docs/archive/screens/`, plan P6.7) and the launcher icon (P6.8, a placeholder today). Then the cover, hero and store screens (P9.5). The mockup is approved (ADR-011).
+- [ ] 18.2 `[you]` Sun Window manifest type: you chose **`widget`** (2026-10-10). On API 5.1+ watches the compiler builds a widget as a watch-app anyway, so the watch behaves the same; the passive income plan (section 1, step 3) had assumed `watch-app` for the store's watch-app shelf. Only the upload form shows how the store files it. Reversible before the first upload (one manifest line, `SunWindow/docs/decisions.md` ADR-008).
 
 ## 2. Your hands (a watch, the store dashboard, a person)
 
@@ -61,6 +63,9 @@ People.
 - [x] 13.39 `[agent]` **Done 2026-10-08 (`d0cf2c3`): works on Venu Sq/Sq Music/X1; not offered on Sq 2/Sq 2 Music (firmware gives it a 30 px slot; ADR-020; wrist check open).** Days To Go: the on-watch Set date picker is broken on the rectangles in the simulator (columns missing/overlapping; predates the square design). Being fixed (agent, 2026-10-08).
 - [ ] 13.41 `[you]` (optional) HeroSet ADR-058: raising the daily goal in the evening keeps today done (bars then show "open" against the new goal). Flip it if you prefer the bars to rule.
 - [ ] 15.5 `[you]` Reply to every text review on our live listings, each with a support route (Contact Developer, hello@verden.watch). Garmin replies to none of its own; indie leaders that reply to every one hold 4.9. The agent drafts replies when you paste the reviews or say "draft replies <app>".
+- [ ] 18.3 `[you]` Sun Window: trademark and domain check for "Sun Window" before any listing work (ADR-001).
+- [ ] 18.4 `[you]` Sun Window wear day on the FR965 with the built app, one full day, no other app swapped in (device checks D2, D7, D9, D11 in `SunWindow/docs/status.md`; the steps are in `SunWindow/docs/wear-day-checklist.md`, the prebuilt `.prg` in the worktree's `device-test/` or rebuilt from there). The spike (D6, D12) already passed 2026-10-05.
+- [ ] 18.5 `[you]` Sun Window upload as a **new** app, the same day the site pages are merged and deployed (ADR-013): `SunWindow/docs/status.md` "Submit".
 
 ## 3. Agent can do now (no input needed)
 
@@ -81,6 +86,7 @@ Packages, listings, site (prepare so each upload is a paste).
 Passive income plan (`reports/Passive income plan.md`, 2026-10-09).
 - [ ] 17.5 `[agent]` (phase 2, 2027-01) Wear OS spike, time-boxed 4 weeks: Google Play account ($25, personal) and the owner's tester-swap recruits first; Watch Face Format port of Days To Go Free, emulator screenshots, closed-test track live (12 opted in, 14 continuous days; owner recruits, agent tracks the opt-in count), Play listing draft. Stop and report if a second engine is needed or the 12 are not reached in 6 weeks.
 - [ ] 17.6 `[agent]` Monthly readout file `research_notes/Passive income plan/readouts.md` (last Monday of each month): per listing bucket, reviews, Instinct rank, Pro sales (owner pastes), against the phase stop rules in the plan's section 4.
+- [ ] 18.6 `[agent]` Sun Window: store images (cover, hero, device icons, framed screens) and the site pages, after 18.1 approves the look (plan P9, P10; the site pages are in a separate draft PR because a merge to `main` deploys the site).
 
 ## 4. Waiting on a date or an outside event
 
@@ -116,6 +122,7 @@ Parked until 2027-03-31 (owner, 2026-10-09: new features and reworked designs wa
 - **M7 HeroSet:** 7.9, 7.3, 7.2, 7.4, 7.8, 7.10.
 - **M8 Bolder faces** (later): 8.1 to 8.3.
 - **M9 Instinct:** 9.6, 9.9. **M10 Housekeeping:** 10.x.
+- **M13 Sun Window** (new free app): 18.1, 18.4, 18.3, 18.6, 18.2, 18.5. After approval: day-30 and day-60 reads (plan P12.4).
 
 Done items and the old notes: [`ROADMAP-done.md`](ROADMAP-done.md).
 

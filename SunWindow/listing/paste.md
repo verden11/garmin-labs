@@ -1,6 +1,6 @@
 # Sun Window — store listing (paste)
 
-**Status: drafted 2026-10-05, not final.** Do not paste until plan task P9.4
+**Status: drafted 2026-10-05, images drafted 2026-10-10, not final.** Do not paste until plan task P9.4
 finalises it and the owner settles `meta.yaml` `owner_approvals`. Fields are
 in the order of the upload form (https://apps.garmin.com/developer/upload).
 Every sentence is checked against [`../docs/release-contract.md`](../docs/release-contract.md).
@@ -50,7 +50,7 @@ Leave blank.
 
 ## Hero Image
 
-`hero-1440x720.png` (not rendered yet; plan P9.3)
+None (optional; none drafted).
 
 ## Category
 
@@ -74,16 +74,22 @@ Whatever the Category choice offers.
 
 ## Cover Image
 
-`cover-500.png` (not rendered yet; plan P9.3)
+`cover-500.png` (a draft; the owner approves the look, ROADMAP 18.1)
 
 ## Screen Images
 
-Not taken yet (plan P9.2; order in [`screenshots.md`](screenshots.md)).
+Drafts for the owner's look approval (ROADMAP 18.1), simulator captures framed in a watch; order and notes in [`screenshots.md`](screenshots.md):
+
+1. `screens-framed/1-open.png`
+2. `screens-framed/2-closed.png`
+3. `screens-framed/3-none-today.png`
+4. `screens-framed/4-glance.png`
+5. `screens-framed/5-instinct.png`
 
 ## Device icons
 
-- 64 Color: `icon-64-128.png` (not rendered yet)
-- 24 bit: `icon-24-128.png` (not rendered yet)
+- 64 Color: `icon-64-128.png` (a draft)
+- 24 bit: `icon-24-128.png` (a draft)
 
 ## Preview Video
 

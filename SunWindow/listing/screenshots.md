@@ -1,19 +1,24 @@
 # Sun Window — screenshots
 
-Not taken yet (plan P9.2). Rendered by an agent in the container simulator
-(`docker/capture.sh SunWindow tools/listing_shots.sh`): fixed time, 24-hour
-clock, a place from the simulator's Set Position, native pixels, each under
-150 KB, then framed in a watch skin with `docker/frame_listing.sh`
-(`src/frames.txt`). Simulator weather and place are set by hand: never
-present them as a reading. The owner approves the looks.
+**Drafts for the owner's look approval (ROADMAP 18.1); nothing is approved.** All are simulator captures: the simulator's weather,
+clock and place are set by hand (`tools/shots.sh`, the place patched into a private copy), so they show the states, never a
+reading. The clock reads 12-hour because the simulator starts on 12 h; the container's UTC clock puts Vilnius's window early
+(7:26a-1:15p), so the times are not Vilnius's real ones.
 
-| # | State | Device | Notes |
+Native captures: `screens/` (and `screens/native/` for the Instinct). Framed in each watch's own skin by
+`CIQ_IMAGE=verden-ciq-shots:9.2.0 docker/run.sh SunWindow bash /ciq-docker/frame_listing.sh listing`
+(`src/frames.txt`; the device must be the one captured on) into `screens-framed/` (720x720, under the store's 150 KB each).
+
+| # | State | Watch | Notes |
 |---|---|---|---|
-| 1 | OPEN, with today's times | fr965 | Hero state |
-| 2 | CLOSED, "Opens 11:10" | fr965 | Before the window |
-| 3 | NONE TODAY | fr255s | The winter state; a small round screen |
-| 4 | Glance | fr965 | If no capture route works within 1 hour, a `drawState` bitmap from a test, labelled as such here (plan P6.5) |
-| 5 | Any state, 1-bit | instincte45mm | Only while ADR-012 keeps Instinct |
+| 1 | OPEN | Forerunner 965 (round AMOLED) | Window thick in the accent, filled sun disc, times |
+| 2 | CLOSED before the window | Venu 3 | "Opens 7:26", the disc is an outline |
+| 3 | NONE TODAY | Forerunner 255S (small round MIP) | The winter state: the whole path stays under the line |
+| 4 | The glance | Forerunner 965 | The system's card, its launcher icon (still the placeholder) at the left |
+| 5 | OPEN, black and white | Instinct E 45 mm | The mark in the round window, the picture left of it |
 
-Cover 500×500 (<300 KB, coloured ground, never black), hero 1440×720
-(<2048 KB, optional), device icons 128×128 at 24-bit and 64-colour.
+Not in the set but shot (`docs/archive/screens/`): CLOSED after the window, CLOSED by the sky, "Finding your place", "No place yet",
+the rectangle (Venu X1), the Instinct E 40 mm.
+
+Cover 500×500 (<300 KB, a coloured ground, never black) and the two 128×128 device icons are drafts rendered by
+`tools/render_listing_images.sh` from `src/` (`cover-500.png`, `icon-24-128.png`, `icon-64-128.png`). No hero image.

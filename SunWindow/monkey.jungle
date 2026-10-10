@@ -1,0 +1,14 @@
+# Sun Window (ADR-008, ADR-012). `mono` is the Instinct E / 3 Solar palette (1-bit): excluded everywhere except the
+# products below, which exclude `color` instead (a per-product line REPLACES the base list). Their resourcePath
+# leaves out resources-accent: a 1-bit display shows no accent, so the setting is not offered there (ADR-009).
+project.manifest = manifest.xml
+base.sourcePath = source
+base.resourcePath = resources;resources-accent
+base.excludeAnnotations = mono
+
+instinct3solar45mm.excludeAnnotations = color
+instinct3solar45mm.resourcePath = resources
+instincte40mm.excludeAnnotations = color
+instincte40mm.resourcePath = resources
+instincte45mm.excludeAnnotations = color
+instincte45mm.resourcePath = resources

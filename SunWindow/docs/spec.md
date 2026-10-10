@@ -12,9 +12,10 @@ the plan's recommendations on 2026-10-05.
 
 ## What it does
 
-A Connect IQ **app with a glance** and a full-screen view (the studio calls
-it a widget; the manifest type is `watch-app`, per
-[ADR-008](decisions.md#adr-008-manifest-type-watch-app-with-a-glance-not-widget), manifest type). It
+A Connect IQ **widget** with a glance and a full-screen view (the manifest
+type is `widget`, owner 2026-10-10,
+[ADR-008](decisions.md#adr-008-manifest-type-widget-owner-2026-10-10-with-a-glance), manifest type; on API 5.1+
+watches the compiler builds it as an app with a glance). It
 answers one question: is the sun above a fixed height right now. Three
 states:
 
@@ -34,14 +35,14 @@ process.
 The only weather input is the watch's own
 `Weather.getCurrentConditions()`, read fresh at each draw with no cache, by
 the glance and the full view alike. It can only demote OPEN to CLOSED:
-`uvIndex` below 3 demotes, and a null means no demotion. `cloudCover` of 90
+`uvIndex` below 3 demotes, and a null (or a reading older than 3 hours) means no demotion. `cloudCover` of 90
 or more is a fallback, used only if device check D2 shows `uvIndex` is null
 or does not fall with cloud
 ([ADR-004](decisions.md#adr-004-window-rule-one-45-degree-display-constant), window rule). The cut-offs are starting values to tune on a wrist, not sourced
 numbers.
 
-The app is reachable from the glance list and from the app launcher, so the
-full view must work when opened cold.
+On a watch the widget may also be listed in the app launcher (the widget probe's check W1 will say), so the full view
+must work when opened cold, with no glance having run first.
 
 ## What it explicitly does not do
 
@@ -58,6 +59,8 @@ full view must work when opened cold.
   ([ADR-003](decisions.md#adr-003-v1-is-free-only-no-pro)).
 - No "vitamin D" anywhere: title, description, screenshots, watch UI or site
   ([ADR-005](decisions.md#adr-005-wording-rules-no-vitamin-d-anywhere), option A).
+- On a daylight-saving change day the clock edge is an hour off until the switch: the offset to UTC is read "now" and
+  used for the whole day (night only; ADR-004).
 - No staleness rule for the place: it updates whenever the full view opens,
   so after travel the glance may be wrong until then. The support page says
   so.

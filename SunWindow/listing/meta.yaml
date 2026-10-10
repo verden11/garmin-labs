@@ -3,32 +3,37 @@
 app: Sun Window
 folder: SunWindow/listing
 tier: free
-app_id: null   # the manifest UUID, generated at plan task P3.1
+app_id: 2b224f1a-c329-486e-8497-dcea09cc8f5c   # the manifest UUID; never changes once published
 store:
   listing_url: null
   developer_url: null
 live:
   version: null
   since: null
-  note: nothing built or uploaded
+  note: nothing uploaded
 next:
   version: "1.0.0"
   status: drafted   # drafted | prepared | uploaded | in-review | live
   uploaded: null
-  summary: first release; widget-style app with a glance (manifest watch-app, ADR-008), Free only (ADR-003)
+  summary: first release; widget with a glance (ADR-008), Free only (ADR-003); built and simulator-tested 2026-10-10, not on a wrist
 package:
   file: dist/SunWindow-1.0.0.iq
-  products: null   # 66 targeted (ADR-012 keeps the three Instinct ids); counted from the manifest at P11.1
-  exported: null
-  check: null      # P11.1: permissions Positioning only; no Background/Notifications/Communications
+  products: 65   # <iq:product> lines in the manifest; the export may report more part numbers (device variants), not a product count
+  exported: null   # exported from the worn commit at upload (docs/status.md "Submit")
+  check: null      # at export: permissions Positioning only; no Background/Notifications/Communications
 price: free (ADR-003)
 limits: {title: 50, description: 4000, whats_new: 4000, app_version: 20}
-assets:   # none rendered yet (plan P9.1 to P9.3)
-  cover: null
-  hero: null
-  icon_64: null
-  icon_24: null
-  screens: []
+assets:   # DRAFTS rendered 2026-10-10 for the owner's look approval (ROADMAP 18.1); nothing approved
+  cover: cover-500.png            # 500x500, sky-blue ground, from src/cover.html (tools/render_listing_images.sh)
+  hero: null                      # optional; none drafted
+  icon_64: icon-64-128.png        # 128x128, quantised to the 64-colour palette
+  icon_24: icon-24-128.png        # 128x128
+  screens:                        # upload order; simulator captures framed in their watch (src/frames.txt, docker/frame_listing.sh), 720x720, each under 150 KB
+    - {file: screens-framed/1-open.png, caption: "OPEN: the sun path over the 45-degree line, the window in the accent", device: fr965, kb: 87}
+    - {file: screens-framed/2-closed.png, caption: "CLOSED before the window, with when it opens", device: venu3, kb: 66}
+    - {file: screens-framed/3-none-today.png, caption: "NONE TODAY: the sun stays low", device: fr255s, kb: 97}
+    - {file: screens-framed/4-glance.png, caption: "The glance", device: fr965, kb: 102}
+    - {file: screens-framed/5-instinct.png, caption: "Black and white on the Instinct", device: instincte45mm, kb: 98, instinct: true}
   screenshots_doc: screenshots.md
 site:
   landing: https://verden.watch/sun-window/
@@ -37,7 +42,7 @@ site:
 owner_approvals:   # what only the owner may settle before paste.md is used
   - "Trademark and domain check for 'Sun Window' before listing work (ADR-001)."
   - "Category Utility: confirm on the upload form (ADR-013)."
-  - "The looks of the launcher icon, cover, hero, device icons and store screens (simulator only, weather and place set in the simulator; never a reading)."
+  - "The looks of the launcher icon (still the placeholder sun over a bar), the draft cover and device icons, and the framed store screens (simulator only, weather and place set in the simulator, never a reading)."
   - "The final description text (drafted 2026-10-05, finalised at plan P9.4)."
   - "What's New is blank, per the studio's rule for an initial release."
-open_items: "16.x"   # ids in ROADMAP.md
+open_items: "18.x"   # ids in ROADMAP.md

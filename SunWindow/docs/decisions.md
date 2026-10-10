@@ -16,10 +16,10 @@ decision tables.
 | 004 | Window rule: one 45 degree display constant; weather demotes on UV below 3 | Active (reversible default) |
 | 005 | Wording rules; no "vitamin D" anywhere (option A) | Active |
 | 006 | Clock times in the full view only; NONE TODAY is a sentence only | Active |
-| 007 | Go to the device spike; build only if the watch yields a place | Active (conditional go) |
-| 008 | Manifest type `watch-app` with a glance, not `widget` | Proposed (Active at plan task P1.5) |
-| 009 | Accent setting through `onMenu` + `Menu2`, not `getSettingsView` | Proposed (Active at P1.5) |
-| 010 | Glance recomputes each draw, reads weather, never writes Storage or calls Position | Proposed (Active at P1.5) |
+| 007 | Go to the device spike; build only if the watch yields a place | Active (spike passed 2026-10-05; build started 2026-10-10) |
+| 008 | Manifest type `widget` (owner, 2026-10-10), with a glance | Active (reversible before the first upload) |
+| 009 | Accent setting through `onMenu` + `Menu2`, not `getSettingsView` | Active (D11: which gesture opens it, open) |
+| 010 | Glance recomputes each draw, reads weather, never writes Storage or calls Position | Active (glance 7.1 KB measured; FR965 spike read Storage and weather in a glance) |
 | 011 | Design look approval: mockup rev 2 | Active (owner, 2026-10-05) |
 | 012 | Instinct E 40/45 and Instinct 3 Solar 45: included, lean | Active (agent default; reversible) |
 | 013 | Store and release answers | Active |
@@ -48,10 +48,11 @@ fails: Sun Gate, High Sun, Sunny Spell, Sun Hours, Sun Spell.
 is set by ADR-008.
 
 **Context:** The original idea was a nudge when the user has been inactive,
-the window is open and the forecast worsens. Under the `watch-app` type
-(ADR-008), `Notifications` and `Background` are available, so there is no
-platform reason against the nudge. The reason it is out is the owner's
-decision. Nothing about the background chain has run on a watch.
+the window is open and the forecast worsens. On API 5.1+ watches the
+compiler builds a widget as a watch-app (ADR-008), so `Notifications` and
+`Background` would be available: there is no platform reason against the
+nudge. The reason it is out is the owner's decision. Nothing about the
+background chain has run on a watch.
 
 **Decision:** Owner, 2026-10-04: v1 is widget-style only, and nothing is
 done with watch faces yet. v1 declares no `Background` or `Notifications`
@@ -94,7 +95,13 @@ take a zenith, so the code names `ZENITH_WINDOW = 90 - ELEVATION_DEG`.
 when `Weather.getCurrentConditions().uvIndex < 3`. Any null means no
 demotion. `cloudCover >= 90` is a fallback, switched on
 (`USE_CLOUD_FALLBACK`) only if device check D2 shows `uvIndex` null or not
-falling with cloud. Final values come from the wear data (plan P7.3).
+falling with cloud. Final values come from the wear data (plan P7.3). A
+reading whose `observationTime` is older than 3 hours counts as no reading
+(`WEATHER_MAX_AGE_SECONDS`). The reason line "Cloud cover" (owner-approved
+wording, ADR-013) is the plain-words gloss for a low UV index: the code reads
+the UV index, not the cloud percentage. The offset to UTC is read "now" and
+used for the whole local day, so on a daylight-saving change day the clock
+edge is an hour off until the switch (night only); accepted for v1.
 
 **Evidence:** Sources in `science_of_the_window.md` (secondary for the 45
 degree attribution); fixtures agree with JPL Horizons within 0.0061 degrees
@@ -150,37 +157,57 @@ binary read, no numbers, no claims.
 (plan P3) only if device check D6 yields a place on the watch. If it does
 not, the project is parked. The spec's other stop conditions still apply.
 
-**Evidence:** `market_and_rivals.md`, `naming_and_wording.md`. Owner
-approval, 2026-10-05.
+**Outcome (2026-10-05, FR965 only):** the watch gave a last-known place at
+once from the app list and from the glance (D6), real UV and cloud values
+(D2, at night so far), a glance that draws from a sideload (D7) and a
+120 s idle timeout from the glance (D12). No stop condition fired. On
+2026-10-10 the owner asked for the build to be completed, which is the go
+(plan P1.5): the code is in `SunWindow/source/`.
 
-## ADR-008: Manifest type `watch-app` with a glance, not `widget`
+**Evidence:** `market_and_rivals.md`, `naming_and_wording.md`; the
+checklist results in `status.md`. Owner approval, 2026-10-05 and 2026-10-10.
 
-**Status:** Proposed. An agent marks it Active at plan task P1.5, once the
-spike's go is recorded.
+## ADR-008: Manifest type `widget` (owner, 2026-10-10), with a glance
 
-**Context:** In 74 of the 75 API 5.1+ device files in SDK 9.2.0,
-`compiler.json` lists no `widget` app type; only the handheld `etrextouch`
-does. Since SDK 4.0.0 the compiler "automatically switch[es] app type to
+**Status:** Active. Reversible before the first upload (one manifest line).
+The first draft of this ADR proposed `watch-app`; the owner chose `widget`.
+
+**Context:** On 2026-10-10 the owner said "I don't want this to be a watch
+app at all" and asked for a widget only. Facts, all from the SDK and not yet
+seen on a store form: in 74 of the 75 API 5.1+ device files in SDK 9.2.0,
+`compiler.json` lists no `widget` app type (only the handheld `etrextouch`
+does), and since SDK 4.0.0 the compiler "automatically switch[es] app type to
 watch-app when compiling a widget and targetting a 4.x device" (SDK release
-notes). A compile probe on 2026-10-04 built a `type="widget"` manifest as
-`watch-app`. HeroSet already ships `watch-app` + `getGlanceView()`. The
-`watch-app` permission map is a strict superset of `widget`
-(`bin/projectInfo.xml`). A forum thread says a released app's type is hard
-to change.
+notes). So on every target watch a widget is built and run as an app with a
+glance: it shows in the glance list and, per a forum report not confirmed by
+Garmin, also in the app list. A `type="widget"` manifest compiles cleanly for
+the FR965 with strict typing and runs in the simulator (glance, then the full
+view). The `watch-app` permission map is a strict superset of `widget`
+(`bin/projectInfo.xml`), so `Positioning` is allowed either way.
 
-**Decision:** `type="watch-app"`, `minApiLevel="5.1.0"`, permission
-`Positioning` only, entry class `SunWindowApp` with `getInitialView()` and
-`getGlanceView()`. The app is also reachable from the app launcher, so the
-full view must work when opened cold. How the store labels the type is
-confirmed on the upload form.
+**Decision:** `type="widget"`, `minApiLevel="5.1.0"`, permission `Positioning`
+only, entry class `SunWindowApp` with `getInitialView()` and `getGlanceView()`.
+The full view must work when opened cold, because the watch may also list it
+as an app. A widget-type probe is on the owner's FR965 build list
+(`device-test/SunWindowWidgetProbe-fr965.prg`, step W1: is "SW Widget" in the
+app list?).
+
+**Trade-off recorded:** the passive income plan
+(`reports/Passive income plan.md`, phase 1, step 3) had assumed `watch-app`
+so the app would land on the store's watch-app shelf and not the "thinner
+legacy widget shelf". Where the store files a `widget` built for API 5.1+
+watches is visible only on the upload form (ROADMAP 18.2). If it lands on
+the thin shelf and the owner minds, change the manifest line and the type in
+this ADR before uploading; a released app's type is hard to change.
 
 **Evidence:** [SDK data], [SDK doc], [compile probe] per
 `research_notes/Sun Window build plan/widget_platform_architecture.md` §1;
-verified in `plan_verification.md`. Not run on a watch.
+the simulator run of the widget-type probe (2026-10-10, simulator only). Not
+run on a watch as a widget.
 
 ## ADR-009: Accent setting through `onMenu` + `Menu2`, not `getSettingsView`
 
-**Status:** Proposed (Active at P1.5).
+**Status:** Active (owner's go, 2026-10-10). D11 (which gesture opens the menu on a watch) is open.
 
 **Context:** Garmin's AppBase reference says `getSettingsView()` "is only
 applicable to watch faces and data fields". The Properties topic says
@@ -202,7 +229,7 @@ watch.
 
 ## ADR-010: Glance recomputes each draw, reads weather, never writes Storage or calls Position
 
-**Status:** Proposed (Active at P1.5). The weather read is an agent default
+**Status:** Active (owner's go, 2026-10-10). The weather read is an agent default
 (plan OD-6).
 
 **Context:** A stored "last-known state" goes stale across midnight unless
@@ -218,9 +245,12 @@ Garmin's Glances topic allows storage access in glance mode.
 `GLANCE_READS_WEATHER` (default `true`). From these it computes the state.
 The glance and the full view use the same weather read, so they always
 agree. The glance never writes Storage and never calls `Position`. With no
-stored place it shows the "open once" sentence. Plan task P6.3 measures
-glance memory with the constant on and off. It is switched off only if the
-32 KB Instinct ids cannot afford it.
+stored place it shows the "open once" sentence. **Measured (P6.3, release
+build, 2026-10-10):** the glance takes 2203 B of data and 4858 to 4903 B of
+code, about 7.1 KB, on the FR965 (64 KB limit) and on the Instinct E (32 KB
+limit, 22 percent), and the figure is the same with `GLANCE_READS_WEATHER` on
+or off (the weather class is reachable from the state rule either way). The
+constant stays `true`.
 
 v1 has no staleness rule: the place updates whenever the full view opens,
 so after travel the glance may be wrong until then. The support page says

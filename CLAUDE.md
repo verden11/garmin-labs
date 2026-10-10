@@ -1,6 +1,6 @@
 # Verden — CLAUDE.md
 
-Studio monorepo. Six independent projects, one git history.
+Studio monorepo. Seven independent projects, one git history.
 
 **Each folder has its own `CLAUDE.md` and `docs/` — those are the source of
 truth for that project. Read the one for the folder you are working in.** This
@@ -13,6 +13,7 @@ file only covers what spans folders.
 | `DaysToGo/` | Garmin countdown watch face (Connect IQ, Monkey C) | [`DaysToGo/CLAUDE.md`](DaysToGo/CLAUDE.md) |
 | `TwoSuns/` | Garmin sun and Body Battery watch face, "Two Suns" (Connect IQ, Monkey C) — approved 2026-09-28; Pro 1.1.0 and the new Free uploaded 2026-10-04, in Garmin review | [`TwoSuns/CLAUDE.md`](TwoSuns/CLAUDE.md) |
 | `DayArc/` | Garmin time-of-day-adaptive watch face pair, "DayArc" (free) / "DayArc Pro" (paid, the $2.50 tier, no flip) — one codebase, two build targets/listings (Connect IQ, Monkey C) — **live since 2026-10-05** (both listings approved by Garmin that day); wrist check of the final build and the night window still open (ROADMAP 1.1) | [`DayArc/CLAUDE.md`](DayArc/CLAUDE.md) |
+| `SunWindow/` | Garmin widget with a glance, "Sun Window" (free only, Connect IQ, Monkey C) — whether the sun is at or above 45° now. **Built, simulator only; not uploaded.** The FR965 spike passed 2026-10-05 and the look is owner-approved (ADR-011); the wear day of the build, the icon and store images (owner), the site pages and the upload are open (ROADMAP 18.x) | [`SunWindow/CLAUDE.md`](SunWindow/CLAUDE.md) |
 | `site/` | Public website (Vite + React, prerendered) | [`site/CLAUDE.md`](site/CLAUDE.md) |
 
 `device-test/` is git-ignored scratch for on-watch builds, shared by both
