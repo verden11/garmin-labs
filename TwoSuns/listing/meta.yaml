@@ -15,7 +15,7 @@ live:
 in_review: null   # an earlier upload Garmin has not approved yet
 next:   # drafted | prepared | uploaded | in-review | live
   version: "1.2.1"
-  status: prepared   # 2026-10-10, for the owner to upload (ROADMAP 18.1)
+  status: uploaded   # 2026-10-10 by the owner (ROADMAP 18.1); What's New public at once in en/es/zh_CN; store API still read 1.2.0 right after
   summary: "fix: Out Of Memory on Instinct E 40/45 mm and Instinct 3 Solar (rectangle code left out of the Instinct builds, 50.0 -> 44.4 kB of 59.8 kB; Body Battery history streamed); ADR-024, ADR-015, ADR-028 amendments of 2026-10-10; container simulator soak 40 min clean on all three, not seen on a watch"
   file: dist/TwoSunsPro-1.2.1.iq
   exported: 2026-10-10   # from a git archive of commit 6c4f4da (clean tree), 93 part numbers; sha256 3590fe13b4199f4aa5192d577c9c2391895f1c68f5ff74574bd55ab8bb9347bf

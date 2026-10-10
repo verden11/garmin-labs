@@ -3,7 +3,7 @@
 One entry per Connect IQ Store publication, newest first. The store's "What's New"
 text for each version is in [`listing/paste.md`](listing/paste.md).
 
-## Pro 1.2.1 — prepared 2026-10-10, not uploaded (the owner uploads)
+## Pro 1.2.1 — uploaded 2026-10-10
 
 A fix release of the paid app id only; Free 1.1.0 is unchanged (no curve, 26 kB on an Instinct). Same 72 products.
 
