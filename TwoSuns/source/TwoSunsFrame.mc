@@ -70,6 +70,11 @@ class TwoSunsFrame {
             rows = plan(dc, layout);
             band = planBand(dc, layout, state);
         }
+        if (weatherMode == TwoSunsConfig.WEATHER_ROW_FULL && !weatherFits(dc, layout, state)) {
+            weatherMode = TwoSunsConfig.WEATHER_ROW_COMPACT;   // the lead (with a forecast's low) is narrower on one line
+            rows = plan(dc, layout);
+            band = planBand(dc, layout, state);
+        }
         if (weatherMode != TwoSunsConfig.WEATHER_ROW_NONE && !weatherFits(dc, layout, state)) {
             weatherMode = TwoSunsConfig.WEATHER_ROW_NONE;   // not even the lead cell fits the chord at its row
             rows = plan(dc, layout);

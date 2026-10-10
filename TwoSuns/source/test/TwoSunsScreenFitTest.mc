@@ -253,39 +253,41 @@ function alwaysOnFrameHasNoWeatherRow(logger as Test.Logger) as Boolean {
     return true;
 }
 
-// A day's forecast keeps its low before any hour cell (ROADMAP 13.40: a high alone reads as the temperature now):
-// wherever the row is drawn on a 260 px or larger screen, a typical after-sunset and before-sunrise row (two-digit high
-// and low, the widest weekday and hours) keeps the low, and cells drop first. The widest test values (104 and -40) may
-// still lose it on the tightest screens. Asserts what the frame draws, not what the plan holds. Pro only.
+// A forecast never shows a high alone where it would read as now (ROADMAP 13.40): wherever a before-sunrise row (no
+// weekday) is drawn, its low is drawn too; an after-sunset row keeps its low whenever it fits, its weekday says
+// "forecast" otherwise. Typical (88/64) and widest (104/-40) values, every screen. Asserts what the frame draws. Pro only.
 (:test, :pro)
 function weatherForecastRowKeepsItsLow(logger as Test.Logger) as Boolean {
     var dc = testDc();
-    if (dc.getWidth() < 260) {
-        return true;
-    }
     var layout = new TwoSunsLayout(dc);
-    var days = [TwoSunsTestStates.widestNextDay(), TwoSunsTestStates.widestBeforeSunrise()] as Array<TwoSunsWeather>;
     var degree = TwoSunsConfig.DEGREE_CODE.toChar().toString();
-    for (var i = 0; i < days.size(); i++) {
-        days[i].leadText = "88" + degree;
-        days[i].lowText = "64" + degree;
-        var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[2], null, false), days[i]);
-        var frame = new TwoSunsFrame(dc, layout, state, false);
-        if (frame.weatherMode == TwoSunsConfig.WEATHER_ROW_NONE) {
-            continue;
+    var values = [["88", "64"], ["104", "-40"]] as Array<Array<String>>;
+    for (var v = 0; v < values.size(); v++) {
+        var days = [TwoSunsTestStates.widestNextDay(), TwoSunsTestStates.widestBeforeSunrise()] as Array<TwoSunsWeather>;
+        for (var i = 0; i < days.size(); i++) {
+            days[i].leadText = values[v][0] + degree;
+            days[i].lowText = values[v][1] + degree;
+            var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[2], null, false), days[i]);
+            var frame = new TwoSunsFrame(dc, layout, state, false);
+            if (frame.weatherMode == TwoSunsConfig.WEATHER_ROW_NONE) {
+                continue;
+            }
+            var low = TwoSunsWeatherRow.lowKept(dc, layout, days[i], frame.weatherMode, frame.rows.weatherTop, frame.weatherAhead);
+            Test.assertMessage(low || days[i].dayLabel.length() > 0, "lone high, values " + v + ", state " + i);
+            if (v == 0 && dc.getWidth() >= 260) {
+                Test.assertMessage(low, "typical low dropped, state " + i + ", " + frame.weatherAhead + " cells");
+            }
         }
-        Test.assertMessage(TwoSunsWeatherRow.lowKept(dc, layout, days[i], frame.weatherMode, frame.rows.weatherTop, frame.weatherAhead),
-            "low dropped, state " + i + ", " + frame.weatherAhead + " cells");
     }
     return true;
 }
 
-// Fewer cells than planned spread over the plan, so the last (nearest sunset) stays.
+// Fewer cells than planned spread over the plan: the last (nearest sunset) always stays, with the first when two fit.
 (:test, :pro)
 function weatherCellsThatFitSpreadOverThePlan(logger as Test.Logger) as Boolean {
     Test.assertEqual(TwoSunsWeatherRow.pick(0, 2, 3), 0);
     Test.assertEqual(TwoSunsWeatherRow.pick(1, 2, 3), 2);
-    Test.assertEqual(TwoSunsWeatherRow.pick(0, 1, 3), 0);
+    Test.assertEqual(TwoSunsWeatherRow.pick(0, 1, 3), 2);
     Test.assertEqual(TwoSunsWeatherRow.pick(2, 3, 3), 2);
     Test.assertEqual(TwoSunsWeatherRow.pick(1, 2, 2), 1);
     return true;

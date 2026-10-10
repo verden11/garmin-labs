@@ -248,7 +248,7 @@ function weatherDegreesRoundAndConvert(logger as Test.Logger) as Boolean {
     return true;
 }
 
-// The hour label has no leading zero and no am or pm; 12-hour clocks show 12 for midnight and noon.
+// The hour label: 24-hour clocks two digits and ":00" (09:00); 12-hour clocks no leading zero, "a" or "p", 12 for midnight and noon.
 (:test, :pro)
 function weatherHourLabels(logger as Test.Logger) as Boolean {
     Test.assertEqual(TwoSunsWeatherPlan.hourText(9 * 60 + 30, true), "09:00");

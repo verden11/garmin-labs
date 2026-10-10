@@ -4,10 +4,10 @@ import Toybox.Lang;
 // The weather row's sizes and drawing (docs/decisions.md ADR-022, Weather row in Pro). Two forms: the full row
 // is a lead cell (the condition icon and the feels-like temperature; or the next day's weekday, icon, high and
 // low) and up to three ahead cells (an icon over its hour); the compact row is one line the height of the
-// smallest label font, the lead cell only (no hour labels, so no ahead cells), for a screen too short for the full one. The lead icon is coloured
-// and bigger than the ahead icons, its number is one fixed hue, everything else is mono. Cells are measured
-// against the round chord: the next day's low goes first when the row is wide, then ahead cells, and a lead that
-// does not fit makes the frame drop the row.
+// smallest label font, the lead cell only (and a forecast's low; no hour labels, so no ahead cells), for a screen too short for the full one.
+// The lead icon is coloured and bigger than the ahead icons, its number is one fixed hue, everything else is mono. Cells
+// are measured against the round chord: ahead cells go first, a forecast's low last (ROADMAP 13.40), and a lead that
+// does not fit makes the frame try the compact row, then drop the row.
 (:pro)
 class TwoSunsWeatherRow {
     private static const LEAD_ICON_PERCENT = 140;     // the lead icon against an ahead icon (the approved mockup: 43 against 31 px)
@@ -47,7 +47,9 @@ class TwoSunsWeatherRow {
         }
         var most = compact ? 0 : weather.aheadKinds.size();
         var withLow = hasLow(weather);
-        for (var pass = 0; pass < 2; pass++) {
+        // Before sunrise there is no weekday to say "forecast": without its low the high reads as now, so no row.
+        var passes = withLow && weather.dayLabel.length() == 0 ? 1 : 2;
+        for (var pass = 0; pass < passes; pass++) {
             for (var count = most; count >= 0; count--) {
                 if (totalWidth(dc, layout, weather, mode, count, withLow) <= room) {
                     return count;
@@ -67,10 +69,10 @@ class TwoSunsWeatherRow {
         return weather.nextDay && weather.lowText.length() > 0;
     }
 
-    // Which planned cell the i-th drawn one is, when `count` of `size` fit: spread over the plan, so the first and the
-    // last (the one nearest sunset) stay and the strip still spans the light left (ROADMAP 13.40).
+    // Which planned cell the i-th drawn one is, when `count` of `size` fit: spread over the plan, so the last (the one
+    // nearest sunset) always stays, with the first when two fit (ROADMAP 13.40).
     static function pick(i as Number, count as Number, size as Number) as Number {
-        return count < 2 ? i : (i * (size - 1) + (count - 1) / 2) / (count - 1);
+        return count < 2 ? size - 1 : (i * (size - 1) + (count - 1) / 2) / (count - 1);
     }
 
     // Draws the lead cell and `ahead` ahead cells, centred as one group.
