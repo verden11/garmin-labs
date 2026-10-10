@@ -146,7 +146,7 @@ A white-paper, near-black-ink program where each app contributes one saturated f
 
 ### Primary
 - **Event Field** (per app): the app's own color, supplied via the registry (`color`) and bound to the field slot. It fills the app bar, the hero, the closing call, notes, the course stop dots and called rank ticks. For HeroSet this is **Signal Amber** (heroset-amber).
-- **Event Ink** (per app): the app's readable ink on its field (`onColor`), for all text, pictograms and buttons on the field. For HeroSet, **Warm Carbon** (on-heroset).
+- **Event Ink** (per app): the app's readable ink on its field (`onColor`), for all text, pictograms and buttons on the field; at least 4.5:1 on the field (WCAG AA, enforced by the build). DayArc Pro moved from white (3.14:1) to `#061a1d` on 2026-10-10. For HeroSet, **Warm Carbon** (on-heroset).
 
 ### Secondary
 - **HeroFace Blue** (heroface-blue) with **Deep Night** ink (on-heroface, 7.6:1): HeroFace's event field, the watch face's own accent.

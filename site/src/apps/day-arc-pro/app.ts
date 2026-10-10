@@ -15,7 +15,8 @@ export const dayArcPro: App = {
   summary: 'The same four time windows as DayArc, with a denser field grid under each reading. Paid, no free tier.',
   platform: 'Watch face · Connect IQ',
   color: '#2a9fb0',
-  onColor: '#ffffff',
+  // Dark ink, not white: white on this teal is 3.14:1, under the 4.5:1 WCAG AA text minimum; this is 5.70:1.
+  onColor: '#061a1d',
   storeName: 'Connect IQ Store',
   storeUrl: 'https://apps.garmin.com/apps/b6373747-2569-4a55-86ca-c42914c571fe',
   ogImage: '/day-arc-pro/watch/midday.png',

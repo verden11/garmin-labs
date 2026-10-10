@@ -44,6 +44,17 @@ const table = new Map<string, Route>([
     page: <Home />,
   }],
 ])
+// WCAG 1.4.3 (AA): all text on an app's field uses its ink, so the pair must reach 4.5:1. Fails the build, not the reader.
+const luminance = (hex: string) => {
+  const [r, g, b] = [1, 3, 5].map((i) => parseInt(hex.slice(i, i + 2), 16) / 255).map((c) => (c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4))
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b
+}
+for (const { name, color, onColor } of apps) {
+  const [hi, lo] = [luminance(color), luminance(onColor)].sort((a, b) => b - a)
+  const ratio = (hi + 0.05) / (lo + 0.05)
+  if (ratio < 4.5) throw new Error(`${name}: onColor ${onColor} on ${color} is ${ratio.toFixed(2)}:1, under the 4.5:1 WCAG AA minimum`)
+}
+
 for (const app of apps) {
   const sections: [Section, string, string][] = [
     ['landing', app.title, app.summary],

@@ -1,4 +1,4 @@
-import type { CSSProperties } from 'react'
+import { Fragment, type CSSProperties } from 'react'
 import type { App, Screenshot } from '../apps/types.ts'
 import { appUrl } from '../urls.ts'
 
@@ -67,6 +67,13 @@ export function WatchShot({ src, alt, className }: { src: string; alt: string; c
   return <img className={`watch-shot${className ? ` ${className}` : ''}`} src={src} alt={alt} width={560} height={560} />
 }
 
+// Language names are written in their own language; `lang` lets a screen reader say them right (WCAG 3.1.2).
+// A name missing here renders without `lang`: add it when a new language ships.
+const LANG: Record<string, string> = {
+  English: 'en', Dansk: 'da', Deutsch: 'de', Español: 'es', Français: 'fr', Italiano: 'it', Lietuvių: 'lt', Nederlands: 'nl',
+  'Norsk bokmål': 'nb', Polski: 'pl', Português: 'pt', Suomi: 'fi', Svenska: 'sv', Türkçe: 'tr', Українська: 'uk',
+}
+
 export function Watches({ title, lede, families, languages }: { title: string; lede: string; families: [string, string][]; languages: string[] }) {
   return (
     <section className="wrap band" aria-labelledby="watches-title">
@@ -77,7 +84,7 @@ export function Watches({ title, lede, families, languages }: { title: string; l
           <div key={family}><dt>{family}</dt><dd>{models}</dd></div>
         ))}
       </dl>
-      <p className="band__aside">In {languages.length} languages: {languages.join(', ')}.</p>
+      <p className="band__aside">In {languages.length} languages: {languages.map((name, i) => <Fragment key={name}>{i ? ', ' : ''}<span lang={LANG[name]}>{name}</span></Fragment>)}.</p>
     </section>
   )
 }

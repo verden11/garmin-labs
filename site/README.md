@@ -39,7 +39,7 @@ Routes come from the app registry, so adding an app adds its three pages.
 
 ## Adding an app
 
-1. Create `src/apps/<slug>/` with an `app.ts` exporting an `App` (`src/apps/types.ts`): name, summary, field color + readable ink on it, mark, and `Landing`, `Support`, `Privacy` components; `storeUrl` once live, plus `freeStoreUrl` when a free twin exists (then `storeUrl` is the Pro listing, the store action splits in two, and the landing uses `FreeOrPro`). Copy `src/apps/heroset/` as a starting point.
+1. Create `src/apps/<slug>/` with an `app.ts` exporting an `App` (`src/apps/types.ts`): name, summary, field color + readable ink on it (at least 4.5:1, or the build fails), mark, and `Landing`, `Support`, `Privacy` components; `storeUrl` once live, plus `freeStoreUrl` when a free twin exists (then `storeUrl` is the Pro listing, the store action splits in two, and the landing uses `FreeOrPro`). Copy `src/apps/heroset/` as a starting point.
 2. Add it to the list in `src/apps/index.ts`.
 3. `npm run build`.
 
