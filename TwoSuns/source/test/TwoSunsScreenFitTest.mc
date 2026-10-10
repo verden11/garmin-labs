@@ -253,19 +253,19 @@ function alwaysOnFrameHasNoWeatherRow(logger as Test.Logger) as Boolean {
     return true;
 }
 
-// The next day's low goes first when the row is wide: on the 454 px screen the widest next-day row (weekday, icon,
-// high, low and three hours) is over 75% of the chord, so the low is dropped and, at the widest, one cell. Pro only.
+// The next day's low goes first when the row is wide: on the 454 px screen the widest before-sunrise row (icon, high,
+// low and three "20:00" hours) is over 75% of the chord, so the low is dropped and, at the widest, one cell. Pro only.
 (:test, :pro)
 function weatherNextDayDropsTheLowWhenTheRowIsWide(logger as Test.Logger) as Boolean {
     var dc = testDc();
     if (dc.getWidth() != 454) {
         return true;
     }
-    var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[2], null, false), TwoSunsTestStates.widestNextDay());
+    var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[2], null, false), TwoSunsTestStates.widestBeforeSunrise());
     var layout = new TwoSunsLayout(dc);
     var frame = new TwoSunsFrame(dc, layout, state, false);
     var weather = state.weather as TwoSunsWeather;
-    // With am and pm on a 12 hour clock the three widest hour labels ("12p", 51 px) cost one ahead cell on 454 px; the low goes first, then a cell.
+    // The three widest hour labels ("20:00") cost at most one ahead cell on 454 px; the low goes first, then a cell.
     Test.assert(frame.weatherAhead >= weather.aheadKinds.size() - 1);
     Test.assert(!TwoSunsWeatherRow.lowKept(dc, layout, weather, frame.weatherMode, frame.rows.weatherTop, frame.weatherAhead));
     return true;

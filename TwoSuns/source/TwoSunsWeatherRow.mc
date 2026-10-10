@@ -99,18 +99,13 @@ class TwoSunsWeatherRow {
         return TwoSunsDraw.fontUpTo(dc, TwoSunsLayout.VALUE_FONTS, rowHeight);
     }
 
-    // The next day's lead stacks its weekday over the icon, so its icon is an ahead icon's size; every other lead icon is bigger.
-    private static function stacked(weather as TwoSunsWeather, mode as Number) as Boolean {
-        return weather.nextDay && weather.dayLabel.length() > 0 && mode != TwoSunsConfig.WEATHER_ROW_COMPACT;
-    }
-
     private static function leadIcon(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number) as Number {
         var row = height(dc, layout, mode);
         if (mode == TwoSunsConfig.WEATHER_ROW_COMPACT) {
             return row;
         }
         var big = iconSize(layout) * LEAD_ICON_PERCENT / TwoSunsConfig.PERCENT;
-        return stacked(weather, mode) ? iconSize(layout) : (big < row ? big : row);
+        return big < row ? big : row;
     }
 
     // The chevron, its space and the weekday; 0 when there is no weekday (before sunrise the date row already says it).
@@ -150,9 +145,6 @@ class TwoSunsWeatherRow {
         var textW = dc.getTextWidthInPixels(weather.leadText, numberFont(dc, height(dc, layout, mode)));
         var body = iconW + (iconW > 0 && textW > 0 ? gap : 0) + textW;
         var label = labelBlock(dc, weather);
-        if (stacked(weather, mode)) {
-            return (label > iconW ? label : iconW) + (textW > 0 ? gap + textW + lowWidth(dc, weather, withLow) : 0);
-        }
         return (label > 0 ? label + gap : 0) + body + lowWidth(dc, weather, withLow);
     }
 
@@ -173,22 +165,13 @@ class TwoSunsWeatherRow {
         var centerY = top + rowHeight / 2;
         var block = labelBlock(dc, weather);
         var x = left;
-        if (stacked(weather, mode)) {
-            var column = block > icon ? block : icon;
-            drawDayLabel(dc, weather, left + (column - block) / 2, top, labelH);
-            if (hasIcon) {
-                TwoSunsWeatherIcons.draw(dc, weather.leadKind, left + column / 2, top + labelH + icon / 2, icon, false);
-            }
-            x = left + column + gap;
-        } else {
-            if (block > 0) {
-                drawDayLabel(dc, weather, left, centerY - labelH / 2, labelH);
-                x += block + gap;
-            }
-            if (hasIcon) {
-                TwoSunsWeatherIcons.draw(dc, weather.leadKind, x + icon / 2, centerY, icon, false);
-                x += icon + gap;
-            }
+        if (block > 0) {
+            drawDayLabel(dc, weather, left, centerY - labelH / 2, labelH);
+            x += block + gap;
+        }
+        if (hasIcon) {
+            TwoSunsWeatherIcons.draw(dc, weather.leadKind, x + icon / 2, centerY, icon, false);
+            x += icon + gap;
         }
         if (weather.leadText.length() > 0) {
             drawLeadText(dc, weather, x, centerY, numberFont(dc, rowHeight), withLow);

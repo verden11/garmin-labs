@@ -137,7 +137,7 @@ class TwoSunsConfig {
     static const WEATHER_MATCH_MINUTES = 90;                // an hourly entry further than this from its step is not used
     static const WEATHER_OBSERVATION_MAX_SECONDS = 10800;   // a reading older than this is not shown (3 hours)
     static const WEATHER_REFRESH_SECONDS = 300;             // Weather is re-read at most every 5 minutes
-    static const WEATHER_NEXT_DAY_HOURS = [10, 13, 16] as Array<Number>;   // local hours of the next day's three icons
+    static const WEATHER_NEXT_DAY_HOURS = [10, 13, 16] as Array<Number>;   // local hours of the three icons before sunrise (the day ahead); after sunset the row has none
     static const WEATHER_ICON_MIN_PX = 16;
     static const WEATHER_ICON_PERMILLE = 70;                // icon size, of D
     static const DEGREE_CODE = 176;                         // the degree sign

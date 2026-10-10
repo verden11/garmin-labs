@@ -50,6 +50,9 @@ class TwoSunsWeatherPlan {
         weather.leadKind = TwoSunsWeatherKind.kind(data.dayConditions[index]);
         weather.leadText = degrees(data.dayHighs[index], fahrenheit);
         weather.lowText = degrees(data.dayLows[index], fahrenheit);
+        if (dayOffset != 0) {
+            return;   // after sunset the row is the next day alone: an hour beside its high and low read as a third temperature (ROADMAP 13.40)
+        }
         var hours = TwoSunsConfig.WEATHER_NEXT_DAY_HOURS;
         for (var i = 0; i < hours.size(); i++) {
             addAhead(weather, used, data, time, dayOffset * TwoSunsConfig.MINUTES_PER_DAY + hours[i] * TwoSunsConfig.MINUTES_PER_HOUR - time.minuteOfDay, is24Hour);
@@ -97,12 +100,13 @@ class TwoSunsWeatherPlan {
     }
 
     // The local hour of a clock minute (it may be negative or past midnight), no leading zero. On a 12 hour clock it
-    // carries "a" or "p", as Garmin's own hourly view does (10a, 3p), so a late hour is not read as a morning one.
+    // carries "a" or "p", as Garmin's own hourly view does (10a, 3p), so a late hour is not read as a morning one; on a
+    // 24 hour clock it carries ":00" (16:00), so a bare "16" beside the temperature is not read as one (ROADMAP 13.40).
     static function hourText(minute as Number, is24Hour as Boolean) as String {
         var wrapped = ((minute % TwoSunsConfig.MINUTES_PER_DAY) + TwoSunsConfig.MINUTES_PER_DAY) % TwoSunsConfig.MINUTES_PER_DAY;
         var hour = wrapped / TwoSunsConfig.MINUTES_PER_HOUR;
         if (is24Hour) {
-            return hour.toString();
+            return hour.toString() + ":00";
         }
         var hours = hour % TwoSunsConfig.HOURS_PER_HALF_DAY;
         return (hours == 0 ? TwoSunsConfig.HOURS_PER_HALF_DAY : hours).toString() + (hour < TwoSunsConfig.HOURS_PER_HALF_DAY ? "a" : "p");

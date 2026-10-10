@@ -25,8 +25,9 @@ class TwoSunsTestStates {
         return states;
     }
 
-    // Pro only: the weather row in its widest forms, on a day (a lead cell and three ahead cells) and the next day
-    // (weekday, icon, high, low and ahead cells), each with and without the date and curve rows.
+    // Pro only: the weather row in its widest forms, on a day (a lead cell and three ahead cells), after sunset (the next
+    // day alone: weekday, icon, high, low) and before sunrise (icon, high, low and three ahead cells), each with and
+    // without the date and curve rows.
     (:pro)
     static function addWeatherStates(states as Array<TwoSunsState>, skies as Array<TwoSunsSky>) as Void {
         var curve = curve(100, 3);
@@ -34,6 +35,8 @@ class TwoSunsTestStates {
         states.add(withWeather(make(skies[0], null, false), widestDay()));
         states.add(withWeather(make(skies[2], curve, true), widestNextDay()));
         states.add(withWeather(make(skies[2], null, false), widestNextDay()));
+        states.add(withWeather(make(skies[2], curve, true), widestBeforeSunrise()));
+        states.add(withWeather(make(skies[2], null, false), widestBeforeSunrise()));
     }
 
     (:free)
@@ -45,21 +48,30 @@ class TwoSunsTestStates {
         return state;
     }
 
-    // The widest day row: a three-digit Fahrenheit number and three ahead cells with two-digit 12 hour labels.
+    // The widest day row: a three-digit Fahrenheit number and three ahead cells with the widest hour labels (24 hour
+    // "20:00" is wider than 12 hour "12p").
     static function widestDay() as TwoSunsWeather {
         var weather = new TwoSunsWeather();
         weather.leadKind = TwoSunsConfig.WEATHER_PARTLY;
         weather.leadText = "104" + TwoSunsConfig.DEGREE_CODE.toChar().toString();
         weather.aheadKinds = [TwoSunsConfig.WEATHER_RAIN, TwoSunsConfig.WEATHER_STORM, TwoSunsConfig.WEATHER_SNOW] as Array<Number>;
-        weather.aheadLabels = ["12p", "12p", "12p"] as Array<String>;
+        weather.aheadLabels = ["20:00", "20:00", "20:00"] as Array<String>;
         return weather;
     }
 
-    // The widest next-day row: a long weekday, a three-digit high, a negative low and three ahead cells.
+    // The widest after-sunset row: a long weekday, a three-digit high and a negative low; no ahead cells.
     static function widestNextDay() as TwoSunsWeather {
+        var weather = widestBeforeSunrise();
+        weather.dayLabel = "Wed";
+        weather.aheadKinds = [] as Array<Number>;
+        weather.aheadLabels = [] as Array<String>;
+        return weather;
+    }
+
+    // The widest before-sunrise row: today's icon, a three-digit high, a negative low and three ahead cells, no weekday.
+    static function widestBeforeSunrise() as TwoSunsWeather {
         var weather = widestDay();
         weather.nextDay = true;
-        weather.dayLabel = "Wed";
         weather.lowText = "-40" + TwoSunsConfig.DEGREE_CODE.toChar().toString();
         return weather;
     }

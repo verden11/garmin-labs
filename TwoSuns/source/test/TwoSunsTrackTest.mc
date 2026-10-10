@@ -160,7 +160,7 @@ function rectangleGrowthKeepsTheWeatherRow(logger as Test.Logger) as Boolean {
     if (!layout.onTrack()) {
         return true;
     }
-    var days = [TwoSunsTestStates.widestDay(), TwoSunsTestStates.widestNextDay()] as Array<TwoSunsWeather>;
+    var days = [TwoSunsTestStates.widestDay(), TwoSunsTestStates.widestNextDay(), TwoSunsTestStates.widestBeforeSunrise()] as Array<TwoSunsWeather>;
     for (var i = 0; i < days.size(); i++) {
         var state = TwoSunsTestStates.withWeather(TwoSunsTestStates.make(TwoSunsTestStates.skies()[0], TwoSunsTestStates.curve(50, 3), true), days[i]);
         state.weatherOn = true;

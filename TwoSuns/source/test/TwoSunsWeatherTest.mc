@@ -127,7 +127,7 @@ function weatherDayRowIsFeelsLikeAndThreeAheadCells(logger as Test.Logger) as Bo
     Test.assert(!weather.nextDay);
     Test.assertEqual(weather.leadKind, TwoSunsConfig.WEATHER_PARTLY);
     Test.assertEqual(weather.leadText, "15" + TwoSunsConfig.DEGREE_CODE.toChar().toString());
-    Test.assert(TwoSunsWeatherCase.sameStrings(weather.aheadLabels, ["16", "18", "19"] as Array<String>));
+    Test.assert(TwoSunsWeatherCase.sameStrings(weather.aheadLabels, ["16:00", "18:00", "19:00"] as Array<String>));
     Test.assert(TwoSunsWeatherCase.sameNumbers(weather.aheadKinds, [TwoSunsConfig.WEATHER_RAIN, TwoSunsConfig.WEATHER_CLOUDY, TwoSunsConfig.WEATHER_RAIN] as Array<Number>));
     return true;
 }
@@ -175,9 +175,9 @@ function weatherOldHourlyEntriesAreNotUsed(logger as Test.Logger) as Boolean {
 function weatherStepsNeverRepeatAnEntry(logger as Test.Logger) as Boolean {
     var data = TwoSunsWeatherCase.data(TwoSunsWeatherCase.MINUTE);
     var short = TwoSunsWeatherCase.build(data, TwoSunsWeatherCase.MINUTE, TwoSunsConfig.SKY_DAY, 30) as TwoSunsWeather;
-    Test.assert(TwoSunsWeatherCase.sameStrings(short.aheadLabels, ["14", "15"] as Array<String>));   // three steps, two distinct entries
+    Test.assert(TwoSunsWeatherCase.sameStrings(short.aheadLabels, ["14:00", "15:00"] as Array<String>));   // three steps, two distinct entries
     var unknown = TwoSunsWeatherCase.build(data, TwoSunsWeatherCase.MINUTE, TwoSunsConfig.SKY_DAY, null) as TwoSunsWeather;
-    Test.assert(TwoSunsWeatherCase.sameStrings(unknown.aheadLabels, ["16", "18", "20"] as Array<String>));
+    Test.assert(TwoSunsWeatherCase.sameStrings(unknown.aheadLabels, ["16:00", "18:00", "20:00"] as Array<String>));
     return true;
 }
 
@@ -209,7 +209,21 @@ function weatherBeforeSunriseIsTodayWithItsHours(logger as Test.Logger) as Boole
     Test.assert(weather.nextDay);
     Test.assertEqual(weather.dayLabel, "");   // before sunrise it is today: no chevron, the date row has the weekday
     Test.assertEqual(weather.leadKind, TwoSunsConfig.WEATHER_RAIN);
-    Test.assert(TwoSunsWeatherCase.sameStrings(weather.aheadLabels, ["10", "13", "16"] as Array<String>));
+    Test.assert(TwoSunsWeatherCase.sameStrings(weather.aheadLabels, ["10:00", "13:00", "16:00"] as Array<String>));
+    return true;
+}
+
+// After sunset the next day stands alone even when the hourly list reaches its hours: at 23:50 the list runs to
+// about 11:50, past 10:00, and still no hour cell is added (an hour beside the high and low read as a temperature).
+(:test, :pro)
+function weatherAfterSunsetHasNoHourCells(logger as Test.Logger) as Boolean {
+    var minute = 23 * 60 + 50;
+    var data = TwoSunsWeatherCase.data(minute);
+    TwoSunsWeatherCase.addDays(data, minute);
+    var weather = TwoSunsWeatherCase.build(data, minute, TwoSunsConfig.SKY_AFTER_SUNSET, null) as TwoSunsWeather;
+    Test.assert(weather.nextDay);
+    Test.assertEqual(weather.aheadKinds.size(), 0);
+    Test.assertEqual(weather.aheadLabels.size(), 0);
     return true;
 }
 
@@ -237,11 +251,11 @@ function weatherDegreesRoundAndConvert(logger as Test.Logger) as Boolean {
 // The hour label has no leading zero and no am or pm; 12-hour clocks show 12 for midnight and noon.
 (:test, :pro)
 function weatherHourLabels(logger as Test.Logger) as Boolean {
-    Test.assertEqual(TwoSunsWeatherPlan.hourText(9 * 60 + 30, true), "9");
+    Test.assertEqual(TwoSunsWeatherPlan.hourText(9 * 60 + 30, true), "9:00");
     Test.assertEqual(TwoSunsWeatherPlan.hourText(16 * 60, false), "4p");
     Test.assertEqual(TwoSunsWeatherPlan.hourText(0, false), "12a");
     Test.assertEqual(TwoSunsWeatherPlan.hourText(12 * 60, false), "12p");
-    Test.assertEqual(TwoSunsWeatherPlan.hourText(25 * 60, true), "1");   // past midnight wraps
+    Test.assertEqual(TwoSunsWeatherPlan.hourText(25 * 60, true), "1:00");   // past midnight wraps
     Test.assertEqual(TwoSunsWeatherPlan.hourText(9 * 60 + 30, false), "9a");
     Test.assertEqual(TwoSunsWeatherPlan.hourText(23 * 60, false), "11p");
     return true;
