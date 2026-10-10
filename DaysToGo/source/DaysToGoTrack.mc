@@ -12,17 +12,17 @@ class DaysToGoTrack {
 
     private var _width as Number;
     private var _height as Number;
-    // How far the centreline is from the screen's edge, its corner radius, and the shortest fill (a square of the band's width).
+    // How far the centreline is from the screen's edge, its corner radius, and the shortest fill (a square of the ring's width).
     private var _inset as Number;
     private var _corner as Number;
     private var _minFill as Number;
 
-    function initialize(width as Number, height as Number, d as Number, inset as Number, bandWidth as Number) {
+    function initialize(width as Number, height as Number, d as Number, inset as Number, ringWidth as Number) {
         _width = width;
         _height = height;
         _inset = inset;
         _corner = d * CORNER_PERMILLE / DaysToGoConfig.PERMILLE;
-        _minFill = bandWidth;
+        _minFill = ringWidth;
     }
 
     // The centreline: [left x, top y, right x, bottom y, corner radius].
@@ -41,7 +41,7 @@ class DaysToGoTrack {
     }
 
     // Px of the track to fill for a 0 to 1000 share: the same share of its length. Any progress shows at least a square
-    // of the band's width; a full share is the whole closed track.
+    // of the ring's width; a full share is the whole closed track.
     function fillFor(permille as Number) as Number {
         if (permille <= 0) {
             return 0;

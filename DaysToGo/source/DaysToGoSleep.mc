@@ -13,9 +13,8 @@ class DaysToGoSleep {
         var shift = drift(layout, minute);
         var dx = shift[0];
         var dy = shift[1];
-        // Fit against a circle smaller by the widest drift, so a shifted block stays inside. The sleep radius is the thin
-        // ring's, not the band's (ADR-021).
-        var radius = layout.sleepRadius() - layout.driftStep();
+        // Fit against a circle smaller by the widest drift, so a shifted block stays inside.
+        var radius = layout.contentRadius() - layout.driftStep();
         var frame = new DaysToGoFrame(dc, layout, state, true);
         var rows = frame.rows;
         dc.setColor(DaysToGoPalette.SLEEP_TEXT, Graphics.COLOR_TRANSPARENT);

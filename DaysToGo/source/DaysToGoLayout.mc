@@ -22,14 +22,7 @@ class DaysToGoLayout {
     // radius (measured off the alpha mask of the SDK's device images: 96 to 100 px on all seven Instinct products).
     static const VISIBLE_RADIUS_PX = 96;
     private static const BOTTOM_MARGIN_PERMILLE = 60;
-    // The bold band (ADR-021): a fill 7 % of D wide, stepping down per screen (DaysToGoBandFit, from the view's onLayout) to a floor of 5.5 % before any
-    // row drops, over a hairline track. The always-on frame keeps the thin ring's 2.5 % allowance whatever the band is
-    // (24-hour heat map evidence).
-    static const BAND_PERMILLE = 70;
-    static const BAND_FLOOR_PERMILLE = 55;
-    static const SLEEP_RING_PERMILLE = 25;
-    private static const TRACK_PERMILLE = 6;
-    private static const TRACK_MIN_PX = 2;
+    private static const RING_WIDTH_PERMILLE = 25;
     private static const RING_GAP_PERMILLE = 10;
     private static const TEXT_MARGIN_PERMILLE = 20;
 
@@ -37,7 +30,6 @@ class DaysToGoLayout {
     private var _height as Number;
     private var _d as Number;
     private var _radius as Number;
-    private var _bandPermille as Number = BAND_PERMILLE;
     private var _subscreen as Graphics.BoundingBox?;
     // The rectangle's track (ADR-019); null on round and Instinct products.
     private var _track as DaysToGoTrack?;
@@ -52,7 +44,8 @@ class DaysToGoLayout {
         _height = dc.getHeight();
         _d = _width < _height ? _width : _height;
         _radius = _d / 2;
-        place(BAND_PERMILLE);
+        _track = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_RECTANGLE
+            ? new DaysToGoTrack(_width, _height, _d, _radius - ringRadius(), ringWidth()) : null;
         // Asked of semi-octagon screens only (the Instinct's round window, ADR-015), so no round
         // product's geometry can depend on it.
         _subscreen = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_SEMI_OCTAGON && (WatchUi has :getSubscreen)
@@ -64,13 +57,6 @@ class DaysToGoLayout {
             _windowW = window.width as Number;
             _windowH = window.height as Number;
         }
-    }
-
-    // Sets the band's width (a share of D) and the geometry that follows it: the rectangle's track sits on the band's centreline.
-    function place(permille as Number) as Void {
-        _bandPermille = permille;
-        _track = System.getDeviceSettings().screenShape == System.SCREEN_SHAPE_RECTANGLE
-            ? new DaysToGoTrack(_width, _height, _d, _radius - ringRadius(), bandWidth()) : null;
     }
 
     function track() as DaysToGoTrack? {
@@ -139,7 +125,7 @@ class DaysToGoLayout {
     // Asleep (time and hero only, fitted inside a smaller outline by the drift step) a rectangle's stack is that much shorter.
     function rows(timeH as Number, nameH as Number, captionH as Number, dateH as Number, footerH as Number,
                   sleeping as Boolean) as DaysToGoRows {
-        var span = (sleeping ? sleepRadius() : contentRadius()) * SPAN_PERMILLE / DaysToGoConfig.PERMILLE;
+        var span = contentRadius() * SPAN_PERMILLE / DaysToGoConfig.PERMILLE;
         var gap = rowGap();
         var rows = new DaysToGoRows();
         // Beside the Instinct window the stack runs the screen's height, top to a bottom margin, and the hero starts
@@ -148,7 +134,7 @@ class DaysToGoLayout {
         var top = _subscreen == null ? centerY() - span : sideMargin();
         var bottom = _subscreen == null ? centerY() + span : _height - _d * BOTTOM_MARGIN_PERMILLE / DaysToGoConfig.PERMILLE;
         if (_track != null) {
-            top = _radius - (sleeping ? sleepRadius() : contentRadius()) + (sleeping ? driftStep() : 0);
+            top = _radius - contentRadius() + (sleeping ? driftStep() : 0);
             bottom = _height - top;
         }
         rows.timeTop = top;
@@ -191,37 +177,17 @@ class DaysToGoLayout {
         return _track != null && step < RECTANGLE_MIN_DRIFT_PX ? RECTANGLE_MIN_DRIFT_PX : step;
     }
 
-    // The band's fill width, and the hairline track under it (ADR-021).
-    function bandWidth() as Number {
-        return _d * _bandPermille / DaysToGoConfig.PERMILLE;
+    function ringWidth() as Number {
+        return _d * RING_WIDTH_PERMILLE / DaysToGoConfig.PERMILLE;
     }
 
-    function trackWidth() as Number {
-        var width = _d * TRACK_PERMILLE / DaysToGoConfig.PERMILLE;
-        return width < TRACK_MIN_PX ? TRACK_MIN_PX : width;
-    }
-
-    // Radius of the band's (and the hairline's) centreline.
     function ringRadius() as Number {
-        return ringRadiusFor(bandWidth());
+        return _radius - ringWidth() / 2 - _d * RING_GAP_PERMILLE / DaysToGoConfig.PERMILLE;
     }
 
-    private function ringRadiusFor(width as Number) as Number {
-        return _radius - width / 2 - _d * RING_GAP_PERMILLE / DaysToGoConfig.PERMILLE;
-    }
-
-    // Everything inside the band fits against this circle, so text never touches the band.
+    // Everything inside the ring fits against this circle, so text never touches the ring.
     function contentRadius() as Number {
-        return contentRadiusFor(bandWidth());
-    }
-
-    // The always-on frame fits against the circle the thin 2.5 % ring left (ADR-021), not the band's.
-    function sleepRadius() as Number {
-        return contentRadiusFor(_d * SLEEP_RING_PERMILLE / DaysToGoConfig.PERMILLE);
-    }
-
-    private function contentRadiusFor(width as Number) as Number {
-        return ringRadiusFor(width) - width / 2 - _d * TEXT_MARGIN_PERMILLE / DaysToGoConfig.PERMILLE;
+        return ringRadius() - ringWidth() / 2 - _d * TEXT_MARGIN_PERMILLE / DaysToGoConfig.PERMILLE;
     }
 
     // On the Instinct a row is a box, not a chord: a side margin each side, and beside the window the right edge is the

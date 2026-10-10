@@ -13,20 +13,13 @@ function testDc() as Graphics.Dc {
     return bitmap.getDc();
 }
 
-// The layout the view uses: the band stepped down for this screen (ADR-021).
-function fittedLayout(dc as Graphics.Dc) as DaysToGoLayout {
-    var layout = new DaysToGoLayout(dc);
-    DaysToGoBandFit.apply(dc, layout, new DaysToGoView());
-    return layout;
-}
-
 // Renders the face at this device's real resolution and fonts in its widest
 // states, and fails if any text leaves the display or two texts overlap.
 // Run per product: `tools/run_tests.sh <device> everyStateFitsThisDisplay`.
 (:test)
 function everyStateFitsThisDisplay(logger as Test.Logger) as Boolean {
     var dc = testDc();
-    var layout = fittedLayout(dc);
+    var layout = new DaysToGoLayout(dc);
     var view = new DaysToGoView();
     var problems = [] as Array<String>;
     DaysToGoDraw.misfits = [] as Array<String>;
@@ -55,7 +48,7 @@ function everyStateFitsThisDisplay(logger as Test.Logger) as Boolean {
 (:test)
 function bottomLineIsDrawnNotSilentlyDropped(logger as Test.Logger) as Boolean {
     var dc = testDc();
-    var layout = fittedLayout(dc);
+    var layout = new DaysToGoLayout(dc);
     var view = new DaysToGoView();
     if (layout.track() == null && (System.getDeviceSettings().screenShape != System.SCREEN_SHAPE_ROUND || dc.getHeight() < 218)) {
         return true;
@@ -80,7 +73,7 @@ function bottomLineIsDrawnNotSilentlyDropped(logger as Test.Logger) as Boolean {
 (:test)
 function alwaysOnFrameFitsAtEveryDrift(logger as Test.Logger) as Boolean {
     var dc = testDc();
-    var layout = fittedLayout(dc);
+    var layout = new DaysToGoLayout(dc);
     if (layout.subscreen() != null) {
         return true;   // the always-on frame is drawn on burn-in (AMOLED) screens only; an Instinct is MIP (ADR-015)
     }
@@ -121,7 +114,7 @@ function alwaysOnFrameFitsAtEveryDrift(logger as Test.Logger) as Boolean {
 (:test)
 function errorFrameDimsAndDriftsWhenAsleep(logger as Test.Logger) as Boolean {
     var dc = testDc();
-    var layout = fittedLayout(dc);
+    var layout = new DaysToGoLayout(dc);
     Test.assertEqual(DaysToGoView.fallbackColor(true), DaysToGoPalette.SLEEP_TEXT);
     Test.assertEqual(DaysToGoView.fallbackColor(false), DaysToGoPalette.TEXT);
     var step = layout.driftStep();
@@ -150,10 +143,10 @@ function errorFrameDimsAndDriftsWhenAsleep(logger as Test.Logger) as Boolean {
 (:test)
 function daysToGoLayoutReport(logger as Test.Logger) as Boolean {
     var dc = testDc();
-    var layout = fittedLayout(dc);
+    var layout = new DaysToGoLayout(dc);
     var view = new DaysToGoView();
     var live = DaysToGoReadings.take(DaysToGoSettings.load());
-    logger.debug(dc.getWidth() + "x" + dc.getHeight() + " ring r=" + layout.ringRadius() + " band=" + layout.bandWidth() + " track=" + layout.trackWidth()
+    logger.debug(dc.getWidth() + "x" + dc.getHeight() + " ring r=" + layout.ringRadius() + " w=" + layout.ringWidth()
         + " content r=" + layout.contentRadius() + " live hero=" + live.hero + " time=" + live.time);
     var fonts = DaysToGoType.heroFonts(false, false);
     for (var f = 0; f < fonts.size() && (Graphics has :getFontAscent); f++) {
@@ -194,7 +187,7 @@ function truncatedKeepsTheMarker(logger as Test.Logger) as Boolean {
 // product, rows keep the whole display and the screen's centre (ADR-015).
 (:test)
 function rowsBesideAWindowStayClearOfIt(logger as Test.Logger) as Boolean {
-    var layout = fittedLayout(testDc());
+    var layout = new DaysToGoLayout(testDc());
     var window = layout.subscreen();
     var rowHeight = 18;
     for (var y = 0; y + rowHeight < layout.height(); y += 4) {
@@ -218,13 +211,13 @@ function rowsBesideAWindowStayClearOfIt(logger as Test.Logger) as Boolean {
 (:test)
 function rectangleTrackFillMatchesItsShare(logger as Test.Logger) as Boolean {
     var dc = testDc();
-    var layout = fittedLayout(dc);
+    var layout = new DaysToGoLayout(dc);
     var track = layout.track();
     if (track == null) {
         return true;
     }
     var b = track.box();
-    var half = layout.bandWidth() / 2 + 1;
+    var half = layout.ringWidth() / 2 + 1;
     Test.assert(b[0] - half >= 0 && b[1] - half >= 0 && b[2] + half <= dc.getWidth() && b[3] + half <= dc.getHeight());
     Test.assert(b[4] * 2 < b[2] - b[0] && b[4] * 2 < b[3] - b[1]);
     var length = track.length();
@@ -232,11 +225,11 @@ function rectangleTrackFillMatchesItsShare(logger as Test.Logger) as Boolean {
     Test.assert((track.fillFor(500) - length / 2).abs() <= 1);
     Test.assert(track.fillFor(950) < length && track.fillFor(950) > length * 9 / 10);
     Test.assertEqual(track.fillFor(0), 0);
-    Test.assert(track.fillFor(1) >= layout.bandWidth());
+    Test.assert(track.fillFor(1) >= layout.ringWidth());
     var shares = [1, 125, 250, 500, 750, 950, 1000] as Array<Number>;
     for (var i = 0; i < shares.size(); i++) {
         var fill = track.fillFor(shares[i]);
-        Test.assertEqual(DaysToGoRing.trace(dc, track, DaysToGoPalette.TRACK, fill, layout.bandWidth()), fill);
+        Test.assertEqual(DaysToGoRing.trace(dc, track, DaysToGoPalette.TRACK, fill, layout.ringWidth()), fill);
     }
     logger.debug(dc.getWidth() + "x" + dc.getHeight() + " track " + b + " length " + length);
     return true;
