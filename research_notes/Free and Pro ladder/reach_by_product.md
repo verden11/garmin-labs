@@ -1,11 +1,10 @@
 # Reach only a free listing gets
 
-**Question:** per project, how many manifest products are *not* on Garmin's paid-device allow-list? A paid listing is never offered
-on those; a free listing is.
+**Question:** per project, how many manifest products *not* on Garmin's paid-device allow-list? Paid listing never offered on those; free listing is.
 
 **Method (measured, 2026-09-28):** manifest product ids → SDK `displayName` (`~/Library/Application Support/Garmin/ConnectIQ/Devices/<id>/compiler.json`)
-→ substring match against the "Supported Products" section of the App Sales page, run in the browser. A combined SDK name
-("fēnix® 5 / quatix® 5") counted as on the list if *any* slash-separated part matched, so the counts below are a **floor** on free-only reach.
+→ substring match against "Supported Products" section of App Sales page, run in browser. Combined SDK name
+("fēnix® 5 / quatix® 5") counted on list if *any* slash-separated part matched, so counts below = **floor** on free-only reach.
 
 | Project | Manifest products | On allow-list | Free-only | Share | minApi |
 |---|---|---|---|---|---|
@@ -24,27 +23,23 @@ on those; a free listing is.
 - Venu Mercedes-Benz Collection
 - Captain Marvel, First Avenger, Darth Vader, Rey (special editions)
 
-FR245 and vívoactive 4 were mass-market watches; these are large installed bases. **Inferred**, not measured: how many of those owners
-browse the store for faces.
+FR245, vívoactive 4 = mass-market watches; large installed bases. **Inferred**, not measured: how many owners browse store for faces.
 
 ## What this does and does not buy
 
-- **Buys:** installs, ratings, reviews and rank velocity on 28% more devices for HeroFace and DaysToGo. Reviews and velocity are what the
-  store rewards (`reports/Selling HeroSet and HeroFace.md`).
-- **Does not buy:** Pro sales from those devices. The Pro listing is not offered there, so an owner of a FR245 who loves the free face
-  cannot upgrade. The free description must say so plainly (guideline 4a) and the face must never show an upgrade prompt.
-- **TwoSuns, DayArc, HeroSet:** near-zero extra reach. Their free twin is justified by trial/social-proof/family-shelf value only, not reach.
+- **Buys:** installs, ratings, reviews, rank velocity on 28% more devices for HeroFace, DaysToGo. Reviews, velocity = what store rewards (`reports/Selling HeroSet and HeroFace.md`).
+- **Does not buy:** Pro sales from those devices. Pro listing not offered there, so FR245 owner who loves free face cannot upgrade. Free description must say so plainly (guideline 4a); face must never show upgrade prompt.
+- **TwoSuns, DayArc, HeroSet:** near-zero extra reach. Free twin justified by trial/social-proof/family-shelf value only, not reach.
 
 ## Correction 2026-10-04
 
-Re-measured by store part number against the live manifests (`garmin_rules.md`, "Re-read 2026-10-04", section 3). **Free-only reach for HeroFace and Days To Go is 37 products, not 33**
-(the substring floor wrongly counted D2 Air, Enduro, fēnix 6S and Venu as on the list), **plus 11 products that are on the App Sales list but missing from every paid listing**
-(MARQ Gen 1 x8, Descent Mk2/Mk2i, Mk2 S, D2 Air X10): 48 products in all. Two free rival listings (GLANCE, EASY Round) are offered on all of them, so a Free twin reaches the whole manifest (inference from those two).
-The "Known gap" below is explained for 37 and measured but still unexplained for the 11.
+Re-measured by store part number against live manifests (`garmin_rules.md`, "Re-read 2026-10-04", section 3). **Free-only reach for HeroFace and Days To Go = 37 products, not 33** (substring floor wrongly counted D2 Air, Enduro, fēnix 6S, Venu as on list), **plus 11 products on App Sales list but missing from every paid listing**
+(MARQ Gen 1 x8, Descent Mk2/Mk2i, Mk2 S, D2 Air X10): 48 products total. Two free rival listings (GLANCE, EASY Round) offered on all of them, so Free twin reaches whole manifest (inference from those two).
+"Known gap" below explained for 37; measured but still unexplained for the 11.
 
 ## Known gap
 
-The store lists fewer products than manifest minus allow-list would predict (HeroFace 69 listed vs 84 on-list; earlier notes:
-Descent Mk2/Mk2S, MARQ Gen 1, D2 Air X10 are on the list yet absent). Unexplained, only Garmin can say. The free listing may therefore
-reach *more* than 33 extra products. Measure after approval: compare `compatibleDeviceTypeIds` length of the free listing against the
-Pro listing through the store API (execution plan WP9).
+Store lists fewer products than manifest minus allow-list predicts (HeroFace 69 listed vs 84 on-list; earlier notes:
+Descent Mk2/Mk2S, MARQ Gen 1, D2 Air X10 on list yet absent). Unexplained, only Garmin can say. Free listing may therefore
+reach *more* than 33 extra products. Measure after approval: compare `compatibleDeviceTypeIds` length of free listing against
+Pro listing through store API (execution plan WP9).

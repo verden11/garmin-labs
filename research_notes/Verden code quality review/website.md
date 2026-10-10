@@ -1,23 +1,23 @@
 # Verden website (site/) — code quality and architecture review
 
-Reviewed 2026-09-24, working tree as it stands (read-only). Paths are relative to `/Users/mbp/dev/garmin/`. "Source" links point at local files; `file:line` is the evidence. Evidence I ran myself: `npm run build` (dist/ and .ssr/ are git-ignored, `site/.gitignore:2-3`), `npx tsc --noEmit`, `npm outdated`, `npm ls`, `npm audit`, a headless Chrome screenshot of the built `/heroface/` page served locally, a contrast-ratio script (WCAG relative-luminance formula), and read-only `curl -I` requests to the live site.
+Reviewed 2026-09-24, working tree as it stands (read-only). Paths relative to `/Users/mbp/dev/garmin/`. "Source" links = local files; `file:line` = evidence. Evidence I ran myself: `npm run build` (dist/ and .ssr/ git-ignored, `site/.gitignore:2-3`), `npx tsc --noEmit`, `npm outdated`, `npm ls`, `npm audit`, headless Chrome screenshot of built `/heroface/` page served locally, contrast-ratio script (WCAG relative-luminance formula), read-only `curl -I` requests to live site.
 
-**A correction to the brief:** only three site files are staged (`src/apps/heroset/Landing.tsx`, `Support.tsx`, `facts.ts`, per `git status --short -- site`). DESIGN.md, global.css and index.html have **no** staged or unstaged changes. Their latest changes are already committed in `8a40cb6 style: website UI`.
+**A correction to the brief:** only three site files staged (`src/apps/heroset/Landing.tsx`, `Support.tsx`, `facts.ts`, per `git status --short -- site`). DESIGN.md, global.css, index.html have **no** staged or unstaged changes. Latest changes already committed in `8a40cb6 style: website UI`.
 
 ---
 
 ## Does `npm run build` succeed and emit every route? Does `tsc --noEmit` pass?
 
 ### Takeaway
-Yes. The build passes and prerenders all 7 routes plus `404.html` as static HTML with no `<script>` tags. `tsc --noEmit` reports no errors (0.56 s, TypeScript 7.0.2). There are no hydration-mismatch risks, because nothing hydrates. I found no broken internal links, and no published URL changes in the working tree.
+Yes. Build passes, prerenders all 7 routes plus `404.html` as static HTML, no `<script>` tags. `tsc --noEmit` no errors (0.56 s, TypeScript 7.0.2). No hydration-mismatch risk: nothing hydrates. No broken internal links, no published URL changes in working tree.
 
 ### Cited Findings
-- `npm run build` exited 0 and printed `prerendered 7 pages + 404`. It emitted `dist/index.html`, `dist/heroset/{,support/,privacy/}index.html`, `dist/heroface/{,support/,privacy/}index.html` and `dist/404.html`. Client assets: CSS 14.55 kB (4.05 kB gzip) plus 3 Archivo woff2 subsets (latin 90 kB, latin-ext 86 kB, vietnamese 34 kB) — [package.json:7](site/package.json), [prerender.ts:13-16](site/prerender.ts)
-- Routes come from the registry. For each app the table adds `/slug/`, `/slug/support/` and `/slug/privacy/`. The route table and the 404 fallback use `status: route ? 200 : 404` — [src/entry-server.tsx:11-24,30-42](site/src/entry-server.tsx)
-- `grep -c '<script'` on every emitted HTML file returns 0, so the "zero client JS" rule holds — [site/CLAUDE.md:34](site/CLAUDE.md)
-- The Vite build rewrites the font preload in index.html from the node_modules path to the hashed asset (`/assets/archivo-latin-wdth-normal-DY7AcnAa.woff2` in dist HTML) — [index.html:7](site/index.html)
-- Every internal `href` in dist resolves to an emitted route or asset: `/`, `/heroset/`, `/heroset/support/`, `/heroset/privacy/`, and the same three for heroface. Nothing points elsewhere.
-- Live: `https://verden.watch/heroset/support` (no slash) returns `301 → /heroset/support/`, and the slash URL returns 200. The trailing-slash URLs therefore hold (curl, 2026-09-24).
+- `npm run build` exited 0, printed `prerendered 7 pages + 404`. Emitted `dist/index.html`, `dist/heroset/{,support/,privacy/}index.html`, `dist/heroface/{,support/,privacy/}index.html`, `dist/404.html`. Client assets: CSS 14.55 kB (4.05 kB gzip) plus 3 Archivo woff2 subsets (latin 90 kB, latin-ext 86 kB, vietnamese 34 kB) — [package.json:7](site/package.json), [prerender.ts:13-16](site/prerender.ts)
+- Routes from registry. Per app table adds `/slug/`, `/slug/support/`, `/slug/privacy/`. Route table and 404 fallback use `status: route ? 200 : 404` — [src/entry-server.tsx:11-24,30-42](site/src/entry-server.tsx)
+- `grep -c '<script'` on every emitted HTML file returns 0 -> "zero client JS" rule holds — [site/CLAUDE.md:34](site/CLAUDE.md)
+- Vite build rewrites font preload in index.html from node_modules path to hashed asset (`/assets/archivo-latin-wdth-normal-DY7AcnAa.woff2` in dist HTML) — [index.html:7](site/index.html)
+- Every internal `href` in dist resolves to emitted route or asset: `/`, `/heroset/`, `/heroset/support/`, `/heroset/privacy/`, same three for heroface. Nothing points elsewhere.
+- Live: `https://verden.watch/heroset/support` (no slash) returns `301 → /heroset/support/`, slash URL returns 200. Trailing-slash URLs hold (curl, 2026-09-24).
 - Live `/robots.txt` and `/sitemap.xml` return 404 (curl).
 - **Latent bug:** `fill()` uses `String.prototype.replace` with a string replacement, so a `$&`, `` $` `` or `$'` sequence in rendered page HTML would be expanded rather than inserted literally. No page contains one today (grep over src finds none) — [vite.config.ts:29-31](site/vite.config.ts). Fix: `template.replace('<!--head-->', () => page.head).replace('<!--body-->', () => page.body)`.
 - `prerender.ts` imports `fill` from `vite.config.ts`, which loads the Vite config module (and `vite`) at prerender time. It works, but the coupling is odd — [prerender.ts:3](site/prerender.ts). Low priority. A 1-line `fill` could live in `entry-server.tsx` instead.

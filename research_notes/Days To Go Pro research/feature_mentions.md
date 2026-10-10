@@ -1,11 +1,11 @@
 # What the listing descriptions promise (feature word counts)
 
-Source: the 83 countdown-like faces in `countdown_faces.csv` marked `genuine = y` (public store API, 2026-10-04). A regex over the English description, so a count is a lower bound and a false positive is possible (for example `arc` or `phase`). **Fact: the word is in the text. Inference: nothing about what buyers want.** Caveat: many of the 41 external-unlock listings are template variants of the same Christmas or winter face by a few developers, so their word counts repeat one description many times and inflate the data, colour and image rows.
+Source: 83 countdown-like faces in `countdown_faces.csv` marked `genuine = y` (public store API, 2026-10-04). Regex over English description -> count = lower bound, false positive possible (e.g. `arc` or `phase`). **Fact: word is in text. Inference: nothing about what buyers want.** Caveat: many of 41 external-unlock listings = template variants of same Christmas or winter face by few developers -> word counts repeat one description many times, inflate data, colour, image rows.
 
 | Feature word group | all genuine (n=83) | free (n=36) | free + external unlock (n=41) | paid (store) (n=6) | >=1000 downloads (n=18) |
 |---|---:|---:|---:|---:|---:|
 | countdown to hours/minutes/seconds | 29 | 8 | 19 | 2 | 6 |
-| data lines / metrics beside the count | 64 | 20 | 39 | 5 | 14 |
+| data lines / metrics beside count | 64 | 20 | 39 | 5 | 14 |
 | colour or theme choice | 53 | 14 | 34 | 5 | 13 |
 | background / image / icon / animation | 52 | 11 | 36 | 5 | 8 |
 | progress ring / bar / dot grid | 7 | 3 | 1 | 3 | 2 |
