@@ -50,6 +50,8 @@ const luminance = (hex: string) => {
   return 0.2126 * r + 0.7152 * g + 0.0722 * b
 }
 for (const { name, color, onColor } of apps) {
+  // Only #rrggbb is parsed; anything else would read as NaN and pass silently.
+  if (![color, onColor].every((c) => /^#[0-9a-f]{6}$/i.test(c))) throw new Error(`${name}: color and onColor must be #rrggbb`)
   const [hi, lo] = [luminance(color), luminance(onColor)].sort((a, b) => b - a)
   const ratio = (hi + 0.05) / (lo + 0.05)
   if (ratio < 4.5) throw new Error(`${name}: onColor ${onColor} on ${color} is ${ratio.toFixed(2)}:1, under the 4.5:1 WCAG AA minimum`)

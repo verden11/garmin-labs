@@ -305,7 +305,7 @@ img { max-width: 100%; height: auto; display: block; }
 /* Studio home ------------------------------------------------------------ */
 
 .home-intro__inner { padding-block: var(--space-5); display: grid; gap: var(--space-3); }
-.home-intro h1 { overflow-wrap: anywhere; /* WCAG 1.4.12: wider letter-spacing must not push one long word past a 320 px screen */ font-size: clamp(3.5rem, 12vw, 6rem); font-weight: 850; font-stretch: 125%; letter-spacing: -0.035em; text-transform: uppercase; line-height: 0.9; }
+.home-intro h1 { overflow-wrap: anywhere; /* WCAG 1.4.12: wider letter-spacing must not push one long word past a 320 px screen */ font-size: clamp(min(3.5rem, 16.8vw), 12vw, 6rem); /* the min() keeps the word whole below ~334 px */ font-weight: 850; font-stretch: 125%; letter-spacing: -0.035em; text-transform: uppercase; line-height: 0.9; }
 .home-intro p { font-size: clamp(1.15rem, 2vw, 1.4rem); max-width: 44ch; }
 
 .emblem { display: flex; gap: 0.75rem; width: clamp(9rem, 22vw, 15rem); }
