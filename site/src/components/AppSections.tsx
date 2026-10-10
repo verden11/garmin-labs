@@ -26,7 +26,7 @@ export function FreeOrPro({ app, free, pro, note }: { app: App; free: string; pr
       <h2 id="tiers-title" className="band__title">Free or Pro.</h2>
       <p className="band__lede">Two faces in the {app.storeName}, two separate listings. Nothing in {app.name} is locked or waiting to be bought on the watch.</p>
       <dl className="facts">
-        <div><dt>{app.name}</dt><dd>Free. {free} <a href={app.freeStoreUrl}>Get {app.name}</a></dd></div>
+        <div><dt>{app.name}</dt><dd>Free. {free} {app.freeStoreUrl ? <a href={app.freeStoreUrl}>Get {app.name}</a> : 'Coming soon.'}</dd></div>
         <div><dt>{app.name} Pro</dt><dd>Paid, one purchase. {pro} <a href={app.storeUrl}>Get {app.name} Pro</a></dd></div>
       </dl>
       {note && <p className="band__aside">{note}</p>}

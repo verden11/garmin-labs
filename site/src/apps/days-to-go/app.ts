@@ -15,7 +15,7 @@ export const daysToGo: App = {
   onColor: '#04140c',
   storeName: 'Connect IQ Store',
   storeUrl: 'https://apps.garmin.com/apps/95adf037-3bf8-423c-b939-e9921da1b4d4',   // Days To Go Pro
-  freeStoreUrl: 'https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9',   // Days To Go (free), uploaded 2026-10-04
+  // freeStoreUrl: 'https://apps.garmin.com/apps/2142b1e6-b56c-4fad-a9db-10a8e21790f9',   // Days To Go (free), uploaded 2026-10-04; pending Garmin review (404 on 2026-10-10), restore on approval (ROADMAP 16.3)
   ogImage: '/days-to-go/watch/days.png',
   Mark: DaysToGoMark,
   Landing,
