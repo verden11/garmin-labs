@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Days To Go: bold direction (ROADMAP 8.1)</title>
+<!-- Mockup only (ROADMAP 8.1, watch-design-lead; revised after the 2026-10-10 watch-design-reviewer pass). Sizes follow
+     DESIGN.md: d = screen side. Roboto Condensed stands in for Garmin's system fonts: one weight, no tracking, as on the
+     watch. Rows are placed by hand, so this shows direction and proportion, not a fit test (the build's fit tests do that). -->
+<style>
+  body { background:#222; color:#ddd; font:14px/1.4 -apple-system, Helvetica, sans-serif; margin:16px; }
+  h2 { font-size:15px; margin:18px 0 6px; }
+  .row { display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; }
+  figure { margin:0; text-align:center; }
+  figcaption { font-size:12px; color:#aaa; margin-top:4px; max-width:460px; }
+  svg text { font-family:"Roboto Condensed","Arial Narrow",Arial,sans-serif; font-weight:400; }
+</style>
+</head>
+<body>
+<h2>A. today's build (thin ring, white number, muted caption) · C. the direction (band d×0.07, butt ends; number in the accent), 454 px, Free, 23 days, mint</h2>
+<div class="row" id="big"></div>
+<h2>Same at 208 px (fr55, the smallest round); C in weeks mode, the widest caption</h2>
+<div class="row" id="small"></div>
+<h2>C: every state at 454 px (true square-root share; 95% cap leaves the 18° gap)</h2>
+<div class="row" id="states"></div>
+<h2>C: every Free accent at 208 px</h2>
+<div class="row" id="accents"></div>
+<script>
+const ACC = {mint:'#55FFAA', amber:'#FFAA00', sky:'#55AAFF', pink:'#FF55AA', violet:'#AA55FF', white:'#FFFFFF'};
+const MUTED = '#AAAAAA', TRACK = '#555555', SLEEP = '#5C5C5C';
+const share = (days) => days > 365 ? 0 : Math.min(Math.sqrt(days / 365), 0.95);
+function arc(c, r, frac, col, w) {
+  if (frac <= 0) return '';
+  if (frac >= 1) return `<circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${col}" stroke-width="${w}"/>`;
+  const circ = 2 * Math.PI * r;
+  return `<circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${col}" stroke-width="${w}" stroke-linecap="butt"
+    stroke-dasharray="${circ * frac} ${circ}" transform="rotate(-90 ${c} ${c})"/>`;
+}
+function face(d, v, o) {
+  o = Object.assign({accent:'mint', hero:'23', caption:'DAYS', frac:share(23), name:'Lisbon', date:'→ Sat Nov 2',
+                     time:'9:41', footer:null, ring:true, heroCol:null, sleep:false}, o);
+  const a = ACC[o.accent], c = d / 2, y = (f) => c + f * d;
+  const band = v === 'A' ? d * 0.025 : d * 0.07;
+  const r = c - d * 0.010 - band / 2;
+  let g = '';
+  if (o.sleep) {
+    g += `<text x="${c + d*0.03}" y="${y(-0.12)}" fill="${SLEEP}" font-size="${0.075*d}" text-anchor="middle">${o.time}</text>`;
+    g += `<text x="${c + d*0.03}" y="${y(0.1)}" fill="${SLEEP}" font-size="${0.26*d}" text-anchor="middle">${o.hero}</text>`;
+  } else {
+    if (o.ring) {
+      g += v === 'A' ? `<circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${TRACK}" stroke-width="${band}"/>`
+                     : `<circle cx="${c}" cy="${c}" r="${r}" fill="none" stroke="${TRACK}" stroke-width="${Math.max(2, d*0.006)}"/>`;
+      g += arc(c, r, o.frac, a, band);
+    }
+    const heroCol = o.heroCol || (v === 'C' ? a : (o.hero === 'TODAY' ? a : '#FFFFFF'));
+    const word = /[A-Z?]/.test(o.hero);
+    const heroSize = (word ? 0.15 : (o.hero.length > 3 ? 0.26 : 0.36)) * d;
+    const heroTxt = o.hero.replace(/([hm])/g, '<tspan font-size="0.45em">$1</tspan>');
+    g += `<text x="${c}" y="${y(-0.25)}" fill="#FFFFFF" font-size="${0.085*d}" text-anchor="middle">${o.time}</text>`;
+    if (o.name) g += `<text x="${c}" y="${y(-0.165)}" fill="${a}" font-size="${0.06*d}" text-anchor="middle">${o.name}</text>`;
+    g += `<text x="${c}" y="${y(word ? 0.05 : 0.115)}" fill="${heroCol}" font-size="${heroSize}" text-anchor="middle">${heroTxt}</text>`;
+    if (o.caption) g += `<text x="${c}" y="${y(word ? 0.13 : 0.19)}" fill="${MUTED}" font-size="${0.055*d}" text-anchor="middle">${o.caption}</text>`;
+    if (o.date) g += `<text x="${c}" y="${y(word ? 0.2 : 0.27)}" fill="${MUTED}" font-size="${0.05*d}" text-anchor="middle">${o.date}</text>`;
+    if (o.footer) g += `<text x="${c}" y="${y(0.345)}" fill="${MUTED}" font-size="${0.045*d}" text-anchor="middle">${o.footer}</text>`;
+  }
+  const id = 'k' + Math.random().toString(36).slice(2);
+  return `<svg width="${d}" height="${d}" viewBox="0 0 ${d} ${d}"><defs><clipPath id="${id}"><circle cx="${c}" cy="${c}" r="${c}"/></clipPath></defs>
+    <g clip-path="url(#${id})"><rect width="${d}" height="${d}" fill="#000"/>${g}</g></svg>`;
+}
+const fig = (svg, cap) => `<figure>${svg}<figcaption>${cap}</figcaption></figure>`;
+const $ = (id) => document.getElementById(id);
+$('big').innerHTML = fig(face(454, 'A'), 'A, today') + fig(face(454, 'C'), 'C');
+$('small').innerHTML = fig(face(208, 'A'), 'A') + fig(face(208, 'C'), 'C')
+  + fig(face(208, 'C', {hero:'6', caption:'WEEKS + 3 DAYS', frac:share(45)}), 'C, weeks mode')
+  + fig(face(208, 'C', {name:'Anna and Tom\'s', frac:share(23)}), 'C, long name');
+const S = [
+  [{hero:'340', frac:share(340), date:'→ Thu Sep 16'}, '340 days: 95% cap, 18° gap left of 12'],
+  [{hero:'1', caption:'DAY', frac:share(1)}, '1 day (5%)'],
+  [{hero:'7h 51m', caption:'', frac:share(7.85/24), footer:'▭ 50%'}, 'Pro, last 24 h (true share 2.9%), bottom line'],
+  [{hero:'TODAY', caption:'', frac:1, date:'Sat Nov 2'}, 'TODAY: whole band'],
+  [{hero:'12', caption:'DAYS SINCE', frac:0, date:'Sat Nov 2'}, 'past: hairline only'],
+  [{hero:'400', frac:0, date:'→ Mon Nov 8 2027'}, 'more than a year: hairline only'],
+  [{hero:'SET A DATE', caption:'', name:null, date:null, ring:false}, 'no date yet: no ring, accent words'],
+  [{hero:'?', caption:'', name:null, date:null, ring:false, heroCol:'#FFFFFF'}, 'settings unreadable: white "?"'],
+  [{sleep:true}, 'always-on (AMOLED): unchanged, grey, no band'],
+];
+$('states').innerHTML = S.map(([o, cap]) => fig(face(454, 'C', o), cap)).join('');
+$('accents').innerHTML = Object.keys(ACC).map(k => fig(face(208, 'C', {accent:k}), k)).join('');
+</script>
+</body>
+</html>

@@ -24,6 +24,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 | 018 | To the minute: Pro's Minute and Event time zone; the zone moves only HOURS and TODAY | Active, UNRELEASED (owner chose the headline 2026-10-04; simulator only; amends 004) |
 | 019 | Rectangles get a square design: a rounded-rectangle track and a stack that uses the whole box | Proposed, UNRELEASED (owner asked 2026-10-05; look approval pending on simulator screenshots; amends 006 and 016) |
 | 020 | No on-watch date picker on the Venu Sq 2 and Sq 2 Music (their system picker column is 30 px wide) | Active, UNRELEASED (2026-10-08, the owner's standing authority; simulator evidence only; amends 005) |
+| 021 | The bold band: the count in the wearer's accent, a band d×0.07 that drains toward the day (ROADMAP 8.1) | **Proposed**, design accepted 2026-10-10 by watch-design-lead and watch-design-reviewer (owner delegated look decisions); build pending (8.2) |
 
 ## ADR-001: Any event, countdown-first
 
@@ -246,3 +247,25 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 **Why not a custom picker view.** Would replace system control on two products with own drawing and input (buttons and touch), to fix layout that may be only simulator's: real Venu Sq 2 firmware may draw its picker correctly. Too much code for unverified bug.
 **Evidence.** `device-test/rect-review/picker/` (both tiers, plain and `YEARFIRST=1`, five rectangles, `fr965`, `fr55`; SDK sample in `device-test/rect-review/picker-sdk/`, three-column and one-column); debug symbols of each build: `getSettingsView` absent on `venusq2` and `venusq2m`, present on `venusq`, `venusqm`, `venux1`, `fr965`, both jungles. `docs/compatibility.md` "On-watch date picker on the rectangles".
 **Undo.** If Venu Sq 2 wrist check of picker (sideloaded build with harness, or build without two jungle lines) shows real picker readable, delete two `venusq2*.excludeAnnotations` lines from each jungle.
+
+## ADR-021: The bold band (ROADMAP 8.1)
+
+**Status.** Proposed 2026-10-10. Direction chosen by `watch-design-lead`; a fresh `watch-design-reviewer` approved the direction with fixes (all folded in below). The owner delegated look decisions to the design agents on 2026-10-10 (no owner look-approval gate). Evidence so far: **browser mockup only** (`docs/bold-mockup.html`, `docs/bold-mockup.png`, Chrome headless, Roboto Condensed standing in for system fonts); no simulator, no wrist. Build is ROADMAP 8.2.
+
+**Why.** Owner brief (2026-09-28, execution plan section 5a): earlier looks "boring and far too plain"; one decisive move, bold category-keyed colour on true black, never a colour keyed to the reading, Free first. The plan's own hook for this face: the number as the whole face in the accent, the ring as a bezel sweep.
+
+**Decision.**
+1. **Hero in the accent, every state that has one** (upcoming, weeks, Pro's hours with their letters, TODAY, days since, SET A DATE). The accent is the wearer's setting, constant whatever the count: not a verdict. TODAY no longer switches the hero's colour (it was white, then accent on the day); the word and the full band carry the day. The `?` error frame stays white.
+2. **The ring becomes a band**: fill `d × 0.070` (was `0.025`), **butt ends** (no round caps: a cap would push the start past 12 o'clock, halve the 95% state's 18° gap and turn the last hours' sliver into a fixed dot), over a **hairline track** `max(2 px, d × 0.006)` in `#555555` (a frame, not a reading; the words carry every state). Same square-root scale, 95% cap with its 18° gap, track only beyond a year and after the day, whole band on the day (ADR-013's scale rules unchanged).
+3. **Colour roles**: accent = event name, hero, band; white = time, `?`; muted `#AAAAAA` = caption, date, bottom line; track = hairline only. No bold or tracking anywhere (system fonts have one weight, no tracking control; the mockup's earlier bold caption is not built).
+4. **Fit rule**: the band steps down per screen, to a floor of `d × 0.055`, before any row drops; the ten-size `everyStateFitsThisDisplay` sweep, both tiers, is the gate (no row today's build shows may drop).
+5. **Always-on unchanged**: no band, no accent, `#5C5C5C`, and the sleep geometry keeps today's `0.025d` allowance, independent of the band (else the 24-hour heat map evidence lapses).
+6. **Instinct unchanged** (ADR-015 (Instinct family)): window gauge, white hero through the mono palette; band and accent do not apply.
+7. **Rectangles** (ADR-019 (rectangles get a square design)): the band on the track, same butt-end rule on the corner arcs; built first, then judged from simulator screenshots (the 2026-10-05 rectangle precedent); glass clearance re-measured for the wider band.
+
+**Why C, not B (accent caption, white hero).** B puts the accent on the least informative word and splits it into two small accent texts around a white hero, a second focal read. C puts it on the focal read.
+
+**Accent roster.** Pink and violet against the old 0.025d grey ring were 2.53 and 1.94 : 1 (roster finding 3); the band now covers a hairline, so that adjacency is gone. Hero contrast on black: violet 5.5 : 1 (lowest), pink 7.1, sky 8.6. Violet and pink digits on a MIP screen in sunlight need a wrist look.
+
+**Reversed by.** A wrist showing the accent hero reads worse than white at a glance; the fit sweep showing the band costs rows the floor cannot save.
+
