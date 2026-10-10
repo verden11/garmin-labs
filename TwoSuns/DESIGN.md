@@ -15,6 +15,9 @@ colors:
   accent-violet: "#AA55FF"
   accent-pink: "#FF55AA"
   accent-winter: "#FFFFFF"
+  accent-cyan: "#00FFFF"      # Pro only, id 6 (2026-10-10)
+  accent-lime: "#55FF55"      # Pro only, id 7
+  accent-magenta: "#FF55FF"   # Pro only, id 8
 typography:
   time:
     fontFamily: "Graphics.FONT_NUMBER_HOT → FONT_NUMBER_MEDIUM → FONT_NUMBER_MILD (rectangles: FONT_NUMBER_THAI_HOT first)"

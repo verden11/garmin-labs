@@ -2,9 +2,9 @@ import Toybox.Lang;
 import Toybox.Math;
 import Toybox.Test;
 
-// The accent table: shared by Free (ids 0 to 5, all six) and Pro, append-only, drawn on black. The helper is a class
-// because the runner treats every (:test) function as a test case. Ids 6 and up are deferred (docs/decisions.md ADR-020,
-// Free + Pro ladder): when they land they are appended, Pro only, and SHIPPED below grows.
+// The accent table: shared by Free (ids 0 to 5) and Pro (ids 0 to 8 since 2026-10-10, ROADMAP 8.3), append-only, drawn on
+// black. The helper is a class because the runner treats every (:test) function as a test case. SHIPPED lists the ids
+// already in a store build; it grows to nine with the Pro upload that ships cyan, lime and magenta (docs/status.md).
 (:test)
 class TwoSunsAccentCheck {
     static const CHANNELS = [0x00, 0x55, 0xAA, 0xFF] as Array<Number>;   // Garmin's 64-colour palette
@@ -76,8 +76,8 @@ function noAccentIsTheGoldenHourColour(logger as Test.Logger) as Boolean {
     return true;
 }
 
-// Append-only: a shipped id never changes its colour (the phone and the watch store the id). Ids 6 and up
-// are deferred; when they land they are appended and this list grows.
+// Append-only: a shipped id never changes its colour (the phone and the watch store the id). Ids 6-8 are built
+// and unreleased; SHIPPED grows when they ship.
 (:test, :color)
 function shippedAccentIdsKeepTheirColours(logger as Test.Logger) as Boolean {
     var shipped = TwoSunsAccentCheck.SHIPPED;

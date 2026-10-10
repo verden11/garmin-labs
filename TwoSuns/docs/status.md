@@ -31,6 +31,12 @@ Free 1.0.0 (new app id) and Pro 1.1.0 (existing id) uploaded by owner 2026-10-04
 
 **Re-exported 2026-10-04 after always-on text colour change (ADR-027, always-on text is a dim grey, ROADMAP 10.26); `dist/` holds only packages to upload (older exports deleted 2026-10-05).** Unit suite on fr965, fr255s, epix2 and instincte40mm for both tiers passed (Pro 154, 154, 154, 146; Free 67, 67, 67, 60), includes `everyStateFitsThisDisplay` and `alwaysOnFrameFitsAtEveryDrift`; simulator only. Built in `verden-ciq-build` container (`docker/run.sh`), checked with project's package script without `--build`; simulator and compile only, **nothing on a wrist**. Files in main checkout's git-ignored `dist/`. Product counts are `<iq:product>` lines in manifest; export holds more part numbers (device variants).
 
+## Next Pro upload: carry these (built 2026-10-10, unreleased)
+
+- **13.40 weather row** (ADR-022 amendment 2026-10-10) and **Pro accents cyan, lime, magenta** (ADR-020 amendment 2026-10-10, ROADMAP 8.3), simulator only.
+- Before export: grow `SHIPPED` in `source/test/TwoSunsAccentTest.mc` to nine entries (pins ids 6-8 as append-only once they ship); re-run the 72-product fit sweep (gate 7).
+- With the upload: CHANGELOG entry and Pro What's New (paste.md, es/zh); `listing/NOTES.md` "six accents" for Pro becomes nine; after approval, `site/src/apps/two-suns/Support.tsx` names Pro's nine colours (a push deploys; the site matches the live build until then).
+
 ## Never decide alone
 
 Store name; price wording (tier decided: $2.50, ADR-026); visual identity and launcher icon; `Positioning` permission; any upload to Connect IQ store; any phone or watch test; site deploy; shipping machine translations no native speaker has read; tier B; any claim release contract forbids. On 2026-09-26 owner said proceed with implementation without further permission questions, reversible defaults taken ([`decisions.md`](decisions.md)); that does not cover this list.
