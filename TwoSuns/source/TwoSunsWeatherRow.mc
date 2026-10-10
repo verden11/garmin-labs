@@ -17,7 +17,6 @@ class TwoSunsWeatherRow {
     private static const ARROW_HEAD_LENGTH_PERCENT = 25;   // the head's length
     private static const ARROW_PEN_DIVISOR = 11;      // the shaft's pen, a share of the label height
     private static const LOW_GAP_PERCENT = 40;        // the next day's low sits this far (of the label height) after its high
-    private static const LOW_ROOM_PERCENT = 75;       // the low is kept only while the row stays within this share of the chord
 
     static function labelFont() as Graphics.FontDefinition {
         return TwoSunsLayout.DATE_FONTS[TwoSunsLayout.DATE_FONTS.size() - 1];
@@ -37,31 +36,41 @@ class TwoSunsWeatherRow {
         return mode == TwoSunsConfig.WEATHER_ROW_COMPACT ? label : 0;
     }
 
-    // How many ahead cells fit the chord at this row, or -1 when the lead cell alone does not. The low goes before any cell.
-    // The compact row has no hour labels, so it draws no ahead cells: three icons with no hours said nothing (design
-    // critique 2026-10-05, ROADMAP 13.14). It is the lead alone, or no row.
+    // How many ahead cells fit the chord at this row, or -1 when the lead cell alone does not. A day's forecast keeps
+    // its low before any cell: a high alone reads as the temperature now (ROADMAP 13.40). The compact row has no hour
+    // labels, so it draws no ahead cells: three icons with no hours said nothing (design critique 2026-10-05, ROADMAP 13.14).
     static function aheadThatFit(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, top as Number) as Number {
         var room = roomAt(dc, layout, mode, top);
         var compact = mode == TwoSunsConfig.WEATHER_ROW_COMPACT;
         if (compact && !weather.hasLead()) {
             return -1;
         }
-        var count = compact ? 0 : weather.aheadKinds.size();
-        while (count >= 0) {
-            if (totalWidth(dc, layout, weather, mode, count, lowKept(dc, layout, weather, mode, top, count)) <= room) {
-                return count;
+        var most = compact ? 0 : weather.aheadKinds.size();
+        var withLow = hasLow(weather);
+        for (var pass = 0; pass < 2; pass++) {
+            for (var count = most; count >= 0; count--) {
+                if (totalWidth(dc, layout, weather, mode, count, withLow) <= room) {
+                    return count;
+                }
             }
-            count--;
+            withLow = false;
         }
         return -1;
     }
 
-    // The next day's low is drawn only in the full row and only while the whole row stays within 75% of the chord.
+    // A day's low is drawn whenever the row with it fits the chord (it outranks every ahead cell).
     static function lowKept(dc as Graphics.Dc, layout as TwoSunsLayout, weather as TwoSunsWeather, mode as Number, top as Number, ahead as Number) as Boolean {
-        if (!weather.nextDay || weather.lowText.length() == 0 || mode != TwoSunsConfig.WEATHER_ROW_FULL) {
-            return false;
-        }
-        return totalWidth(dc, layout, weather, mode, ahead, true) <= roomAt(dc, layout, mode, top) * LOW_ROOM_PERCENT / TwoSunsConfig.PERCENT;
+        return hasLow(weather) && totalWidth(dc, layout, weather, mode, ahead, true) <= roomAt(dc, layout, mode, top);
+    }
+
+    private static function hasLow(weather as TwoSunsWeather) as Boolean {
+        return weather.nextDay && weather.lowText.length() > 0;
+    }
+
+    // Which planned cell the i-th drawn one is, when `count` of `size` fit: spread over the plan, so the first and the
+    // last (the one nearest sunset) stay and the strip still spans the light left (ROADMAP 13.40).
+    static function pick(i as Number, count as Number, size as Number) as Number {
+        return count < 2 ? i : (i * (size - 1) + (count - 1) / 2) / (count - 1);
     }
 
     // Draws the lead cell and `ahead` ahead cells, centred as one group.
@@ -77,8 +86,9 @@ class TwoSunsWeatherRow {
             x += leadW + 2 * gap;
         }
         for (var i = 0; i < ahead; i++) {
-            var width = aheadWidth(dc, layout, weather, mode, i);
-            drawAhead(dc, layout, weather, mode, i, x, top, rowHeight, width);
+            var index = pick(i, ahead, weather.aheadKinds.size());
+            var width = aheadWidth(dc, layout, weather, mode, index);
+            drawAhead(dc, layout, weather, mode, index, x, top, rowHeight, width);
             TwoSunsDraw.box(layout, x, top, width, rowHeight, "weather");
             x += width + gap;
         }
@@ -108,7 +118,7 @@ class TwoSunsWeatherRow {
         return big < row ? big : row;
     }
 
-    // The chevron, its space and the weekday; 0 when there is no weekday (before sunrise the date row already says it).
+    // The arrow, its space and the weekday; 0 when there is no weekday (before sunrise the date row already says it).
     private static function labelBlock(dc as Graphics.Dc, weather as TwoSunsWeather) as Number {
         if (weather.dayLabel.length() == 0) {
             return 0;
@@ -123,7 +133,7 @@ class TwoSunsWeatherRow {
         if (ahead > 0) {
             total += (leadW > 0 ? 2 * gap : 0) + (ahead - 1) * gap;   // two gaps after the lead, one between ahead cells
             for (var i = 0; i < ahead; i++) {
-                total += aheadWidth(dc, layout, weather, mode, i);
+                total += aheadWidth(dc, layout, weather, mode, pick(i, ahead, weather.aheadKinds.size()));
             }
         }
         return total;

@@ -251,11 +251,11 @@ function weatherDegreesRoundAndConvert(logger as Test.Logger) as Boolean {
 // The hour label has no leading zero and no am or pm; 12-hour clocks show 12 for midnight and noon.
 (:test, :pro)
 function weatherHourLabels(logger as Test.Logger) as Boolean {
-    Test.assertEqual(TwoSunsWeatherPlan.hourText(9 * 60 + 30, true), "9:00");
+    Test.assertEqual(TwoSunsWeatherPlan.hourText(9 * 60 + 30, true), "09:00");
     Test.assertEqual(TwoSunsWeatherPlan.hourText(16 * 60, false), "4p");
     Test.assertEqual(TwoSunsWeatherPlan.hourText(0, false), "12a");
     Test.assertEqual(TwoSunsWeatherPlan.hourText(12 * 60, false), "12p");
-    Test.assertEqual(TwoSunsWeatherPlan.hourText(25 * 60, true), "1:00");   // past midnight wraps
+    Test.assertEqual(TwoSunsWeatherPlan.hourText(25 * 60, true), "01:00");   // past midnight wraps
     Test.assertEqual(TwoSunsWeatherPlan.hourText(9 * 60 + 30, false), "9a");
     Test.assertEqual(TwoSunsWeatherPlan.hourText(23 * 60, false), "11p");
     return true;

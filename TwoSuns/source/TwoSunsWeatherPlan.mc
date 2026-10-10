@@ -4,8 +4,8 @@ import Toybox.Math;
 // Turns the numbers Garmin's weather gave into the words and icon kinds of the row (docs/decisions.md ADR-022,
 // Weather row in Pro). Pure: same inputs, same row. While the sun is up: the now cell is the observed condition
 // and the feels-like temperature, and up to three conditions ahead sit at even steps from now to sunset. Before
-// sunrise and after sunset the row is the next daylight day: its condition, high and low, and the hours that the
-// hourly forecast reaches. Anything Garmin did not give is left out, never guessed.
+// sunrise the row is today: its condition, high and low, and the hours that the hourly forecast reaches; after
+// sunset it is the next day alone, condition, high and low (ROADMAP 13.40). Anything Garmin did not give is left out, never guessed.
 (:pro)
 class TwoSunsWeatherPlan {
 
@@ -99,14 +99,15 @@ class TwoSunsWeatherPlan {
         }
     }
 
-    // The local hour of a clock minute (it may be negative or past midnight), no leading zero. On a 12 hour clock it
-    // carries "a" or "p", as Garmin's own hourly view does (10a, 3p), so a late hour is not read as a morning one; on a
-    // 24 hour clock it carries ":00" (16:00), so a bare "16" beside the temperature is not read as one (ROADMAP 13.40).
+    // The local hour of a clock minute (it may be negative or past midnight). On a 12 hour clock, no leading zero and
+    // "a" or "p", as Garmin's own hourly view does (10a, 3p), so a late hour is not read as a morning one; on a 24 hour
+    // clock two digits and ":00" like the face's own clock (09:00, 16:00), so a bare "16" beside the temperature is not
+    // read as one (ROADMAP 13.40).
     static function hourText(minute as Number, is24Hour as Boolean) as String {
         var wrapped = ((minute % TwoSunsConfig.MINUTES_PER_DAY) + TwoSunsConfig.MINUTES_PER_DAY) % TwoSunsConfig.MINUTES_PER_DAY;
         var hour = wrapped / TwoSunsConfig.MINUTES_PER_HOUR;
         if (is24Hour) {
-            return hour.toString() + ":00";
+            return hour.format("%02d") + ":00";
         }
         var hours = hour % TwoSunsConfig.HOURS_PER_HALF_DAY;
         return (hours == 0 ? TwoSunsConfig.HOURS_PER_HALF_DAY : hours).toString() + (hour < TwoSunsConfig.HOURS_PER_HALF_DAY ? "a" : "p");
