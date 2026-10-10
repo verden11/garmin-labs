@@ -52,7 +52,7 @@ export function Screens({ app, screens }: { app: App; screens: Screenshot[] }) {
       <ul className="screens" style={{ '--cols': shown.length } as CSSProperties}>
         {shown.map((shot) => (
           <li key={shot.label}>
-            <img src={shot.src} alt={`${app.name} ${shot.label.toLowerCase()} screen${shot.watch ? ` on a ${shot.watch}` : ''}`} width={shot.size ?? 560} height={shot.size ?? 560} loading="lazy" />
+            <img src={shot.src} alt={`${app.name} ${shot.label.toLowerCase()} screen${shot.watch ? ` on ${/^[aeiou]/i.test(shot.watch) ? 'an' : 'a'} ${shot.watch}` : ''}`} width={shot.size ?? 560} height={shot.size ?? 560} loading="lazy" />
             <span className="screens__label">{shot.label}</span>
           </li>
         ))}

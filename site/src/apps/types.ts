@@ -26,7 +26,7 @@ export type App = {
   // The free twin's listing (Free + Pro ladder): the store button splits into the two tiers.
   freeStoreUrl?: string
   storeName: string
-  // Path under public/, used as og:image / twitter:image on this app's landing page.
+  // Path under public/, a 560 px square: og:image / twitter:image on all of this app's pages (the first app's also on the home).
   ogImage?: string
   Mark: ComponentType<{ size?: number }>
   // The app's pictogram set on the studio home; falls back to Mark.
