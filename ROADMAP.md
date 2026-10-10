@@ -3,7 +3,7 @@
 **Single source for every open item, all apps.** Evidence stays in each project's `docs/status.md`; decisions in its `docs/decisions.md`.
 Do not keep open checkboxes anywhere else. Status 2026-10-10. **Open items only:** when an item is done, move its line (ticked) to [`ROADMAP-done.md`](ROADMAP-done.md).
 
-**NEXT ACTION (owner):** Two Suns Pro 1.2.1 uploaded 2026-10-10 (18.1): check ERA crash reports (18.2). Wear DayArc through the night window (1.1, 16.6). Merchant account still "In review" (17.9): chase on 2026-10-17 if Garmin has not replied. The three Free twins still 404 on 2026-10-10 (7.12): if still Pending on 2026-10-13, ask developer support.
+**NEXT ACTION (owner):** Two Suns Pro 1.2.1 uploaded 2026-10-10 (18.1); ERA empty (18.2). Wear DayArc through the night window (1.1, 16.6). Merchant account still "In review" (17.9): chase on 2026-10-17 if Garmin has not replied. The three Free twins still 404 on 2026-10-10 (7.12): if still Pending on 2026-10-13, ask developer support.
 **NEXT ACTION (agent):** nothing unblocked (7.11 done 2026-10-10). Next on events: 16.3 when a Free twin is approved; 15.9 from 2026-10-19; 17.6 on 2026-10-26. Site items (6.1, 3.12, 7.8, 9.9) wait for approvals and your OK to deploy.
 
 ## How to use it
@@ -127,5 +127,4 @@ Done items and the old notes: [`ROADMAP-done.md`](ROADMAP-done.md).
 
 ## Soak 2026-10-10 (simulator runs on the real clock, `docker/soak.sh`)
 
-- [ ] 18.2 `[you]` Open Garmin's crash reports (ERA) for Two Suns Pro: VS Code, Command Palette, the Monkey C ERA viewer, signed in with the developer account (the agent's `era -a 9d4bca45-…` (store id) on 2026-10-10 answered "not authorized": no signed-in credentials on this Mac) and say whether any Instinct crashes show since 1.2.0 went live (about 2026-10-09). It is the only evidence from real watches; the agent cannot open it unless you ask it to use your browser.
 - [ ] 18.3 `[agent]` 24-hour soak of every face on fr965 and Two Suns Pro 1.2.1 on the Instincts (crashes, frozen frames, memory per sample, midnight crossed); results in each `docs/status.md`, simulator only.
