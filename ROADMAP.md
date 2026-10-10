@@ -127,5 +127,5 @@ Done items and the old notes: [`ROADMAP-done.md`](ROADMAP-done.md).
 
 ## Soak 2026-10-10 (simulator runs on the real clock, `docker/soak.sh`)
 
-- [ ] 18.2 `[you]` Open the developer dashboard's crash reports (ERA, Error Reporting) for Two Suns Pro and say whether any Instinct crashes show since 1.2.0 went live (about 2026-10-09). It is the only evidence from real watches; the agent cannot open it unless you ask it to use your browser.
+- [ ] 18.2 `[you]` Open Garmin's crash reports (ERA) for Two Suns Pro: VS Code, Command Palette, the Monkey C ERA viewer, signed in with the developer account (the agent's `era -a 9d4bca45-…` (store id) on 2026-10-10 answered "not authorized": no signed-in credentials on this Mac) and say whether any Instinct crashes show since 1.2.0 went live (about 2026-10-09). It is the only evidence from real watches; the agent cannot open it unless you ask it to use your browser.
 - [ ] 18.3 `[agent]` 24-hour soak of every face on fr965 and Two Suns Pro 1.2.1 on the Instincts (crashes, frozen frames, memory per sample, midnight crossed); results in each `docs/status.md`, simulator only.
