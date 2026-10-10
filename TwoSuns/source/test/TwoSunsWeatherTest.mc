@@ -227,6 +227,22 @@ function weatherAfterSunsetHasNoHourCells(logger as Test.Logger) as Boolean {
     return true;
 }
 
+// Before sunrise with no low from Garmin the row keeps its icon and hours but not the high: alone, with no weekday,
+// it would read as the temperature now (ROADMAP 13.40).
+(:test, :pro)
+function weatherBeforeSunriseDropsALoneHigh(logger as Test.Logger) as Boolean {
+    var minute = 5 * 60 + 10;
+    var data = TwoSunsWeatherCase.data(minute);
+    TwoSunsWeatherCase.addDays(data, minute);
+    data.dayLows = [null, 12.6f] as Array<Numeric or Null>;
+    var weather = TwoSunsWeatherCase.build(data, minute, TwoSunsConfig.SKY_BEFORE_SUNRISE, null) as TwoSunsWeather;
+    Test.assertEqual(weather.leadText, "");
+    Test.assertEqual(weather.lowText, "");
+    Test.assertEqual(weather.leadKind, TwoSunsConfig.WEATHER_RAIN);
+    Test.assert(weather.aheadKinds.size() > 0);
+    return true;
+}
+
 // Without Garmin's daily entry for that day the next-day row is not drawn at all.
 (:test, :pro)
 function weatherNextDayNeedsADailyEntry(logger as Test.Logger) as Boolean {

@@ -50,6 +50,9 @@ class TwoSunsWeatherPlan {
         weather.leadKind = TwoSunsWeatherKind.kind(data.dayConditions[index]);
         weather.leadText = degrees(data.dayHighs[index], fahrenheit);
         weather.lowText = degrees(data.dayLows[index], fahrenheit);
+        if (dayOffset == 0 && weather.lowText.length() == 0) {
+            weather.leadText = "";   // before sunrise, no weekday: a high with no low reads as the temperature now (ROADMAP 13.40)
+        }
         if (dayOffset != 0) {
             return;   // after sunset the row is the next day alone: an hour beside its high and low read as a third temperature (ROADMAP 13.40)
         }
