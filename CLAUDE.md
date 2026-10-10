@@ -66,6 +66,7 @@ translations and every upload stay owner decisions, and HeroSet and DayArc follo
 - Simulator passing is not device proof. Say so when reporting.
 - **Screenshots from the simulator and the list of automatic checks (and gaps): [`docker/SIMULATOR.md`](docker/SIMULATOR.md).** A layout change is not done until you have looked at a screenshot (`docker/shot.sh`): the unit suite misses what the bezel clips.
 - **Simulator runs go through the container by default** (`<Project>/tools/run_tests.sh …`, `fit-sweep.sh`, `fit_languages.sh`; [`docker/README.md`](docker/README.md)). Each run gets its own simulator, so it never `pkill`s one someone else is using and any number run in parallel. The **host (macOS) simulator** (`CIQ_DOCKER=0`) is for final pre-release verification only, when the owner asks, or agrees to your suggestion, to use it. Do not switch to it on your own.
+- **Who does what** (`.claude/agents/`): the main session (Opus) drives, decides and looks at every screenshot. `coder` (Sonnet) implements a bounded brief. `reviewer` (Opus, read-only) critiques before anything is called done. `sim-runner` (Haiku) only runs test and capture scripts, one per device in parallel, and reports exit codes and paths; it never judges an image.
 - Behaviour change → update the doc describing it, same session. Durable
   decision → an ADR in that project's `docs/decisions.md`.
 - **Every store publication** gets an entry in that app's `CHANGELOG.md`

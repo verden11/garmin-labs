@@ -15,5 +15,7 @@
   },
   "enabledPlugins": {
     "watch-design-kit@watch-design-kit": true
-  }
+  },
+  "model": "opus",
+  "advisorModel": "opus"
 }
