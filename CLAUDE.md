@@ -9,7 +9,7 @@ Studio monorepo. Six independent projects, one git history.
 | `HeroSet/` | Garmin watch app (Connect IQ, Monkey C) | [`HeroSet/CLAUDE.md`](HeroSet/CLAUDE.md) |
 | `HeroFace/` | Garmin watch face (Connect IQ, Monkey C) | [`HeroFace/CLAUDE.md`](HeroFace/CLAUDE.md) |
 | `DaysToGo/` | Garmin countdown watch face (Connect IQ, Monkey C) | [`DaysToGo/CLAUDE.md`](DaysToGo/CLAUDE.md) |
-| `TwoSuns/` | Garmin sun and Body Battery watch face, "Two Suns" (Connect IQ, Monkey C) — approved 2026-09-28; Pro 1.1.0 and new Free uploaded 2026-10-04, in Garmin review | [`TwoSuns/CLAUDE.md`](TwoSuns/CLAUDE.md) |
+| `TwoSuns/` | Garmin sun and Body Battery watch face, "Two Suns" (Connect IQ, Monkey C) — approved 2026-09-28; Pro 1.2.1 live 2026-10-10; Free uploaded 2026-10-04, pending Garmin review (ROADMAP 7.12) | [`TwoSuns/CLAUDE.md`](TwoSuns/CLAUDE.md) |
 | `DayArc/` | Garmin time-of-day-adaptive watch face pair, "DayArc" (free) / "DayArc Pro" (paid, $2.50 tier, no flip) — one codebase, two build targets/listings (Connect IQ, Monkey C) — **live since 2026-10-05** (both listings approved by Garmin that day); wrist check of final build and night window still open (ROADMAP 1.1) | [`DayArc/CLAUDE.md`](DayArc/CLAUDE.md) |
 | `site/` | Public website (Vite + React, prerendered) | [`site/CLAUDE.md`](site/CLAUDE.md) |
 

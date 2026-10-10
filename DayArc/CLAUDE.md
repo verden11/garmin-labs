@@ -8,9 +8,8 @@ flip-to-free) shows same windows, denser field grid under each hero read. Split 
 toggle — deliberate, platform's #1 complaint is settings not saving (ADR-003, ADR-011). Only exception: single Accent colour list (ADR-014, owner-requested after first wear).
 
 **Read first:** [`docs/spec.md`](docs/spec.md) (what it does, data sources, device reach),
-[`docs/status.md`](docs/status.md) (state, gates; open items in root [`ROADMAP.md`](../ROADMAP.md)), [`docs/archive/plan.md`](docs/archive/plan.md) (implementation status, what's simulator-only),
+[`docs/status.md`](docs/status.md) (state, gates before either store upload; open items in root [`ROADMAP.md`](../ROADMAP.md)), [`docs/archive/plan.md`](docs/archive/plan.md) (implementation status, what's simulator-only),
 [`docs/decisions.md`](docs/decisions.md) (20 ADRs, each with evidence and what reverses it),
-[`docs/status.md`](docs/status.md) (gates before either store upload),
 [`docs/release-contract.md`](docs/release-contract.md) (what may be claimed),
 [`docs/compatibility.md`](docs/compatibility.md), [`docs/development.md`](docs/development.md).
 Evidence: [`../reports/DayArc v1 scope and plan.md`](../reports/archive/DayArc%20v1%20scope%20and%20plan.md)
@@ -100,6 +99,6 @@ project mirrors:
   `../site/src/apps/day-arc-pro/`; change both together, never change published URL. Check every
   claim against `docs/release-contract.md`.
 - Every store publication gets `CHANGELOG.md` entry and What's New block in that listing's
-  `README.md`.
+  `paste.md` (`listing/`, `listing-pro/`).
 - Edits outside `DayArc/` limited to root `CLAUDE.md` table row, root `README.md`, and
   `site/`. Ask before touching `HeroSet/`, `HeroFace/`, `DaysToGo/` or `TwoSuns/`.

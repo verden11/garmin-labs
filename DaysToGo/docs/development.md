@@ -81,7 +81,7 @@ English = `resources/strings/strings.xml`; each other language = `resources-<lan
 ## Device testing
 
 Simulator proves geometry, fonts, logic. Cannot prove always-on behaviour, battery cost, MIP daylight contrast, phone's settings delivery.
-Owner's checklist in git-ignored `../device-test/DaysToGo-CHECKLIST.md`.
+Owner's checklist in git-ignored `../device-test/checklists/DaysToGo-CHECKLIST.md`.
 
 ## Screenshots (Instinct and any layout change)
 

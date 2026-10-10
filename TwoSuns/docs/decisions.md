@@ -364,6 +364,7 @@ Also corrected code comments' claim that pixel stays lit for "3 minutes"/"three 
 
 **Amended 2026-10-05 (ADR-028, the rectangle track).** On rectangle 130 permille rule replaced: Free's number grows with time (`FONT_LARGE`, `FONT_MEDIUM` or `FONT_SMALL`, up to 45% of time font's height), and Pro's takes one step up (`FONT_SMALL` or `FONT_TINY`). Measured: on `venusq2` round rule picks `FONT_XTINY`, same as Pro, so this ADR's size up does not happen there.
 
+<a id="adr-026"></a>
 ## ADR-026: Price: the $2.50 tier for every paid app
 
 **Status: Accepted 2026-10-04 (owner, chat).** Supersedes price of ADR-002 (paid, USD 1.99 documented; store showed $2.25, a different real tier) and resolves "Pro price tier" left open by ADR-020 (the Free + Pro ladder).

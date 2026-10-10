@@ -168,6 +168,7 @@ Every durable design decision, newest last. [`spec.md`](spec.md) says what the p
 
 **Amended 2026-10-05 by ADR-019 (rectangles get a square design).** (3) and (5) retired: rectangle's rows now run box inside its rounded-rectangle track, awake and asleep, bottom line shows on all three rectangle sizes; `bottomLineIsDrawnNotSilentlyDropped` runs there too.
 
+<a id="adr-017"></a>
 ## ADR-017: Price: the $2.50 tier for every paid app
 
 **Status: Accepted 2026-10-04 (owner, chat).** Supersedes price of [ADR-002](#adr-002-price) (paid at lowest tier, USD 2.00 / $1.99 US); ADR-002 (price)'s day-45 review already retired by ADR-014 (the Free + Pro ladder).

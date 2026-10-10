@@ -3,7 +3,7 @@
 **Single source for every open item, all apps.** Evidence stays in each project's `docs/status.md`; decisions in its `docs/decisions.md`.
 No open checkboxes elsewhere. Status 2026-10-10. **Open items only:** item done -> move line (ticked) to [`ROADMAP-done.md`](ROADMAP-done.md).
 
-**NEXT ACTION (owner):** Two Suns Pro 1.2.1 uploaded 2026-10-10 (18.1); ERA empty (18.2). Wear DayArc through night window (1.1, 16.6). Merchant account still "In review" (17.9): chase 2026-10-17 if Garmin no reply. Three Free twins still 404 on 2026-10-10 (7.12): if still Pending 2026-10-13, ask developer support.
+**NEXT ACTION (owner):** Two Suns Pro 1.2.1 live 2026-10-10 (18.1); ERA empty (18.2). Wear DayArc through night window (1.1, 16.6). Merchant account still "In review" (17.9): chase 2026-10-17 if Garmin no reply. Three Free twins still 404 on 2026-10-10 (7.12): if still Pending 2026-10-13, ask developer support.
 **NEXT ACTION (agent):** nothing unblocked (7.11 done 2026-10-10). Next on events: 16.3 when Free twin approved; 15.9 from 2026-10-19; 17.6 on 2026-10-26. Site items (6.1, 3.12, 7.8, 9.9) wait for approvals + your OK to deploy.
 
 ## How to use it

@@ -4,7 +4,7 @@ Garmin watch face (Connect IQ, Monkey C) from studio Verden. One job: days until
 `minApiLevel` 3.0.0, no permissions. Paid: first submitted at USD 1.99, then $2.50 tier for Days To Go Pro ([ADR-017](docs/decisions.md#adr-017), price: $2.50 tier for every paid app; set in upload form with 1.1.0; no price number in listing or site text). Approved 2026-09-28 (late afternoon, owner). Day-45 price-flip review of ADR-002 retired:
 owner approved Free + Pro ladder 2026-10-04 (ADR-014), paid app never flipped to free.
 
-**Free + Pro (approved by owner 2026-10-04, uploaded 2026-10-04, in Garmin review, ADR-014 "Free + Pro ladder", supersedes ADR-002's price and day-45 review):** live paid app
+**Free + Pro (approved by owner 2026-10-04, uploaded 2026-10-04; Pro update live, Free pending Garmin review on 2026-10-10 (ROADMAP 7.12), ADR-014 "Free + Pro ladder", supersedes ADR-002's price and day-45 review):** live paid app
 (`manifest.xml`, `monkey.jungle`) becomes **Days To Go Pro** 1.1.0; new **Free** twin (`manifest.free.xml`, `monkey.free.jungle`, own app id, 1.0.0) built beside it from
 same source, split at compile time with `(:pro)` / `(:free)`. Free: Event, Name, Month, Day, Year, Unit, Date style, Accent (ids 0 to 5). Pro adds Hour (timed events), Minute and Event time zone (**"To the minute"**, ADR-018, Pro headline: count to minute event starts in zone it starts in, as UTC offset; day count stays local calendar days; uploaded in Pro 1.1.0 2026-10-04) and Footer (battery or steps). Names (confirmed 2026-10-04: "Days To Go" free, "Days To Go Pro"), icon, uploads are owner's; Free is free.
 

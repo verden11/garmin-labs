@@ -3,7 +3,7 @@
 Garmin watch face (Connect IQ, Monkey C) from studio Verden. Time-first, HeroSet's visual language: bezel ring, three mission bars, gold streak.
 129 products (117 round + 7 Instinct, ADR-002 (Instinct family), accepted 2026-10-04, simulator only; + 5 rectangle, ADR-005 (Venu Sq / Sq 2 / X1, the ring as a frame), look approved by the owner 2026-10-08, simulator only), `minApiLevel` 3.0.0. Paid at $2.50 tier ([ADR-004](docs/decisions.md#adr-004), price: the $2.50 tier for every paid app; set in upload form with next version upload, live at $2.00 tier until then, no price number in listing or site text), 15 languages.
 
-**Free + Pro (approved by the owner 2026-10-04, both uploaded 2026-10-04, in Garmin review, [`docs/decisions.md`](docs/decisions.md) ADR-001 "Free + Pro ladder"; replaces old plan's decision 8 (`docs/archive/plan.md`), the price, day-45 price-flip rule retired):**
+**Free + Pro (approved by the owner 2026-10-04, both uploaded 2026-10-04; Pro update live, Free pending Garmin review on 2026-10-10 (ROADMAP 7.12), [`docs/decisions.md`](docs/decisions.md) ADR-001 "Free + Pro ladder"; replaces old plan's decision 8 (`docs/archive/plan.md`), the price, day-45 price-flip rule retired):**
 live paid app (`manifest.xml`, `monkey.jungle`, app id `8cd8f7f5-…`) becomes **HeroFace Pro** 1.1.0, behaviour unchanged; new **Free** twin (`manifest.free.xml`,
 `monkey.free.jungle`, app id `be68898f-995b-45d9-860e-42ad508bd7fd`, 1.0.0) built beside it from same source, split at compile time with `(:pro)` / `(:free)`.
 Free: Everyday and HeroSet mode, slots fixed to Auto, Accent 0 to 2, no seconds, no temperature. Pro adds metric per slot, Seconds, temperature. Both keep three accents (Magenta recoloured `#FFAAFF` 2026-10-04 to clear 3:1 track rule, ADR-003).
