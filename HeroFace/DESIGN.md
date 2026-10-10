@@ -134,6 +134,8 @@ Black field, single white number, muted grey voice for everything secondary, thr
 | Magenta (2) | `#FFAAFF` | 4.42 | 12.45 | 1.69 |
 | Magenta before 2026-10-04 | `#FF55FF` | 2.84 (missed) | 8.00 | 2.63 |
 
+**No Pro-only accents (2026-10-10, ROADMAP 8.3, watch-design-lead under the owner's 2026-10-10 delegation).** The studio roster's other colours fail this face's roles: amber and yellow are gold ("kept"), mint and lime are done-green, orange and coral sit on alert red, white is the time, pink (2.53) and violet (1.94) miss 3:1 on the track. The only 64-colour value left that passes, Lilac `#AAAAFF` (3.5 on track), is pale enough to read as the white clock on a part-filled bar, and the rest are near-twins of Cyan or Blue. So Free and Pro keep the same three; colour is not a Pro difference on HeroFace.
+
 **Accent ids and tiers (ADR-001, the Free + Pro ladder in `docs/decisions.md`).** Ids append-only; one shade change is Magenta's, by owner (ADR-003): 0 Effort Blue `#55AAFF` (default), 1 Cyan `#00FFFF`, 2 Magenta `#FFAAFF`. **Free** build and **Pro** build offer same three; HeroFace stays at shipped three (plan's WP6 list of ids 3 to 7 is DaysToGo's table pasted in, not used). Reserved, never admitted as accent: gold, green, alert red, white, two greys, so none of Amber, Yellow, Lime, Mint, Orange, Coral or White. New accent = new id appended at end, after owner's look-approval, must clear 3:1 against track.
 
 ### Neutral
