@@ -1,10 +1,10 @@
 # Verden: the one to-do list
 
 **Single source for every open item, all apps.** Evidence stays in each project's `docs/status.md`; decisions in its `docs/decisions.md`.
-Do not keep open checkboxes anywhere else. Status 2026-10-05. **Open items only:** when an item is done, move its line (ticked) to [`ROADMAP-done.md`](ROADMAP-done.md).
+Do not keep open checkboxes anywhere else. Status 2026-10-10. **Open items only:** when an item is done, move its line (ticked) to [`ROADMAP-done.md`](ROADMAP-done.md).
 
-**NEXT ACTION (owner):** the passive income plan (`reports/Passive income plan.md` section 0; approve the freeze list, 17.1); wear DayArc through the day (1.1, re-sideloaded 2026-10-05); then the DayArc icons and looks (1.5). **Merchant account reads "In review" (17.9): find out if paid sales are enabled.** Three Free twins are in Garmin review (7.12).
-**NEXT ACTION (agent):** 10.18; site items (6.1, 3.12, 7.8, 9.9) wait for approvals and your OK to deploy.
+**NEXT ACTION (owner):** **DMARC is due today (6.5, 2026-10-10).** Then wear DayArc through the night window (1.1, 16.6). Merchant account still "In review" (17.9): chase on 2026-10-17 if Garmin has not replied. The three Free twins still 404 on 2026-10-10 (7.12): if still Pending on 2026-10-13, ask developer support.
+**NEXT ACTION (agent):** nothing unblocked (7.11 done 2026-10-10). Next on events: 16.3 when a Free twin is approved; 15.9 from 2026-10-19; 17.6 on 2026-10-26. Site items (6.1, 3.12, 7.8, 9.9) wait for approvals and your OK to deploy.
 
 ## How to use it
 
@@ -65,7 +65,6 @@ People.
 ## 3. Agent can do now (no input needed)
 
 Simulator work (the GUI tooling in `docker/sim-gui.sh` can drive it).
-- [ ] 7.11 `[agent]` HeroSet by hand, what is left: tapping Resume on `venu441mm`; E4 done state and memory view of the glance. (Done 2026-10-04: B2 six of seven observed; E4 empty-day glance fits on fr965 / fr255s / fenix7; B3 open on a real watch, 9.6.) Driving notes: `HeroSet/docs/development.md`.
 
 Packages, listings, site (prepare so each upload is a paste).
 - [ ] 10.18 `[you]` **Moved to the wrist (2026-10-05): the simulator cannot time it.** HeroFace Pro seconds partial update: time it against Garmin's 20 ms limit (the simulator's Watchface Diagnostics cannot give units; instrument a private copy or leave for the wrist).
@@ -113,7 +112,7 @@ Parked until 2027-03-31 (owner, 2026-10-09: new features and reworked designs wa
 - **M4 Two Suns:** 4.2, 4.5.
 - **M5 HeroFace:** 5.1, 5.5.
 - **M6 Site and measurement:** 6.1, 6.4, 6.6.
-- **M7 HeroSet:** 7.9, 7.3, 7.2, 7.4, 7.8, 7.10, 7.11.
+- **M7 HeroSet:** 7.9, 7.3, 7.2, 7.4, 7.8, 7.10.
 - **M8 Bolder faces** (later): 8.1 to 8.3.
 - **M9 Instinct:** 9.6, 9.9. **M10 Housekeeping:** 10.x.
 
@@ -121,7 +120,7 @@ Done items and the old notes: [`ROADMAP-done.md`](ROADMAP-done.md).
 
 ## Hand-off 2026-10-08 (all nine listings uploaded, site updated as if approved)
 
-- [ ] 16.3 `[agent]` On Garmin's approval of each 2026-10-08 upload: record the approval date in CHANGELOG / `meta.yaml` (`next` → `live`); when a Free twin's store link returns 200, add it to every "More from Verden" block (staged lines in each `paste.md` / `paste-translations.md`) and to DayArc's description. **2026-10-09, partly done:** HeroSet 1.4.0, HeroFace Pro / Days To Go Pro / Two Suns Pro 1.2.0, DayArc and DayArc Pro 1.1.0 are live by 2026-10-09 (store API, poll.csv; exact approval dates not recorded, the dashboard has them), recorded in each CHANGELOG and `meta.yaml`. Open: the three Free twins still return 404 (uploaded 2026-10-04 and again 2026-10-08), so the "More from Verden" lines stay staged.
+- [ ] 16.3 `[agent]` On Garmin's approval of each 2026-10-08 upload: record the approval date in CHANGELOG / `meta.yaml` (`next` → `live`); when a Free twin's store link returns 200, add it to every "More from Verden" block (staged lines in each `paste.md` / `paste-translations.md`) and to DayArc's description. **2026-10-09, partly done:** HeroSet 1.4.0, HeroFace Pro / Days To Go Pro / Two Suns Pro 1.2.0, DayArc and DayArc Pro 1.1.0 are live by 2026-10-09 (store API, poll.csv; exact approval dates not recorded, the dashboard has them), recorded in each CHANGELOG and `meta.yaml`. Open: the three Free twins still return 404 (uploaded 2026-10-04 and again 2026-10-08; store API re-checked 2026-10-10: still 404), so the "More from Verden" lines stay staged.
 - [ ] 16.4 `[you]` Site decision: the shared Days To Go and HeroFace pages name the Instinct 2 / 2S / 2X, Descent G1 and first-generation Venu Sq with "Pro is sold only on Garmin's paid-app list, which leaves out ...". Keep (agent pick) or drop those models from the shared pages.
 - [ ] 16.6 `[you]` Wrist checks with the 2026-10-08 sideloads (`device-test/checklists/`): DayArc always-on `#5C5C5C` + night window (1.1), Two Suns one-colour Body Battery / grey `--` / curve room (4.2), HeroFace ring without MOVE, HeroSet correction undoes streak, Days To Go error screen in always-on. Plus the Venu Sq 2 picker question (ADR-020) if anyone has a Sq 2.
-- Later (agent): 13.40 Two Suns night weather row; 10.17 Two Suns `#5555AA`; 7.11 HeroSet glance/Resume in the simulator; 8.1 Days To Go bold-design mockup; 13.41 HeroSet goal-raise rule (owner option).
+- Later (agent): 13.40 Two Suns night weather row; 10.17 Two Suns `#5555AA`; 8.1 Days To Go bold-design mockup; 13.41 HeroSet goal-raise rule (owner option).
